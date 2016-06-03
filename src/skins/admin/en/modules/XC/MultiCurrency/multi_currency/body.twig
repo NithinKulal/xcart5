@@ -1,0 +1,32 @@
+{##
+ # Marketplace banner
+ #}
+
+{% form '\\XLite\\Module\\XC\\MultiCurrency\\View\\Form\\Currency\\ActiveCurrencies' %}
+
+<div>
+  {{ widget('\\XLite\\Module\\XC\\MultiCurrency\\View\\FormField\\Input\\TrailingZeroesCheckbox', label=t('Hide trailing zeros in fractional part'), fieldId='trailing-zeroes', fieldName='trailing_zeroes') }}
+  {{ widget('\\XLite\\View\\CurrencyViewInfo') }}
+  
+  {{ widget('\\XLite\\Module\\XC\\MultiCurrency\\View\\FormField\\Select\\RateProvider', label=t('Online currency rates service'), fieldId='rate-provider', fieldName='rate_provider') }}
+  {{ widget('\\XLite\\Module\\XC\\MultiCurrency\\View\\FormField\\Select\\RateUpdateInterval', label=t('Update online rates every'), fieldId='rate-update-interval', fieldName='update_interval') }}
+  <div class="table-label"></div>
+  <div class="star"></div>
+  <div class="table-value last-rate-update">{{ t('Last update date') }}:&nbsp;{{ this.getLastUpdateDate() }}</div>
+</div>
+
+<div class="clear"></div>
+
+<div class="new-currency-container">
+  <div class="new-currency-select">
+    {{ widget('\\XLite\\Module\\XC\\MultiCurrency\\View\\FormField\\Select\\CurrencyRich', {'data-filter': '1', fieldName: 'currency_id', fieldId: 'currency-id', fieldOnly: '1'}) }}
+  </div>
+  <div class="new-currency-add-button">
+    {{ widget('XLite\\View\\Button\\Link', buttonName='currency-add', label=t('Add currency'), jsCode='currencyManageForm.addCurrency();') }}
+  </div>
+</div>
+
+<div class="currencies-list-container">
+  {{ widget('\\XLite\\Module\\XC\\MultiCurrency\\View\\ItemsList\\Model\\Currency\\ActiveCurrencies') }}
+</div>
+{% endform %}

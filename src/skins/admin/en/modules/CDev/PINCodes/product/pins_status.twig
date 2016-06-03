@@ -1,0 +1,18 @@
+{##
+ # Pin codes status box
+ #
+ # @ListChild (list="product.pinCodes", weight="300")
+ #}
+
+<div class="pin-codes-status">
+  {# Do not remove whitespace in value="", it does not display the value of "0" without this whitespace. Or fix it somewhere else :) #}
+  <div class="sold">
+    {{ widget('\\XLite\\View\\FormField\\Label', label=t('Sold PINs'), value=this.product.getSoldPinCodesCount() ~ ' ') }}
+  </div>
+  <div class="remaining">
+    {% if not this.product.getAutoPinCodes() %}
+      {{ widget('\\XLite\\View\\FormField\\Label', label=t('Remaining PINs'), value=this.product.getRemainingPinCodesCount() ~ ' ') }}
+    {% endif %}
+  </div>
+</div>
+<div class="clear"></div>

@@ -1,0 +1,10 @@
+{##
+ # Social Login sign-in button (button style)
+ #}
+
+<li class="{{ this.getStyleClass() }}">
+  <a href="{{ this.getAuthRequestUrl() }}">
+    <i class="fa {{ this.getFontAwesomeClass() }}"></i>
+    <span class="provider-name">{{ this.getName() }}</span>
+  </a>
+</li>

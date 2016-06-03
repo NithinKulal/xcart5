@@ -1,0 +1,26 @@
+{##
+ # Category selection dropdown box template
+ #}
+
+<select name="{{ this.getParam('fieldName') }}"{% if this.getParam('isMultiple') %} multiple="multiple"{% endif %}{% if this.nonFixed %} style="width:200pt"{% else %} class="FixedSelect"{% endif %}>
+  {% if this.getParam('allOption') %}
+    <option value="">{{ t('Any category') }}</option>
+  {% endif %}
+  {% if this.getParam('noneOption') %}
+    <option value="">{{ t('None') }}</option>
+  {% endif %}
+  {% if this.getParam('rootOption') %}
+    <option value="" class="CenterBorder">{{ t('Root level') }}</option>
+  {% endif %}
+  {% for key, category in this.getCategories() %}
+    {% if this.getArrayField(category, 'category_id') != this.getParam('currentCategoryId') %}
+      <option value="{{ this.getArrayField(category, 'category_id') }}"
+        {% if this.isCategorySelected(category) %} selected="selected" {% endif %}>
+          {{ this.getIndentationString(category, 3, '-') }} {{ this.getCategoryName(category) }}
+      </option>
+    {% endif %}
+  {% endfor %}
+  {% if this.isDisplayNoCategories() %}
+    <option value="">{{ t('-- No categories --') }}</option>
+  {% endif %}
+</select>

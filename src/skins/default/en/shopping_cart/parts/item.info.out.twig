@@ -1,0 +1,8 @@
+{##
+ # Shopping cart item weight block
+ #
+ # @ListChild (list="cart.item.info", weight="100")
+ #}
+{% if not this.item.isValidAmount() %}
+  <p class="item-out-of-stock">{{ t('Out of stock') }}</p>
+{% endif %}

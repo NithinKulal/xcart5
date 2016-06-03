@@ -1,0 +1,97 @@
+{##
+ # Product search form template
+ #}
+
+<div class="search-product-form">
+
+  {% form '\\XLite\\View\\Form\\Product\\Search\\Customer\\Main' %}
+
+  <div class="search-form">
+
+    <table class="search-form-main-part">
+
+      <tr>
+        {{ widget_list('products.search.conditions.substring') }}
+      </tr>
+
+      <tr class="including-options-list">
+
+        <td>
+
+          <ul class="search-including-options">
+            {{ widget_list('products.search.conditions.phrase') }}
+          </ul>
+
+        </td>
+
+        <td class="less-search-options-cell hidden-xs hidden-sm">
+          {% if this.showAdvancedPanel() %}
+            <a href="javascript:void(0);" onclick="javascript:core.toggleText(this,'{{ t('More search options') }}','#advanced_search_options');">{{ t('Less search options') }}</a>
+          {% else %}
+            <a href="javascript:void(0);" onclick="javascript:core.toggleText(this,'{{ t('Less search options') }}','#advanced_search_options');">{{ t('More search options') }}</a>
+          {% endif %}
+        </td>
+
+    </table>
+
+
+    {% if this.showAdvancedPanel() %}
+      <table id="advanced_search_options" class="advanced-search-options" style="display: table;">
+        {{ widget_list('products.search.conditions.advanced') }}
+      </table>
+    {% else %}
+      <table id="advanced_search_options" class="advanced-search-options" style="display: none;">
+        {{ widget_list('products.search.conditions.advanced') }}
+      </table>
+    {% endif %}
+    
+    <table class="search-form-main-part visible-xs visible-sm">
+        <tr>
+           {{ widget_list('products.search.conditions-responsive.substring') }}
+        </tr>
+        <tr>
+          <td class="less-search-options-cell">
+          {% if this.showAdvancedPanel() %}
+            <a href="javascript:void(0);" onclick="javascript:core.toggleText(this,'{{ t('More search options') }}','#advanced_search_options');">{{ t('Less search options') }}</a>
+          {% else %}
+            <a href="javascript:void(0);" onclick="javascript:core.toggleText(this,'{{ t('Less search options') }}','#advanced_search_options');">{{ t('More search options') }}</a>
+          {% endif %}
+          </td>  
+        </tr>
+    </table>
+
+  </div> 
+  
+  
+  {#<!-- <div class="search-form">
+    
+    <div class="search-form-main-part">
+        <div class="">
+            <div class="input-search">
+                <list name="products.search.conditions.substring" />
+            </div>
+            <div class="less-search-options-cell">
+                <a href="javascript:void(0);" onclick="javascript:core.toggleText(this,'{t(#Less search options#)}','#advanced_search_options');">{t(#More search options#)}</a>
+            </div>
+        </div>
+        <div class="including-options-list">
+            <ul class="search-including-options">
+                <list name="products.search.conditions.phrase" />
+            </ul>
+        </div>
+    </div>
+
+    <table id="advanced_search_options" class="advanced-search-options">
+      <list name="products.search.conditions.advanced" />
+    </table>
+
+  </div> -->#}
+  
+  
+  
+
+  {% endform %}
+
+</div>
+
+{{ widget('\\XLite\\View\\ItemsList\\Product\\Customer\\Search') }}

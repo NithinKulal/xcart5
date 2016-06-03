@@ -1,0 +1,47 @@
+{##
+ # Entries list
+ #
+ # @ListChild (list="upgrade.step.ready_to_install.entries_list.sections", weight="100")
+ # @ListChild (list="upgrade.step.completed.entries_list.sections", weight="200")
+ #}
+
+{% if this.getWrongPermissions() %}
+  <div class="modified-files-section">
+    <div class="modified-files-section-frame">
+    <div class="description">{{ t('Permissions checking failed') }}</div>
+    <ul class="modified-files-block">
+      {% for command in this.getWrongPermissions() %}
+        <li>{{ command }}</li>
+      {% endfor %}
+    </ul>
+    <div class="modified-files-buttons">
+      {{ widget_list('sections.permissions.buttons', type='inherited') }}
+    </div>
+    </div>
+  </div>
+{% endif %}
+
+<table class="downloaded-components">
+  <tr class="header">{{ widget_list('sections.table.header', type='inherited') }}</tr>
+  {% for entry in this.getUpgradeEntries() %}
+
+  {% if not entry.getErrorMessages() %}
+    <tr class="module-entry">
+      {{ widget_list('sections.table.columns', type='inherited', entry=entry) }}
+    </tr>
+  {% endif %}
+
+  {% if entry.getErrorMessages() %}
+    <tr class="module-entry module-errors">
+      {{ widget_list('sections.table.columns', type='inherited', entry=entry) }}
+    </tr>
+  {% endif %}
+
+  {% if entry.getErrorMessages() %}
+    <tr class="error-messages">
+      {{ widget_list('sections.table.columns.error', type='inherited', messages=entry.getErrorMessages()) }}
+    </tr>
+  {% endif %}
+  {% endfor %}
+
+</table>

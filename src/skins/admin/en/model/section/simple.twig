@@ -1,0 +1,19 @@
+
+<fieldset>
+    {% if this.hasTitle() -%}
+    <legend>
+        {{ this.getTitle() }}
+        {% if this.hasHelp() -%}
+            {{ this.getHelpWidget().display() }}
+        {%- endif %}
+    </legend>
+    {% if this.hasDescription() -%}
+        <p>{{ this.getDescription() }}</p>
+    {%- endif %}
+    {%- endif  %}
+    {% for name, field in this.getFields() %}
+        <div class="form-group">
+            {{ field.display() }}
+        </div>
+    {% endfor %}
+</fieldset>

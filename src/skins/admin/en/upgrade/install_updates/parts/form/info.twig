@@ -1,0 +1,34 @@
+{##
+ # Upgrade entry icon
+ #
+ # @ListChild (list="upgrade.install_updates.sections.form", weight="200")
+ #}
+
+<ul class="module-info">
+  {{ widget_list('sections.form.info', type='inherited', entry=this.entry) }}
+</ul>
+<div class="clearfix"></div>
+{% if this.isAdvancedMode() %}
+{% if this.isEntrySelectable(this.entry) %}
+  <div class="advanced-checkbox{% if not this.isModule(this.entry) %} core{% endif %}">
+    {% if this.isModule(this.entry) %}
+      <label for="entry-{{ this.getModuleID(this.entry) }}">
+        <input type="checkbox" id="entry-{{ this.getModuleID(this.entry) }}" name="entries[{{ this.getModuleID(this.entry) }}]" value="1" checked />
+        {{ t('Update') }}
+      </label>
+    {% endif %}
+    {% if not this.isModule(this.entry) %}
+      <label for="entry-core">
+        <input type="checkbox" id="entry-core" name="entries[core]" value="1" checked />
+        {{ t('Update') }}
+      </label>
+    {% endif %}
+  </div>
+{% endif %}
+{% if not this.isEntrySelectable(this.entry) %}
+  <div class="advanced-checkbox not-selectable">
+  {{ t('Will be updated if core update is selected') }}
+  </div>
+{% endif %}
+{% endif %}
+<div class="clear"></div>

@@ -1,0 +1,10 @@
+{##
+ # Share buttons
+ #
+ # @ListChild (list="static_page.info", weight="100000")
+ #}
+{% if this.page.showSocialButtons %}
+  <div class="share clearfix">
+    {{ widget_list('buttons.share') }}
+  </div>
+{% endif %}

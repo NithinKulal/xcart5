@@ -1,0 +1,108 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Default styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+
+#secondary-menu ul {
+    display: block;
+    vertical-align: top;
+    width: auto;
+    padding-right: 0;
+    box-sizing: border-box;
+}
+
+#secondary-menu > .footer-menu {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+    -webkit-box-pack: left;
+    -webkit-justify-content: left;
+        -ms-flex-pack: left;
+            justify-content: left;
+    padding-right: 0;
+}
+
+#secondary-menu .footer-menu .leaf ul {
+    display: block;
+    width: 100%;
+    float: none;
+    margin-top: 20px;
+}
+#secondary-menu ul > .leaf {
+    list-style: none;
+    text-align: left;
+    margin-top: 0;
+    display: inline-block;
+    vertical-align: top;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#secondary-menu .footer-menu > .leaf > a,
+#secondary-menu .footer-menu > .leaf > span.footer-title {
+    font-size: 18px;
+    display: inline-block;
+    line-height: 20px;
+    padding: 0;
+}
+
+#secondary-menu .leaf ul .leaf {
+    display: block;
+    padding: 0;
+    line-height: 20px;
+}
+
+#secondary-menu .leaf ul > .leaf + .leaf {
+    margin-top: 10px;
+}
+
+#secondary-menu ul .leaf a, #secondary-menu ul .leaf span.footer-title {
+    font-size: 14px;
+    text-decoration: none;
+    white-space: normal;
+    word-break: break-word;
+}
+#secondary-menu ul .leaf ul .leaf ul{
+    padding-left: 10px;
+}
+
+@media (max-width: 1199px) {
+
+}
+
+@media (max-width: 991px) {
+    #secondary-menu {
+        width: 100% !important;
+    }
+}
+
+@media (max-width: 767px) {
+    #secondary-menu ul > .leaf{
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    #secondary-menu > .footer-menu > .leaf{
+        max-width: initial;
+        width: 100%;
+    }
+
+    #secondary-menu > .footer-menu > .leaf + .leaf {
+        margin-top: 30px;
+    }
+
+    #secondary-menu > .footer-menu {
+        -webkit-flex-flow: column nowrap;
+            -ms-flex-flow: column nowrap;
+                flex-flow: column nowrap;
+    }
+}

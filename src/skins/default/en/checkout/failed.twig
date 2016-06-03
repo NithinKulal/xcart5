@@ -1,0 +1,14 @@
+{##
+ # Checkout failed
+ #}
+
+<div class="order-success-box">
+  <div class="order-success-panel">
+    <p>{% include this.getFailedTemplate() %}</p>
+    <div class="buttons-row">
+      {{ widget('\\XLite\\View\\Button\\Link', label='Re-order', location=this.getReorderURL()) }}
+      &nbsp;&nbsp;
+      {{ widget('\\XLite\\View\\Button\\Link', label='Continue shopping', location=this.getContinueURL()) }}
+    </div>
+  </div>
+</div>

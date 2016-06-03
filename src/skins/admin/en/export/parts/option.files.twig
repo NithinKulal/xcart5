@@ -1,0 +1,9 @@
+{##
+ # Export begin section : settings : files setting
+ #
+ # @ListChild (list="export.begin.options", weight="100")
+ #}
+
+<li class="files-option">
+  {{ widget('XLite\\View\\FormField\\Select\\ExportFiles', fieldName='options[files]', label=t('Export public files as'), value=this.config.Export.files, help=t('Choosing "URLs" will link the exported data to your public files (product and category images, downloadable files shown on product pages, and so on) through direct URLs')) }}
+</li>

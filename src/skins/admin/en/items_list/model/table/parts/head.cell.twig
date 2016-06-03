@@ -1,0 +1,37 @@
+{##
+ # Head cell
+ #}
+
+{% if column.headTemplate %}
+  {{ widget(template=column.headTemplate, column=column) }}
+{% else %}
+{% if column.sort %}
+  <a
+    href="{{ url(this.getTarget(), '', {'sortBy': column.sort, 'sortOrder': this.getSortDirectionNext(column)}) }}"
+    data-sort="{{ column.sort }}"
+    data-direction="{{ this.getSortOrder() }}"
+    class="{{ this.getSortLinkClass(column) }}">{{ column.name }}</a>
+  {% if this.isColumnSorted(column) %}
+  {% if 'desc' == this.getSortOrder() %}
+    <span class="dir desc-order">&uarr;</span>
+  {% endif %}
+  {% if 'asc' == this.getSortOrder() %}
+    <span class="dir asc-order">&darr;</span>
+  {% endif %}
+  {% endif %}
+{% else %}
+  {{ column.name }}
+{% endif %}
+  {% if column.headHelp %}
+    <div class="column-header-help">
+      {{ widget('\\XLite\\View\\Tooltip', id='menu-links-help-text', text=column.headHelp, isImageTag='true', className='help-small-icon') }}
+    </div>
+  {% endif %}
+{% endif %}
+{% if column.subheader %}
+  <div class="subheader">{{ column.subheader }}</div>
+{% endif %}
+{{ widget_list(this.getCellListNamePart('head', column), type='inherited', column=column) }}
+{% if column.columnSelector %}
+  <input type="checkbox" class="selectAll not-significant" />
+{% endif %}

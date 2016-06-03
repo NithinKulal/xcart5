@@ -1,0 +1,17 @@
+{##
+ # Attribute
+ #}
+{% if this.getAttributeGroup() %}
+<li><div class="head-h3"><span class="title-text">{{ this.getTitle() }}</span><span class="line"></span></div>
+  <ul>
+{% endif %}
+{% for a in this.getAttrList() %}
+  <li>
+    <div><strong>{{ a.name }}</strong></div>
+    <span class="{{ a.class }}">{{ a.value|nl2br }}</span>
+  </li>
+{% endfor %}
+{% if this.getAttributeGroup() %}
+  </ul>
+</li>
+{% endif %}

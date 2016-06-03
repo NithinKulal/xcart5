@@ -1,0 +1,21 @@
+{##
+ # Canada Post products return :: from :: files
+ #
+ # @ListChild (list="capost_return.form", weight="300")
+ #}
+
+{% if this.productsReturn.hasLinks() %}
+  <div class="documents">
+    
+    <h2>{{ t('Documents') }}</h2>
+  
+    <ul>
+      {% for link in this.productsReturn.getLinks() %}
+        <li>
+          <a href="{{ link.storage.getURL() }}">{{ link.getLinkTitle() }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+    
+  </div>
+{% endif %}

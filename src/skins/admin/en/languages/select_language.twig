@@ -1,0 +1,46 @@
+{##
+ # Select language dialog
+ #}
+<div class="select-language-dialog">
+  <h2>{{ t('Select language to edit') }}</h2>
+  <ul class="added-languages">
+    {% for l in this.getAddedLanguages() %}
+      <li>
+        {% if this.canDelete(l) %}
+          {% if this.isTranslateLanguage(l) %}
+            <a href="{{ url('languages', 'delete', {'lng_id': l.lng_id, 'page': this.page}) }}" class="delete" onclick="javascript: return confirmLanguageDelete(this, {{ l.lng_id }}, '', '{{ this.page }}');"><img src="{{ asset('images/spacer.gif') }}" alt="" /></a>
+          {% else %}
+            <a href="{{ url('languages', 'delete', {'lng_id': l.lng_id, 'page': this.page, 'language': this.language}) }}" class="delete" onclick="javascript: return confirmLanguageDelete(this, {{ l.lng_id }}, '{{ this.language }}', '{{ this.page }}');"><img src="{{ asset('images/spacer.gif') }}" alt="" /></a>
+          {% endif %}
+        {% else %}
+          <img src="{{ asset('images/spacer.gif') }}" alt="" class="delete" />
+        {% endif %}
+        {% if this.isInterfaceLanguage(l) %}
+          <img src="{{ asset('images/spacer.gif') }}" alt="" class="selected" />
+        {% else %}
+          <a href="{{ url('languages', 'switch', {'lng_id': l.lng_id, 'page': this.page, 'language': this.language}) }}"{% if l.enabled %} class="switch enabled"{% else %} class="switch"{% endif %}><img src="{{ asset('images/spacer.gif') }}" alt="" /></a>
+        {% endif %}
+        {% if l.flagURL %}
+          <img src="{{ l.flagURL }}" alt="" class="flag" />
+        {% endif %}
+        <span class="code">{{ l.code }}</span>
+        {% if this.canSelect(l) %}
+          <a href="{{ url('languages', '', {'language': l.code, 'page': this.page}) }}" class="name">{{ l.name }}</a>
+        {% else %}
+          <span class="name selected">{{ l.name }}</span>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+
+  <hr class="tiny" />
+
+  <h2>{{ t('Add new language') }}</h2>
+
+  <ul class="inactive-languages">
+    {% for l in this.getInactiveLanguages() %}
+      <li>{% if l.flagURL %}<img src="{{ l.flagURL }}" alt="" />{% endif %}<span>{{ l.code }}</span><a href="{{ url('languages', 'active', {'lng_id': l.lng_id, 'language': l.code, 'page': this.page}) }}">{{ l.name }}</a></li>
+    {% endfor %}
+  </ul>
+
+</div>

@@ -1,0 +1,20 @@
+{##
+ # Attribute value (Select)
+ #}
+
+<div class="{{ this.getStyle() }}">
+  {% include 'product/manage_attribute_value/multiple_options.twig' %}
+  <ul class="values">
+    {% for id, attributeValue in this.getAttrValues() %}
+      <li class="{{ this.getValueStyle(id) }}">
+        <div class="value">
+          {{ widget(this.getWidgetClass(), fieldName=this.getName('value', id), fieldOnly='true', value=this.getFieldValue(attributeValue), attribute=this.getAttribute(), attributes={'placeholder': t('Attribute option')}) }}
+          {% include 'product/manage_attribute_value/modifiers.twig' %}
+        </div>
+        <div class="actions">
+          {{ widget('XLite\\View\\Button\\Remove', buttonName=this.getName('deleteValue', id)) }}
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+</div>

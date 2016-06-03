@@ -1,0 +1,102 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Setting page styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+body.target-paypal-credit .payment-settings  .dialog-content {
+  display: inline-block;
+  width: 540px;
+}
+
+body.target-paypal-credit .payment-settings  div.table-label {
+  width: 210px;
+}
+
+body.target-paypal-credit .payment-settings .logo-ppa {
+  background: transparent url(../images/ppa.png) no-repeat left top;
+  width: 316px;
+  height: 40px;
+  margin-bottom: 10px;
+}
+
+body.target-paypal-credit .payment-settings .logo-pfl {
+  background: transparent url(../images/pfl.png) no-repeat left top;
+  width: 280px;
+  height: 126px;
+  margin-bottom: 10px;
+}
+
+body.target-paypal-credit .payment-settings .logo-ppec {
+  background: transparent url(../images/ppec.png) no-repeat left top;
+  width: 228px;
+  height: 44px;
+  margin-bottom: 10px;
+}
+
+body.target-paypal-credit .payment-settings .logo-pc {
+  background: transparent url(../images/pc.gif) no-repeat left top;
+  width: 300px;
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+body.target-paypal-credit .payment-settings .links {
+  background-color: #F7F7F7;
+  margin: 30px 0;
+  padding: 15px 0 15px 20px;
+}
+
+body.target-paypal-credit .payment-settings .links a {
+  font-size: 16px;
+}
+
+body.target-paypal-credit .payment-settings .links .help-link {
+  padding: 0;
+}
+
+body.target-paypal-credit .payment-settings .help-link i {
+    font-size: 14px;
+    color: #154e9c;
+}
+
+body.target-paypal-credit .payment-settings .help-text i {
+    font-size: 10px;
+    color: #154e9c;
+}
+
+body.target-paypal-credit .payment-settings .external i {
+    display: none;
+}
+
+body.target-paypal-credit .payment-settings .external:hover i {
+  display: inline;
+}
+
+body.target-paypal-credit .payment-settings .help-text .tooltip-main {
+  display: inline;
+  padding: 0;
+}
+
+body.target-paypal-credit .payment-settings .help-text .tooltip-caption {
+  font-size: 12px;
+}
+
+body.target-paypal-credit .payment-settings .help-text div.clear {
+  clear: none;
+  display: inline;
+}
+
+body.target-paypal-credit .payment-settings .form-field-comment.email-comment {
+  width: auto;
+}
+
+body.target-paypal-credit .buynowenabled-value .tooltip-main {
+  width: 264px;
+  height: 32px;
+  text-align: right;
+  background: transparent url(https://www.paypalobjects.com/webstatic/en_US/i/buttons/buy-logo-small.png) no-repeat 10px center;
+}

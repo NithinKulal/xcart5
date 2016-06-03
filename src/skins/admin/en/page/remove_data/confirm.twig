@@ -1,0 +1,7 @@
+{##
+ # Confirm remove data template
+ #}
+
+<div class="alert alert-warning note" role="alert">{{ t('Warning! The selected types of content data will be deleted permanently.')|raw }}</div>
+
+{{ widget('XLite\\View\\Model\\ConfirmWithPassword', useBodyTemplate='1') }}

@@ -1,0 +1,22 @@
+{##
+ # Accounting landing page
+ #}
+
+<div class="accounting-page-wrapper">
+  <div class="installed-block">
+    {% include 'accounting/parts/installed.twig' %}
+  </div>
+  <div class="description">
+    {% if this.isConfigured() %}
+      <hr>
+      <p>{{ t('Want to change or add another accounting system? Choose the accounting system you require below and configure it.')|raw }}</p>
+    {% else %}
+      <p>{{ t('No accounting system has been selected yet. Choose your accounting system below and configure it.')|raw }}</p>
+    {% endif %}
+    <p>{{ t('Not seeing your accounting software here? Let us know', {'href': 'http://ideas.x-cart.com/forums/229428-x-cart-5-x'})|raw }}</p>
+  </div>
+
+  <div class="available-block">
+    {% include 'accounting/parts/available.twig' %}
+  </div>
+</div>

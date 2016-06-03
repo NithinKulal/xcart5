@@ -1,0 +1,12 @@
+{##
+ # Login error email body (to admin)
+ #}
+<p>
+  {{ this.getNotificationText()|raw }}
+</p>
+<p>
+  ENTERED LOGIN: {{ this.login }}<br />
+  REMOTE_ADDR: {{ this.REMOTE_ADDR }}<br />
+  HTTP_X_FORWARDED_FOR: {{ this.HTTP_X_FORWARDED_FOR }}<br />
+  HTTP_REFERER: {{ this.HTTP_REFERER }}<br />
+</p>

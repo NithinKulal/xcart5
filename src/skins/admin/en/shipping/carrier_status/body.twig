@@ -1,0 +1,21 @@
+{##
+ # Payment method status
+ #}
+<div class="shipping-status" data-processor="{{ this.getProcessor() }}">
+  <div class="{{ this.getClass() }}" role="alert">
+    {% if this.isSwitchable() %}
+    {{ widget('XLite\\View\\FormField\\Input\\Checkbox\\OnOff', label='This shipping method is', fieldName='shipping_method_status', onLabel=t('shippingStatus.Active'), offLabel=t('shippingStatus.Inactive'), value=this.isEnabled()) }}
+    {% else %}
+    <div class="table-label">
+      <label>{{ t('This shipping method is not configured.')|raw }}</label>
+    </div>
+    {% endif %}
+  </div>
+
+  {% if this.getSignUpURL() %}
+    <div class="sign-up">
+      {{ t('Dont have account yet?') }}
+        <a href="{{ this.getSignUpURL() }}" target="_blank">{{ t('Sign Up Now') }}</a>
+    </div>
+  {% endif %}
+</div>

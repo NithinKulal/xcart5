@@ -1,0 +1,63 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Orders list search panel styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.search-conditions-box .search-conditions {
+  margin-right: 0;
+}
+
+.searchpanel-order-admin-main .search-conditions-box .paymentStatus-condition,
+.searchpanel-order-admin-main .search-conditions-box .shippingStatus-condition
+{
+  width: 190px;
+}
+
+.searchpanel-order-admin-main .search-conditions-box .dateRange-condition {
+  width: 240px;
+}
+
+.searchpanel-order-admin-main .search-conditions-box .search-conditions .dateRange-condition div.table-value input {
+  width: 240px;
+}
+
+.searchpanel-order-admin-main .search-conditions-box .search-conditions-hidden div.table-label {
+  width: auto;
+}
+
+.searchpanel-order-admin-main .clear-search {
+  margin-left: 12px;
+}
+
+.searchpanel-order-admin-main .clear-search .clear-search-image svg {
+  width: 22px;
+  height: 24px;
+  vertical-align: text-bottom;
+}
+
+.searchpanel-order-admin-main .search-conditions-box .search-conditions-hidden div.table-value select,
+.searchpanel-order-admin-main .search-conditions-box .search-conditions-hidden div.table-value input[type="text"] {
+  width: 200px;
+}
+
+.searchpanel-order-admin-main .search-conditions-box .search-conditions-hidden li {
+  margin-right: 80px;
+}
+
+.searchpanel-order-admin-main .search-conditions-box .search-conditions-hidden li .table-label label {
+  width: 200px;
+}
+
+.searchpanel-order-admin-main .search-conditions-box .search-conditions-hidden li.recent-condition .table-value {
+  padding-top: 14px;
+  width: 25px;
+  height: 45px;
+}
+
+.searchpanel-order-admin-main .search-conditions-box .search-conditions-hidden:before{
+  content: none;
+}

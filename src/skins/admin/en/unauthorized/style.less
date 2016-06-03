@@ -1,0 +1,149 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Styles for unauthorized interface
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+@import "../css/initialize.less";
+
+.unauthorized {
+
+  #page-container {
+    background-color: transparent;
+    text-align: center;
+    min-height: ~"calc(100vh - 130px)";
+  }
+
+  #header {
+    height: 78px;
+    width: 100%;
+    background-color: #323232;
+    display: inline-block;
+
+    .logo {
+      .rounded(10px);
+      background-color: #fff;
+      padding: 0px;
+      margin: 0px auto;
+      margin-top: 38px;
+      width: 74px;
+      float: none;
+      text-align: center;
+      padding-top: 4px;
+
+      a {
+        height: 64px;
+        width: 64px;
+        display: inline-block;
+      }
+    }
+
+    .base-version {
+      margin-top: 1px;
+      font-size: 14px;
+      color: #9999a4;
+    }
+  }
+
+  #header-wrapper {
+    height: 130px;
+    text-align: center;
+  }
+
+  #main {
+    margin-left: 0px;
+    min-width: 640px;
+    border-top: 0px;
+    width: 100%;
+    padding-top: 0px;
+    padding-bottom: 86px;
+    position: static;
+
+    &:before {
+      display: none;
+    }
+  }
+
+  h1 {
+    font-size: 26px;
+    color: #323232;
+    margin: 0px;
+  }
+
+  #footer {
+    background-color: #323232;
+    height: 87px;
+
+    .footer-cell {
+      position: absolute;
+
+      &.left {
+        top: 17px;
+        right: 90px;
+      
+        p.copyright {
+          color: #717884;
+          font-size: 12px;
+        }
+      }
+
+      &.right {
+        left: 122px;
+        top: 18px;
+
+        a {
+          font-size: 12px;
+          color: #fff;
+          margin-left: 0px;
+          margin-right: 8px;
+          vertical-align: middle;
+
+          &:hover {
+            color: #0f9dcc;
+          }
+        }
+
+        .social-links {
+          display: inline-block;
+          margin-left: 7px;
+
+          &::before {
+            content: "";
+            display: inline-block;
+            width: 1px;
+            border-left: 1px solid #717884;
+            height: 12px;
+            margin-right: 13px;
+            vertical-align: middle;
+            margin-top: 3px;
+          }
+
+          span {
+            color: #717884;
+            font-size: 12px;
+            vertical-align: middle;
+            display: inline-block;
+            padding-top: 1px;
+            margin-right: 9px;
+          }
+
+          a {
+            font-size: 20px;
+            margin-right: 2px;
+
+            &.facebook:hover {
+              color: #3e67bf;
+            }
+
+            &.twitter:hover {
+              color: #2aa9e0;
+            }
+          }
+        }
+      }
+    }
+  }
+}

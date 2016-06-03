@@ -1,0 +1,9 @@
+{##
+ # Item price
+ #
+ # @ListChild (list="itemsList.product.table.admin.search.columns", weight="70")
+ #}
+
+<td>
+  <input type="text" class="inventory" size="10" value="{{ this.product.getAmount() }}" name="{{ this.getNamePostedData('amount', this.product.getProductId()) }}" {% if not this.product.getInventoryEnabled() %} disabled="disabled" {% endif %} />
+</td>

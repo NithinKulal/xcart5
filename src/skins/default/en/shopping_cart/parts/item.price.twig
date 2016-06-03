@@ -1,0 +1,7 @@
+{##
+ # Shopping cart item : price
+ #
+ # @ListChild (list="cart.item", weight="40")
+ #}
+<td class="item-price">{{ widget('XLite\\View\\Surcharge', surcharge=this.item.getDisplayPrice(), currency=this.cart.getCurrency()) }}</td>
+<td class="item-multi">&times;</td>

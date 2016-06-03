@@ -1,0 +1,19 @@
+{##
+ # Center zone
+ #
+ # @ListChild (list="layout.main", weight="400")
+ #}
+
+<div id="main-wrapper">
+  {% if this.isForceChangePassword() %}
+  <div id="main" class="force-change-password-section clearfix">
+    {{ widget('\\XLite\\View\\Model\\Profile\\ForceChangePassword') }}
+  </div>
+  {% else %}
+  <div id="main" class="clearfix">
+    <div class="flex-container">
+        {{ widget_list('layout.main.center') }}
+    </div>
+  </div>
+  {% endif %}
+</div>

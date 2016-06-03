@@ -1,0 +1,35 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: fcm_show_product_num
+    category: QSL\FlyoutCategoriesMenu
+    type: checkbox
+    orderby: 10
+    value: N
+    translations:
+      - code: en
+        option_name: Show number of products in category
+        option_comment: Select to show the number of products in a category next to the category's name
+  - name: fcm_word_wrap
+    category: QSL\FlyoutCategoriesMenu
+    type: checkbox
+    value: Y
+    orderby: 20
+    translations:
+      - code: en
+        option_name: Wrap long category names
+        option_comment: Enable word wrapping for long category names
+  - name: fcm_show_triangle
+    category: QSL\FlyoutCategoriesMenu
+    type: checkbox
+    value: Y
+    orderby: 30
+    translations:
+      - code: en
+        option_name: Show category triangles
+        option_comment: Select to display a tiny triangle next the names of categories that include subcategories. Categories that do not contain subcategories will not be furnished with a triangle. Having this option activated would help your store visitors to navigate through your category tree better

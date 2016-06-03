@@ -1,0 +1,17 @@
+{##
+ # Add to Cart button template
+ #
+ # @ListChild (list="itemsList.product.list.customer.info", weight="1000")
+ #}
+
+{% if this.isDisplayAdd2CartButton() %}
+  <div class="add-to-cart-button">
+    {% if not this.product.isOutOfStock() %}
+      {% if this.isGotoProduct() %}
+        {{ widget('\\XLite\\View\\Button\\Link', label='Add to cart', style='regular-main-button add2cart add-to-cart link productid-' ~ this.product.product_id, location=this.product.url) }}
+      {% else %}
+        {{ widget('\\XLite\\View\\Button\\Submit', label='Add to cart', style='regular-main-button add2cart add-to-cart productid-' ~ this.product.product_id) }}
+      {% endif %}
+    {% endif %}
+  </div>
+{% endif %}

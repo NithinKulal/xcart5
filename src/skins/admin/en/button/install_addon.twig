@@ -1,0 +1,9 @@
+{##
+ # Install addon button
+ #}
+<button type="submit"
+{% if this.hasName() %} name="{{ this.getName() }}"{% endif %}
+{% if this.hasValue() %} value="{{ this.getValue() }}"{% endif %}
+{% if this.hasClass() %} class="{{ this.getClass() }}"{% endif %}
+onclick="javascript:document.location='{{ this.getURL() }}';"
+><span>{{ t(this.getButtonLabel()) }}</span></button>

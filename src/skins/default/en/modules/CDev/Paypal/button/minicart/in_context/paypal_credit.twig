@@ -1,0 +1,13 @@
+{##
+ # Paypal credit
+ #}
+<div class="cart-checkout">
+  <a href="{{ this.getLocationURL() }}" onclick="paypalExpressCheckout(this)" class="{{ this.getClass() }}"{% if this.getId() %} id="{{ this.getId() }}"{% endif %}{% if this.hasMerchantId() %} data-paypal-id="{{ this.getMerchantId() }}"{% endif %}>
+    <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/ppcredit-logo-medium.png" alt="PayPal Credit" />
+  </a>
+  <div>
+    <a href="https://www.securecheckout.billmelater.com/paycapture-content/fetch?hash=AU826TU8&content=/bmlweb/ppwpsiw.html" target="_blank">
+      <img src="https://www.paypalobjects.com/webstatic/en_US/btn/btn_bml_text.png" />
+    </a>
+  </div>
+</div>

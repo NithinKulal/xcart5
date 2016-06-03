@@ -1,0 +1,9 @@
+{##
+ # ____file_title____
+ #}
+{% if this.order.isSelected('status', 'Q') %}{{ t('Queued') }}{% endif %}
+{% if this.order.isSelected('status', 'P') %}{{ t('Processed') }}{% endif %}
+{% if this.order.isSelected('status', 'I') %}{{ t('Incomplete') }}{% endif %}
+{% if this.order.isSelected('status', 'F') %}{{ t('Failed') }}{% endif %}
+{% if this.order.isSelected('status', 'D') %}{{ t('Declined') }}{% endif %}
+{% if this.order.isSelected('status', 'C') %}{{ t('Complete') }}{% endif %}

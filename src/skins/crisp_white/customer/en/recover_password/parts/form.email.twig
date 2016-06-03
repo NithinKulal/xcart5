@@ -1,0 +1,11 @@
+{##
+ # Recover password : form : email
+ #
+ # @ListChild (list="recover.password.fields", weight="100")
+ #}
+
+<tr>
+  <td class="email-field field">
+    {{ widget('XLite\\View\\FormField\\Input\\Text\\Email', value=this.email, required='true', fieldName='email', label=t('Email'), fieldOnly='false') }}
+  </td>
+</tr>

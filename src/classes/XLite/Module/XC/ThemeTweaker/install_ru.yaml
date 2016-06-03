@@ -1,0 +1,40 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\LanguageLabel:
+  - { name: 'Use custom css', translations: [{ code: ru, label: 'Использовать свой CSS' }] }
+  - { name: 'Use custom js', translations: [{ code: ru, label: 'Использовать свой JavaScript' }] }
+  - { name: 'The database stores different version of the custom changes.', translations: [{ code: ru, label: 'В базе данных хранится другая версия пользовательского кода.' }] }
+  - { name: 'Review it.', translations: [{ code: ru, label: 'Просмотреть её.' }] }
+  - { name: 'Restore this version', translations: [{ code: ru, label: 'Восстановить эту версию' }] }
+  - { name: 'Your custom file is successfully saved', translations: [{ code: ru, label: 'Файл успешно сохранен' }] }
+  - { name: 'Theme tweaker', translations: [{ code: ru, label: 'Theme tweaker' }] }
+  - { name: 'Pick template from page element', translations: [{ code: ru, label: 'Выбор шаблона на основе элемента страницы' }] }
+  - { name: 'Edited templates', translations: [{ code: ru, label: 'Измененные шаблоны' }] }
+  - { name: 'Webmaster mode', translations: [{ code: ru, label: 'Режим веб-мастера' }] }
+  - { name: 'Template', translations: [{ code: ru, label: 'Шаблон' }] }
+  - { name: 'Back to templates list', translations: [{ code: ru, label: 'Вернуться к списку шаблонов' }] }
+  - { name: 'Webmaster Mode allows you to change the storefront design in click-and-edit mode', translations: [{ code: ru, label: 'Режим веб-мастера позволяет редактировать внешний вид сайта по месту.<br /><br />Если после внесения изменений клиентская зона выглядит неправильно, попробуйте откатить изменения в секции "Измененные шаблоны". Больше информации об изменении дизайна сайта на X-Cart - в <a href="http://kb.x-cart.com/pages/viewpage.action?pageId=8224814">Базе знаний X-Cart</a>.' }] }
+  - { name: 'Webmaster mode is enabled', translations: [{ code: ru, label: 'Режим веб-мастера включен' }] }
+  - { name: 'Webmaster mode is disabled', translations: [{ code: ru, label: 'Режим веб-мастера отключен' }] }
+  - { name: 'The template has been updated', translations: [{ code: ru, label: 'Шаблон обновлён' }] }
+  - { name: 'The template has been added', translations: [{ code: ru, label: 'Шаблон добавлен' }] }
+  - { name: 'webmasterMode.Enabled', translations: [{ code: ru, label: 'Вкл' }] }
+  - { name: 'webmasterMode.Disabled', translations: [{ code: ru, label: 'Выкл' }] }
+  - { name: 'New images', translations: [{ code: ru, label: 'Новые картинки' }] }
+  - { name: 'You are now in layout editing mode', translations: [{ code: ru, label: 'Здесь можно <b>перетаскивать блоки</b>, меняя их порядок.' }] }
+  - { name: 'Layout editor', translations: [{ code: ru, label: 'Режим разметки' }] }
+  - { name: 'Layout editor is', translations: [{ code: ru, label: 'Режим разметки' }] }
+  - { name: 'disabled blocks', translations: [{ code: ru, label: 'блоков отключено' }] }
+  - { name: 'Some', translations: [{ code: ru, label: 'Несколько' }] }
+  - { name: 'Block is enabled', translations: [{ code: ru, label: 'Блок включен' }] }
+  - { name: 'Block is disabled', translations: [{ code: ru, label: 'Блок отключен' }] }
+  - { name: 'Exit editor', translations: [{ code: ru, label: 'Выйти' }] }
+  - { name: 'Layout editor is enabled', translations: [{ code: ru, label: 'Режим разметки включен' }] }
+  - { name: 'Layout editor is disabled', translations: [{ code: ru, label: 'Режим разметки отключен' }] }
+  - { name: 'Layout editor allows you to change the position of the blocks in drag-n-drop fashion', translations: [{ code: ru, label: 'Режим редактирования разметки позволяет менять положение и порядок блоков путем перетаскивания' }] }
+  - { name: 'There are some custom CSS styles in your store. These styles may affect the look of the installed template. Review the custom styles and disable them if necessary.', translations: [{ code: ru, label: 'Для сайта заданы пользовательские CSS стили. Эти стили могут оказывать влияние на внешний вид интерфейса покупателя. <a href="{{url}}">Просмотрите пользовательские стили</a> и выключите их в случае необходимости.' }] }

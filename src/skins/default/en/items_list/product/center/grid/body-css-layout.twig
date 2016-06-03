@@ -1,0 +1,24 @@
+{##
+ # Products list (grid variant)
+ #}
+
+{{ widget_list('itemsList.product.cart') }}
+
+<div class="products">
+
+  {% if this.getPageData() %}
+    <ul class="products-grid grid-list">
+      {% for product in this.getPageData() %}
+        <li class="product-cell box-product">
+    
+          {{ this.getProductWidgetContent(product)|raw }}
+    
+        </li>
+      {% endfor %}
+      {% for item in this.getNestedViewList('items') %}
+        <li class="product-cell box-product">{{ item.display() }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+</div>

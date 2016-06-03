@@ -1,0 +1,23 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Profiles list styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.items-list-table table.list tbody.lines td.login div span,
+.items-list-table table.list tbody.lines td.access_level {
+  font-size: 14px;
+}
+
+.items-list-table table.list tbody.lines td.login div.cell {
+  width: 150px;
+}
+
+.items-list-table table.list tbody.lines td.name div.cell {
+  width: 250px;
+}
+
+

@@ -1,0 +1,14 @@
+{##
+ # Contact us email body (to admin)
+ #}
+<p>
+  {{ this.getNotificationText()|raw }}
+</p>
+<p>
+  <b>{{ t('Name') }}:</b> {{ this.data.name }}<br />
+  <b>{{ t('E-mail') }}:</b> {{ this.data.email }}<br />
+  <b>{{ t('Subject') }}:</b> {{ this.data.subject }}<br />
+</p>
+<p>
+  {{ this.data.message|nl2br }}
+</p>

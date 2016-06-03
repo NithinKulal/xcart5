@@ -1,0 +1,9 @@
+{##
+ # Item buttons
+ #
+ # @ListChild (list="itemsList.product.table.customer.columns", weight="50")
+ #}
+
+{% if this.isShowAdd2CartBlock() and this.getAdd2CartBlockWidget() %}
+    {{ this.getAdd2CartBlockWidget().display()|raw }}
+{% endif %}

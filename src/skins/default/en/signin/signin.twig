@@ -1,0 +1,25 @@
+{##
+ # Sign-in
+ #
+ # @ListChild (list="signin.main", weight="10")
+ #}
+<div class="signin-wrapper">
+
+  <div class="signin-login-wrapper">
+    <div class="signin-login-title">{{ t('Existing Customer?') }}</div>
+    <div class="login-box">{{ widget_list('customer.checkout.signin') }}</div>
+  </div>
+
+  <div class="or-line">
+    <div class="line"></div>
+    <div class="or-box">
+      <div class="or">{{ t('or') }}</div>
+    </div>
+  </div>
+
+  <div class="signin-anonymous-wrapper">
+    <div class="signin-anonymous-title">{{ t('New to our store?', {'our store': this.getStoreName()}) }}</div>
+    <div class="signin-anonymous-box">{{ widget_list('signin-anonymous-title') }}</div>
+  </div>
+
+</div>

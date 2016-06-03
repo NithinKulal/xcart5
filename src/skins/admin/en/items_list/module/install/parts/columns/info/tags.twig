@@ -1,0 +1,17 @@
+{##
+ # Modules main description section list
+ #
+ # @ListChild (list="itemsList.module.install.columns.module-description-section", weight="0")
+ #}
+
+{% if this.module.getTags() %}
+  <div class="module-tags">
+  <ul class="module-tags-list">
+    {% for value in this.module.getTags() %}
+      <li>
+        <a href="{{ url('addons_list_marketplace', '', {'tag': value}) }}">{{ this.getTagName(value) }}<div class="circle"></div></a>
+      </li>
+    {% endfor %}
+  </ul>
+  </div>
+{% endif %}

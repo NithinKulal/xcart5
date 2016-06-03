@@ -1,0 +1,21 @@
+{##
+ # Reviews list header
+ #
+ # @ListChild (list="product.reviews.tab", weight="200")
+ #}
+
+<div class="header">
+  <div class="left">
+    <div class="head-h2">{{ t('Customer reviews') }}</div>
+    {{ widget('XLite\\Module\\XC\\Reviews\\View\\Customer\\ReviewsTab\\AverageRating', product=this.getProduct()) }}
+  </div>
+
+  <div class="right">
+    <div class="buttons">
+      {{ widget_list('reviews.general') }}
+    </div>
+  </div>
+
+  <div class="line"></div>
+
+</div>

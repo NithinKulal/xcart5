@@ -1,0 +1,22 @@
+{##
+ # Product info on product reviews page
+ #
+ # @ListChild (list="product.reviews.page", weight="100")
+ #}
+
+{% if this.product %}
+  <div class="product-details clearfix">
+    <div class="image{% if not this.product.hasImage() %} empty{% endif %}" style="width: {{ this.getMaxImageWidth() }}px;">
+      {{ widget('\\XLite\\View\\Product\\Details\\Customer\\Image', product=this.product) }}
+    </div>
+    <div class="product-details-info">
+      <h1 class="fn title">{{ this.product.name|raw }}</h1>
+      <a href="{{ url('product', '', {'product_id': this.getProductId(), 'category_id': this.getCategoryId()}) }}">{{ t('Back to product details') }}</a>
+  
+      <div>
+        {{ widget('XLite\\Module\\XC\\Reviews\\View\\Customer\\ReviewsPage\\AverageRating', product=this.product) }}
+      </div>
+    </div>
+  
+  </div>
+{% endif %}

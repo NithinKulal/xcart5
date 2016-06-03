@@ -1,0 +1,449 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Orders search widget styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+h2.order-search-title,
+  .search-orders-conditions
+{
+  min-width: 320px;
+}
+
+h2.order-search-title {
+  margin-bottom: 19px;
+}
+
+.search-orders-box {
+  width: 572px;
+}
+
+.search-orders-conditions,
+  #advanced_search_order_options
+{
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 15px 0 12px 21px;
+}
+
+.search-orders-conditions {
+  margin-bottom: 0px;
+}
+
+#advanced_search_order_options {
+  margin-top: 10px;
+}
+
+.search-orders-conditions,
+  #advanced_search_order_options,
+  #advanced_search_order_options td,
+  #advanced_search_order_options table
+{
+  background-color: #f7f7f7;
+  border: none;
+}
+
+#advanced_search_order_options td {
+  padding: 4px 0px 22px 0px;
+}
+
+#advanced_search_order_options td.title {
+  color: #7490af;
+  font-size: 16px;
+}
+
+.orders-list {
+  min-width: 280px;
+  margin-top: 20px;
+}
+
+.search-orders {
+  padding: 1px;
+}
+
+.search-orders tr.products input {
+  width: 350px;
+}
+
+.search-orders input.date-picker {
+  width: 100px;
+}
+
+.search-orders .buttons .clear-all a {
+  font-size: 14px;
+}
+
+.search-orders .buttons td {
+  padding-top: 0px;
+}
+
+.search-orders .buttons .button-cell button {
+  height: 35px;
+  margin-top: 0px;
+  margin-left: 100px;
+}
+
+.search-orders .buttons .button-cell button span {
+  font-size: 14px;
+  padding: 8px;
+}
+
+.order-body-item .title,
+  .order-body-item .shipping-method-spec
+{
+  background-color: #f7f7f7;
+}
+
+.order-body-item .title {
+  height: auto;
+  position: relative;
+  padding: 0px 0px 15px 0px;
+}
+
+.order-body-items-list,
+  .order-body-item .title,
+  .order-body-item .shipping-method-spec
+{
+  width: 100%;
+  line-height: 1em;
+}
+
+.order-body-items-list,
+  .order-body-item .title
+{
+  border: solid 1px #dfdfdf;
+}
+
+.order-body-item .shipping-method-spec {
+  border-bottom: solid 1px #dfdfdf;
+}
+
+.order-body-items-list {
+  border-top: none;
+}
+
+table.order-list-items,
+table.order-list-items td,
+table.order-list-items tr,
+table.order-list-items tbody
+{
+  border: none 0px;
+  vertical-align: top;
+  margin: 0px;
+}
+
+ul.order-body-item-spec,
+  ul.order-body-item-spec2
+{
+  margin: 0px;
+}
+
+ul.order-body-item-spec li,
+  ul.order-body-item-spec2 li
+{
+  list-style: none;
+  float: left;
+  margin: 0px;
+}
+
+.orders-list ul.list li ul.order-body-item-spec2 li {
+  margin-top: 10px;
+  min-width: 200px;
+}
+
+ul.order-body-item-spec,
+  ul.order-body-item-spec2
+{
+  clear: both;
+}
+
+div.order-body-items-list {
+  clear: both;
+}
+
+div.order-body-items-list .view-all-items-link {
+  padding: 15px 0 10px 20px;
+  font-size: 12px;
+}
+
+.orders-list ul.list > li {
+  background: none;
+  padding: 0px;
+  margin-bottom: 32px;
+}
+
+.orders-list ul.list li ul li {
+  margin: 0px;
+}
+
+ul.order-body-item-spec li.details,
+  ul.order-body-item-spec li.reorder
+{
+  padding: 5px 0px 0px 11px;
+}
+
+ul.order-body-item-spec li.order-statuses {
+  float: right;
+  padding: 14px 20px 0 0px;
+  font-size: 18px;
+  position: relative;
+}
+
+.order-status-wrapper {
+  color: #257d16;
+}
+
+ul.order-body-item-spec li.order-statuses ul {
+  position: absolute;
+  right: 10px;
+  width: 320px;
+}
+
+ul.order-body-item-spec li.order-statuses ul li {
+  float: none;
+  text-align: right;
+}
+
+.order-shipping-status .order-status-WND,
+.order-shipping-status .order-status-R,
+.order-payment-status .order-status-C,
+.order-payment-status .order-status-D
+{
+  color: #8d3021;
+}
+
+.order-statuses.payment-P.shipping-D .order-status-wrapper {
+  color: #8f8f8f;
+}
+
+ul.order-body-item-spec2 li,
+  .order-list-items ul.name-qty li
+{
+  color: #8f8f8f;
+}
+
+ul.order-body-item-spec2 li span,
+  .order-list-items ul.name-qty li span
+{
+  color: #4d4d4d;
+}
+
+ul.order-body-item-spec2 li:first-child {
+  padding: 0 47px 0 15px;
+}
+
+ul.order-body-item-spec2 .tracking-number .tracking-title {
+  display: inline-block;
+  vertical-align: top;
+}
+
+ul.order-body-item-spec2 .tracking-number .tracking-number-box {
+  display: inline-block;
+}
+
+.orders-panel {
+  float: right;
+}
+
+.order-list-items ul.name-qty {
+  margin: 0px;
+}
+
+.order-list-items td {
+  padding: 15px 0 10px 0;
+}
+
+.order-list-items td.image {
+  padding-left: 20px;
+  width: 60px;
+  padding-right: 10px;
+}
+
+ul.date-buttons li {
+  list-style: none;
+  float: left;
+  margin: 0px;
+  padding: 4px 16px 0 0;
+  background: none;
+}
+
+ul.date-buttons {
+  margin: 0px;
+  padding: 0px;
+}
+
+.order-spec-wrapper {
+  display: inline-block;
+}
+
+div.order-statuses {
+  display: inline-block;
+  padding: 0px 15px 0px 0px;
+  position: relative;
+  min-height: 50px;
+  top: 5px;
+}
+
+div.order-statuses li{
+    margin: 5px 0 0 !important;
+}
+
+div.order-actions {
+  display: inline-block;
+  padding: 0px 15px;
+}
+
+div.order-actions ul.actions-list {
+  position: relative;
+  top: -5px;
+}
+
+.order-part-wrapper {
+
+  float: right;
+}
+
+ul.order-spec li {
+  display: inline-block;
+}
+
+ul.order-spec li.order-switcher {
+  color: #acb6c0;
+  padding: 15px 0px 0px 13px;
+}
+
+ul.order-spec li.order-switcher i {
+  cursor: pointer;
+}
+
+ul.order-spec li.order-number {
+  padding: 0px 0px 0px 12px;
+}
+
+ul.order-spec li.order-number a {
+  font-size: 18px;
+}
+
+ul.order-spec li.order-total {
+  padding: 20px 0px 0px 37px;
+}
+
+ul.order-spec li.order-items-count {
+  padding: 0px 0px 0px 24px;
+}
+
+ul.order-spec li.date {
+  padding: 14px 0px 0px 15px;
+  font-size: 12px;
+  color: #8f8f8f;
+}
+
+ul.order-spec li.order-break-line {
+  display: block;
+}
+
+ul.order-spec li .order-spec-label,
+  ul.order-spec li .order-spec-value
+{
+  font-size: 18px;
+}
+
+ul.order-spec li .order-spec-label {
+  color: #979797;
+}
+
+ul.order-spec li .order-spec-value {
+  color: #333333;
+  padding: 0px 0px 0px 3px;
+}
+
+.actions-list .reorder {
+  padding-top: 1px;
+}
+
+.order-spec-separator {
+  width: 1px;
+  height: 50px;
+  border-left: solid 1px #dfdfdf;
+  display: inline-block;
+  position: relative;
+  top: 15px;
+}
+
+@media screen and (max-width: 995px) {
+  .order-body-item .title {
+    height: 150px;
+  }
+
+  .order-part-wrapper {
+    float: none;
+    display: block;
+  }
+
+  div.order-statuses {
+    padding-left: 15px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  body.two-sidebars .order-part-wrapper {
+    float: none;
+    display: block;
+  }
+  body.two-sidebars .order-body-item .title {
+    height: 150px;
+  }
+
+  body.two-sidebars div.order-statuses {
+    padding-left: 15px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  div.order-spec-separator {
+    visibility: hidden;
+  }
+  div.order-actions {
+    padding: 0px;
+  }
+}
+
+div.order-statuses.payment-D {
+  top: -2px;
+}
+
+.shipping-method-spec {
+  padding: 10px;
+}
+
+.shipping-method-spec .shipping-method-name li.shipping-method-wrapper {
+  background: transparent url(img/shipping-method-icon.png) 28px 14px no-repeat;
+  padding: 14px 0px 15px 59px;
+}
+
+.shipping-method-spec .shipping-method-name li.tracking-number-wrapper {
+  padding: 0px 0px 0px 60px;
+}
+
+.shipping-method-spec .shipping-method-name li.tracking-number-wrapper * {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.shipping-method-spec .shipping-method-name li {
+  font-size: 14px;
+}
+
+.shipping-method-spec .shipping-method-name li span.shipping-method-label,
+  .shipping-method-spec .shipping-method-name li span.tracking-number-label
+{
+  color: #8f8f8f;
+  padding-right: 4px;
+}
+
+.tracking-number-box .tracking-item {
+  padding-bottom: 10px;
+}

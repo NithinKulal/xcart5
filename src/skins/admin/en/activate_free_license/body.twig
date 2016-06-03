@@ -1,0 +1,53 @@
+{##
+ # Activate free license form
+ #}
+
+<p class="page-note">{{ t('Activate free license description', {'purchaseURL': this.getPurchaseURL()})|raw }}</p>
+
+<div class="modules-list-box">
+  <ul class="update-module-list">
+    {% for entry in this.getModulesList() %}
+      <li class="update-module-info">
+        <div class="module-icon">
+          {% if entry.pageURL %}
+            <a href="{{ entry.pageURL }}" target="_blank"><img src="{{ entry.iconURL }}" alt="{{ entry.moduleName }}" /></a>
+          {% endif %}
+          {% if not entry.pageURL %}
+            <img src="{{ entry.iconURL }}" alt="{{ entry.moduleName }}" />
+          {% endif %}
+        </div>
+        <ul class="module-info">
+          {% if entry.pageURL %}
+            <li class="name"><a href="{{ entry.pageURL }}" target="_blank">{{ entry.moduleName }}</a></li>
+          {% endif %}
+          {% if not entry.pageURL %}
+            <li class="name">{{ entry.moduleName }}</li>
+          {% endif %}
+          <li class="module">
+            <ul class="details">
+              {% if not entry.isInstalled %}
+                <li class="not-installed">{{ t('not installed') }}</li>
+              {% endif %}
+              {% if entry.isInstalled and entry.isEnabled %}
+                <li class="enabled">{{ t('enabled') }}</li>
+              {% endif %}
+              {% if entry.isInstalled and not entry.isEnabled %}
+                <li class="disabled">{{ t('now disabled') }}</li>
+              {% endif %}
+            </ul>
+          </li>
+        </ul>
+        <div class="clear"></div>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="clear"></div>
+
+<div class="activate-free-license-form">
+  {% form 'XLite\\View\\Form\\ActivateFreeLicense' %}
+    {{ widget('XLite\\View\\FormField\\Input\\Text\\Email', required='true', fieldName='email', value=this.getEmail(), label=t('Email')) }}
+    {{ widget('XLite\\View\\Button\\Submit', style='regular-main-button', label=t('Activate')) }}
+  {% endform %}
+</div>

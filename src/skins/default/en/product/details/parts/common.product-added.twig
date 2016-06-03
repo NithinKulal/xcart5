@@ -1,0 +1,10 @@
+{##
+ # Product details buttons block
+ #
+ # @ListChild (list="product.details.page.info.buttons-added", weight="5")
+ # @ListChild (list="product.details.quicklook.info.buttons-added", weight="5")
+ #}
+<p class="product-added-note">
+  <i class="fa fa-check-square"></i>
+  {{ t('This product has been added to your bag', {'href': url('cart')})|raw }}
+</p>

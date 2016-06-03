@@ -1,0 +1,49 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Product PIN codes styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.order-item-pin-codes {
+  padding: 25px 15px 15px 25px;
+  background: #EBF7FF;
+  margin-bottom: 20px;
+  max-width: 800px;
+  display: inline-block;
+}
+
+.order-item-pin-codes * {
+  font-size: 14px;
+}
+
+.order-item {
+  margin-bottom: 10px;
+}
+
+.order-item * {
+  font-size: 16px;
+}
+
+.product-title a {
+  text-decoration: underline;
+}
+
+.product-amount {
+  color: #999;
+}
+
+.pin-code {
+  background: white;
+  padding: 5px 10px 5px 10px;
+  border: 1px solid #CADCE8;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.pins-header {
+  display: inline-block;
+  margin-right: 10px;
+}

@@ -1,0 +1,15 @@
+{##
+ # Import begin section : settings : charset
+ #
+ # @ListChild (list="import.begin.options", weight="300")
+ #}
+
+{% if this.isCharsetEnabled() %}
+  <li class="charset-option">
+    {{ widget('XLite\\View\\FormField\\Select\\IconvCharset', fieldName='options[charset]', label=t('Character set'), value=this.config.Units.export_import_charset) }}
+  </li>
+{% else %}
+  <li class="charset-option">
+    {{ widget('XLite\\View\\FormField\\Label', fieldName='options[charset]', label=t('Character set'), value=this.config.Units.export_import_charset) }}
+  </li>
+{% endif %}

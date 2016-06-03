@@ -1,0 +1,10 @@
+{##
+ # Product low stock label
+ #
+ # @ListChild (list="itemsList.product.grid.customer.info", weight="31")
+ # @ListChild (list="itemsList.product.list.customer.info", weight="2000")
+ #}
+
+{% if this.product.isShowStockWarning() %}
+  <span class="product-items-available low-stock">{{ t('Only X left in stock', {'X': this.product.getAvailableAmount()}) }}</span>
+{% endif %}

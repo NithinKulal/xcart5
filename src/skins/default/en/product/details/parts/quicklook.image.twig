@@ -1,0 +1,8 @@
+{##
+ # Product details image block
+ #
+ # @ListChild (list="product.details.quicklook", weight="20")
+ #}
+<div class="image{% if not this.product.hasImage() %} empty{% endif %}">
+  {{ widget_list('product.details.quicklook.image') }}
+</div>

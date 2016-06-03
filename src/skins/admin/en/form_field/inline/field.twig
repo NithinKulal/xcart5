@@ -1,0 +1,9 @@
+{##
+ # Display field
+ #}
+
+{% for f in this.getFields() %}
+  <div class="{{ this.getFieldClassName(f) }}">
+    {{ f.widget.display() }}
+  </div>
+{% endfor %}

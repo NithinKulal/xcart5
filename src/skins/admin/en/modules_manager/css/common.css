@@ -1,0 +1,629 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Modules modify page styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.modules-list .status
+{
+  white-space: nowrap;
+}
+
+.modules-list td.active {
+  text-align: center;
+}
+
+.modules-list td.enabled {
+  font-weight: bold;
+}
+
+table.data-table.modules-list tr.module-item td.module-main-section a.module-name {
+  text-decoration: none;
+  color: #0055bd;
+}
+
+table.data-table.modules-list tr.module-item td.module-main-section a.module-name:hover {
+  text-decoration: underline;
+}
+
+table.data-table.modules-list tr.module-item td.module-main-section a.fa {
+  font-size: 12px;
+  text-decoration: none;
+  margin-left: 3px;
+}
+
+table.data-table.modules-list tr.module-item td.module-main-section a.module-name.no-link,
+table.data-table.modules-list tr.module-item td.module-main-section a.module-name.no-link:hover {
+  color: #333333;
+  text-decoration: none;
+}
+
+.modules-list tr.module-item td {
+  padding: 20px 0 20px 20px;
+  border-top: solid 1px #e5e5e5;
+  border-bottom: 0;
+  border-right: 0;
+  border-left: 0;
+  vertical-align: top;
+}
+
+.modules-list tr.module-item.active td
+{
+  background-color: #fffecd;
+  transition: background 1s;
+}
+
+.modules-list tr.module-item.active.non-active td
+{
+  transition: background 20s linear 5s;
+}
+
+.modules-list tr.module-item.active.non-active td {
+  background-color: #ffffff;
+}
+
+.modules-list tr:last-child td {
+  border-bottom: 0;
+}
+
+.modules-list tr.line.module-item.remove-mark {
+  opacity: 0.4;
+}
+
+.modules-list.data-table th,
+  .modules-list.data-table td
+{
+  padding: 20px 10px;
+}
+
+.modules-list tr td.icon {
+  width: 100px;
+  height: 120px;
+}
+
+.modules-list tr td.module-main-section {
+  width: 36%;
+  white-space: normal;
+}
+
+.modules-list tr td.module-description-section {
+  width: 66%;
+  white-space: normal;
+  vertical-align: middle;
+}
+
+.modules-list tr td.module-main-section .install label.install-module-button {
+  display: inline-block;
+  border-radius: 4px;
+  height: 26px;
+  white-space: nowrap;
+  vertical-align: top;
+  line-height: 19px;
+  padding: 3px 0 0 13px;
+  min-width: 89px;
+  font-size: 14px;
+  color: #0e55a6;
+  background-color: #eff8fe;
+  cursor: pointer;
+}
+
+.modules-list .name {
+  font-size: 20px;
+}
+
+.module-tags-list li {
+  display: inline-block;
+  height: 26px;
+  background: #dff2ff;
+  color: #2c537d;
+  margin: 0 10px 0 0;
+  border-radius: 10px;
+  line-height: 20px;
+  padding: 4px 31px 0 10px;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+table.data-table td .module-tags-list li a {
+  text-decoration: none;
+  color: #0062A0;
+}
+
+table.data-table td .module-tags-list li a:hover {
+  text-decoration: none;
+  color: #d16627;
+}
+
+.module-tags-list li .circle {
+  border-radius: 7px;
+  width: 7px;
+  height: 7px;
+  background: #ffffff;
+  display: inline-block;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.modules-list .description {
+  font-size: 14px;
+  line-height: 20px;
+  margin-right: 20px;
+}
+
+.modules-list tr.disabled .addon-icon img {
+  opacity: 0.2;
+}
+
+.target-addons-list-marketplace .modules-list .version,
+.target-addons-list-marketplace .modules-list .note
+{
+  font-size: 12px;
+  color: #5c88a8;
+  margin-bottom: 15px;
+  margin-top: 10px;
+}
+
+.modules-list .author {
+  font-size: 14px;
+  margin-top: 10px;
+  margin-right: 20px;
+  margin-bottom: 10px;
+}
+
+.modules-list .author span {
+  font-size: 14px;
+  color: #8f8f8f;
+}
+
+.modules-list .actions {
+  margin-top: 10px;
+}
+
+.modules-list .actions li {
+  vertical-align: middle;
+  margin: 0;
+  height: 32px;
+  display: table-cell;
+}
+
+.modules-list .actions li a span {
+  font-size: 13px;
+}
+
+.modules-list .actions li.main-action div.table-value {
+  display: table-cell;
+  line-height: normal;
+  width: 19px;
+}
+
+.modules-list .actions li.main-action .fa {
+  font-size: 18px;
+  padding-top: 2px;
+}
+
+.modules-list .actions li.main-action .fa.fa-exclamation-circle {
+  color: #ffee55;
+}
+
+.modules-list .actions li.main-action .switcher {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.modules-list .actions li.main-action .input-field-wrapper.switcher.enabled .widget,
+.modules-list .actions li.main-action .input-field-wrapper.switcher.disabled .widget {
+  line-height: initial;
+}
+
+.modules-list .actions li.main-action .switcher .tooltip-main {
+  padding: 0;
+}
+
+.modules-list .actions li.main-action .separator {
+  display: table-cell;
+  width: 18px;
+  height: 22px;
+  background-image: url(../../items_list/model/table/images/line-separator.png);
+  background-repeat: repeat-y;
+  background-position: center;
+  margin-right: 9px;
+  margin-left: 5px;
+}
+
+.modules-list tr.disabled .actions li.uninstall-action {
+  background-color: #ffffff;
+}
+
+.modules-list tr.disabled .actions li.uninstall-action div {
+  line-height: 14px;
+}
+
+.modules-list .actions li a.settings {
+  background-image: url(../../images/icon-settings.svg);
+  background-repeat: no-repeat;
+  background-size: 16px;
+  background-position: 12px center;
+}
+
+.modules-list .actions li a span {
+  color: inherit;
+}
+
+.modules-list .actions li a.settings span {
+  margin-left: 22px;
+}
+
+.modules-list .actions li.uninstall-action {
+  padding-left: 8px;
+}
+
+.modules-list .actions li.uninstall-action * {
+  font-size: 18px;
+  color: #0055bd;
+}
+
+.modules-list .actions li input[type='checkbox'] {
+  display: none;
+}
+
+.modules-list .actions li.uninstall-action button,
+.modules-list .actions li.uninstall-action button:hover {
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.modules-list .actions li.uninstall-action input {
+  display: none;
+}
+
+.modules-list .actions li {
+  padding-right: 5px;
+}
+
+.modules-list .actions li:first-child {
+  padding-right: 0;
+}
+
+.modules-list .actions li label {
+  padding-bottom: 2px;
+  position: relative;
+  float: left;
+  padding-left: 20px;
+  line-height: 20px;
+}
+
+.modules-list tr.module-item.disabled .actions li:not(.no-disable) a {
+  cursor: not-allowed;
+  pointer-events: none;
+  -moz-opacity: .25;
+  -khtml-opacity: .25;
+  -webkit-opacity: .25;
+  opacity: .25;
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=25);
+  filter: alpha(opacity=25);
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+.modules-list .module-url {
+  font-size: 12px;
+  float: left;
+}
+
+.modules-list .module-url a {
+  font-size: 12px;
+}
+
+.modules-list .module-url a .icon {
+  font-size: 10px;
+  margin-left: 3px;
+}
+
+.modules-list .module-url .url-value {
+  color: #8f8f8f;
+  font-size: 12px;
+}
+
+.modules-list .icon-container {
+  position: relative;
+}
+
+.modules-buttons {
+  text-align: center;
+  width: 965px;
+}
+
+/* Notes */
+
+.target-addons-list-marketplace .modules-list .note {
+  width: 400px;
+}
+
+.marketplace-landing .modules-list .note {
+  width: 265px;
+}
+
+.modules-list .note,
+.modules-list .note div {
+  font-size: 14px !important;
+  line-height: 24px;
+}
+
+.target-addons-list-marketplace .modules-list .note,
+.target-addons-list-marketplace .modules-list .note div
+{
+  padding: 10px 20px;
+  white-space: normal;
+}
+
+.target-addons-list-marketplace .modules-list .note.dependencies,
+.target-addons-list-marketplace .modules-list .note.version.error,
+.target-addons-list-marketplace .modules-list .note div,
+.target-addons-list-marketplace .modules-list .xcn-module-notice
+{
+  background-color: #f7eee4;
+  color: #7a2e1d;
+  border: solid 1px #d6bda5;
+}
+
+.modules-list .note div
+{
+  padding: 0;
+  border: none;
+}
+
+.target-addons-list-marketplace .modules-list .note.version.upgrade
+{
+  background-color: #e4f7e4;
+  color: #466444;
+  border: solid 1px #a8d6a5;
+}
+
+.marketplace-landing .modules-list .note.version.upgrade {
+  display: none;
+}
+
+.icon-container .addon-icon .addon-icon
+{
+  width: 84px;
+  height: 84px;
+}
+
+.icon-container .addon-icon .addon-default-icon {
+  background: transparent url(../../images/addon_default.png) left top no-repeat;
+}
+
+.marketplace-wrapper {
+  width: 916px;
+}
+
+.main-text {
+  margin: 35px 0 200px 0;
+  text-align: center;
+  width: 916px;
+}
+
+.main-text .no-modules-found {
+  font-size: 24px;
+
+}
+
+.main-text .clarify-text {
+  margin: 15px 0 0 0;
+  font-size: 16px;
+  color: #51799a;
+}
+
+.target-addons-list-installed .list-pager {
+  width: 940px;
+}
+
+.addons-filters {
+  background: #f0f0f0;
+  width: 1024px;
+  position: relative;
+  min-height: 60px;
+}
+
+.addons-filters .features {
+  float: left;
+}
+
+/**
+ * Addons list control panel
+ */
+
+.addons-filters .addons-selectors {
+  display: inline-block;
+  position: relative;
+  top: 8px;
+  left: 10px;
+}
+
+.addons-filters .addons-selectors select {
+  width: 220px;
+}
+
+.addons-filters .addons-sort-box,
+.addons-filters .price-filter-box,
+.addons-filters .tag-filter-box,
+.addons-filters .vendor-filter-box
+{
+  display: inline-block;
+  margin-right: 16px;
+}
+
+.addons-filters .table-label,
+.addons-filters .star {
+  display: none;
+}
+
+.addons-filters .chosen-container a.chosen-single {
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left: 20px;
+}
+
+.addons-filters a.chosen-single strong {
+  font-weight: normal;
+  float: left;
+  padding-right: 5px;
+}
+
+.addons-filters .chosen-container-active.chosen-with-drop .chosen-single div b,
+.chosen-container-single .chosen-single div b
+{
+  margin-top: 2px;
+}
+
+.addons-filters .chosen-container-single .chosen-drop {
+  margin-top: -5px;
+}
+
+.addons-sort .addons-sort-box.text-selector {
+  display: block;
+  padding-top: 10px;
+}
+
+.addons-sort .addons-sort-box.text-selector li {
+  display: inline-block;
+}
+
+.addons-sort .addons-sort-box.text-selector li a {
+  line-height: 22px;
+  display: block;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  color: #637b8e;
+  padding: 0 6px;
+}
+
+.addons-sort .addons-sort-box.text-selector li.selected a {
+  color: #fff;
+  background-color: #a2bbda;
+  text-decoration: none;
+}
+
+/* Search box */
+
+.target-addons-list-marketplace .addons-search-box {
+  display: inline-block;
+  position: absolute;
+  right: -12px;
+  top: 12px;
+  z-index: 1;
+}
+
+.banner-info .addons-search-box {
+  right: -55px;
+  top: 0;
+}
+
+.addons-search-box .search-form .substring-value {
+  padding: 0;
+  display: inline-block;
+}
+
+.addons-search-box .search-form button[type="submit"] {
+  background: transparent url(../images/search-modules-background.png) no-repeat center center;
+  margin: 0;
+  padding: 0;
+  width: 30px;
+  border: 0;
+  border-radius: 0 10px 10px 0;
+  position: relative;
+  left: -40px;
+}
+
+.addons-search-box .search-form input#substring {
+  padding: 4px 16px;
+  vertical-align: middle;
+  font-family: arial, helvetica, sans-serif;
+  font-size: 16px;
+  width: 226px;
+  border-radius: 20px;
+  border: 1px solid #a3a3a3;
+}
+
+.addons-search-box .search-form input#substring.default-value {
+  font-style: italic;
+  color: #a5a5a5;
+}
+
+table.modules-list tr.not-available .xcn-module-notice {
+  background-color: #F5F5F5;
+  color: #AAAAAA;
+  border-color: #CCCCCC;
+}
+
+table.modules-list tr.avail-for-senior-plans .xcn-module-notice {
+  background-color: #E4F7E4;
+  color: #466444;
+  border-color: #A7D6A5;
+}
+
+table.modules-list .module-main-section .xcn-module-notice span {
+  font-size: 14px;
+}
+
+
+table.modules-list .module-main-section .or-activate {
+  margin-top: 10px;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+table.modules-list .module-main-section button.activate-key,
+table.modules-list .module-main-section button.enter-license-key {
+  border: none;
+  background: none;
+  padding: 0;
+  height: 20px;
+  min-height: 20px;
+  vertical-align: top;
+  outline: none;
+  box-shadow: none;
+}
+
+table.modules-list .module-main-section button.activate-key:active,
+table.modules-list .module-main-section button.enter-license-key:active {
+  box-shadow: none;
+}
+
+table.modules-list .module-main-section button.activate-key span,
+table.modules-list .module-main-section button.enter-license-key span {
+  font-size: 14px;
+  text-decoration: underline;
+  color: #0055bd;
+  line-height: 24px;
+}
+
+.or-activate {
+  font-size: 14px;
+  line-height: 24px;
+  margin-top: 5px;
+}
+
+.or-activate button {
+  margin-left: 5px;
+}
+
+.marketplace-landing .addons-pager-list-wrapper {
+  display: none;
+}
+
+.input-field-wrapper.switcher.read-only .widget .normal.fa {
+  display: none;
+}
+
+.input-field-wrapper.switcher.read-only .widget .warning.fa {
+  display: inline-block;
+}

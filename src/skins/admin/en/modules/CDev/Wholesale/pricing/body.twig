@@ -1,0 +1,17 @@
+{##
+ # Wholesales list
+ #}
+
+{% if this.isWholesalePricesEnabled() %}
+
+{% form 'XLite\\Module\\CDev\\Wholesale\\View\\Form\\WholesalePrices' %}
+
+  {{ widget('XLite\\Module\\CDev\\Wholesale\\View\\ItemsList\\WholesalePrices') }}
+
+{% endform %}
+
+{% else %}
+
+{{ t('Wholesale prices are disabled for this product because the product is on sale.') }}
+
+{% endif %}

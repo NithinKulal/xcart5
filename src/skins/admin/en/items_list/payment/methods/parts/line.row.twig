@@ -1,0 +1,9 @@
+{##
+ # Payment methods list : line : row
+ #
+ # @ListChild (list="payment.methods.list.line", weight=200)
+ #}
+
+<div class="line-row clearfix">
+  {{ widget_list('payment.methods.list.row', method=this.method) }}
+</div>

@@ -1,0 +1,77 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * User files styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+.orders-files ul,
+.orders-files ul li
+{
+  padding: 0px;
+  margin: 0px;
+  list-style: none;
+  background: transparent none;
+}
+
+.orders-files .order {
+  padding-top: 5px;
+  padding-bottom: 35px;
+}
+
+.orders-files .order .info {
+  padding-top: 4px;
+  padding-left: 4px;
+  vertical-align: middle;
+}
+
+.orders-files .order .info a {
+  text-decoration: underline;
+  vertical-align: middle;
+}
+
+.orders-files .order .info span {
+  color: #4b7797;
+  vertical-align: middle;
+}
+
+.orders-files .files {
+  border: 1px solid #dfdfdf;
+  background-color: #f4f4f4;
+  padding: 10px;
+}
+
+.orders-files .files li {
+  padding: 4px 5px 9px;
+}
+
+.orders-files .files li .row {
+  margin: 0;
+}
+
+.orders-files .files li .row,
+.orders-files .files li .row *
+{
+  vertical-align: middle;
+}
+
+.orders-files .files .mime-icon {
+  margin-right: 4px;
+}
+
+.orders-files .files a {
+  text-decoration: underline;
+}
+
+.orders-files .files .size {
+  color: #8f8f8f;
+  padding-left: 7px;
+  font-size: 12px;
+}
+
+.orders-files .files .description {
+  font-size: 12px;
+  padding-left: 25px;
+  line-height: normal;
+}

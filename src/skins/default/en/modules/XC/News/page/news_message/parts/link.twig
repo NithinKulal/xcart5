@@ -1,0 +1,14 @@
+{##
+ # News message page template
+ #
+ # @ListChild (list="newsMessage.details", weight="400")
+ #}
+
+<div class="archive-link">
+  {% if this.getPreviousURL(this.newsMessage) %}
+    <a href="{{ this.getPreviousURL(this.newsMessage) }}">{{ t('Previous news') }}</a>
+  {% endif %}
+  {% if this.getNextURL(this.newsMessage) %}
+    <a href="{{ this.getNextURL(this.newsMessage) }}">{{ t('Next news') }}</a>
+  {% endif %}
+</div>

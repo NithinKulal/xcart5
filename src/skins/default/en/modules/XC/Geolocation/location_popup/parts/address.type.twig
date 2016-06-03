@@ -1,0 +1,11 @@
+{##
+ # Location popup : address : zipcode
+ #
+ # @ListChild (list="location-select.address", weight="40")
+ #}
+
+{% if this.hasField('type') %}
+  <li class="type">
+    {{ widget('\\XLite\\View\\FormField\\Select\\AddressType', fieldName='address_type', value=this.getType(), label=t('Type')) }}
+  </li>
+{% endif %}

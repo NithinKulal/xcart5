@@ -1,0 +1,280 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Credit card styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+/*
+.cc-form-container .default-hide {
+    display: none !important;
+}
+
+.cc-form-container div.container {
+    width: 267px;
+    border-radius: 10px;
+}
+
+.cc-form-container div.content .cc-form {
+    position: relative;
+}
+
+.cc-form-container div.content .cc-form#returnform {
+    background: none;
+}
+
+.cc-form-container div.content div.header p.muted {
+    margin: 4px 0px 0px 0px;
+}
+
+.cc-form-container div.content div.header h2 {
+    margin: 0;
+}
+
+.cc-form-container div.content div.payment-warning,
+.cc-form-container div.content div.payment-method-name,
+.cc-form-container div.content div.payment-total,
+.cc-form-container div.content div.billing-address,
+.cc-form-container div.content div.title {
+    display: none;
+}
+
+.cc-form-container .content input {
+}
+
+.cc-form-container div.content input,
+.cc-form-container div.content select {
+    color: #555;
+    line-height: normal;
+    margin: 1px 1px 3px 1px !important;
+    padding: 4px 6px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+
+.cc-form-container div.content input:focus,
+.cc-form-container div.content select:focus {
+    margin: 1px 1px 3px 1px !important;
+    border-width: 1px;
+}
+
+.cc-form-container div.content div.cardType {
+    position: absolute;
+    right: 0;
+}
+
+.cc-form-container div.content div.cardType div.btn-group {
+    width: 70px;
+    height: 40px;
+}
+
+.cc-form-container div.content div.cardType div.value select#card_type {
+    display: none;
+}
+
+.cc-form-container div.content div.cardType .btn-group.open .dropdown-toggle {
+    box-shadow: none;
+}
+
+.cc-form-container div.content div.cardType a.icon {
+    padding: 0;
+    background: none;
+    font-size: 0px;
+    overflow: hidden;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.cc-form-container div.content div.cardType a.icon.blank {
+    opacity: 0.5;
+}
+
+.cc-form-container div.content div.cardType a.icon.unknown:after {
+    content: "?";
+    font-size: 14px;
+    margin-right: 20px;
+}
+
+.cc-form-container div.content div.cardType a.icon span.card {
+    display: block;
+    width: 140px;
+    height: 70px;
+    zoom: 0.5;
+    -moz-transform: scale(0.5);
+    -moz-transform-origin: 0 0 0;
+}
+
+.cc-form-container div.content div.cardType a.icon.unknown span.card,
+.cc-form-container div.content div.cardType a.icon.blank span.card {
+    display: none;
+}*/
+
+/*
+.cc-form-container div.content div.cardNumber input {
+    max-width: 320px;
+}
+
+.cc-form-container div.content div.cardExpire div.title {
+    margin-top: 14px;
+}
+
+.cc-form-container div.content div.cardExpire div.top-line div.top-text {
+    font-size: 10px;
+    padding-left: 100px;
+}
+
+.cc-form-container div.content div.cardExpire div.bottom-line div.left-text{
+    font-size: 10px;
+    line-height: 12px;
+    float: left;
+    padding-left: 40px;
+    padding-right: 10px;
+    width: 85px;
+}
+
+.cc-form-container div.content div.cardExpire div.month-container {
+    float: left;
+    padding-right: 10px;
+}
+
+.cc-form-container div.content div.cardExpire div.year-container{
+}
+
+.cc-form-container div.content div.cardExpire div.year-container select{
+    width: auto;
+}
+
+.cc-form-container div.content div.cardExpire select {
+    margin-bottom: 0;
+    width: 55px;
+}
+
+.cc-form-container div.content div.cardName {
+    height: 55px;
+}
+
+.cc-form-container div.content div.cardName input {
+    width: 224px !important;
+}
+
+.cc-form-container div.content div.cardCVV2 {
+    height: 75px;
+    display: none;
+}
+
+.cc-form-container div.content div.cardCVV2 input {
+    float: left;
+    margin-right: 20px;
+    width: 60px !important;
+}
+
+.cc-form-container div.content div.cardCVV2 div.right-text {
+    font-size: 13px;
+    line-height: 16px;
+    color: #999;
+    width: 155px;
+    position: absolute;
+    bottom: 13px;
+}
+
+.cc-form-container div.content div.cardCVV2 div.right-text.blank {
+    display: none;
+}
+
+.cc-form-container div.content div.cardCVV2 div.icon-container {
+    width: 96px;
+    height: 96px;
+    position: absolute;
+    right: -3px;
+    bottom: 0px;
+}
+
+.cc-form-container div.content div.cardCVV2 div.icon-container div.icon.blank {
+    display: none;
+}
+
+.cc-form-container div.content div.cardCVV2 div.icon-container div.icon {
+    width: 128px;
+    height: 128px;
+    zoom: 0.75;
+    -moz-transform: scale(0.75);
+    -moz-transform-origin: 0 0 0;
+    overflow: hidden;
+}*/
+
+.cc-form-container div.content div.cardCVV2 div.icon-container div.icon.mc {
+    background: url(../../images/sc_types_sprite_embed.png) 0px 0px  no-repeat;
+}
+
+.cc-form-container div.content div.cardCVV2 div.icon-container div.icon.visa {
+    background: url(../../images/sc_types_sprite_embed.png) 0px -129px  no-repeat;
+}
+
+.cc-form-container div.content div.cardCVV2 div.icon-container div.icon.amex {
+    background: url(../../images/sc_types_sprite_embed.png) 0px -257px  no-repeat;
+}
+
+.cc-form-container div.content div.cardCVV2 div.icon-container div.icon.jcb,
+.cc-form-container div.content div.cardCVV2 div.icon-container div.icon.dc,
+.cc-form-container div.content div.cardCVV2 div.icon-container div.icon.bc,
+.cc-form-container div.content div.cardCVV2 div.icon-container div.icon.sw,
+.cc-form-container div.content div.cardCVV2 div.icon-container div.icon.cup,
+.cc-form-container div.content div.cardCVV2 div.icon-container div.icon.dicl {
+    background: url(../../images/sc_types_sprite_embed.png) 0px -385px  no-repeat;
+}
+/*
+.cc-form-container div.content div.buttonRow {
+    display: none;
+}
+
+.cc-form-container div.process-complete-label {
+    color: #999;
+    font-size: 0.7em;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.cc-form-container div.top-message-error {
+    position: absolute;
+    top: 0;
+    margin: 2px;
+    padding: 4px;
+    font-size: 0.8em;
+}
+
+.cc-form-container input.widget-error,
+.cc-form-container select.widget-error {
+    border-color: #b94a48;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.cc-form-container input.widget-error:focus,
+.cc-form-container select.widget-error:focus {
+    border-color: #953b39;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+}
+
+.cc-form-container p.error.inline-error {
+    display: none;
+}
+
+.cc-form-container input[type="text"].validation-error{
+    border-width: 1px !important;
+    border-color: #ff0000;
+}
+
+.cc-form-container .right-text span {
+    display: none;
+}
+
+.cc-form-container .right-text span.default-text {
+    display: inline;
+}
+*/

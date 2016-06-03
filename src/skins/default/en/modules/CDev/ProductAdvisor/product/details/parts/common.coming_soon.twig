@@ -1,0 +1,15 @@
+{##
+ # Quantity input box
+ #
+ # @ListChild (list="product.details.page.info", weight="19")
+ # @ListChild (list="product.details.quicklook.info", weight="19")
+ #}
+
+{% if this.product.isUpcomingProduct() %}
+  <span class="coming-soon-label">
+    {{ t('Coming soon') }}
+    {% if this.config.CDev.ProductAdvisor.cs_display_date %}
+      <span class="coming-soon-note">({{ t('expected on') }} <span class="coming-soon-date">{{ this.formatDate(this.product.getArrivalDate()) }}</span>)</span>
+    {% endif %}
+  </span>
+{% endif %}

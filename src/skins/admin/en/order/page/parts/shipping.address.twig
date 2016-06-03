@@ -1,0 +1,12 @@
+{##
+ # Order's shipping address
+ #
+ # @ListChild (list="order.shipping", weight="200")
+ #}
+{% if this.isShippingAddressVisible() %}
+  <div class="address">
+    <strong>{{ t('Shipping address') }}</strong>
+  
+    <div class="address-section shipping-address-section">{{ this.orderForm.displayComplexField('shippingAddress') }}</div>
+  </div>
+{% endif %}

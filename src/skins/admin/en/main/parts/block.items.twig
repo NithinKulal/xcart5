@@ -1,0 +1,18 @@
+{##
+ # Block content : items
+ #
+ # @ListChild (list="dashboard-center.welcome.content", weight="10")
+ #}
+
+<div class="step-items">
+  <ul>
+    <li class="item-store">{{ t('Specify your _store information_', {'URL': url('settings', '', {'page': 'Company'})})|raw }}</li>
+    <li class="item-products">{{ t('Add your _products_', {'URL': url('product_list')})|raw }}</li>
+    <li class="item-taxes">{{ t('Setup _address zones_ and _taxes_', {'URL1': url('zones'), 'URL2': this.getTaxesURL()})|raw }}</li>
+    <li class="item-shipping">{{ t('Configure _shipping methods_', {'URL': url('shipping_methods')})|raw }}</li>
+    <li class="item-payment">{{ t('Choose _payment methods_', {'URL': url('payment_settings')})|raw }}</li>
+    {{ widget_list('admin-welcome-items') }}
+  </ul>
+</div>
+
+

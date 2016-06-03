@@ -1,0 +1,41 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: ga_account
+    category: CDev\GoogleAnalytics
+    type: text
+    orderby: 100
+    value: ''
+    translations:
+      - code: en
+        option_name: 'Web Property ID'
+  - name: ga_tracking_type
+    category: CDev\GoogleAnalytics
+    type: 'XLite\Module\CDev\GoogleAnalytics\View\FormField\Select\TrackingType'
+    orderby: 200
+    value: 1
+    translations:
+      - code: en
+        option_name: 'What are you tracking'
+  - name: ga_code_version
+    category: CDev\GoogleAnalytics
+    type: 'XLite\Module\CDev\GoogleAnalytics\View\FormField\Select\CodeVersion'
+    orderby: 300
+    value: U
+    translations:
+      - code: en
+        option_name: 'Google Analytics code version'
+XLite\Model\LanguageLabel:
+  - { name: "Advanced statistics with Google Analytics", translations: [{ code: en, label: "Advanced statistics with Google Analytics" }] }
+  - { name: "Configure the Google Analytics module to view the advanced statistics", translations: [{ code: en, label: "Configure the Google Analytics module to view the advanced statistics" }] }
+  - { name: "A single domain", translations: [{ code: en, label: "A single domain" }] }
+  - { name: "One domain with multiple subdomains", translations: [{ code: en, label: "One domain with multiple subdomains" }] }
+  - { name: "Multiple top-level domains", translations: [{ code: en, label: "Multiple top-level domains" }] }
+  - { name: Traditional, translations: [{ code: en, label: Traditional }] }
+  - { name: 'Universal Analytics', translations: [{ code: en, label: 'Universal Analytics' }] }
+  - { name: 'Want help with SEO? Ask X-Cart Guru', translations: [{ code: en, label: 'Want help with SEO? <a href="{{url}}" target="_blank">Ask X-Cart Guru</a>' },{ code: ru, label: 'Нужна помощь с поисковой оптимизацией? <a href="{{url}}" target="_blank">Спросите гуру X-Cart</a>' }] }

@@ -1,0 +1,8 @@
+{##
+ # Location (breadcrumbs)
+ #}
+{% if this.isTitleVisible() and this.getTitle() %}
+<div id="breadcrumb">
+    {{ widget_list('layout.main.breadcrumb') }}
+</div>
+{% endif %}

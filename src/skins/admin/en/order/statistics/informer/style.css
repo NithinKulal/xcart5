@@ -1,0 +1,155 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Orders mini informer styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+.order-statistics-mini-informer .header {
+  background-color: #fff1c4;
+  color: #5c5643;
+  padding: 7px 8px 7px 10px;
+  font-size: 13px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  cursor: pointer;
+}
+.order-statistics-mini-informer .header svg {
+  width: 13px;
+  height: 13px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+.order-statistics-mini-informer .header svg path {
+  fill: #5c5643;
+}
+.order-statistics-mini-informer .header .fa {
+  float: right;
+  font-size: 25px;
+  margin-top: -3px;
+}
+.order-statistics-mini-informer .content {
+  background-color: #fefaee;
+  padding: 8px 12px 10px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  margin-bottom: 20px;
+}
+.order-statistics-mini-informer .content .label {
+  color: #716c5b;
+  font-weight: lighter;
+  font-size: 12px;
+  padding: 0;
+}
+.order-statistics-mini-informer .content .value {
+  font-size: 12px;
+}
+.order-statistics-mini-informer .content .dynamic-icon {
+  float: right;
+  width: 19px;
+  height: 19px;
+  text-align: center;
+}
+.order-statistics-mini-informer .content .dynamic-icon svg {
+  width: 80%;
+  height: 80%;
+}
+.order-statistics-mini-informer .content .order-statistics.day .dynamic-icon svg {
+  width: 100%;
+  height: 100%;
+}
+.order-statistics-mini-informer .content .dynamic-icon.down svg path {
+  fill: #F37126;
+}
+.order-statistics-mini-informer .content .dynamic-icon.up svg path {
+  fill: #79C35A;
+}
+.order-statistics-mini-informer .content .previous {
+  margin: 1px;
+}
+.order-statistics-mini-informer .content .previous span.label,
+.order-statistics-mini-informer .content .previous span.value,
+.order-statistics-mini-informer .content .previous span {
+  font-size: 10px;
+  color: #999999;
+}
+.order-statistics-mini-informer .content .day .label {
+  font-size: 18px;
+}
+.order-statistics-mini-informer .content .day .value {
+  font-size: 17px;
+}
+.order-statistics-mini-informer .content .day .revenue {
+  margin-top: -2px;
+}
+.order-statistics-mini-informer .content .week {
+  border-top: 1px solid #F8F0D5;
+  margin-top: 9px;
+  padding-top: 5px;
+}
+.order-statistics-mini-informer .content .month {
+  border-top: 1px solid #F8F0D5;
+  margin-top: 5px;
+  padding-top: 5px;
+}
+.order-statistics-mini-informer .content .year {
+  border-top: 1px solid #F8F0D5;
+  margin-top: 5px;
+  padding-top: 5px;
+}
+.order-statistics-mini-informer .content .lifetime {
+  border-top: 1px solid #F8F0D5;
+  margin-top: 5px;
+  padding-top: 11px;
+}
+.order-statistics-mini-informer .content .week .orders,
+.order-statistics-mini-informer .content .week .revenue,
+.order-statistics-mini-informer .content .month .orders,
+.order-statistics-mini-informer .content .month .revenue,
+.order-statistics-mini-informer .content .year .orders,
+.order-statistics-mini-informer .content .year .revenue,
+.order-statistics-mini-informer .content .lifetime .orders,
+.order-statistics-mini-informer .content .lifetime .revenue {
+  display: inline-block;
+}
+.order-statistics-mini-informer .content .week .orders .label,
+.order-statistics-mini-informer .content .week .revenue .label,
+.order-statistics-mini-informer .content .month .orders .label,
+.order-statistics-mini-informer .content .month .revenue .label,
+.order-statistics-mini-informer .content .year .orders .label,
+.order-statistics-mini-informer .content .year .revenue .label {
+  color: #000;
+}
+.order-statistics-mini-informer .content .week .revenue svg,
+.order-statistics-mini-informer .content .month .revenue svg
+.order-statistics-mini-informer .content .year .revenue svg {
+  width: 14px;
+  height: 14px;
+}
+.order-statistics-mini-informer .content .week .previous,
+.order-statistics-mini-informer .content .month .previous,
+.order-statistics-mini-informer .content .year .previous {
+  margin-top: 0;
+}
+.order-statistics-mini-informer .content .lifetime .label {
+  font-size: 18px;
+}
+.order-statistics-mini-informer .content .lifetime .value {
+  font-size: 17px;
+}
+.order-statistics-mini-informer .content .lifetime .revenue .label {
+  color: #000;
+}
+.order-statistics-mini-informer.collapsed .order-statistics.week,
+.order-statistics-mini-informer.collapsed .order-statistics.month,
+.order-statistics-mini-informer.collapsed .order-statistics.year,
+.order-statistics-mini-informer.collapsed .order-statistics.lifetime {
+  display: none;
+}
+.order-statistics-mini-informer.collapsed .header .fa.fa-angle-down {
+  display: none;
+}
+.order-statistics-mini-informer.expanded .header .fa.fa-angle-right {
+  display: none;
+}

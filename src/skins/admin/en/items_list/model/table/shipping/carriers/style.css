@@ -1,0 +1,128 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Carrier list
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+.items-list-table table.list .action .warning {
+  text-align: center;
+  width: 34px;
+}
+.items-list-table table.list .action .warning a {
+  font-size: 18px;
+  text-decoration: none;
+  color: #e4a037;
+  margin-left: 4px;
+}
+.items-list-table.shipping-carriers table.list tbody.lines td.actions.right .tooltip-main {
+  padding: 0;
+}
+.items-list-table.shipping-carriers table.list tbody.lines td.actions.left .tooltip-main {
+  padding-left: 10px;
+  padding-right: 6px;
+  width: 31px;
+  padding-top: 1px;
+}
+.items-list-table.shipping-carriers table.list tbody.lines td.actions.right .action {
+  display: block;
+  float: right;
+}
+.test-mode .input-field-wrapper.switcher.enabled .widget:after {
+  content: '';
+  background: transparent url(../../../../../images/test_mode.svg) no-repeat center top;
+  background-size: 10px 10px;
+  width: 12px;
+  height: 12px;
+  display: block;
+  position: absolute;
+  top: 12px;
+  left: 1px;
+}
+.test-mode .input-field-wrapper.switcher.enabled i {
+  /*display: none;*/
+}
+.items-list-table.shipping-carriers table.list tbody.lines td.actions .separator {
+  top: 1px;
+}
+.cell.name .description {
+  white-space: normal;
+  line-height: 14px;
+  max-width: 600px;
+  margin-top: 4px;
+  font-size: 12px;
+}
+
+.items-list-table table.list tbody tr{
+  height: 68px;
+}
+.items-list-table table.list tbody td.name div.description {
+  color: #8f8f8f;
+}
+.items-list-table table.list thead th.deliveryTime {
+  padding-left: 28px;
+}
+.cell.deliveryTime .view.editable {
+  width: 254px;
+}
+.cell.deliveryTime .dash {
+  margin-left: 11px;
+}
+.items-list-table table.list thead th.handlingFee {
+  text-align: right;
+}
+.cell.handlingFee {
+  text-align: right;
+}
+.cell.handlingFee .view.editable {
+  width: 124px;
+  text-align: right;
+}
+.cell .dash {
+  color: #8f8f8f;
+  cursor: default;
+}
+.cell.name .cell .image {
+  display: inline-block;
+  margin-right: 21px;
+  margin-left: -1px;
+}
+.cell.name .cell .image img {
+  height: 42px;
+}
+.cell.handlingFee .tooltip-main {
+  display: inline-block;
+  margin-right: 7px;
+}
+.cell.handlingFee .tooltip-main .tooltip-caption {
+  font-size: 14px;
+  border-bottom: none;
+  color: #333;
+}
+
+.items-list.shipping-carriers .list-header{
+  max-width: 1180px;
+
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+          align-items: center;
+}
+
+.items-list.shipping-carriers .automate-shipping-routine a{
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+.items-list.shipping-carriers .automate-shipping-routine .automate-shipping-routine-icon{
+  height: 22px;
+}

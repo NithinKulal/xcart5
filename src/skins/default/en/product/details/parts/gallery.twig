@@ -1,0 +1,17 @@
+{##
+ # Gallery widget
+ #}
+<div class="product-image-gallery"{% if this.isVisibleAsHidden() %} style="display:none;"{% endif %}>
+  <ul>
+    {% for i, image in this.product.getPublicImages() %}
+    <li {{ this.printTagAttributes(this.getListItemClassAttribute(i, image))|raw }}>
+      <a href="{{ image.getFrontURL() }}" rel="lightbox" rev="width: {{ image.getWidth() }}, height: {{ image.getHeight() }}" title="{{ image.getAlt() }}">{{ widget('\\XLite\\View\\Image', image=image, alt=this.getAlt(image, i), imageSizeType='XSThumbnail') }}</a>
+      {{ widget('\\XLite\\View\\Image', className='middle', style='display: none;', image=image, maxWidth=this.getWidgetMaxWidth(), maxHeight=this.getWidgetMaxHeight(), alt=this.getAlt(image, i)) }}
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<script type="text/javascript">
+var lightBoxImagesDir = '{{ this.getLightBoxImagesDir() }}';
+</script>

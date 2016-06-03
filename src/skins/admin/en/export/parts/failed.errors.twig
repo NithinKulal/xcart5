@@ -1,0 +1,16 @@
+{##
+ # Export failed section : errors
+ #
+ # @ListChild (list="export.failed.content", weight="100")
+ #}
+
+<div class="errors">
+  <ul>
+    {% for error in this.getErrors() %}
+      <li>
+        <h3>{{ error.title }}</h3>
+        <p>{{ error.body }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+</div>

@@ -1,0 +1,179 @@
+{##
+ # ____file_title____
+ #}
+
+<table cellspacing="1" cellpadding="5" class="settings-table">
+
+<tr>
+	<td colspan="2">
+    <h2>{{ t('Environment info') }}</h2>
+  </td>
+</tr>
+
+<tr>
+  <td class="setting-name">{{ t('Core version') }}:</td>
+  <td>{{ this.core_version|raw }}{% if this.answeredVersion %}&nbsp;&nbsp;({{ t('verified version') }}: {% if this.answeredVersionError %}<span class="star">{{ t('unknown') }}</span>{% else %}{{ this.answeredVersion }}{% endif %}){% endif %}</td>
+</tr>
+
+{% if this.answeredVersionError %}
+  <tr>
+    <td class="setting-name">{{ t('Loopback test') }}:</td>
+    <td><textarea name="answered_version" class="form-control" cols="80" rows="5" style="FONT-SIZE: 10px;" readonly>{{ this.answeredVersion }}</textarea></td>
+  </tr>
+{% endif %}
+
+<tr>
+  <td class="setting-name">{{ t('Installation directory') }}:</td>
+  <td>
+    {{ this.root_folder|raw }}
+    <a href="{{ this.getInstallationDirectoryHelpLink() }}" target="blank_" class="navigation-path">{{ t('How do I move X-Cart?') }}<i class="icon fa fa-external-link"></i></a>
+  </td>
+</tr>
+
+<tr>
+  <td class="setting-name">PHP:</td>
+  <td>
+    <span>{{ this.phpversion|raw }}</span>
+    <a href="{{ url('settings', 'phpinfo', {'page': 'Environment'}) }}" target="blank_" class="navigation-path">{{ t('details') }}</a>
+  </td>
+</tr>
+
+<tr>
+  <td class="setting-name">{{ t('MySQL server') }}:</td>
+  <td>
+    <span>{{ this.mysql_server|raw }}&nbsp;</span>
+    {% if this.innodb_support %}
+      <span>({{ t('InnoDB engine support enabled') }})</span>
+    {% endif %}
+    {% if not this.innodb_support %}
+      <span class="error-message">{{ t('Warning! InnoDB engine is not supported. It is required for software operation') }}</span>
+    {% endif %}
+  </td>
+</tr>
+
+<tr>
+  <td class="setting-name">{{ t('Web server') }}:</td>
+  <td>{{ this.web_server|raw }}</td>
+</tr>
+
+<tr>
+  <td class="setting-name">{{ t('Operating system') }}:</td>
+  <td>{{ this.os_type|raw }}</td>
+</tr>
+
+<tr>
+  <td class="setting-name">{{ t('XML parser') }}:</td>
+  <td>{{ this.xml_parser|raw }}</td>
+</tr>
+
+<tr>
+  <td class="setting-name">GDLib:</td>
+  <td>{% if this.gdlib %}{{ this.gdlib }}{% else %}<span class="error-message">{{ t('Not detected') }}</span><br /><b>{{ t('Warning!') }}</b> {{ t('PHP \'gd\' extension is not installed.') }}{% endif %}</td>
+</tr>
+
+<tr>
+  <td class="setting-name">{{ t('Translation driver') }}:</td>
+  <td>{{ this.getTranslationDriver() }}</td>
+</tr>
+
+<tr>
+  <td class="setting-name">{{ t('Curl version') }}:</td>
+  <td>{% if this.libcurl %}{{ this.libcurl|raw }}{% else %}<span class="star">{{ t('unknown') }}</span>{% endif %}</td>
+</tr>
+
+<tr>
+	<td colspan="2">
+    <h2>{{ t('Clean URL') }}</h2>
+  </td>
+</tr>
+
+<tr>
+  <td class='clean-url-setting' colspan="2">
+    {{ widget('\\XLite\\View\\FormField\\Input\\Checkbox\\OnOff', label=t('Enable clean URL'), labelHelp=t('More information about clean urls in X-Cart is available in ', {'url': this.getCleanURLArticleURL()}), onLabel='Enabled', offLabel='Disabled', fieldName='clean_url_flag', value=this.config.CleanURL.clean_url_flag) }}
+  </td>
+</tr>
+<tr>
+  <td class='clean-url-setting-error-msg' colspan="2">&nbsp;</td>
+</tr>
+<tr>
+  <td class='clean-url-setting-error-body' colspan="2">&nbsp;</td>
+</tr>
+
+<tr>
+	<td colspan="2">
+    <h2>{{ t('Curl options') }}</h2>
+  </td>
+</tr>
+
+</table>
+
+{% if this.libcurl or this.license_keys %}
+  {% include 'settings/base.twig' %}
+{% endif %}
+
+<table cellspacing="1" cellpadding="5" class="settings-table permissions-table">
+
+{% if not this.isWin() %}
+<tr>
+	<td colspan="2">
+    <h2>{{ t('Directories and files permissions') }}</h2>
+  </td>
+</tr>
+
+{% for k, v in this.check_dirs %}
+<tr class="{{ this.getRowClass(k, 'dialog-box', 'highlight') }}">
+	<td>{{ v.dir }}</td>
+	<td>
+		{% if v.error == '' %}<span class="success-message">OK</span>{% endif %}
+		{% if v.error == 'cannot_create' %}<span class="error-message">{{ t('cannot create directory') }}</span>{% endif %}
+    {% if v.error == 'cannot_chmod' %}<span class="error-message">{{ t('cannot set X permissions', {'X': this.getDirPermissionStr(v.dir)}) }}</span>{% endif %}
+		{% if v.error == 'wrong_permissions' %}
+      <span class="error-message">
+        {{ t('Incorrect permissions') }}
+      </span>
+    {% endif %}
+        {% if v.error == 'wrong_owner' %}<span class="error-message">{{ t('Incorrect owner of X directory', {'X': v.dir}) }}</span>{% endif %}
+        {% if v.error == 'wrong_permissions_subdirs' %}<span class="error-message">{{ t('subdirectories problems') }}</span>&nbsp;&nbsp;<a href="javascript:void(0);" onclick="jQuery('#details_{{ k }}').toggle();" class="navigation-path"><b>{{ t('details') }}</b>&nbsp;&gt;&gt</a>{% endif %}
+	</td>
+</tr>
+{% if v.error == 'wrong_permissions_subdirs' %}
+  <tr class="{{ this.getRowClass(k, 'dialog-box', 'highlight') }}" style="display : none" id="details_{{ k }}">
+      <td colspan="4">
+          &nbsp;{{ t('Incorrect permissions') }}<br />
+          {% for sid, subdir in v.subdirs %}
+              &nbsp;&nbsp;&nbsp;{{ subdir }}<br />
+          {% endfor %}
+      </td>
+  </tr>
+{% endif %}
+{% endfor %}
+
+{% for k, v in this.check_files %}
+<tr class="{{ this.getRowClass(k, 'dialog-box', 'highlight') }}">
+  <td>{{ v.file }}</td>
+  <td>
+ 		{% if v.error == '' %}<span class="success-message">OK</span>{% endif %}
+		{% if v.error == 'does_not_exist' %}<span class="error-message">{{ t('file does not exist') }}</span>{% endif %}
+		{% if v.error == 'cannot_chmod' %}<span class="error-message">{{ t('cannot set X permissions', {'X': this.getDirPermissionStr(v.file)}) }}</span>{% endif %}
+    {% if v.error == 'wrong_owner' %}<span class="error-message">{{ t('Incorrect owner of X file', {'X': v.file}) }}</span>{% endif %}
+	</td>
+</tr>
+{% endfor %}
+{% endif %}
+</table>
+
+{% if this.getWrongPermissions() %}
+  <div class="modified-files-section">
+    <div class="modified-files-section-frame">
+    <div class="description">{{ t('Permissions checking failed') }}</div>
+    <ul class="modified-files-block">
+      {% for command in this.getWrongPermissions() %}
+        <li>{{ command }}</li>
+      {% endfor %}
+    </ul>
+    <div class="modified-files-buttons">
+      {{ widget('XLite\\View\\Button\\CopyLink', copy=this.getWrongPermissionsAsString(), label=t('Copy to clipboard')) }}
+    </div>
+    </div>
+  </div>
+{% endif %}

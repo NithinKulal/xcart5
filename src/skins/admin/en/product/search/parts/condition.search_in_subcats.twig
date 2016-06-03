@@ -1,0 +1,8 @@
+{##
+ # Search in subcategories
+ #}
+
+<label for="search_in_subcategories">
+  <input type="checkbox" name="{{ this.fieldName }}" {% if this.value or this.mode != 'search' %} checked="checked" {% endif %} value="1" id="search_in_subcategories" />
+  {{ t('Including subcategories') }}
+</label>

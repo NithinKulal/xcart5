@@ -1,0 +1,19 @@
+{##
+ # Attachments list
+ #}
+<div class="product-attachments">
+  <ul>
+    {% for attachment in this.getAttachments() %}
+      <li>
+        <img src="{{ asset('images/spacer.gif') }}" alt="{{ t(attachment.storage.mimeName) }}" class="mime-icon {{ attachment.storage.getMimeClass() }}" />
+        <a href="{{ attachment.storage.getFrontURL() }}">{{ attachment.getPublicTitle() }}</a>
+        {% if attachment.storage.getSize() %}
+          <span class="size">({{ this.formatSize(attachment.storage.getSize()) }})</span>
+        {% endif %}
+        {% if attachment.getDescription() %}
+          <div class="description">{{ attachment.getDescription() }}</div>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</div>

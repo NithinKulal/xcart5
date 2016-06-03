@@ -1,0 +1,54 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Layout settings style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+.layout-settings.settings {
+  .flex-display();
+  border-bottom: 1px solid #d6d9dc;
+  margin-left: -25px;
+  padding-left: 25px;
+  width: ~"calc(100% + 25px + 25px)";
+
+  .preview {
+    margin: 0 23px;
+    .align-self(flex-end);
+    .flex-shrink(0);
+
+    img {
+      width: 360px;
+    }
+  }
+
+  .settings-list {
+    margin-left:37px;
+  }
+
+  span {
+    font-size: 16px;
+
+    &.template-name {
+      color: #f69c3b;
+    }
+  }
+
+  .layout-type-selector {
+    margin-bottom: 17px;
+  }
+
+  .settings-list > [class*='-switch'] {
+    margin-bottom: 18px;
+
+    & > * {
+      padding: 0;
+    }
+
+    .onoffswitch {
+      padding: 0;
+      height: auto;
+    }
+  }
+}

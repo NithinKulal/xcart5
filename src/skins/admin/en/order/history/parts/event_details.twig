@@ -1,0 +1,8 @@
+{##
+ # Order history event details
+ #
+ # @ListChild (list="order.history.base.events.details.info", weight="10")
+ #}
+<ul class="event-details">
+  {{ widget_list('order.history.base.events.details', event=this.event) }}
+</ul>

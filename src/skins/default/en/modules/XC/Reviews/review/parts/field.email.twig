@@ -1,0 +1,8 @@
+{##
+ # E-mail
+ #
+ # @ListChild (list="review.add.fields", weight="300")
+ #}
+<div class="form-item clearfix">
+  {{ widget('XLite\\View\\FormField\\Input\\Text\\Email', required='true', fieldName='email', placeholder=t('Email address'), value=this.review.email, label=t('Your email'), help=t('We use this email in case we need additional information on your review. We do not use it for any kind of mailing lists or spam subscriptions')) }}
+</div>

@@ -1,0 +1,25 @@
+{##
+ # Returns list table "profile" cell
+ #}
+
+{# <img src="images/spacer.gif" alt="{t(#Anonymous Customer#)}" class="anonym {if:entity.order.origProfile.anonymous} hidden{end:}" title="{t(#Anonymous Customer#)}" /> #}
+
+<div class="profile-box">
+
+  {% if this.isProfileRemoved(this.entity.order) %}
+
+    <span class="removed-profile-name">{{ this.getColumnValue(this.column, this.entity) }}</span>
+
+  {% else %}
+
+    <a href="{{ url('profile', '', {'profile_id': this.entity.order.origProfile.getProfileId()}) }}">{{ this.entity.order.profile.getName() }}</a>
+
+  {% endif %}
+
+  <span class="profile-email">(<a href="mailto:{{ this.entity.order.profile.getLogin() }}">{{ this.entity.order.profile.getLogin() }}</a>)</span>
+
+  {% if this.column.noWrap %}
+    <img src="{{ asset('images/spacer.gif') }}" class="right-fade" alt="" />
+  {% endif %}
+
+</div>

@@ -1,0 +1,12 @@
+{##
+ # Item body
+ #
+ # @ListChild (list="itemsList.product.list.customer.body", weight="40")
+ #}
+
+<td class="body">
+  <div class="quick-look-cell">
+    {{ widget_list('quicklook.info', type='nested') }}
+    {{ widget_list('info', type='nested', product=this.product) }}
+  </div>
+</td>

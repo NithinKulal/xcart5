@@ -1,0 +1,74 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Product class styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+div.product-class-select input[type="text"],
+div.product-class-select {
+  display: none;
+}
+
+div.product-class a {
+  float: right;
+  font-size: 14px;
+  margin: 27px 30px;
+  text-decoration: underline;
+}
+
+div.dialog-block span.dark {
+  color: #333;
+  font-size: 24px;
+}
+
+div.product-class div.product-class-select,
+div.product-class div.product-class-text {
+  float: left;
+  font-size: 24px;
+  color: #999;
+  padding: 23px 20px 25px;
+}
+
+div.product-class div.product-class-select {
+  padding: 17px 20px;
+}
+
+div.product-class div.product-class-select select {
+  width: 200px;
+}
+
+div.product-class div.product-class-select input {
+  width: 175px;
+}
+
+div.product-class div.product-class-select div.table-value {
+  padding: 5px;
+}
+
+div.product-class div.product-class-select button {
+  margin-left: 5px;
+}
+
+div.product-class .no-product-class {
+  border-top: 1px solid #dfe5e8;
+  margin: -10px 19px 0;
+  background: transparent url(../../images/lightbulb.png) 0 13px no-repeat;
+}
+
+div.product-class .no-product-class p {
+  margin: 10px 49px 11px 49px;
+  font-size: 14px;
+  line-height: 18px;
+  width: 600px;
+}
+
+div.product-class select option:last-child {
+  color: #6594bb;
+}
+
+div.dialog-block.attribute-classes {
+  margin-top: -40px;
+}

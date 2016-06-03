@@ -1,0 +1,23 @@
+{##
+ # Item name cell
+ #}
+
+<div class="item-name">
+  {% if this.entity.getURL() %}
+    <a href="{{ this.entity.getURL() }}" class="item-name">{{ this.getColumnValue(this.column, this.entity) }}</a>
+  {% endif %}
+  {% if not this.entity.getURL() %}
+    <span class="item-name">{{ this.getColumnValue(this.column, this.entity) }}</span>
+  {% endif %}
+  {% if not this.entity.product.isPersistent() %}
+    <span class="deleted-product-note">({{ t('deleted') }})</span>
+  {% endif %}
+</div>
+
+<ul class="subitem additional simple-list">
+  {{ widget_list('invoice.item.name', item=this.entity, displayVariative='1') }}
+</ul>
+
+{% if not this.isStatic() %}
+  {{ widget('\\XLite\\View\\OrderItemAttributes', orderItem=this.entity) }}
+{% endif %}

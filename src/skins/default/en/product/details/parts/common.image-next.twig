@@ -1,0 +1,11 @@
+{##
+ # Product details image box
+ #
+ # @ListChild (list="product.details.page.image.photo", weight="15")
+ #}
+{% if this.product.getImages() and this.product.countImages() != 1 %}
+  <a class="arrow right-arrow" href="javascript:void(0);"><img src="{{ asset('images/spacer.gif') }}" alt="Next image" /></a>
+{% endif %}
+{% if not (this.product.getImages() or this.product.countImages() == 1) %}
+  <span class="arrow right-arrow"></span>
+{% endif %}

@@ -1,0 +1,10 @@
+{##
+ # By last logged date
+ #
+ # @ListChild (list="profiles.search.dateTypes", weight="200")
+ #}
+
+<li class="date-type-l">
+  <input type="radio" name="{{ this.fieldName }}" value="L" id="date_type_l" {% if this.isDateTypeSelected('L') %} checked="checked" {% endif %} />
+  <label for="date_type_l">{{ t('Last logged in') }}</label>
+</li>

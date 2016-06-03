@@ -1,0 +1,48 @@
+{##
+ # Shipping rates list
+ #}
+<div class="shipping-selector-box">
+  {% if this.isDisplaySelector() %}
+    <ul class="shipping-rates selected">
+      <li>
+        <label title="">
+          <span class="value"></span>
+          <span class="rate-title"></span>
+          <div class="rate-description"></div>
+        </label>
+
+        <div class="clear"></div>
+        <span class="change">{{ t('Change') }}</span>
+      </li>
+    </ul>
+
+    {{ widget('XLite\\View\\FormField\\Select\\ShippingMethod', disableSearch='true', fieldName=this.getFieldName(), options=this.getMethodsAsList(), value=this.selectedMethod.methodId, fieldOnly='true', label=t('Shipping rates')) }}
+    <ul style="display:none" class="shipping-rates-data">
+      {% for rate in this.getRates() %}
+        <li id="shippingMethod{{ this.getMethodId(rate) }}">
+          <span class="name" title="{{ this.getMethodName(rate)|raw }}">{{ this.getMethodName(rate)|raw }}<img src="../images/spacer.gif" alt="" class="fade-a" /></span>
+          <span class="value">{{ widget('XLite\\View\\Surcharge', surcharge=this.getTotalRate(rate), currency=this.cart.getCurrency()) }}</span>
+          <span class="description">{{ this.getMethodDeliveryTime(rate) }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+
+  {% else %}
+    <ul class="shipping-rates">
+      {% for rate in this.getRates() %}
+        <li>
+          <div class="radio">
+            <label title="{{ this.getMethodName(rate) }}">
+              <input type="radio" id="method{{ this.getMethodId(rate) }}" name="{{ this.getFieldName() }}" value="{{ this.getMethodId(rate) }}" {% if this.isRateSelected(rate) %} checked="checked" {% endif %} />
+              <span class="value">{{ widget('XLite\\View\\Surcharge', surcharge=this.getTotalRate(rate), currency=this.cart.getCurrency()) }}</span>
+              <span class="rate-title">{{ this.getMethodName(rate)|raw }}</span>
+              {% if this.getMethodDeliveryTime(rate) %}
+                <div class="rate-description">{{ this.getMethodDeliveryTime(rate) }}</div>
+              {% endif %}
+            </label>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</div>

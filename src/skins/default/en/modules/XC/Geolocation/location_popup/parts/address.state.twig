@@ -1,0 +1,13 @@
+{##
+ # Location popup : address : state
+ #
+ # @ListChild (list="location-select.address", weight="20")
+ #}
+
+<li class="state">
+  {{ widget('\\XLite\\View\\FormField\\Select\\State', fieldName='address_state', value=this.getState(), style='field-required', label=t('State'), required='true', country=this.getCountryCode()) }}
+</li>
+
+<li class="state">
+  {{ widget('\\XLite\\View\\FormField\\Input\\Text', fieldName='address_custom_state', value=this.getOtherState(), label=t('State')) }}
+</li>

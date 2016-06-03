@@ -1,0 +1,7 @@
+{##
+ # Template for Upgrade access level selector
+ #}
+
+{% include 'form_field/select.twig' %}
+{{ widget('\\XLite\\View\\Tooltip', text=t(this.getHelpMessage()), isImageTag='true', className='help-icon') }}
+{{ widget('\\XLite\\View\\Button\\CheckForUpdates', label=t('Check for updates'), clear=this.false) }}

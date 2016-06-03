@@ -1,0 +1,11 @@
+{##
+ # Order customer note
+ #
+ # @ListChild (list="invoice.base", weight="60")
+ #}
+{% if this.order.getNotes() %}
+  <div class="customer-note">
+    <strong>{{ t('Customer note') }}:</strong>
+    <div>{{ this.order.getNotes() }}</div>
+  </div>
+{% endif %}

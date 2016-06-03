@@ -1,0 +1,52 @@
+{##
+ # ____file_title____
+ #}
+
+<div class="address-box">
+
+  {% if this.address.getAddressId() %}
+    <table width="100%">
+  
+      <tr>
+  
+        <td class="address-text">
+          {% include 'address/text/body.twig' %}
+        </td>
+  
+        <td valign="top" align="center">
+          {{ widget('\\XLite\\View\\Button\\DeleteAddress', addressId=this.address.getAddressId()) }}
+        </td>
+  
+      </tr>
+  
+      <tr>
+        <td colspan="2">&nbsp;</td>
+      </tr>
+  
+      <tr>
+  
+        <td>
+          {{ widget('\\XLite\\View\\Button\\ModifyAddress', label=t('Change'), addressId=this.address.getAddressId()) }}
+        </td>
+  
+        <td align="center">
+          {% if this.address.getIsBilling() %}
+            <img src="{{ asset('images/icon_billing.png') }}" title="{{ t('This address was used as a billing address during the recent purchase') }}" class="address-type-icon" alt="" />
+          {% endif %}
+          {% if this.address.getIsShipping() %}
+            <img src="{{ asset('images/icon_shipping.png') }}" title="{{ t('This address was used as a shipping address during the recent purchase') }}" class="address-type-icon" alt="" />
+          {% endif %}
+        </td>
+  
+      </tr>
+  
+    </table>
+  {% endif %}
+
+  {% if not this.address.getAddressId() %}
+    <div class="address-center-button">
+      {{ widget('\\XLite\\View\\Button\\AddAddress', label=t('Add new address'), style='main-button', profileId=this.profile_id) }}
+    </div>
+  {% endif %}
+
+</div>

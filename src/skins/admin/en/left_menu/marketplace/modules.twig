@@ -1,0 +1,38 @@
+{##
+ # Left side menu info node
+ #}
+<li {{ this.printTagAttributes(this.getNodeTagAttributes())|raw }}>
+  {% if this.getHeaderURL() %}
+  <a href="{{ this.getHeaderURL() }}">
+    <div class="notification-header">
+      {{ this.getIcon()|raw }}
+      <span>{{ this.getHeader() }}</span>
+      {% if this.getCounter() %}
+        <div class="counter">{{ this.getCounter() }}</div>
+      {% endif %}
+    </div>
+  </a>
+  {% else %}
+  <div class="notification-header">
+    {{ this.getIcon()|raw }}
+    <span>{{ this.getHeader() }}</span>
+    {% if this.getCounter() %}
+      <div class="counter">{{ this.getCounter() }}</div>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  <ul>
+    {% for message in this.getMessages() %}
+      <li>
+        <a href="{{ message.link|raw }}"{% if message.external %} target="_blank"{% endif %}>
+          <div class="message">
+            <img src="{{ message.image }}" class="addon-icon" alt="{{ message.title }}" />
+            <span class="title">{{ message.title }}</span>
+            <span class="description">{{ message.description }}</span>
+          </div>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</li>

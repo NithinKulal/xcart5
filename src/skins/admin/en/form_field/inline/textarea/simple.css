@@ -1,0 +1,14 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Simple textarea inline field
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.inline-textarea .view {
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+}

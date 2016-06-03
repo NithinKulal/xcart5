@@ -1,0 +1,71 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Apache/PHP settings
+#
+# @author    Qualiteam software Ltd <info@x-cart.com>
+# @copyright Copyright (c) 2010-present Qualiteam software Ltd <info@x-cart.com>. All rights reserved
+# @license   http://www.x-cart.com/license-agreement.html X-Cart 5 License Agreement
+# @link      http://www.x-cart.com/
+
+Options -Indexes
+DirectoryIndex cart.php index.php
+FileETag none
+#ErrorDocument 404 ____WEB_DIR____/cart.php?target=page_not_found
+
+<IfModule mod_rewrite.c>
+  RewriteEngine on
+
+  RewriteCond %{HTTP:Authorization} ^(.*)
+  RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
+
+  RewriteRule (^|/)\. - [F]
+
+  # Admin.php redirect rules.
+  # Uncomment underlaying lines and replace <new_admin> with your path to admin.php.
+  # Any requests to <new_admin>.php will be redirected to the real admin.php file.
+  # RewriteCond %{ENV:REDIRECT_STATUS} ^$
+  # RewriteRule ^admin\.php(.*)$ - [NS,NC,L,R=404]
+  # RewriteRule ^<new_admin>\.php(.*)$ admin.php$1 [NC,L,QSA]
+
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^sitemap.xml(\?.+)?$ cart.php?target=sitemap [NC,L,QSA]
+
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^((([/_a-z0-9-]+)/)?([_a-z0-9-]+)/)?([_a-z0-9-]+)(/?)(\.([_a-z0-9-]+))?$ cart.php?url=$5&last=$4&rest=$3&ext=$7 [NC,L,QSA]
+
+  #RewriteBase ____WEB_DIR____
+</IfModule>
+
+<IfModule mod_expires.c>
+  AddType application/vnd.ms-fontobject .eot
+  AddType application/font-sfnt .ttf
+  AddType application/font-sfnt .otf
+  AddType application/font-woff .woff
+
+  # Expire images/js/css header
+  ExpiresActive On
+  ExpiresDefault A0
+
+  # Images expires in 2 weeks
+  ExpiresByType image/png A1209600
+  ExpiresByType image/gif A1209600
+  ExpiresByType image/jpg A1209600
+  ExpiresByType image/jpeg A1209600
+  ExpiresByType image/ico A1209600
+  ExpiresByType image/x-icon A1209600
+
+  ExpiresByType image/svg+xml A1209600
+  ExpiresByType application/vnd.ms-fontobject A1209600
+  ExpiresByType application/x-font-ttf A1209600
+  ExpiresByType application/x-font-opentype A1209600
+  ExpiresByType application/x-font-woff A1209600
+
+  # CSS/JS now work with dynamic unique query string. 1 year expires
+  ExpiresByType text/css A31104000
+  ExpiresByType text/javascript A31104000
+  ExpiresByType application/javascript A31104000
+
+</IfModule>
+

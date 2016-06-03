@@ -1,0 +1,629 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+/**
+ * One page Checkout styles
+ */
+
+/**
+ * Checkout
+ */
+
+body.target-checkout #breadcrumb,
+body.target-checkout #header-area #header,
+body.target-checkoutPayment #breadcrumb,
+body.target-checkoutPayment #header-area #header {
+  display: none;
+}
+
+body.target-checkout,
+body.target-checkoutPayment {
+  overflow-x: hidden;
+
+  .header_bar-locale {
+    display: none;
+  }
+
+  #page {
+    padding-bottom: 0px !important;
+  }
+}
+
+.checkout-block {
+  .steps {
+    .step {
+      .step-title {
+        display: none; // UNDER REVIEW;
+        .arrow.left, .arrow.right {
+          display: none;
+        }
+
+        span.text {
+          .h2;
+        }
+      }
+
+      .step-box {
+        position: relative;
+        .subsection:first-of-type {
+          padding-left: 0;
+          padding-right: @rhythmic-unit;
+        }
+        .subsection {
+          padding-left: @rhythmic-unit;
+
+          .substep {
+            clear: both;
+          }
+
+          .substep + .substep {
+            margin-top: (@rhythmic-unit * 3);
+          }
+
+          @media(max-width: @screen-sm-max) {
+            padding-right: 0;
+            padding-left: 0;
+
+            &:first-of-type {
+              padding-right: 0;
+              padding-left: 0;
+            }
+          }
+        }
+      }
+
+      .head-h3 {
+        .flex-display();
+        .align-items(center);
+        float: left;
+        margin-bottom: 0px;
+        .bullet {
+          .flex-display();
+          .align-items(center);
+          .justify-content(center);
+          width: 20px;
+          height: 20px;
+          line-height: @rhythmic-unit;
+          margin-right: @rhythmic-unit;
+
+          &:after {
+            content: ".";
+          }
+        }
+      }
+    }
+  }
+
+  .address-book {
+    height: (@rhythmic-unit * 2);
+    .flex-display();
+    .align-items(center);
+  }
+
+  form{
+    padding-top: (@rhythmic-unit);
+    clear: both;
+
+    .form {
+      .clearfix;
+    }
+
+    .form li + li {
+      margin-top: @rhythmic-unit;
+    }
+
+    p.inline-error {
+      vertical-align: baseline;
+      position: absolute;
+    }
+  }
+
+  form.address {
+    li {
+      .floating-label;
+    }
+  }
+
+  .item-email {
+    .form-field-comment {
+      color: @color-light;
+      font-size: 10px;
+      line-height: @rhythmic-unit;
+    }
+
+    .subbox {
+      display: inline-block;
+    }
+
+
+    .subbox.checkbox {
+      margin-left: (2 * @rhythmic-unit);
+    }
+
+    .subnote {
+      font-size: 10px;
+      line-height: @rhythmic-unit;
+      width: 202px;
+      color: @color-light;
+    }
+
+    &.create-profile-warning .form-field-comment,
+    &.create-profile-note .form-field-comment,
+    .create-warning,
+    .create-note,
+    .create {
+      display: none;
+    }
+
+    &.create-profile-warning .create-warning,
+    &.create-profile-note .create-note,
+    &.allow-create-profile .create {
+      display: inline-block;
+    }
+
+    &.invalid {
+      .form-field-comment,
+      .create-profile-warning,
+      .create-profile-note,
+      .create {
+        display: none;
+      }
+    }
+  }
+
+  .item-email .create-warning a {
+    #rhythmless > .rhythm(@font-size-small);
+  }
+
+  .item-email .create label {
+    #rhythmless > .rhythm(@font-size-small);
+  }
+
+  .address-invisible .billing-address li.same-address {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  .address-book,
+  .recalculate
+  {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .address-book {
+    float: right;
+
+    @media(max-width: @screen-xs-max) {
+      float: left;
+      clear: left;
+    }
+  }
+
+  .address-invisible .address-book,
+  .address-invisible .address-item
+  {
+    display: none !important;
+  }
+
+  .shipping-selector-box .table-value {
+    display: none;
+    float: none;
+  }
+
+  .shipping-rates, .payments {
+    width: 90%;
+
+    li {
+      #rhythmless > .rhythm(@font-size-small);
+
+      label {
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+      }
+
+      .rate-title, .payment-title {
+        #rhythmless > .rhythm(@font-size-small);
+        color: @color-text-dark;
+        display: block;
+      }
+
+      .rate-description, .payment-description {
+        #rhythmless > .rhythm(@font-size-small);
+        color: @color-text-default;
+        display: inline-block;
+        white-space: normal;
+      }
+
+      .change {
+        #rhythmless > .rhythm(@font-size-small);
+        cursor: pointer;
+        border-bottom: 1px dotted;
+        color: @link-color;
+
+        margin-top: 10px;
+        display: inline-block;
+
+        &:hover {
+          color: @link-hover-color;
+        }
+      }
+
+      .payment-test-mode {
+        text-transform: uppercase;
+        display: inline-block;
+        background: #efb142;
+        color: #fff;
+        border-radius: 4px;
+        padding: 1px 4px 0;
+        font-size: 9px;
+        font-weight: bold;
+        margin-right: 10px;
+        line-height: @rhythmic-unit;
+      }
+
+      sup {
+        display: inline;
+      }
+
+      span.value {
+        #rhythmless > .rhythm(@font-size-base);
+        color: @color-text-dark;
+        float: right;
+        line-height: 20px;
+      }
+    }
+
+    li + li {
+      margin-top: @rhythmic-unit;
+    }
+  }
+
+  .address-not-completed,
+  .address-not-defined,
+  .shipping-methods-not-avail,
+  .email-not-defined,
+  .payment-methods-not-defined
+  {
+    #rhythmless > .rhythm(@font-size-small);
+    padding-left: 60px;
+    line-height: 20px;
+    color: #7d7d7d;
+    clear: both;
+  }
+
+  .shipping-step .email-not-defined.red
+  {
+    color: #EE0000;
+  }
+
+  .review-step .step-box {
+    box-shadow: 0 0 0px 1px #cacaca;
+    border-radius: 2px;
+    padding: (@rhythmic-unit * 2) !important;
+
+    @media(max-width: @screen-xs-max) {
+      margin-top: @rhythmic-unit;
+      margin-left: (-@grid-gutter-width / 2);
+      width: 100vw;
+      border-radius: 0px;
+    }
+
+    .cart-items {
+      .items-row {
+        a {
+          border-bottom: 1px dotted;
+        }
+      }
+      .items-row + .list {
+        li {
+          .flex-display();
+          .align-items(top);
+
+          line-height: 20px;
+          margin-top: (@rhythmic-unit / 2);
+
+          a {
+            width: 80%;
+          }
+
+          div {
+            margin-left: auto;
+          }
+        }
+
+        hr {
+          margin-top: (@rhythmic-unit - 1);
+        }
+
+        .cart {
+          display: block;
+          text-align: right;
+        }
+      }
+
+      .surcharge {
+        font-weight: 600;
+        float: right;
+      }
+
+      .modifiers {
+        & > li {
+          line-height: 20px;
+          margin-top: (@rhythmic-unit / 2);
+
+          .name {
+            font-weight: 600;
+          }
+        }
+
+        .discount-code-modifier, .dcoupon-code-modifier {
+          color: #6abd0a;
+        }
+      }
+
+      hr {
+        .clearfix;
+        margin-top: (@rhythmic-unit * 1.5 - 1);
+        margin-bottom: (@rhythmic-unit);
+        border-top: 1px solid @color-border;
+      }
+
+      .total {
+        .clearfix;
+        #rhythmless > .rhythm(@font-size-h2);
+        padding-top: (@rhythmic-unit);
+        padding-bottom: (@rhythmic-unit);
+        line-height: @rhythmic-unit;
+
+        .name {
+          display: none;
+        }
+      }
+    }
+
+    .notes {
+      .floating-label;
+    }
+
+    .button-row {
+      margin-top: (@rhythmic-unit);
+      text-align: center;
+      button {
+        #rhythmless > .rhythm(@font-size-base);
+        width: 100%;
+      }
+      .submitted {
+        cursor: not-allowed;
+      }
+    }
+
+    .agree-note {
+      #rhythmless > .rhythm(@font-size-small);
+      text-align: center;
+      margin-top: (@rhythmic-unit / 2);
+    }
+  }
+
+  .payment-tpl .cc-form {
+    @media(min-width: @screen-sm-min) and (max-width: @screen-md-max) {
+      .cardType {
+        display: none;
+      }
+    }
+
+    @media(min-width: @screen-sm-min){
+      min-width: auto;
+
+      .cardExpire {
+        .year-container {
+          margin-left: 10px;
+        }
+      }
+
+      .cardCVV2 {
+        margin-top: 20px;
+        width: 100%;
+
+        .right-text {
+          position: static;
+          font-size: 10px;
+        }
+      }
+    }
+  }
+
+  .payment-tpl .form {
+    padding-left: 0px;
+    padding-bottom: 10px;
+
+    li {
+    }
+
+    .table-value {
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .star {
+      padding-top: 4px;
+      padding-left: 4px;
+    }
+
+    .table-label,
+    .star,
+    label
+    {
+      display: inline;
+      float: none;
+    }
+
+    .table-value {
+      float: none;
+    }
+
+    label {
+      width: auto;
+    }
+  }
+}
+
+iframe#pay_iframe {
+  border: none;
+}
+
+.cc-form-container {
+  margin-bottom: @rhythmic-unit;
+
+  .content .header h3 {
+    margin-bottom: @rhythmic-unit;
+  }
+}
+
+.cc-form {
+  .clearfix;
+  min-width: 320px;
+  max-width: 420px;
+
+  position: relative;
+  padding: (@rhythmic-unit * 2) @rhythmic-unit;
+  border: 2px solid @color-border;
+  border-radius: 2px;
+  background: fade(@color-border, 30);
+
+  .title, .default-hide {
+    display: none;
+  }
+
+  .cardName {
+    input {
+      text-transform: uppercase;
+    }
+  }
+
+  .cardNumber {
+    margin-top: @rhythmic-unit;
+  }
+
+  .cardExpire {
+    margin-top: @rhythmic-unit;
+    float: left;
+    .top-line {
+      margin-left: 33px;
+      margin-bottom: 10px;
+    }
+
+    .bottom-line {
+      .flex-display();
+      .align-items(center);
+
+    }
+
+    .left-text {
+      display: none;
+    }
+
+    .month-container, .year-container {
+      width: 80px;
+    }
+
+    .year-container {
+      margin-left: 20px;
+    }
+  }
+
+  .cardCVV2 {
+    margin-top: 50px;
+    float: right;
+    width: 80px;
+
+    input {
+      text-align: right;
+    }
+
+    .right-text {
+      position: absolute;
+      right: 20px;
+      font-size: 12px;
+      margin-top: 10px;
+    }
+  }
+
+  .cardType {
+    position: absolute;
+    top: 101px;
+    height: (@rhythmic-unit * 2 - 4);
+    right: (@rhythmic-unit + 2);
+
+    .flex-display();
+    .align-items(center);
+
+    .value {
+      display: inline-block;
+    }
+
+    a.icon {
+      font-size: 0px;
+      height: (@rhythmic-unit * 2 - 4);
+      display: block;
+      box-shadow: none;
+    }
+
+    span.card {
+      display: block;
+      width: 140px;
+      height: 70px;
+      margin-right: @rhythmic-unit;
+      zoom: 0.5;
+      -moz-transform: scale(0.5);
+      -moz-transform-origin: 0 0 0;
+    }
+
+    #card_type {
+      display: none;
+    }
+  }
+}
+
+.cc-form-container div.content div.cardType a.icon span.card.mc {
+    background: url(../../images/cc_types_sprite_embed.png) 0px 0px no-repeat;
+}
+
+.cc-form-container div.content div.cardType a.icon span.card.visa {
+    background: url(../../images/cc_types_sprite_embed.png) 0px -70px no-repeat;
+}
+
+.cc-form-container div.content div.cardType a.icon span.card.jcb {
+    background: url(../../images/cc_types_sprite_embed.png) 0px -286px no-repeat;
+}
+
+.cc-form-container div.content div.cardType a.icon span.card.amex {
+    background: url(../../images/cc_types_sprite_embed.png) 0px -210px no-repeat;
+}
+
+.cc-form-container div.content div.cardType a.icon span.card.dc {
+    background: url(../../images/cc_types_sprite_embed.png) 0px -139px no-repeat;
+}
+
+.cc-form-container div.content div.cardType a.icon span.card.dicl {
+    background: url(../../images/cc_types_sprite_embed.png) 0px -351px no-repeat;
+}
+
+.cc-form-container div.content div.cardType a.icon span.card.sw {
+    background: url(../../images/cc_types_sprite_embed.png) 0px -421px no-repeat;
+}
+
+.cc-form-container div.content div.cardType a.icon span.card.cup {
+    background: url(../../images/cc_types_sprite_embed.png) 0px -491px no-repeat;
+}
+
+.cc-form-container div.content div.cardType a.icon span.card.bc {
+    background: url(../../images/cc_types_sprite_embed.png) 0px -565px  no-repeat;
+}

@@ -1,0 +1,32 @@
+{##
+ # License message template
+ #}
+<div class="license-message">
+  <div class="alert alert-warning" role="alert">
+    {{ t('This feature is available only for paid (non-free) X-Cart license plans', {'pricingUrl': this.getPricingURL()})|raw }}
+  </div>
+
+  <div class="info">
+    <div class="description">
+      {{ t('In this section you can review the recent payment transactions that have taken place at your store')|raw }}
+    </div>
+
+    <div class="features">
+      <ul>
+        <li><i class="fa fa-check"></i>{{ t('Find transactions by ID')|raw }}</li>
+        <li><i class="fa fa-check"></i>{{ t('Search for transactions by date')|raw }}</li>
+        <li><i class="fa fa-check"></i>{{ t('Filter transactions by status')|raw }}</li>
+        <li><i class="fa fa-check"></i>
+          {{ widget('XLite\\View\\ModuleLink', label=t('Convert failed transactions into real orders'), moduleName='XC\\NotFinishedOrders', showIcon='false') }}
+        </li>
+      </ul>
+    </div>
+
+    <div class="actions">
+      <a href="{{ this.getPricingURL() }}" target="_blank">{{ t('Choose the right plan') }}</a>
+      <span class="or">{{ t('or') }}</span>
+      {{ widget('\\XLite\\View\\Button\\Regular', label='Buy Business Edition', style='regular-main-button', jsCode='window.open(\'' ~ this.getPurchaseLicenseURL() ~ '\', \'_blank\');') }}
+    </div>
+  </div>
+  {{ widget('XLite\\View\\ModuleBanner', moduleName='QSL\\AbandonedCartReminder', canClose='false') }}
+</div>

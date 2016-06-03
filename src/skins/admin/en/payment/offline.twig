@@ -1,0 +1,10 @@
+{##
+ # Offline method common configuration page
+ #}
+
+<ul class="table">
+  <li>{{ widget('XLite\\View\\FormField\\Input\\Text', fieldName='properties[name]', label=t('Service name'), required='true', value=this.paymentMethod.getName()) }}</li>
+  <li>{{ widget('XLite\\View\\FormField\\Input\\Text', fieldName='properties[title]', label=t('Title'), required='true', value=this.paymentMethod.getTitle(), help=t('Here you can define how your payment methods will look in customer area.')) }}</li>
+  <li>{{ widget('XLite\\View\\FormField\\Textarea\\Simple', fieldName='properties[instruction]', label=t('Payment instructions'), value=this.paymentMethod.getInstruction(), help=t('These instructions will appear below the order invoice on the page which customers see after they confirm their order.')) }}</li>
+  <li>{{ widget('XLite\\View\\FormField\\Textarea\\Simple', fieldName='properties[description]', label=t('Description'), value=this.paymentMethod.getDescription(), help=t('Here you can define how your payment methods will look in customer area.')) }}</li>
+</ul>

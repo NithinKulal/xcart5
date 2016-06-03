@@ -1,0 +1,28 @@
+{##
+ # Pin codes status box
+ #}
+
+{% if this.entity.isSold %}
+
+  <div class="pin-sold">{{ t('Sold') }}</div>
+  {% if this.entity.orderItem %}
+    ( <a target="_blank" href="{{ url('order', '', {'order_number': this.entity.orderItem.order.orderNumber}) }}">#{{ this.entity.orderItem.order.orderNumber }}</a> )
+  {% else %}
+    ( {{ t('Order deleted') }} )
+  {% endif %}
+
+{% else %}
+
+  {% if this.entity.isBlocked %}
+
+    <div class="pin-blocked">{{ t('Blocked') }}</div>
+    {% if this.entity.orderItem %}
+      ( <a target="_blank" href="{{ url('order', '', {'order_number': this.entity.orderItem.order.orderNumber}) }}">#{{ this.entity.orderItem.order.orderNumber }}</a> )
+    {% else %}
+      ( {{ t('Order deleted') }} )
+    {% endif %}
+
+  {% endif %}
+
+{% endif %}
+

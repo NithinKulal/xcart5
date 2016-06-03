@@ -1,0 +1,9 @@
+{##
+ # Orders 
+ #}
+
+{% if this.entity.orders_count %}
+  <a href="{{ url('order_list', 'searchByCustomer', {'profileId': this.entity.profile_id}) }}">{{ this.entity.orders_count }}</a>
+{% else %}
+  {{ t('n/a') }}
+{% endif %}

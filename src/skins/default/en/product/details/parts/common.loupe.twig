@@ -1,0 +1,9 @@
+{##
+ # Image loupe
+ #
+ # @ListChild (list="product.details.page.image", weight="15")
+ #}
+
+{% if this.isLoupeVisible() %}
+  <a href="javascript:void(0);" class="loupe"><img src="{{ asset('images/spacer.gif') }}" alt="{{ t('Zoom image') }}" /></a>
+{% endif %}

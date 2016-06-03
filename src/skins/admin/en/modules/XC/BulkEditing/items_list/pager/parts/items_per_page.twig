@@ -1,0 +1,18 @@
+{##
+ # Items per page
+ #
+ # @ListChild (list="pager.bulk-edit.left", weight="400")
+ #}
+{% if this.isItemsPerPageVisible() %}
+  <div class="items-per-page-wrapper">
+    <div class="search-total-items">
+      {{ t('<span>X</span> items', {'X': this.getItemsTotal()})|raw }}
+    </div>
+    <select name="itemsPerPage" class="page-length not-significant">
+      {% for range in this.getItemsPerPageRanges() %}
+        <option value="{{ range }}" {% if this.isRangeSelected(range) %} selected="selected" {% endif %}>{{ range }}</option>
+      {% endfor %}
+    </select>
+    <span>{{ t('per page') }}</span>
+  </div>
+{% endif %}

@@ -1,0 +1,31 @@
+{##
+ # Payment methods
+ #}
+
+{% if this.getPaymentMethods() %}
+
+  <payment-methods inline-template>
+    <div class="payments-wrapper" v-bind:class="classes">
+      <ul class="payments-radiolist">
+        {% for method in this.getPaymentMethods() %}
+          <li class="payment-method">
+            <div class="radio">
+              <label>
+                <input type="radio" v-model="methodId" id="pmethod{{ method.method_id }}"  name="payment_method_id" value="{{ method.method_id }}" {% if this.isPaymentSelected(method) %} checked="checked" {% endif %} {% if this.disabledSelector %} disabled="disabled"{% endif %} />
+                {{ widget(template=method.processor.getCheckoutTemplate(method), order=this.getCart(), method=method) }}
+              </label>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+
+      {{ widget('XLite\\View\\Checkout\\Payment') }}
+    </div>
+  </payment-methods>
+
+{% elseif this.isPayedCart() %}
+    <p class="payment-methods-not-defined payment-not-required">{{ t('Payment is not required') }}</p>
+
+{% else %}
+  <p class="payment-methods-not-defined">{{ t('There\'s no payment method available', {'email': this.config.Company.support_department})|raw }}</p>
+{% endif %}

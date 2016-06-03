@@ -1,0 +1,37 @@
+{##
+ # Language selector mobile
+ #}
+<li class="dropdown language-button-mobile">
+  <div class="language-selector-mobile collapsed">
+    <a id="lng_menu" class="dropdown-toggle" data-toggle="dropdown" href="#">
+      <span class="lng"><img src="{{ this.currentLanguage.flagURL }}" alt="" /> <span class="uppercase">{{ this.currentLanguage.code }}&nbsp;/&nbsp;{{ this.getSelectedCurrencyCode() }}</span></span>
+    </a>
+
+    <div class="language-selector-main internal-popup items-list" id="currency-selector-container-mobile">
+      {% form '\\XLite\\Module\\XC\\MultiCurrency\\View\\Form\\Currency\\CustomerCurrency' %}
+      <h3>{{ t('Select regional settings') }}:</h3>
+      {% if this.hasMultipleLanguages() %}
+        {{ widget('XLite\\Module\\XC\\MultiCurrency\\View\\FormField\\Select\\Currency\\CustomerLanguage', fieldName='language', fieldId='language-selector-mobile') }}
+      {% endif %}
+      {% if this.hasMultipleLanguages() %}
+        <br/>
+      {% endif %}
+      {{ widget('XLite\\Module\\XC\\MultiCurrency\\View\\FormField\\Select\\Currency\\CustomerCountry', fieldName='country_code', fieldId='country-code-selector-mobile') }}
+      {% if this.hasAvailableCountries() %}
+        <br/>
+      {% endif %}
+      {{ widget('XLite\\Module\\XC\\MultiCurrency\\View\\FormField\\Select\\Currency\\CustomerCurrency', fieldName='currency_code', fieldId='currency-code-selector-mobile') }}
+      {% if this.hasMultipleCurrencies() %}
+        <br/>
+      {% endif %}
+
+      <div class="table-label">&nbsp;</div>
+      <div class="star">&nbsp;</div>
+      <div class="table-value">
+        {{ widget('XLite\\View\\Button\\Submit', label=t('Save'), style='regular-main-button') }}
+      </div>
+      <div class="clear"></div>
+      {% endform %}
+    </div>
+  </div>
+</li>

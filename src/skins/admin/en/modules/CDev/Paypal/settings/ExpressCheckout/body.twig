@@ -1,0 +1,43 @@
+{##
+ # Settings template
+ #}
+
+{{ widget('\\XLite\\View\\Payment\\MethodStatus', method=this.getPaymentMethod()) }}
+
+<div class="payment-settings {{ this.paymentMethod.getServiceName() }}">
+
+  <div class="middle">
+
+    {{ widget('\\XLite\\Module\\CDev\\Paypal\\View\\Model\\ExpressCheckout', paymentMethod=this.getPaymentMethod()) }}
+
+    <div class="help">
+      <div class="logo-ppec"></div>
+
+      <div class="help-title">Let Your Customers Pay with PayPal</div>
+
+      <div class="help-text">
+        Add PayPal as a payment method to your checkout page or use it as a stand-alone solution. You'll open the door to over 100 million active PayPal customers who look for and use this fast, easy, and secure way to pay.
+      </div>
+
+      <div class="links">
+        <div class="help-link">Don't have an account?
+
+          {% if this.isInContextSignUpAvailable() %}
+          <a href="{{ this.getSignUpUrl() }}" target="PPFrame" data-paypal-button="true">Sign Up Now</a>
+          {% else %}
+          <span class="external"><a href="{{ this.getSignUpUrl() }}" target="_blank">Sign Up Now</a> <i class="icon fa fa-external-link"></i></span>
+          {% endif %}
+
+        </div>
+        {% if this.paymentMethod.getKnowledgeBasePageURL() %}
+          <div class="help-link">Need instructions? <span class="external"><a href="{{ this.paymentMethod.getKnowledgeBasePageURL() }}" target="_blank">Show</a> <i class="icon fa fa-external-link"></i></span></div>
+        {% endif %}
+      </div>
+
+      <div class="help-text"><span class="external"><a href="{{ this.paymentMethod.getPartnerPageURL() }}" target="_blank">Get more information</a> <i class="icon fa fa-external-link"></i></span></div>
+
+    </div>
+
+  </div>
+
+</div>

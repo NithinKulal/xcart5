@@ -1,0 +1,10 @@
+{##
+ # 'Back from payment' popup
+ #}
+
+<div class="back-from-payment">
+  <div class="head-h3">{{ t('Please choose the appropriate action') }}</div>
+  {{ widget('\\XLite\\View\\Button\\SimpleLink', label='Checkout', jsCode='popup.close()', style='regular-main-button') }}
+  <span class="or">{{ t('or') }}</span>
+  {{ widget('\\XLite\\View\\Button\\SimpleLink', label='View cart', location=url('cart'), style='regular-button') }}
+</div>

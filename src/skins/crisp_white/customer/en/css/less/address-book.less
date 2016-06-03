@@ -1,0 +1,85 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Address book : Select address
+ *
+ * Copyright (c) 2001-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+.select-address {
+}
+
+.select-address ul.addresses {
+  margin: 0px;
+  padding: 0px;
+}
+
+.select-address ul.addresses li {
+  background: none;
+  margin: 0px;
+}
+
+.select-address ul.addresses > li {
+  list-style: none;
+  width: 46%;
+  display: inline-block;
+  border: 1px solid @color-border;
+  padding: 40px;
+  margin: 0px;
+  margin-right: 2%;
+  margin-bottom: 20px;
+  position: relative;
+  cursor: pointer;
+
+  @media(max-width: @screen-xs-max) {
+    width: 100%;
+    margin-right: 0%;
+  }
+}
+
+.select-address ul.addresses > li:hover{
+  color: @color-hover;
+  border-color: @color-hover;
+}
+
+.select-address ul.addresses > li.last {
+  margin-right: 0px;
+}
+
+.select-address ul.addresses > li .shipping {
+  position: absolute;
+  right: 8px;
+  bottom: 15px;
+  background: transparent url(../../images/icon_shipping.png) no-repeat left top;
+  width: 42px;
+  height: 20px;
+}
+
+.select-address ul.addresses > li .billing {
+  position: absolute;
+  right: 9px;
+  bottom: 47px;
+  background: transparent url(../../images/icon_billing.png) no-repeat left top;
+  width: 38px;
+  height: 22px;
+}
+
+.select-address .goto {
+  clear: both;
+  font-size : 18px;
+  padding-top: 5px;
+  padding-left: 5px;
+}
+
+.ui-dialog .address-book {
+  width: 741px;
+}
+
+.ui-dialog .address-book .block-subcontainer {
+  padding: 27px 30px 23px;
+}
+
+.ui-dialog .address-book .head-h2.ajax-title-loadable {
+  padding-left: 4px;
+  #rhythmless > .rhythm(@font-size-h2);
+}

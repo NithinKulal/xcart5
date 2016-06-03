@@ -1,0 +1,48 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Account PIN codes styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.account-pin-codes .order {
+  margin-bottom: 25px;
+}
+
+.account-pin-codes .order-items {
+  background: #f4f4f4;
+  border: 1px solid #dfdfdf;
+  padding: 20px 25px;
+  margin-bottom: 5px;
+}
+
+.account-pin-codes .order-item-title {
+  margin: 10px 0px 10px 0px;
+  font-size: 16px;
+}
+
+.account-pin-codes .amount,
+.account-pin-codes .pins-title 
+{
+  color: #8f8f8f;
+}
+
+.account-pin-codes .pins-title {
+  margin-right: 10px;
+}
+
+.account-pin-codes .pins-title,
+.account-pin-codes .code 
+{
+  display: inline-block;
+}
+
+.account-pin-codes .code {
+  background: white;
+  padding: 5px 10px 5px 10px;
+  border: 1px solid #dfdfdf;
+  display: inline-block;
+  margin-right: 5px;
+}

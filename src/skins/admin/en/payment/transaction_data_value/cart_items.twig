@@ -1,0 +1,29 @@
+{##
+ # Order items summary
+ #}
+<table cellspacing="0" class="cart-items-summary">
+
+    {% for item in this.getValue() %}
+        <tr>
+            <td class="name-column">
+                <p class="name">{{ item.name }}</p>
+                <p class="sku">SKU {{ item.sku }}</p>
+                <img src="{{ asset('images/spacer.gif') }}" class="right-fade" alt="" />
+            </td>
+            {% if item.attrs %}
+              <td class="attr-column">
+                  <ul class="attributes">
+                      {% for attr in item.attrs %}
+                        <li>{{ attr.name }}: {{ attr.value }}</li>
+                      {% endfor %}
+                  </ul>
+                  <img src="{{ asset('images/spacer.gif') }}" class="right-fade" alt="" />
+              </td>
+            {% endif %}
+            <td class="price-column">
+                <p><span class="price">{{ this.formatPrice(item.price) }}</span> × <span class="qty">{{ item.amount }}</span></p>
+            </td>
+        </tr>
+    {% endfor %}
+
+</table>

@@ -1,0 +1,22 @@
+{##
+ # Add (activate) language
+ #}
+
+<div class="add-new-language-dialog">
+  <h2>{{ t('Add new language') }}</h2>
+  <ul class="inactive-languages">
+    {% for l in this.getInactiveLanguages() %}
+      <li>
+        {% if l.getFlagURL() %}
+          <img src="{{ l.getFlagURL() }}" alt="" />
+        {% endif %}<span>{{ l.getCode() }}</span>
+        {% if this.getModulePageURL(l) %}
+          <a href="{{ this.getModulePageURL(l) }}">{{ l.getName() }}</a>
+        {% endif %}
+        {% if not this.getModulePageURL(l) %}
+          <a href="{{ url('languages', 'active', {'lng_id': l.getLngId(), 'static_form_id': 1}) }}">{{ l.getName() }}</a>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</div>

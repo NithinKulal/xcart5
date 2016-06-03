@@ -1,0 +1,9 @@
+{##
+ # Top menu
+ #}
+
+<div id="secondary-menu" class="clearfix">
+{% for i, item in this.getItems() %}
+  <span {{ this.displayItemClass(i, item)|raw }}><a href="{{ item.url }}" {% if item.active %}class="active"{% endif %}>{{ item.label }}</a></span>
+{% endfor %}
+</div>

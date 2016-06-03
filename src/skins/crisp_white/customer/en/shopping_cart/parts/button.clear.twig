@@ -1,0 +1,11 @@
+{##
+ # Clear bag button
+ #
+ # @ListChild (list="cart.buttons", weight="20")
+ #}
+{% form '\\XLite\\View\\Form\\Cart\\Clear' %}
+  <a
+    href="{{ url('cart', 'clear') }}"
+    onclick="javascript: return confirm('{{ t('You are sure to clear your cart?') }}') && !jQuery(this).parents('form').eq(0).submit();"
+    class="clear-bag">{{ t('Clear bag') }}</a>
+{% endform %}

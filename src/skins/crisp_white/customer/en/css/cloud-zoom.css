@@ -1,0 +1,43 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Cloud zoom library styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+/* This is the moving lens square underneath the mouse pointer. */
+.cloud-zoom-lens {
+	border: 4px solid #ccc;
+	margin: -4px;	/* Set this to minus the border thickness. */
+	background-color: #fff;	
+	cursor: move;		
+}
+
+/* This is for the title text. */
+.cloud-zoom-title {
+	position: absolute !important;
+	background-color: #000;
+	color: #fff;
+	padding: 3px;
+	width: 100%;
+	text-align: center;	
+	font-weight: bold;
+	font-size: 10px;
+	top: 0px;
+}
+
+/* This is the zoom window. */
+.cloud-zoom-big {
+	border: 4px solid #ccc;
+	overflow: hidden;
+}
+
+/* This is the loading message. */
+.cloud-zoom-loading {
+	color: #fff;	
+	background: #222;
+	padding: 3px;
+	border: 1px solid #000;
+}

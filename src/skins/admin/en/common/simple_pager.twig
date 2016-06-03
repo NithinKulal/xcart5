@@ -1,0 +1,16 @@
+{##
+ # Simple pager
+ #}
+<form class="simple-pager" action="{{ this.getParam('url') }}" method="get" name="simple_pager_form">
+  {{ widget('\\XLite\\View\\FormField\\Input\\FormId') }}
+  {{ t('Pages') }}:
+  {% if this.isPrevPage() %}
+    <a href="{{ this.getPrevURL() }}" class="arrow previous"><img src="{{ asset('images/spacer.gif') }}" alt="" /></a>
+  {% endif %}
+  <input type="text" name="page" value="{{ this.getParam('page') }}" />
+  {% if this.isNextPage() %}
+    <a href="{{ this.getNextURL() }}" class="arrow next"><img src="{{ asset('images/spacer.gif') }}" alt="" /></a>
+  {% endif %}
+  {{ t('of') }}
+  <a href="{{ this.getLastURL() }}" class="total">{{ this.getParam('pages') }}</a>
+</form>

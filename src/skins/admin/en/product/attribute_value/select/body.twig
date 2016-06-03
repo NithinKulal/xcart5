@@ -1,0 +1,10 @@
+{##
+ # Attribute value (Select)
+ #}
+
+<span class="title">{{ this.attribute.name }}</span>
+<select class="form-control" name="{{ this.getName() }}" data-attribute-id="{{ this.attribute.id }}">
+  {% for v in this.getAttrValue() %}
+    <option {{ this.printTagAttributes(this.getOptionAttributes(v))|raw }}>{{ this.getOptionTitle(v) }}{{ this.getModifierTitle(v)|raw }}</option>
+  {% endfor %}
+</select>

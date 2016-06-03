@@ -1,0 +1,102 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Volume discounts list styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.inline-move .move {
+  margin-right: 12px;
+}
+
+.items-list-table.wholesale-prices table.list tbody.bottom-create tr.create-line {
+  background-color: #eff8fe;
+}
+.items-list-table.wholesale-prices table.list tr{
+  height: 47px;
+}
+.items-list-table.wholesale-prices table.list tbody tr.disabled td {
+  color: #8f8f8f;
+}
+
+.items-list-table.wholesale-prices table.list thead th.quantityRangeBegin {
+  padding-left: 16px;
+  width: 220px;
+}
+
+.items-list-table.wholesale-prices table.list td.membership div.cell {
+  min-width: 170px;
+}
+
+.items-list-table.wholesale-prices table.list td.price div.cell {
+  min-width: 110px;
+  text-align: right;
+}
+
+.items-list-table.wholesale-prices table.list thead th.membership {
+  padding-left: 16px;
+  width: 200px;
+}
+
+.items-list-table.wholesale-prices table.list td.quantityRangeBegin .view {
+  padding-left: 10px;
+}
+
+.items-list-table.wholesale-prices table.list td.price .view,
+.items-list-table.wholesale-prices table.list td.price input.float {
+  width: 80px;
+}
+
+.items-list-table.wholesale-prices table.list td.price .view,
+.items-list-table.wholesale-prices table.list th.price {
+  text-align: right;
+}
+
+.items-list-table.wholesale-prices table.list tr:not(.edit-open-mark) td.price .editable .view{
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.items-list-table.wholesale-prices table.list .view.not-editable {
+  padding: 0 10px;
+}
+
+.items-list-table.wholesale-prices table.list tbody td.quantityRangeBegin .field .table-value,
+.items-list-table.wholesale-prices table.list tbody td.price .field .table-value {
+  display: inline-block;
+}
+
+.items-list-table .list-header .button-container {
+  display: inline-block;
+  float: left;
+}
+
+.list-header .wholesale-prices-list-note {
+  color: #8f8f8f;
+  float: right;
+  font-size: 12px;
+  font-style: italic;
+  margin-top: 12px;
+}
+
+.wholesale-prices .list-footer {
+  margin-top: 5px;
+  padding-top: 0;
+  text-align: left;
+}
+
+.items-list-table.wholesale-prices .text-grey {
+  color: #8f8f8f;
+  margin-right: 3px;
+}
+
+.wholesale-prices-membership-note {
+  float: left;
+  font-size: 12px;
+  color: #8F8F8F;
+  margin-top: 15px;
+  margin-left: 15px;
+}
+

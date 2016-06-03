@@ -1,0 +1,34 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: default_provider
+    category: 'XC\Geolocation'
+    type: XLite\Module\XC\Geolocation\View\FormField\Select\DefaultProvider
+    orderby: 10
+    value: 0
+    translations:
+      - code: en
+        option_name: 'Default geolocation provider'
+      - code: ru
+        option_name: 'Приоритетный источник данных о местоположении'
+  - name: display_location_popup
+    category: 'XC\Geolocation'
+    type: XLite\View\FormField\Input\Checkbox\OnOffWithoutOffLabel
+    orderby: 10
+    value: 1
+    translations:
+      - code: en
+        option_name: 'Display location select widget'
+      - code: ru
+        option_name: 'Отображать виджет смены местоположения'
+
+XLite\Model\LanguageLabel:
+  - { name: 'My location', translations: [{ code: en, label: 'My location' }] }
+  - { name: 'Choose your location', translations: [{ code: en, label: 'Specify your location' }] }
+  - { name: 'Save location', translations: [{ code: en, label: 'Save location' }] }
+  - { name: 'Location was successfully set', translations: [{ code: en, label: 'Location was successfully set' }] }

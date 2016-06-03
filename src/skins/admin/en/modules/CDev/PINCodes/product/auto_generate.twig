@@ -1,0 +1,16 @@
+{##
+ # Pin codes enabled checkbox
+ #
+ # @ListChild (list="product.pinCodes", weight="200")
+ #}
+
+<div class="pin-codes-auto">
+  {{ widget('\\XLite\\Module\\CDev\\PINCodes\\View\\FormField\\Select\\AutoPinCodes', value=this.product.getAutoPinCodes(), fieldName='autoPinCodes', fieldOnly='true') }}
+  <div class="clear"></div>
+  {% if not this.product.getPinCodesEnabled() %}
+    <div class="can-add-after-saving">
+      {{ t('You will be able to add pin codes after saving changes.') }}
+    </div>
+  {% endif %}
+
+</div>

@@ -1,0 +1,11 @@
+{##
+ # Layout type selector
+ #}
+<div class="layout-types">
+  <div class="hidden-field">
+    {% include 'form_field/select.twig' %}
+  </div>
+  {% for optionValue, optionLabel in this.getOptions() %}
+    <div class="{{ this.getOptionClasses(optionValue, optionLabel) }}" data-layout-type="{{ optionValue }}" data-layout-preview="{{ this.getPreviewImage(optionValue) }}">{{ this.getImage(optionValue)|raw }}</div>
+  {% endfor %}
+</div>

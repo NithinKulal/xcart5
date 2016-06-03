@@ -1,0 +1,10 @@
+{##
+ # Product link
+ #}
+
+<a
+  href="{{ url('product', '', {'product_id': this.entity.product.getId(), 'page': 'upselling_products'}) }}"
+  title="{{ this.entity.product.getName() }}"
+  class="uproduct-name product-name">
+  {{ this.entity.product.getName() }}</a>
+<img src="{{ asset('images/spacer.gif') }}" class="right-fade" alt="" />

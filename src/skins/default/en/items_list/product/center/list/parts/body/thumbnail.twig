@@ -1,0 +1,18 @@
+{##
+ # Item thumbnail
+ #
+ # @ListChild (list="itemsList.product.list.customer.body", weight="20")
+ #}
+
+<td class="box-product">
+  <div class="quick-look-cell">
+  <div class="quick-look-cell-thumbnail">
+    {{ widget_list('quick_look.thumbnail', type='nested', product=this.product) }}
+    <a 
+      class="product-thumbnail" 
+      href="{{ this.getProductURL(this.categoryId) }}">
+      {{ widget('\\XLite\\View\\Image', image=this.product.getImage(), maxWidth=this.getIconWidth(), maxHeight=this.getIconHeight(), alt=this.product.name, className='photo') }}
+    </a>
+  </div>
+  </div>
+</td>

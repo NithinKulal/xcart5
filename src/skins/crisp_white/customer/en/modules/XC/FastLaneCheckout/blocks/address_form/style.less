@@ -1,0 +1,76 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.checkout_fastlane_address_form {
+  .form-group {
+    .floating-label;
+
+    margin-bottom: @rhythmic-unit;
+  }
+
+  .checkout_fastlane_block_same_address {
+    height: (4 * @rhythmic-unit);
+    margin-bottom: @rhythmic-unit;
+  }
+
+  .form-group > .table-value {
+    float: left;
+    width: 100%;
+    min-height: (@rhythmic-unit * 3);
+
+    & > .input-field-wrapper {
+      display: block;
+    }
+  }
+
+  .item-zipcode, .item-phone {
+    width: 75%;
+  }
+
+  .item-email {
+    .form-field-comment {
+      margin-top: (@rhythmic-unit / 2);
+      #rhythmless > .rhythm(@font-size-small);
+      line-height: @rhythmic-unit;
+    }
+
+    .subbox {
+      display: inline-block;
+    }
+    .subnote {
+      font-size: 10px;
+      line-height: @rhythmic-unit;
+      width: 202px;
+      font-style: italic;
+    }
+
+    &.create-profile-warning .form-field-comment,
+    &.create-profile-note .form-field-comment,
+    .create-warning,
+    .create-note,
+    .create {
+      display: none;
+    }
+
+    &.create-profile-warning .create-warning,
+    &.create-profile-note .create-note,
+    &.allow-create-profile .create {
+      display: inline-block;
+    }
+
+    &.invalid {
+      .form-field-comment,
+      .create-profile-warning,
+      .create-profile-note,
+      .create {
+        display: none;
+      }
+    }
+  }
+}

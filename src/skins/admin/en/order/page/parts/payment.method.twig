@@ -1,0 +1,28 @@
+{##
+ # Order's payment method
+ #
+ # @ListChild (list="order.payment", weight="100")
+ #}
+
+<div class="method">
+  <ul>
+    {% if this.orderForm.getComplexField('paymentMethods') %}
+      {% for w in this.orderForm.getComplexField('paymentMethods') %}
+        <li>{{ w.display() }}</li>
+      {% endfor %}
+    {% elseif this.order.getPaymentMethodName() %}
+      <li class="method-name">{{ t(this.order.getPaymentMethodName())|raw }}</li>
+    {% else %}
+      <li class="method-name">{{ t('n/a') }}</li>
+    {% endif %}
+  </ul>
+  {% if this.order.getPaymentTransactionId() %}
+    <p class='transaction'>
+      {{ t('Transaction ID') }}: <br>
+      {{ this.order.getPaymentTransactionId() }}
+    </p>
+  {% endif %}
+  {% for w in this.orderForm.getComplexField('paymentData') %}
+    <div class="payment-method-data">{{ w.display() }}</div>
+  {% endfor %}
+</div>

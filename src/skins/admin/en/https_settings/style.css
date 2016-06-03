@@ -1,0 +1,59 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * HTTPS settings page styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.https-settings-dialog {
+  padding-top: 10px;
+  width: 640px;
+}
+
+.https-settings-dialog a {
+  text-decoration: underline;
+}
+
+.https-settings-dialog a .fa-external-link {
+  padding-left: 4px;
+}
+
+.https-settings-dialog .actions-block,
+.https-settings-dialog .note,
+.https-settings-dialog .note * {
+  font-size: 15px;
+  padding: 10px 0;
+}
+
+.https-settings-dialog .note.top,
+.https-settings-dialog .note.top *,
+.https-settings-dialog .note.top .purchase {
+  font-size: 16px;
+  padding-bottom: 10px;
+}
+
+.https-settings-dialog .note.info,
+.https-settings-dialog .note.warning,
+.https-settings-dialog .note.success {
+  font-size: 20px;
+}
+
+.https-settings-dialog .note.info {
+  color: #A1A1A1;
+}
+
+.https-settings-dialog .note.warning {
+  color: #C50000;
+}
+
+.https-settings-dialog .note.success {
+  color: #4C9D56;
+}
+
+.https-settings-dialog .help-block.purchase span {
+  color: #4795CE;
+  font-style: italic;
+}
+

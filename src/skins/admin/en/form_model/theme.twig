@@ -1,0 +1,258 @@
+{% use "twig_form/bootstrap_3_horizontal_layout.html.twig" %}
+
+{% block form_start -%}
+    <xlite-form-model inline-template :form="{{ data_object }}" :original="{{ view_object }}">
+
+        {#{% set attr = attr|merge({class: (attr.class|default('') ~ ' form-vue')|trim}) %}#}
+        {{- parent() -}}
+            <validator name="{{ name }}">
+{%- endblock form_start %}
+
+{% block form_end %}
+            </validator>
+        </form>
+    </xlite-form-model>
+{% endblock %}
+
+{% block form_row -%}
+    {% spaceless %}
+        <div class="{{ block('form_row_class') }}
+        {%- if (not compound or force_error|default(false)) and not valid %} has-error{% endif -%}"
+        {% if v_validators|length > 0 %} v-bind:class="{{ '{' }}'has-error': {{ v_validator }}.invalid {{ '}' }}" {% endif %}
+        {% if v_show|length > 0 %} v-show="{{ v_show }}" {% endif %}
+        >
+
+            {% if show_label_block %}{{- form_label(form) -}}{% endif %}
+
+            <div class="input-widget {{ block('form_group_class') }}">
+                {{ block('form_input_wrapper') }}
+                <div class="help-wrapper">
+                    {% if help is not empty -%}
+                    {{ widget('XLite\\View\\Tooltip', text = help) }}
+                    {%- endif %}
+                </div>
+
+                {% if description is not empty %}
+                    <span class="help-block
+                {%- if (not compound or force_error|default(false)) and not valid %} hide{% endif -%}"
+                            {% if v_validators|length > 0 %} v-bind:class="{{ '{' }}'hide': {{ v_validator }}.invalid {{ '}' }}" {% endif %}
+                    >{{ description|raw }}</span>
+                {% endif %}
+
+                {{- form_errors(form) -}}
+            </div>
+
+        </div>
+    {% endspaceless %}
+{%- endblock form_row %}
+
+{% block form_input_wrapper %}
+    <div class="input-wrapper">
+        {{- form_widget(form) -}}
+    </div>
+{% endblock %}
+
+{% block checkbox_radio_row -%}
+    {% spaceless %}
+        <div class="{{ block('form_row_class') }}{% if not valid %} has-error{% endif %}"
+            {% if v_show|length > 0 %} v-show="{{ v_show }}" {% endif %}
+        >
+            {% if show_label_block %}<div class="{{ block('form_label_class') }}"></div>{% endif %}
+            <div class="input-widget {{ block('form_group_class') }}">
+                {{ form_widget(form) }}
+                {{ form_errors(form) }}
+            </div>
+        </div>
+    {% endspaceless %}
+{%- endblock checkbox_radio_row %}
+
+{% block form_row_class -%}
+    {{ form_row_class }}
+{%- endblock form_row_class %}
+
+{% block form_group_class -%}
+    {{ input_grid }}
+{%- endblock form_group_class %}
+
+{% block form_label -%}
+    {% spaceless %}
+        <div class="control-label">
+            {{ parent() }}
+            {% if label_description is not empty %}
+                <span class="help-block">{{ label_description }}</span>
+            {% endif %}
+        </div>
+    {% endspaceless %}
+{%- endblock form_label %}
+
+{% block form_label_class -%}
+{%- endblock form_label_class %}
+
+{% block form_errors -%}
+    {% if not form.parent %}
+        {% if errors|length > 0 -%}
+            <div class="alert alert-danger">
+                <ul class="list-unstyled">
+                    {%- for error in errors -%}
+                        <li v-xlite-backend-validator="{{ v_model }}">{{ error.message }}</li>
+                    {%- endfor -%}
+                </ul>
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="help-block">
+            <ul class="list-unstyled">
+                {%- for error in errors -%}
+                    <li v-xlite-backend-validator="{{ v_model }}">{{ error.message }}</li>
+                {%- endfor -%}
+                {%- for validator in v_validators -%}
+                    <li v-if="{{ validator }}" v-text="{{ validator }}"></li>
+                {%- endfor -%}
+            </ul>
+        </div>
+    {% endif %}
+
+{%- endblock form_errors %}
+
+{%- block widget_attributes -%}
+    {% if v_model is not empty %}v-model="{{ v_model }}"{% endif %}
+    {{ block('widget_validation') }}
+    {{- parent() -}}
+{%- endblock widget_attributes -%}
+
+{%- block widget_validation -%}
+    {% if v_validate is not empty %}
+        v-validate:{{ v_validate_path }}="{{ v_validate }}"
+    {% endif %}
+{%- endblock widget_validation -%}
+
+{# field set #}
+
+{% block base_field_set_row %}
+    <fieldset class="{% if force_error|default(false) and not valid %}has-error{% endif %}">
+        {% if label is not empty %}{{ form_label(form) }}{% endif %}
+        <div {{ block('widget_container_attributes') }}>
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+        </div>
+    </fieldset>
+{% endblock base_field_set_row %}
+
+{% block base_field_set_label %}
+    <legend>
+        <h2 {{ block('base_field_set_label_attributes') }}>
+            {{- label -}}{% if collapse %}<i class="fa fa-chevron-down" aria-hidden="true"></i>{% endif %}
+        </h2>
+        {% if description is not empty %}<span class="help-block">{{ description }}</span>{% endif %}
+    </legend>
+{% endblock base_field_set_label %}
+
+{%- block base_field_set_label_attributes -%}
+    {%- for attrname, attrvalue in title_attr -%}
+        {{- " " -}}
+        {%- if attrvalue is same as(true) -%}
+            {{- attrname }}="{{ attrname }}"
+        {%- elseif attrvalue is not same as(false) -%}
+            {{- attrname }}="{{ attrvalue }}"
+        {%- endif -%}
+    {%- endfor -%}
+{%- endblock base_field_set_label_attributes -%}
+
+{# / field set #}
+
+{# composite #}
+{%- block base_composite_widget -%}
+    {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-inline')|trim}) -%}
+    {{ block('form_widget_compound') }}
+{%- endblock base_composite_widget -%}
+{# / composite #}
+
+{# oldType #}
+{% block old_widget -%}
+    {{ widget(fieldClass, fieldOptions) }}
+{%- endblock old_widget %}
+{# /oldType #}
+
+{# switcher #}
+
+{%- block switcher_widget -%}
+    <div class="onoffswitch">
+        {% if disabled %}
+            <input type="hidden" name="{{ full_name }}" value="{{ value }}"/>
+        {% else %}
+            {#<input type="hidden" name="{{ full_name }}" value="" />#}
+        {% endif %}
+        <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+        <label for="{{ id }}">
+            <div class="onoffswitch-inner">
+                <div class="on-caption">YES</div>
+                <div class="off-caption">NO</div>
+            </div>
+            <span class="onoffswitch-switch"></span>
+        </label>
+    </div>
+{%- endblock switcher_widget -%}
+
+{# /switcher #}
+
+{# datepicker #}
+
+{% block datepicker_widget -%}
+    <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+        {{- block('form_widget_simple') -}}
+    </div>
+{%- endblock datepicker_widget %}
+
+{# /datepicker #}
+
+{# caption #}
+
+{% block caption_widget -%}
+    <div class="caption">{{ caption }}</div>
+{%- endblock caption_widget %}
+
+{# /caption #}
+
+{# symbol #}
+
+{% block symbol_widget -%}
+    <div class="input-group">
+        {% if left_symbol is not empty %}
+            <span class="input-group-addon">{{ left_symbol }}</span>
+        {% endif %}
+        {{- block('form_widget_simple') -}}
+        {% if right_symbol is not empty %}
+            <span class="input-group-addon">{{ right_symbol }}</span>
+        {% endif %}
+    </div>
+{%- endblock symbol_widget %}
+
+{# /symbol #}
+
+{# dimenstion #}
+{% block dimensions_widget -%}
+    {{ form_widget(form.length) }}
+    <span class="separator">&#215;</span>
+    {{ form_widget(form.height) }}
+    <span class="separator">&#215;</span>
+    {{ form_widget(form.width) }}
+{%- endblock dimensions_widget %}
+{# /dimenstion #}
+
+{# clean_url #}
+{% block clean_url_widget -%}
+    {% set type = type|default('base_compound') %}
+    {{- block('form_widget_compound') -}}
+    <div class="clean-url-result">
+    {% if disabled %}
+        <div class="clean-url-disabled-info">
+            <i class="fa fa-exclamation-triangle"></i>
+            {{ t('Clean URLs are disabled. More info', {'more_info_url': url('settings', '', {'page': 'Environment'})})|raw }}
+        </div>
+    {% endif %}
+    </div>
+
+
+{%- endblock clean_url_widget %}
+{# /clean_url #}

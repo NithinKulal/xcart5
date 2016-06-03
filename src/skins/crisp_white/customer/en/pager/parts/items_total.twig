@@ -1,0 +1,29 @@
+{##
+ # Products list items total
+ #}
+{% if this.isItemsPerPageVisible() %}
+  <div class="pager-items-total">
+    {{ t('Items') }}:
+    {{ t('BEGIN - END of TOTAL', {'begin': this.getBeginRecordNumber(), 'end': this.getEndRecordNumber(), 'total': this.getItemsTotal()})|raw }}
+
+    {% if this.isItemsPerPageSelectorVisible() and this.getPerPageCounts() %}
+      <div class="per-page-box">
+        <div>
+          <span class="per-page-label">{{ t('Show:') }}</span>
+          <span class="per-page-value">{{ this.getItemsPerPage() }}</span>
+        </div>
+
+        <ul class="display-per-page grid-list">
+          {% for count in this.getPerPageCounts() %}
+            <li class="list-type-grid {% if count == this.getItemsPerPage() %} selected{% endif %}">
+              <a data-items-per-page="{{ count }}" href="#">
+                {{ count }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+
+      </div>
+    {% endif %}
+  </div>
+{% endif %}

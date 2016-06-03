@@ -1,0 +1,9 @@
+{##
+ # Shipping order status selector
+ #
+ # @ListChild (list="order.actions.statuses", weight="100")
+ #}
+
+<div class="status shipping-status">
+  {{ widget('\\XLite\\View\\FormField\\Select\\OrderStatus\\Shipping', label='Shipping status', fieldName='shippingStatus', order=this.order, attributes=this.getOrderStatusAttributes('shipping')) }}
+</div>

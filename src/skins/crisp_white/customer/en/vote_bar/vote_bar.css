@@ -1,0 +1,35 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Vote bar styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.vote-bar {
+  position: relative;
+  display: inline-block;
+}
+
+.stars-row.static {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.stars-row.hovered {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+div.vote-bar:hover {
+  cursor: default;
+}
+
+div.vote-bar.editable:hover {
+  cursor: pointer;
+}

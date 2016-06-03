@@ -1,0 +1,10 @@
+{##
+ # Quick look
+ #}
+<div class="product-quicklook">
+  {% form '\\XLite\\View\\Form\\Product\\AddToCart' with {product: this.product, className: 'product-details box-product', validationEngine: '1'} %}
+    {{ widget_list('product.details.quicklook') }}
+  {% endform %}
+
+  {{ widget_list('product.details.quicklook.rotator') }}
+</div>

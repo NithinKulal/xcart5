@@ -1,0 +1,24 @@
+{##
+ # Header search
+ #}
+
+<div {{ this.printTagAttributes(this.getContainerTagAttributes())|raw }}>
+
+  {% form 'XLite\\View\\Form\\HeaderSearch' %}
+
+    <div class="input-group">
+      <div class="input-group-btn">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">{{ t('Search in') }} <span class="caret"></span></button>
+        <ul class="dropdown-menu" role="menu">
+          {% for item in this.getMenuItems() %}
+            <li><a href="#" data-code="{{ item.code }}" data-placeholder="{{ item.placeholder }}">{{ item.name }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      <input type="text" class="form-control" name="substring" value="" placeholder="{{ this.currentItem.placeholder }}" />
+    </div>
+    <input type="hidden" name="code" value="{{ this.currentItem.code }}" />
+
+  {% endform %}
+
+</div>

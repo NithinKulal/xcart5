@@ -1,0 +1,31 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * CSS styles for address fields management page
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.items-list-table.address-fields table.list tbody.create td.name,
+.items-list-table.address-fields table.list tbody.lines td.name {
+  width: 30%;
+}
+
+.items-list-table.address-fields table.list tbody.create td.serviceName,
+.items-list-table.address-fields table.list tbody.lines td.serviceName {
+  width: 60%;
+}
+
+.items-list-table.address-fields table.list tbody.lines td.serviceName .plain-value{
+  padding: 6px 10px 6px 9px;
+}
+
+.items-list-table.address-fields table.list tbody.create td.actions.right,
+.items-list-table.address-fields table.list tbody.lines td.actions.right {
+  min-width: 28px;
+}
+
+div.action.next {
+  width: 31px;
+}

@@ -1,0 +1,14 @@
+{##
+ # Product link
+ #
+ # @ListChild (list="itemsList.product.table.customer.columns", weight="20")
+ #}
+
+<a 
+  href="{{ this.getProductURL(this.categoryId) }}"
+  class="product-link">
+  {{ this.product.name|raw }}
+</a>
+{% if this.product.isShowStockWarning() %}
+  <span class="product-items-available low-stock">{{ t('Only X left in stock', {'X': this.product.getAvailableAmount()}) }}</span>
+{% endif %}

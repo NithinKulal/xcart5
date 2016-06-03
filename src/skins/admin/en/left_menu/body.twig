@@ -1,0 +1,23 @@
+{##
+ # Left side menu
+ #}
+
+<div {{ this.printTagAttributes(this.getContainerTagAttributes())|raw }}>
+
+  {% if this.getQuickLinks() %}
+    <ul class="quick-links">
+      {% for link in this.getQuickLinks() %}
+        {{ link.display() }}
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% if this.getItems() %}
+    <ul class="menu">
+      {% for item in this.getItems() %}
+        {{ item.display() }}
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+</div>

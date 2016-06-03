@@ -1,0 +1,9 @@
+{##
+ # Price widget
+ #}
+
+{% if this.displayOnlyPrice %}
+    {% include 'common/price_plain_only.twig' %}
+{% else %}
+    {% include 'common/price_plain.twig' %}
+{% endif %}

@@ -1,0 +1,22 @@
+{##
+ # Dropdown button
+ #}
+
+<div class="btn-dropdown btn-group">
+  <button {% if this.hasName() %} name="{{ this.getName() }}"{% endif %}{% if this.hasValue() %} value="{{ this.getValue() }}"{% endif %} type="button" class="main btn btn-default{% if this.getStyle() %} {{ this.getStyle() }}{% endif %}">
+    <span>{{ t(this.getButtonLabel()) }}</span>
+  </button>
+
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    <span class="caret"></span>
+    <span class="sr-only"></span>
+  </button>
+
+{% if this.getAdditionalButtons() %}
+<ul class="dropdown-menu" role="menu">
+  {% for button in this.getAdditionalButtons() %}
+    <li>{{ button.display()|raw }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+</div>

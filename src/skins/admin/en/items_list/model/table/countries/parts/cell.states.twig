@@ -1,0 +1,13 @@
+{##
+ # Subcategories count link
+ #
+ # @ListChild (list="itemsList.country.cell.states", weight="100")
+ #}
+
+{% if this.entity.hasStates() %}
+  <a href="{{ url('states', '', {'country_code': this.entity.getCode()}) }}" class="country-states" title="{{ t('Click to edit states') }}">{{ t('Edit states (X)', {'count': this.entity.getStatesCount()}) }}</a>
+{% endif %}
+
+{% if not this.entity.hasStates() %}
+  <a href="{{ url('states', '', {'country_code': this.entity.getCode()}) }}" class="country-states no-states" title="{{ t('Click to add states') }}">{{ t('Add states') }}</a>
+{% endif %}

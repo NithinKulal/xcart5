@@ -1,0 +1,14 @@
+{##
+ # Hard reset
+ #
+ # @ListChild (list="upgrade.step.completed.backup.actions", weight="200")
+ # @ListChild (list="upgrade.step.ready_to_install.create_backup.actions", weight="200")
+ #}
+
+<div class="upgrade-note hard-reset">
+  <span class="hard-reset-label">{{ t('Disables all addons except ones that are provided by X-Cart Team (hard reset)')|raw }}:</span>
+  <div class="hard-reset-link-block safe-mode-link">
+	{{ widget('XLite\\View\\Button\\CopyLink', copy=this.getHardResetURL()) }}
+  	{{ this.getHardResetURL() }}
+  </div>
+</div>

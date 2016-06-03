@@ -1,0 +1,8 @@
+{##
+ # Coosable separator
+ #}
+
+<label>
+  {{ widget('\\XLite\\View\\FormField\\Input\\Radio', fieldOnly='true', isChecked=this.getParam('selected'), fieldId=this.getParam('fieldName'), fieldName=this.getParam('groupName'), value=this.getParam('value')) }}
+  <div class="table-value separator-selectable"><h3>{{ t(this.getLabel()) }}</h3></div>
+</label>

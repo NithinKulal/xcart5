@@ -1,0 +1,64 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Sticky panel common styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.all-in-one-solutions-wrapper{
+    text-align: center;
+}
+
+.all-in-one-solutions-wrapper .all-in-one-solutions{
+    background: #F6F6F6;
+    padding: 7px 0;
+}
+
+.all-in-one-solutions-header-block {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 7px;
+    text-align: center;
+}
+
+.all-in-one-solutions-wrapper .all-in-one-solutions-header,
+.all-in-one-solutions-wrapper .all-in-one-solutions .single-solution {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.all-in-one-solutions-wrapper .all-in-one-solutions-header{
+    font-size: 21px;
+}
+
+.all-in-one-solutions-wrapper .all-in-one-solutions .single-solution{
+    max-width: 190px;
+    max-height: 70px;
+    line-height: 1;
+}
+
+
+.all-in-one-solutions-wrapper .all-in-one-solutions .single-solution img{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.all-in-one-solutions-wrapper .all-in-one-solutions-delimiter{
+    display: inline-block;
+    vertical-align: middle;
+    color: #B1AEAE;
+    padding: 10px 0;
+}
+
+
+.all-in-one-solutions-wrapper .all-in-one-solutions-delimiter:before,
+.all-in-one-solutions-wrapper .all-in-one-solutions-delimiter:after {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    width: 37px;
+    height: 1px;
+    background: #ccc;
+}

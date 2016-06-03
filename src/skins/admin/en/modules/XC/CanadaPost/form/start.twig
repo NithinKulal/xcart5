@@ -1,0 +1,11 @@
+{##
+ # Form start
+ #}
+
+<form action="{{ this.getFormAction() }}" method="{{ this.getParam('formMethod') }}" accept-charset="utf-8" onsubmit="javascript: {{ this.getJSOnSubmitCode() }}"{% if this.getParam('className') %} class="{{ this.getClassName() }}"{% endif %}{% if this.isMultipart() %} enctype="multipart/form-data"{% endif %}{% if this.getParam('attributeTarget') %} target="{{ this.getParam('attributeTarget') }}"{% endif %}>
+<fieldset>
+  {% for paramName, paramValue in this.getFormParams() %}
+    <input type="hidden" name="{{ paramName }}" value="{{ paramValue }}" />
+  {% endfor %}
+</fieldset>
+

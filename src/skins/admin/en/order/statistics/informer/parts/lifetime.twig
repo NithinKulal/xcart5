@@ -1,0 +1,9 @@
+{##
+ # Order summary mini informer (for dashboard)
+ #}
+<div class="order-statistics {{ tab.class }}">
+  <div class="revenue">
+    <span class="label">{{ t('Lifetime') }}:</span>
+    <span class="value">{{ this.formatPrice(tab.revenue.value) }}</span>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: number_of_bestsellers
+    category: CDev\Bestsellers
+    type: XLite\View\FormField\Input\Text\Integer
+    widgetParameters: { min: 1 }
+    orderby: 115
+    value: 6
+    translations:
+      - code: en
+        option_name: Number of products in the bestsellers list
+XLite\Model\LanguageLabel:
+  - { name: 'a side box', translations: [{ code: en, label: 'a side box' }] }
+  - { name: 'the main column', translations: [{ code: en, label: 'the main column' }] }
+  - { name: 'Sales sort', translations: [{ code: en, label: 'Sales' }] }
+  - { name: 'Sales asc', translations: [{ code: en, label: 'By Sales - 0-9' }] }
+  - { name: 'Sales desc', translations: [{ code: en, label: 'By Sales - 9-0' }] }

@@ -1,0 +1,8 @@
+{##
+ # Product attributes
+ #
+ # @ListChild (list="product.details.common.product-attributes.attributes", weight="10")
+ #}
+{% for aWidget in this.getAttributesWidgets() %}
+  {{ aWidget.display() }}
+{% endfor %}

@@ -1,0 +1,13 @@
+{##
+ # Upgrade entry icon
+ #
+ # @ListChild (list="upgrade.install_updates.sections.form.info", weight="200")
+ #}
+
+{% if this.isModule(this.entry) %}
+  <li class="module">
+    <ul class="details">
+    {{ widget_list('sections.form.info.module', type='inherited', entry=this.entry) }}
+    </ul>
+  </li>
+{% endif %}

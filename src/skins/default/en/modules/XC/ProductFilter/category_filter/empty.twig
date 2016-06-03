@@ -1,0 +1,13 @@
+{##
+ # Empty 
+ #}
+
+<div class="empty-box">
+  <span>Oops!</span>
+  <div>{{ t('No products matching your criteria found. Please try again with different parameters.') }}</div>
+  <a 
+    href="{{ url('category', '', {'category_id': this.category.category_id}) }}" 
+    class="reset-filter">
+    {{ t('Show all products in this category') }}
+  </a>
+</div>

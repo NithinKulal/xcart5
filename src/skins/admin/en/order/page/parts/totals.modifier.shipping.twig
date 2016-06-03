@@ -1,0 +1,28 @@
+{##
+ # Invoice totals : modifier default template
+ #}
+
+  <div class="title clear-fix">
+  {{ t('Shipping method / cost') }}:
+  {{ widget_list('order.base.totals.modifier.name', surcharge=this.surcharge, sType=this.surcharge.code, order=this.order) }}
+  </div>
+  {% if not this.surcharge.available %}
+  <div class="value">
+  {{ t('n/a') }}
+  </div>
+  {% endif %}
+</li>
+
+<li class="order-modifier shipping-row ctrl-manual">
+  {% if this.surcharge.available %}
+    <div class="method">
+      {{ this.orderForm.displayComplexField('shippingMethod') }}
+    </div>
+    <div class="value">
+      {{ this.surcharge.formField.display()|raw }}
+    </div>
+    <div class="recalc">
+      {{ widget(template='order/page/parts/restore.twig', surcharge=this.surcharge) }}
+    </div>
+  {% endif %}
+  {{ widget_list('order.base.totals.modifier.value', surcharge=this.surcharge, sType=this.surcharge.code, order=this.order) }}

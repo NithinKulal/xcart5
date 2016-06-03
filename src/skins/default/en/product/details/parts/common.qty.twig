@@ -1,0 +1,10 @@
+{##
+ # Quantity input box
+ #
+ # @ListChild (list="product.details.page.info.buttons.cart-buttons", weight="10")
+ # @ListChild (list="product.details.page.info.buttons-added.cart-buttons", weight="10")
+ # @ListChild (list="product.details.quicklook.info.buttons.cart-buttons", weight="10")
+ # @ListChild (list="product.details.quicklook.info.buttons-added.cart-buttons", weight="10")
+ #}
+
+{{ widget('\\XLite\\View\\Product\\Details\\Customer\\Quantity', product=this.product) }}

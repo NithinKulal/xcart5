@@ -1,0 +1,13 @@
+{##
+ # Entries list
+ #
+ # @ListChild (list="upgrade.step.prepare.incompatible_entries_update.sections", weight="200")
+ #}
+
+<table class="incompatible-modules-list">
+  {% for entry in this.getIncompatibleEntries() %}
+    <tr>
+      {{ widget_list('sections.table.columns', type='inherited', entry=entry) }}
+    </tr>
+  {% endfor %}
+</table>

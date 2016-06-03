@@ -1,0 +1,6 @@
+{##
+ # Orders list item : spec : items count
+ #
+ # @ListChild (list="orders.children.spec", weight="600")
+ #}
+<li class="order-items-count"><span class="order-spec-label order-items-count-label">{{ t('Items') }}:</span><span class="order-spec-value order-items-count-value">{{ this.order.countQuantity() }}</span></li>

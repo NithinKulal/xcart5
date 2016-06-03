@@ -1,0 +1,72 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Sale widget styles. Admin area.
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.sale-discount-types {
+  margin: 10px 0px 10px 0px;
+}
+
+.sale-discount {
+  display: block;
+  height: 30px;
+  list-style: none outside none;
+  margin: 11px 0px;
+  padding: 0px;
+}
+
+.sale-discount li {
+  float: left;
+  margin: 0 2px;
+  padding: 2px;
+}
+
+.sale-discount li.discount-type {
+  width: 104px;
+  height: 35px;
+  background-color: #f2f2f2;
+  border: solid 1px #f2f2f2;
+  border-radius: 3px;
+  padding: 2px 2px 0;
+  margin-top: 2px;
+}
+
+.sale-discount li.sale-price-value {
+  display: none;
+}
+
+.sale-discount.active li.discount-type {
+  background-color: #eaf4fe;
+  border: solid 1px #cfdde8;
+}
+
+.sale-discount.active li.sale-price-value {
+  display: block;
+  margin-left: 5px;
+}
+
+.sale-price-value div.table-value {
+  padding: 0px;
+}
+
+div.table-value.sale-price-value input[type="checkbox"] {
+  margin-right: 4px;
+}
+
+div.table-label.sale-price-label label {
+  display: none;
+}
+
+.sale-price-value input {
+  text-align: right;
+}
+
+.discount-type input {
+  margin: 6px;
+  top: 2px;
+  position: relative;
+}

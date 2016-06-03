@@ -1,0 +1,421 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Order items list styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.items-list-table.order-items table.list {
+  border: none;
+  width: 890px;
+}
+
+.items-list-table .list-footer,
+.items-bottom
+{
+  width: 833px;
+}
+
+.order-info.not-editable .items-list-table.order-items table.list
+{
+  width: 833px;
+}
+
+.items-list-table.order-items table.list tbody.lines tr.line.last td,
+.items-list-table.order-items table.list thead th,
+.items-list-table.order-items table.list tbody td
+{
+  border: 1px solid #d5d5d5;
+}
+
+.items-list-table.order-items table.list thead {
+  background: transparent none;
+}
+
+.items-list-table.order-items table.list thead th {
+  padding: 12px 22px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.items-list-table.order-items table.list tbody td {
+  padding: 5px 12px 11px 12px;
+}
+
+.items-list-table.order-items table.list tbody.lines tr.even td.cell {
+  background-color: #f9f9f9;
+}
+
+.items-list-table.order-items table.list tbody.lines tr.zero-total td.cell {
+  background-color: #f5fcf4;
+}
+
+.items-list-table.order-items table.list thead th.actions.right,
+.items-list-table.order-items table.list tbody td.actions.right,
+.items-list-table.order-items table.list tbody.lines tr.line.last td.cell.actions.right,
+.items-list-table.order-items table.list tbody.lines tr.line.even td.cell.actions.right,
+.items-list-table.order-items table.list tbody.lines tr.line.zero-total td.cell.actions.right {
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  background-color: white;
+  padding-left: 10px;
+}
+
+.items-list-table.order-items table.list tbody td.actions.right .separator {
+  display: none;
+}
+
+.items-list-table.order-items table.list tbody td.actions.right > * {
+  visibility: hidden;
+}
+
+.items-list-table.order-items table.list tbody tr.edit-mark td.actions.right > *,
+.items-list-table.order-items table.list tbody tr.edit-open-mark td.actions.right > *,
+.items-list-table.order-items table.list tbody tr.remove-mark td.actions.right > *
+{
+  visibility: visible;
+}
+
+.items-list-table.order-items table.list thead th.price,
+.items-list-table.order-items table.list thead th.amount,
+.items-list-table.order-items table.list thead th.total
+{
+  text-align: center;
+}
+
+.items-list-table.order-items table.list tbody td.price .table-value input {
+  width: 86px;
+}
+
+.items-list-table.order-items table.list tbody td.amount .table-value input {
+  width: 43px;
+}
+
+.items-list-table.order-items table.list tbody td.cell.main {
+  width: 498px;
+  padding-bottom: 10px;
+}
+
+.items-list-table.order-items table.list tbody td.cell.price {
+  width: 152px;
+  text-align: center;
+}
+
+.items-list-table.order-items table.list tbody td.cell.amount {
+  width: 74px;
+  text-align: center;
+  padding-left: 12px;
+}
+
+.items-list-table.order-items table.list tbody td.cell.total {
+  width: 108px;
+  text-align: right;
+  padding-right: 20px;
+}
+
+.items-list-table.order-items table.list tbody td.cell.name .item-name {
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 31px;
+}
+
+.items-list-table.order-items table.list tbody td.cell.name .item-name a {
+  text-decoration: none;
+  color: black;
+  white-space: normal;
+  word-break: break-word;
+  max-width: calc(100% - 80px);
+  display: inline-block;
+}
+
+.items-list-table.order-items table.list tbody td.cell.name ul.subitem,
+.items-list-table.order-items table.list tbody td.cell.name ul.subitem span
+{
+  line-height: normal;
+  font-size: 14px;
+}
+
+.items-list-table.order-items table.list tbody td.cell.name ul.subitem li {
+  display: inline;
+}
+
+.items-list-table.order-items table.list tbody td.cell.name ul.subitem li,
+.items-list-table.order-items .model-definition.model-is-defined li
+{
+  padding-right: 5px;
+}
+
+.items-list-table.order-items table.list tbody td.cell.name ul.subitem li {
+  vertical-align: top;
+}
+
+.items-list-table.order-items table.list tbody td.cell.name ul.subitem,
+.items-list-table.order-items table.list tbody td.cell.name ul.subitem span,
+.items-list-table.order-items table.list tbody td.cell.name ul.subitem li
+{
+  line-height: 19px;
+}
+
+.items-list-table.order-items table.list tbody td.cell.name ul.subitem .text,
+.items-list-table.order-items .model-definition.model-is-defined span.text
+{
+  max-width: 400px;
+  overflow: hidden;
+  position: relative;
+  display: inline-block;
+  padding-right: 20px;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  line-height: 19px;
+  white-space: nowrap;
+}
+
+.items-list-table.order-items table.list tbody td.cell.name ul.subitem .text span,
+.items-list-table.order-items .model-definition.model-is-defined span.text span
+{
+  vertical-align: top;
+}
+
+.items-list-table.order-items table.list tbody td.cell.name div.cell {
+  position: relative;
+}
+
+.items-list-table.order-items table.list tbody td.cell.name .edit-options-link {
+  position: absolute;
+  top: 8px;
+  right: 19px;
+  display: none;
+}
+
+.items-list-table.order-items table.list tbody tr.edit-mark td.cell.name .edit-options-link,
+.items-list-table.order-items table.list tbody tr.edit-open-mark td.cell.name .edit-options-link,
+.items-list-table.order-items table.list tbody tr.create-line td.cell.name .edit-options-link
+{
+  display: block;
+}
+
+.items-list-table.order-items table.list tbody td.cell.name .edit-options-link a {
+  text-decoration: none;
+  border-bottom: 1px dotted;
+}
+
+.items-list-table.order-items table.list tbody td.cell.price .cell .inline-field {
+}
+
+.items-list-table.order-items table.list tbody td.price .view {
+  width: auto;
+}
+
+.items-list-table.order-items table.list tbody .edit-open-mark td.cell.price .cell .inline-field {
+  margin-left: 0;
+}
+
+.items-list-table.order-items td.cell.price .input-group-addon {
+  width: 30px;
+}
+
+.items-list-table.order-items .ctrl-auto .restore-orig-price {
+  display: none;
+}
+
+.items-list-table.order-items tbody td.cell.price .restore-orig-price {
+  top: -45px;
+  right: -5px;
+  position: relative;
+  height: 0;
+}
+
+.order-info .restore-orig-price .fa {
+  color: #318477;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.order-info.not-editable .items-list-table.order-items .restore-orig-price {
+  display: none;
+}
+
+.items-list-table.order-items table.list tbody td.cell.total * {
+  font-size: 14px;
+}
+
+.items-list-table.order-items .item-attributes-box,
+.items-list-table.order-items table.list tbody td.cell.name ul.subitem
+{
+  white-space: normal;
+}
+
+.items-list-table.order-items .item-attributes-box li {
+  display: inline;
+}
+
+.items-list-table.order-items .model-is-defined .item-attributes-box {
+  padding-bottom: 1px;
+}
+
+.items-list-table.order-items li.item-attribute-values-list-item-text,
+.items-list-table.order-items table.list tbody td.cell.name ul.subitem li.item-attribute-values-list-item-text,
+.items-list-table.order-items li.item-attribute-values-list-item-yes-no,
+.items-list-table.order-items table.list tbody td.cell.name ul.subitem li.item-attribute-values-list-item-yes-no
+{
+  display: block;
+}
+
+.items-list-table.order-items .item-attribute-values-list-item .attribute-box:last-child span.separator {
+  display: none;
+}
+
+.items-list-table.order-items .item-attribute-values-list-item {
+  white-space: normal;
+}
+
+.items-list-table.order-items .item-attribute-values-list-item .attribute-box {
+  white-space: nowrap;
+  vertical-align: top;
+}
+
+.items-list-table.order-items .item-attribute-values-list-item,
+.items-list-table.order-items .model-definition.model-is-defined,
+.items-list-table.order-items .model-definition.model-is-defined span.name,
+.items-list-table.order-items .model-definition.model-is-defined .item-attribute-values-list-item,
+.items-list-table.order-items .model-definition.model-is-defined .item-attribute-values-list-item-text span.name,
+.items-list-table.order-items .model-definition.model-is-defined .item-attribute-values-list-item-yes-no span.name,
+.items-list-table.order-items .item-attribute-values-list-item-text span.name,
+.items-list-table.order-items .item-attribute-values-list-item-yes-no span.name,
+.items-list-table.order-items .item-attribute-values-list-item span.options-title,
+.items-list-table.order-items .item-attribute-values-list-item span.name
+{
+  color: #313131;
+}
+
+.items-list-table.order-items .item-attribute-values-list-item span.separator,
+.items-list-table.order-items .model-definition.model-is-defined .item-attribute-values-list-item span.separator,
+.items-list-table.order-items .item-attribute-values-list-item span.separator,
+.items-list-table.order-items .model-definition.model-is-defined span.separator
+{
+  color: #cdcdcd;
+}
+
+.items-list-table.order-items .item-attribute-values-list-item span,
+.items-list-table.order-items .item-attribute-values-list-item-text span.text span,
+.items-list-table.order-items .item-attribute-values-list-item-yes-no span.yes-no span,
+.items-list-table.order-items .item-attribute-values-list-item-text span.text,
+.items-list-table.order-items .item-attribute-values-list-item-yes-no span.yes-no,
+.items-list-table.order-items .model-definition.model-is-defined span.sku-value,
+.items-list-table.order-items .sku-value
+{
+  color: #8f8f8f;
+}
+
+.items-list-table.order-items .popover {
+  max-width: initial;
+}
+
+.items-list-table.order-items .popover .popover-content {
+  position: relative;
+  padding: 1px 5px;
+}
+
+.items-list-table.order-items table.list tbody td.cell.name .edit-options-link .popover .close {
+  position: absolute;
+  top: 3px;
+  right: 6px;
+  color: #9d9d9d;
+  opacity: 1;
+  text-decoration: none;
+  font-size: 22px;
+  border-bottom: 0px none;
+}
+
+.items-list-table.order-items .popover .popover-content .attribute-values {
+  background: none;
+  width: auto;
+}
+
+.items-list-table.order-items .popover .popover-content ul.attribute-values li {
+  white-space: nowrap;
+}
+
+.items-list-table.order-items .popover .popover-content ul.attribute-values span.title,
+.items-list-table.order-items .popover .popover-content ul.attribute-values .form-control {
+  display: inline-block;
+}
+
+.items-list-table.order-items .popover .popover-content ul.attribute-values span.title {
+  min-width: 75px;
+  overflow: hidden;
+  vertical-align: top;
+  line-height: 33px;
+  margin-top: 4px;
+  padding-top: 2px;
+}
+
+.items-list-table.order-items .popover .popover-content ul.attribute-values .form-control {
+  width: 200px;
+}
+
+.ajax-container-loadable ul.attribute-values {
+  margin-bottom: 30px;
+}
+
+.ajax-container-loadable ul.attribute-values li {
+  margin-bottom: 18px;
+}
+
+.ajax-container-loadable ul.attribute-values span.title {
+  font-size: 14px;
+}
+
+.ajax-container-loadable ul.attribute-values .form-control {
+  margin-top: 4px;
+}
+
+.items-list-table table.list tbody.create tr.line td {
+  background-color: #fffef2;
+}
+
+.items-list-table.order-items .model-definition.model-is-defined {
+  font-style: normal;
+  padding-top: 1px;
+}
+
+.items-list-table.order-items .model-definition.model-is-defined span {
+  font-size: 14px;
+  line-height: 19px;
+}
+
+.items-list-table.order-items .model-definition.model-is-defined .item-attribute-values-list-item {
+  vertical-align: top;
+}
+
+.items-list-table.order-items table.list tbody.create td.cell.main {
+  padding-top: 17px;
+  padding-bottom: 3px;
+  padding-left: 21px;
+}
+
+.items-list-table.order-items table.list tbody.create td.cell {
+  padding-top: 17px;
+  vertical-align: top;
+}
+
+.items-list-table.order-items table.list .field .subfield {
+  position: static;
+}
+
+.items-list-table.order-items table.list tbody.create td.cell.name .edit-options-link {
+  top: 7px;
+}
+
+.items-list-table.order-items table.list ul.attribute-values label div {
+  border: 0px none;
+  padding-left: 0px;
+}
+
+.items-list-table.order-items table.list ul.attribute-values label div input[type="checkbox"] {
+  margin-top: 0px;
+}
+

@@ -1,0 +1,18 @@
+{##
+ # Payment method row
+ #}
+{% if this.method.processor.getIconPath(this.order, this.method) %}
+  <div class="icon">
+    <img src="{{ this.preparePaymentMethodIcon(this.method.processor.getIconPath(this.order, this.method)) }}" alt="" />
+  </div>
+{% endif %}
+<span class="payment-title">{{ this.method.getTitle() }}</span>
+{% if this.method.processor.isCOD() and this.method.processor.getCODValue(this.order) %}
+  <div class="payment-cod">{{ t('This will increase the shipping cost by XX', {'XX': this.formatPrice(this.method.processor.getCODValue(this.order), this.null, 1)}) }}</div>
+{% endif %}
+{% if this.method.isTestMode() %}
+  <div class="payment-test-mode">{{ t('Test mode') }}</div>
+{% endif %}
+{% if this.method.getDescription() %}
+  <div class="payment-description">{{ this.method.getDescription() }}</div>
+{% endif %}

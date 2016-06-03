@@ -1,0 +1,9 @@
+{##
+ # Marketplace banner
+ #
+ # @ListChild (list="marketplace.top-controls", weight="100")
+ #}
+
+{% if this.isLandingPage() %}
+  {{ widget('\\XLite\\View\\ModulesManager\\Banner') }}
+{% endif %}

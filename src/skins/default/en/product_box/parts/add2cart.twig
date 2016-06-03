@@ -1,0 +1,10 @@
+{##
+ # Item buttons
+ #
+ # @ListChild (list="productBlock.info", weight="400")
+ #}
+{% if this.product.isAvailable() %}
+  {% form '\\XLite\\View\\Form\\Product\\AddToCart' with {product: this.product, className: 'add-to-cart'} %}
+    {{ widget('\\XLite\\View\\Button\\Submit', style='product-add2cart', label='Add to cart') }}
+  {% endform %}
+{% endif %}

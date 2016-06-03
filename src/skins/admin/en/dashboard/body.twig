@@ -1,0 +1,8 @@
+{##
+ # Dashboard page
+ #}
+
+<div class="dashboard {% if this.isAdminWelcomeBlockVisible() %}dashboard-visible{% else %}dashboard-invisible{% endif %}">
+  {{ widget_list('dashboard') }}
+</div>
+{{ widget_list('dashboard.footer') }}

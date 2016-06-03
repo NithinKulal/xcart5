@@ -1,0 +1,30 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Payment\Method:
+  - service_name: Ingenico Payment Services (Ogone)
+    class: Module\XC\OgoneEcommerce\Model\Payment\Processor\OgoneEcommerce
+    type: C
+    countries: [FR, DE, IT, PT, ES, GB, HU, PL, RU, TR, AI, AG, AR, AW, BS, BB, BZ, BM, BO, BR, VG, KY, CL, CO, CR, CU, DM, DO, EC, SV, FK, GF, GD, GP, GT, GY, HT, HN, JM, MQ, MX, MS, AN, NI, PA, PY, PE, PR, LC, KN, VC, SR, TT, TC, VI, UY, VE, CA, GL, PM, US, BL, MF]
+    translations:
+     - code: en
+       name: Ingenico Payment Services (Ogone)
+    settings:
+     - name: pspid
+     - name: shaIn
+     - name: shaOut
+     - name: prefix
+       value: xcart
+     - name: mode
+       value: test
+XLite\Model\LanguageLabel:
+  - { name: "Ogone PSPID", translations: [{code: en, label: "Ogone PSPID"}]}
+  - { name: "SHA-IN passphrase", translations: [{code: en, label: "SHA-IN passphrase"}]}
+  - { name: "SHA-OUT passphrase", translations: [{code: en, label: "SHA-OUT passphrase"}]}
+  - { name: "Invoice number prefix", translations: [{ code: en, label: "Invoice number prefix" }] }
+  - { name: "Ogone signup", translations: [{ code: en, label: "Don't have an account? <a href=\"{{url}}\" target=\"blank\">Sign Up Now</a><br /><br />" }] }
+  - { name: "Ogone settings note", translations: [{ code: en, label: "Note: In order to setup 'Ingenico Payment Services' payment method, you have to complete these steps: <ul><li>Log in to your Ingenico Payment Services account</li> <li>Open the \"Configuration\" -> \"Technical information\" page -> \"Data and origin verification\" tab -> \"Checks for e-Commerce\" section and in the URL field enter this URL: <em>{{URL}}</em></li> <li>Define SHA-IN pass phrase in the corresponding section and further enter it here in X-Cart in the \"SHA-IN pass phrase\" field.</li> <li>Open the \"Configuration\" -> \"Technical information\" page -> \"Transaction feedback\" tab -> \"e-Commerce\" section and enable <em>I would like to receive transaction feedback parameters on the redirection URLs</em> option.</li> <li>Scroll down to the \"All transaction submission modes\" section and define SHA-OUT pass phrase and further enter it here in X-Cart in the \"SHA-OUT pass phrase\" field.</li></ul>" }] }

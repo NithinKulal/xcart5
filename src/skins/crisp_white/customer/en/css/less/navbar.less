@@ -1,0 +1,117 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Styles
+ *
+ * Copyright (c) 2001-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+.navbar {
+  border: none;
+  margin-bottom: 0px;
+}
+
+.navbar-nav {
+  @media (min-width: @screen-md-min) {
+    margin-left: -(@navbar-horizontal-gutter);
+  }
+}
+
+.navbar-nav > li {
+  margin: 0;
+  background-image: none;
+
+  & > a,
+  & > span {
+    text-decoration: none;
+    font-size: @navbar-inverse-font-size;
+    padding: @rhythmic-unit @navbar-horizontal-gutter;
+  }
+}
+
+.navbar-toggle {
+  height: auto;
+}
+
+.navbar-inverse .navbar-nav {
+  .active > a {
+    &,
+    &:hover,
+    &:focus {
+      color: @navbar-inverse-link-active-color;
+    }
+  }
+}
+
+.navbar-inverse {
+  .navbar-nav {
+    > li > span {
+      color: @navbar-inverse-link-color;
+      cursor: default;
+
+      &:hover,
+      &:focus {
+        color: @navbar-inverse-link-hover-color;
+        background-color: @navbar-inverse-link-hover-bg;
+      }
+    }
+    > .active > span {
+      &,
+      &:hover,
+      &:focus {
+        color: @navbar-inverse-link-active-color;
+        background-color: @navbar-inverse-link-active-bg;
+      }
+    }
+    > .disabled > span {
+      &,
+      &:hover,
+      &:focus {
+        color: @navbar-inverse-link-disabled-color;
+        background-color: @navbar-inverse-link-disabled-bg;
+      }
+    }
+  }
+
+  // Dropdowns
+  .navbar-nav {
+    > .open > span {
+      &,
+      &:hover,
+      &:focus {
+        background-color: @navbar-inverse-link-active-bg;
+        color: @navbar-inverse-link-active-color;
+      }
+    }
+
+    @media (max-width: @grid-float-breakpoint-max) {
+      // Dropdowns get custom display
+      .open .dropdown-menu {
+        > li > span {
+          color: @navbar-inverse-link-color;
+          &:hover,
+          &:focus {
+            color: @navbar-inverse-link-hover-color;
+            background-color: @navbar-inverse-link-hover-bg;
+          }
+        }
+        > .active > span {
+          &,
+          &:hover,
+          &:focus {
+            color: @navbar-inverse-link-active-color;
+            background-color: @navbar-inverse-link-active-bg;
+          }
+        }
+        > .disabled > span {
+          &,
+          &:hover,
+          &:focus {
+            color: @navbar-inverse-link-disabled-color;
+            background-color: @navbar-inverse-link-disabled-bg;
+          }
+        }
+      }
+    }
+  }
+}

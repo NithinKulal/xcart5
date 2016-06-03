@@ -1,0 +1,26 @@
+{##
+ # ____file_title____
+ #}
+<table width="100%">
+<tr>
+{% for column, val in this.columns %}
+  <td width="50%" valign="top">
+  
+  {% for node in this.getColumnsData(column) %}
+  
+  {% if this.formSelectionName %}<input type="radio" name="{{ this.formSelectionName }}" value="{{ node.id }}" />{% endif %}
+  <a href="{{ node.url|raw }}" style="font-size:10pt">{% if node.leaf %}<img src="{{ asset('images/doc.gif') }}" alt="" />
+  {% else %}<img src="{{ asset('images/folder.gif') }}" alt="" />
+  {% endif %}
+  {{ node.name }}</a>
+  {% if node.comment %}&nbsp;&nbsp;-&nbsp;<span style="font-size:8pt">{{ node.comment }}</span><br />
+  {% else %}
+  <br />
+  {% endif %}
+  
+  {% endfor %}
+  
+  </td>
+{% endfor %}
+</tr>
+</table>

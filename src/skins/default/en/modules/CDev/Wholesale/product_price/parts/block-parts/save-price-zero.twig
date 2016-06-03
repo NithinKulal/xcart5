@@ -1,0 +1,11 @@
+{##
+ # Wholesale prices table
+ #
+ # @ListChild (list="wholesale.price.widgetlist", weight="60")
+ #}
+
+{% if this.wholesalePrice.getSavePriceValue() == 0 %}
+  <td>
+    <span class="save-price-value-null">&nbsp;</span>
+  </td>
+{% endif %}

@@ -1,0 +1,11 @@
+{##
+ # SocialLogin widget's following elements
+ #
+ # @ListChild (list="social.login", weight="150")
+ #}
+
+{% if this.getTextAfter() %}
+  <div class="social-login-note note-after">
+    {{ this.getTextAfter() }}
+  </div>
+{% endif %}

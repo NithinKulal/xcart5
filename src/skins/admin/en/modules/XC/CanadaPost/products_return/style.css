@@ -1,0 +1,70 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Model styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+div.model-form-buttons {
+  padding-left: 54px;
+}
+
+.capost-return-info p.title {
+  font-size: 16px;
+}
+
+.capost-return-info p.title a.name {
+  text-decoration: underline;
+}
+
+.capost-return-info p.title .date,
+.capost-return-info p.title span.name
+{
+  font-size: 16px;
+  color: #456583;
+}
+
+.capost-return-info p.title span.membership {
+  font-size: 16px;
+  color: #333;
+}
+
+.capost-return-info form {
+  margin-top: 20px;
+  width: 930px; 
+}
+
+.capost-return-info .actions div.left-column {
+  float: left;
+  width: 368px;
+  margin-right: 42px;
+  padding: 20px;
+  background-color: #f2f2f2;
+}
+
+.actions div.left-column div.status {
+}
+
+.capost-return-info .actions div.right-column {
+  float: left;
+}
+
+.actions div.right-column div.admin-note textarea {
+  width: 350px;
+  height: 80px;
+}
+
+div.right-column div.admin-note .table-value {
+  display: inline;
+}
+
+div.right-column div.admin-note div.star {
+  display: none;
+}
+
+.capost-return-info div.customer-notes div.note {
+  background-color: #f6f6f6;
+  padding: 10px;
+}

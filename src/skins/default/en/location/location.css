@@ -1,0 +1,32 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * ____file_title____
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+ul.breadcrumb li.location-node.expandable {
+  padding-right: 1em;
+  background: url(images/arrow-down.svg) no-repeat right;
+}
+
+ul.location-subnodes {
+  position: absolute;
+  top: 20px;
+  list-style-type: none;
+  background-color: #fff;
+  z-index: 10000;
+}
+
+ul.location-subnodes li {
+  background-image: none;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.location-title-subnodes-mark {
+  text-decoration: none;
+  padding-top: 0.2em;
+}

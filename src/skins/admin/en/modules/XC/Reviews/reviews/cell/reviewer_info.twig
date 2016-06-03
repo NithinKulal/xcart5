@@ -1,0 +1,18 @@
+{##
+ # Reviewer name and link to his profile (if registered)
+ #}
+
+{% if this.getProfileId(this.entity) %}
+<a href="{{ url('profile', '', {'profile_id': this.getProfileId(this.entity)}) }}">
+{% endif %}
+{% if this.entity.reviewerName %}
+  {{ this.entity.reviewerName }}
+{% else %}
+  {{ t('Unknown') }}
+{% endif %}
+{% if this.getProfileId(this.entity) %}</a>{% endif %}
+{% if this.entity.email %}
+  <div class="profile-email">
+      ({{ this.entity.email }})
+  </div>
+{% endif %}

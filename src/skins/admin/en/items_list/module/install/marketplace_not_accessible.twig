@@ -1,0 +1,20 @@
+{##
+ # Page to display when marketplace is not available
+ #}
+
+<div class="marketplace-connection-block">
+  {{ this.displayCommentedData(this.getMarketplaceNotAccessibleData()) }}
+  <div class="box-frame marketplace-not-connected invisible">
+    {# Translation of the message must be done inside the getWarningMessage() method #}
+    <div class="box">
+      {{ this.getWarningMessage()|raw }}<br /><br />
+      {{ t('After the problem has been fixed, try to connect again.', {'clear_cache': url('addons_list_marketplace', 'clear_cache')})|raw }}
+    </div>
+  </div>
+
+  <div class="box-frame pending-marketplace-connection">
+    <div class="box">
+      {{ t('Connecting to the marketplace...')|raw }}
+    </div>
+  </div>
+</div>

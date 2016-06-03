@@ -1,0 +1,43 @@
+{##
+ # Language selector
+ #}
+
+<script type="text/javascript">
+  var currenciesByCountry = [];
+{% for countryCode, currencyCode in this.getCountriesByCurrency() %}
+  currenciesByCountry['{{ countryCode }}'] = '{{ currencyCode }}';
+{% endfor %}
+</script>
+
+<li class="language_label">{{ t('Language') }}</li>
+<li class="language-selector collapsed">
+  <ul>
+    <li class="current"><span class="lng"><img src="{{ this.currentLanguage.flagURL }}" alt="" /> <span class="uppercase">{{ this.currentLanguage.code }}&nbsp;/&nbsp;{{ this.getSelectedCurrencyCode() }}</span></span></li>
+  </ul>
+  {% form '\\XLite\\Module\\XC\\MultiCurrency\\View\\Form\\Currency\\CustomerCurrency' %}
+    <div class="language-selector-main internal-popup items-list" id="currency-selector-container">
+      <h3>{{ t('Select regional settings') }}:</h3>
+      {% if this.hasMultipleLanguages() %}
+        {{ widget('XLite\\Module\\XC\\MultiCurrency\\View\\FormField\\Select\\Currency\\CustomerLanguage', fieldName='language', fieldId='language-selector') }}
+      {% endif %}
+      {% if this.hasMultipleLanguages() %}
+        <br/>
+      {% endif %}
+      {{ widget('XLite\\Module\\XC\\MultiCurrency\\View\\FormField\\Select\\Currency\\CustomerCountry', fieldName='country_code', fieldId='country-code-selector') }}
+      {% if this.hasAvailableCountries() %}
+        <br/>
+      {% endif %}
+      {{ widget('XLite\\Module\\XC\\MultiCurrency\\View\\FormField\\Select\\Currency\\CustomerCurrency', fieldName='currency_code', fieldId='currency-code-selector') }}
+      {% if this.hasMultipleCurrencies() %}
+        <br/>
+      {% endif %}
+
+      <div class="table-label">&nbsp;</div>
+      <div class="star">&nbsp;</div>
+      <div class="table-value">
+        {{ widget('XLite\\View\\Button\\Submit', label=t('Save'), style='regular-main-button') }}
+      </div>
+      <div class="clear"></div>
+    </div>
+  {% endform %}
+</li>

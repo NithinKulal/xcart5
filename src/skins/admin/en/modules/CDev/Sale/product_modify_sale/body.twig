@@ -1,0 +1,17 @@
+{##
+ # Product element
+ #}
+
+<input type="hidden" name="{{ this.getNamePostedData('participateSale') }}" value="0" />
+
+<label class="participate-sale" for="participate-sale">
+<input
+  type="checkbox"
+  id="participate-sale"
+  name="{{ this.getNamePostedData('participateSale') }}"
+  value="1"
+  {% if this.product.getParticipateSale() %}checked="checked"{% endif %} />{{ t('Product on sale') }}</label>
+
+<div class="sale-discount-types">
+  {{ widget('\\XLite\\Module\\CDev\\Sale\\View\\SaleDiscountTypes', salePriceValue=this.product.getSalePriceValue(), discountType=this.product.getDiscountType()) }}
+</div>

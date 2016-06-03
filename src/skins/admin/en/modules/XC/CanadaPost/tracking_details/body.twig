@@ -1,0 +1,38 @@
+{##
+ # Tracking details page template
+ #}
+
+{% if not this.getTrackingDetails() %}
+  <span>{{ t('No events found') }}</span>
+{% endif %}
+
+{% if this.getTrackingDetails() %}
+
+  <table cellpadding="2" cellspacing="3">
+
+    {% for event in this.trackingDetails.getSignificantEvents() %}
+      <tr>
+        <td class="date">{{ event.getDate() }} {{ event.getTime() }}</td>
+        <td class="description">{{ event.getDescription() }}</td>
+      </tr>
+    {% endfor %}
+
+  </table>
+
+  <br />
+
+  {% if this.trackingDetails.hasFiles() %}
+    <div>
+  
+      <span>{{ t('Attached files') }}:</span><br />
+    
+      <ul>
+        {% for file in this.trackingDetails.getFiles() %}
+          <li><a href="{{ file.getGetterURL() }}">{{ file.getTitle() }}</a></li>
+        {% endfor %}
+      </ul>
+  
+    </div>
+  {% endif %}
+
+{% endif %}

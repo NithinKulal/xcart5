@@ -1,0 +1,10 @@
+{##
+ # Cached JS part
+ #
+ # @ListChild (list="jscontainer.js", weight="300")
+ #}
+<script type="application/javascript">
+    if ('undefined' !== typeof(core)) {
+        core.registerResources({{ this.getResourceRegistry()|raw }});
+    }
+</script>

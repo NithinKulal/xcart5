@@ -1,0 +1,9 @@
+{##
+ # Review 
+ #}
+
+{% if this.entity.review %}
+  <div class="review-text">
+    {{ widget('\\XLite\\View\\Tooltip', id='review-' ~ this.entity.getId() ~ '-full-text', text=this.getReviewFullContent(this.entity), caption=this.getReviewShortContent(this.entity), isImageTag='false') }}
+  </div>
+{% endif %}

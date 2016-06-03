@@ -1,0 +1,35 @@
+{##
+ # Payment methods list : line : header : switcher
+ #
+ # @ListChild (list="payment.methods.list.header", weight=300)
+ #}
+
+<div class="switcher">
+  {% if this.canSwitch(this.method) %}
+    {% if this.method.getWarningNote() %}
+      {% if this.method.isEnabled() %}
+        {{ widget(template='items_list/payment/methods/parts/header.switcher.button.twig', style='enabled', title=t('Enabled'), url='') }}
+      {% else %}
+        {{ widget(template='items_list/payment/methods/parts/header.switcher.button.twig', style='disabled', title=t('This payment method cannot be enabled until you configure it'), url='') }}
+      {% endif %}
+
+    {% else %}
+
+      {% if this.method.isEnabled() %}
+        {{ widget(template='items_list/payment/methods/parts/header.switcher.button.twig', style='enabled', title=t('Disable'), url=url('payment_settings', 'disable', {'id': this.method.getMethodId()})) }}
+      {% else %}
+        {{ widget(template='items_list/payment/methods/parts/header.switcher.button.twig', style='disabled', title=t('Enable'), url=url('payment_settings', 'enable', {'id': this.method.getMethodId()})) }}
+      {% endif %}
+
+    {% endif %}
+
+  {% else %}
+
+    {% if this.canEnable(this.method) %}
+      {{ widget(template='items_list/payment/methods/parts/header.switcher.button.twig', style='enabled', title=this.method.getForcedEnabledNote(), url='') }}
+    {% else %}
+      {{ widget(template='items_list/payment/methods/parts/header.switcher.button.twig', style='disabled', title=this.method.getForcedEnabledNote(), url='') }}
+    {% endif %}
+
+  {% endif %}
+</div>

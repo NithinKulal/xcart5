@@ -1,0 +1,10 @@
+{##
+ # Trial upgrade notice
+ #
+ # @ListChild (list="upgrade.step.prepare.buttons.sections", weight="200")
+ #}
+{% if this.displayTrialNotice() %}
+  <div class="update-trial-notice">
+    {{ t('You can install these updates after purchasing and activating your X-Cart license key', {'URL': this.getPurchaseURL()})|raw }}
+  </div>
+{% endif %}

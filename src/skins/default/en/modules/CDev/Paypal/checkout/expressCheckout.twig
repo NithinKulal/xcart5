@@ -1,0 +1,9 @@
+{##
+ # Payment method row
+ #}
+
+<span class="payment-title">{{ this.method.getTitle() }}</span>
+<a href="https://www.paypal.com/cgi-bin/webscr?cmd=xpt/Marketing/popup/OLCWhatIsPayPal-outside" target="_blank" class="paypal-ec">What is PayPal?</a>
+{% if this.method.getDescription() %}
+  <div class="payment-description">{{ this.method.getDescription() }}</div>
+{% endif %}

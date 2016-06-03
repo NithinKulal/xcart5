@@ -1,0 +1,49 @@
+{##
+ # ____file_title____
+ #
+ # @ListChild (list="marketplace.top-controls", weight="350")
+ #}
+
+{% if this.isVisibleAddonFilters() %}
+  <div class="addons-filters">
+  
+    <div class="addons-selectors">
+  
+      <form name="addons-filter" method="GET" action="{{ url() }}">
+        {{ widget('\\XLite\\View\\FormField\\Input\\FormId') }}
+        {% for name, value in this.getURLParams() %}
+          <input type="hidden" name="{{ name }}" value="{{ value }}" />
+        {% endfor %}
+  
+        <div class="tag-filter-box combine-selector">
+          {{ widget('\\XLite\\View\\FormField\\Select\\AddonsSort', fieldId='tag-filter', fieldName='tag', options=this.getTagOptionsForSelector(), value=this.getTagOptionsValueForSelector(), attributes={'data-classes': 'tag-filter', 'data-height': '100%'}, label=t('Tags')) }}
+        </div>
+  
+        <div class="vendor-filter-box combine-selector">
+          {{ widget('\\XLite\\View\\FormField\\Select\\AddonsSort', fieldId='vendor-filter', fieldName='vendor', options=this.getVendorOptionsForSelector(), value=this.getVendorOptionsValueForSelector(), attributes={'data-classes': 'vendor-filter', 'data-height': '100%'}, label=t('Marketplace-Vendor')) }}
+        </div>
+  
+        <div class="price-filter-box combine-selector">
+          {{ widget('\\XLite\\View\\FormField\\Select\\AddonsSort', fieldId='price-filter', fieldName='price', disableSearch='true', options=this.getPriceOptionsForSelector(), value=this.getPriceOptionsValueForSelector(), attributes={'data-classes': 'price-filter', 'data-height': '100%'}, label=t('Price')) }}
+        </div>
+  
+      </form>
+  
+    </div>
+  
+    {{ widget_list('marketplace.addons-filters') }}
+  
+    <div class="clear"></div>
+  
+  </div>
+{% endif %}
+
+{% if this.isVisibleAddonFilters() %}
+  <div class="addons-sort">
+    <ul class="addons-sort-box text-selector">
+      {% for url, name in this.getSortOptionsForSelector() %}
+      <li class="sort{% if url == this.getSortOptionsValueForSelector() %} selected{% endif %}"><a href="{{ url }}">{{ name }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}

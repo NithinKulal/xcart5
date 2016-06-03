@@ -1,0 +1,14 @@
+{##
+ # Top links
+ #}
+<div id="top-links">
+  <ul>
+    {% for item in this.getItems() %}
+      {% if loop.index != 1 %}
+        <li class="separator"><div></div></li>
+      {% endif %}
+      {{ item.display() }}
+    {% endfor %}
+    {{ widget_list('top_links') }}
+  </ul>
+</div>

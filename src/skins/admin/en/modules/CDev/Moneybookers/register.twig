@@ -1,0 +1,8 @@
+{##
+ # Skripp register note
+ #
+ # @ListChild (list="payment.methods.body", zone="admin", weight="150")
+ #}
+{% if not this.config.CDev.Moneybookers.email %}
+  <p class="mb-register-note">{{ t('To process your customers\' payments with Skrill, you need a Skrill account. If you do not have one yet, you can sign up for free at http://www.skrill.com')|raw }}</p>
+{% endif %}

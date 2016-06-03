@@ -1,0 +1,34 @@
+{##
+ # Settings template
+ #}
+
+{{ widget('\\XLite\\View\\Payment\\MethodStatus', method=this.getPaymentMethod()) }}
+
+<div class="payment-settings {{ this.paymentMethod.getServiceName() }}">
+
+  <div class="middle">
+
+    {{ widget('\\XLite\\Module\\CDev\\Paypal\\View\\Model\\PayflowLink', paymentMethod=this.getPaymentMethod()) }}
+
+    <div class="help">
+      <div class="logo-pfl"></div>
+
+      <div class="help-title">Accept Payments with Your Merchant Account</div>
+
+      <div class="help-text">Accept Visa, MasterCard&reg;, American Express, Discover and PayPal payments on your site by connecting a PayPal-hosted checkout page with your own internet merchant account. Customize the page to look like the rest of your site and make sure customer transactions are secure.
+      </div>
+
+      <div class="links">
+        <div class="help-link">Don't have an account? <span class="external"><a href="{{ this.paymentMethod.getReferralPageURL() }}" target="_blank">Sign Up Now</a> <i class="icon fa fa-external-link"></i></span></div>
+        {% if this.paymentMethod.getKnowledgeBasePageURL() %}
+          <div class="help-link">Need instructions? <span class="external"><a href="{{ this.paymentMethod.getKnowledgeBasePageURL() }}" target="_blank">Show</a> <i class="icon fa fa-external-link"></i></span></div>
+        {% endif %}
+      </div>
+
+      <div class="help-text"><span class="external"><a href="{{ this.paymentMethod.getPartnerPageURL() }}" target="_blank">Get more information</a> <i class="icon fa fa-external-link"></i></span></div>
+
+    </div>
+
+  </div>
+
+</div>

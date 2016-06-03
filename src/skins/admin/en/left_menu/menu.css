@@ -1,0 +1,200 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * ____file_title____
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+/**
+ * Top menu
+ */
+#topMenu {
+  height: 35px;
+  background: transparent none;
+  position: absolute;
+  text-align: left;
+  margin: 0 auto;
+  z-index: 150;
+  top: 75px;
+  left: 90px;
+}
+
+#topMenu ul,
+#topMenuLine ul
+{
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+#topMenu ul ul li,
+#topMenuLine ul li
+{
+  float: left;
+  position: relative;
+  display: inline-block;
+}
+
+#topMenu ul ul li a
+{
+  display: block;
+  float: left;
+}
+
+#topMenu ul ul div
+{
+  position: absolute;
+  overflow: hidden;
+  display: none;
+  top: 40px;
+  text-align: left;
+  min-width: 170px;
+  left: 0;
+  background: #fff;
+}
+
+#topMenu ul#menuOuter
+{
+  display: inline-block;
+}
+
+#topMenu ul#menuOuter li.root
+{
+  display: inline-block;
+}
+
+#topMenu ul ul li a
+{
+    background: #d0e9ff;
+    color: #06528f;
+    font-size: 16px;
+    height: 40px;
+    line-height: 36px;
+    margin: 0 5px 0 0;
+    padding: 4px 19px 0;
+    text-decoration: none;
+    -moz-border-radius: 10px 10px 0 0;
+    -webkit-border-radius: 10px 10px 0 0;
+    border-radius: 10px 10px 0 0;
+}
+
+#topMenu ul ul li.hl > a
+{
+  background: #106bac;
+  color: #d0e9ff;
+  font-size: 14px;
+}
+
+#topMenu ul ul li.addons > a
+{
+  background: #e57c32;
+  color: #fff;
+  font-size: 14px;
+}
+
+#topMenu ul ul li.home > a img {
+  background: url(../images/icon_home.png) no-repeat left top;
+  margin-top: 11px;
+}
+
+#topMenu ul ul li.current > a,
+  #topMenu ul ul li.active > a
+{
+  color: #333;
+  background-color: #fff;
+}
+
+#topMenu ul ul :hover div
+{
+  display: block;
+}
+
+#topMenu ul ul li div ul
+{
+  border: solid 1px #cadce8;
+  margin-top: 1px;
+  padding: 5px;
+}
+
+#topMenu ul ul li div ul li
+{
+  margin: 0;
+  float: none;
+}
+
+#topMenu ul ul div li > a
+{
+  font-size: 14px;
+  height: 32px;
+  line-height: 32px;
+  padding: 0 15px;
+  color: #06528F;
+  background: 0 none;
+  float: none;
+  display: block;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  min-width: 170px;
+  white-space: nowrap;
+  margin: 0;
+}
+
+#topMenu ul ul div li a:hover
+{
+  background: #eff8fe;
+}
+
+#topMenuLine
+{
+  height: 55px;
+  width: 100%;
+}
+
+#topMenuLine ul
+{
+  margin: 8px 0 10px 10px;
+}
+
+#topMenuLine ul li a
+{
+    color: #06528f;
+    font-size: 14px;
+    height: 36px;
+    line-height: 36px;
+    margin: 0 5px 0 0;
+    padding: 5px 15px;
+    text-decoration: none;
+}
+
+#topMenuLine ul li.active a
+{
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  border-radius: 15px;
+  background: none repeat scroll 0 0 #83a8c7 !important;
+  color: #fff !important;
+}
+
+#topMenuLine ul li a:hover
+{
+  color: #69a4c9;
+}
+
+#topMenu li.add-product
+{
+  border-bottom: solid 1px #cadce8;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}
+
+#topMenu li.home a
+{
+  background-image: url(../images/home.png);
+  background-repeat: no-repeat;
+  background-position: center 16px;
+  font-size: 0;
+  padding: 4px 25px 0;
+}

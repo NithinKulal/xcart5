@@ -1,0 +1,16 @@
+{##
+ # Common input template
+ #}
+
+<span class="input-field-wrapper {{ this.getWrapperClass() }}">
+  {{ this.displayCommentedData(this.getCommentedData()) }}
+  <input{{ this.getAttributesCode()|raw }} />
+</span>
+{% if this.getParam('suffix') %}
+  <div class="clean-url-suffix">{{ this.getParam('suffux') }}</div>
+{% endif %}
+{{ widget('XLite\\View\\FormField\\Input\\Checkbox\\AutogenerateCleanURL', fieldName=this.getNamePostedData('autogenerateCleanURL'), value=this.getParam('disabled'), fieldOnly='true', label='') }}
+<div class="table-label autogenerate-label">
+  <label for="posteddata-autogeneratecleanurl">{{ t('Autogenerate Clean URL') }}</label>
+</div>
+

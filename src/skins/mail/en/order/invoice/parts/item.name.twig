@@ -1,0 +1,13 @@
+{##
+ # Name item cell
+ #
+ # @ListChild (list="invoice.item", weight="10")
+ #}
+<td style="text-align: left;vertical-align: top;border-width:1px;border-collapse: collapse;border-spacing: 0px;border-style: solid;border-color: #c4c4c4;padding: 10px 20px;vertical-align: top;">
+  <strong style="color: #000000;font-size: 18px;font-weight: bold;">{{ this.item.getName() }}</strong>
+  {% if this.isViewListVisible('invoice.item.name', {'item': this.item}) %}
+    <table style="padding-left:0;margin:0;color: #5a5a5a;">
+        {{ widget_list('invoice.item.name', item=this.item) }}
+    </table>
+  {% endif %}
+</td>

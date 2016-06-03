@@ -1,0 +1,21 @@
+{##
+ # Install updates or not (select installation type)
+ #}
+
+<form action="{{ url() }}" method="post" class="no-popup-ajax-submit">
+  <input type="hidden" name="target" value="upgrade" />
+  <input type="hidden" name="action" value="install_addon" />
+  {% for id in this.getModuleIds() %}
+  <input type="hidden" name="moduleIds[]" value="{{ id }}" />
+  {% endfor %}
+  {{ widget('\\XLite\\View\\FormField\\Input\\FormId') }}
+
+  <div class="install-warning-description">
+    {{ t('The system detects that some updates are available for enabled modules. It is strongly recommended to have all enabled modules updated to latest version for better compatibility before the install new ones from Marketplace.') }}
+  </div>
+
+  {{ widget_list('installation_types.buttons') }}
+
+  <div class="clear"></div>
+
+</form>

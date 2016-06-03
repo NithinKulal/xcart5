@@ -1,0 +1,15 @@
+{##
+ # ____file_title____
+ #
+ # @ListChild (list="product.inventory.parts", weight="30")
+ #}
+
+<tr>
+  <td>{{ t('Low limit notification for this product is') }}</td>
+  <td>
+    <select name="{{ this.getNamePostedData('lowLimitEnabled') }}">
+      <option value="1" {% if this.product.getLowLimitEnabled() == '1' %} selected="selected" {% endif %}>{{ t('Enabled') }}</option>
+      <option value="0" {% if this.product.getLowLimitEnabled() == '0' %} selected="selected" {% endif %}>{{ t('Disabled') }}</option>
+    </select>
+  </td>
+</tr>

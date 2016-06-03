@@ -1,0 +1,15 @@
+{##
+ # Create return :: form
+ #
+ # @ListChild (list="capost_create_return", weight="200")
+ #}
+
+<div class="return-form">
+
+  {% form '\\XLite\\Module\\XC\\CanadaPost\\View\\Form\\CreateReturn' %}
+    
+    {{ widget_list('capost_create_return.form') }}
+
+  {% endform %}
+
+</div>

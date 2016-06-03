@@ -1,0 +1,18 @@
+{##
+ # module
+ #}
+
+<img class="icon" src="{{ this.moduleParam.getPublicIconURL() }}" alt="{{ this.moduleParam.getModuleName() }}">
+<div class="info">
+    <div class="name">{{ this.moduleParam.getModuleName() }}</div>
+    <div class="author">
+        <span class="author-label">{{ t('Author') }}:</span>
+        <span class="author-value"> {{ this.moduleParam.getAuthor() }}</span>
+    </div>
+    {% if this.moduleParam.getEnabled() %}
+      {{ widget('XLite\\View\\Button\\Link', location=this.moduleParam.getSettingsForm(), label=t('Settings'), style='main-button settings-button') }}
+    {% endif %}
+    {% if not this.moduleParam.getEnabled() %}
+      {{ widget('XLite\\View\\Button\\Link', location=this.moduleParam.getInstalledURL(), label=t('View in list'), style='main-button settings-button') }}
+    {% endif %}
+</div>

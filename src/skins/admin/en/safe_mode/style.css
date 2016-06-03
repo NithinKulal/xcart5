@@ -1,0 +1,87 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Safe mode styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+#safe_mode > div.safe-mode-description {
+  font-size: 16px;
+  color: #5e5e5f;
+  margin-top: 24px;
+}
+
+#safe_mode .soft-reset {
+  margin: 26px 0px 28px 0px;
+}
+
+#safe_mode .hard-reset {
+  margin: 20px 0px;
+}
+
+.soft-reset .soft-reset-label {
+  font-size: 16px;
+  color: #e69b09;
+  display: block;
+  line-height: 30px;
+  vertical-align: middle;
+  margin-bottom: 4px;
+}
+
+.hard-reset .hard-reset-label {
+  font-size: 16px;
+  color: #e60909;
+  display: block;
+  line-height: 30px;
+  vertical-align: middle;
+  margin-bottom: 4px;
+}
+
+.current-snapshot .current-snapshot-label {
+  font-size: 16px;
+  color: #9bb609;
+  display: block;
+  line-height: 30px;
+  vertical-align: middle;
+  margin-bottom: 4px;
+}
+
+.hard-reset .hard-reset-label strong,
+.soft-reset .soft-reset-label strong,
+.current-snapshot .current-snapshot-label strong
+{
+  font-weight: bold;
+  padding-right: 3px;
+}
+
+#safe_mode div .safe-mode-link {
+  font-size: 14px;
+  padding: 10px 20px 10px 10px;
+  border-radius: 6px;
+  border: solid 1px #efefef;
+  background: #f8f8f8;
+  color: #8f8f8f;
+  width: auto;
+  display: table-cell;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  -ms-text-overflow: ellipsis;
+}
+
+#safe_mode div .safe-mode-link .copy-link {
+  margin-right: 6px;
+}
+
+#safe_mode div .soft-reset-link-block {
+}
+
+#safe_mode div .hard-reset-link-block {
+}
+
+#safe_mode div .current-snapshot-link-block {
+}
+

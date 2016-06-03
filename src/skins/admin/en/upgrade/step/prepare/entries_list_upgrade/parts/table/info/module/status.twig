@@ -1,0 +1,13 @@
+{##
+ # Module status
+ #
+ # @ListChild (list="upgrade.step.prepare.entries_list_upgrade.sections.table.info.module", weight="300")
+ #}
+{% if this.isModule(this.entry) %}
+{% if this.entry.isEnabled() %}
+  <li class="enabled">{{ t('enabled') }}</li>
+{% endif %}
+{% if not this.entry.isEnabled() %}
+  <li class="disabled">{{ t('now disabled') }}</li>
+{% endif %}
+{% endif %}

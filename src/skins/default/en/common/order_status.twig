@@ -1,0 +1,12 @@
+{##
+ # Order status info
+ #}
+{% if this.getLabel() %}
+  <span class="order-status-label">{{ this.getLabel() }}:</span>
+{% endif %}
+{% if this.getParam('useWrapper') %}
+{{ widget_list('order_status.wrapper') }}
+{% endif %}
+{% if not this.getParam('useWrapper') %}
+{{ widget_list('order_status.nowrapper') }}
+{% endif %}

@@ -1,0 +1,11 @@
+{##
+ # Invoice totals : modifiers
+ #
+ # @ListChild (list="order.base.totals", weight="200")
+ #}
+
+{% for sType, surcharge in this.getSurchargeTotals() %}
+  <li {{ this.printTagAttributes(this.getSurchargeAttributes(sType, surcharge))|raw }}>
+    {{ widget(surcharge.widget, surcharge=surcharge, sType=sType, order=this.order) }}
+  </li>
+{% endfor %}

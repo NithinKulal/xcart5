@@ -1,0 +1,64 @@
+{##
+ # Info about modified files
+ #}
+
+<div class="modified-files-section">
+<div class="modified-files-section-frame">
+
+  <div class="header">{{ t('Some files are modified') }}</div>
+
+  <div class="description">
+    {{ t('The system has detected that some custom modifications were made by editing core and module files, not by writing new modules. In order to proceed with the upgrade you should decide what to do with the modifications') }}:
+  </div>
+
+  <ul class="selections-list">
+    <li>
+      <label>
+        <input type="radio" name="radio-selector" id="radio-select-all" />
+        {{ t('Replace all modified files with the unmodified newer versions') }}
+      </label>
+      <div class="warning">({{ t('the custom modifications will be lost') }})</div>
+    </li>
+    <li>
+      <label>
+        <input type="radio" name="radio-selector" id="radio-unselect" />
+         {{ t('Do not replace selected files and ignore their newer versions') }}
+      </label>
+      <div class="warning">({{ t('your web site may crash') }})</div>
+    </li>
+  </ul>
+
+  <ul class="select-actions">
+    <li><a href="javascript:void(0);" class="select-all">{{ t('Select all') }}</a></li>
+    <li class="separator">|</li>
+    <li><a href="javascript:void(0);" class="unselect-all">{{ t('Unselect all') }}</a></li>
+  </ul>
+
+  <div class="clear"></div>
+
+  <ul class="modified-files-group-list">
+    <li class="modified-files-block">
+
+      {% for entry, files in this.getCustomFiles() %}
+        <div class="modified-files-group">
+          {% for file, status in files %}
+            <div class="modified-file">
+              <label>
+                <input type="checkbox" value="{{ '1' }}" {% if status %} checked="checked" {% endif %} name="toRemain[{{ file }}]" />
+                {{ file }}
+              </label>
+            </div>
+          {% endfor %}
+        </div>
+      {% endfor %}
+
+    </li>
+    <li class="switch-button-block">
+      {{ widget('\\XLite\\View\\Button\\SwitchButton', first='makeSmallHeight', second='makeLargeHeight') }}
+    </li>
+  </ul>
+
+  <div class="clear"></div>
+
+</div>
+</div>

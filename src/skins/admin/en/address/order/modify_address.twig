@@ -1,0 +1,11 @@
+{##
+ # Order address
+ #}
+
+<div {{ this.printTagAttributes(this.getContainerAttributes())|raw }}>
+
+  {% form 'XLite\\View\\Form\\Order\\Address' %}
+    {{ widget_list('address.order.main') }}
+  {% endform %}
+
+</div>

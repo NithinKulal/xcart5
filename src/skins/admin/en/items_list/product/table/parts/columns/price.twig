@@ -1,0 +1,7 @@
+{##
+ # Item price
+ #
+ # @ListChild (list="itemsList.product.table.admin.search.columns", weight="60")
+ #}
+
+<td><input type="text" class="price" size="10" value="{{ this.product.getPrice() }}" name="{{ this.getNamePostedData('price', this.product.getProductId()) }}" /></td>

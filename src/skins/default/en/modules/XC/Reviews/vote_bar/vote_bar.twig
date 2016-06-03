@@ -1,0 +1,31 @@
+{##
+ # Vote bar
+ #}
+
+<div class="vote-bar{% if this.isEditable() %} editable{% endif %}">
+
+  <div class="stars-row">
+    {% for num in this.getStarsCount() %}
+      <div class="star-single"><span class="fa fa-star"></span></div>
+    {% endfor %}
+  </div>
+
+  <div class="stars-row static"  style="width: {{ this.getPercent() }}%;">
+    <div class="stars-row full">
+      {% for num in this.getStarsCount() %}
+        <div class="star-single"><span class="fa fa-star"></span></div>
+      {% endfor %}
+    </div>
+  </div>
+
+  {% if this.isEditable() %}
+  <div class="stars-row hovered" style="display: none;">
+    {% for num in this.getStarsCount() %}
+      <div class="star-single star-num-{{ num }}"><span class="fa fa-star"></span></div>
+    {% endfor %}
+  </div>
+
+  <input type="hidden" name="{{ this.getFieldName() }}" value="{{ this.getRating() }}" />
+  {% endif %}
+
+</div>

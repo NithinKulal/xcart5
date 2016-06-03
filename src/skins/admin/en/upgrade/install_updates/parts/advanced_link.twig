@@ -1,0 +1,11 @@
+{##
+ # Advanced mode link
+ #
+ # @ListChild (list="upgrade.install_updates.sections", weight="300")
+ #}
+
+{% if this.isAdvancedModeButtonVisible() %}
+  <div class="advanced-mode-button">
+    {{ widget('XLite\\View\\Button\\Link', label=t(this.getAdvancedModeButtonLabel()), location=this.getAdvancedModeURL(), style='link') }}
+  </div>
+{% endif %}

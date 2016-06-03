@@ -1,0 +1,9 @@
+{##
+ # Name
+ #
+ # @ListChild (list="product.attachments.row", weight="400", zone="admin")
+ #}
+<a class="name" href="{{ this.attachment.storage.getAdminGetterURL() }}">{{ this.attachment.storage.getFileName() }}</a>
+{% if this.attachment.storage.getSize() %}
+  <span class="size">({{ this.formatSize(this.attachment.storage.getSize()) }})</span>
+{% endif %}

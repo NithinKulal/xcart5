@@ -1,0 +1,182 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+ul.account-links .language-selector {
+  position: relative;
+  width: 103px;
+}
+
+ul.account-links .language-selector ul {
+  position: absolute;
+  z-index: 99;
+  border: 1px solid #cadce8;
+  width: 100px;
+  top: -18px;
+  right: 0;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+}
+
+ul.account-links .language-selector li {
+  display: block;
+  background-color: #eff8fe;
+  margin: 0;
+  text-align: left;
+  font-size: 12px;
+}
+
+ul.account-links .language-selector li.current span.lng {
+  background: url(../../../../images/arrow_down.png) no-repeat 86px 10px;
+  color: #5194c5;
+  cursor: pointer;
+}
+
+ul.account-links .language-selector li.current {
+  height: 22px;
+  line-height: 20px;
+}
+
+ul.account-links .language-selector li.current span.lng span,
+ul.account-links .language-selector a span {
+  position: relative;
+  top: 1px;
+  left: 3px;
+}
+
+ul.account-links .language-selector li:hover {
+  background-color: #fff;
+}
+
+ul.account-links .language-selector ul li.not-current {
+  display: none;
+  padding: 1px 0 0px;
+}
+
+ul.account-links .language-selector:hover ul li.not-current {
+  display: block;
+}
+
+ul.account-links .language-selector li.current span.lng,
+ul.account-links .language-selector a,
+ul.account-links .language-selector a:hover {
+  display: block;
+  text-decoration: none;
+  height: 22px;
+}
+
+ul.account-links .language-selector img {
+  margin: 0 0 0 5px;
+  width: 20px;
+  height: 14px;
+}
+
+div.language-selector-main {
+  position: absolute;
+  bottom: auto;
+  cursor: auto;
+  display: block;
+  padding: 10px 15px;
+  width: 350px;
+  z-index: 900;
+}
+
+.language-selector div.language-selector-main {
+  left: auto;
+  right: 0;
+  top: 10px;
+}
+
+.language-selector-mobile div.language-selector-main {
+  left: auto;
+  right: 20px;
+}
+
+li.dropdown.language-button-mobile {
+  float: right;
+  padding-right: 68px;
+}
+
+.language-selector.collapsed div.language-selector-main,
+.language-selector-mobile.collapsed div.language-selector-main {
+  display: none;
+}
+
+.language-selector.expanded div.language-selector-main,
+.language-selector-mobile.expanded div.language-selector-main {
+  display: block;
+}
+
+div.language-selector-main div.table-label {
+  width: 80px;
+}
+
+div.language-selector-main h3 {
+  margin-top: 5px !important;
+}
+
+div.language-selector-main div.table-value select {
+  max-width: 220px;
+}
+
+div.language-selector-value select,
+div.country-code-selector-value select,
+div.currency-code-selector-value select,
+div.language-selector-mobile-value select,
+div.country-code-selector-mobile-value select,
+div.currency-code-selector-mobile-value select {
+  max-width: 220px !important;
+}
+
+.language-selector span.uppercase,
+.language-selector-mobile span.uppercase {
+  text-transform: uppercase;
+}
+
+.language-selector-mobile span.lng img {
+  margin-bottom: 4px;
+  width: 20px;
+  height: 14px;
+}
+
+.mobile_header #language_menu {
+  display: none;
+}
+
+.language-selector-main div.clear,
+.language-selector-mobile div.clear {
+  clear: both;
+}
+
+ul.account-links li.language-selector {
+  line-height: 20px !important;
+}
+
+.mobile_header .nav > li > div > a.language-selector-mobile {
+  font-size: 16px;
+  padding: 9px 15px;
+  text-decoration: none !important;
+}
+.mobile_header .nav-pills > li > div.language-selector-mobile > a {
+  border-radius: 0;
+}
+.nav-pills > li > div.language-selector-mobile > a {
+  border-radius: 5px;
+  font-size: 16px;
+  color: #ffffff;
+  font-weight: bold;
+}
+.nav > li > div.language-selector-mobile> a {
+  display: block;
+  padding: 17px 5px;
+  position: relative;
+}
+.mobile_header > div.language-selector-mobile a {
+  text-decoration: none;
+}

@@ -1,0 +1,29 @@
+{##
+ # Order item pin codes
+ #}
+
+{% if this.item.countPinCodes() != 0 %}
+  <div class="order-item-pin-codes">
+    <div class="order-item order-item-{{ this.item.getItemId() }}">
+  
+      {% if not this.item.isDeleted() %}
+        <span class="product-title">
+          <a href="{{ this.buildUrl('product', '', {'product_id': this.item.product.id}) }}">{{ this.item.product.name|raw }}</a>
+        </span>
+      {% endif %}
+      {% if this.item.isDeleted() %}
+        <span class="product-title">{{ this.item.product.name|raw }}</span>
+      {% endif %}
+  
+      <span class="product-amount"> x {{ this.item.getAmount()|raw }}</span>
+  
+    </div>
+    <div class="pins-header">{{ t('PIN') }}:</div>
+    {% for pin in this.item.getPinCodes() %}
+      <div class="pin-code" id="pin-{{ pin.getId() }}">
+        {{ pin.code|raw }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+<div class="clear"></div>

@@ -1,0 +1,7 @@
+{##
+ # Search field
+ #}
+
+{% for field in this.getFields() %}
+  {% do field.widget.display() %}
+{% endfor %}

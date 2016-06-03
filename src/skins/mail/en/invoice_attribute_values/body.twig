@@ -1,0 +1,14 @@
+{##
+ # Display product attribute values in invoice
+ #}
+<tr>
+  <td>
+    <ul style="padding: 0;margin: 0;">
+      {% for av in this.item.getAttributeValues() %}
+        <li style="color: #5a5a5a;line-height: 1.6em;margin: 0px;padding: 0px;list-style: none;background: transparent none;">
+          {{ av.getName() }}: {{ av.getValue() }}
+        </li>
+      {% endfor %}
+    </ul>
+  </td>
+</tr>

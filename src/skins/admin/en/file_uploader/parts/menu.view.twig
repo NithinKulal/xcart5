@@ -1,0 +1,15 @@
+{##
+ # File uploader menu
+ #
+ # @ListChild (list="file-uploader.menu", weight="20")
+ #}
+
+{% if this.hasView() %}
+  <li role="presentation">
+    <a role="menuitem" tabindex="-1" href="{{ this.object.getFrontURL() }}" target="_blank">
+      <i class="button-icon fa fa-picture-o"></i>
+      <span>{{ t('View image') }}</span>
+    </a>
+  </li>
+  <li role="presentation" class="divider"></li>
+{% endif %}

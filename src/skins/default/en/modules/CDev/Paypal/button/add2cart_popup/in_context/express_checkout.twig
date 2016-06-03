@@ -1,0 +1,8 @@
+{##
+ # Express checkout
+ #}
+<div class="pp-button">
+  <a href="{{ this.getLocationURL() }}" onclick="paypalExpressCheckout(this)" class="{{ this.getClass() }}"{% if this.getId() %} id="{{ this.getId() }}"{% endif %}{% if this.hasMerchantId() %} data-paypal-id="{{ this.getMerchantId() }}"{% endif %}>
+    <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-medium.png" alt="Check out with PayPal" />
+  </a>
+</div>

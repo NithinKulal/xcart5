@@ -1,0 +1,9 @@
+{##
+ # Zone: city masks template
+ #
+ # @ListChild (list="zones.zone.details", weight="300")
+ #}
+
+{% if this.isCityMasksEditEnabled() %}
+  {{ widget('\\XLite\\View\\FormField\\Textarea\\Simple', value=this.zone.getZoneCities(1), label='City masks', rows='5', cols='70', fieldName='zone_cities', help=t('Zone city masks help')) }}
+{% endif %}

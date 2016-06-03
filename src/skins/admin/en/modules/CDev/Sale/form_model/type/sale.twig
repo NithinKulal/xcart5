@@ -1,0 +1,18 @@
+
+{% block c_dev_sale_sale_widget -%}
+    <div class="input-group">
+        <div class="input-group-btn">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span v-if="{{ v_model }}.type=='sale_percent'">%</span>
+                <span v-if="{{ v_model }}.type=='sale_price'">$</span>
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="" v-on:click.prevent="{{ v_model }}.type='sale_percent'">%</a></li>
+                <li><a href="" v-on:click.prevent="{{ v_model }}.type='sale_price'">$</a></li>
+            </ul>
+        </div>
+        {{ form_widget(form.type) }}
+        {{ form_widget(form.value) }}
+    </div>
+{%- endblock c_dev_sale_sale_widget %}

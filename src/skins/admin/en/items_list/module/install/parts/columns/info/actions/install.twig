@@ -1,0 +1,14 @@
+{##
+ # Module select to install action widget
+ #}
+
+<label for="install-{{ this.module.getModuleId() }}" class="install-module-button">
+  <input
+    id="install-{{ this.module.getModuleId() }}"
+    type="checkbox"
+    data="{{ this.module.getModuleId() }}"
+    name="selectToInstall[{{ this.module.getModuleId() }}]"
+    {% if this.isModuleSelected(this.module.getModuleId()) %}checked="checked"{% endif %}
+    class="install-module-action" />
+  {{ t('Install') }}
+</label>

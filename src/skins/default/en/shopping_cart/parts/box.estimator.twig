@@ -1,0 +1,33 @@
+{##
+ # Shipping estimator box
+ #}
+<div class="estimator" data-deferred="{{ this.shouldDeferLoad() }}">
+
+  {% if this.isShippingEstimate() %}
+
+    <ul>
+      <li>
+        <span class="section">{{ t('Shipping') }}:</span>
+        {{ widget('XLite\\View\\ShippingEstimator\\SelectedMethod') }}
+      </li>
+      <li>
+        <span class="section">{{ t('Estimated for') }}:</span>
+        {{ this.getEstimateAddress() }}
+      </li>
+    </ul>
+
+    <div class="link">
+      <a href="{{ url('shipping_estimate') }}" class="estimate">{{ t('Change method') }}</a>
+    </div>
+
+  {% else %}
+
+    {% form 'XLite\\View\\Form\\Cart\\ShippingEstimator\\Open' %}
+      <div class="buttons">
+        {{ widget('XLite\\View\\Button\\Submit', label='Estimate shipping cost', style='estimate') }}
+      </div>
+    {% endform %}
+
+  {% endif %}
+
+</div>

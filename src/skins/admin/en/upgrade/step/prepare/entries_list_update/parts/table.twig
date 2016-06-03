@@ -1,0 +1,18 @@
+{##
+ # Entries list
+ #
+ # @ListChild (list="upgrade.step.prepare.entries_list_update.sections", weight="100")
+ #}
+
+<table class="entries-list">
+  <tr class="header">{{ widget_list('sections.table.header', type='inherited') }}</tr>
+  <tr class="separator"><td colspan="6"></td></tr>
+  {% for entry in this.getUpgradeEntries() %}
+  <tr class="{{ this.getEntryRowCSSClass(entry) }}">
+    {{ widget_list('sections.table.columns', type='inherited', entry=entry) }}
+    {% if not this.isModule(entry) %}
+      </tr><tr class="separator"><td colspan="6"></td>
+    {% endif %}
+  </tr>
+  {% endfor %}
+</table>

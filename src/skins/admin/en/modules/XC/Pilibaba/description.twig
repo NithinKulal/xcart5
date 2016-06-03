@@ -1,0 +1,11 @@
+{##
+ # Pilibaba method admin description
+ #
+ # @ListChild (list="payment.methods.list.header", weight="400")
+ #}
+
+{% if this.method.getServiceName() == 'Pilibaba' %}
+  <div class="description">
+      {{ t('Start accepting CNY payment and take orders from 1.3 Billion shoppers in China. Support all Chinese debit/credit cards and give merchants the flexibility to convert CNY payment into either USD,EUR or 12 supported currencies.')|raw }}
+  </div>
+{% endif %}

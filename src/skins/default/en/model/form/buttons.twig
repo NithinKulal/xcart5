@@ -1,0 +1,9 @@
+{##
+ # ____file_title____
+ #}
+
+<div class="model-form-buttons">
+  {% for name, button in this.getFormButtons() %}
+    <div class="button {{ name }}">{{ button.display() }}</div>
+  {% endfor %}
+</div>

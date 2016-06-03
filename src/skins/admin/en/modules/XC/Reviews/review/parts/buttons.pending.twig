@@ -1,0 +1,9 @@
+{##
+ # Buttons
+ #
+ # @ListChild (list="review.modify.buttons.pending", weight="600")
+ #}
+<div class="button submit">
+  {{ widget('\\XLite\\View\\Button\\Regular', name='approve', label=t('Approve'), style='regular-main-button button-approve', jsCode='onApproveButton(this);') }}
+  {{ widget('\\XLite\\View\\Button\\Regular', name='delete', label=t('Remove'), style='button-delete', jsCode='onRemoveButton(this);') }}
+</div>

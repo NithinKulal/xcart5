@@ -1,0 +1,45 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: top_news_length
+    category: XC\News
+    type: XLite\View\FormField\Input\Text\Integer
+    widgetParameters: { min: 1 }
+    orderby: 100
+    value: 5
+    translations:
+      - code: en
+        option_name: Number of news messages in the Top news list
+      - code: ru
+        option_name: Количество новостей в списке Последних новостей
+  - name: items_per_page
+    category: XC\News
+    type: XLite\View\FormField\Input\Text\Integer
+    widgetParameters: { min: 1 }
+    orderby: 200
+    value: 50
+    translations:
+      - code: en
+        option_name: News messages per page
+      - code: ru
+        option_name: Количество новостей на странице
+XLite\Model\LanguageLabel:
+  - { name: 'News messages', translations: [{ code: en, label: 'News messages' }, { code: ru, label: 'Новости' }] }
+  - { name: 'News message', translations: [{ code: en, label: 'News message' }, { code: ru, label: 'Новость' }] }
+  - { name: 'New news message', translations: [{ code: en, label: 'New news message' }, { code: ru, label: 'Добавить новость' }] }
+  - { name: 'News', translations: [{ code: en, label: 'News' }, { code: ru, label: 'Новости' }] }
+  - { name: 'Top News', translations: [{ code: en, label: 'Top News' }, { code: ru, label: 'Последние новости' }] }
+  - { name: 'All news', translations: [{ code: en, label: 'All news' }, { code: ru, label: 'Все новости' }] }
+  - { name: 'Previous news', translations: [{ code: en, label: 'Previous' }, { code: ru, label: 'Предыдущая новость' }] }
+  - { name: 'Next news', translations: [{ code: en, label: 'Next' }, { code: ru, label: 'Следующая новость' }] }
+  - { name: 'The news message has been updated', translations: [{ code: en, label: 'The news message has been updated' }, {code: ru, label: 'Новость обновлена'}] }
+  - { name: 'The news message has been added', translations: [{ code: en, label: 'The news message has been added' }, {code: ru, label: 'Новость добавлена'}] }
+  - { name: 'Create news message', translations: [{ code: en, label: 'Create news message' }, {code: ru, label: 'Добавление новости'}] }
+  - { name: 'News page title', translations: [{ code: en, label: 'News page title' }, {code: ru, label: 'Заголовок страницы новости' }] }
+  - { name: 'News title', translations: [{ code: en, label: 'News title' }, {code: ru, label: 'Заголовок новости' }] }
+  - { name: 'Leave blank to use news title as Page Title.', translations: [{ code: en, label: 'Leave blank to use news title as Page Title.' }, {code: ru, label: 'Оставьте поле незаполненным чтобы использовать заголовок новости в качестве заголовка страницы.'}] }

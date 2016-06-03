@@ -1,0 +1,4 @@
+{##
+ # Image
+ #}
+<img src="{{ this.getURL() }}" alt="{{ this.getAlt() }}" {% for name, value in this.getProperties() %} {{ name }}="{{ value }}"{% endfor %} />

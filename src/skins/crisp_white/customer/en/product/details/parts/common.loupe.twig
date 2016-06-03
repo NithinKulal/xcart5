@@ -1,0 +1,11 @@
+{##
+ # Image loupe
+ #
+ # @ListChild (list="product.details.page.image", weight="15")
+ #}
+
+{% if this.isLoupeVisible() %}
+  <a href="javascript:void(0);" class="loupe">
+    {{ this.getSVGImage('images/zoom.svg')|raw }}
+  </a>
+{% endif %}

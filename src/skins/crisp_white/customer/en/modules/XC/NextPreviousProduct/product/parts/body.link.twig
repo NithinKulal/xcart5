@@ -1,0 +1,8 @@
+{##
+ # Next product links
+ #}
+{% if this.next %}
+    <a href="{{ this.getItemURL(this.item) }}">{{ t('Next product')|raw }}</a><i class="fa fa-long-arrow-right"></i>
+{% else %}
+    <i class="fa fa-long-arrow-left"></i><a href="{{ this.getItemURL(this.item) }}" class="previous-link">{{ t('Previous product')|raw }}</a>
+{% endif %}

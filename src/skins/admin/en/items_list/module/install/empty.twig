@@ -1,0 +1,25 @@
+{##
+ # ____file_title____
+ #}
+
+<div class="main-text">
+
+  {% if this.getSearchSubstring() %}
+    <div class="no-modules-found">
+      {{ t('No modules found for search_string', {'search_string': this.getSearchSubstring()})|raw }}
+    </div>
+  {% endif %}
+
+  {% if not this.getSearchSubstring() %}
+    <div class="no-modules-found">
+      {{ t('No modules found') }}
+    </div>
+  {% endif %}
+
+  {% if this.getSearchSubstring() %}
+    <div class="clarify-text">
+      {{ t('Please, clarify your search request. Suggest your idea or contact us to get free quote for custom service')|raw }}
+    </div>
+  {% endif %}
+
+</div>

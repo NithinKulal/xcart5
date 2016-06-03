@@ -1,0 +1,10 @@
+{##
+ # Account pin codes list order item 
+ #}
+<div class="order-item" id="order-item-{{ this.item.getItemId() }}">
+<div class="order-item-title">
+  <a href="{{ this.item.product.frontUrl }}">{{ this.item.product.name }}</a>
+  <span class="amount"> x {{ this.item.getAmount() }}</span>
+</div>
+<div class="pins-title">{{ t('PIN') }}:</div> {% for pin in this.item.pinCodes %}<div class="code" id="pin-{{ pin.getId() }}">{{ pin.code|raw }}</div>{% endfor %}
+</div>

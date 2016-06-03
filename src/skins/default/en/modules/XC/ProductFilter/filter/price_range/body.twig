@@ -1,0 +1,7 @@
+{##
+ # Body
+ #}
+
+<div class="filter price-range">
+  {{ widget('XLite\\Module\\XC\\ProductFilter\\View\\FormField\\ValueRange\\ValueRange', fieldName='filter[price]', useColon='false', label='Price range', value=this.getValue(), isOpened='true', minValue=this.getMinPrice(), maxValue=this.getMaxPrice(), unit=this.getSymbol()) }}
+</div>

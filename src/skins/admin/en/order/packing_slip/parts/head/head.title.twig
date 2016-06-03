@@ -1,0 +1,29 @@
+{##
+ # Invoice : header : address box
+ #
+ # @ListChild (list="packing_slip.head", weight="10")
+ #}
+
+<td class="title-wrapper">
+    <div class="packing-slip-title">{{ this.getPackingSlipTitle() }} {{ this.order.getPrintableOrderNumber() }}</div>
+    <div class="packing-slip-title-data">
+        <div class="packing-slip-title-data-item packing-slip-packing-date">
+            <strong class="date-title">{{ t('Packing date') }}</strong>
+            <span class="date-value">{{ this.getPackingSlipDateTime() }}</span>
+        </div>
+        <div class="packing-slip-title-data-item packing-slip-shipping-method">
+            <strong class="date-title">{{ t('Shipping') }}</strong>
+            <span class="date-value">{{ this.getShippingMethodName() }}</span>
+        </div>
+        <div class="packing-slip-title-data-item packing-slip-order-date">
+            <strong class="date-title">{{ t('Order date') }}</strong>
+            <span class="date-value">{{ this.formatTime(this.order.getDate()) }}</span>
+        </div>
+        {% for item in this.order.getPaymentTransactionData(1) %}
+          <div class="packing-slip-title-data-item payment-sub-data">
+              <strong class="date-title">{{ t(item.title) }}</strong>
+              <span class="date-value">{{ item.value }}</span>
+          </div>
+        {% endfor %}
+    </div>
+</td>

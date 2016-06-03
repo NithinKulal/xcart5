@@ -1,0 +1,26 @@
+{##
+ # Modules upload form
+ #}
+
+<div class="upload-addons-text">
+  {{ t('If you have a plugin in the .tar format, you can install it by uploading it here') }}.
+</div>
+
+<div class="upload-addon-form">
+
+<form action="{{ url() }}" method="post" name="uploadAddonsForm" enctype="multipart/form-data">
+  <input type="hidden" name="target" value="upgrade" />
+  <input type="hidden" name="action" value="upload_addon" />
+  {{ widget('\\XLite\\View\\FormField\\Input\\FormId') }}
+
+  <div class="upload-area">
+    <input type="file" name="modulePack" />
+  </div>
+
+  <div class="buttons">
+  {{ widget('\\XLite\\View\\Button\\Submit', style='main-button', label=t('Install add-on')) }}
+  </div>
+
+</form>
+
+</div>

@@ -1,0 +1,20 @@
+{##
+ # Delete confirmation template
+ #}
+
+<div class="delete-profile-message">
+  {{ t('This operation is irreversible. Are you sure you want to proceed?') }}
+</div>
+
+<form action="{{ url() }}" method="post" name="delete_account_form">
+  <input type="hidden" name="target" value="profile" />
+  <input type="hidden" name="action" value="delete" />
+  {{ widget('\\XLite\\View\\FormField\\Input\\FormId') }}
+
+  <div class="delete-user-buttons-list">
+    {{ widget('\\XLite\\View\\Button\\Submit', label='Proceed', style='button-proceed') }}
+
+    {{ widget('\\XLite\\View\\Button\\Regular', label='Cancel', jsCode='void(0);', style='button-cancel') }}
+  </div>
+
+</form>

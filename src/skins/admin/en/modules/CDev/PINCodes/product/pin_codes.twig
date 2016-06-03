@@ -1,0 +1,11 @@
+{##
+ # Product pin codes tab
+ #}
+
+{% form '\\XLite\\Module\\CDev\\PINCodes\\View\\Form\\PinCodes' %}
+
+  {{ widget_list('product.pinCodes', product=this.getProduct()) }}
+
+  {{ widget('\\XLite\\View\\StickyPanel\\ItemsListForm') }}
+
+{% endform %}

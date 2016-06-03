@@ -1,0 +1,35 @@
+{##
+ # Products list (grid variant)
+ #}
+
+{{ widget_list('itemsList.product.cart') }}
+
+<div class="products">
+
+  <table class="products-grid grid-{{ this.getParam('gridColumns') }}-columns">
+    {% for row in this.getProductRows() %}
+      <tr>
+        {% for idx, product in row %}
+          {% if product %}
+            <td class="product-cell box-product">
+  
+              {{ this.getProductWidgetContent(product)|raw }}
+  
+            </td>
+          {% endif %}
+          {% if not product %}
+            <td>&nbsp;</td>
+          {% endif %}
+        {% endfor %}
+      </tr>
+    {% endfor %}
+
+  </table>
+
+  {% if this.isShowMoreLink() %}
+    <div class="products-grid show-more-link">
+      <a class="link" href="{{ this.getMoreLinkURL() }}">{{ this.getMoreLinkText() }}</a>
+    </div>
+  {% endif %}
+
+</div>

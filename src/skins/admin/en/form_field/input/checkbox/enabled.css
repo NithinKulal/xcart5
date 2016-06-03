@@ -1,0 +1,13 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Enabled checkbox styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+span.input-field-wrapper.input-checkbox-enabled {
+  vertical-align: middle;
+  margin-top: 8px;
+}

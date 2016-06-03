@@ -1,0 +1,23 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Free shipping label widget styles. Customer area.
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.product-stock,
+.product-freeship-label {
+  display: inline-block;
+}
+
+.free-shipping .label-main-box .content,
+.product-freeship-label .label-main-box .content {
+  background-color: #4a90e2;
+}
+
+.free-shipping .label-main-box .content,
+.product-freeship-label .label-main-box .content {
+  background: #4a90e2;
+}

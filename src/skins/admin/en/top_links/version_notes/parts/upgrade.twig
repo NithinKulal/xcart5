@@ -1,0 +1,18 @@
+{##
+ # "Upgrade core" link
+ #}
+
+<div {{ this.printTagAttributes(this.getContainerTagAttributes())|raw }}>
+  <div class="box">
+    <span class="warning">{{ this.getSVGImage('images/info.svg')|raw }}</span>
+    {% if this.isCoreUpgradeAvailable() and not this.areUpdatesAvailable() %}
+      <a href="{{ url('upgrade', 'start_upgrade') }}">{{ t('Upgrade available') }}</a>
+    {% else %}
+      <a href="{{ url('upgrade', '', {'mode': 'install_updates'}) }}" title="{{ t('Updates for the X-Cart core and/or installed modules are available') }}">{{ t('Updates are available') }}</a>
+    {% endif %}
+    <a class="close">{{ this.displaySVGImage('images/icon-close-round.svg')|raw }}</a>
+  </div>
+  <div class="corner-box">
+    <span class="corner"><a class="warning">{{ this.getSVGImage('images/info.svg')|raw }}</a></span>
+  </div>
+</div>

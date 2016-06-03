@@ -1,0 +1,40 @@
+{##
+ # Canada Post delivery to post office section
+ #
+ # @ListChild (list="order.shipping", weight="250")
+ #}
+
+{% if this.order.getCapostOffice() %}
+  <div class="address">
+  
+    <strong>{{ t('Delivery to Post Office') }}</strong>
+  
+    <ul class="address-section shipping-address-section capost-d2po-section">
+  
+      <li class="address-field">
+        <span class="address-field">{{ this.order.capostOffice.getName() }}</span>
+      </li>
+  
+      <li class="address-street address-field">
+        <span class="address-field">{{ this.order.capostOffice.getOfficeAddress() }}</span>
+        <span class="address-comma">,</span>
+      </li>
+  
+      <li class="address-city address-field">
+        <span class="address-field">{{ this.order.capostOffice.getCity() }}</span>
+        <span class="address-comma">,</span>
+      </li>
+  
+      <li class="address-state address-field">
+        <span class="address-field">{{ this.order.capostOffice.getProvince() }}</span>
+        <span class="address-comma">,</span>
+      </li>
+  
+      <li class="address-zipcode address-field">
+        <span class="address-field">{{ this.order.capostOffice.getPostalCode() }}</span>
+      </li>
+  
+    </ul>
+  
+  </div>
+{% endif %}

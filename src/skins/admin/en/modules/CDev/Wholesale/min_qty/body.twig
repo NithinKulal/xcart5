@@ -1,0 +1,14 @@
+{##
+ # Minimum purchase quantities list
+ #}
+
+<div class="section minimum-quantity-section">
+  <div class="header minimum-quantity-header"><h2>{{ t('Minimum purchase quantity') }}</h2></div>
+  <ul class="table default-table">
+    {% for qty in this.getMinQuantities() %}
+      <li>
+        {{ widget('\\XLite\\View\\FormField\\Input\\Text', label=qty.name, mouseWheelIcon='false', fieldId='', fieldName=this.getNamePostedData(qty.membershipId, 'minQuantity'), value=qty.quantity) }}
+      </li>
+    {% endfor %}
+  </ul>
+</div>

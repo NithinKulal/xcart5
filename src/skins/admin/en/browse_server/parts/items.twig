@@ -1,0 +1,23 @@
+{##
+ # Browser server dialog : items
+ #
+ # @ListChild (list="browseServer", zone="admin", weight="100")
+ #}
+<div class="browse-selector">
+  <ul class="file-system-entries">
+    <li class="file-system-entry up-level">
+      {{ this.displayCommentedData(this.getCatalogInfo()) }}
+      <a class="type-catalog up-level"><img src="{{ asset('images/spacer.gif') }}" alt="" />[...]</a>
+    </li>
+    {% for idx, entry in this.getFSEntries() %}
+      <li class="fs-entry">
+        {{ widget_list('browseServer.item', entry=entry) }}
+      </li>
+    {% endfor %}
+    {% if this.isEmptyCatalog() %}
+      <li class="empty-catalog">{{ t('Directory is empty') }}</li>
+    {% endif %}
+  </ul>
+</div>
+
+

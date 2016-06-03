@@ -1,0 +1,36 @@
+{##
+ # ____file_title____
+ #}
+<ul class="address-entry">
+
+{% for fieldName, fieldData in this.getSchemaFields() %}
+
+{% if this.getFieldValue(fieldName) %}
+  <li class="address-text-{{ fieldName }}">
+  
+    <div class="clear"></div>
+  
+    <ul class="address-text">
+  
+      <li class="address-text-label-{{ fieldName }}">
+        {{ fieldData.label }}:
+      </li>
+  
+      <li class="address-text-value">
+        {{ this.getFieldValue(fieldName, 1) }}
+      </li>
+  
+      {% if this.getFieldValue(fieldName, 1) %}
+        <li class="address-text-comma-{{ fieldName }}">,</li>
+      {% endif %}
+  
+    </ul>
+  
+    <div class="clear"></div>
+  
+  </li>
+{% endif %}
+
+{% endfor %}
+
+</ul>

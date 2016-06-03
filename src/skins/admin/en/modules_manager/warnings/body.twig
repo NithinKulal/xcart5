@@ -1,0 +1,45 @@
+{##
+ # Modules
+ #}
+
+<form action="{{ url() }}" method="post" class="no-popup-ajax-submit">
+  <input type="hidden" name="target" value="upgrade" />
+  <input type="hidden" name="action" value="install_addon_force" />
+  {{ widget('\\XLite\\View\\FormField\\Input\\FormId') }}
+  {% for id in this.getModuleIds() %}
+  <input type="hidden" name="moduleIds[]" value="{{ id }}" />
+  {% endfor %}
+  <div class="warnings">
+    <ul>
+      {% if not this.isFreeSpaceCheckAvailable() %}
+        <li class="warning-entry free-space-warning-section">
+          <div class='header'>{{ t('Check for available free disk space has failed') }}</div>
+          <div class='description'>{{ t('You should check available free disk space yourself before continuing installation') }}</div>
+        </li>
+      {% endif %}
+      {% for entryName, messageList in this.getErrorMessages() %}
+        <li class="warning-entry">
+          {% for message in messageList %}
+          {# :NOTE: do not add t(##) here: messages are already translated #}
+          <div class="message-entry">{{ message|raw }}</div>
+          {% endfor %}
+        </li>
+      {% endfor %}
+    </ul>
+    <table class="install-addon warning-entry-actions">
+      <tr>
+        {% if not this.getErrorMessages() %}
+          <td>
+            {{ widget('\\XLite\\View\\Button\\Submit', label=t('Install add-on'), style='submit-button main-button') }}
+          </td>
+        {% endif %}
+        {% if this.getErrorMessages() and not this.isAJAX() %}
+          <td>
+            {{ widget('XLite\\View\\Button\\Link', location=url('addons_list_marketplace'), label=t('Go to Marketplace'), style='main-button') }}
+          </td>
+        {% endif %}
+      </tr>
+    </table>
+  </div>
+
+</form>

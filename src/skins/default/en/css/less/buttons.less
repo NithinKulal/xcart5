@@ -1,0 +1,256 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Styles
+ *
+ * Copyright (c) 2001-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+//
+// Buttons
+// --------------------------------------------------
+
+
+// Base styles
+// --------------------------------------------------
+
+.regular-button{
+  .btn;
+  position: relative;
+  font-weight: @btn-font-weight;
+  border: 1px solid @base-border-color;
+  .button-size(@padding-base-vertical; @padding-large-horizontal; @font-size-h4; @line-height-base; @border-radius-base);
+  .user-select(none);
+  #gradient > .vertical (@button-gradient-start-color, @button-gradient-end-color);
+  color: @btn-default-color;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    border: 1px solid @btn-border-color;
+    color: @btn-default-color;
+    text-decoration: none;
+    outline: none;
+  }
+
+  &:active,
+  &.active {
+    outline: 0;
+    background-image: none;
+    .box-shadow(inset 0 3px 5px rgba(0,0,0,.125));
+    background: @button-active-bg;
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &.disabled,
+  &[disabled],
+    fieldset[disabled] & {
+    cursor: not-allowed !important;
+    pointer-events: auto; // Future-proof disabling of clicks
+    .opacity(.3);
+    .box-shadow(none);
+    
+    &:active,
+    &.active{
+        #gradient > .vertical (@button-gradient-start-color, @button-gradient-end-color);
+    }
+  }
+  
+  &:before {
+    content: "";
+    width: 96%;
+    height: 1px;
+    background: #ffffff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0 2%;
+  }
+    
+}
+
+.regular-main-button,
+.ui-widget-content .regular-main-button {
+    .regular-button;
+    color: #ffffff; 
+    #gradient > .vertical (@button-main-gradient-start-color, @button-main-gradient-end-color);
+    border: none;
+    
+    &:hover,
+    &:focus{
+        #gradient > .vertical (@button-main-gradient-start-color, @button-main-gradient-end-color);
+        color: #ffffff;
+        border: none;
+    }
+    
+    &:active,
+    &.active {
+        #gradient > .vertical (#ffb009, #ff9303);
+        color: #ffffff;
+    }
+    
+    &:before {
+        display: none;
+    }
+    
+    &.disabled,
+    &[disabled],
+    fieldset[disabled] & {
+        color: #fff;       
+        &:active,
+        &.active{
+            #gradient > .vertical (@button-main-gradient-start-color, @button-main-gradient-end-color);
+            color: #fff;
+        }
+    }
+}
+
+
+// Alternate buttons
+// --------------------------------------------------
+
+.btn-default {
+  .button-variant(@btn-default-color; @btn-default-bg; @btn-default-border);
+  background-image: none;  
+  &:before{
+    display: none;
+  }
+}
+.btn-primary {
+  .button-variant(@btn-primary-color; @btn-primary-bg; @btn-primary-border);
+  background-image: none;  
+  &:before{
+    display: none;
+  }
+}
+// Success appears as green
+.btn-success {
+  .button-variant(@btn-success-color; @btn-success-bg; @btn-success-border);
+  background-image: none; 
+&:before{
+    display: none;
+  }  
+}
+// Info appears as blue-green
+.btn-info {
+  .button-variant(@btn-info-color; @btn-info-bg; @btn-info-border);
+  background-image: none;
+&:before{
+    display: none;
+  }  
+}
+// Warning appears as orange
+.btn-warning {
+    color: #fff;  
+    #gradient > .vertical (@button-main-gradient-start-color, @button-main-gradient-end-color);
+    border: none;
+    
+    &:hover,
+    &:focus{
+        #gradient > .vertical (@button-main-gradient-start-color, @button-main-gradient-end-color);
+        border: none;
+        color: #fff;
+    }
+    
+    &:active,
+    &.active {
+        #gradient > .vertical (#ffb009, #ff9303);
+        border: none;
+    }
+    
+    &:before {
+        display: none;
+    }
+}
+// Danger and error appear as red
+.btn-danger {
+  .button-variant(@btn-danger-color; @btn-danger-bg; @btn-danger-border);
+  background-image: none; 
+&:before{
+    display: none;
+  }  
+}
+
+
+// Link buttons
+// -------------------------
+
+// Make a button look and behave like a link
+.btn-link {
+  color: @link-color;
+  font-weight: normal;
+  cursor: pointer;
+  border-radius: 0;
+
+  &,
+  &:active,
+  &[disabled],
+  fieldset[disabled] & {
+    background-color: transparent;
+    .box-shadow(none);
+  }
+  &,
+  &:hover,
+  &:focus,
+  &:active {
+    border-color: transparent;
+  }
+  &:hover,
+  &:focus {
+    color: @link-hover-color;
+    text-decoration: underline;
+    background-color: transparent;
+  }
+  &[disabled],
+  fieldset[disabled] & {
+    &:hover,
+    &:focus {
+      color: @btn-link-disabled-color;
+      text-decoration: none;
+    }
+  }
+}
+
+
+// Button Sizes
+// --------------------------------------------------
+
+.btn-lg {
+  // line-height: ensure even-numbered height of button next to large input
+  .button-size(@padding-large-vertical; @padding-large-horizontal; @font-size-large; @line-height-large; @border-radius-large);
+}
+.btn-sm {
+  // line-height: ensure proper height of button next to small input
+  .button-size(@padding-small-vertical; @padding-small-horizontal; @font-size-small; @line-height-small; @border-radius-small);
+}
+.btn-xs {
+  .button-size(@padding-xs-vertical; @padding-xs-horizontal; @font-size-small; @line-height-small; @border-radius-small);
+}
+
+
+// Block button
+// --------------------------------------------------
+
+.btn-block {
+  display: block;
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+// Vertically space out multiple block buttons
+.btn-block + .btn-block {
+  margin-top: 5px;
+}
+
+// Specificity overrides
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+  &.btn-block {
+    width: 100%;
+  }
+}

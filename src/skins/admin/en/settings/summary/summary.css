@@ -1,0 +1,65 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Order address book styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.settings-table .clean-url-setting-error-msg *,
+.settings-table .clean-url-setting-error-body *,
+.settings-table .clean-url-setting *{
+    float: none;
+    vertical-align: top;
+}
+.settings-table .clean-url-setting *{
+    vertical-align: middle;
+}
+.settings-table .clean-url-setting .tooltip-main{
+    vertical-align: top;
+}
+.settings-table .clean-url-setting .table-label{
+    /*width: auto;*/
+}
+.settings-table .clean-url-setting-error-msg {
+  color: red;
+  font-size: 13px;
+}
+.settings-table .clean-url-setting-error-msg .url{
+  font-size: 13px;
+}
+
+.settings-table.permissions-table td *{
+    float: none;
+}
+
+.modified-files-section .description {
+    font-size: 14px;
+    line-height: 19px;
+    margin: 0px 0px 10px 0px;
+}
+
+.modified-files-section .modified-files-block {
+    overflow: auto;
+    display: block;
+    background-color: #f4f4f4;
+    padding: 6px 0px 10px 17px;
+    margin-right: 5px;
+    border: solid 1px #e5e5e5;
+}
+
+.modified-files-section .modified-files-buttons {
+    margin-top: 10px;
+}
+
+.modified-files-section {
+    margin-top: 14px;
+    border: 1px solid #ccc;
+    max-width: 800px;
+}
+
+.modified-files-section .modified-files-section-frame {
+    border: solid #f7f7f7 6px;
+    padding: 7px;
+}

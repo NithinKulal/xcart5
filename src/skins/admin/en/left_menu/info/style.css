@@ -1,0 +1,133 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Info notifications menu style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+#leftMenu .notification .warning .notification-header svg path {
+  fill: #f69c3b;
+}
+
+#leftMenu .notification .low-stock .notification-header svg path {
+  fill: #ca4541;
+}
+
+#leftMenu .notification .low-stock a:hover .notification-header svg path {
+  fill: #68c7ff;
+}
+
+#leftMenu .notification .upgrade .notification-header svg path {
+  fill: #c1ccda;
+}
+
+#leftMenu .notification .upgrade a:hover .notification-header svg path {
+  fill: #68c7ff;
+}
+
+#leftMenu .notification .warning .notification-header span {
+  color: #f69c3b;
+}
+
+#leftMenu .notification .low-stock .notification-header span {
+  color: #ca4541;
+}
+
+#leftMenu .notification .low-stock a:hover .notification-header span {
+  color: #68c7ff;
+}
+
+#leftMenu .notification .upgrade .notification-header span {
+  color: #c1ccda;
+}
+
+#leftMenu .notification .upgrade a:hover .notification-header span {
+  color: #68c7ff;
+}
+
+#leftMenu .notification .read .low-stock.updated .notification-header .counter,
+#leftMenu .notification .low-stock .notification-header .counter {
+  background: #7a1212;
+}
+
+#leftMenu .notification .low-stock a:hover .notification-header .counter,
+#leftMenu .notification .low-stock.updated a:hover .notification-header .counter {
+  background: #68c7ff;
+}
+
+#leftMenu .notification .low-stock.updated .notification-header .counter {
+  background: #f00;
+}
+
+#leftMenu .notification .read .upgrade.updated .notification-header .counter,
+#leftMenu .notification .upgrade .notification-header .counter {
+  background: #6d7279;
+}
+
+#leftMenu .notification .upgrade a:hover .notification-header .counter,
+#leftMenu .notification .upgrade.updated .notification-header .counter {
+  background: #68c7ff;
+}
+
+#leftMenu .notification .warning ul > li {
+  display: block;
+}
+
+#leftMenu .notification .warning ul > li:nth-child(n+2) {
+  margin-top: 17px;
+}
+
+#leftMenu .notification .warning ul > li .message {
+  white-space: normal;
+  text-align: left;
+}
+
+#leftMenu .notification .warning ul > li .message .date {
+  color: #6d7279;
+  font-size: 9px;
+}
+
+#leftMenu .notification .warning ul > li .message .title {
+  display: block;
+  color: #a9b3be;
+  margin-top: 7px;
+}
+
+#leftMenu .notification .warning ul > li a:hover .message .title {
+  color: #68c7ff;
+}
+
+#leftMenu .notification .info .notification-header svg path {
+  fill: #fff;
+}
+
+#leftMenu .notification .info a:hover .notification-header svg path {
+  fill: #68c7ff;
+}
+
+#leftMenu .notification .info .notification-header span {
+  color: #fff;
+}
+
+#leftMenu .notification .info a:hover .notification-header span {
+  color: #68c7ff;
+}
+
+#leftMenu .notification .read .notification-item.info.updated .notification-header .counter,
+#leftMenu .notification .notification-item.info .notification-header .counter {
+  background: #fff;
+  color: #000;
+}
+
+#leftMenu .notification .notification-item.info a:hover .notification-header .counter,
+#leftMenu .notification .notification-item.info.updated a:hover .notification-header .counter {
+  background: #68c7ff;
+  color: #000;
+}
+
+#leftMenu .notification .notification-item.info.updated .notification-header .counter {
+  background: #f00;
+  color: #000;
+}

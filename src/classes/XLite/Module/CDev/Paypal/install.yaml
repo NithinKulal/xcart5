@@ -1,0 +1,318 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Payment\Method:
+  - service_name: PayflowLink
+    class: 'Module\CDev\Paypal\Model\Payment\Processor\PayflowLink'
+    type: C
+    orderby: -10600
+    countries: [US, CA, AU, NZ]
+    translations:
+      - code: en
+        name: 'PayPal Payflow Link'
+        title: 'Credit/Debit card or PayPal'
+        altAdminDescription: 'Accept Visa, MasterCard®, American Express, Discover and PayPal payments on your site by connecting a PayPal-hosted checkout page with your own internet merchant account. Customize the page to look like the rest of your site and make sure customer transactions are secure.'
+    settings:
+      - name: vendor
+      - name: user
+      - name: pwd
+      - name: partner
+        value: PayPal
+      - name: prefix
+        value: mystore_
+      - name: transaction_type
+        value: S
+      - name: mode
+        value: test
+      - name: buyNowEnabled
+        value: 1
+
+  - service_name: PayflowTransparentRedirect
+    class: 'Module\CDev\Paypal\Model\Payment\Processor\PayflowTransparentRedirect'
+    type: C
+    orderby: -10650
+    countries: [US, CA, AU, NZ]
+    translations:
+      - code: en
+        name: 'Partner Hosted with PCI Compliance'
+        title: 'Credit/Debit card'
+        altAdminDescription: 'PCI compliant payments on your site with Visa, MasterCard, American Express and Discover - without PayPal-hosted pages. Maintain full control over your customers'' checkout experience by providing a credit card form that will post your customers'' payment details from your site''s native checkout page directly to the Gateway server.'
+    settings:
+      - name: vendor
+      - name: user
+      - name: pwd
+      - name: partner
+        value: PayPal
+      - name: prefix
+        value: mystore_
+      - name: transaction_type
+        value: S
+      - name: mode
+        value: test
+
+  - service_name: PaypalAdvanced
+    class: 'Module\CDev\Paypal\Model\Payment\Processor\PaypalAdvanced'
+    type: C
+    orderby: -10700
+    countries: [US, CA]
+    translations:
+      - code: en
+        name: 'PayPal Payments Advanced'
+        title: 'Credit/Debit card or PayPal'
+        altAdminDescription: 'Accept Visa, MasterCard®, American Express, Discover and PayPal payments securely. With this all-in-one option, customers stay on your site for the entire checkout process. It simplifies PCI compliance and opens the door to more than 100 million active PayPal customers. Requires credit approval (2-3 business days).'
+    settings:
+      - name: vendor
+      - name: user
+      - name: pwd
+      - name: partner
+        value: PayPal
+      - name: prefix
+        value: mystore_
+      - name: transaction_type
+        value: S
+      - name: mode
+        value: test
+      - name: buyNowEnabled
+        value: 1
+
+  - service_name: PaypalWPS
+    class: 'Module\CDev\Paypal\Model\Payment\Processor\PaypalWPS'
+    type: A
+    orderby: -10800
+    countries: [US, CA, MX, BE, DK, FR, DE, IE, IT, LU, NL, NO, PL, RU, JP, ES, NZ, BR, SE, GB, AU, CN, IL, SG]
+    translations:
+      - code: en
+        name: 'PayPal Payments Standard'
+        title: 'PayPal'
+        altAdminDescription: 'Add a PayPal payment button to your site to accept Visa, MasterCard®, American Express, Discover and PayPal payments securely. When your customers check out, they are redirected to PayPal to pay, then return to your site after they are finished.'
+    settings:
+      - name: account
+      - name: description
+      - name: prefix
+        value: mystore_
+      - name: mode
+        value: test
+
+  - service_name: ExpressCheckout
+    class: 'Module\CDev\Paypal\Model\Payment\Processor\ExpressCheckout'
+    added: true
+    type: C
+    orderby: -102000
+    countries: [US, MX, BE, DK, FR, DE, IE, IT, LU, NL, NO, PL, RU, JP, ES, NZ, BR, SE, GB, AU, CN, IL, SG]
+    translations:
+      - code: en
+        name: 'PayPal Express Checkout'
+        title: 'PayPal Express Checkout'
+        altAdminDescription: 'Create a seamless checkout experience and increase your conversion rate by opening the door to over 100 million active PayPal customers who look for and use this fast, easy, and secure way to pay.'
+    settings:
+      - name: api_type
+        value: email
+      - name: email
+      - name: api_solution
+        value: paypal
+      - name: vendor
+      - name: user
+      - name: pwd
+      - name: partner
+        value: PayPal
+      - name: api_username
+      - name: api_password
+      - name: auth_method
+        value: signature
+      - name: signature
+      - name: certificate
+      - name: prefix
+        value: mystore_
+      - name: transaction_type
+        value: S
+      - name: mode
+        value: test
+      - name: merchantId
+      - name: buyNowEnabled
+        value: 1
+
+  - service_name: PaypalCredit
+    class: 'Module\CDev\Paypal\Model\Payment\Processor\PaypalCredit'
+    added: true
+    type: C
+    orderby: -11000
+    countries: [US, CA]
+    translations:
+      - code: en
+        name: 'PayPal Credit'
+        title: 'PayPal Credit'
+    settings:
+      - name: enabled
+        value: 1
+      - name: agreement
+        value: N
+      - name: email
+      - name: publisherId
+      - name: bannerOnHomePage
+        value: D
+      - name: bannerOnCategoryPages
+        value: D
+      - name: bannerOnProductDetailsPages
+        value: A
+      - name: bannerOnCartPage
+        value: C
+  - service_name: PaypalAdaptive
+    class: 'Module\CDev\Paypal\Model\Payment\Processor\PaypalAdaptive'
+    type: C
+    orderby: -11100
+    translations:
+      - code: en
+        name: 'PayPal Adaptive payments'
+        title: 'PayPal'
+        altAdminDescription: "This method provides automatic transfer of payments to vendor users (the type of users enabled by the Multi-vendor module). The method may not be activated unless the module <a href='admin.php?target=addons_list_marketplace&moduleName=XC\MultiVendor' target='_blank'>Multi-vendor</a> is installed and enabled. To use this method, store administrator is required to have an Application ID for PayPal Adaptive Payments API."
+    settings:
+      - name: app_id
+      - name: api_username
+      - name: api_password
+      - name: signature
+      - name: paypal_login
+      - name: partner
+        value: PayPal
+      - name: feesPayer
+        value: PRIMARYRECEIVER
+      - name: prefix
+        value: mystore_
+      - name: transaction_type
+        value: S
+      - name: mode
+        value: test
+      - name: buyNowEnabled
+        value: 1
+
+XLite\Model\Config:
+  - name: show_admin_welcome
+    category: CDev\Paypal
+    type: checkbox
+    value: N
+    orderby: 100
+    translations:
+      - code: en
+        option_name: 'Show "Admin welcome" block'
+  - name: paypalLoginOptions
+    category: CDev\Paypal
+    type: \XLite\Module\CDev\Paypal\View\FormField\Instructions
+    orderby: 200
+    translations:
+      - code: en
+        option_name: PayPal Login
+        option_comment: 'To enable PayPal login, you need to create a PayPal application for your website. The recommended procedure is to go to the My Apps page and create an app for testing, then to go live with this app. For detailed instructions on creating the app, see PayPal documentation at <a href="https://developer.paypal.com/docs/integration/admin/manage-apps/">https://developer.paypal.com/docs/integration/admin/manage-apps/</a>. Be sure to specify your "App return URL" as the value of "Redirect URL" field below.<br /><br />Once the app has been created, be sure to copy your Client Id and Client Secret from the app details and credentials and have them stored in the fields below.'
+  - name: loginRedirectURLProtocol
+    category: CDev\Paypal
+    type: XLite\Module\CDev\Paypal\View\FormField\Select\Protocol
+    value: http
+    orderby: 300
+    translations:
+      - code: en
+        option_name: Redirect URL
+  - name: loginClientId
+    category: CDev\Paypal
+    type: text
+    orderby: 400
+    translations:
+      - code: en
+        option_name: Client Id
+  - name: loginClientSecret
+    category: CDev\Paypal
+    type: text
+    orderby: 500
+    translations:
+      - code: en
+        option_name: Client Secret
+  - name: loginMode
+    category: CDev\Paypal
+    type: XLite\View\FormField\Select\TestLiveMode
+    value: test
+    orderby: 600
+    translations:
+      - code: en
+        option_name: Test/Live mode
+
+XLite\Model\LanguageLabel:
+  - { name: 'PayPal ID / Email', translations: [{ code: en, label: 'PayPal ID / Email' }] }
+  - { name: 'Enter the email address associated with your PayPal account.', translations: [{ code: en, label: 'Enter the email address associated with your PayPal account.' }] }
+  - { name: "Enter description of the purchase that will be displayed on PayPal payment page.", translations: [{ code: en, label: "Enter a description of the purchase that will be displayed on the PayPal payment page." }] }
+  - { name: "You can define an order id prefix, which would precede each order number in your shop, to make it unique", translations: [{ code: en, label: "You can set an order id prefix that will be added to each order number in your shop to make it unique (each transaction id must be unique for a PayPal account). This option is relevant only if you share your PayPal account with other online shops" }] }
+  - { name: "Your account settings", translations: [{ code: en, label: "Your account settings" }] }
+  - { name: "Partner name", translations: [{ code: en, label: "Partner name" }] }
+  - { name: "Your partner name is PayPal", translations: [{ code: en, label: "Your partner name is PayPal" }] }
+  - { name: "Merchant login", translations: [{ code: en, label: "Merchant login" }] }
+  - { name: "This is the login name you created when signing up for PayPal Payments Advanced.", translations: [{ code: en, label: "This is the login name you created when you signed up for PayPal Payments Advanced." }] }
+  - { name: "PayPal recommends entering a User Login here instead of your Merchant Login", translations: [{ code: en, label: "PayPal recommends entering a User Login here instead of your Merchant Login. You can set up a User profile in <a href=\"https://manager.paypal.com\">PayPal Manager</a>. This will enhance security and prevent service interruption should you change your Merchant Login password." }] }
+  - { name: "This is the password you created when signing up for PayPal Payments Advanced or the password you created for API calls.", translations: [{ code: en, label: "This is the password you created when you signed up for PayPal Payments Advanced or the password you created for API calls." }] }
+  - { name: "Additional settings", translations: [{ code: en, label: "Additional settings" }] }
+  - { name: "Auth and Capture", translations: [{ code: en, label: "Auth and Capture" }] }
+  - { name: "Auth only", translations: [{ code: en, label: "Auth only" }] }
+  - { name: "This should be the same partner name that is used when logging into your PayPal Payflow account.", translations: [{ code: en, label: "This should be the partner name you use when logging into your PayPal Payflow account." }] }
+  - { name: "This is the login name you created when signing up for Payflow.", translations: [{ code: en, label: "This is the login name you created when you signed up for Payflow." }] }
+  - { name: "This is the password you created when signing up for PayPal Payflow or the password you created for API calls.", translations: [{ code: en, label: "This is the password you created when you signed up for PayPal Payflow or the password you created for API calls." }] }
+  - { name: "IPN verification failed", translations: [{ code: en, label: "IPN verification failed" }] }
+  - { name: "IPN HTTP error", translations: [{ code: en, label: "IPN HTTP error" }] }
+  - { name: "Order id prefix", translations: [{ code: en, label: "Order id prefix" }] }
+  - { name: "E-Mail address to receive PayPal payment", translations: [{ code: en, label: "Email address to receive PayPal payment" }] }
+  - { name: "Start accepting Express Checkout payments immediately by simply plugging in the email address where you would like to receive payments.", translations: [{ code: en, label: "Start accepting Express Checkout payments immediately by simply plugging in the email address where you would like to receive payments. You can create your PayPal account later after you have received a real transaction from your customers!" }] }
+  - { name: "API credentials for payments and post-checkout operations", translations: [{ code: en, label: "API credentials for payments and post-checkout operations" }] }
+  - { name: "Can be set up later", translations: [{ code: en, label: "Can be set up later" }] }
+  - { name: "Your PayPal Publisher ID is X", translations: [{ code: en, label: "Your PayPal Publisher ID is: {{publisherId}}" }] }
+  - { name: "Paypal API solution", translations: [{ code: en, label: "Paypal API solution" }] }
+  - { name: "Paypal API", translations: [{ code: en, label: "Paypal API" }] }
+  - { name: "Payflow API", translations: [{ code: en, label: "Payflow API" }] }
+  - { name: "API access username", translations: [{ code: en, label: "API access username" }] }
+  - { name: "API access password", translations: [{ code: en, label: "API access password" }] }
+  - { name: "Use PayPal authentication method", translations: [{ code: en, label: "Use PayPal authentication method" }] }
+  - { name: "API signature", translations: [{ code: en, label: "API signature" }] }
+  - { name: "API certificate filename", translations: [{ code: en, label: "API certificate filename" }] }
+  - { name: "API certificate", translations: [{ code: en, label: "API certificate" }] }
+  - { name: 'Display the "Buy Now with PayPal" button', translations: [{ code: en, label: 'Display the "Buy Now with PayPal" button' }] }
+  - { name: 'This setting determines whether or not the "Buy Now with PayPal" button should be displayed on product list pages (in list view) and product details pages.', translations: [{ code: en, label: 'This setting determines whether or not the "Buy Now with PayPal" button should be displayed on product list pages (in list view) and product details pages.' }] }
+  - { name: paypal_welcome_text, translations: [{ code: en, label: "<b>PayPal Express Checkout</b> is configured to work in SandBox mode for the email <b>{{email}}</b>.<br />To use it in Live mode, click the Launch PayPal button below. You will be taken to the PayPal payment method configuration page where you will be able to specify the appropriate configuration settings." }] }
+  - { name: "Launch PayPal", translations: [{ code: en, label: "Launch PayPal" }] }
+  - { name: "PayPal Credit is", translations: [{ code: en, label: "PayPal Credit is" }] }
+  - { name: "I agree with PayPal terms & conditions", translations: [{ code: en, label: "I agree with PayPal terms & conditions" }] }
+  - { name: "PayPal account email", translations: [{ code: en, label: "PayPal account e-mail" }] }
+  - { name: "Banner on Home page", translations: [{ code: en, label: "Banner on Home page" }] }
+  - { name: "Banner on Category pages", translations: [{ code: en, label: "Banner on Category pages" }] }
+  - { name: "Banner on Product details pages", translations: [{ code: en, label: "Banner on Product details pages" }] }
+  - { name: "Banner on Cart page", translations: [{ code: en, label: "Banner on Cart page" }] }
+  - { name: "Show above products", translations: [{ code: en, label: "Show above products" }] }
+  - { name: "Show below products", translations: [{ code: en, label: "Show below products" }] }
+  - { name: 'Near "Add to cart" button', translations: [{ code: en, label: 'Near "Add to cart" button' }] }
+  - { name: 'Near "Checkout" button', translations: [{ code: en, label: 'Near "Checkout" button' }] }
+  - { name: 'PayPal API (Merchant API) will work for most merchants; however, some merchants may have access only to Payflow API.', translations: [{ code: en, label: 'PayPal API (Merchant API) will work for most merchants; however, some merchants may have access only to Payflow API. If you are sure you need to use Payflow API, select the respective value from this field.<br />Your choice of API solution in this field determines the type of API credentials that you will be able to enter in the fields below.' }] }
+  - { name: 'Payment has been refunded successfully', translations: [{ code: en, label: 'Payment has been refunded successfully' }] }
+  - { name: 'Payment has been voided successfully', translations: [{ code: en, label: 'Payment has been voided successfully' }] }
+  - { name: 'Payment has been captured successfully', translations: [{ code: en, label: 'Payment has been captured successfully' }] }
+  - { name: 'Your API credentials have been successfully obtained from your PayPal account and saved for use by your X-Cart store.', translations: [{ code: en, label: 'Your API credentials have been successfully obtained from your PayPal account and saved for use by your X-Cart store.' }] }
+  - { name: 'Unfortunately, your API credentials could not be obtained from your PayPal account automatically.', translations: [{ code: en, label: 'Unfortunately, your API credentials could not be obtained from your PayPal account automatically. Please request your API credentials in your PayPal account and submit them here manually.' }] }
+  - { name: "Don't have account yet?", translations: [{ code: en, label: "Don't have an account yet?" }] }
+  - { name: "Sign Up Now", translations: [{ code: en, label: "Sign Up Now" }] }
+  - { name: "Register with PayPal or go to checkout as a New customer", translations: [{ code: en, label: "Register with {{paypal}} <br /> or go to checkout as a New customer" }] }
+  - { name: 'Or sign in the classic way', translations: [{ code: en, label: 'Or sign in the classic way' }] }
+  - { name: 'Or register with', translations: [{ code: en, label: 'Or register with' }] }
+  - { name: 'Register with', translations: [{ code: en, label: 'Register with' }] }
+  - { name: 'or go to checkout as a New customer', translations: [{ code: en, label: 'or go to checkout as a New customer' }] }
+  - { name: 'Or use your social account', translations: [{ code: en, label: 'Or use your social account' }] }
+  - { name: 'Use existing account from', translations: [{ code: en, label: 'Use existing account from' }] }
+  - { name: PayPal, translations: [{ code: en, label: PayPal }] }
+  - { name: 'Use existing PayPal account', translations: [{ code: en, label: 'Use existing PayPal account' }] }
+  - { name: 'Paypal capture warning message', translations: [{ code: en, label: 'The authorized amount ({{authorized}}) differs from the current order total ({{total}}). A request to capture {{total}} will be issued on click on "Capture" button.' }] }
+  - { name: 'Wrong token of Express Checkout. Please try again. If the problem persists, contact the administrator.', translations: [{ code: en, label: 'Wrong token of Express Checkout. Please try again. If the problem persists, contact the administrator.' }] }
+  - { name: 'PayerID value was not returned by PayPal. Please try again. If the problem persists, contact the administrator.', translations: [{ code: en, label: 'PayerID value was not returned by PayPal. Please try again. If the problem persists, contact the administrator.' }] }
+  - { name: 'Your address data was not received from PayPal. Please try again. If the problem persists, contact the administrator.', translations: [{ code: en, label: 'Your address data was not received from PayPal. Please try again. If the problem persists, contact the administrator.' }] }
+  - { name: 'To enable this payment method, you need Multi-vendor module installed.', translations: [{ code: en, label: 'To enable this payment method, you need Multi-vendor module installed.' }] }
+  - { name: 'To enable this payment method, you need <Multi-vendor> module installed.', translations: [{ code: en, label: 'To enable this payment method, you need <a href="{{link}}" target="_blank">Multi-Vendor</a> module installed.' }] }
+  - { name: 'EACHRECEIVER', translations: [{ code: en, label: 'EACHRECEIVER' }]}
+  - { name: 'Obtaining your live PayPal credentials', translations: [{ code: en, label: 'Obtaining your live PayPal credentials' }]}
+  - { name: 'PRIMARYRECEIVER', translations: [{ code: en, label: 'PRIMARYRECEIVER' }]}
+  - { name: 'Paypal Credit', translations: [{ code: en, label: 'Paypal Credit' }]}
+  - { name: 'Registering your application with PayPal', translations: [{ code: en, label: 'Registering your application with PayPal' }]}
+  - { name: 'SECONDARYONLY', translations: [{ code: en, label: 'SECONDARYONLY' }]}
+  - { name: 'SENDER', translations: [{ code: en, label: 'SENDER' }]}

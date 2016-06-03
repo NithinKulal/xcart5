@@ -1,0 +1,11 @@
+{##
+ # Shopping cart item weight block
+ #
+ # @ListChild (list="cart.item.info", weight="30")
+ #}
+{% if this.item.getWeight() %}
+  <p class="item-weight">
+    <span>{{ t('Weight') }}:</span>
+    {{ this.formatWeight(this.item.getWeight()) }}
+  </p>
+{% endif %}

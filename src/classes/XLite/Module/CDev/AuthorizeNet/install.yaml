@@ -1,0 +1,29 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Payment\Method:
+  - service_name: AuthorizeNet SIM
+    class: Module\CDev\AuthorizeNet\Model\Payment\Processor\AuthorizeNetSIM
+    type: C
+    orderby: -101000
+    countries: [AD, NL, US, AT, AU, BE, BG, CA, CG, CF, CH, CY, CZ, DE, DK, DO, IR, ES, FI, GB, FR, GR, HU, IE, IT, GI, KR, LI, MC, MD, MT, NL, NO, LU, PL, PT, RO, SE, SI, SK, SM, SY, TZ, VA]
+    translations:
+      - code: en
+        name: Authorize.Net SIM
+    settings:
+      - name: login
+      - name: key
+      - name: type
+        value: sale
+      - name: test
+        value: 1
+      - name: prefix
+        value: xcart
+XLite\Model\LanguageLabel:
+  - { name: "API Login ID", translations: [{ code: en, label: "API Login ID" }] }
+  - { name: "Transaction key", translations: [{ code: en, label: "Transaction key" }] }
+  - { name: "It's recommended to limit the length of invoice prefix to 9 characters", translations: [{ code: en, label: "It's recommended to limit the length of invoice prefix to 9 characters. Larger prefixes will be cut prior to transaction initialization." }] }

@@ -1,0 +1,34 @@
+{##
+ # Settings template
+ #}
+
+{{ widget('\\XLite\\View\\Payment\\MethodStatus', method=this.getPaymentMethod()) }}
+
+<div class="payment-settings {{ this.paymentMethod.getServiceName() }}">
+
+  <div class="middle">
+
+    {{ widget('\\XLite\\Module\\CDev\\Paypal\\View\\Model\\PaypalAdvanced', paymentMethod=this.getPaymentMethod()) }}
+
+    <div class="help">
+      <div class="logo-ppa"></div>
+
+      <div class="help-title">Accept Payments Directly on Your Site</div>
+
+      <div class="help-text">Accept Visa, MasterCard&reg;, American Express, Discover, and PayPal payments. Customers stay on your site for the entire checkout process with this all-in-one option. It simplifies PCI compliance and opens the door to more than 100 million active PayPal customers. Requires credit approval (2-3 business days).
+      </div>
+
+      <div class="links">
+        <div class="help-link">Don't have an account? <span class="external"><a href="{{ this.paymentMethod.getReferralPageURL() }}" target="_blank">Sign Up Now</a> <i class="icon fa fa-external-link"></i></span></div>
+        {% if this.paymentMethod.getKnowledgeBasePageURL() %}
+          <div class="help-link">Need instructions? <span class="external"><a href="{{ this.paymentMethod.getKnowledgeBasePageURL() }}" target="_blank">Show</a> <i class="icon fa fa-external-link"></i></span></div>
+        {% endif %}
+      </div>
+
+      <div class="help-text"><span class="external"><a href="{{ this.paymentMethod.getPartnerPageURL() }}" target="_blank">Get more information</a> <i class="icon fa fa-external-link"></i></span></div>
+
+    </div>
+
+  </div>
+
+</div>

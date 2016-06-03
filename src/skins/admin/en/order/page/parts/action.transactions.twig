@@ -1,0 +1,15 @@
+{##
+ # Payment transactions summary
+ #
+ # @ListChild (list="order.actions.paymentActionsRow", weight="100")
+ #}
+
+{% if this.hasPaymentTransactionSums() %}
+  <ul class="payment-sums">
+    {% for label, sum in this.getPaymentTransactionSums() %}
+      <li>
+        <span class="transaction-label">{{ label }}:</span> <span class="cost">{{ this.formatPrice(sum, this.order.getCurrency()) }}</span>
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}

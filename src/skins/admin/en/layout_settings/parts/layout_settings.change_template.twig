@@ -1,0 +1,25 @@
+{##
+ # Layout settings template
+ #
+ # @ListChild (list="layout_settings", weight="20")
+ #}
+
+<div class="change-template">
+  <div class="header">
+    <h2>{{ t('Choose a new template') }}</h2>
+
+    <div class="right">
+      {{ widget('XLite\\View\\Button\\SimpleLink', label='Visit the template store', location=this.getTemplatesStoreURL(), blank='true') }}
+
+      <span class="or">{{ t('or') }}</span>
+
+      {{ widget('XLite\\View\\Button\\Addon\\ActivateLicenseKey', label=t('Activate purchased skin')) }}
+
+      {{ widget('XLite\\View\\Button\\Addon\\EnterLicenseKey', label=t('Activate purchased skin')) }}
+
+      {{ widget('XLite\\View\\Tooltip', className='help-icon', text='If you purchased a template but do not see it here, activate the license key that was provided to you.') }}
+    </div>
+    <div class="clear"></div>
+  </div>
+  {{ widget('XLite\\View\\Model\\ChangeTemplate') }}
+</div>

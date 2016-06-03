@@ -1,0 +1,19 @@
+{##
+ # Products list (list variant)
+ #}
+
+{{ widget_list('itemsList.product.cart') }}
+
+<div class="products">
+
+  {% if this.getPageData() %}
+    <ul class="products-list">
+      {% for product in this.getPageData() %}
+        <li class="product-cell">
+          {{ this.getProductWidgetContent(product)|raw }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+</div>

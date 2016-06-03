@@ -1,0 +1,17 @@
+{##
+ # Manage languages widget template
+ #}
+
+<div class="languages">
+
+  {{ widget('XLite\\View\\ItemsList\\Model\\Translation\\Languages') }}
+
+  <div class="language-list-bottom">
+    {{ widget_list('languages.bottom-list') }}
+  </div>
+
+  {% if this.isImportActive() %}
+    {{ widget('\\XLite\\View\\Button\\ImportLanguage') }}
+  {% endif %}
+
+</div>

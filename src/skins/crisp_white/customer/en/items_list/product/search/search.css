@@ -1,0 +1,67 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Products list styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.search-form-main-part,
+.advanced-search-options,
+.search-form-main-part td,
+.advanced-search-options td
+{
+  border: none 0;
+}
+
+.search-form-main-part button.search-form-submit {
+  width: 147px;
+}
+
+.search-form-main-part button.search-form-submit span {
+  padding: 0;
+}
+
+.search-product-form td {
+  padding: 0;
+}
+
+.search-product-form .substring-cell {
+  float: none;
+}
+
+.search-product-form .submit-button {
+  text-align: center;
+}
+
+ul.search-including-options li,
+ul.search-by-options li
+{
+  background: none;
+  float: left;
+  margin-right: 30px;
+}
+
+ul.search-including-options li > *,
+ul.search-by-options li > * {
+  vertical-align: middle;
+}
+
+ul.search-by-options li label input {
+  vertical-align: middle;
+}
+
+.search-form-main-part td.less-search-options-cell {
+  text-align: center;
+}
+
+.advanced-search-options td {
+  padding: 0;
+  vertical-align: middle;
+}
+
+.advanced-search-options td select {
+  margin-left: 0;
+  width: auto;
+}

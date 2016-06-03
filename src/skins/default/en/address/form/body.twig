@@ -1,0 +1,22 @@
+{##
+ # ____file_title____
+ #}
+
+<span class="address-text">
+
+  <table width="100%" cellpadding="3" cellspacing="0">
+
+    <tr>
+      <td>&nbsp;</td>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+
+    {% for fieldName, fieldData in this.getSchemaFields() %}
+      <tr>
+        {{ widget(fieldData.class, label=fieldData.label, fieldName=fieldName, value=this.getFieldValue(fieldName), required=fieldData.required) }}
+      </tr>
+    {% endfor %}
+
+  </table>
+
+</span>

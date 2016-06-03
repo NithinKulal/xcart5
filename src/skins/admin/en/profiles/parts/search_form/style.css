@@ -1,0 +1,90 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Search panel
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.searchpanel-profile-admin-main .membership-condition,
+.searchpanel-profile-admin-main .user_type-condition
+{
+  width: 28%;
+}
+
+.searchpanel-profile-admin-main .search-conditions-box .search-conditions-hidden .table-label {
+  width: 90px;
+}
+
+.searchpanel-profile-admin-main .search-conditions-hidden > .country-condition,
+.searchpanel-profile-admin-main .search-conditions-hidden > .address-condition,
+.searchpanel-profile-admin-main .search-conditions-hidden > .state-condition,
+.searchpanel-profile-admin-main .search-conditions-hidden > .customState-condition,
+.searchpanel-profile-admin-main .search-conditions-hidden > .phone-condition
+{
+  float: none;
+}
+
+.searchpanel-profile-admin-main .search-conditions-box .search-conditions-hidden > .date_type-condition {
+  float: none;
+  display: block;
+  position: absolute;
+  top: 0px;
+  left: 35%;
+}
+
+.searchpanel-profile-admin-main .search-conditions-box .date_type-condition .table-label {
+  width: 110px;
+  line-height: 32px;
+  vertical-align: top;
+}
+
+.searchpanel-profile-admin-main .search-conditions-box .date_type-condition .date-condition-value {
+  padding: 0px;
+}
+
+.searchpanel-profile-admin-main .search-conditions-box .date_type-condition input {
+  vertical-align: text-bottom;
+}
+
+.searchpanel-profile-admin-main .search-conditions-box .date_type-condition li,
+.searchpanel-profile-admin-main .search-conditions-box .date_type-condition label
+{
+  vertical-align: middle;
+}
+
+.searchpanel-profile-admin-main .search-conditions-box .date_type-condition li {
+  line-height: 32px;
+  padding: 4px 0px 6px;
+}
+
+.searchpanel-profile-admin-main .search-conditions-box .date_type-condition .date-range-box {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.searchpanel-profile-admin-main .search-conditions-box div.daterange-value {
+  padding-left: 2px;
+}
+
+.searchpanel-profile-admin-main .search-conditions-box div.daterange-value input[type="text"] {
+  margin: 0px;
+  width: 240px;
+}
+
+.searchpanel-profile-admin-main .date-condition-value li {
+  margin-right: 20px;
+  width: auto;
+  float: left;
+}
+
+.searchpanel-profile-admin-main .date-condition-value li label {
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.searchpanel-profile-admin-main .date-condition-value li input {
+  vertical-align: middle;
+  margin-top: 3px;
+}

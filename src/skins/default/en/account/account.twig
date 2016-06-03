@@ -1,0 +1,9 @@
+{##
+ # Register form template
+ #}
+
+{{ widget_list('customer.account.details.before') }}
+
+{{ widget('\\XLite\\View\\Model\\Profile\\Main', useBodyTemplate='1') }}
+
+{{ widget_list('customer.account.details.after') }}

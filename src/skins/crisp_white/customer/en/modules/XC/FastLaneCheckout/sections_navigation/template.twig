@@ -1,0 +1,27 @@
+{##
+ # Fastlane checkout sections navigation
+ #}
+
+<ul is="navigation" inline-template role="tablist" class="nav nav-pills">
+  {% for tab, tabPage in this.getTabs() %}
+    <li is="navigation-item" inline-template class="tab disabled {% if tabPage.selected and this.isStartAsActive() %} active{% endif %}">
+      <a data-target="#{{ tab }}"
+         v-name="{{ tab }}"
+         v-index="{{ loop.index0 }}"
+         role="tab"
+         data-index=""
+         v-on:click="triggerSwitch"
+         v-el:link
+      >
+        <span class="position">{{ loop.index }}</span>
+        <span class="title">{{ t(tabPage.title) }}</span>
+      </a>
+    </li>
+  {% endfor %}
+    <li class="tab disabled">
+      <a role="tab">
+        <span class="position">{{ this.getTabs()|length + 1 }}</span>
+        <span class="title">{{ t('Complete order') }}</span>
+      </a>
+    </li>
+</ul>

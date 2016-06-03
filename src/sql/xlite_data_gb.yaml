@@ -1,0 +1,68 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Demo store (RU)
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: shop_currency
+    category: General
+    value: 826 
+
+  - name: default_language
+    category: General
+    value: 'gb'
+
+  - name: default_admin_language
+    category: General
+    value: 'gb'
+
+  - name: location_country
+    category: Company
+    value: GB
+
+  - name: location_state
+    category: Company
+    value: 448
+
+  - name: location_city
+    category: Company
+    value: 'London'
+
+  - name: location_zipcode
+    category: Company
+    value: 'SW1A 2BN'
+
+  - name: company_phone
+    category: Company
+    value: '+44-800-555-5555'
+
+  - name: company_fax
+    category: Company
+    value: '+44-800-555-5555'
+
+  - name: anonymous_country
+    category: Shipping
+    value: GB
+
+  - name: anonymous_city
+    category: Shipping
+    value: 'London'
+
+  - name: anonymous_zipcode
+    category: Shipping
+    value: 'SW1A 2BN'
+
+  - name: anonymous_state
+    category: Shipping
+    value: 448
+
+XLite\Model\Language:
+  - code: en
+    enabled: false
+
+XLite\Model\Payment\Method:
+  - service_name: SagePay form protocol
+    class: Module\XC\SagePay\Model\Payment\Processor\SagePayForm
+    added: true

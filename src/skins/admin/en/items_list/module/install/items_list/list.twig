@@ -1,0 +1,12 @@
+{##
+ # Modules list
+ #
+ # @ListChild (list="marketplace.top-controls", weight="400")
+ #}
+
+{% form '\\XLite\\View\\Form\\Module\\Install' %}
+  <div class="marketplace-wrapper{% if this.isLandingPage() %} marketplace-landing{% endif %}">
+    {% include this.getBody() %}
+  </div>
+  {{ widget('XLite\\View\\StickyPanel\\ItemsList\\InstallModules') }}
+{% endform %}

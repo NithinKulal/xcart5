@@ -1,0 +1,10 @@
+{##
+ # Select region
+ #}
+ 
+<select id="{{ this.getFieldId() }}" name="{{ this.getName() }}"{{ this.getAttributesCode()|raw }}>
+    <option value="">{{ t('No region') }}</option>
+    {% for region in this.getOptions() %}
+      <option value="{{ region.code }}" {% if region.code == this.getValue() %} selected="selected" {% endif %}>{{ region.name|raw }}</option>
+    {% endfor %}
+</select>

@@ -1,0 +1,11 @@
+{##
+ # Sage Pay method admin description
+ #
+ # @ListChild (list="payment.methods.list.header", weight="400")
+ #}
+
+{% if this.method.getServiceName() == 'SagePay form protocol' %}
+  <div class="description">
+  {{ t('SagePay Form admin description')|raw }}
+  </div>
+{% endif %}

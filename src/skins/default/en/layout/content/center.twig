@@ -1,0 +1,13 @@
+{##
+ # Center column
+ #}
+
+{{ widget_list('center.top') }}
+
+{% if this.isTitleVisible() and this.getTitle() %}
+  <h1 class="title" id="page-title">{{ this.getMainTitle() }}</h1>
+{% endif %}
+
+{% include 'layout/content/center_top.twig' %}
+
+{{ widget_list('center.bottom') }}

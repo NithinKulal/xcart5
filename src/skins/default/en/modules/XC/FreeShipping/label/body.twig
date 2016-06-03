@@ -1,0 +1,7 @@
+{##
+ # Free shipping label (for product details page)
+ #}
+
+<div class="product-freeship-label {{ this.getFingerprint() }}">
+  {{ widget(template='label/body.twig', style='big', labelContent=t('FREE SHIPPING')) }}
+</div>

@@ -1,0 +1,80 @@
+{##
+ # Import language widget template
+ #}
+
+<div class="import-language-dialog">
+
+  {% form '\\XLite\\View\\Form\\Translations\\LanguageImport' %}
+
+  {% if this.isSuccess() %}
+    <div class="content">
+  
+      <div class="description">
+  
+        {% if not this.isImportFinished() %}
+          <div>{{ t('The provided file contains the following language labels:') }}</div>
+        {% endif %}
+        {% if this.isImportFinished() %}
+          <div>{{ t('The language labels have been successfully imported:') }}</div>
+        {% endif %}
+  
+        <ul>
+          {% for id, data in this.importFileData.codes %}
+            <li>{{ t('Language:') }} <span>{{ data.language }} [{{ data.code }}]</span>, {{ t('labels count:') }} <span>{{ data.labels_count }}</span></li>
+          {% endfor %}
+          <li>{{ t('Number of ignored rows:') }} <span{% if this.importFileData.ignored %} class="red"{% endif %}>{{ this.importFileData.ignored }}</span></li>
+        </ul>
+  
+        {% if not this.isImportFinished() %}
+          <div>{{ t('Please confirm if you want proceed with the import otherwise cancel the operation.') }}</div>
+        {% endif %}
+  
+      </div>
+  
+      <div class="actions">
+        {% if not this.isImportFinished() %}
+          {{ widget('\\XLite\\View\\Button\\Regular', label='Import', jsCode='self.location=\'' ~ url('language_import', 'import') ~ '\'') }}
+        {% endif %}
+        {% if not this.isImportFinished() %}
+          {{ widget('\\XLite\\View\\Button\\Regular', label='Cancel', jsCode='self.location=\'' ~ url('language_import', 'cancel_import') ~ '\'') }}
+        {% endif %}
+        {% if this.isImportFinished() %}
+          {{ widget('\\XLite\\View\\Button\\Regular', label='Finish', jsCode='self.location=\'' ~ url('language_import', 'cancel_import') ~ '\'') }}
+        {% endif %}
+      </div>
+  
+    </div>
+  {% endif %}
+
+  {% if not this.isSuccess() %}
+    <div class="error">
+      <div class="title">{{ t('Failure: File has the wrong format.') }}</div>
+      {% if this.getMessage() %}
+        <div class="message">{{ this.getMessage() }}</div>
+      {% endif %}
+      <div class="description">
+        <div>{{ t('The language CSV file should be a text file which contains 3 columns per row (columns are separated by comma:') }}</div>
+  
+        <ul>
+          <li>{{ t('language code,') }}</li>
+          <li>{{ t('label name,') }}</li>
+          <li>{{ t('label translation.') }}</li>
+        </ul>
+  
+        <div>{{ t('Please make sure your file format is as described.') }}</div>
+  
+      </div>
+      <div class="actions">
+        {{ widget('\\XLite\\View\\Button\\Regular', label='Cancel', jsCode='self.location=\'' ~ url('language_import', 'cancel_import') ~ '\'') }}
+      </div>
+  
+    </div>
+  {% endif %}
+
+  {% endform %}
+
+  {% if this.isDeveloperMode() %}
+    <div class="elapsed">Elapsed: {{ this.importFileData.elapsed }}</div>
+  {% endif %}
+
+</div>

@@ -1,0 +1,19 @@
+{##
+ # Reviews list
+ #
+ # @ListChild (list="reviews")
+ #}
+
+<div class="reviews">
+
+  {% if this.getPageData() %}
+    <ul class="reviews-list">
+      {% for review in this.getPageData() %}
+        <li class="{{ this.getClass(review) }}">
+          {{ widget_list('reviews.review', review=review) }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+</div>

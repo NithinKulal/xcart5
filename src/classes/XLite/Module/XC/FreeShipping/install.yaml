@@ -1,0 +1,56 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: freight_shipping_calc_mode
+    category: XC\FreeShipping
+    type: XLite\Module\XC\FreeShipping\View\FormField\FreightMode
+    value: F
+    orderby: 10
+    translations:
+      - code: en
+        option_name: Shipping cost for products with a defined shipping freight value should be calculated as
+
+XLite\Model\Shipping\Method:
+  - processor: offline
+    code: FREESHIP
+    added: true
+    enabled: true
+    free: true
+    tableType: S
+    position: 30
+    translations:
+      - code: en
+        name: Free shipping
+        deliveryTime: 5 - 7 days
+    shipping_markups: [{ zone: { zone_name: All Addresses (default zone) }, min_weight: 0, max_weight: 999999999, min_total: 0, max_total: 999999999, min_items: 0, max_items: 999999999, markup_flat: 0, markup_percent: 0, markup_per_item: 0, markup_per_weight: 0 }]
+  - processor: offline
+    code: FIXEDFEE
+    added: true
+    enabled: true
+    free: false
+    tableType: S
+    position: 40
+    translations:
+      - code: en
+        name: Fixed rate shipping
+        deliveryTime: 5 - 7 days
+    shipping_markups: [{ zone: { zone_name: All Addresses (default zone) }, min_weight: 0, max_weight: 999999999, min_total: 0, max_total: 999999999, min_items: 0, max_items: 999999999, markup_flat: 0, markup_percent: 0, markup_per_item: 0, markup_per_weight: 0 }]
+
+XLite\Model\LanguageLabel:
+  - { name: 'FREE', translations: [{ code: en, label: 'Free' }] }
+  - { name: 'Free shipping', translations: [{ code: en, label: 'Free shipping' }] }
+  - { name: 'FREE SHIPPING', translations: [{ code: en, label: 'FREE SHIPPING' }] }
+  - { name: 'Wrong free shipping format', translations: [{ code: en, label: 'Wrong free shipping format' }] }
+  - { name: 'Wrong freight fixed fee format', translations: [{ code: en, label: 'Wrong shipping freight value format' }] }
+  - { name: 'Free shipping tooltip text', translations: [{ code: en, label: 'This shipping method becomes available at checkout only if all the products in the cart are marked "Free shipping" and there are no other shipping methods available.' }] }
+  - { name: 'Shipping freight', translations: [{ code: en, label: 'Shipping freight' }] }
+  - { name: 'This field can be used to set a fixed shipping fee for the product. Make sure the field value is a positive number (greater than zero).', translations: [{ code: en, label: 'This field can be used to set a fixed shipping fee for the product. Make sure the field value is a positive number (greater than zero).' }] }
+  - { name: 'Shipping freight only', translations: [{ code: en, label: 'Shipping freight only' }] }
+  - { name: 'Shipping freight + regular shipping rate', translations: [{ code: en, label: 'Shipping freight + regular shipping rate' }] }
+  - { name: 'Shipping freight tooltip text', translations: [{ code: en, label: 'This shipping method becomes available on checkout, only if all the products in the cart have defined shipping freight and there are no other shipping methods available.' }] }
+  - { name: 'Freight fixed fee', translations: [{ code: en, label: 'Freight fixed fee' }]}

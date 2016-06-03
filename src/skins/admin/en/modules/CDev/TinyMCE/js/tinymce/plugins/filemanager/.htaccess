@@ -1,0 +1,5 @@
+Options -Indexes
+
+<Files "*.php">
+  Allow from all
+</Files>

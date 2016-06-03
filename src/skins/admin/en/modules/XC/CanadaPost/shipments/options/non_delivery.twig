@@ -1,0 +1,5 @@
+{##
+ # Option :: Non-delivery handling
+ #}
+
+{{ widget('\\XLite\\Module\\XC\\CanadaPost\\View\\FormField\\Select\\NonDeliveryType', fieldId='opt-non-delivery-' ~ parcelIdx, fieldName='parcelsData[' ~ parcel.getId() ~ '][optNonDelivery]', fieldOnly='true', isMandatory=this.optionClass.mandatory, allowedOptions=this.optionClass.allowedOptions, value=parcel.getOptNonDelivery()) }}

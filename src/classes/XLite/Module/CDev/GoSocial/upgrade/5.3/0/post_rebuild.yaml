@@ -1,0 +1,15 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Data
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: gplus_page_id
+    category: 'CDev\GoSocial'
+    type: text
+    orderby: 3100
+    translations:
+      - code: en
+        option_name: 'Google+ page id'

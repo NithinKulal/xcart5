@@ -1,0 +1,21 @@
+{##
+ # Email footer
+ #
+ # @ListChild (list="crud.settings.footer", zone="admin", weight="100")
+ #}
+
+{#
+<div IF="page=#Performance#" class="clean-aggregation-cache">
+  <widget
+    class="\XLite\View\Button\Regular"
+    style="clean-aggregation-cache"
+    label="Clean aggregation cache"
+    jsCode="self.location='{buildURL(#css_js_performance#,#clean_aggregation_cache#)}'" />
+  <widget
+    class="\XLite\View\Tooltip"
+    id="clean-aggregation-help-text"
+    text="{t(#Clean aggregation cache help text#):h}"
+    isImageTag=true
+    className="help-icon" />
+</div>
+#}

@@ -1,0 +1,23 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\LanguageLabel:
+  - { name: "Prices set for specific membership levels override prices set for all customers", translations: [{ code: en, label: "Prices set for specific membership levels override prices set for all customers" }] }
+  - { name: "Wholesale prices are disabled for this product because the product is on sale.", translations: [{ code: en, label: "Wholesale prices are disabled for this product because the product is on sale." }] }
+  - { name: "Minimum purchase quantity", translations: [{ code: en, label: "Minimum purchase quantity" }] }
+  - { name: "Buy more for less", translations: [{ code: en, label: "Buy more for less" }] }
+  - { name: "or more items", translations: [{ code: en, label: "or more items" }] }
+  - { name: "Wholesale pricing", translations: [{ code: en, label: "Wholesale pricing" }] }
+  - { name: "Quantity range", translations: [{ code: en, label: "Quantity range" }] }
+  - { name: "Price tiers", translations: [{ code: en, label: "Price tiers" }] }
+  - { name: "New tier", translations: [{ code: en, label: "New tier" }] }
+  - { name: "All customers wholesale", translations: [{ code: en, label: "All customers" }] }
+  - { name: "from wholesale", translations: [{ code: en, label: "from" }] }
+  - { name: "The base price can not be changed on this page.", translations: [{ code: en, label: 'The base price cannot be changed on this page.' }] }
+  - { name: "Set the price for this variant to define variant's personal wholesale prices", translations: [{ code: en, label: "Set the price for this variant to define variant's personal wholesale prices" }] }
+  - { name: "View parent product's wholesale prices", translations: [{ code: en, label: "View parent product's wholesale prices" }] }
+  - { name: 'Wholesale prices are not defined', translations: [{ code: en, label: 'Wholesale prices are not defined' }]}

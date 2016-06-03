@@ -1,0 +1,44 @@
+{##
+ # Table model list
+ #}
+
+<a name="{{ this.getAnchorName() }}" class="list-anchor"></a>
+<div {{ this.getContainerAttributesAsString()|raw }}>
+  {{ this.displayCommentedData(this.getItemsListParams()) }}
+  {% if this.isHeaderVisible() %}
+    <div class="list-header">
+      {% for tpl in this.getTopActions() %}
+        <div class="button-container">{% include tpl %}</div>
+      {% endfor %}
+      {{ widget_list('header', type='inherited') }}
+    </div>
+  {% endif %}
+
+  {% if this.isPageBodyVisible() %}
+    {% include this.getPageBodyTemplate() %}
+  {% endif %}
+  {% if not this.isPageBodyVisible() %}
+    <div class="no-items">
+      {% if this.isEmptyListTemplateVisible() %}
+        {% include this.getEmptyListTemplate() %}
+      {% endif %}
+    </div>
+  {% endif %}
+  {% if this.isPagerVisible() %}
+    <div class="table-pager">{{ this.pager.display() }}</div>
+  {% endif %}
+
+  {% if this.isFooterVisible() %}
+    <div class="list-footer">
+      {% for tpl in this.getBottomActions() %}
+        <div class="button-container">{% include tpl %}</div>
+      {% endfor %}
+      {{ widget_list('footer', type='inherited') }}
+    </div>
+  {% endif %}
+
+</div>
+
+{% if this.isPanelVisible() %}
+  {{ widget(this.getPanelClass()) }}
+{% endif %}

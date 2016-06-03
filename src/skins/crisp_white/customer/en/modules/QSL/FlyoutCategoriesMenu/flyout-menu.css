@@ -1,0 +1,180 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Specific styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+.sidebar div.block.block-flyout-categories-menu {
+  overflow: visible !important;
+}
+.flyout-menu {
+  padding: 0;
+  margin: 0;
+  position: relative;
+  z-index: 999;
+}
+.flyout-menu li {
+  background: transparent none;
+  position: relative;
+  display: block;
+}
+
+
+.flyout-menu li ul.sublevel li {
+  margin: 0;
+  padding: 0;
+}
+
+.flyout-menu li.leaf.first > a,
+.flyout-menu li ul.sublevel li > a {
+  border-top: 0 none;
+  margin-top: 0;
+}
+
+.flyout-menu ul { z-index: 1010; }
+.flyout-menu ul ul { z-index: 1020; }
+.flyout-menu ul ul ul { z-index: 1030; }
+.flyout-menu ul ul ul ul { z-index: 1040; }
+.flyout-menu ul ul ul ul ul { z-index: 1050; }
+.flyout-menu ul ul ul ul ul ul { z-index: 1060; }
+.flyout-menu ul ul ul ul ul ul ul { z-index: 1070; }
+.flyout-menu ul ul ul ul ul ul ul ul { z-index: 1080; }
+.flyout-menu ul ul ul ul ul ul ul ul ul { z-index: 1090; }
+
+.flyout-menu li ul {
+  background: #fff none;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  box-shadow: 0px 1px 8px 1px rgba(0,0,0,0.15);
+  padding: 0px;
+  position: absolute;
+  top: 0px;
+  width: auto;
+  left: 100%;
+  visibility: hidden;
+  opacity: 0;
+  -o-transition: visibility .15s, opacity .15s;
+  -ms-transition: visibility .15s, opacity .15s;
+  -moz-transition: visibility .15s, opacity .15s;
+  -webkit-transition: visibility .15s, opacity .15s;
+  transition: visibility .15s, opacity .15s;
+  height: 0;
+  overflow: hidden;
+}
+.flyout-menu li.hover,
+.flyout-menu li:hover{
+  -o-transition: color .3s;
+  -ms-transition: color .3s;
+  -moz-transition: color .3s;
+  transition: color .3s;
+}
+
+.flyout-menu li.hover > ul,
+.flyout-menu li:hover > ul {
+  visibility: visible;
+  opacity: 1;
+  -o-transition: visibility .3s, opacity .3s;
+  -ms-transition: visibility .3s, opacity .3s;
+  -moz-transition: visibility .3s, opacity .3s;
+  -webkit-transition: visibility .3s, opacity .3s;
+  transition: visibility .3s, opacity .3s;
+  height: auto;
+  overflow: visible;
+}
+
+.flyout-menu li a:active,
+.flyout-menu li a:link,
+.flyout-menu li a:visited,
+.flyout-menu li a:hover {
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+  text-decoration: none;
+  white-space: nowrap;
+  -o-transition: color .15s;
+  -ms-transition: color .15s;
+  -moz-transition: color .15s;
+  -webkit-transition: color .15s;
+  transition: color .15s;
+}
+
+.flyout-menu li:hover > a,
+.flyout-menu li a:hover {
+  -o-transition: color .3s;
+  -ms-transition: color .3s;
+  -moz-transition: color .3s;
+  -webkit-transition: color .3s;
+  transition: color .3s;
+}
+
+.flyout-menu li li span.primary-title,
+.flyout-menu li li a:active, .flyout-menu li li a:link, .flyout-menu li li a:visited, .flyout-menu li li a:hover {
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+  white-space: nowrap;
+  -o-transition: color .15s;
+  -ms-transition: color .15s;
+  -moz-transition: color .15s;
+  -webkit-transition: color .15s;
+  transition: color .15s;
+}
+
+.flyout-menu a.no-wrap:active,
+.flyout-menu a.no-wrap:link,
+.flyout-menu a.no-wrap:visited,
+.flyout-menu a.no-wrap:hover {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.flyout-menu .icon-triangle:before{
+  /*font: normal normal normal 14px/1 FontAwesome;*/
+  /*font-size: inherit;*/
+  /*text-rendering: auto;*/
+  /*-webkit-font-smoothing: antialiased;*/
+  /*-moz-osx-font-smoothing: grayscale;*/
+  /*content: '\f105';*/
+  /*font-weight: bold;*/
+  /*font-size: 18px;*/
+  /*color: #777;*/
+}
+
+.flyout-menu li:hover > .icon-triangle {
+  /*border-color: transparent transparent transparent #61B4CF;*/
+  /*-o-transition: border-color .3s;*/
+  /*-ms-transition: border-color .3s;*/
+  /*-moz-transition: border-color .3s;*/
+  /*-webkit-transition: border-color .3s;*/
+  /*transition: border-color .3s;*/
+}
+
+.flyout-menu li > a > .category-label {
+  margin-right: 20px;
+}
+
+.flyout-menu li > a > .category-icon {
+  line-height: 1.2em;
+  margin-right: 12px;
+}
+
+.flyout-menu li > a > .icon-triangle {
+  /*margin-left: auto;*/
+}
+
+#sidebar-second .flyout-menu li ul {
+  left: auto;
+  right: 100%;
+}
+
+@media (max-width: 767px) {
+  .flyout-menu li ul {
+    display: none;
+  }
+  .flyout-menu .icon-triangle {
+    visibility: hidden;
+  }
+}

@@ -1,0 +1,83 @@
+{##
+ # License keys notice popup dialog
+ #}
+
+<div class="keys-notice-form">
+
+  {{ widget('\\XLite\\View\\Button\\Link', label='Re-check', location=this.getRecheckURL(), style='recheck-license') }}
+
+  <div class="title">{{ t('License warning') }}</div>
+
+  {% if this.isCoreWarning() %}
+
+  <div class="indent">{{ t('The system has detected that the license key that was activated for your store is invalid.')|raw }}</div>
+
+  <ul class="modules-list license-key">
+    <li class="module-info">
+      <div class="module-name">{{ this.coreLicense.title }}</div>
+      <div class="module-reason">{{ this.coreLicense.message|raw }}</div>
+      <div class="module-action">{% if this.coreLicense.url %}<a href="{{ this.coreLicense.url }}" href="_blank">{{ t('Purchase') }}</a>{% endif %}</div>
+    </li>
+  </ul>
+
+  {% if this.getUnallowedModules() %}
+    <div class="indent">{{ t('Also the system has detected problems with the following modules')|raw }}</div>
+  {% endif %}
+
+  {% else %}
+
+  {% if this.isFraudStatusConfirmed() %}
+    <div class="alert alert-warning">{{ t('Unallowed modules will be disabled automatically on the next visit any page in the administrator interface.')|raw }}</div>
+  {% endif %}
+
+  <div class="indent">{{ t('The system has detected one or more problems with some of the modules at your store:')|raw }}</div>
+  <ul class="indent">
+    <li>{{ t('inactive license key(s);')|raw }}</li>
+    <li>{{ t('installed module(s) not allowed by the type of X-Cart license activated at your store.')|raw }}</li>
+   </ul>
+
+  <div class="indent">{{ t('Using the modules with this type of license violation is illegal')|raw }}</div>
+
+ {% endif %}
+
+  <ul class="modules-list">
+    {% for module in this.getUnallowedModules() %}
+      <li class="module-info">
+        <div class="module-name">{{ module.title }}</div>
+        <div class="module-reason">{{ module.message|raw }}</div>
+        <div class="module-action">{% if module.url %}<a href="{{ module.url }}" target="_blank">{{ t('Purchase') }}</a>{% endif %}</div>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <div class="indent buttons">
+
+    {% if this.isDisplayPurchaseAllButton() %}
+    {{ widget('\\XLite\\View\\Button\\Link', label='Purchase license', location=this.getPurchaseAllURL(), blank='true', style='purchase regular-main-button') }}
+    {% endif %}
+
+    {% if not this.hasLicense() %}
+      {{ widget('XLite\\View\\Button\\ActivateKey') }}
+    {% endif %}
+    {% if this.hasLicense() %}
+      {{ widget('\\XLite\\View\\Button\\Addon\\EnterLicenseKey') }}
+    {% endif %}
+
+    <div class="text or">{{ t('or') }}</div>
+
+    {% if this.isCoreWarning() %}
+      <a href="{{ this.getBackToTrialURL() }}">{{ t('Back to Trial mode') }}</a>
+    {% endif %}
+    {% if not this.isCoreWarning() %}
+      <a href="{{ this.getRemoveModulesURL() }}">{{ t('Remove unlicensed modules') }}</a>
+    {% endif %}
+
+  </div>
+
+  <div class="indent contact-us text">
+    {{ t('You can also contact our CR department for help with this issue', {'url': this.getContactUsURL()})|raw }}
+  </div>
+
+  <div class="clear"></div>
+
+</div>

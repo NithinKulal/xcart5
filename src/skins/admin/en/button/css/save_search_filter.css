@@ -1,0 +1,51 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * CSS styles for 'Save search filter' button widget
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.save-search-filter {
+  margin-top: 10px;
+  display: inline-block;
+  float: right;
+  text-align: right;
+}
+
+.save-search-filter .button-label {
+  font-size: 13px;
+  color: #1a509a;
+  border-bottom: 1px dashed;
+  display: inline-block;
+}
+
+.save-search-filter .button-label:hover {
+  color: #0f9dcc;
+  cursor: pointer;
+}
+
+.save-search-filter .button-action {
+  margin-top: 10px;
+  visibility: hidden;
+}
+
+.save-search-filter .button-action input,
+.save-search-filter .button-action button {
+  display: inline-block;
+}
+
+.save-search-filter .button-action input {
+  width: 200px;
+  height: 31px;
+  line-height: 31px;
+  vertical-align: middle;
+}
+
+.save-search-filter .button-action button {
+  height: 31px;
+  min-height: auto;
+  vertical-align: middle;
+  padding-top: 5px;
+}

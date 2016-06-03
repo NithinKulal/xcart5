@@ -1,0 +1,37 @@
+{##
+ # Horizontal minicart items block
+ #
+ # @ListChild (list="minicart.horizontal.children", weight="10")
+ #}
+<div {{ this.printTagAttributes(this.getItemsContainerAttributes())|raw }}>
+
+  <p class="title">
+    <a href="{{ url('cart') }}">{{ t('X items in bag', {'count': this.cart.countQuantity()}) }}</a>
+  </p>
+
+  {% if this.hasItems() %}
+    <ul>
+      {% for item in this.getItemsList() %}
+        <li>
+          {{ widget_list('minicart.horizontal.item', item=item) }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% if this.isTruncated() %}
+    <p class="other-items"><a href="{{ url('cart') }}">{{ t('Other items') }}</a></p>
+  {% endif %}
+
+  <p class="subtotal">
+    <strong>{{ t('Subtotal') }}:</strong>
+    <span>{{ this.formatPrice(this.cart.getDisplaySubtotal(), this.cart.getCurrency(), 1) }}</span>
+  </p>
+
+  <hr />
+
+  <div class="buttons-row">
+    {{ widget_list('minicart.horizontal.buttons') }}
+  </div>
+
+</div>

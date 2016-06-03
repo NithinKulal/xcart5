@@ -1,0 +1,13 @@
+{##
+ # Add review button template
+ #
+ # @listChild (list="itemsList.xc.reviews.review.header")
+ # @listChild (list="itemsList.xc.reviews.productreview.header")
+ #}
+
+{% if this.getProductId() %}
+  {{ widget('XLite\\Module\\XC\\Reviews\\View\\Button\\Admin\\AddReview', style='add-review', target_product_id=this.getProductId()) }}
+{% endif %}
+{% if not this.getProductId() %}
+  {{ widget('XLite\\Module\\XC\\Reviews\\View\\Button\\Admin\\AddReview', style='add-review') }}
+{% endif %}

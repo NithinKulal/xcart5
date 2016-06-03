@@ -1,0 +1,11 @@
+{##
+ # Order : title box : history link
+ #
+ # @ListChild (list="order.title.box", weight="200")
+ #}
+
+{% if this.isHistoryVisible() %}
+  <div class="history">
+    <a href="#history" title="{{ t('View order history') }}">{{ t('View order history') }}</a>
+  </div>
+{% endif %}

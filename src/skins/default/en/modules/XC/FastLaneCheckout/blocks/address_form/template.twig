@@ -1,0 +1,21 @@
+{##
+ # Fastlane checkout address section
+ #}
+
+{% set visibility = this.isFormVisible() ? '' : 'hidden' %}
+<div is="{{ this.getClassName() ~ '-address-form' }}" inline-template class="checkout_fastlane_address_form checkout_fastlane_address_form--{{ this.getClassName() }}">
+    {% form '\\XLite\\View\\Form\\Checkout\\UpdateProfile' with {className: this.getClassName()} %}
+      {{ widget_list(this.getListName() ~ '.before', address=this.getAddressInfo()) }}
+      <ul class="form {{ visibility }}" v-bind:class="classes">
+        {% for fieldName, fieldData in this.getAddressSchemaFields() %}
+          <li class="item-{{ fieldName }} {{ fieldData.additionalClass }} clearfix form-group" is='form-field' inline-template>
+            {{ this.displayCommentedData(this.getFieldCommentedData(fieldData)) }}
+            {{ fieldData.widget.display() }}
+            {{ widget_list(this.getListName(fieldName), address=this.getAddressInfo(), fieldName=fieldName, fieldData=fieldData) }}
+          </li>
+        {% endfor %}
+        {{ widget_list(this.getListName(), address=this.getAddressInfo()) }}
+      </ul>
+      {{ widget_list(this.getListName() ~ '.after', address=this.getAddressInfo()) }}
+    {% endform %}
+</div>

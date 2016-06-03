@@ -1,0 +1,19 @@
+{##
+ # Discount coupon subpanel
+ #
+ # @ListChild (list="invoice.base.totals.modifier.name")
+ #}
+
+{% if this.isDiscountCouponSubpanelVisible(this.surcharge) %}
+  <ul class="discount-coupons-panel">
+    {% for usedCoupon in this.getDiscountCoupons() %}
+      <li title="{{ this.formatPrice(usedCoupon.getValue(), this.order.getCurrency()) }}">
+        {% if usedCoupon.isDeleted() %}
+          {{ usedCoupon.getCode() }}
+        {% else %}
+          <a href="{{ this.buildUrl('coupon', '', {'id': usedCoupon.coupon.getId()}) }}">{{ usedCoupon.getPublicName() }}</a>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}

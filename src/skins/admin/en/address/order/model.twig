@@ -1,0 +1,18 @@
+{##
+ # Order's address model
+ #}
+
+{% if this.getTopInlineJSCode() %}
+  <script type="text/javascript">{{ this.getTopInlineJSCode() }}</script>
+{% endif %}
+{% include this.getDir() ~ '/header.twig' %}
+
+<div class="{{ this.getContainerClass() }}">
+  {% include this.getDir() ~ '/form_content.twig' %}
+</div>
+
+{% include this.getDir() ~ '/footer.twig' %}
+
+{% if this.getBottomInlineJSCode() %}
+  <script type="text/javascript">{{ this.getBottomInlineJSCode() }}</script>
+{% endif %}

@@ -1,0 +1,26 @@
+{##
+ # Payment methods list : right action
+ #
+ # @ListChild (list="payment.methods.list.row.after.ExpressCheckout", weight=100)
+ #}
+{% if this.method.getReferralPageURL() or this.getKnowledgeBasePageURL(this.method) %}
+  <div class="learn-more">
+    {% if this.getKnowledgeBasePageURL(this.method) %}
+      <a href="{{ this.getKnowledgeBasePageURL(this.method) }}" target="_blank">{{ t('Learn More') }}</a>
+    {% endif %}
+    {% if this.method.getReferralPageURL() and this.getKnowledgeBasePageURL(this.method) %}
+      <span>&amp;</span>
+    {% endif %}
+  
+    {% if this.method.getReferralPageURL() %}
+  
+    {% if this.method.isInContextSignUpAvailable() %}
+    <a href="{{ this.method.getReferralPageURL() }}" target="PPFrame" data-paypal-button="true">{{ t('Sign Up') }}</a>
+    {% else %}
+    <a href="{{ this.method.getReferralPageURL() }}" target="_blank">{{ t('Sign Up') }}</a>
+    {% endif %}
+  
+    {% endif %}
+  
+  </div>
+{% endif %}

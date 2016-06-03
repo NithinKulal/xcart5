@@ -1,0 +1,61 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Listbox widget style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+div.table-label.input-listbox,
+div.table-label.input-listbox + div.star {
+  display: inline-block;
+  width: auto;
+}
+
+div.table-value.input-listbox {
+  display: table;
+}
+
+div.table-value.input-listbox .listbox-item,
+div.table-value.input-listbox .listbox-actions
+{
+  display: table-cell;
+}
+
+div.table-value.input-listbox .listbox-item div.table-label,
+div.table-value.input-listbox .listbox-item div.table-value {
+  display: block;
+  text-align: center;
+  padding-right: 0;
+  width: auto;
+}
+
+div.table-value.input-listbox .listbox-item div.star {
+  display: none;
+}
+
+div.table-value.input-listbox .listbox-actions button {
+  display: block;
+}
+
+div.table-value.input-listbox .listbox-item div.table-label label,
+div.table-value.input-listbox .listbox-item div.table-value label {
+  font-size: 12px;
+  line-height: 18px;
+}
+
+div.table-value.input-listbox .listbox-item div.table-value select {
+  width: 360px;
+  height: 200px;
+  resize: none;
+}
+
+div.table-value.input-listbox .listbox-actions {
+  vertical-align: middle;
+  padding: 28px 20px;
+}
+
+div.table-value.input-listbox .listbox-actions button {
+  margin: 10px 5px;
+}

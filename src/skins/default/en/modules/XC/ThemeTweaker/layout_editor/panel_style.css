@@ -1,0 +1,119 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Slidebar styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+#layout-editor-panel {
+	position: fixed;
+	width: 100%;
+	bottom: 0;
+	left: 0;
+    box-shadow: 0px -1px 3px 1px rgba(150,150,150,0.4);
+	background: #fff;
+	z-index: 99999;
+	min-height: 62px;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: end;
+	-webkit-justify-content: flex-end;
+	    -ms-flex-pack: end;
+	        justify-content: flex-end;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+	padding: 0 20px;
+    color: #333;
+}
+
+#layout-editor-panel a:hover,
+#layout-editor-panel a:focus{
+	color: #555;
+}
+
+.layout-editor-toggle {
+	margin-right: 20px;
+}
+
+.layout-editor-toggle .table-label label {
+	font-size: 16px;
+}
+
+.layout-editor-toggle .table-value {
+    height: 20px;
+}
+
+.layout-editor-toggle.layout-editor--disabled {
+	margin-right: auto;
+}
+
+.layout-editor-message {
+	margin-right: auto;
+	font-size: 16px;
+}
+
+.layout-editor-message_icon {
+	color: orange;
+	font-size: 36px;
+	margin: 0 10px;
+}
+
+.layout-editor-show {
+	margin-right: 20px;
+	margin-left: 35px;
+}
+
+.layout-editor-save, .layout-editor-exit {
+	margin-left: 20px;
+}
+
+.layout-editor-show_icon, .layout-editor-show_label, .layout-editor-show_blocks-counter {
+	color: #777;
+	font-size: 15px;
+}
+
+.layout-editor-show_label {
+}
+
+.layout-editor-show_icon {
+	margin-left: -25px;
+	position: absolute;
+}
+
+.layout-editor-show_blocks-counter {
+	/*margin-left: 3px;*/
+}
+
+.layout-editor-show_icon, .layout-editor-show_label  {
+	margin-right: 5px;
+}
+
+.layout-editor-show_button {
+	display: inline-block;
+	cursor: pointer;
+	text-decoration: none;
+	font-size: 15px;
+	position: relative;
+	border-bottom:1px dashed #5194c5;
+}
+
+.layout-editor-show_button__hidden{
+	visibility: hidden;
+}
+
+.layout-editor-show_button:hover, .layout-editor-show_button:focus{
+	text-decoration: none;
+	border-bottom:1px dashed #0F9DCC;
+}
+
+@media (max-width: 991px) {
+	.layout-editor-message {
+		display: none;
+	}
+}

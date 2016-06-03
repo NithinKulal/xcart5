@@ -1,0 +1,26 @@
+{##
+ # Additional buttons list
+ #}
+
+<div class="additional-buttons">
+{% if this.isDisplayORLabel() %}
+  <span class="or">{{ t('or') }}</span>
+{% endif %}
+<div class="btn-group dropup">
+<button type="button" class="btn regular-button toggle-list-action dropdown-toggle{% if this.hasMoreActionsButtons() %} more-actions{% endif %} {% if this.isMoreActionsDisabled() %} disabled{% endif %}" data-toggle="dropdown">
+  {{ this.getMoreActionsText()|raw }}
+  <span class="caret"></span>
+  <span class="sr-only"></span>
+</button>
+<ul class="dropdown-menu" role="menu">
+  {% for i, button in this.getAdditionalButtons() %}
+  {% if not button.isDivider() %}
+    <li class="{{ this.getSubcellClass(loop.index, i, button) }}">{{ button.display()|raw }}</li>
+  {% endif %}
+  {% if button.isDivider() %}
+    <li class="divider"></li>
+  {% endif %}
+  {% endfor %}
+</ul>
+</div>
+</div>

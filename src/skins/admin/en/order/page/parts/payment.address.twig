@@ -1,0 +1,13 @@
+{##
+ # Order's billing address
+ #
+ # @ListChild (list="order.payment", weight="200")
+ #}
+
+{% if this.isBillingAddressVisible() %}
+  <div class="address">
+    <strong>{{ t('Billing address') }}</strong>
+  
+    <div class="address-section payment-address-section">{{ this.orderForm.displayComplexField('billingAddress') }}</div>
+  </div>
+{% endif %}

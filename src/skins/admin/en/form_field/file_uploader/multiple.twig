@@ -1,0 +1,10 @@
+{##
+ # File upload template
+ #}
+
+<div{{ this.getDataCode()|raw }} class="multiple-files">
+{% for object in this.getFiles() %}
+  {{ widget('XLite\\View\\FileUploader', object=object, maxWidth=this.getMaxWidth(), maxHeight=this.getMaxHeight(), isImage=this.isImage(), fieldName=this.getName(), multiple='true', isViaUrlAllowed=this.isViaUrlAllowed()) }}
+{% endfor %}
+  {{ widget('XLite\\View\\FileUploader', maxWidth=this.getMaxWidth(), maxHeight=this.getMaxHeight(), isImage=this.isImage(), fieldName=this.getName(), multiple='true', isViaUrlAllowed=this.isViaUrlAllowed()) }}
+</div>

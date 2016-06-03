@@ -1,0 +1,169 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Order's egoods page styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+.egoods-items {
+  width: 840px;
+}
+
+.egoods-items,
+.egoods-items ul,
+.egoods-items li
+{
+  padding: 0px;
+  margin: 0px;
+  list-style: none;
+}
+
+.egoods-items .item {
+  background-color: #eff8fe;
+  padding: 10px;
+  margin-bottom: 35px;
+  display: inline-block;
+}
+
+.egoods-items .item * {
+  font-size: 14px;
+}
+
+.egoods-items .title {
+  padding-top: 11px;
+  padding-left: 14px;
+  padding-bottom: 6px;
+  vertical-align: middle;
+}
+
+.egoods-items .title * {
+  vertical-align: middle;
+  font-size: 16px;
+}
+
+.egoods-items .title a {
+  text-decoration: underline;
+}
+
+.egoods-items .deleted-product .title span,
+.egoods-items .deleted-product ul.attachments li .attachment-title span,
+.egoods-items ul.attachments li.deleted-attachment .attachment-title span
+{
+  color: #333333;
+}
+
+.egoods-items .deleted-product ul.attachments li .info,
+.egoods-items ul.attachments li.deleted-attachment .info,
+.egoods-items .title .qty,
+.egoods-items .live-product .title span.qty,
+.egoods-items ul.attachments li .info div strong,
+.egoods-items ul.attachments li .info div span
+{
+  color: #8f8f8f;
+  font-weight: normal;
+}
+
+.egoods-items .title .qty {
+  font-size: 16px;
+  padding-left: 10px;
+}
+
+.egoods-items ul.attachments li {
+  width: 218px;
+  float: left;
+  background-color: #fff;
+  padding: 10px;
+  border: 1px solid #e5e5e5;
+  margin: 10px;
+  margin-right: 30px;
+  position: relative;
+}
+
+.egoods-items ul.attachments li.last-row {
+  margin-right: 10px;
+}
+
+.egoods-items ul.attachments li .rt-corner {
+  display: block;
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 21px;
+  height: 21px;
+  background: transparent url(images/egoods_rt_corner.png) no-repeat right top;
+}
+
+.egoods-items ul.attachments li .attachment-title {
+  padding-top: 6px;
+  padding-bottom: 13px;
+  margin-right: 10px;
+}
+
+.egoods-items ul.attachments li .attachment-title a {
+  white-space: nowrap;
+  overflow: hidden;
+  text-decoration: underline;
+  display: block;
+  position: relative;
+}
+
+.egoods-items ul.attachments li .info {
+  background-color: #f5f5f5;
+  padding: 10px 17px;
+  padding-bottom: 12px;
+  line-height: 24px;
+}
+
+.egoods-items ul.attachments li .info.blocked {
+  line-height: 116px;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 16px;
+}
+
+.egoods-items ul.attachments li .info.blocked {
+  line-height: 116px;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 16px;
+}
+
+.egoods-items ul.attachments li .info.unavailable {
+  vertical-align: middle;
+  text-align: center;
+}
+
+.egoods-items ul.attachments li .info.unavailable strong {
+  font-size: 16px;
+  display: block;
+  padding-top: 34px;
+}
+
+.egoods-items ul.attachments li .info .status {
+  padding-top: 11px;
+}
+
+.egoods-items ul.attachments li .info .avail {
+  color: #3b8110;
+}
+
+.egoods-items ul.attachments li .info .expired {
+  color: #333333;
+}
+
+.egoods-items ul.attachments li .info .blocked,
+.egoods-items ul.attachments li .info.unavailable strong
+{
+  color: #9b0c0c;
+}
+
+.egoods-items ul.attachments li .info .buttons {
+  text-align: center;
+}
+
+.egoods-items ul.attachments li .info button {
+  margin: 0 3px;
+}
+
+

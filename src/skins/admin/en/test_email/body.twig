@@ -1,0 +1,41 @@
+{##
+ # Email testing feature
+ #}
+
+ <h2>{{ t('Test email configuration') }}</h2>
+
+  {% form '\\XLite\\View\\Form\\TestEmail' %}
+
+  {% if this.hasTestEmailError() %}
+    <div class="alert alert-danger" role="alert">
+      {{ this.getTestEmailError()|raw }}
+    </div>
+  {% endif %}
+
+  <table class="settings-table">
+
+    <tr>
+      <td class="setting-name"><label>{{ t('From email') }}</label></td>
+      <td>{{ widget('\\XLite\\View\\FormField\\Input\\Text', fieldName='test_from_email_address', fieldOnly='true') }}</td>
+    </tr>
+
+
+    <tr>
+      <td class="setting-name">{{ t('To email') }}</td>
+      <td>{{ widget('\\XLite\\View\\FormField\\Input\\Text', fieldName='test_to_email_address', fieldOnly='true') }}</td>
+    </tr>
+
+    <tr>
+      <td class="setting-name">{{ t('Email body') }}</td>
+      <td>{{ widget('\\XLite\\View\\FormField\\Textarea\\Simple', fieldName='test_email_body', fieldOnly='true') }}</td>
+    </tr>
+
+    <tr>
+      <td>&nbsp;</td>
+      <td>{{ widget('\\XLite\\View\\Button\\Submit', label=t('Send test email'), style='main') }}</td>
+    </tr>
+
+  </table>
+
+  {% endform %}
+

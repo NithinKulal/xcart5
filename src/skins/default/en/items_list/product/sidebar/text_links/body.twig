@@ -1,0 +1,21 @@
+{##
+ # Products list (sidebar variant)
+ #}
+
+{{ widget_list('itemsList.product.cart') }}
+
+<ul class="list-body-sidebar products products-sidebar products-sidebar-text-links">
+
+  {% for i, product in this.getSideBarData() %}
+    <li class="product-cell box-product item {{ this.getAdditionalItemClass(loop.index, loop.length) }}">
+      {{ this.getProductWidgetContent(product)|raw }}
+    </li>
+  {% endfor %}
+
+  {% if this.isShowMoreLink() %}
+    <li>
+      <a class="link" href="{{ this.getMoreLinkURL() }}">{{ this.getMoreLinkText() }}</a>
+    </li>
+  {% endif %}
+
+</ul>

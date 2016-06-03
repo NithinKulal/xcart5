@@ -1,0 +1,39 @@
+#
+# robots.txt
+#
+
+User-agent: *
+# Sitemap example
+# Sitemap: http://example.com/sitemap.xml
+
+# Directories
+Disallow: /Includes/
+Disallow: /classes/
+Disallow: /etc/
+Disallow: /files/
+Disallow: /lib/
+Disallow: /sql/
+Disallow: /upgrade/
+Disallow: /var/export/
+Disallow: /var/html/
+Disallow: /var/import/
+Disallow: /var/locale/
+Disallow: /var/log/
+Disallow: /var/run/
+Disallow: /var/theme/
+Disallow: /var/tmp/
+
+# Files
+Disallow: /admin.php
+Disallow: /console.php
+Disallow: /error_handler.php
+Disallow: /https_check.php
+Disallow: /install.php
+Disallow: /LICENSE.txt
+Disallow: /probe.php
+Disallow: /public/error.css
+Disallow: /public/error.html
+Disallow: /public/error_image.png
+Disallow: /top.inc.PHP53.php
+Disallow: /top.inc.php
+Crawl-delay: 10

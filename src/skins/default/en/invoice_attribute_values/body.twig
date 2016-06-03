@@ -1,0 +1,11 @@
+{##
+ # Display product attribute values in invoice
+ #}
+
+{% if this.isInvoiceMode() %}
+<li class="item-options-list-item">{{ t('Options') }}: {{ this.getDisplayOptionValues(this.av) }}</li>
+{% else %}
+{% for av in this.item.getAttributeValues() %}
+  <li class="item-attribute-values-list-item">{{ av.getName() }}: {{ av.getValue() }}</li>
+{% endfor %}
+{% endif %}

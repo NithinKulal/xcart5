@@ -1,0 +1,13 @@
+{##
+ # 'More options...' block template (is used in search forms for hiding/displaying an additional search options)
+ #}
+
+<table cellpadding="2" cellspacing="2">
+
+  <tr>
+    <td id="close{{ this.mark }}" style="{% if this.visible %}display: none; {% endif %}" onclick="javascript: visibleBox('{{ this.mark }}');"><img src="{{ asset('images/plus.gif') }}" alt="{{ t('Click to open') }}" /></td>
+    <td id="open{{ this.mark }}" style="{% if not this.visible %}display: none; {% endif %}" onclick="javascript: visibleBox('{{ this.mark }}');"><img src="{{ asset('images/minus.gif') }}" alt="{{ t('Click to close') }}" /></td>
+    <td class="table-label"><a href="javascript:void(0);" onclick="javascript: visibleBox('{{ this.mark }}');"><b>{{ this.title }}</b></a></td>
+  </tr>
+
+</table>

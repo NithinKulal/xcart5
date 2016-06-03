@@ -1,0 +1,18 @@
+{##
+ # Custom javascript
+ #
+ # @ListChild (list="product.details.page", weight="1000")
+ #}
+{% if this.product.getJavascript() %}
+  <script type="text/javascript">
+  $(document).ready(
+    function() {
+      $('form[name="add_to_cart"]').submit(
+        function() {
+          {{ this.product.getJavascript() }}
+        }
+      );
+    }
+  );
+  </script>
+{% endif %}

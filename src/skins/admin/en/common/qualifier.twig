@@ -1,0 +1,8 @@
+{##
+ # ____file_title____
+ #}
+<select name="text_qualifier">
+    <option value="double_quote" {% if this.text_qualifier == 'double_quote' %} selected="selected" {% endif %}>{{ t('Double quote') }}</option>
+    <option value="single_quote" {% if this.text_qualifier == 'single_quote' %} selected="selected" {% endif %}>{{ t('Single quote') }}</option>
+    <option value="" {% if this.action and this.text_qualifier == '' %} selected="selected" {% endif %}>- {{ t('empty') }} -</option>
+</select>

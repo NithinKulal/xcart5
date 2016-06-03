@@ -1,0 +1,13 @@
+{##
+ # Layout settings template
+ #}
+<div class="layout-settings settings">
+  <div class="preview">
+    {% if this.getPreviewImageURL() %}
+      <img src="{{ this.getPreviewImageURL() }}" alt="{{ this.getCurrentSkinName() }}" />
+    {% endif %}
+  </div>
+  <div class="settings-list">
+    {{ widget_list('layout_settings.settings') }}
+  </div>
+</div>

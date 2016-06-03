@@ -1,0 +1,56 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Setting page styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+body.module-cdev-paypal .general-settings .model-properties ul.table .table-label {
+  width: 240px;
+}
+
+body.module-cdev-paypal .general-settings .model-properties ul.table div.table-value input[type="text"] {
+  width: 450px;
+}
+
+body.module-cdev-paypal .general-settings .model-properties ul.table li.select-protocol .table-label {
+  height: 49px;
+}
+
+body.module-cdev-paypal .general-settings .model-properties ul.table li.select-protocol div.table-value .toggle-edit {
+  display: inline-block;
+  color: #1a509a;
+  cursor: pointer;
+  font-size: 12px;
+  margin-right: 6px;
+}
+
+body.module-cdev-paypal .general-settings .model-properties ul.table li.select-protocol div.table-value .toggle-edit:hover {
+  color: #0f9dcc;
+}
+
+body.module-cdev-paypal .general-settings .model-properties ul.table li.select-protocol div.table-value .view,
+body.module-cdev-paypal .general-settings .model-properties ul.table li.select-protocol div.table-value .value {
+  display: inline-block;
+  max-width: 700px;
+}
+
+body.module-cdev-paypal .general-settings .model-properties ul.table li.select-protocol div.table-value .view {
+  margin-top: 3px;
+}
+
+body.module-cdev-paypal .general-settings .model-properties ul.table li.select-protocol div.table-value .value {
+  white-space: nowrap;
+}
+
+body.module-cdev-paypal .general-settings .model-properties ul.table li.select-protocol div.table-value .value div,
+body.module-cdev-paypal .general-settings .model-properties ul.table li.select-protocol div.table-value .value select {
+  display: inline-block;
+}
+
+body.module-cdev-paypal .general-settings .model-properties ul.table li.select-protocol div.table-value .value select {
+  width: 70px;
+  padding: 3px;
+}

@@ -1,0 +1,15 @@
+{##
+ # Low limit warning email body (to admin)
+ #}
+<p>
+  {{ this.getNotificationText()|raw }}
+</p>
+<p>
+  {{ t('SKU') }}: {{ this.product.sku|raw }}<br />
+  {{ t('Product name') }}: {{ this.product.name|raw }}<br />
+  <br />
+  {{ t('In stock') }}: {{ t('X items', {'count': this.product.amount}) }}
+</p>
+<p>
+  {{ t('Click the link to increase product amount') }}: <a href="{{ this.product.adminURL }}">{{ this.product.adminURL }}</a>
+</p>

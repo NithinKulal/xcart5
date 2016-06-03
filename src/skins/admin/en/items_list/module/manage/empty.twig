@@ -1,0 +1,25 @@
+{##
+ # ____file_title____
+ #}
+
+<div class="main-text">
+
+  {% if this.getSearchSubstring() %}
+    <div class="no-modules-found">
+      {{ t('No modules found for search_string', {'search_string': this.getSearchSubstring()})|raw }}
+    </div>
+  {% endif %}
+
+  {% if not this.getSearchSubstring() %}
+    <div class="no-modules-found">
+      {{ t('No modules found') }}
+    </div>
+  {% endif %}
+
+  {% if this.getSearchSubstring() %}
+    <div class="clarify-text">
+      {{ t('Please, clarify your search request or search in Marketplace', {'marketplace': url('addons_list_marketplace')})|raw }}
+    </div>
+  {% endif %}
+
+</div>

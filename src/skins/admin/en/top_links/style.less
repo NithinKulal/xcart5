@@ -1,0 +1,188 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Top links
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+@import "../css/initialize.less";
+
+#top-links {
+  display: inline-block;
+  z-index: 150;
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+  }
+
+  & > ul {
+    .clearfix;
+
+    & > li.menu-item {
+      float: left;
+      width: 38px;
+      height: 46px;
+      margin-top: 8px;
+
+      & > .link {
+        display: block;
+        width: 24px;
+        height: 24px;
+        margin: 7px;
+        font-size: 20px;
+        line-height: 18px;
+        text-align: center;
+        vertical-align: middle;
+        text-decoration: none;
+
+        svg {
+          width: 100%;
+          height: 100%;
+
+          path {
+            fill: #748a95;
+          }
+
+          circle {
+            stroke: #748a95;
+          }
+        }
+
+        span {
+          font-size: 14px;
+          font-weight: bold;
+          color: #748a95;
+        }
+
+        &:hover {
+          svg path {
+            fill: #68c7ff;
+          }
+          svg circle {
+            stroke: #68c7ff;
+          }
+        }
+      }
+    }
+
+    & > li.separator {
+      float: left;
+      margin-left: 7px;
+      margin-right: 7px;
+
+      div {
+        width: 1px;
+        height: 54px;
+        border-right: 1px solid #d3d3d3;
+      }
+    }
+
+    li {
+      position: relative;
+      overflow: visible;
+
+      .link {
+        text-decoration: none;
+      }
+
+      div.box {
+        display: none;
+        position: absolute;
+        right: -7px;
+        padding-top: 0px;
+        z-index: 100;
+
+        .arr {
+          background-color: #191919;
+          width: 5px;
+          height: 5px;
+          .rotation(45deg);
+          position: absolute;
+          top: -2px;
+          margin-left: -3px;
+        }
+      }
+
+      &.help div.box {
+        left: -45px;
+        right: auto;
+      }
+
+      &:hover div.box {
+        display: block;
+      }
+
+      ul {
+        background-color: #191919;
+        .rounded(1px);
+        padding: 3px 8px;
+        padding-bottom: 7px;
+        min-width: 128px;
+
+        li {
+          line-height: 17px;
+          padding: 4px 4px 5px;
+          border-bottom: 1px solid #2a2a2a;
+
+          &:last-child {
+            border-bottom: 0px none;
+          }
+
+          .link {
+            display: block;
+            white-space: nowrap;
+
+            & svg, & span {
+              vertical-align: middle;
+            }
+          }
+
+          .link, i, span {
+            color: #c1ccda;
+          }
+
+          span {
+            font-size: 12px;
+          }
+
+          .link:hover, .link:hover span {
+            color: #68c7ff;
+          }
+
+          &.text {
+            border-bottom: 0px none;
+
+            .link span, .link:hover span {
+              color: #6d7273;
+            }
+          }
+
+          svg {
+            width: 12px;
+            height: 12px;
+            margin-right: 3px;
+            margin-top: 1px;
+
+            path {
+              fill: #c1ccda;
+            }
+          }
+
+          .link:hover svg path {
+            fill: #68c7ff;
+          }
+        }
+      }
+    }
+  }
+}

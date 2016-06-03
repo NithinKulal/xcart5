@@ -1,0 +1,8 @@
+{##
+ # Item description
+ #
+ # @ListChild (list="itemsList.product.list.customer.info", weight="30")
+ #}
+{% if this.product.getBriefDescription() %}
+  <div class="description product-description">{{ this.product.getProcessedBriefDescription()|raw }}</div>
+{% endif %}

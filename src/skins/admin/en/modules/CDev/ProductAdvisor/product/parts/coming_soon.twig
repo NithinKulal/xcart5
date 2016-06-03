@@ -1,0 +1,11 @@
+{##
+ # Product element
+ #
+ # @ListChild (list="product.modify.list", weight="832")
+ #}
+
+{% if this.product.isUpcomingProduct() %}
+  <tr>
+    <td colspan="3">{{ t('This product will be shown in coming soon section') }}</td>
+  </tr>
+{% endif %}

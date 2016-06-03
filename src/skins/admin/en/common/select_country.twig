@@ -1,0 +1,11 @@
+{##
+ # Country selector
+ #}
+<select name="{{ this.field }}" onchange="{{ this.onchange }}" id="{{ this.fieldId }}">
+   {% if this.hasSelectOne() %}
+     <option value="">{{ t('Select one') }}</option>
+   {% endif %}
+   {% for v in this.getCountries() %}
+     <option value="{{ v.code }}" {% if v.code == this.country %} selected="selected" {% endif %}>{{ v.country|raw }}</option>
+   {% endfor %}
+</select>

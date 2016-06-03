@@ -1,0 +1,56 @@
+{##
+ # Login widget
+ #}
+<div class="login-box-wrapper">
+  <div class="login-box{% if this.isLocked() %} locked" data-time-left="{{ this.getTimeLeftToUnlock() }}{% endif %}">
+
+    <h1>{{ t('Administration Zone') }}</h1>
+
+    {% if this.isLocked() %}
+      <h2 class="timer-header">{{ t('Login is locked out') }}</h2>
+    {% endif %}
+
+    {% if this.additional_note %}
+      <div class="additional-note">{{ this.additional_note }}</div>
+    {% endif %}
+
+    <form id="login_form" action="{{ url('login') }}" method="post" name="login_form">
+      <input type="hidden" name="target" value="login" />
+      <input type="hidden" name="action" value="login" />
+      {{ widget('\\XLite\\View\\FormField\\Input\\FormId') }}
+
+      <table>
+        <tbody class="fields">
+          <tr>
+            <td><input type="text" class="form-control" name="login" value="{{ this.login }}" size="32" maxlength="128" autocomplete="off" placeholder="{{ t('Email') }}" /></td>
+          </tr>
+          <tr>
+            <td><input type="password" class="form-control" name="password" value="{{ this.password }}" size="32" maxlength="128" autocomplete="off" placeholder="{{ t('Password') }}" /></td>
+          </tr>
+        </tbody>
+
+        {% if this.isLocked() %}
+          <tbody class="timer">
+            <tr>
+              <td>
+                {{ t('Time left') }}: <span id="timer"></span>
+              </td>
+            </tr>
+          </tbody>
+        {% endif %}
+
+        <tbody class="buttons">
+          <tr>
+            <td>
+              {{ widget('\\XLite\\View\\Button\\Submit', label='Log in', style='regular-main-button') }}
+              <div class="forgot-password">
+                <a href="{{ url('recover_password') }}">{{ t('Forgot password?') }}</a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+
+  </div>
+</div>

@@ -1,0 +1,22 @@
+{##
+ # 'Use separate box' related fields block template
+ #}
+
+<ul>
+  <li>
+    <div>{{ t('Length x Width x Height') }} ({{ this.getDimSymbol() }}):</div>
+    <div>
+      <input type="text" name="{{ this.getNamePostedData('boxLength') }}" size="9" value="{{ this.product.boxLength }}" />
+      x
+      <input type="text" name="{{ this.getNamePostedData('boxWidth') }}" size="9" value="{{ this.product.boxWidth }}" />
+      x
+      <input type="text" name="{{ this.getNamePostedData('boxHeight') }}" size="9" value="{{ this.product.boxHeight }}" />
+    </div>
+  </li>
+  <li>
+    <div>{{ t('Maximum number of items per box') }}:</div>
+    <div>
+      <input type="text" name="{{ this.getNamePostedData('itemsPerBox') }}" size="8" value="{{ this.product.itemsPerBox }}" />
+    </div>
+  </li>
+</ul>

@@ -1,0 +1,16 @@
+{##
+ # Field : username
+ #
+ # @ListChild (list="customer.signin.fields", weight="300")
+ # @ListChild (list="customer.signin.popup.fields", weight="300")
+ #}
+
+{% if not this.valid %}
+  <tr>
+      <td>&nbsp;</td>
+      <td class="error-message">
+        {{ t('Invalid login or password') }}
+        <a href="{{ url('recover_password') }}">{{ t('Forgot password') }}?</a>
+      </td>
+  </tr>
+{% endif %}

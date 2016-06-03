@@ -1,0 +1,16 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Powered by widget style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.powered-by {
+  text-align: center;
+}
+
+.powered-by p {
+  display: inline-block;
+}

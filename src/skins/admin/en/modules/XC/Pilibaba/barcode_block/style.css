@@ -1,0 +1,28 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * PosSystem styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.order-operations .actions{
+    max-width: 394px;
+}
+
+.barcode-block-wrapper{
+    padding: 7px;
+    text-align: center;
+    min-height: 48px;
+}
+
+.barcode-block-wrapper img{
+    max-width: 100%;
+}
+
+.barcode-block-wrapper .barcode-image-placeholder{
+    line-height: 34px;
+    color: #8f8f8f;
+    font-size: 12px;
+}

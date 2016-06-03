@@ -1,0 +1,41 @@
+{##
+ # List of incompatible entries
+ #}
+
+<div class="modified-files-section disabled-modules-hooks-section">
+  <div class="modified-files-section-frame disabled-modules-hooks-section-frame">
+
+    <div class="disabled-modules-hooks-message">
+      <div class="head">{{ t('Pre upgrade disabled modules hooks message head')|raw }}</div>
+      <div class="body">{{ t('Pre upgrade disabled modules hooks message body')|raw }}</div>
+    </div>
+
+<table class="downloaded-components disabled-modules">
+  <tr class="header">
+    <th class="module-info-header">{{ t('Component') }}</th>
+    <th class="disabled-module-action-header">{{ t('Action') }}</th>
+  </tr>
+
+  {% for entry in this.getPreUpgradeWarningModules() %}
+    <tr class="module-entry">
+      <td class="module-info">
+        <span class="name">{{ entry.getModuleName() }}</span>
+        <span class="author">({{ entry.getAuthorName() }})</span>
+      </td>
+      <td class="disabled-module-action">
+        <select name="preUpgradeWarningModules[{{ entry.getMarketplaceId() }}]">
+          <option value="1">{{ t('Pre-upgrade on') }}</option>
+          <option value="0" {% if this.selected %} selected="selected" {% endif %}>{{ t('Pre-upgrade off') }}</option>
+        </select>
+      </td>
+    </tr>
+  {% endfor %}
+
+</table>
+
+    <div class="disabled-modules-hooks-message">
+      <div class="body">{{ t('Pre upgrade disabled modules hooks message footer')|raw }}</div>
+    </div>
+
+  </div>
+</div>

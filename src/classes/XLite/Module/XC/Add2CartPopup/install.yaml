@@ -1,0 +1,35 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: product_sources
+    category: XC\Add2CartPopup
+    value: 'a:1:{s:1:"R";a:2:{s:8:"position";s:4:"1000";s:7:"enabled";s:1:"1";}}'
+    translations:
+      - code: en
+        option_name: Product list sources
+  - name: a2cp_enable_for_dropping
+    category: XC\Add2CartPopup
+    type: checkbox
+    value: Y
+    translations:
+      - code: en
+        option_name: Enable popup when product added to cart via drag-n-drop feature
+
+XLite\Model\LanguageLabel:
+  - { name: "a2cp-source-code-R", translations: [{ code: en, label: "Random products" }] }
+  - { name: "Install additional modules to add more product sources", translations: [{ code: en, label: "Install additional modules to add more product sources: {{list}}" }] }
+  - { name: "This product has been added to you cart", translations: [{ code: en, label: "This product has been added to your cart" }] }
+  - { name: "Please choose the sources of products that will be displayed in the 'Customer also bought' section of the 'Add to Cart' popup dialog and set the priority of sources.", translations: [{ code: en, label: "Please choose the sources of products that will be displayed in the 'Customer also bought' section of the 'Add to Cart' popup dialog and set the priority of sources." }] }
+  - { name: "Add to Cart Popup module settings", translations: [{ code: en, label: "Add to Cart Popup module settings" }] }
+  - { name: "Add to Cart popup module settings have been updated.", translations: [{ code: en, label: "Add to Cart popup module settings have been updated." }] }
+  - { name: "Adds a promotional popup dialog that is displayed after a customer adds a product to cart.", translations: [{ code: en, label: "Adds a promotional popup dialog that is displayed after a customer adds a product to cart." }] }
+  - { name: "Product source", translations: [{ code: en, label: "Product source" }] }
+  - { name: "Customers also bought", translations: [{ code: en, label: "Customers who bought this also bought" }] }
+  - { name: "Random products", translations: [{ code: en, label: "Random products" }] }
+  - { name: "This option is ignored as Add to Cart Popup module is installed and enabled.", translations: [{ code: en, label: '<i class="fa fa-exclamation-triangle"></i>This option is ignored as <a href="{{url}}">Add to Cart Popup</a> module is installed and enabled.' }] }
+  - { name: "Enable popup after product added to cart via drag-n-drop", translations: [{ code: en, label: "Enable a popup after a product is added to cart via drag-n-drop" }] }

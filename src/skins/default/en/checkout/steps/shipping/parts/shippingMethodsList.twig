@@ -1,0 +1,21 @@
+{##
+ # Shipping methods list
+ #}
+
+{% form '\\XLite\\View\\Form\\Checkout\\ShippingMethod' with {className: 'shipping-methods'} %}
+
+  {% if this.isShippingAvailable() %}
+
+    {{ widget('\\XLite\\View\\ShippingList') }}
+
+  {% else %}
+    <div class="shipping-methods-not-available-wrapper" {% if this.isAddressCompleted() %}data-error-msg="{{ this.getErrorMessage() }}"{% endif %}>
+    {% if this.isAddressCompleted() %}
+      <p class="shipping-methods-not-avail">{{ this.getShippingNotAvailableNotification() }}</p>
+    {% else %}
+      <p class="address-not-defined">{{ t('Enter the shipping address to see delivery methods available to you') }}</p>
+    {% endif %}
+    </div>
+  {% endif %}
+
+{% endform %}

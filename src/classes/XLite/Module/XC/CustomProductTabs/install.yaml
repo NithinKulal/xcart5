@@ -1,0 +1,13 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\LanguageLabel:
+  - { name: 'Tabs', translations: [{ code: en, label: 'Tabs' }, { code: ru, label: 'Вкладки' }] }
+  - { name: 'New tab', translations: [{ code: en, label: 'New tab' }, { code: ru, label: 'Новая вкладка' }] }
+  - { name: 'The product tab has been updated', translations: [{ code: en, label: 'The product tab has been updated' }, {code: ru, label: 'Вкладка обновлена'}] }
+  - { name: 'The product tab has been added', translations: [{ code: en, label: 'The product tab has been added' }, {code: ru, label: 'Вкладка добавлена'}] }
+

@@ -1,0 +1,21 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Install modules styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.target-addons-list-marketplace .sticky-panel.has-add-buttons .additional .additional-buttons {
+  left: 15px;
+}
+
+.target-addons-list-marketplace .sticky-panel.has-add-buttons .additional .additional-buttons .popup {
+  left: -11px;
+}
+
+.target-addons-list-marketplace .sticky-panel.has-add-buttons .back {
+  margin-left: 15px;
+}
+

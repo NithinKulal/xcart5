@@ -1,0 +1,15 @@
+{##
+ # Contact us
+ #}
+
+<div class="contact-us-description">{{ t('To contact us please fill the form below')|raw }}</div>
+
+<hr class="contact-us-description-hr" />
+
+{% form '\\XLite\\Module\\CDev\\ContactUs\\View\\Form\\ContactUs' %}
+
+<div id="contact-site-form">
+  {{ widget_list('contact-us.send.fields') }}
+</div>
+
+{% endform %}

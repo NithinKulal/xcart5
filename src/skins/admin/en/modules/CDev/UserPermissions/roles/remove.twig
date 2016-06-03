@@ -1,0 +1,7 @@
+{##
+ # Entity remove
+ #}
+
+{% if not this.isUnremovableRole(this.entity) %}
+  {% include 'items_list/model/table/parts/remove.twig' %}
+{% endif %}

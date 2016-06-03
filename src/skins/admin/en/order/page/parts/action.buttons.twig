@@ -1,0 +1,13 @@
+{##
+ # Order status selector
+ #}
+
+{% if this.getOrderActions() %}
+  <div class="action-buttons">
+    {% for action in this.getOrderActions() %}
+      <div>
+        {{ action.display()|raw }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}

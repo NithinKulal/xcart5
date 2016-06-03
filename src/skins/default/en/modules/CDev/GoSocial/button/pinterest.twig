@@ -1,0 +1,7 @@
+{##
+ # Pinterest button
+ #}
+<div class="pinterest">
+  <a href="{{ this.getButtonURL()|raw }}" class="pin-it-button" {% for name, value in this.getButtonAttributes() %} {{ name }}="{{ value }}"{% endfor %}><img src="//assets.pinterest.com/images/PinExt.png" alt="{{ t('Pin It') }}" style="border: 0;" /></a>
+</div>
+{{ widget('\\XLite\\Module\\CDev\\GoSocial\\View\\ExternalSDK\\Pinterest') }}

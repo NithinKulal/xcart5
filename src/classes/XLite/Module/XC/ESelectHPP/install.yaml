@@ -1,0 +1,39 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Payment\Method:
+  - service_name: Moneris (eSELECTplus- Hosted Pay Page) 
+    class: Module\XC\ESelectHPP\Model\Payment\Processor\ESelectHPP
+    type: C
+    countries: [US, CA]
+    translations:
+      - code: en
+        name: Moneris (eSELECTplus- Hosted Pay Page)
+    settings:
+      - name: store_id
+      - name: hpp_key
+      - name: mode
+        value: test
+      - name: prefix
+        value: xcart
+      - name: currency
+        value: USD
+XLite\Model\LanguageLabel:
+  - { name: "Store ID", translations: [{ code: en, label: "Store ID" }] }
+  - { name: "HPP Key", translations: [{ code: en, label: "HPP Key" }] }
+  - { name: "\"Site management\"", translations: [{ code: en, label: "\"Site management\"" }] }
+  - { name: "Order prefix", translations: [{ code: en, label: "Order prefix" }] }
+  - { name: "To set up the integration, go to the _Site management_", translations: [ { code: en, label: 'To set up the integration, go to the <a href="https://www3.moneris.com/mpg/" target="_blank">"Site management"</a> page on the eSelect site and make sure of the following:' }] }
+  - { name: "The Store ID and HPP Key value must be exactly the same as on it.", translations: [ { code: en, label: 'The "Store ID" and "HPP Key" value must be exactly the same as on it.' }] }
+  - { name: "The Approved URL value must be exact as this:", translations: [ { code: en, label: 'The "Approved URL" value must be exactly as this:' }] }
+  - { name: URL is copied, translations: [ { code: en, label: URL is copied }] }
+  - { name: "The Declined URL value must be exact as this:", translations: [ { code: en, label: 'The "Declined URL" value must be exactly as this:' }] }
+  - { name: "Set the Response Method setting to Sent to your server as a POST.", translations: [ { code: en, label: 'Set the "Response Method" setting to "Sent to your server as a POST".' }] }
+  - { name: "Enable the Use Enhanced Cancel option.", translations: [ { code: en, label: "Enable the 'Use \"Enhanced Cancel\"' option." }] }
+  - { name: Approved URL, translations: [ { code: en, label: Approved URL }] }
+  - { name: Declined URL, translations: [ { code: en, label: Declined URL }] }
+

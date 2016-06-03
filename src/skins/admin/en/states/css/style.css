@@ -1,0 +1,58 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * States page styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.items-list-table.states table.list tbody.lines tr td.code .inline-field {
+  max-width: 200px;
+}
+
+.items-list-table.states table.list tr td.code div.cell {
+  width: 200px;
+}
+
+.items-list-table.states-RU table.list tr td.code div.cell {
+  width: 300px;
+}
+
+.items-list-table table.list .cell.code .inline-field input {
+  width: 100px;
+}
+
+.items-list-table.states-RU table.list .cell.code .inline-field input {
+  width: 200px;
+}
+
+ul.states-list {
+  padding-bottom: 40px;
+}
+
+ul.states-list li {
+  display: inline-block;
+  padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+ul.states-list li span,
+ul.states-list li a {
+  font-size: 16px;
+}
+
+ul.states-list li a {
+  text-decoration: underline;
+}
+
+ul.states-list li span {
+  padding: 5px 10px;
+  background-color: #ebf7ff;
+  border: 1px solid #cadce8;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  cursor: context-menu;
+}

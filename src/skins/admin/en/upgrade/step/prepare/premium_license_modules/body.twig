@@ -1,0 +1,22 @@
+{##
+ # List of incompatible entries
+ #}
+
+<div class="premium-license-modules-section">
+<div class="incompatible-module-list-description premium-license-modules-message">
+  {{ t('Premium license modules warning', {'purchaseURL': this.getPurchaseURL(), 'installedModulesURL': url('addons_list_installed')})|raw }}
+</div>
+
+<table class="incompatible-modules-list premium-license-modules-list">
+  {% for entry in this.getModules() %}
+    <tr>
+      <td class="module-info">
+        <a href="{{ entry.getInstalledURL() }}">
+          <span class="name">{{ entry.getName() }}</span>
+          <span class="author">({{ t('by') }} {{ entry.getAuthor() }})</span>
+        </a>
+      </td>
+    </tr>
+  {% endfor %}
+</table>
+</div>

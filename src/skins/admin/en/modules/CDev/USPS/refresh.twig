@@ -1,0 +1,9 @@
+{##
+ # Refresh shipping methods list (USPS) button template
+ #
+ # @ListChild (list="itemsList.shipping-methods.header", weight="20")
+ #}
+
+{% if this.getProcessorId() == 'usps' %}
+  {{ widget('XLite\\View\\Button\\SimpleLink', label='Refresh list of available methods', location=url('usps', 'refresh'), style='refresh-link' ) }}
+{% endif %}

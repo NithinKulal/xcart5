@@ -1,0 +1,44 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * CSS classes
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.coming-soon-label {
+  color: black;
+  font-size: 18px;
+  display: block;
+}
+
+.coming-soon-note {
+  color: #888888;
+  font-size: 14px;
+}
+
+.coming-soon-date {
+  font-weight: bold;
+}
+
+.products .drag-n-drop-handle .coming-soon-message
+{
+  display: none;
+}
+
+.products .coming-soon .drag-n-drop-handle .coming-soon-message
+{
+  display: inline;
+}
+
+ul.products-sidebar ul.labels li, ul.products-sidebar ul.labels li.coming-soon {
+  margin: 0;
+  padding: 0;
+}
+
+ul.products-sidebar ul.labels li, ul.products-sidebar ul.labels li.coming-soon div {
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+}

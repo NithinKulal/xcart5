@@ -1,0 +1,11 @@
+{##
+ # Checkout : shipping step : selected state : address
+ #}
+<div class="substep step-shipping-address">
+  <div class="head-h3"><span class="bullet">{{ this.getSubstepNumber('shippingAddress') }}</span>{{ t('Shipping address') }}</div>
+
+  {% if this.isDisplayAddressButton() %}
+    <a href="{{ url('select_address', '', {'atype': 's'}) }}" class="address-book">{{ t('Address book') }}</a>
+  {% endif %}
+  {% include 'checkout/steps/shipping/parts/address.shipping.twig' %}
+</div>

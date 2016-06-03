@@ -1,0 +1,109 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Marketplace notifications menu style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+#leftMenu .notification .marketplace .notification-header svg path {
+  fill: #0d88d0;
+}
+
+#leftMenu .notification .marketplace a:hover .notification-header svg path {
+  fill: #68c7ff;
+}
+
+#leftMenu .notification .marketplace .notification-header span {
+  color: #0d88d0;
+}
+
+#leftMenu .notification .marketplace a:hover .notification-header span {
+  color: #68c7ff;
+}
+
+#leftMenu .notification .modules .notification-header span {
+  color: #f69c3b;
+}
+
+#leftMenu .notification .modules ul > li {
+  display: block;
+}
+
+#leftMenu .notification .modules ul > li:nth-child(n+2) {
+  margin-top: 17px;
+}
+
+#leftMenu .notification .modules ul > li .message {
+  white-space: normal;
+  text-align: left;
+}
+
+#leftMenu .notification .modules ul > li .message .title {
+  color: #0d88d0;
+}
+
+#leftMenu .notification .modules ul > li .message .description {
+  color: #a9b3be;
+}
+
+#leftMenu .notification .modules ul > li .message img {
+  width: 42px;
+  height: 42px;
+  float: left;
+  margin-right: 10px;
+  margin-top: 4px;
+}
+
+#leftMenu .notification .modules ul > li .message .title {
+  display: block;
+  margin-bottom: 4px;
+}
+
+#leftMenu .notification .modules ul > li a:hover .message .title {
+  color: #68c7ff;
+}
+
+#leftMenu .notification .modules ul > li .message .description {
+  font-size: 11px;
+  line-height: 13px;
+  display: block;
+  margin-left: 51px;
+}
+
+#leftMenu .notification .news ul > li {
+  display: block;
+}
+
+#leftMenu .notification .news ul > li:nth-child(n+2) {
+  margin-top: 17px;
+}
+
+#leftMenu .notification .news ul > li .message {
+  white-space: normal;
+  text-align: left;
+}
+
+#leftMenu .notification .news ul > li .message img {
+  width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  margin-right: 4px;
+  margin-top: 2px;
+}
+
+#leftMenu .notification .news ul > li .message .date {
+  color: #6d7279;
+  font-size: 9px;
+}
+
+#leftMenu .notification .news ul > li .message .title {
+  display: block;
+  color: #a9b3be;
+  margin-top: 7px;
+}
+
+#leftMenu .notification .news ul > li a:hover .message .title {
+  color: #68c7ff;
+}

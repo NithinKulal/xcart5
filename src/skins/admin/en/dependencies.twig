@@ -1,0 +1,23 @@
+{##
+ # ____file_title____
+ #}
+
+<p class="error-message">
+{{ t('Unable to install module X because some modules, which it depends on, have not been installed or activated yet', {'X': this.mm.moduleName}) }}
+</p>
+<table>
+<tr>
+  <td>
+  {{ t('Please, make sure that the following modules are installed and enabled:') }}
+	</td>
+	<td>
+	<table>
+		{% for dependency in this.mm.dependencies %}
+    <tr>
+  		<td>{{ dependency }}</td>
+  		</tr>
+  {% endfor %}
+	</table>
+	</td>
+</tr>
+</table>

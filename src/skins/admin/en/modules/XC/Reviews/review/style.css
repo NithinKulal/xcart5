@@ -1,0 +1,61 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Review model styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+div.review {
+  padding-top: 20px;
+}
+
+div.review div.buttons {
+  text-align: center;
+}
+
+div.review li.rating div.table-label {
+  padding-top: 5px;
+}
+
+div.form-buttons {
+  text-align: center;
+}
+
+div.form-buttons button.regular-main-button span {
+  font-size: 16px;
+}
+
+div.form-buttons.pending button:first-child {
+  margin-right: 30px;
+}
+
+div.form-buttons button.regular-main-button {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.review div.table-value input[type="text"],
+  .review div.table-value textarea
+{
+  width: 400px;
+}
+
+.review div.table-label {
+  padding-right: 0px;
+  width: 150px;
+  white-space: nowrap;
+}
+
+.review .wrapper-table-value {
+  display: table-cell;
+}
+
+.xc-reviews-searchpanel-review-admin-main .search-conditions-box {
+  min-width: 1025px;
+}
+
+div.table-value .vote-bar {
+  width: 400px;
+}

@@ -1,0 +1,6 @@
+{##
+ # Date cell
+ #}
+{% include 'items_list/model/table/field.twig' %}
+<span class="date">{{ this.formatDate(this.entity.getDate()) }}.</span>
+<span class="time">{{ this.formatDayTime(this.entity.getDate()) }}</span>

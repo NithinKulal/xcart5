@@ -1,0 +1,81 @@
+{##
+ # Shipments page
+ #}
+
+<div class="capost-shipments">
+  
+  {% form 'XLite\\Module\\XC\\CanadaPost\\View\\Form\\Parcel' %}
+
+    {% for parcelIdx, parcel in this.getCapostOrderParcels() %}
+      <div class="ca-package">
+        
+        {{ this.displayCommentedData(this.getParcelJSParams(parcel)) }}
+  
+        <a name="package_{{ parcel.getNumber() }}"></a>
+    
+        <h2>{{ t('Parcel') }} #{{ parcel.getNumber() }}</h2>
+  
+        <div class="parcel-products">
+          {{ widget('\\XLite\\Module\\XC\\CanadaPost\\View\\ItemsList\\Model\\ParcelItem', name='parcel-items-' ~ parcel.getId(), parcelId=parcel.getId()) }}
+        </div>
+  
+        <div class="parcel-settings">
+  
+          <div class="box parcel-characteristics">
+            {% include 'modules/XC/CanadaPost/shipments/parcel.characteristics.twig' %}
+          </div>
+  
+          <div class="box border">
+            {% include 'modules/XC/CanadaPost/shipments/parcel.options.twig' %}
+          </div>
+  
+          <div style="clear: both;"></div>
+  
+        </div>
+        
+        {% if parcel.hasShipment() %}
+          {% include 'modules/XC/CanadaPost/shipments/shipment.info.twig' %}
+        {% endif %}
+            
+        {% if parcel.areAPICallsAllowed() %}
+          <div class="buttons">
+    
+            {% if this.displayCreateShipmentButton(parcel) %}
+              {{ widget('\\XLite\\Module\\XC\\CanadaPost\\View\\Button\\CreateShipment', parcelId=parcel.getId()) }}
+            {% endif %}
+    
+            {% if this.displayVoidShipmentButton(parcel) %}
+              {{ widget('\\XLite\\Module\\XC\\CanadaPost\\View\\Button\\VoidShipment', parcelId=parcel.getId()) }}
+            {% endif %}
+    
+            {% if this.displayTransmitShipmentButton(parcel) %}
+              {{ widget('\\XLite\\Module\\XC\\CanadaPost\\View\\Button\\TransmitShipment', parcelId=parcel.getId()) }}
+            {% endif %}
+    
+          </div>
+        {% endif %}
+        
+        {% if this.getParcelWarnings(parcel) %}
+          <div class="parcel-warnings">
+    
+            <br />
+    
+            <h4>{{ t('Warnings') }}:</h4>
+    
+            <ul>
+              {% for warning in this.getParcelWarnings(parcel) %}
+                <li>{{ warning.message }}</li>
+              {% endfor %}
+            </ul>
+    
+          </div>
+        {% endif %}
+  
+      </div>
+    {% endfor %}
+
+    {{ widget('XLite\\Module\\XC\\CanadaPost\\View\\StickyPanel\\Order\\Admin\\Shipments') }}
+
+  {% endform %}
+
+</div>

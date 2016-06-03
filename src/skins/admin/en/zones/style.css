@@ -1,0 +1,91 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * States page styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+/**
+ * Zones list styles
+ */
+
+.items-list-table.zones table.list tr td.cell.edit {
+  text-align: center;
+}
+
+.items-list-table.zones table.list tr td.actions .tooltip-main {
+  padding-left: 0;
+  display: block;
+  margin-left: -4px;
+}
+
+/**
+ * Zone details page styles
+ */
+
+.target-zones .tab-content a.back {
+  text-decoration: underline;
+  font-size: 14px;
+  float: right;
+  margin-right: 50px;
+}
+
+.zone-name-label label,
+.zone-countries-label label,
+.zone-states-label label,
+.zone-zipcodes-label label,
+.zone-cities-label label,
+.zone-addresses-label label {
+  color: #69a4c9;
+  font-family: "Trebuchet MS",Helvetica,Arial;
+  font-size: 18px;
+}
+
+.table-label.zone-name-label {
+  width: auto;
+  vertical-align: middle;
+}
+
+div.table-value.input-listbox.country-listbox .listbox-item div.table-value select {
+  height: 300px;
+}
+
+div.table-value.input-listbox.state-listbox .listbox-item div.table-value select {
+  height: 300px;
+}
+
+.zone-countries-label,
+.zone-states-label,
+.zone-zipcodes-label,
+.zone-cities-label,
+.zone-addresses-label {
+  margin-top: 20px;
+}
+
+.zone-zipcodes-label label,
+.zone-cities-label label,
+.zone-addresses-label label {
+  margin-top: 60px;
+}
+
+.table-value.zone-cities-value textarea,
+.table-value.zone-zipcodes-value textarea,
+.table-value.zone-addresses-value textarea {
+  width: 400px;
+  height: 150px;
+}
+
+.table-value.zone-cities-value .tooltip-main,
+.table-value.zone-zipcodes-value .tooltip-main,
+.table-value.zone-addresses-value .tooltip-main {
+  margin-top: 60px;
+}
+
+.table-value.zone-states-value + .clear,
+.table-value.zone-cities-value + .clear,
+.table-value.zone-zipcodes-value + .clear,
+.table-value.zone-addresses-value + .clear {
+  margin-bottom: 40px;
+}

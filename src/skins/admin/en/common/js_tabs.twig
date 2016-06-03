@@ -1,0 +1,43 @@
+{##
+ # Tabber template
+ #}
+
+{% if this.getTitle() %}
+  <h1>{{ t(this.getTitle()) }}</h1>
+{% endif %}
+
+<div class="tabbed-content-wrapper js-tabs">
+  <div class="tabs-container">
+    {% if this.isTabsNavigationVisible() %}
+      <div class="page-tabs">
+        <ul role="tablist">
+          {% for tab, tabPage in this.getTabs() %}
+            <li class="tab{% if tabPage.selected %} active{% endif %}" role="presentation">
+              <a href="{{ tabPage.url|raw }}" aria-controls="{{ tab }}" role="tab" data-toggle="tab">{{ t(tabPage.title) }}</a>
+            </li>
+          {% endfor %}
+          {{ widget_list('tabs.items') }}
+        </ul>
+      </div>
+    {% endif %}
+    <div class="tab-content">
+      {% for tab, tabPage in this.getTabs() %}
+        <div role="tabpanel" class="tab-pane{% if tabPage.selected %} active{% endif %} {{ this.printPaneClasses(tabPage) }}" id="{{ tab }}">
+          {{ widget_list('tabs.content') }}
+          {% if this.isTemplateOnlyTab(tabPage) %}
+            {% include this.getTabTemplate(tabPage) %}
+          {% endif %}
+          {% if this.isWidgetOnlyTab(tabPage) %}
+            {{ widget(this.getTabWidget(tabPage)) }}
+          {% endif %}
+          {% if this.isFullWidgetTab(tabPage) %}
+            {{ widget(this.getTabWidget(tabPage), template=this.getTabTemplate(tabPage)) }}
+          {% endif %}
+          {% if this.isCommonTab(tabPage) %}
+            {% include this.getPageTemplate(tabPage) %}
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>

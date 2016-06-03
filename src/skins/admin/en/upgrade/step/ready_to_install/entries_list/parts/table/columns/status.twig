@@ -1,0 +1,13 @@
+{##
+ # If entry disabled or enabled
+ #
+ # @ListChild (list="upgrade.step.ready_to_install.entries_list.sections.table.columns", weight="200")
+ # @ListChild (list="upgrade.step.completed.entries_list.sections.table.columns", weight="200")
+ #}
+
+{% if this.entry.isValid() %}
+  <td class="status enabled"></td>
+{% endif %}
+{% if not this.entry.isValid() %}
+  <td class="status disabled">{{ t('Failure') }}</td>
+{% endif %}

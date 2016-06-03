@@ -1,0 +1,23 @@
+{##
+ # Info about modified files
+ #}
+
+<div class="upgrade-notes-section">
+  <div class="upgrade-notes-section-frame">
+
+    <ul>
+      {% for moduleName, notes in this.getUpgradeNotes() %}
+        <li>
+          <div class="header">{{ moduleName }}: {{ t('Upgrade note') }}</div>
+  
+          {% for note in notes %}
+            <div class="description">
+              {{ note|raw }}
+            </div>
+          {% endfor %}
+        </li>
+      {% endfor %}
+    </ul>
+
+  </div>
+</div>

@@ -1,0 +1,5 @@
+{##
+ # Shipping status cell
+ #}
+
+<span class="status-{{ this.entity.shippingStatus.code }}"><a href="{{ url('order', '', {'order_number': this.entity.getOrderNumber()}) }}">{{ this.entity.shippingStatus.name }}</a></span>

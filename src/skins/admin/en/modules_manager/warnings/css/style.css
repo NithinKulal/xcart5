@@ -1,0 +1,68 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Module license page
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.warnings li div.header {
+  color: #9e3b00;
+  font-size: 18px;
+  margin: 8px 0px 10px 0px;
+}
+
+.warnings li div.description {
+  font-size: 14px;
+  line-height: 19px;
+  margin: 0px 0px 10px 0px;
+}
+
+.warnings li div.message-entry {
+  font-size: 14px;
+  line-height: 19px;
+  margin: 0px 0px 10px 0px;
+}
+
+.warnings {
+  margin: 0px 0px 20px 0px;
+  max-width: 500px;
+}
+
+.warnings ul {
+  border: solid #e9e9e9 1px;
+}
+
+.warning-entry {
+  border: solid #f7f7f7 6px;
+  padding: 17px 10px 10px 85px;
+  width: auto;
+  min-height: 80px;
+  position: relative;
+}
+
+.warning-entry {
+  background: transparent url(../../images/warning_circle.png) 20px 15px no-repeat;
+}
+
+.warnings .header {
+  font-size: 18px;
+  margin: 8px 0px 10px 0px;
+}
+
+.warnings .header {
+  color: #9e3b00;
+}
+
+.warnings .description {
+  font-size: 14px;
+  line-height: 19px;
+  margin: 0px 0px 10px 0px;
+}
+
+table.warning-entry-actions{
+  text-align: center;
+  width: 100%;
+  margin-top: 15px;
+}

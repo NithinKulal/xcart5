@@ -1,0 +1,10 @@
+
+{% set form = this.getFormView() %}
+{% form_theme form with this.getFormThemeFiles() %}
+
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+{{ form_widget(form) }}
+
+{{ this.buttonPanel.display() }}
+
+{{ form_end(form) }}

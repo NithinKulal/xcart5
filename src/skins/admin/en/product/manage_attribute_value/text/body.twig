@@ -1,0 +1,8 @@
+{##
+ # Attribute value (Text)
+ #}
+
+<div class="{{ this.getStyle() }}">
+  {{ widget('\\XLite\\View\\FormField\\Textarea\\Simple', fieldName=this.getName(), maxHeight='100', rows='3', fieldOnly='true', value=this.attrValue.value) }}
+  {% include 'product/manage_attribute_value/text/editable.twig' %}
+</div>

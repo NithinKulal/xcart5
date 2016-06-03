@@ -1,0 +1,11 @@
+{##
+ # Discount value field in view mode
+ #}
+
+{% for f in this.getFields() %}
+  {% if this.entity.getType() == '$' %}
+    {{ this.getCurrencySymbol() }} {{ this.getViewValue(f) }}
+  {% else %}
+    {{ this.getViewValue(f) }} {{ this.entity.getType() }}
+  {% endif %}
+{% endfor %}

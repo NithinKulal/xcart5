@@ -1,0 +1,14 @@
+{##
+ # Dimesions
+ #}
+<div class="dimension-field dimension-length">
+  {{ widget('XLite\\View\\FormField\\Input\\Text\\FloatInput', fieldName=this.getSubFieldName('length'), value=this.getLength(), label=t('Length')) }}
+</div>
+
+<div class="dimension-field dimension-width">
+  {{ widget('XLite\\View\\FormField\\Input\\Text\\FloatInput', fieldName=this.getSubFieldName('width'), value=this.getWidth(), label=t('Width')) }}
+</div>
+
+<div class="dimension-field dimension-height">
+  {{ widget('XLite\\View\\FormField\\Input\\Text\\FloatInput', fieldName=this.getSubFieldName('height'), value=this.getHeight(), label=t('Height')) }}
+</div>

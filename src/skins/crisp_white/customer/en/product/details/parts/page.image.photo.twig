@@ -1,0 +1,8 @@
+{##
+ # Product details image box
+ #}
+{% if this.isViewListVisible('product.details.page.image.photo') %}
+  <div class="product-photo-box">
+    {{ widget_list('product.details.page.image.photo') }}
+  </div>
+{% endif %}

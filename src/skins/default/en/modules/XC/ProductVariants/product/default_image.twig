@@ -1,0 +1,9 @@
+{##
+ # Product details image block
+ #
+ # @ListChild (list="product.details.page.image")
+ #}
+<div class="default-image" style="display: none;">
+  {{ widget('\\XLite\\View\\Image', alt=this.product.name, maxWidth=this.getDefaultMaxImageSize(1), maxHeight=this.getDefaultMaxImageSize(0)) }}
+</div>
+

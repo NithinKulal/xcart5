@@ -1,0 +1,11 @@
+{##
+ # Product details attributes block
+ #
+ # @ListChild (list="product.details.page.tab.description", weight="100")
+ #}
+
+{% if not this.product.getAttrSepTab() %}
+  <ul class="extra-fields other-attributes">
+    {{ widget_list('product.details.common.product-attributes.attributes') }}
+  </ul>
+{% endif %}

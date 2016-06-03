@@ -1,0 +1,9 @@
+{##
+ # SocialLogin widget caption
+ #
+ # @ListChild (list="social.login.buttons", weight="1")
+ #}
+
+{% if this.getCaption() %}
+  <li class="social-login-caption">{{ this.getCaption() }}</li>
+{% endif %}

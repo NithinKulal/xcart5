@@ -1,0 +1,12 @@
+{##
+ # Module status icon
+ #
+ # @ListChild (list="upgrade.step.prepare.incompatible_entries_update.sections.table.columns", weight="200")
+ #}
+
+{% if this.isModuleToDisable(this.entry) %}
+  <td class="module-status status-incompatible"></td>
+{% endif %}
+{% if not this.isModuleToDisable(this.entry) %}
+  <td class="module-status"></td>
+{% endif %}

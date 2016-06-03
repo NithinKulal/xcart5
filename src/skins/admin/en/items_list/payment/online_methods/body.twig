@@ -1,0 +1,16 @@
+{##
+ # Payment methods list widget for popup
+ #}
+
+<ul class="payments-list {{ this.getListCSSClasses() }}">
+  {% for id, payment in this.getPageData() %}
+    <li class="item-row line">
+      <ul class="payment-method-entry">
+        <li class="title-row module-name-{{ payment.getModuleName() }}">
+          {% include 'items_list/payment/online_methods/list.twig' %}
+          <div class="clearfix"></div>
+        </li>
+      </ul>
+    </li>
+  {% endfor %}
+</ul>

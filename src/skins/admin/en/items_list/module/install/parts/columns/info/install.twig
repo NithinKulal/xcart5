@@ -1,0 +1,13 @@
+{##
+ # Modules main section list
+ #
+ # @ListChild (list="itemsList.module.install.columns.module-main-section", weight="200")
+ #}
+
+{% if this.canInstall(this.module) %}
+  <div class="install-section">
+    <div class="install">
+      {{ widget('\\XLite\\View\\ModulesManager\\Action\\SelectToInstall', moduleID=this.module.getModuleID()) }}
+    </div>
+  </div>
+{% endif %}

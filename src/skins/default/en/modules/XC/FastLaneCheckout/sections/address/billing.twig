@@ -1,0 +1,12 @@
+{##
+ # Fastlane checkout billing form section
+ #
+ # @ListChild (list="checkout_fastlane.sections.address.forms", weight="20")
+ #}
+
+{% if this.isShippingEnabled() %}
+  <div class="checkout_fastlane_address_form_wrapper">
+    <h3 class="checkout_fastlane_block_heading">{{ this.getBillingFormTitle() }}</h3>
+    {{ widget('XLite\\Module\\XC\\FastLaneCheckout\\View\\Blocks\\AddressForm\\Billing') }}
+  </div>
+{% endif %}

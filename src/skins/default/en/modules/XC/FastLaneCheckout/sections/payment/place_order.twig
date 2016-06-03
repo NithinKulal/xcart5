@@ -1,0 +1,23 @@
+{##
+ # Fastlane checkout payment section
+ #
+ # @ListChild (list="checkout_fastlane.sections.payment.left", weight="30")
+ #}
+
+<div class="checkout_fastlane_section-buttons">
+    <place-order inline-template>
+    {{ widget(
+      'XLite\\View\\Button\\Simple',
+      label=this.getPlaceOrderLabel(),
+      style='regular-main-button checkout_fastlane_section-place_order',
+      attributes={
+        'v-on:click': 'placeOrder',
+        'v-bind:class': 'classes',
+        'v-text': 'label'
+      }) }}
+    </place-order>
+
+    <p class="terms-notice">
+      By clicking the "Place order" button you confirm that you accept the <a href="terms-and-conditions.html">Terms & Conditions</a>
+    </p>
+</div>

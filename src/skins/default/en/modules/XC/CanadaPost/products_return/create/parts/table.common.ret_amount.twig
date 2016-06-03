@@ -1,0 +1,9 @@
+{##
+ # Create return :: form :: products :: column :: return amount
+ #
+ # @ListChild (list="capost_create_return.form.columns", weight="30")
+ #}
+
+<div class="return-amount">
+  {{ widget('\\XLite\\View\\FormField\\Input\\Text\\Integer', className='amount', fieldOnly='true', fieldName='items[' ~ this.item.getItemId() ~ '][amount]', min='0', max=this.item.getAmount()) }}
+</div>

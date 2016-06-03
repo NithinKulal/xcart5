@@ -1,0 +1,169 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Styles
+ *
+ * Copyright (c) 2001-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+//
+// Navs
+// --------------------------------------------------
+
+
+.nav {
+
+  > li {
+   
+    > span {
+      position: relative;
+      display: block;
+      padding: @nav-link-padding;
+      &:hover,
+      &:focus {
+        text-decoration: none !important;
+        background-color: @nav-link-hover-bg;
+      }
+    }
+    
+    // Disabled state sets text to gray and nukes hover/tab effects
+       &.disabled > span  {
+      color: @nav-disabled-link-color;
+
+      &:hover,
+      &:focus {
+        color: @nav-disabled-link-hover-color;
+        text-decoration: none;
+        background-color: transparent;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  // Open dropdowns
+   .open > span,
+  .open > a {
+    &,
+    &:hover,
+    &:focus {
+      background-color: @nav-link-hover-bg;
+      border-color: @link-color;
+      text-decoration: none !important;
+    }
+  }
+}
+
+// Tabs
+// -------------------------
+
+// Give the tabs something to sit on
+.nav-tabs {
+   > li {
+      margin-top: 0;
+      margin-right: 5px; 
+      padding: 0;
+    
+     > span,
+     > a {
+      margin-right: 5px;
+      text-decoration: none !important;
+      cursor: pointer;
+      line-height: @line-height-base;
+      border: 1px solid @base-border-color;
+      border-radius: @border-radius-base @border-radius-base 0 0;
+      #gradient > .vertical (@base-gradient-start-color, @base-gradient-end-color);
+      color: @nav-tabs-active-link-hover-color;
+      &:hover {
+        border-color: @base-border-color @base-border-color @base-border-color @base-border-color;
+      }
+    }
+
+    // Active state, and its :hover to override normal :hover
+    &.active > span,
+    &.active > a       {
+      &,
+      &:hover,
+      &:focus {
+        color: @nav-tabs-active-link-hover-color;
+        background: transparent none;
+        border: 1px solid @base-border-color;
+        border-bottom-color: #ffffff;
+        cursor: default;
+        text-decoration: none !important;
+      }
+    }
+  }
+}
+
+
+// Pills
+// -------------------------
+.nav-pills {
+  > li {
+    > span {
+      border-radius: @nav-pills-border-radius;
+    }
+    + li {
+      margin-left: 2px;
+    }
+
+    // Active state
+    &.active > span{
+      &,
+      &:hover,
+      &:focus {
+        color: @nav-pills-active-link-hover-color;
+        background-color: @nav-pills-active-link-hover-bg;
+      }
+    }
+  }
+}
+
+.mobile_header { 
+
+    .nav-pills{
+        > li {
+            padding: 0;
+            border-radius: 0;
+            background: none;
+            margin: 0;
+            
+            > a {
+                border-radius: 0;
+            }
+        }
+        
+        + li{
+            margin: 0;
+        }
+    }
+    
+    .nav {
+         > li {
+            position: relative;
+            display: block;
+
+            > a {
+              font-size: 16px;
+              padding: 16px 12px 14px 19px;
+              text-decoration: none !important;
+              &:hover,
+              &:focus {
+                background-color: @mobile-menu-icons-bg;
+                color: #ffffff;
+              }
+            }
+         }
+        .open > a{
+            &,
+            &:hover,
+            &:focus {
+              background-color: @mobile-menu-icons-bg;
+              border-color: @mobile-menu-icons-bg;
+              color: #ffffff;
+            }
+        }
+    }
+
+}

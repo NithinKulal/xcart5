@@ -1,0 +1,9 @@
+{##
+ # Product details attributes block
+ #}
+
+{% if this.hasAttributes() %}
+  <ul class="extra-fields {{ this.getFingerprint() }}">
+    {{ widget_list('product.details.common.product-attributes.elements') }}
+  </ul>
+{% endif %}

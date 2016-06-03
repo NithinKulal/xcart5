@@ -1,0 +1,7 @@
+{##
+ # All In One solutions
+ #}
+<div class="all-in-one-solutions">
+    <div class="small-head">{{ t('No merchant account required. Simple onboarding for you and easy checkout for your customers.') }}</div>
+    {{ widget('XLite\\View\\Payment\\MethodsPopupList', paymentType=[constant('XLite\\Model\\Payment\\Method::TYPE_ALLINONE')]) }}
+</div>

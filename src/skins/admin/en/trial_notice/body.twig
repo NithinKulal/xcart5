@@ -1,0 +1,34 @@
+{##
+ # Trial notice popup dialog
+ #}
+
+<div class="trial-notice-form{% if this.target != 'trial_notice' %} alert alert-warning{% endif %}">
+
+  <div class="indent title">{{ t('Your X-Cart installation is licensed for evaluation purposes only.') }}</div>
+
+  <div class="indent">{{ t('You must register your installation before you can use it for real sales') }}</div>
+
+  <div class="indent buttons">
+
+    {% include 'trial_notice/activate_key.twig' %}
+
+    <div class="bottom-buttons">
+
+      {{ widget('\\XLite\\View\\Button\\Regular', label='Purchase premium license', style='regular-main-button', jsCode='window.open(\'' ~ this.getPurchaseURL() ~ '\', \'_blank\');') }}
+
+      <div class="text or">{{ t('or') }}</div>
+
+      {{ widget('\\XLite\\View\\Button\\Link', label='Activate free license', style='regular-button', location=this.getActivateFreeLicenseURL()) }}
+
+      <div class="text">{{ t('Contact us trial notice', {'contactURL': this.getContactUsURL()})|raw }}</div>
+
+    </div>
+
+  </div>
+
+  <div class="indent faq">{{ t('For details refer to X-Cart license', {'licenseAgreementURL': this.getLicenseAgreementURL()})|raw }}</div>
+
+  <div class="indent important">{{ t('Removal of this message is allowed only through activation of a free or premium license.') }}</div>
+
+  <div class="clear"></div>
+</div>

@@ -1,0 +1,22 @@
+{##
+ # Order packaging template
+ #}
+
+<div class="order-packaging">
+
+  <p>{{ t('Shipping has been calculated based on the following split of the products into packages:') }}</p>
+
+  <ul class="packages">
+    {% for id, package in this.getPackages() %}
+      <li>
+        <div><span class="package-id">{{ t('Package') }} #{{ id }}</span> <span class="package-props">[{{ t('weight') }}: {{ this.formatWeight(package.weight) }}, {{ t('dimensions') }}: {{ package.box.length }}x{{ package.box.width }}x{{ package.box.height }} {{ this.getDimSymbol() }}]</span></div>
+        <ul class="package-products">
+          {% for item in package.items %}
+          <li><span class="package-item-name">{{ item.name }}:</span> <span class="package-item-qty">{{ item.qty }} {{ t('item(s)') }}</span></li>
+          {% endfor %}
+        </ul>
+      </li>
+    {% endfor %}
+  </ul>
+
+</div>

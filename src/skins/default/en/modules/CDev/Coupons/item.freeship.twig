@@ -1,0 +1,11 @@
+{##
+ # Shopping cart item : main
+ #
+ # @ListChild (list="cart.item.info", weight="1000")
+ #}
+
+{% if this.item.isFreeShipping() %}
+  <p class="item-freeship">
+  {{ t('FREE SHIPPING') }}
+  </p>
+{% endif %}

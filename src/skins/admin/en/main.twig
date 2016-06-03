@@ -1,0 +1,35 @@
+{##
+ # Main template
+ #}
+{% if this.isDeveloperMode() %}
+  <div id="profiler-messages"></div>
+{% endif %}
+
+{{ widget('\\XLite\\View\\TopMessage') }}
+
+<div id="page-wrapper">
+
+  {% include 'body/header.twig' %}
+
+  <div id="page-container">
+    {% if this.layout.isSidebarFirstVisible() %}
+      <div id="sidebar-first" class="side-bar">
+        {{ widget_list('admin.main.page.content.left') }}
+      </div>
+    {% endif %}
+
+    <div id="main">
+      {{ widget_list('admin.main.page.content.center') }}
+
+      {% if this.isViewListVisible('admin.main.page.content.sub_section') %}
+        <div id="sub-section">
+          {{ widget_list('admin.main.page.content.sub_section') }}
+        </div>
+      {% endif %}
+
+      {% include 'body/footer.twig' %}
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,19 @@
+{##
+ # Invoice shipping address
+ #
+ # @ListChild (list="invoice.bottom.address.shipping", weight="20")
+ #}
+<strong class="title">{{ t('Shipping address') }}</strong>
+
+<ul class="address-section shipping-address-section">
+  {% for idx, field in this.getAddressSectionData(this.saddress) %}
+    <li class="{{ field.css_class }} address-field">
+      <span class="address-title">{{ t(field.title) }}:</span>
+      <span class="address-field">{{ field.value }}</span>
+      <span class="address-comma">,</span>
+    </li>
+  {% endfor %}
+</ul>
+{% if this.isDisplayShippingEmail() %}
+  <p class="email">{{ t('E-mail') }}: <a href="mailto:{{ this.order.profile.login }}">{{ this.order.profile.login }}</a></p>
+{% endif %}

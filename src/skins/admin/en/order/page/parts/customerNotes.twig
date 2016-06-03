@@ -1,0 +1,11 @@
+{##
+ # Order : customer notes box
+ #
+ # @ListChild (list="order.items.bottom", weight="200")
+ #}
+
+<div class="order-note customer-notes">
+  <h3>{{ t('Customer note') }}</h3>
+  {{ this.orderForm.displayComplexField('customerNote') }}
+  {{ widget_list('order.customerNotes') }}
+</div>

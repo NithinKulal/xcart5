@@ -1,0 +1,40 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Create return page styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.capost-products-return div.return-form {
+  margin-top: 20px;
+}
+
+.capost-products-return form {
+  width: 540px;
+}
+
+.capost-products-return form div.table-value {
+  float: none;
+  display: inline;
+}
+
+.capost-products-return form .resizable-textarea {
+  width: 555px;
+  display: block;
+  padding-top: 7px;
+}
+
+.capost-products-return form .return-message {
+  margin-bottom: 10px;
+}
+
+.capost-products-return form div.return-amount {
+  width: 150px;
+  white-space: nowrap;
+}
+
+.capost-products-return form div.return-amount input {
+  width: 60px;
+}

@@ -1,0 +1,13 @@
+{##
+ # Module banner template
+ #}
+<div class="module-banner {{ this.getStyleClass() }}">
+  <a href="{{ this.getModuleURL() }}">
+    <div class="banner">
+        <img src="{{ this.getModuleBannerImageUrl() }}" alt="{{ this.getModuleName() }}">
+    </div>
+  </a>
+  {% if this.isCanClose() %}
+    <div class="close-banner" data-module-name="{{ this.getModuleName() }}"><i class="fa fa-times"></i></div>
+  {% endif %}
+</div>

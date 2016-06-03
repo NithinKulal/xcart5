@@ -1,0 +1,91 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.checkout_fastlane_shipping_methods {
+  margin-bottom: (@rhythmic-unit * 2);
+  .table-value.methodid-value {
+    float: none;
+  }
+
+  .shipping-rates {
+    width: 100%;
+
+    li + li {
+      margin-top: @rhythmic-unit;
+    }
+  }
+
+  .shipping-rate {
+    #rhythmless > .rhythm(@font-size-small);
+
+    label {
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+    }
+
+    .radio {
+      .rate-title, .rate-description {
+        margin-left: @rhythmic-unit;
+        line-height: @rhythmic-unit;
+      }
+    }
+
+    input:checked + .rate-title {
+      color: @color-highlight;
+    }
+
+    .rate-title {
+      color: @color-text-dark;
+      display: block;
+      #rhythmless > .rhythm(@font-size-base);
+    }
+
+    .rate-description{
+      color: @color-text-default;
+      display: inline-block;
+      white-space: normal;
+      #rhythmless > .rhythm(@font-size-small);
+    }
+
+    .change {
+      cursor: pointer;
+      border-bottom: 1px dotted;
+      color: @link-color;
+      #rhythmless > .rhythm(@font-size-base);
+
+      margin-top: 10px;
+      display: inline-block;
+
+      &:hover {
+        color: @link-hover-color;
+      }
+    }
+
+    sup {
+      display: inline;
+    }
+
+    span.value {
+      color: @color-text-dark;
+      float: right;
+      #rhythmless > .rhythm(@font-size-base);
+      line-height: 20px;
+    }
+  }
+
+  .shipping-rates-data {
+    .shipping-rate-value, .shipping-rate-delivery {
+      margin-right: 5px;
+      & > span {
+        font-weight: bold;
+      }
+    }
+  }
+}

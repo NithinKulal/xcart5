@@ -1,0 +1,5 @@
+{##
+ # Default language for admin interface element cell
+ #}
+
+{{ widget('XLite\\View\\Button\\GetCSV', jsCode='self.location=\'' ~ url('languages', 'getCSV', {'code': this.entity.getCode()}) ~ '\'') }}

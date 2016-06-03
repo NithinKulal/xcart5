@@ -1,0 +1,17 @@
+{##
+ # Selector
+ #}
+
+<div class="selector">
+  {% if this.isExcludedProductId(this.entity.getUniqueIdentifier()) %}
+    <div class="title" title="{{ this.getTitleExcludedProduct(this.entity.getUniqueIdentifier()) }}">
+      <i class="fa {{ this.getStyleExcludedProduct(this.entity.getUniqueIdentifier()) }}"></i>
+    </div>
+  {% endif %}
+  {% if not this.isExcludedProductId(this.entity.getUniqueIdentifier()) %}
+    <input type="checkbox"
+      name="{{ this.getSelectorDataPrefix() }}[{{ this.entity.getUniqueIdentifier() }}]"
+      value="1"
+      class="selector not-significant" />
+  {% endif %}
+</div>

@@ -1,0 +1,498 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Import / import styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+/**
+ * Import
+ */
+.import-box h3 {
+  color: #333;
+  font-size: 20px;
+  line-height: normal;
+  font-family: Arial;
+  margin-bottom: 4px;
+  margin-left: 3px;
+  font-weight: normal;
+}
+
+div.import-box {
+  min-width: 900px;
+  display: inline-block;
+  border-radius: 5px;
+  max-width: 900px;
+  margin-bottom: 20px;
+}
+
+div.import-box .subcontent {
+}
+
+.import-box .buttons {
+  padding: 10px 0;
+}
+
+.import-box .buttons .main-button {
+  padding-left: 46px;
+  padding-right: 46px;
+  margin: 0 9px;
+}
+
+/**
+ * Import (begin)
+ */
+div.import-box.import-begin {
+  margin-bottom: 0px;
+}
+
+div.import-box.import-begin .subcontent {
+  padding: 0px;
+}
+
+.import-begin .subcontent .parts {
+  float: left;
+  width: 40%;
+}
+
+.import-begin .subcontent .parts ul {
+  padding: 10px;
+}
+
+.import-begin .subcontent .parts li {
+  font-size: 14px;
+  line-height: 20px;
+  padding: 5px 0px 4px;
+  width: 43%;
+  float: left;
+}
+
+.import-begin .subcontent .parts li input,
+.import-begin .subcontent .parts li label
+{
+  vertical-align: middle;
+}
+
+.import-begin .subcontent .options {
+  padding: 0px 10px 0px 30px;
+  float: left;
+  margin-left: -1px;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  width: 60%;
+}
+
+.import-begin .subcontent .options ul {
+  padding-top: 0;
+}
+
+.import-begin .subcontent .options li {
+  padding: 5px 0px;
+  display: table;
+}
+
+.import-begin .subcontent .options .table-label {
+  float: none;
+  padding: 0px;
+  padding-left: 2px;
+  padding-top: 5px;
+  width: 130px;
+}
+
+.import-begin .subcontent .options .table-value {
+  padding: 0 0 0 10px;
+}
+
+.import-begin .subcontent .options .options-charset-value .label-field {
+    line-height: 30px;
+}
+
+.import-begin .subcontent .options label {
+  font-size: 14px;
+  margin-left: 4px;
+}
+
+.import-begin .subcontent .options .star {
+  display: none;
+}
+
+.import-begin .subcontent .options .checkbox-option input {
+  position: absolute;
+  top: 17px;
+  left: 1px;
+}
+
+.import-begin .subcontent .options .checkbox-option label {
+  line-height: 18px;
+  display: block;
+}
+
+.import-begin .subcontent .options .checkbox-option {
+  padding: 18px 0 7px 16px;
+  max-width: 390px;
+  position: relative;
+}
+
+.import-begin .subcontent .options li div.table-value select {
+  width: 200px;
+}
+
+.import-begin .subcontent .options .csv-delimiter {
+  padding: 0 0 0 14px;
+}
+
+.import-begin .subcontent p {
+  font-size: 12px;
+  margin: 15px 0 1px;
+}
+
+.import-begin input[type=file]{
+  margin-top: 15px;
+  color: #999;
+}
+
+.import-begin .subcontent a {
+  text-decoration: underline;
+}
+
+/**
+ * Import (progress)
+ */
+div.import-box.import-progress .subcontent {
+  padding: 20px 0;
+  padding-bottom: 12px;
+}
+
+
+.ui-dialog div.import-box.import-progress .subcontent {
+  padding: 20px 20px;
+  padding-bottom: 12px;
+}
+
+div.import-box.import-progress div.content {
+  width: 650px;
+}
+
+.import-progress .subcontent .progress-bar {
+  float: left;
+  margin-right: 20px;
+}
+
+.import-progress .subcontent .bar {
+  width: 540px;
+  height: 30px;
+}
+
+
+.ui-dialog .import-progress .subcontent .bar  {
+  width: 500px;
+}
+
+.import-progress .subcontent button {
+  padding: 1px 17px 2px 17px;
+  float: right;
+  min-height: 24px;
+}
+
+.import-progress .subcontent .time {
+  font-size: 14px;
+  text-align: center;
+  color: #44769d;
+  height: 20px;
+  margin-top: 27px;
+}
+
+.import-progress .help {
+  padding: 20px 0px;
+  line-height: 20px;
+  -webkit-display: flex;
+  display: flex;
+  -webkit-align-items:center;
+  -align-items:center;
+}
+
+.ui-dialog .import-progress .help{
+  padding: 20px 20px;
+
+}
+
+.import-progress .help i {
+  color: #b9b9b9;
+  font-size: 36px;
+  margin-top: 6px;
+}
+
+.import-progress .help p {
+  font-size: 14px;
+  margin-left:20px;
+}
+
+.import-progress .subcontent .rows-processed {
+  font-size: 14px;
+  text-align: center;
+  color: #44769d;
+  height: 20px;
+  margin-top: 33px;
+}
+
+/**
+ * Import (completed)
+ */
+div.import-box.import-completed .subcontent {
+  padding-bottom: 20px;
+  color: #44769d;
+}
+
+.import-page div.import-box .header h2 {
+  display: inline;
+  width: auto;
+  padding: 0px;
+  font-size: 22px;
+  float: left;
+  color: #333;
+  margin: 10px 0px 20px 0px;
+  line-height: normal;
+  max-width: 845px;
+}
+
+div.import-box .header h2.completed {
+  background: transparent url(../images/completed.png) no-repeat left 12px;
+  color: #339900;
+  border-right: 1px solid #cccccc;
+  height: 42px;
+  margin-top: 19px;
+  margin-bottom: 19px;
+  margin-right: -8px;
+  padding: 8px 30px 10px 30px;
+}
+
+div.import-box.import-completed .header h2:last-child {
+  border: none;
+}
+
+div.import-completed ul.messages li {
+  padding: 15px 20px 2px 10px;
+  font-size: 18px;
+}
+
+div.import-completed ul.messages li i {
+  font-size: 19px;
+  color: #4b932b;
+}
+
+div.import-completed ul.messages li span {
+  font-size: 18px;
+  color: #cdcdcd;
+}
+
+div.import-completed div.empty {
+  color: #999;
+  font-size: 22px;
+  padding-top: 12px;
+  text-align: center;
+}
+
+div.import-completed .empty .message {
+  font-size: 19px;
+}
+
+div.import-completed .empty .message .comment {
+  font-size: 14px;
+  text-align: left;
+}
+
+div.import-completed .empty .message .comment li {
+  list-style-type: disc;
+  list-style-position: inside;
+}
+
+/**
+ * Import failed
+ */
+
+.import-box .subcontent ul.errors span.count-w,
+.import-box .subcontent ul.errors span.count-e {
+  float: right;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background-color: #c09853;
+  padding: 2px 11px;
+  color: #fff;
+  font-size: 12px;
+  margin-left: 10px;
+}
+
+.import-box .subcontent ul.errors span.count-e {
+  background-color: #b94a48;
+}
+
+div.import-box.import-failed .header h2 {
+  color: #b94a48;
+  padding-left: 1px;
+}
+
+.import-failed .subcontent h3 {
+  margin-left: 0;
+}
+
+.import-box .subcontent .errors-wrapper {
+  border: 1px solid #d6d6d6;
+  margin-top: 19px;
+  margin-bottom: 18px;
+}
+
+.import-box .subcontent ul.errors li {
+  border-top: 1px solid #d6d6d6;
+  padding: 12px 15px 11px;
+}
+
+.import-box .subcontent ul.errors li div {
+  font-size: 14px;
+  overflow: hidden;
+}
+
+.import-box .subcontent ul.errors li div.message {
+  width: 500px;
+  float: left;
+}
+.import-box .subcontent ul.errors li div.message hr{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.import-box .subcontent ul.errors li div.text {
+  width: 230px;
+  float: right;
+  text-align: right;
+  color: #c09853;
+}
+
+.import-box .subcontent ul.errors li.type-E div.text {
+  color: #b94a48;
+}
+
+.import-box .subcontent ul.errors li.title {
+  border: none;
+  padding: 17px 19px 12px;
+  font-size: 17px;
+  color: #658aaa;
+  background: #f2f2f2;
+}
+
+.import-box .subcontent ul.errors li.title i {
+  font-size: 18px;
+  color: #999999;
+  margin-right: 3px;
+}
+
+.import-box .subcontent div.much-errors {
+  font-size: 18px;
+  color: #b94a48;
+  margin-bottom: 7px;
+}
+
+.import-failed .subcontent p {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.import-completed .subcontent .import-completed-warnings {
+  padding-left: 20px;
+   margin-top: 35px;
+}
+
+.import-completed .subcontent h3 {
+  margin-left: 0;
+  font-size: 16px;
+}
+
+#options-delimiter {
+  padding-top: 5px;
+}
+
+#options-delimiter li {
+  padding: 5px 0 0 0;
+  line-height: normal;
+}
+
+#options-delimiter input {
+  margin-right: 5px;
+}
+
+.files-option .tooltip-main {
+  padding-top: 0px;
+}
+
+.files-option div.table-value select {
+  width: 150px;
+}
+
+.import-begin .subcontent .options .import-mode-option .tooltip-main ul {
+  margin-bottom: 10px;
+}
+
+.import-begin .subcontent .options .import-mode-option .tooltip-main ul li {
+  list-style-type: disc;
+  display: list-item;
+  margin-left: 30px;
+  padding: 3px 0;
+}
+
+.import-begin .subcontent .options li select {
+  font-size: 12px;
+}
+
+.import-box .subcontent .errors-wrapper{
+  position: relative;
+}
+
+.import-box .subcontent .errors-wrapper.faded{
+  overflow: hidden;
+}
+.import-box .subcontent .errors-wrapper.faded.initial{
+  max-height: 250px;
+}
+
+.action-wrapper{
+  position: absolute;
+  bottom: 0;
+  height: 50px;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-bottom: 7px;
+}
+
+.action-wrapper.bottom-fade{
+  background: rgba(237,237,237,0);
+  background: -moz-linear-gradient(top, rgba(237,237,237,0) 0%, rgba(249,249,249,1) 67%, rgba(255,255,255,1) 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(237,237,237,0)), color-stop(67%, rgba(249,249,249,1)), color-stop(100%, rgba(255,255,255,1)));
+  background: -webkit-linear-gradient(top, rgba(237,237,237,0) 0%, rgba(249,249,249,1) 67%, rgba(255,255,255,1) 100%);
+  background: -o-linear-gradient(top, rgba(237,237,237,0) 0%, rgba(249,249,249,1) 67%, rgba(255,255,255,1) 100%);
+  background: -ms-linear-gradient(top, rgba(237,237,237,0) 0%, rgba(249,249,249,1) 67%, rgba(255,255,255,1) 100%);
+  background: linear-gradient(to bottom, rgba(237,237,237,0) 0%, rgba(249,249,249,1) 67%, rgba(255,255,255,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#ffffff', GradientType=0 );
+}
+
+.import-box .subcontent .download-errors{
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.action-wrapper .bottom-fade-action,
+.import-box .subcontent .download-errors a{
+  cursor: pointer;
+  font-size: 13px;
+  text-decoration: none;
+  border-bottom: 1px dashed;
+  color: #1a509a;
+}
+
+.action-wrapper .bottom-fade-action:hover,
+.import-box .subcontent .download-errors a:hover{
+  color: #0f9dcc;
+}

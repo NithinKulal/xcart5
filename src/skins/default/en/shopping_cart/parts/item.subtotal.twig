@@ -1,0 +1,21 @@
+{##
+ # Shopping cart item : subtotal
+ #
+ # @ListChild (list="cart.item", weight="60")
+ #}
+<td class="item-subtotal">
+  <span class="subtotal{% if this.item.getExcludeSurcharges() %} modified-subtotal{% endif %}">{{ widget('XLite\\View\\Surcharge', surcharge=this.item.getDisplayTotal(), currency=this.cart.getCurrency()) }}</span>
+  {% if this.item.getExcludeSurcharges() %}
+    <div class="including-modifiers" style="display: none;">
+      <table class="including-modifiers" cellspacing="0">
+        {% for surcharge in this.item.getExcludeSurcharges() %}
+          <tr>
+            <td class="name">{{ t('Including X', {'name': surcharge.getName()}) }}:</td>
+            <td class="value">{{ widget('XLite\\View\\Surcharge', surcharge=surcharge.getValue(), currency=this.cart.getCurrency()) }}</td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+  {% endif %}
+  {{ widget_list('cart.item.actions', item=this.item) }}
+</td>

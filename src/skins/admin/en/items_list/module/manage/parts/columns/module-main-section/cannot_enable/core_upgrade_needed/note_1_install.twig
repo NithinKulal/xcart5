@@ -1,0 +1,7 @@
+{##
+ # Note for "Install add-ons" page
+ #
+ # @ListChild (list="itemsList.module.install.columns.module-main-section.cannot_enable.core_upgrade_needed", weight="100")
+ #}
+
+{{ t('The module version is incompatible with your core version and cannot be installed. Minimum core version required for this module is X.', {'version': this.getNeededCoreVersion(this.module)}) }}   

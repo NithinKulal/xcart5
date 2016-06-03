@@ -1,0 +1,20 @@
+{##
+ # Common selector
+ #}
+
+<span class="input-field-wrapper {{ this.getWrapperClass() }}">
+<select {{ this.getAttributesCode()|raw }}>
+  {{ this.displayCommentedData(this.getCommentedData()) }}
+  {% for optionValue, optionLabel in this.getOptions() %}
+    {% if this.isGroup(optionLabel) %}
+      <optgroup {{ this.getOptionGroupAttributesCode(optionValue, optionLabel)|raw }}>
+        {% for optionValue2, optionLabel2 in optionLabel.options %}
+          <option {{ this.getOptionAttributesCode(optionValue2, optionLabel2)|raw }}>{{ optionLabel2 }}</option>
+        {% endfor %}
+      </optgroup>
+    {% else %}
+      <option {{ this.getOptionAttributesCode(optionValue, optionLabel)|raw }}>{{ optionLabel }}</option>
+    {% endif %}
+  {% endfor %}
+</select>
+</span>

@@ -1,0 +1,12 @@
+{##
+ # Modules main section list
+ #
+ # @ListChild (list="itemsList.module.manage.columns.module-main-section.messages", weight="40")
+ #}
+
+{% if this.isModuleUpgradeAvailable(this.module) %}
+  <div class="note version upgrade">
+    {{ t('Version') }}:&nbsp;{{ this.getModuleVersion(this.getModuleForUpgrade(this.module)) }}&nbsp;{{ t('is available') }}<br />
+    <a href="{{ url('upgrade', '', {'mode': 'install_updates'}) }}">{{ t('Upgrade module') }}</a>
+  </div>
+{% endif %}

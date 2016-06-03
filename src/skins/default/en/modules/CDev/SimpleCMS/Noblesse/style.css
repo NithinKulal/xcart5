@@ -1,0 +1,33 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Specific styles for "Noblesse" color scheme
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+.top-main-menu li > a.tap,
+.top-main-menu > li > span.primary-title.tap,
+.top-main-menu > li:hover > span.primary-title,
+.top-main-menu > li.active > span.primary-title,
+.top-main-menu > li > span.primary-title:hover,
+.top-main-menu > .active > a,
+.top-main-menu li li:hover > a,
+.top-main-menu li li:hover > a:after,
+.top-main-menu li li a:hover,
+.top-main-menu li:hover > a {
+    color: #FF9CA3;
+    background-color: transparent;
+}
+.top-main-menu li ul {
+}
+
+.top-main-menu > li > span.primary-title {
+    font-size: 16px;
+    padding: 14px 20px;
+    text-transform: uppercase;
+}
+
+#page {
+    padding-bottom: 173px;
+}

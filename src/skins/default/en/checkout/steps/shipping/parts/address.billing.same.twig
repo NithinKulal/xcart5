@@ -1,0 +1,17 @@
+{##
+ # Billing address : save new checkbox
+ #
+ # @ListChild (list="checkout.payment.address.after", weight="200")
+ #}
+
+{% if this.isSameAddressVisible() %}
+  <li class="same-address">
+    <input type="hidden" name="same_address" value="0" />
+    <div class="checkbox">
+    <label>
+    	<input id="same_address" type="checkbox" name="same_address" value="1" {% if this.isSameAddress() %} checked="checked" {% endif %} />
+    	{{ t('The same as shipping') }}
+    </label>
+    </div>
+  </li>
+{% endif %}

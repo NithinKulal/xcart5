@@ -1,0 +1,7 @@
+{##
+ # Add user button. Admin area.
+ #
+ # @ListChild (list="itemsList.profile.search.footer", weight="20")
+ #}
+
+{{ widget('\\XLite\\View\\Button\\AddUser', label=t('Add user'), location=url('profile', '', {'mode': 'register'})) }}

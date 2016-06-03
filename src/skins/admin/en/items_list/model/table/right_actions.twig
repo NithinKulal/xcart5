@@ -1,0 +1,8 @@
+{##
+ # Right actions
+ #}
+
+<div class="separator"></div>
+{% for tpl in this.getRightActions() %}
+  <div class="{{ this.getActionCellClass(this.i, tpl) }}">{% include tpl %}</div>
+{% endfor %}

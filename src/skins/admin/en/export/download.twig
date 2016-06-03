@@ -1,0 +1,18 @@
+{##
+ # Export download box
+ #}
+
+<div class="download-box {% if this.isCompletedSection() %} completed-download{% else %}begin-download{% endif %} {% if this.isPopupContext() %}popup-download{% endif %}">
+  <div class="subcontent clearfix" >
+  	{% if this.isPopupContext() %}
+    	{{ widget_list('export.popup.completed.content') }}
+  	{% else %}
+    	{{ widget_list('export.completed.content') }}
+  	{% endif %}
+  </div>
+  {% if this.isCompletedSection() %}
+    <div class="buttons">
+      {{ widget_list('export.completed.buttons') }}
+    </div>
+  {% endif %}
+</div>

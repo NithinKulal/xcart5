@@ -1,0 +1,9 @@
+{##
+ # Private state
+ #}
+<div class="egoods-private-state">
+  <input type="hidden" name="data[{{ this.attachment.getId() }}][private]" value="" /> 
+  <input type="checkbox" class="check" id="attachmentPrivate{{ this.attachment.getId() }}" name="data[{{ this.attachment.getId() }}][private]" value="1"{% if this.attachment.getPrivate() %} checked="checked" {% endif %} />
+  <label for="attachmentPrivate{{ this.attachment.getId() }}">{{ t('Can be downloaded only after buying the product') }}</label>
+  <span>[<a href="{{ url('module', '', {'moduleId': this.getModuleId(), 'return': this.getURL()}) }}">{{ t('Global eGood settings') }}</a>]</span>
+</div>

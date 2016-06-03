@@ -1,0 +1,11 @@
+{##
+ # Product details SKU main block
+ #
+ # @ListChild (list="product.details.common.product-attributes.elements", weight="200")
+ #}
+{% if this.getSKU() %}
+  <li class="identifier product-sku">
+    <div><strong class="type">{{ t('SKU') }}</strong></div>
+    <span class="value">{{ this.getSKU() }}</span>
+  </li>
+{% endif %}

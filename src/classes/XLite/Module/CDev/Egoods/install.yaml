@@ -1,0 +1,51 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Data dump
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: ttl
+    category: CDev\Egoods
+    type: XLite\View\FormField\Input\Text\Integer
+    orderby: 100
+    value: 3
+    widgetParameters: { min: 0 }
+    translations:
+      - code: en
+        option_name: 'Download link TTL (days)'
+        option_comment: 'set zero for unlimited access'
+  - name: attempts_limit
+    category: CDev\Egoods
+    type: XLite\View\FormField\Input\Text\Integer
+    orderby: 200
+    value: 3
+    widgetParameters: { min: 0 }
+    translations:
+      - code: en
+        option_name: 'Downloads limit (per 1 ordered item)'
+        option_comment: 'set zero for unlimited access'
+
+XLite\Model\LanguageLabel:
+  - { name: "Product removed", translations: [{ code: en, label: "Product removed" }] }
+  - { name: "Attachment removed", translations: [{ code: en, label: "Attachment removed" }] }
+  - { name: "Order is not processed", translations: [{ code: en, label: "Order has not yet been processed" }] }
+  - { name: "Expired by limit", translations: [{ code: en, label: "Expired: Downloads limit has been reached" }] }
+  - { name: "Downloads left", translations: [{ code: en, label: "Downloads left" }] }
+  - { name: "Expired by TTL", translations: [{ code: en, label: "Download TTL has expired" }] }
+  - { name: "Expires in", translations: [{ code: en, label: "Expires in" }] }
+  - { name: "Blocked by administrator", translations: [{ code: en, label: "Blocked by administrator" }] }
+  - { name: "Available for download", translations: [{ code: en, label: "Available for download" }] }
+  - { name: "Can be downloaded only after buying the product", translations: [{ code: en, label: "Can be downloaded only after buying the product" }] }
+  - { name: "Global eGood settings", translations: [{ code: en, label: "Global eGoods settings" }] }
+  - { name: "Download link is blocked", translations: [{ code: en, label: "Download link is blocked" }] }
+  - { name: "Download link did not found", translations: [{ code: en, label: "Download link has not been found" }] }
+  - { name: "Download link is not active", translations: [{ code: en, label: "Download link is not active" }] }
+  - { name: "Download link is renew", translations: [{ code: en, label: "Download link has been renewed" }] }
+  - { name: "less one hour", translations: [{ code: en, label: "less than one hour" }] }
+  - { name: E-goods, translations: [{ code: en, label: E-goods }] }
+  - { name: 'Ordered files', translations: [{ code: en, label: 'Ordered files' }] }
+
+XLite\Model\Notification:
+  - { templatesDirectory: modules/CDev/Egoods/egoods_links, availableForAdmin: false, availableForCustomer: true, enabledForAdmin: false, enabledForCustomer: true, translations: [{ code: en, name: E-goods download links (E-goods module), description: "This notification is sent to the customer when their order containing egoods gets the status Paid.", customerSubject: Your download links, customerText: "Your order has been processed. The files for the products you purchased can be downloaded at:" },{ code: ru, name: Ссылки для скачивания файлов (модуль E-goods), description: 'Данное сообщение отправляется покупателю, когда размещенный им заказ, содержащий электронные продукты, получает статус "Оплачен".', customerSubject: Ваши ссылки для скачивания файлов, customerText: "Благодарим Вас за своевременную оплату заказа. Файлы приобретенных Вами товаров могут быть загружены по следующим ссылкам:" }]}

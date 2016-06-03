@@ -1,0 +1,8 @@
+{##
+ # ____file_title____
+ #}
+{% if this.getCustomerZoneWarning() == 'maintenance_mode' %}
+  <span class="error-message">
+      {{ t('Customer zone is closed for maintenance.') }}
+  </span>
+{% endif %}

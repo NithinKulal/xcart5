@@ -1,0 +1,29 @@
+{##
+ # Canada Post Merchant registration wizard template
+ #}
+
+{% if this.isWizardEnabled() %}
+
+  <div class="admin-title">{{ t('Merchant registration wizard') }}</div>
+
+  <br />
+
+  <span>{{ t('To start registration process for Canada Post merchant account click on the "Register" button.') }}</span>
+
+  <form action="{{ this.getMerchantRegUrl() }}" method="post" class="dialog-content">
+
+    <input type="hidden" name="return-url" value="{{ this.getWizardReturnUrl() }}" />
+    <input type="hidden" name="token-id" value="{{ this.getTokenId() }}" />
+    <input type="hidden" name="platform-id" value="{{ this.getPlatformId() }}" />
+
+    <br />
+
+    {{ widget('XLite\\Module\\XC\\CanadaPost\\View\\StickyPanel\\Wizard') }}
+
+  </form>
+
+{% else %}
+
+  <span>{{ t('If you want to enable merchant registration wizard once again, please click on the following link') }} <a href="{{ url('capost', 'enable_wizard') }}" onclick="javascript: return confirm('{{ t('Are you sure you want to continue?') }}');">{{ t('enable merchant wizard') }}</a>.</span>
+
+{% endif %}

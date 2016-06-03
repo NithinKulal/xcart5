@@ -1,0 +1,10 @@
+{##
+ # Search in SKU
+ #
+ # @listChild (list="products.search.conditions.advanced.options", weight="300")
+ #}
+
+<li><label for="by-sku">
+  <input type="checkbox" name="by_sku" id="by-sku" value="Y" {% if this.getChecked('by_sku') %} checked="checked" {% endif %} />
+  {{ t('SKU') }}
+</label></li>

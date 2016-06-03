@@ -1,0 +1,150 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * ____file_title____
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+#register-form input, #register-form select {
+  width: 150px;
+}
+
+.form_field_error {
+  border: 1px solid #ff0000;
+}
+
+input[type="text"].form_field_error {
+  border: 1px solid #ff0000;
+}
+
+.form-field-comment {
+  font-size: 0.9em;
+}
+
+.password-value {
+  position: relative;
+}
+
+/* Multiselect */
+.chosen-container {
+  height: 40px;
+}
+
+.step-shipping-methods .chosen-container {
+  min-width: 250px !important;
+  width: 100% !important;
+}
+
+.chosen-container-single .chosen-single,
+.chosen-container-active.chosen-with-drop .chosen-single
+{
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  border: 2px solid rgba(199, 197, 199, 0.8);
+  background: #fff none;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  height: 40px;
+  line-height: 20px;
+  box-shadow: none;
+}
+
+.chosen-container-multi .chosen-choices {
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  background: #fff none;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.chosen-container .chosen-single span,
+.chosen-container .chosen-single strong
+{
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+
+.chosen-container .chosen-results li {
+  padding: 6px 12px;
+}
+
+.chosen-container-single .chosen-single span {
+  padding-left: 8px;
+}
+
+.chosen-container .chosen-single strong {
+  color: #a2bbda;
+}
+
+.chosen-container-multi .chosen-choices li.search-choice {
+  background: #fff none;
+}
+
+.chosen-container-active .chosen-choices li.search-field input[type="text"] {
+  height: 25px;
+}
+
+.chosen-container-single .chosen-drop {
+  margin-top: -5px;
+  border: 2px solid rgba(199, 197, 199, 0.8);
+  border-top: none;
+}
+
+.chosen-container-single .chosen-single div b {
+  background-position: 0px 8px;
+}
+
+.chosen-container-active.chosen-with-drop .chosen-single div b {
+  background-position: -18px 8px;
+}
+
+.chosen-container .chosen-results {
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.chosen-container .chosen-drop .chosen-results li {
+  color: #0e55a6;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.chosen-container .chosen-drop .chosen-results li.result-selected {
+  color: #000;
+}
+
+.chosen-container .chosen-drop .chosen-results li.highlighted {
+  background: #edf5fe none;
+  color: #000;
+}
+
+/* Passoword (visible) */
+.password-eye {
+  display: inline-block;
+  margin-left: -23px;
+  width: 21px;
+  vertical-align: top !important;
+  position: absolute;
+  top: 6px;
+  right: 33px;
+  font-size: 21px;
+}
+
+.password-eye a {
+  text-decoration: none;
+}
+
+.password-eye .open,
+.password-eye.opened .close
+{
+  display: none;
+}
+
+.password-eye.opened .open {
+  display: inline;
+}
+

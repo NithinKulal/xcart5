@@ -1,0 +1,5 @@
+{##
+ # Products return items table cell :: image 
+ #}
+
+{{ widget('\\XLite\\View\\Image', image=this.entity.orderItem.object.getImage(), alt=this.entity.orderItem.getName(), maxWidth='40', maxHeight='40', centerImage='0') }}

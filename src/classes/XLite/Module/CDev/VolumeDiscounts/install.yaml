@@ -1,0 +1,20 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Volume discounts module data dump
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Order\Modifier:
+  - { class: '\XLite\Module\CDev\VolumeDiscounts\Logic\Order\Modifier\Discount', weight: 100 }
+
+XLite\Model\Role\Permission:
+  - { code: manage volume discounts, section: Volume discounts, translations: [{ code: en, name: Manage volume discounts }] }
+
+XLite\Model\Role:
+  - { translations: [{ code: en, name: Volume discounts management }, { code: ru, name: Управление скидками }], permissions: [{ code: manage volume discounts }] }
+
+XLite\Model\LanguageLabel:
+  - { name: "Get X off for order amount over Y", translations: [{ code: en, label: "Get {{X}} off for order amount over {{Y}}" }] }
+  - { name: "Could not add the discount because another discount already exists for the specified subtotal range and membership level", translations: [{ code: en, label: "Could not add the discount because another discount already exists for the specified subtotal range and membership level" }] }
+  - { name: "Could not update the discount because another discount already exists for the specified subtotal range and membership level", translations: [{ code: en, label: "Could not update the discount because another discount already exists for the specified subtotal range and membership level" }] }

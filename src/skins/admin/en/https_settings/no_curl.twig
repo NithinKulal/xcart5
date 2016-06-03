@@ -1,0 +1,23 @@
+{##
+ # HTTPS settings page template 
+ #}
+
+<div class="https-settings-dialog">
+
+  <div class="note top info">
+    {{ t('It\'s impossible to detect valid SSL certificate availability on your server because curl extension is not installed.') }}
+  </div>
+
+  {% if not this.isEnabledHTTPS() %}
+    <div class="actions-block">
+      {{ widget('\\XLite\\View\\Button\\Regular', label='Enable HTTPS', jsCode='self.location=\'' ~ url('https_settings', 'enable_HTTPS') ~ '\'', style='action') }}
+    </div>
+  {% endif %}
+
+  {% if this.isEnabledHTTPS() %}
+    <div class="actions-block">
+      {{ widget('\\XLite\\View\\Button\\Regular', label='Disable HTTPS', jsCode='self.location=\'' ~ url('https_settings', 'disable_HTTPS') ~ '\'', style='action') }}
+    </div>
+  {% endif %}
+
+</div>

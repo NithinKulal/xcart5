@@ -1,0 +1,29 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Dimensions range field styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+.dimension-field {
+  display: inline-block;
+}
+.dimension-field .table-label {
+  display: block;
+  text-align: center;
+  color: #636363;
+  font-size: 12px;
+  line-height: 0;
+  width: 100px;
+}
+.model-properties ul.table li .dimension-field div.star {
+  display: none;
+}
+.dimension-field.dimension-length .table-value:after,
+.dimension-field.dimension-width .table-value:after {
+  content: "\00d7";
+  color: #636363;
+  font-size: 20px;
+  margin-right: 12px;
+}

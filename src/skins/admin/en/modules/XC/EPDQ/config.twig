@@ -1,0 +1,85 @@
+{##
+ # ePDQ configuration page
+ #}
+
+<div class="settings-text">
+  {{ t('ePDQ settings note', {'URL': this.getShopURL()})|raw }}
+</div>
+
+<table cellspacing="1" cellpadding="5" class="settings-table">
+
+  <tr>
+    <td class="setting-name">
+      <label for="settings_pspid">{{ t('ePDQ PSPID') }}</label>
+    </td>
+    <td>
+      <input type="text" id="settings_pspid" name="settings[pspid]" value="{{ this.paymentMethod.getSetting('pspid') }}" class="validate[required,maxSize[255]]" />
+    </td>
+  </tr>
+
+  <tr>
+    <td class="setting-name">
+      <label for="settings_sha_in">{{ t('ePDQ SHA-IN pass phrase') }}</label>
+    </td>
+    <td>
+      <input type="password" id="settings_sha_in" name="settings[sha_in]" value="{{ this.paymentMethod.getSetting('sha_in') }}" class="validate[required,maxSize[255]]" />
+    </td>
+  </tr>
+
+  <tr>
+    <td class="setting-name">
+      <label for="settings_sha_out">{{ t('ePDQ SHA-OUT pass phrase') }}</label>
+    </td>
+    <td>
+      <input type="password" id="settings_sha_out" name="settings[sha_out]" value="{{ this.paymentMethod.getSetting('sha_out') }}" class="validate[required,maxSize[255]]" />
+    </td>
+  </tr>
+
+  <tr>
+    <td class="setting-name">
+      <label for="settings_currency">{{ t('ePDQ Currency') }}</label>
+    </td>
+    <td>
+      {{ widget('\\XLite\\View\\FormField\\Select\\Currency', fieldId='settings_currency', fieldName='settings[currency]', fieldValue=this.paymentMethod.getSetting('currency'), fieldOnly='true', useCodeAsKey='true') }}
+    </td>
+  </tr>
+
+  <tr>
+    <td class="setting-name">
+      <label for="settings_prefix">{{ t('ePDQ Invoice number prefix') }}</label>
+    </td>
+    <td>
+      <input type="text" id="settings_prefix" value="{{ this.paymentMethod.getSetting('prefix') }}" name="settings[prefix]" />
+    </td>
+  </tr>
+
+  <tr>
+    <td class="setting-name">
+    <label for="settings_test">{{ t('Test/Live mode') }}</label>
+    </td>
+    <td>
+    <select id="settings_test" name="settings[test]">
+      <option value="1" {% if this.isSelected(this.paymentMethod.getSetting('test'), '1') %} selected="selected" {% endif %}>{{ t('Test mode: Test') }}</option>
+      <option value="0" {% if this.isSelected(this.paymentMethod.getSetting('test'), '0') %} selected="selected" {% endif %}>{{ t('Test mode: Live') }}</option>
+    </select>
+    </td>
+  </tr>
+
+
+  <tr>
+    <td class="setting-name">
+      <label for="settings_debug_enabled">{{ t('ePDQ Enable logging of ePDQ transactions') }}</label>
+    </td>
+    <td>
+      <select id="settings_debug_enabled" name='settings[debug_enabled]'>
+        <option value="0" {% if this.isSelected(this.paymentMethod.getSetting('debug_enabled'), '0') %} selected="selected" {% endif %}>{{ t('No') }}</option>
+        <option value="1" {% if this.isSelected(this.paymentMethod.getSetting('debug_enabled'), '1') %} selected="selected" {% endif %}>{{ t('Yes') }}</option>
+      </select>
+    </td>
+  </tr>
+
+</table>
+
+<script type="text/javascript">
+  jQuery("#settings_currency").val("{{ this.paymentMethod.getSetting('currency') }}");
+</script>

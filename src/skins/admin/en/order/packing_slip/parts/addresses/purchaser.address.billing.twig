@@ -1,0 +1,15 @@
+{##
+ # Invoice billing address
+ #
+ # @ListChild (list="packing_slip.addresses.billing", weight="10")
+ #}
+<h2 class="title">{{ t('Bill to') }}</h2>
+<ul class="address-section billing-address-section">
+  {% for idx, field in this.getAddressSectionData(this.baddress) %}
+    <li class="{{ field.css_class }} address-field">
+      <span class="address-title">{{ t(field.title) }}:</span>
+      <span class="address-field">{{ field.value }}</span>
+      <span class="address-comma">,</span>
+    </li>
+  {% endfor %}
+</ul>

@@ -1,0 +1,4 @@
+{##
+ # ____file_title____
+ #}
+<a href="{{ this.href }}">{% if this.img %}<input type="image" src="images/{{ this.img }}" align="absmiddle" />{% else %}<input type="image" src="{{ asset('images/go.gif') }}" width="13" height="13" align="absmiddle" />{% endif %}{% if this.font %}<span class="{{ this.font }}">{% endif %} {{ this.label|raw }}{% if this.font %}</span>{% endif %}</a>

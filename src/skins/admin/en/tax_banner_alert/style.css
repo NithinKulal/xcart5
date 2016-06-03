@@ -1,0 +1,33 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Top banner styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.tax-banner-alert {
+	background-color: #f9fbfc;
+	margin-right: 257px;
+	border-color: #cfdfeb;
+}
+
+.tax-banner-alert p {
+	font-size: 14px;
+	line-height: 18px;
+}
+
+.tax-banner-alert p.semibold {
+	font-weight: 600;
+}
+
+.alert-dismissable button.close-banner {
+	top: -7px;
+  	right: -22px;
+  	position: relative;
+}
+
+.alert-dismissable button.close-banner span {
+	font-size: 28px;
+}

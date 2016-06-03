@@ -1,0 +1,25 @@
+{##
+ # ORDER_EDIT order history event comment template 
+ #}
+
+<ul>
+  {% for name, data in this.getChanges() %}
+    <li>
+      <div class="name">{{ t(name) }}:</div>
+      {% if this.isArray(data) %}
+      <ul>
+        {% for subname, value in data %}
+          <li>
+            {% if this.isDisplaySubname(subname) %}
+              <div class="subname">{{ t(subname) }}:</div>
+            {% endif %}
+            <div class="value">{% if value.old %}<span class="old">{{ value.old|nl2br }}</span><i class="fa fa-long-arrow-right"></i>{% endif %}<span class="new">{{ value.new|nl2br }}</span></div>
+          </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <div class="value">{% if data.old %}<span class="old">{{ data.old|nl2br }}</span><i class="fa fa-long-arrow-right"></i>{% endif %}<span class="new">{{ data.new|nl2br }}</span></div>
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>

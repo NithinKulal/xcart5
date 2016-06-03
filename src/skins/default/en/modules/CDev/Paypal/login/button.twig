@@ -1,0 +1,11 @@
+{##
+ # Social Login sign-in button
+ #}
+
+<li class="{{ this.getStyleClass() }}">
+  <a href="javascript: void(0);" rel="{{ this.getAuthRequestUrl() }}" class="paypal-login button" onclick="return !PaypalLogin.openPopup(this);">
+    <i class="fa {{ this.getFontAwesomeClass() }}"></i>
+    <span class="provider-name">{{ this.getName() }}</span>
+  </a>
+</li>
+

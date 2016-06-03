@@ -1,0 +1,9 @@
+{##
+ # Order failed email body (to customer)
+ #}
+<p>
+  {{ this.getNotificationText()|raw }}
+</p>
+<p>
+  {{ widget('XLite\\View\\Invoice', order=this.order) }}
+<p>

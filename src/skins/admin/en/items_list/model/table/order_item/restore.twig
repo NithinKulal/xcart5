@@ -1,0 +1,11 @@
+{##
+ # Total cell
+ #
+ # @ListChild (list="itemsList.orderitem.cell.price", weight="100")
+ # @ListChild (list="itemsList.orderitem.dumpCell.price", weight="100")
+ #}
+
+<div class="restore-orig-price" data-orig-price="{{ this.getOriginalPrice(this.entity) }}">
+  <i class="fa fa-money" title="{{ t('Current price for the selected configuration and quantity: X', {'price': this.formatPrice(this.getOriginalPrice(this.entity), this.order.currency)}) }}"></i>
+  <input type="hidden" name="auto[items][{{ this.entity.item_id }}][price]" {% if this.isAutoItem(this.entity, 'price') %}value="1"{% else %}value=""{% endif %} />
+</div>

@@ -1,0 +1,19 @@
+{##
+ # Pager
+ #}
+{% if this.isPagesListVisible() %}
+  <ul class="pagination grid-list">
+    {% for page in this.getPages() %}
+      <li class="{{ page.classes }}">
+        {% if page.href %}
+          <a href="{{ page.href }}" class="{{ page.page }}" title="{{ t(page.title) }}">{{ t(page.text)|raw }}</a>
+        {% endif %}
+        {% if not page.href %}
+          <span class="{{ page.page }}" title="{{ t(page.title) }}">{{ t(page.text)|raw }}</span>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+{{ widget_list('itemsTotal', type='inherited') }}

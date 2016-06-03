@@ -1,0 +1,98 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Top messages styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+#status-messages
+{
+  position: fixed;  /* TODO: WARNING! IE6 doesn't support this style! Emulation is required */
+  top: 0px;
+  left: 0;
+  right: 0;
+  margin: 0px auto;
+  z-index: 1300000;
+  font-size: 12px;
+  width: 400px;
+}
+
+#status-messages,
+#status-messages ul,
+#status-messages ul li:last-child
+{
+  -moz-border-radius-bottomleft: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  -moz-border-radius-bottomright: 5px;
+  -webkit-border-bottom-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+#status-messages ul li a {
+  text-decoration: underline;
+}
+
+#status-messages a.close-message
+{
+  display: block;
+  position: absolute;
+  right: 8px;
+  top: 5px;
+  width: 15px;
+  height: 15px;
+  padding: 0px;
+  background: transparent none;
+  text-decoration: none;
+  background: transparent url(../images/icon_cross_grey.png) no-repeat left top;
+}
+
+#status-messages ul
+{
+  margin: 0;
+  padding: 0;
+}
+
+#status-messages li
+{
+  list-style: none;
+  background-image: none;
+  padding: 5px 31px 6px 1em;
+}
+
+#status-messages ul.marked-list li {
+  list-style: disc inside;
+}
+
+#status-messages .status
+{
+}
+
+#status-messages {
+  background-color: #eeede8;
+}
+
+#status-messages .info {
+  background-color: #bae8aa;
+  color: #374334;
+}
+
+#status-messages .warning {
+  background-color: #eedeb4;
+  color: #94572a;
+}
+
+#status-messages .error {
+  background-color: #e65e57;
+  color: #fff;
+}
+
+#status-messages a {
+  text-decoration: underline;
+}
+
+#status-messages li em {
+  margin-right: 6px;
+}

@@ -1,0 +1,12 @@
+{##
+ # Upgrade entry icon
+ #
+ # @ListChild (list="upgrade.step.prepare.incompatible_entries_upgrade.sections.table", weight="100")
+ #}
+<div class="module-icon">
+  {% if this.entry.hasIcon() %}
+  <img src="{{ this.entry.getPublicIconURL() }}" class="addon-icon" alt="{{ this.entry.getName() }}" />
+  {% else %}
+  <img src="{{ asset('images/spacer.gif') }}" class="addon-icon addon-default-icon" alt="{{ this.entry.getName() }}" />
+  {% endif %}
+</div>

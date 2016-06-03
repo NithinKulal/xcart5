@@ -1,0 +1,22 @@
+{##
+ # Table model list
+ #}
+
+{% if this.isSearchVisible() %}
+  {{ widget(this.getSearchPanelClass(), itemsList=this.getItemsListObject()) }}
+{% endif %}
+
+{% if this.isWrapWithForm() %}
+
+  {% form this.formOptions.class with {name: this.formOptions.name, formTarget: this.formOptions.target, formAction: this.formOptions.action, formParams: this.formOptions.params} %}
+
+    {% include 'items_list/model/table_content.twig' %}
+
+  {% endform %}
+
+{% else %}
+
+  {% include 'items_list/model/table_content.twig' %}
+
+{% endif %}
+

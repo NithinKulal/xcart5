@@ -1,0 +1,13 @@
+{##
+ # ____file_title____
+ #}
+
+{% form '\\XLite\\View\\Form\\FileDialog\\Select' with {formParams: this.getFileDialogParams()} %}
+<div class="file-selector">
+  <ul class="selections-list">
+  {{ widget_list('file_select_dialog.file_selections') }}
+  </ul>
+{{ widget_list('file_select_dialog.actions') }}
+</div>
+{% endform %}
+

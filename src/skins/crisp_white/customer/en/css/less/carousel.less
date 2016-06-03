@@ -1,0 +1,42 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+//
+// Carousel
+// --------------------------------------------------
+
+.carousel {
+  overflow-x: hidden;
+}
+
+.carousel-inner {
+  width: auto;
+  height: 460px;
+
+  > .item {
+    > img,
+    > a > img {
+      max-width: none;
+    }
+  }
+
+  > .next,
+  > .prev {
+    width: auto;
+  }
+
+  @media(max-width: @screen-sm-max) {
+    height: 240px;
+  }
+
+  @media(max-width: @screen-xs-max) {
+    height: 200px;
+  }
+}
+

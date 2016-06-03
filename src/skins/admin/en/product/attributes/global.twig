@@ -1,0 +1,19 @@
+{##
+ # "Global Attributes" tab
+ #}
+
+{{ widget('XLite\\View\\Product\\Details\\Admin\\ProductClass') }}
+
+{% form 'XLite\\View\\Form\\Product\\Modify\\Attributes' with {className: 'attrs'} %}
+  {% if this.product.productClass %}
+  <div class="dialog-block attribute-classes">
+    {{ widget('XLite\\View\\Product\\Details\\Admin\\Attributes', productClass=this.product.productClass) }}
+  </div>
+  {% endif %}
+  <div class="dialog-block">
+    {{ widget('XLite\\View\\Product\\Details\\Admin\\Attributes') }}
+  </div>
+  {{ widget('\\XLite\\View\\StickyPanel\\Product\\Attributes') }}
+{% endform %}
+
+{{ widget('XLite\\View\\Product\\Details\\Admin\\CreateBox') }}

@@ -1,0 +1,14 @@
+{##
+ # Modules list
+ #
+ # @ListChild (list="itemsList.module.manage.columns.icon", weight="200")
+ # @ListChild (list="itemsList.module.install.columns.icon", weight="200")
+ #}
+
+<div class="addon-icon">
+  {% if this.module.hasIcon() %}
+    <img src="{{ this.module.getPublicIconURL() }}" class="addon-icon" alt="{{ this.module.getModuleName() }}" />
+  {% else %}
+    <img src="{{ asset('images/spacer.gif') }}" class="addon-icon addon-default-icon" alt="{{ this.module.getModuleName() }}" />
+  {% endif %}
+</div>

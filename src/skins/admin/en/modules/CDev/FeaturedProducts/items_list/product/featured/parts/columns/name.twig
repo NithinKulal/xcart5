@@ -1,0 +1,7 @@
+{##
+ # Item name
+ #
+ # @ListChild (list="itemsList.product.admin.featured.columns", weight="30")
+ #}
+
+<td><a class="name" href="{{ url('product', '', {'product_id': this.product.getProductId()}) }}">{% if this.product.getName() %}{{ this.product.getName()|raw }}{% else %}N/A{% endif %}</a></td>

@@ -1,0 +1,16 @@
+{##
+ # Code template
+ #}
+
+{% form '\\XLite\\Module\\XC\\ThemeTweaker\\View\\Form\\Code' %}
+
+  <input type="checkbox" value="1"{% if this.isUsed() %} checked="checked"{% endif %} id="use_custom" name="use" /> <label for="use_custom">{{ this.getUseCustomText() }}</label>
+  <br /><br />
+
+  {{ widget('\\XLite\\Module\\XC\\ThemeTweaker\\View\\FormField\\Textarea\\CodeMirror', fieldName='code', cols='140', rows='20', fieldId='code', codeMode=this.getCodeMode(), value=this.getFileContent(), fieldOnly='true') }}
+
+  <div class="buttons">
+    {{ widget('\\XLite\\View\\Button\\Submit', style='action', label='Save') }}
+  </div>
+
+{% endform %}

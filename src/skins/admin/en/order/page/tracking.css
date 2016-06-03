@@ -1,0 +1,76 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Order tracking styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.items-list-table.tracking-number {
+  padding-top: 14px;
+  padding-right: 2px;
+}
+
+.items-list-table.tracking-number table.list {
+  max-width: inherit;
+  min-width: inherit;
+  border: 0px none;
+  float: right;
+  width: auto;
+}
+
+.items-list-table.tracking-number table.list tbody.create tr.line td,
+  .items-list-table.tracking-number table.list tbody.lines tr.line td
+{
+  background: #fff;
+  width: auto;
+  border: 0px none;
+}
+
+.items-list-table.tracking-number table.list tbody.create tr.line td.main,
+  .items-list-table.tracking-number table.list tbody.lines tr.line td.main
+{
+  text-align: right;
+}
+
+.items-list-table.tracking-number table.list tbody.create tr.line td.actions.right,
+.items-list-table.tracking-number table.list tbody.lines tr.line td.actions.right
+{
+  width: 30px;
+  padding-right: 0px;
+  text-align: right;
+  padding-right: 3px;
+}
+
+.tracking-number.items-list-table table.list .inline-field .view {
+  width: 305px;
+}
+
+.tracking-number.items-list-table table.list .inline-field input[type="text"] {
+  width: 305px;
+}
+
+.items-list.tracking-number .list-header {
+  text-align: right;
+  float: right;
+  max-width: 380px;
+}
+
+.items-list.tracking-number .button-container {
+  display: inline-block;
+  text-align: right;
+  padding-left: 20px;
+  margin-top: 8px;
+}
+
+.items-list.tracking-number .button-container:first-child {
+  padding-left: 0px;
+}
+
+.items-list-table.tracking-number table.list tbody.no-items td {
+  font-size: 11px;
+  text-align: right;
+  color: #8f8f8f;
+  padding-top: 0px;
+}

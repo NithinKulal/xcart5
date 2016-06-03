@@ -1,0 +1,9 @@
+{##
+ # Sign-in
+ #
+ # @ListChild (list="checkout.signin.form", weight="30")
+ #}
+<tr><td class="sign-in-button">
+  {{ widget('\\XLite\\View\\Button\\Submit', label=t('Sign in')) }}
+  {{ widget_list('customer.signin.popup.links') }}
+</td></tr>

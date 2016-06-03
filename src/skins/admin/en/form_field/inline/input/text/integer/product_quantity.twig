@@ -1,0 +1,9 @@
+{##
+ # Product quantity
+ #}
+
+{% if this.entity.getInventoryEnabled() %}
+  {% include 'form_field/inline/view.twig' %}
+{% else %}
+  &infin;
+{% endif %}

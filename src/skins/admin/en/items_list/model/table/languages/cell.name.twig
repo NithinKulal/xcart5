@@ -1,0 +1,9 @@
+{##
+ # Language name cell
+ #}
+
+<span class="flag"><img src="{{ this.entity.getFlagURL() }}" /></span>
+<a href="{{ url('labels', '', {'code': this.entity.getCode()}) }}">{{ this.entity.getName() }}</a>
+{% if this.getLanguageHelpMessage(this.entity) %}
+  {{ widget('\\XLite\\View\\Tooltip', id='menu-links-help-text', text=this.getLanguageHelpMessage(this.entity), isImageTag='true', className='help-small-icon') }}
+{% endif %}

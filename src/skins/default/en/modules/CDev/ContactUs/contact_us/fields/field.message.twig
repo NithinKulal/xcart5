@@ -1,0 +1,15 @@
+{##
+ # Message
+ #
+ # @ListChild (list="contact-us.send.fields", weight="400")
+ #}
+
+<div class="form-item">
+  <label for="message" class="for-message">
+    {{ t('Message') }}
+    <span class="form-required" title="{{ t('This field is required.') }}">*</span>
+  </label>
+  <div class="resizable-textarea">
+    {{ widget('XLite\\View\\FormField\\Textarea\\Simple', placeholder=t('Your Message'), fieldName='message', value=this.getValue('message'), fieldOnly='true', required='true') }}
+  </div>
+</div>

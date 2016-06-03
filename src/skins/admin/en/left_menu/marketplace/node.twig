@@ -1,0 +1,7 @@
+{##
+ # Left side menu info node
+ #}
+<li {{ this.printTagAttributes(this.getContainerTagAttributes())|raw }} sds='sas'>
+  {% include this.getLinkTemplate() %}
+  {{ widget('XLite\\View\\Menu\\Admin\\LeftMenu\\Marketplace\\LazyLoad') }}
+</li>

@@ -1,0 +1,20 @@
+{##
+ # Stats management page main template
+ #
+ # @ListChild (list="itemsList.state.header", weight="10")
+ #}
+
+{% if this.getCountriesWithStates() %}
+  <ul class="states-list">
+    {% for id, country in this.getCountriesWithStates() %}
+      <li>
+        {% if country.code != this.getCountryCode() %}
+          <a href="{{ url('states', '', {'country_code': country.getCode()}) }}">{{ country.getCountry() }}</a>
+        {% endif %}
+        {% if country.code == this.getCountryCode() %}
+          <span>{{ country.getCountry() }}</span>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}

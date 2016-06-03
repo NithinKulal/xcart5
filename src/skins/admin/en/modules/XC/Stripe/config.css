@@ -1,0 +1,243 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.stripe .status {
+  margin-bottom: 21px;
+}
+
+.stripe .status,
+.stripe .status span
+{
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.stripe.configured .status span {
+  color: #6acc1f;
+  font-weight: bold;
+}
+
+.stripe .note {
+  font-size: 14px;
+  margin-bottom: 14px;
+}
+
+.stripe .webhook {
+  margin-bottom: 13px;
+}
+
+.stripe .webhook .url {
+  font-size: 14px;
+  padding: 10px 20px 10px 10px;
+  border-radius: 6px;
+  border: solid 1px #efefef;
+  background: #f8f8f8;
+  color: #8f8f8f;
+  width: auto;
+  display: table-cell;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  -ms-text-overflow: ellipsis;
+}
+
+.stripe .webhook .url .copy-link {
+  margin-right: 6px;
+}
+
+.stripe .webhook .tooltip-main {
+  margin-top: 14px;
+  display: table-cell;
+  vertical-align: baseline;
+}
+
+.stripe .instruction {
+  margin-bottom: 19px;
+}
+
+.stripe .instruction .switcher {
+  text-decoration: none;
+  border-bottom: 1px dashed #006eae;
+  font-size: 14px;
+}
+
+.stripe .instruction .switcher-show,
+.stripe .instruction.non-visible .switcher-hide,
+.stripe .instruction.non-visible ul
+{
+  display: none;
+}
+
+.stripe .instruction.non-visible .switcher-show,
+.stripe .instruction .switcher-hide {
+  display: inline;
+}
+
+.stripe .instruction ul {
+  margin-top: 31px;
+  vertical-align: top;
+}
+
+.stripe .instruction li {
+  display: inline-block;
+  width: 210px;
+  vertical-align: top;
+  margin-right: 20px;
+}
+
+.stripe .instruction li .number {
+  background-color: #f7caac;
+  color: #fff;
+  float: left;
+  width: 26px;
+  height: 26px;
+  line-height: 26px;
+  -moz-border-radius: 19px;
+  -webkit-border-radius: 19px;
+  border-radius: 19px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 18px;
+  margin-top: 3px;
+}
+
+.stripe .instruction li p {
+  font-size: 12px;
+  line-height: 16px;
+  margin-left: 33px;
+  min-height: 50px;
+}
+
+.stripe .instruction li img {
+  width: 207px;
+  height: 150px;
+}
+
+.stripe .instruction .step-1 .circles {
+  margin-top: 17px;
+}
+
+.stripe .instruction .step-2 .circles {
+  margin-top: 16px;
+}
+
+.stripe .instruction .step-3 .circles {
+  margin-top: 16px;
+}
+
+.stripe .circles {
+  position: relative;
+}
+
+.stripe .circle {
+  position: absolute;
+  width: 53px;
+  height: 53px;
+  border: 2px solid #ffa66b;
+  -moz-border-radius: 30px;
+  -webkit-border-radius: 30px;
+  border-radius: 30px;
+}
+
+.stripe .instruction .step-1 .circle-1 {
+  top: 4px;
+  left: 82px;
+}
+
+.stripe .instruction .step-2 .circle-1 {
+  top: -11px;
+  left: 72px;
+}
+
+.stripe .instruction .step-2 .circle-2 {
+  top: 106px;
+  left: 155px;
+}
+
+.stripe .instruction .step-3 .circle-1 {
+  top: 43px;
+  left: 37px;
+}
+
+.stripe .buttons button {
+  margin-right: 17px;
+  float: none;
+}
+
+.stripe .buttons button * {
+  float: none;
+}
+
+.stripe a.disconnect {
+  font-size: 14px;
+  float: none;
+  vertical-align: baseline;
+}
+
+.stripe img.logo {
+  width: 146px;
+  height: 59px;
+  margin-top: 14px;
+  margin-bottom: 36px;
+}
+
+.stripe.non-configured p {
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.stripe.non-configured .stripe-connect {
+  margin-top: 10px;
+}
+.stripe-webhook-tip .formErrorContent {
+  background-color: #fff3cb;
+  border: 0px none;
+  box-shadow: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  color: #222;
+  font-size: 11px;
+  min-width: 50px;
+  padding: 6px 8px;
+}
+
+.help-link i {
+  font-size: 14px;
+  color: #154e9c;
+}
+
+.help-text i {
+  font-size: 10px;
+  color: #154e9c;
+}
+
+span.external {
+  font-size: 14px;
+}
+
+.external i {
+  display: none;
+}
+
+.external:hover i {
+  display: inline;
+}
+
+.help-text .tooltip-main {
+  display: inline;
+  padding: 0;
+}
+
+.help-text .tooltip-caption {
+  font-size: 12px;
+}

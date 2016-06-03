@@ -1,0 +1,11 @@
+{##
+ # Order customer note
+ #
+ # @ListChild (list="packing_slip.base", weight="25")
+ #}
+{% if this.order.getNotes() %}
+  <div class="customer-note">
+      <h3>{{ t('Customer note') }}:</h3>
+      {{ this.order.getNotes()|nl2br }}
+  </div>
+{% endif %}

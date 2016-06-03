@@ -1,0 +1,40 @@
+{##
+ # List of incompatible entries
+ #}
+
+<div class="modified-files-section disabled-modules-hooks-section">
+  <div class="modified-files-section-frame disabled-modules-hooks-section-frame">
+
+    <div class="disabled-modules-hooks-message">
+      <div class="head">{{ t('Disabled modules hooks message head')|raw }}</div>
+      <div class="body">{{ t('Disabled modules hooks message body')|raw }}</div>
+    </div>
+
+<table class="downloaded-components disabled-modules">
+  <tr class="header">
+    <th class="module-info-header">{{ t('Component') }}</th>
+    <th class="disabled-module-action-header">{{ t('Action') }}</th>
+  </tr>
+
+  {% for entry in this.getDisabledModulesHooks() %}
+    <tr class="module-entry">
+      <td class="module-info">
+        <span class="name">{{ entry.getModuleName() }}</span>
+        <span class="author">({{ entry.getAuthorName() }})</span>
+      </td>
+      <td class="disabled-module-action">
+        <select name="disabledModulesHooks[{{ entry.getMarketplaceId() }}]">
+          {% if entry.hasLicenseRestriction() %}
+          <option value="0">{{ t('Uninstall') }}</option>
+          {% else %}
+          <option value="1" {% if this.selected %} selected="selected" {% endif %}>{{ t('Enable') }}</option>
+          <option value="0">{{ t('Uninstall') }}</option>
+          {% endif %}
+        </select>
+      </td>
+    </tr>
+  {% endfor %}
+</table>
+
+  </div>
+</div>

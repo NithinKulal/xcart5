@@ -1,0 +1,40 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Attachment list styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+.egoods-private-state,
+.egoods-private-state *
+{
+  vertical-align: middle;
+}
+
+.egoods-private-state {
+  padding-top: 25px;
+  padding-left: 3px;
+}
+
+.egoods-private-state label,
+.egoods-private-state span
+{
+  font-size: 14px;
+}
+
+.egoods-private-state input.check {
+  margin: 1px 4px 0px 0px;
+}
+
+.egoods-private-state span {
+  padding-left: 7px;
+}
+
+.egoods-private-state span a {
+  text-decoration: underline;
+}
+
+li.attachment.private .row {
+  background-color: #ebf4ff;
+}

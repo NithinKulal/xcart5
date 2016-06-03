@@ -1,0 +1,60 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Volume discounts list styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.inline-move .move {
+  margin-right: 12px;
+}
+
+.items-list-table.volume-discounts table.list {
+  width: 100%;
+}
+
+.items-list-table.volume-discounts table.list thead th.subtotalRangeBegin {
+  padding-left: 16px;
+  width: 220px;
+}
+
+.items-list-table.volume-discounts table.list thead th.value {
+  width: 120px;
+}
+
+.items-list-table.volume-discounts table.list thead th.type {
+  padding-left: 16px;
+  width: 50px;
+}
+
+.items-list-table.volume-discounts table.list td.type .view {
+  display: none;
+}
+
+.items-list-table.volume-discounts table.list thead th.membership {
+  padding-left: 16px;
+  width: 200px;
+}
+
+.items-list-table.volume-discounts table.list td.subtotalRangeBegin input.float {
+  width: 100px;
+}
+
+.items-list-table.volume-discounts table.list td.value input.float {
+  width: 60px;
+}
+
+.items-list-table .list-header {
+  padding-bottom: 10px;
+}
+
+.items-list-table .list-header .button-container {
+  display: inline-block;
+}
+
+.items-list-table.volume-discounts .text-grey {
+  color: #8f8f8f;
+  text-transform: lowercase;
+}

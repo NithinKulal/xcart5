@@ -1,0 +1,17 @@
+{##
+ # Order : antifraud line
+ #
+ # @ListChild (list="order", weight="1000")
+ #}
+
+{% if this.isDisplayAntiFraudAd() %}
+  <div class="antifraud-ad">
+  
+    {{ t('This order was not checked by the AntiFraud service!') }}
+  
+    {{ t('You can purchase AntiFraud Service subscription') }}
+  
+    <a href="{{ this.getAntiFraudAdLink() }}" target="_blank">{{ t('here') }}</a>.
+  
+  </div>
+{% endif %}

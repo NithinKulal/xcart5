@@ -1,0 +1,15 @@
+{##
+ # Field : button
+ #
+ # @ListChild (list="customer.signin.fields", weight="400")
+ # @ListChild (list="customer.signin.popup.fields", weight="400")
+ #}
+
+<tr>
+    <td>&nbsp;</td>
+    <td>
+        {{ widget('\\XLite\\View\\Button\\Submit', label=t('Sign in')) }}
+        {{ widget_list('customer.signin.popup.links') }}
+    </td>
+</tr>
+

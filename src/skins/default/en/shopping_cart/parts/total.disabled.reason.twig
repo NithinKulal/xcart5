@@ -1,0 +1,10 @@
+{##
+ # Shopping cart Go to checkout button
+ #
+ # @ListChild (list="cart.panel.totals", weight="50")
+ #}
+{% if not this.cart.checkCart() %}
+  <li class="disabled-reason">
+    <div class="reason-details">{{ this.getDisabledReason()|raw }}</div>
+  </li>
+{% endif %}

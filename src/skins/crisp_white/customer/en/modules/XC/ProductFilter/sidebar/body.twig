@@ -1,0 +1,25 @@
+{##
+ # Body
+ #}
+
+<div class="product-filter">
+    {{ this.displayCommentedData(this.getCommentedData()) }}
+    <div class="{{ this.getBlockClasses() }}">
+        <h4>{{ t(this.getHead()) }}</h4>
+        <div class="content">
+            {% form '\\XLite\\Module\\XC\\ProductFilter\\View\\Form\\Filter' with {category: this.getCategory()} %}
+            {{ widget_list('sidebar.filter') }}
+            <div class="buttons">
+                <div class="popup">
+                    <a href="#" class="show-products">{{ t('Show products') }}</a>
+                    <div class="arrow"> </div>
+                </div>
+                {{ widget('\\XLite\\View\\Button\\Submit', label='Show products', style='filter') }}
+                {% if this.isFilterTarget() %}
+                    <a href="#" class="reset-filter">{{ t('Reset filter') }}</a>
+                {% endif %}
+            </div>
+            {% endform %}
+        </div>
+    </div>
+</div>

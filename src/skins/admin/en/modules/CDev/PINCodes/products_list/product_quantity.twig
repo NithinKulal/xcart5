@@ -1,0 +1,9 @@
+{##
+ # Product quantity inline widget for manual pin codes products
+ #}
+
+{% if this.entity.hasManualPinCodes() %}
+  <div class="manual-pins-amount">
+  {{ widget('\\XLite\\View\\Tooltip', text=t('Quantity in stock is determined by the amount of the remaining PIN codes.'), caption=this.entity.getRemainingPinCodesCount(), isImageTag='false', id='pins-amount-tooltip') }}
+  </div>
+{% endif %}

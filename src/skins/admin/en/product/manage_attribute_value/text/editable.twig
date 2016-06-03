@@ -1,0 +1,10 @@
+{##
+ # Editable option
+ #}
+
+<label class="inline-checkbox editable-checkbox">
+  <input type="hidden" name="{{ this.getName('editable') }}" value="0" />
+  <input type="checkbox" name="{{ this.getName('editable') }}"{% if this.isEditable() %} checked="checked"{% endif %} />
+  <span>{{ t('editable') }}</span>
+</label>
+

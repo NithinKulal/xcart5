@@ -1,0 +1,26 @@
+{##
+ # Search filters template
+ #}
+
+<ul class="saved-filter-options">
+
+  {% for fid, filter in this.getSavedFilterOptions() %}
+    <li class="filter-option filter-{{ fid }}">
+      {% if fid %}
+        {% if this.isSelectedFilter(fid) %}
+           <span class="filter-title">{{ filter.getName() }}</span>
+        {% else %}
+           <a href="{{ url(this.getTarget(), 'search', {'filter_id': fid}) }}" class="filter-title">{{ filter.getName() }}</a>
+        {% endif %}
+        {% if filter.getSuffix() %}
+          <span class="filter-suffix">{{ filter.getSuffix() }}</span>
+        {% endif %}
+        {% if this.isFilterRemovable(filter) %}
+          <a href="{{ url(this.getTarget(), 'delete_search_filter', {'filter_id': fid}) }}" class="delete-filter fa fa-times" title="{{ t('Delete filter option') }}"></a>
+        {% endif %}
+      {% else %}
+        <a href="{{ url(this.getTarget(), 'clearSearch') }}" class="filter-title first">{{ filter.getName() }}</a>
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>

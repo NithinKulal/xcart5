@@ -1,0 +1,29 @@
+{##
+ # Product class 
+ #}
+
+{% form 'XLite\\View\\Form\\Product\\Modify\\ProductClass' %}
+<div class="dialog-block product-class clearfix">
+  <div class="product-class-text">
+    {% if this.product.getProductClass() %}
+      {{ t('Product class') }}: <span class="dark">{{ this.product.productClass.getName() }}</span>
+    {% else %}
+      {{ t('No product class assigned') }}
+    {% endif %}
+    {{ widget('\\XLite\\View\\Button\\Submit', label=t('Change')) }}
+  </div>
+  <div class="product-class-select">
+    {{ t('Product class') }}:
+    {{ widget('\\XLite\\View\\FormField\\Select\\ProductClassWithNew', fieldName='productClass', fieldOnly='true', value=this.product.getProductClass()) }}
+    <input type="text" size="30" name="newProductClass" value="" placeholder="{{ t('Name, e.g. Apparel') }}" />
+    {{ widget('\\XLite\\View\\Button\\Submit', label=t('Save changes')) }}
+  </div>
+  <a href="{{ url('product_classes') }}">{{ t('Manage product classes') }}</a>
+  {% if not this.product.getProductClass() %}
+    <div class="clearfix"></div>
+  <div class="no-product-class">
+    <p>{{ t('If you have multiple products sharing the same set of attributes, it makes sence to make them to be of the same product type and create the attributes on the product type level.') }}</p>
+  </div>
+  {% endif %}
+</div>
+{% endform %}

@@ -1,0 +1,18 @@
+{##
+ # Create return :: form :: message
+ #
+ # @ListChild (list="capost_create_return.form", weight="200")
+ #}
+
+<div class="return-message">
+
+  <label for="message" class="for-message">
+    {{ t('Message') }}
+    <span class="form-required" title="{{ t('This field is required.') }}">*</span>
+  </label>
+
+  <div class="resizable-textarea">
+    {{ widget('XLite\\View\\FormField\\Textarea\\Simple', placeholder='Your Message', fieldName='message', value='', fieldOnly='true', required='true') }}
+  </div>
+
+</div>

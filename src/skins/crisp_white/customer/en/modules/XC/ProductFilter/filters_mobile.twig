@@ -1,0 +1,15 @@
+{##
+ # Products list sorting control
+ #}
+
+<div class="filters-mobile">
+  <a data-toggle="collapse" data-target=".filters-zone"></a>
+
+  <div class="filters-zone collapse">
+    {% if not this.isSidebarVisible() %}
+      {{ widget('XLite\\Module\\XC\\ProductFilter\\View\\Filter') }}
+    {% else %}
+      <div class="product-filter-placeholder"></div>
+    {% endif %}
+  </div>
+</div>

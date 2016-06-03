@@ -1,0 +1,66 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Coupons widget styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.coupons {
+}
+
+#cart-right .box .coupons {
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 20px 10px;
+}
+
+.checkout-block .coupons {
+  margin-top: 15px;
+  padding-left: 10px;
+}
+
+.coupons .new a {
+  display: inline-block;
+  border-bottom: 1px dotted #2c5fa6;
+  text-decoration: none;
+  font-size: 12px;
+  color: #8aa1b3;
+}
+
+.inactive .coupons {
+  padding: 20px;
+  margin-top: 10px;
+}
+
+/**
+ * New coupon form
+ */
+.coupons div.add-coupon {
+  padding-top: 10px;
+  white-space: nowrap;
+}
+
+.coupons .add-coupon input {
+  width: 105px;
+  vertical-align: middle;
+}
+
+.coupons .add-coupon button {
+  vertical-align: middle;
+  margin: 0px;
+  margin-left: 6px;
+}
+
+.coupons .inline-error {
+  float: none;
+  margin: 0px;
+  margin-top: 5px;
+  width: 105px;
+  white-space: normal;
+}
+
+.checkout-block .steps .coupons .inline-error {
+  position: static;
+}

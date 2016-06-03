@@ -1,0 +1,8 @@
+{##
+ # Tracking pins
+ #}
+
+{{ t('Tracking pins') }}:<br />
+{% for pin in this.getCapostTrackingPins() %}
+  <a href="{{ url('capost_tracking', '', {'shipment_id': pin.shipment_id, 'widget': 'XLite\\Module\\XC\\CanadaPost\\View\\TrackingDetails'}) }}" class="capost-tracking-link">{{ pin.pin_number }}</a><br />
+{% endfor %}

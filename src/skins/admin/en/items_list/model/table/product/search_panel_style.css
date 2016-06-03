@@ -1,0 +1,29 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Product items list's search panel styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.searchpanel-itemslist-model-product-admin-search .search-conditions-box .substring-condition {
+  width: 100%
+}
+
+.searchpanel-itemslist-model-product-admin-search .search-conditions-box .search-conditions .substring-value span.input-text {
+  display: inline;
+}
+
+.searchpanel-itemslist-model-product-admin-search .search-conditions-box .search-conditions .substring-value .input-text input {
+  width: 100%;
+}
+
+.searchpanel-itemslist-model-product-admin-search .search-conditions-box .search-conditions-hidden .by-conditions li input {
+  margin: 0;
+}
+
+.searchpanel-itemslist-model-product-admin-search .search-conditions-box .search-conditions-hidden div.table-label {
+  width: auto;
+  padding-right: 20px;
+}

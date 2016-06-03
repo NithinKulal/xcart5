@@ -1,0 +1,27 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Product page styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.share {
+  position: relative;
+}
+
+.share > * {
+  float: left;
+}
+
+.share .fb-like {
+  margin-right: 20px;
+}
+
+.fb-comments span,
+  .fb-comments span iframe
+{
+  min-width: 550px;
+  width: auto !important;
+}

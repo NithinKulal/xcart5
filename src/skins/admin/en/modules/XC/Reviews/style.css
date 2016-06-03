@@ -1,0 +1,34 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Common CSS for admin interface
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+#leftMenu .notification .new-reviews .notification-header svg path {
+  fill: #c1ccda;
+}
+
+#leftMenu .notification .new-reviews a:hover .notification-header svg path {
+  fill: #68c7ff;
+}
+
+#leftMenu .notification .new-reviews .notification-header span {
+  color: #c1ccda;
+}
+
+#leftMenu .notification .new-reviews a:hover .notification-header span {
+  color: #68c7ff;
+}
+
+#leftMenu .notification .read .new-reviews.updated .notification-header .counter,
+#leftMenu .notification .new-reviews .notification-header .counter {
+  background: #6d7279;
+}
+
+#leftMenu .notification .new-reviews a:hover .notification-header .counter,
+#leftMenu .notification .new-reviews.updated a:hover .notification-header .counter {
+  background: #68c7ff;
+}

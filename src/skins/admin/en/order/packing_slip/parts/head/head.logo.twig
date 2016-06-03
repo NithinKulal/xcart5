@@ -1,0 +1,8 @@
+{##
+ # Invoice : header : logo
+ #
+ # @ListChild (list="packing_slip.head", weight="20")
+ #}
+<td class="logo">
+  <img src="{{ this.getInvoiceLogo() }}" alt="{{ this.config.Company.company_name }}" class="logo" />
+</td>

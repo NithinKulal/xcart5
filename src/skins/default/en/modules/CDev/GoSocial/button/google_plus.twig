@@ -1,0 +1,7 @@
+{##
+ # Google+ button
+ #}
+<div class="gplus">
+  <div class="g-plusone"{% for k, v in this.getButtonAttributes() %} data-{{ k }}="{{ v }}"{% endfor %}></div>
+</div>
+{{ widget('\\XLite\\Module\\CDev\\GoSocial\\View\\ExternalSDK\\GooglePlus') }}

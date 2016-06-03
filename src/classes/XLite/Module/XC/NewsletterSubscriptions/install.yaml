@@ -1,0 +1,17 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\LanguageLabel:
+  - { name: 'You have configured MailChimp as your primary email newsletter tool. New subscribers will be added directly to your MailChimp lists (this X-Cart list will be skipped). You can manage your subscriber lists under your MailChimp account <here>', translations: [{ code: en, label: 'You have configured MailChimp as your primary email newsletter tool. New subscribers will be added directly to your MailChimp lists (this X-Cart list will be skipped). You can manage your subscriber lists under your MailChimp account <a href="{{link}}" target="_blank">here</a>' }, { code: ru, label: 'Вы настроили MailChimp для использования в качестве основного инструмента отправки рассылки в адрес ваших подписчиков. Новые подписчики будут добавляться напрямую в списки на стороне MailChimp (минуя данный список в X-Cart). Вы можете управлять списками подписчиков через <a href="{{link}}" target="_blank">свой аккаунт</a> MailChimp.' }] }
+  - { name: 'To move your existing subscribers to MailChimp lists, <export your subscribers data> from X-Cart and use the import feature under your MailChimp account.', translations: [{ code: en, label: 'To move your existing subscribers to MailChimp lists, <a href="{{link}}" target="_blank">export your subscribers data</a> from X-Cart and use the import feature under your MailChimp account.' }, { code: ru, label: 'Для переноса существующих подписчиков в списки на стороне MailChimp, <a href="{{link}}" target="_blank">экспортируйте данные подписчиков</a> из X-Cart и используйте функцию импорта в вашем аккаунте MailChimp.' }] }
+  - { name: 'Connect your store to MailChimp', translations: [{ code: en, label: 'Connect your store to MailChimp' }, { code: ru, label: 'Связать магазин с MailChimp' }] }
+  - { name: 'Sign up for {{companyName}} news', translations: [{ code: en, label: 'Sign up for {{companyName}} news' }, { code: ru, label: 'Подписаться на новости {{companyName}}' }] }
+  - { name: 'Thank you for subscribing to the newsletter! We hope you enjoy shopping at {{companyName}}', translations: [{ code: en, label: 'Thank you for subscribing to the newsletter! We hope you enjoy shopping at {{companyName}}' }, { code: ru, label: 'Спасибо за подписку на наши новости. Мы рады, что вы - наш читатель!' }] }
+  - { name: 'Subscribers', translations: [{ code: en, label: 'Subscribers' }, { code: ru, label: 'Подписчики' }] }
+  - { name: 'Email or login', translations: [{ code: en, label: 'Email or login' }, { code: ru, label: 'Email или логин' }] }
+  - { name: 'Enter email address', translations: [{ code: en, label: 'Enter email address' }, { code: ru, label: 'Введите email' }] }
+  - { name: 'Subscribers imported', translations: [{ code: en, label: 'Subscribers imported' }]}

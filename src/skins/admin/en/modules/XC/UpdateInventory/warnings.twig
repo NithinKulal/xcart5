@@ -1,0 +1,31 @@
+{##
+ # Import failed section : errors 
+ #}
+
+<div class="import-completed-warnings">
+<h3>{{ this.getTitle() }}</h3>
+{% for file in this.getFiles() %}
+  <ul class="warnings">
+    <li class="title">
+      <i class="icon-file-alt"></i> 
+      {{ file.file }}
+      {% if file.countW %}
+        <span class="count-w">{{ file.countW }}</span>
+      {% endif %}
+      {% if file.countE %}
+        <span class="count-e">{{ file.countE }}</span>
+      {% endif %}
+    </li>
+    {% for errorGroup in this.getErrorsGroups(file.file) %}
+      <li class="clearfix type-{{ errorGroup.type }}">
+        <div class="message">
+          <div class="message-text">{{ this.getGroupErrorMessage(errorGroup) }}</div>
+          <hr>
+          <div class="rows">{{ this.getGroupErrorRows(errorGroup) }}</div>
+        </div>
+        <div class="text">{{ this.getErrorText(errorGroup) }}</div>
+      </li>
+    {% endfor %}
+  </ul>
+{% endfor %}
+</div>

@@ -1,0 +1,48 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Reloadable layout block widget styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.ct-widget {
+	z-index: 20010;
+}
+
+.ct-widget.ct-dialog {
+	z-index: 20060
+}
+
+.ct-widget--active.ct-modal {
+	z-index: 20050;
+}
+
+.ct-widget.ct-modal--transparent{
+	z-index: 10009;
+}
+
+.ct-widget.ct-ignition {
+	top: initial;
+	bottom: 86px;
+}
+
+[data-inline-editable] img,
+[data-inline-editable] iframe {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+[data-inline-editable] img.align-left,
+[data-inline-editable] iframe.align-left {
+    clear: initial;
+    float: left;
+}
+
+[data-inline-editable] img.align-right,
+[data-inline-editable] iframe.align-right {
+    clear: initial;
+    float: right;
+}

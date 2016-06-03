@@ -1,0 +1,34 @@
+{##
+ # Shopping cart modifiers
+ #
+ # @ListChild (list="cart.panel.totals", weight="20")
+ #}
+
+{% for sType, surcharge in this.getSurchargeTotals() %}
+  <li class="{{ this.getSurchargeClassName(sType, surcharge) }}">
+    {% if surcharge.count == '1' %}
+      <strong>{{ surcharge.lastName }}:</strong>
+    {% else %}
+      <strong class="list-owner">{{ surcharge.name }}:</strong>
+    {% endif %}
+    {% if surcharge.available %}
+      <span class="value">{{ widget('XLite\\View\\Surcharge', surcharge=this.formatSurcharge(surcharge), currency=this.cart.getCurrency()) }}</span>
+    {% else %}
+      <span>{{ t('n/a') }}</span>
+    {% endif %}
+    {% if surcharge.count == '1' %}
+      {{ widget_list('modifier', type='nested', surcharge=surcharge, sType=sType, cart=this.cart) }}
+    {% else %}
+      <div style="display: none;" class="order-modifier-details">
+        <ul>
+          {% for row in this.getExcludeSurchargesByType(sType) %}
+            <li>
+              <span class="name">{{ row.getName() }}:</span>
+              <span class="value">{{ widget('XLite\\View\\Surcharge', surcharge=row.getValue(), currency=this.cart.getCurrency()) }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  </li>
+{% endfor %}

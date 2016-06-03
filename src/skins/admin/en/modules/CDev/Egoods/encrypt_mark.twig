@@ -1,0 +1,8 @@
+{##
+ # Browser server dialog : item : private mark
+ #
+ # @ListChild (list="browseServer.item", zone="admin", weight="200")
+ #}
+{% if this.entry.egoods %}
+  <img src="{{ asset('images/spacer.gif') }}" alt="{{ t('Private') }}" class="egood" />
+{% endif %}

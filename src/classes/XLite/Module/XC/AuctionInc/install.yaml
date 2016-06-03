@@ -1,0 +1,579 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: headerReferenceCode
+    category: XC\AuctionInc
+  - name: firstUsageDate
+    category: XC\AuctionInc
+
+  - name: accountId
+    category: XC\AuctionInc
+    type: XLite\View\FormField\Input\Text
+    orderby: 10
+    translations:
+      - code: en
+        option_name: Account API Key
+        option_comment: Paste in your API Key from your AuctionInc ShippingCalc account (Not required for Trial)
+  - name: destinationType
+    category: XC\AuctionInc
+    type: XLite\View\FormField\Select\AddressType
+    value: R
+    orderby: 30
+    translations:
+      - code: en
+        option_name: Destination Type
+        option_comment: Indicates deliveries are to residential addresses
+  - name: debugMode
+    category: XC\AuctionInc
+    type: XLite\View\FormField\Input\Checkbox\OnOffWithoutOffLabel
+    orderby: 40
+    translations:
+      - code: en
+        option_name: Debug mode
+        option_comment: Enable debug mode to store debugging information to log file
+
+  - name: additionalSettingsSeparator
+    category: XC\AuctionInc
+    type: separator
+    orderby: 100
+    translations:
+      - code: en
+        option_name: Additional settings
+
+  - name: defaultValuesSeparator
+    category: XC\AuctionInc
+    type: separator
+    orderby: 200
+    translations:
+      - code: en
+        option_name: Default values
+        option_comment: These values will be used for any products for which you have not saved ShippingCalc settings
+  - name: calculationMethod
+    category: XC\AuctionInc
+    type: XLite\Module\XC\AuctionInc\View\FormField\Select\CalculationMethodSettings
+    value: C
+    orderby: 210
+    translations:
+      - code: en
+        option_name: Calculation method
+        option_comment: For carrier rates, your configured product weights (& dimensions) will be used
+  - name: package
+    category: XC\AuctionInc
+    type: XLite\Module\XC\AuctionInc\View\FormField\Select\Package
+    value: T
+    orderby: 220
+    translations:
+      - code: en
+        option_name: Package
+        option_comment: Pack items from the same origin together, or each in its own box.
+  - name: insurable
+    category: XC\AuctionInc
+    type: XLite\View\FormField\Select\RadioButtonsList\YesNo
+    value: N
+    orderby: 230
+    translations:
+      - code: en
+        option_name: Insurable
+        option_comment: Include product value for insurance calculation based on AuctionInc settings
+  - name: fixedFeeMode
+    category: XC\AuctionInc
+    type: XLite\Module\XC\AuctionInc\View\FormField\Select\FixedFeeMode
+    value: F
+    orderby: 240
+    translations:
+      - code: en
+        option_name: Mode
+  - name: fixedFeeCode
+    category: XC\AuctionInc
+    type: XLite\View\FormField\Input\Text
+    orderby: 250
+    translations:
+      - code: en
+        option_name: Code
+        option_comment: Enter your AuctionInc-configured fixed fee code
+  - name: fixedFee1
+    category: XC\AuctionInc
+    type: XLite\View\FormField\Input\Text\Price
+    orderby: 260
+    translations:
+      - code: en
+        option_name: Fee 1
+        option_comment: Enter fee for first item
+  - name: fixedFee2
+    category: XC\AuctionInc
+    type: XLite\View\FormField\Input\Text\Price
+    orderby: 270
+    translations:
+      - code: en
+        option_name: Fee 2
+        option_comment: Enter fee for additional items and quantities
+
+  - name: calculationSeparator
+    category: XC\AuctionInc
+    type: separator
+    orderby: 300
+    translations:
+      - code: en
+        option_name: Calculation options
+  - name: fallbackRate
+    category: XC\AuctionInc
+    type: XLite\Module\XC\AuctionInc\View\FormField\Select\FallbackRate
+    value: N
+    orderby: 310
+    translations:
+      - code: en
+        option_name: Fallback rate
+        option_comment: Optionally set default rate if the API cannot be reached or if no rates are found
+  - name: fallbackRateValue
+    category: XC\AuctionInc
+    type: XLite\View\FormField\Input\Text\Price
+    orderby: 320
+    translations:
+      - code: en
+        option_name: Fallback rate value
+
+  - name: entryPointSeparator
+    category: XC\AuctionInc
+    type: separator
+    orderby: 400
+    translations:
+      - code: en
+        option_name: Carrier Entry Point
+  - name: entryPointDHL
+    category: XC\AuctionInc
+    type: XLite\Module\XC\AuctionInc\View\FormField\Select\EntryPointDHL
+    value: D
+    orderby: 410
+    translations:
+      - code: en
+        option_name: DHL
+        option_comment: How you deliver your packages to the carrier
+  - name: entryPointFEDEX
+    category: XC\AuctionInc
+    type: XLite\Module\XC\AuctionInc\View\FormField\Select\EntryPointFedEx
+    value: D
+    orderby: 420
+    translations:
+      - code: en
+        option_name: Federal Express
+        option_comment: How you deliver your packages to the carrier
+  - name: entryPointUPS
+    category: XC\AuctionInc
+    type: XLite\Module\XC\AuctionInc\View\FormField\Select\EntryPointUPS
+    value: D
+    orderby: 430
+    translations:
+      - code: en
+        option_name: United Parcel Service
+        option_comment: How you deliver your packages to the carrier
+  - name: entryPointUSPS
+    category: XC\AuctionInc
+    type: XLite\Module\XC\AuctionInc\View\FormField\Select\EntryPointUSPS
+    value: R
+    orderby: 440
+    translations:
+      - code: en
+        option_name: United States Postal Service
+        option_comment: Select Comm Base if your print your labels online
+
+XLite\Model\Shipping\Method:
+  - processor: auctionInc
+    carrier: ''
+    code: ''
+    enabled: true 
+    added: true
+    position: 0
+    moduleName: XC_AuctionInc
+    translations:
+      - code: en
+        name: ShippingCalc
+
+  - processor: auctionInc
+    carrier: auctionInc
+    code: FF_FIXEDFEE
+    enabled: 1
+    position: 0
+    translations:
+      - code: en
+        name: Fixed fee
+  - processor: auctionInc
+    carrier: auctionInc
+    code: NOCHG_NOCHG
+    enabled: 1
+    position: 0
+    translations:
+      - code: en
+        name: No charge
+
+  - processor: auctionInc
+    carrier: auctionInc
+    code: DHL_DHLES
+    enabled: 1
+    position: 110
+    translations:
+      - code: en
+        name: DHL Domestic Economy Select
+  - processor: auctionInc
+    carrier: auctionInc
+    code: DHL_DHLEXA
+    enabled: 1
+    position: 120
+    translations:
+      - code: en
+        name: DHL Domestic Express 9 AM
+  - processor: auctionInc
+    carrier: auctionInc
+    code: DHL_DHLEXM
+    enabled: 1
+    position: 130
+    translations:
+      - code: en
+        name: DHL Domestic Express 10:30 AM
+  - processor: auctionInc
+    carrier: auctionInc
+    code: DHL_DHLEXP
+    enabled: 1
+    position: 140
+    translations:
+      - code: en
+        name: DHL Domestic Express 12 PM
+  - processor: auctionInc
+    carrier: auctionInc
+    code: DHL_DHLDE
+    enabled: 1
+    position: 150
+    translations:
+      - code: en
+        name: DHL Domestic Express (6 PM)
+  - processor: auctionInc
+    carrier: auctionInc
+    code: DHL_DHLWPE
+    enabled: 1
+    position: 160
+    translations:
+      - code: en
+        name: DHL Worldwide Priority Express
+  - processor: auctionInc
+    carrier: auctionInc
+    code: DHL_DHL9AM
+    enabled: 1
+    position: 170
+    translations:
+      - code: en
+        name: DHL Express 9 A.M.
+  - processor: auctionInc
+    carrier: auctionInc
+    code: DHL_DHL10AM
+    enabled: 1
+    position: 180
+    translations:
+      - code: en
+        name: DHL Express 10:30 A.M.
+  - processor: auctionInc
+    carrier: auctionInc
+    code: DHL_DHL12PM
+    enabled: 1
+    position: 190
+    translations:
+      - code: en
+        name: DHL Express 12 P.M.
+
+  - processor: auctionInc
+    carrier: auctionInc
+    code: FEDEX_FDX2D
+    enabled: 1
+    position: 200
+    translations:
+      - code: en
+        name: FedEx 2 Day
+  - processor: auctionInc
+    carrier: auctionInc
+    code: FEDEX_FDX2DAM
+    enabled: 1
+    position: 210
+    translations:
+      - code: en
+        name: FedEx 2 Day AM
+  - processor: auctionInc
+    carrier: auctionInc
+    code: FEDEX_FDXES
+    enabled: 1
+    position: 220
+    translations:
+      - code: en
+        name: FedEx Express Saver
+  - processor: auctionInc
+    carrier: auctionInc
+    code: FEDEX_FDXFO
+    enabled: 1
+    position: 230
+    translations:
+      - code: en
+        name: FedEx First Overnight
+  - processor: auctionInc
+    carrier: auctionInc
+    code: FEDEX_FDXPO
+    enabled: 1
+    position: 240
+    translations:
+      - code: en
+        name: FedEx Priority Overnight
+  - processor: auctionInc
+    carrier: auctionInc
+    code: FEDEX_FDXPOS
+    enabled: 1
+    position: 250
+    translations:
+      - code: en
+        name: FedEx Priority Overnight Saturday Delivery
+  - processor: auctionInc
+    carrier: auctionInc
+    code: FEDEX_FDXSO
+    enabled: 1
+    position: 260
+    translations:
+      - code: en
+        name: FedEx Standard Overnight
+  - processor: auctionInc
+    carrier: auctionInc
+    code: FEDEX_FDXGND
+    enabled: 1
+    position: 270
+    translations:
+      - code: en
+        name: FedEx Ground
+  - processor: auctionInc
+    carrier: auctionInc
+    code: FEDEX_FDXHD
+    enabled: 1
+    position: 280
+    translations:
+      - code: en
+        name: FedEx Home Delivery
+  - processor: auctionInc
+    carrier: auctionInc
+    code: FEDEX_FDXIGND
+    enabled: 1
+    position: 290
+    translations:
+      - code: en
+        name: FedEx International Ground
+  - processor: auctionInc
+    carrier: auctionInc
+    code: FEDEX_FDXIE
+    enabled: 1
+    position: 300
+    translations:
+      - code: en
+        name: FedEx International Economy
+  - processor: auctionInc
+    carrier: auctionInc
+    code: FEDEX_FDXIF
+    enabled: 1
+    position: 310
+    translations:
+      - code: en
+        name: FedEx International First
+  - processor: auctionInc
+    carrier: auctionInc
+    code: FEDEX_FDXIP
+    enabled: 1
+    position: 320
+    translations:
+      - code: en
+        name: FedEx International Priority
+
+  - processor: auctionInc
+    carrier: auctionInc
+    code: UPS_UPSNDA
+    enabled: 1
+    position: 330
+    translations:
+      - code: en
+        name: UPS Next Day Air
+  - processor: auctionInc
+    carrier: auctionInc
+    code: UPS_UPSNDE
+    enabled: 1
+    position: 340
+    translations:
+      - code: en
+        name: UPS Next Day Air Early AM
+  - processor: auctionInc
+    carrier: auctionInc
+    code: UPS_UPSNDAS
+    enabled: 1
+    position: 350
+    translations:
+      - code: en
+        name: UPS Next Day Air Saturday Delivery
+  - processor: auctionInc
+    carrier: auctionInc
+    code: UPS_UPSNDS
+    enabled: 1
+    position: 360
+    translations:
+      - code: en
+        name: UPS Next Day Air Saver
+  - processor: auctionInc
+    carrier: auctionInc
+    code: UPS_UPS2DE
+    enabled: 1
+    position: 370
+    translations:
+      - code: en
+        name: UPS 2 Day Air AM
+  - processor: auctionInc
+    carrier: auctionInc
+    code: UPS_UPS2ND
+    enabled: 1
+    position: 380
+    translations:
+      - code: en
+        name: UPS 2nd Day Air
+  - processor: auctionInc
+    carrier: auctionInc
+    code: UPS_UPS3DS
+    enabled: 1
+    position: 390
+    translations:
+      - code: en
+        name: UPS 3 Day Select
+  - processor: auctionInc
+    carrier: auctionInc
+    code: UPS_UPSGND
+    enabled: 1
+    position: 400
+    translations:
+      - code: en
+        name: UPS Ground
+  - processor: auctionInc
+    carrier: auctionInc
+    code: UPS_UPSCAN
+    enabled: 1
+    position: 410
+    translations:
+      - code: en
+        name: UPS Standard
+  - processor: auctionInc
+    carrier: auctionInc
+    code: UPS_UPSWEX
+    enabled: 1
+    position: 420
+    translations:
+      - code: en
+        name: UPS Worldwide Express
+  - processor: auctionInc
+    carrier: auctionInc
+    code: UPS_UPSWSV
+    enabled: 1
+    position: 430
+    translations:
+      - code: en
+        name: UPS Worldwide Saver
+  - processor: auctionInc
+    carrier: auctionInc
+    code: UPS_UPSWEP
+    enabled: 1
+    position: 440
+    translations:
+      - code: en
+        name: UPS Worldwide Expedited
+
+  - processor: auctionInc
+    carrier: auctionInc
+    code: USPS_USPFC
+    enabled: 1
+    position: 450
+    translations:
+      - code: en
+        name: U.S.P.S. First-Class Mail
+  - processor: auctionInc
+    carrier: auctionInc
+    code: USPS_USPEXP
+    enabled: 1
+    position: 460
+    translations:
+      - code: en
+        name: U.S.P.S. Priority Express
+  - processor: auctionInc
+    carrier: auctionInc
+    code: USPS_USPLIB
+    enabled: 1
+    position: 470
+    translations:
+      - code: en
+        name: U.S.P.S. Library
+  - processor: auctionInc
+    carrier: auctionInc
+    code: USPS_USPMM
+    enabled: 1
+    position: 480
+    onDemand: true
+    translations:
+      - code: en
+        name: U.S.P.S. Media Mail
+  - processor: auctionInc
+    carrier: auctionInc
+    code: USPS_USPPM
+    enabled: 1
+    position: 490
+    translations:
+      - code: en
+        name: U.S.P.S. Priority Mail
+  - processor: auctionInc
+    carrier: auctionInc
+    code: USPS_USPPP
+    enabled: 1
+    position: 500
+    translations:
+      - code: en
+        name: U.S.P.S. Retail Ground
+  - processor: auctionInc
+    carrier: auctionInc
+    code: USPS_USPFCI
+    enabled: 1
+    position: 510
+    translations:
+      - code: en
+        name: U.S.P.S. First Class International
+  - processor: auctionInc
+    carrier: auctionInc
+    code: USPS_USPPMI
+    enabled: 1
+    position: 520
+    translations:
+      - code: en
+        name: U.S.P.S. Priority Mail International
+  - processor: auctionInc
+    carrier: auctionInc
+    code: USPS_USPEMI
+    enabled: 1
+    position: 530
+    translations:
+      - code: en
+        name: U.S.P.S. Priority Express Mail International
+  - processor: auctionInc
+    carrier: auctionInc
+    code: USPS_USPGXG
+    enabled: 1
+    position: 540
+    translations:
+      - code: en
+        name: U.S.P.S. Global Express Guaranteed
+
+XLite\Model\LanguageLabel:
+  - { name: 'Test ShippingCalc rates calculation', translations: [{ code: en, label: 'Test ShippingCalc rates calculation' }] }
+  - { name: 'Subscribe to AuctionIncs ShippingCalc Module', translations: [{ code: en, label: 'Subscribe to AuctionInc''s ShippingCalc Module' }] }
+  - { name: 'Guide to AuctionInc ShippingCalc Settings', translations: [{ code: en, label: 'Guide to AuctionInc ShippingCalc Settings' }] }
+  - { name: 'ShippingCalc settings', translations: [{ code: en, label: 'ShippingCalc settings' }] }
+  - { name: 'ShippingCalc', translations: [{ code: en, label: 'ShippingCalc' }] }
+  - { name: 'ShippingCalc Package Data', translations: [{ code: en, label: 'ShippingCalc Package Data' }] }
+  - { name: 'On-demand', translations: [{ code: en, label: 'On-demand' }] }
+  - { name: '30 Day Trial of AuctionInc ShippingCalc Module. Days Left: X', translations: [{ code: en, label: '30 Day Trial of AuctionInc ShippingCalc Module.<br />Days Left: {{days}}' }] }
+  - { name: '30 Day Trial of AuctionInc ShippingCalc Module is over', translations: [{ code: en, label: '30 Day Trial of AuctionInc ShippingCalc Module is over' }] }

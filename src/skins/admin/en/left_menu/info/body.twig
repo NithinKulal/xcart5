@@ -1,0 +1,13 @@
+{##
+ # Left side info menu
+ #}
+<div class="arr"></div>
+<div {{ this.printTagAttributes(this.getContainerTagAttributes())|raw }}>
+  {% if this.getItems() %}
+    <ul class="menu">
+      {% for item in this.getItems() %}
+        {{ item.display() }}
+      {% endfor %}
+    </ul>
+  {% endif %}
+</div>

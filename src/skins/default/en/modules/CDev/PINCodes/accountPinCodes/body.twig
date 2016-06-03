@@ -1,0 +1,14 @@
+{##
+ # Pin codes list body 
+ #}
+
+{% if this.hasResults() %}
+  <div class="account-pin-codes">
+    {% for order in this.getPageData() %}
+      {{ widget('\\XLite\\Module\\CDev\\PINCodes\\View\\AccountOrderPinCodes', order=order) }}
+    {% endfor %}
+  </div>
+{% endif %}
+{% if not this.hasResults() %}
+  <div>{{ t('No pin codes are bought yet') }}</div>
+{% endif %}

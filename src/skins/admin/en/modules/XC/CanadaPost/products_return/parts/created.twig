@@ -1,0 +1,18 @@
+{##
+ # Canada Post products return: created line
+ #
+ # @ListChild (list="capost_return", weight="100")
+ #}
+
+<p class="title">
+  {{ t('Created on') }} <span class="date">{{ this.getCreateDate() }}</span> {{ t('by') }}
+  {% if this.hasProfilePage() %}
+    <a class="name" href="{{ this.getProfileURL() }}">{{ this.getProfileName() }}</a>
+  {% endif %}
+  {% if not this.hasProfilePage() %}
+    <span class="name">{{ this.getProfileName() }}</span>
+  {% endif %}
+  {% if this.getMembership() %}
+    <span class="membership">({{ this.membership.getName() }})</span>
+  {% endif %}
+</p>

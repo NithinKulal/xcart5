@@ -1,0 +1,11 @@
+{##
+ # Inline view
+ #}
+
+{% for f in this.getFields() %}
+  {% if this.isEscapeValue() %}
+    {{ this.getViewValue(f) }}
+  {% else %}
+    {{ this.getViewValue(f)|raw }}
+  {% endif %}
+{% endfor %}

@@ -1,0 +1,257 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * ____file_title____
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.section .header {
+  font-weight: bold;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.form_field_error {
+  border: 1px solid #ff0000;
+}
+
+input[type="text"].form_field_error {
+  border: 1px solid #ff0000;
+}
+
+input[type="text"].form_field_error + .input-group-addon {
+  border-color: #ff0000;
+}
+
+.form-field-comment {
+  font-size: 11px;
+  clear: both;
+  width: 500px;
+  line-height: 18px;
+  color: #999;
+}
+
+/* Multiselect */
+.chosen-container-single .chosen-single,
+.chosen-container-active.chosen-with-drop .chosen-single
+{
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #fff none;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  box-shadow: 0 0 2px 2px #dbdee2;
+  height: 40px;
+}
+
+div.chosen-container {
+  line-height: 21px;
+}
+
+.chosen-container-multi .chosen-choices {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  background: #fff none;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.chosen-container .chosen-single span,
+.chosen-container .chosen-single strong
+{
+  font-size: 16px;
+}
+
+.chosen-container .chosen-single strong {
+  color: #a2bbda;
+}
+
+.chosen-container-multi .chosen-choices li.search-choice {
+  background: #dff2ff none;
+  border: none;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  padding: 2px 25px 0 3px;
+  cursor: pointer;
+}
+
+.chosen-container-multi .chosen-choices li.search-choice span {
+  font-size: 14px;
+  padding: 4px 0 4px 4px;
+  display: inline-block;
+}
+
+.chosen-container-multi .chosen-choices li.search-choice:hover span {
+  color: #0062a0;
+}
+
+.chosen-container-multi .chosen-choices li.search-choice .search-choice-close {
+  background: none;
+  text-decoration: none;
+}
+
+.chosen-container-multi .chosen-choices li.search-choice .search-choice-close:before {
+  content: "\f00d";
+  font: 400 14px 'FontAwesome';
+  color: #FFF;
+}
+
+.chosen-container-active ul.chosen-choices {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,0.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,0.6);
+}
+
+.has-error .chosen-container-multi ul.chosen-choices {
+  border-color: #a94442;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+}
+
+.has-error .chosen-container-active ul.chosen-choices {
+  border-color: #843534;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #ce8483;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #ce8483;
+}
+
+.chosen-container-multi .chosen-choices li.search-field input[type="text"] {
+  font-size: 16px;
+  font-style: italic;
+  padding-left: 8px;
+  color: #999;
+}
+
+.chosen-container-single .chosen-drop {
+  margin-top: -3px;
+}
+
+.chosen-container-single .chosen-single div b {
+  background-position: 0 7px;
+}
+
+.chosen-container-active.chosen-with-drop .chosen-single div b {
+  background-position: -18px 7px;
+}
+
+.chosen-container .chosen-drop .chosen-results li {
+  color: #333;
+  font-size: 14px;
+  line-height: 22px;
+  padding: 8px 10px;
+}
+
+.chosen-container .chosen-drop .chosen-results li.result-selected {
+  color: #999;
+}
+
+.chosen-container .chosen-drop .chosen-results li.highlighted {
+  background: #83a8c7 none;
+  color: #fff;
+}
+
+/* Colorpicker */
+input[type="text"].color,
+div.table-value input[type="text"].color
+{
+  width: 4em;
+}
+
+/* Datepicker */
+input[type="text"].datepicker,
+div.table-value input[type="text"].datepicker
+{
+  width: 250px
+}
+
+/* Multiselect */
+.ui-multiselect-menu {
+  padding: 0;
+  border-color: #d4dee4;
+}
+
+.ui-multiselect-checkboxes li label {
+  padding: 8px 10px;
+  border: none;
+  vertical-align: top;
+}
+
+.ui-multiselect-checkboxes li label input {
+  vertical-align: top;
+  margin-top: 1px;
+}
+
+.ui-multiselect-checkboxes li label span {
+  font-size: 14px;
+  padding: 9px;
+  top: -1px;
+  position: relative;
+}
+
+.ui-multiselect-checkboxes li {
+  padding: 0;
+}
+
+.ui-multiselect-menu .ui-state-hover {
+  border: none;
+  background: #83a8c7 none;
+  border-radius: 0;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+}
+
+.ui-multiselect-menu .ui-state-hover span {
+  color: #fff;
+}
+
+button.ui-multiselect .ui-icon-triangle-2-n-s {
+  position: relative;
+  right: -10px;
+  top: 2px;
+}
+
+select.checkbox-list {
+  height: 34px;
+}
+
+div.checkbox-list-values {
+  font-size: 10px;
+  padding: 9px 5px 0;
+  line-height: 12px;
+  color: #666;
+}
+
+.select-radiobuttonslist-yesno ul {
+  display: inline-block;
+  width: 250px;
+}
+
+.select-radiobuttonslist-yesno ul > li {
+  display: inline-block;
+  line-height: 35px;
+  margin-right: 20px;
+}
+
+.select-radiobuttonslist-yesno input {
+  margin-right: 10px;
+}
+
+h2 .tooltip-main
+{
+  display: inline-block;
+  padding-top: 0;
+}
+.form-field-link{
+  font-size: 16px;
+}
+.form-field-link,
+.form-field-link-img{
+  vertical-align: middle;
+}

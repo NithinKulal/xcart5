@@ -1,0 +1,25 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Invoice PIN codes styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.invoice-pin-codes {
+  background: #ebf7ff;
+  padding: 7px;
+}
+
+.invoice-pin-codes .header {
+  color: #666;
+}
+
+.invoice-pin-codes span {
+  display: block;
+}
+
+.invoice-pin-codes span.code {
+  padding-left: 5px;
+}

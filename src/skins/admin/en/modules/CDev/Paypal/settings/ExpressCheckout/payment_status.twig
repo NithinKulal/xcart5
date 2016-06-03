@@ -1,0 +1,13 @@
+{##
+ # Payment method status
+ #
+ # @ListChild (list="payment_status.after.ExpressCheckout", weight="100")
+ #}
+{% if not this.paymentMethod.isConfigured() %}
+{{ t('Don\'t have account yet?') }}
+  {% if this.isInContextSignUpAvailable() %}
+  <a href="{{ this.getSignUpUrl() }}" target="PPFrame" data-paypal-button="true">{{ t('Sign Up Now') }}</a>
+  {% else %}
+  <a href="{{ this.getSignUpUrl() }}" target="_blank">{{ t('Sign Up Now') }}</a>
+  {% endif %}
+{% endif %}

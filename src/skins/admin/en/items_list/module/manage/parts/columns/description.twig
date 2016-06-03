@@ -1,0 +1,9 @@
+{##
+ # Modules list
+ #
+ # @ListChild (list="itemsList.module.manage.columns", weight="70")
+ # @ListChild (list="itemsList.module.install.columns", weight="70")
+ #}
+<td class="module-description-section">
+  {{ widget_list('module-description-section', type='nested', module=this.module) }}
+</td>

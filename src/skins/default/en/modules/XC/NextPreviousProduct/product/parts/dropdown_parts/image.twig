@@ -1,0 +1,11 @@
+{##
+ # Next product links
+ #
+ # @ListChild (list="next_previous.product.body.dropdown", weight="100")
+ #}
+
+<p class="next-previous-image">
+    <a href="{{ this.getItemURL(this.item) }}">
+        {{ widget('\\XLite\\View\\Image', image=this.item.getImage(), maxWidth=this.getIconWidth(), maxHeight=this.getIconHeight(), alt=this.item.name, className='photo') }}
+    </a>
+</p>

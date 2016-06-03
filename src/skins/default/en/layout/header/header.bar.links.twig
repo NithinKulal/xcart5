@@ -1,0 +1,12 @@
+{##
+ # Header bar account links
+ #
+ # @ListChild (list="layout.header.bar", weight="100")
+ # @ListChild (list="layout.responsive.account", weight="50")
+ #}
+
+{% if this.isAccountLinksVisible() %}
+  <ul class="account-links ">
+    {{ widget_list('layout.header.bar.links.newby') }}
+  </ul>
+{% endif %}

@@ -1,0 +1,15 @@
+{##
+ # Tax banner page template
+ #}
+
+<div class="tax-banner">
+  <div class="subbox marketplace">
+    <div class="svg">{{ this.getSVGImage('images/tax_banner.svg')|raw }}</div>
+    <p>{{ t('To setup Tax Rates, find and install the appropriate addons from Marketplace', {'url': url('addons_list_marketplace', '', {'tag': 'Taxes', 'clearSearch': '1'})})|raw }}</p>
+    <div class="horizontal-divider">
+    	<span>{{ t('OR') }}</span>
+    </div>
+    <div class="svg">{{ this.getSVGImage('images/avalara_logo.svg')|raw }}</div>
+    <p>{{ t('Simplify tax compilance process and reduce the sales tax audit risk with AvaTax Sales Tax Automation', {'url': this.getAvaTaxLink()})|raw }}</p>
+  </div>
+</div>

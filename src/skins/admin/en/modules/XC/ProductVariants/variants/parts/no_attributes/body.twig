@@ -1,0 +1,13 @@
+{##
+ # No attributes
+ #}
+
+<div class="{{ this.getBlockStyle() }}">
+  <div class="header">
+    <span class="title">{{ t('The product does not have attributes with multiple options') }}</span>
+    {{ widget('\\XLite\\View\\Tooltip', text=t('To set product variants you should select attributes with multiple options.'), isImageTag='true', className='help-icon') }}
+  </div>
+  <div class="content">
+    {{ widget('\\XLite\\View\\Button\\Link', style='main-button', label=t('Add attributes'), location=url('product', '', {'product_id': this.product.product_id, 'page': 'attributes'})) }}
+  </div>
+</div>

@@ -1,0 +1,11 @@
+{##
+ # Common dialog
+ #}
+
+{% if this.head %}
+  <h2>{{ t(this.head) }}</h2>
+{% endif %}
+
+<div class="{{ this.getDialogCSSClass() }}">
+  {% include this.body %}
+</div>

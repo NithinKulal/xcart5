@@ -1,0 +1,12 @@
+{##
+ # Product element
+ #
+ # @ListChild (list="itemsList.products.search.cell.name", weight="10")
+ # @ListChild (list="itemsList.product_selector.cell.name", weight="10")
+ #}
+
+<span
+  id="product-sale-label-{{ this.entity.getProductId() }}"
+  class="product-name-sale-label{% if not this.participateSaleAdmin(this.entity) %} product-name-sale-label-disabled{% endif %}">
+  {{ t('sale') }}
+</span>

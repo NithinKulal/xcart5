@@ -1,0 +1,117 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+// HACKS
+.mm-menu.mm-right {
+  left: auto;
+  right: 0;
+}
+html.mm-right.mm-opening .mm-slideout {
+  -webkit-transform: translate3d(-80%, 0, 0);
+  transform: translate3d(-80%, 0, 0);
+}
+@media all and (max-width: 175px) {
+  html.mm-right.mm-opening .mm-slideout {
+    -webkit-transform: translate3d(-140px, 0, 0);
+    transform: translate3d(-140px, 0, 0);
+  }
+}
+@media all and (min-width: 550px) {
+  html.mm-right.mm-opening .mm-slideout {
+    -webkit-transform: translate3d(-440px, 0, 0);
+    transform: translate3d(-440px, 0, 0);
+  }
+}
+html.mm-front .mm-slideout {
+  -webkit-transform: none!important;
+  transform: none!important;
+  z-index: 0;
+}
+html.mm-front #mm-blocker {
+  z-index: 1;
+}
+html.mm-front .mm-menu {
+  z-index: 2;
+}
+.mm-menu.mm-front,
+.mm-menu.mm-next {
+  transition: -webkit-transform 0.4s ease;
+  transition: -webkit-transform .4s ease;
+  transition: transform .4s ease;
+  transition: transform .4s ease, -webkit-transform .4s ease;
+  transition: transform 0.4s ease, -webkit-transform 0.4s ease;
+  -webkit-transform: translate3d(-100%, 0, 0);
+  transform: translate3d(-100%, 0, 0);
+}
+.mm-menu.mm-front.mm-right,
+.mm-menu.mm-next.mm-right {
+  -webkit-transform: translate3d(100%, 0, 0);
+  transform: translate3d(100%, 0, 0);
+}
+.mm-menu.mm-top {
+  -webkit-transform: translate3d(0, -100%, 0);
+  transform: translate3d(0, -100%, 0);
+}
+.mm-menu.mm-bottom {
+  top: auto;
+  bottom: 0;
+  -webkit-transform: translate3d(0, 100%, 0);
+  transform: translate3d(0, 100%, 0);
+}
+html.mm-opening .mm-menu.mm-front,
+html.mm-opening .mm-menu.mm-next {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+.mm-menu.mm-fullscreen {
+  width: 100%;
+  min-width: 140px;
+  max-width: 10000px;
+}
+html.mm-opening.mm-fullscreen .mm-slideout {
+  -webkit-transform: translate3d(100%, 0, 0);
+  transform: translate3d(100%, 0, 0);
+}
+@media all and (max-width: 140px) {
+  html.mm-opening.mm-fullscreen .mm-slideout {
+    -webkit-transform: translate3d(140px, 0, 0);
+    transform: translate3d(140px, 0, 0);
+  }
+}
+@media all and (min-width: 10000px) {
+  html.mm-opening.mm-fullscreen .mm-slideout {
+    -webkit-transform: translate3d(10000px, 0, 0);
+    transform: translate3d(10000px, 0, 0);
+  }
+}
+html.mm-right.mm-opening.mm-fullscreen .mm-slideout {
+  -webkit-transform: translate3d(-100%, 0, 0);
+  transform: translate3d(-100%, 0, 0);
+}
+@media all and (max-width: 140px) {
+  html.mm-right.mm-opening.mm-fullscreen .mm-slideout {
+    -webkit-transform: translate3d(-140px, 0, 0);
+    transform: translate3d(-140px, 0, 0);
+  }
+}
+@media all and (min-width: 10000px) {
+  html.mm-right.mm-opening.mm-fullscreen .mm-slideout {
+    -webkit-transform: translate3d(-10000px, 0, 0);
+    transform: translate3d(-10000px, 0, 0);
+  }
+}
+.mm-menu.mm-fullscreen.mm-bottom,
+.mm-menu.mm-fullscreen.mm-top {
+  height: 100%;
+  min-height: 140px;
+  max-height: 10000px;
+}
+html.mm-opened.mm-fullscreen .mm-page {
+  box-shadow: none !important;
+}

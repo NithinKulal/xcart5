@@ -1,0 +1,22 @@
+{##
+ # Safe mode key generated email body (to admin)
+ #}
+{% if this.keyChanged %}
+<p>{{ t('New access codes were generated.') }}</p>
+{% endif %}
+
+<p>{{ t('You need these links in case you want to recover your store', {'article': this.article_url})|raw }}</p>
+
+{% if this.current_snapshot_url %}
+<p>{{ t('Restores to current state of active addons (use in case of emergency)') }}:</p>
+<p>{{ this.current_snapshot_url }}</p>
+{% endif %}
+
+<p>{{ t('Disables all addons except ones that are provided by X-Cart Team & Qualiteam (soft reset)') }}:</p>
+<p>{{ this.soft_reset_url }}</p>
+
+<p>{{ t('Disables all addons except ones that are provided by X-Cart Team (hard reset)') }}:</p>
+<p>{{ this.hard_reset_url }}</p>
+
+<p>{{ t('More info is available in X-Cart\'s Knowledge Base article \'What to do if you cannot access your store...\'', {'article': this.article_url})|raw }}</p>
+  

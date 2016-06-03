@@ -1,0 +1,19 @@
+{##
+ # All in one soulitions checkout block
+ #}
+
+<div class="all-in-one-solutions-wrapper">
+  <div class="all-in-one-solutions">
+    <div class="all-in-one-solutions-header-block">
+      {{ widget_list('all-in-one-solutions.header') }}
+    </div>
+    {% for solution in this.getSolutions() %}
+      <span class="single-solution">
+        {{ solution.display() }}
+      </span>
+    {% endfor %}
+  </div>
+  <div class="all-in-one-solutions-delimiter">
+    {{ t('or use the form below') }}
+  </div>
+</div>

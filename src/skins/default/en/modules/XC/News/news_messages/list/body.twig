@@ -1,0 +1,26 @@
+{##
+ # News messages main template
+ #}
+
+<div class="news-messages-list">
+
+  {% if this.getPageData() %}
+    <ul class="list">
+      {% for cell in this.getMatrix() %}
+        <li class="newsMessages-cell">
+    
+          <strong>{{ cell.title }}</strong>
+          <ul>
+            {% for model in cell.list %}
+              <li class="newsMessages-subcell">
+                {{ widget_list('row', type='inherited', model=model) }}
+              </li>
+            {% endfor %}
+          </ul>
+    
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+</div>

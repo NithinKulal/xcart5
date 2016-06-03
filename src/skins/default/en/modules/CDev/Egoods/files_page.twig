@@ -1,0 +1,31 @@
+{##
+ # User files
+ #}
+<div class="orders-files">
+  <ul class="orders">
+    {% for order in this.getOrdersWithFiles() %}
+      <li class="order">
+        <ul class="files">
+          {% for attachment in order.getDownloadAttachments() %}
+            <li class="file">
+              <div class="row">
+                <img src="{{ asset('images/spacer.gif') }}" alt="{{ t(attachment.attachment.storage.getMimeName()) }}" class="mime-icon {{ attachment.attachment.storage.getMimeClass() }}" />
+                <a class="name" href="{{ attachment.getURL() }}">{{ attachment.attachment.getPublicTitle() }}</a>
+                {% if attachment.attachment.storage.getSize() %}
+                  <span class="size">({{ this.formatSize(attachment.attachment.storage.getSize()) }})</span>
+                {% endif %}
+              </div>
+              {% if attachment.attachment.getDescription() %}
+                <div class="description">{{ attachment.attachment.getDescription() }}</div>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+        <div class="info">
+          <a href="{{ url('order', '', {'order_number': order.getOrderNumber()}) }}">{{ t('Order X', {'id': order.getOrderNumber()}) }}</a>
+          <span class="date">({{ this.formatTime(order.getDate()) }})</span>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+</div>

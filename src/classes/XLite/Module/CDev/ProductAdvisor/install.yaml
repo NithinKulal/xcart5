@@ -1,0 +1,247 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: sep_product_advisor_na
+    category: CDev\ProductAdvisor
+    type: separator
+    orderby: 10
+    translations:
+      - code: en
+        option_name: '"New arrivals" block settings'
+  - name: na_enabled
+    category: CDev\ProductAdvisor
+    type: checkbox
+    orderby: 20
+    value: Y
+    translations:
+      - code: en
+        option_name: 'Enable "New arrivals" feature in catalog'
+  - name: sep_product_advisor_na_1
+    category: CDev\ProductAdvisor
+    type: separator
+    orderby: 25
+    translations:
+      - code: en
+        option_name: ""
+
+  - name: na_max_days
+    category: CDev\ProductAdvisor
+    type: XLite\View\FormField\Input\Text\Integer
+    orderby: 30
+    value: 30
+    widgetParameters: { min: 0 }
+    translations:
+      - code: en
+        option_name: 'Number of days to keep products marked as new arrivals'
+        option_comment: 'Specify a non-zero value; otherwise, 30 days will be used by default.'
+  - name: na_max_count_in_full_list
+    category: CDev\ProductAdvisor
+    type: XLite\View\FormField\Input\Text\Integer
+    orderby: 40
+    value: 30
+    widgetParameters: { min: 0 }
+    translations:
+      - code: en
+        option_name: 'Maximum number of products to display in complete new arrivals list'
+        option_comment: 'Limits the total number of products that can be displayed when user clicks the "All new arrivals" link in the "New arrivals" block. Leave 0 for no limit.'
+  - name: na_mark_with_label
+    category: CDev\ProductAdvisor
+    type: checkbox
+    orderby: 50
+    value: Y
+    translations:
+      - code: en
+        option_name: 'Mark new products in catalog'
+        option_comment: 'Marks new products on all products lists (except "New arrivals" lists) with the "New!" label.'
+  - name: sep_product_advisor_na_2
+    category: CDev\ProductAdvisor
+    type: separator
+    orderby: 60
+    translations:
+      - code: en
+        option_name: ""
+
+  - name: na_max_count_in_block
+    category: CDev\ProductAdvisor
+    type: XLite\View\FormField\Input\Text\Integer
+    orderby: 80
+    value: 3
+    widgetParameters: { min: 0 }
+    translations:
+      - code: en
+        option_name: 'Maximum number of products to display in "New arrivals" block'
+        option_comment: 'Defines the maximum number of products that can be displayed in the "New arrivals" block. Specify a non-zero value; otherwise, 3 products will be displayed by default. If the specified value is less than the total amount of products on complete new arrivals list, that value will be used instead. Drupal block settings can override this option (when the DrupalConnector module is enabled).'
+  - name: na_from_current_category
+    category: CDev\ProductAdvisor
+    type: checkbox
+    orderby: 90
+    value: N
+    translations:
+      - code: en
+        option_name: 'Show new products only from category being viewed by customer'
+        option_comment: 'Drupal block settings can override this option (when the DrupalConnector module is enabled).'
+
+  - name: sep_product_advisor_cs
+    category: CDev\ProductAdvisor
+    type: separator
+    orderby: 1000
+    translations:
+      - code: en
+        option_name: '"Coming soon" block settings'
+  - name: cs_enabled
+    category: CDev\ProductAdvisor
+    type: checkbox
+    orderby: 1010
+    value: Y
+    translations:
+      - code: en
+        option_name: 'Enable "Coming soon" feature in catalog'
+  - name: sep_product_advisor_cs_1
+    category: CDev\ProductAdvisor
+    type: separator
+    orderby: 1015
+    translations:
+      - code: en
+        option_name: ""
+
+  - name: cs_mark_with_label
+    category: CDev\ProductAdvisor
+    type: checkbox
+    orderby: 1020
+    value: Y
+    translations:
+      - code: en
+        option_name: 'Mark upcoming products in catalog'
+        option_comment: 'Marks upcoming products on all products lists (except "Coming soon" lists) with the "Coming soon..." label.'
+  - name: cs_display_date
+    category: CDev\ProductAdvisor
+    type: checkbox
+    orderby: 1030
+    value: Y
+    translations:
+      - code: en
+        option_name: 'Show arrival date on product details pages'
+  - name: cs_from_current_category
+    category: CDev\ProductAdvisor
+    type: checkbox
+    orderby: 1050
+    value: N
+    translations:
+      - code: en
+        option_name: 'Show "coming soon" products only from category being viewed by customer'
+        option_comment: 'Drupal block settings can override this option (when the DrupalConnector module is enabled).'
+  - name: sep_product_advisor_cs_2
+    category: CDev\ProductAdvisor
+    type: separator
+    orderby: 1060
+    translations:
+      - code: en
+        option_name: ""
+
+  - name: cs_max_count_in_block
+    category: CDev\ProductAdvisor
+    type: XLite\View\FormField\Input\Text\Integer
+    orderby: 1080
+    value: 3
+    widgetParameters: { min: 0 }
+    translations:
+      - code: en
+        option_name: 'Maximum number of products to display in "Coming soon" block'
+        option_comment: 'Defines a maximum number of products that can be displayed in the "Coming soon" block. Specify a non-zero value; otherwise, 3 products will be displayed by default. Drupal block settings can override this option (when the DrupalConnector module is enabled).'
+  - name: sep_product_advisor_rv
+    category: CDev\ProductAdvisor
+    type: separator
+    orderby: 2000
+    translations:
+      - code: en
+        option_name: '"Recently viewed" block settings'
+  - name: rv_enabled
+    category: CDev\ProductAdvisor
+    type: checkbox
+    orderby: 2010
+    value: Y
+    translations:
+      - code: en
+        option_name: 'Display "Recently viewed" block in catalog'
+  - name: rv_max_count_in_block
+    category: CDev\ProductAdvisor
+    type: XLite\View\FormField\Input\Text\Integer
+    orderby: 2020
+    value: 10
+    widgetParameters: { min: 0 }
+    translations:
+      - code: en
+        option_name: 'Maximum number of products to display in "Recently viewed" block'
+        option_comment: 'Defines the maximum amount of products that can be displayed in the "Recently viewed" block. Leave 0 for no limit. Drupal block settings can override this option (when the DrupalConnector module is enabled).'
+  - name: sep_product_advisor_cbb
+    category: CDev\ProductAdvisor
+    type: separator
+    orderby: 3000
+    translations:
+      - code: en
+        option_name: '"Customers who bought this product also bought" block settings'
+  - name: cbb_enabled
+    category: CDev\ProductAdvisor
+    type: checkbox
+    orderby: 3010
+    value: Y
+    translations:
+      - code: en
+        option_name: 'Display block in catalog'
+  - name: cbb_max_count_in_block
+    category: CDev\ProductAdvisor
+    type: XLite\View\FormField\Input\Text\Integer
+    orderby: 3020
+    value: 5
+    widgetParameters: { min: 0 }
+    translations:
+      - code: en
+        option_name: 'Maximum number of products to display in block'
+        option_comment: 'Defines the maximum number of products that can be displayed in the "Customers who bought this product also bought" block. Specify a non-zero value; otherwise, 3 products will be displayed by default. Drupal block settings can override this option (when the DrupalConnector module is enabled).'
+  - name: sep_product_advisor_cvb
+    category: CDev\ProductAdvisor
+    type: separator
+    orderby: 4000
+    translations:
+      - code: en
+        option_name: '"Customers who viewed this product bought" block settings'
+  - name: cvb_enabled
+    category: CDev\ProductAdvisor
+    type: checkbox
+    orderby: 4010
+    value: Y
+    translations:
+      - code: en
+        option_name: 'Display block in catalog'
+  - name: cvb_max_count_in_block
+    category: CDev\ProductAdvisor
+    type: XLite\View\FormField\Input\Text\Integer
+    orderby: 4020
+    value: 5
+    widgetParameters: { min: 0 }
+    translations:
+      - code: en
+        option_name: 'Maximum number of products to display in block'
+        option_comment: 'Defines the maximum number of products that can be displayed in the "Customers who viewed this product bought" block. Specify a non-zero value; otherwise, 3 products will be displayed by default. Drupal block settings can override this option (when the DrupalConnector module is enabled).'
+
+XLite\Model\LanguageLabel:
+  - { name: "All newest products", translations: [{ code: en, label: "All newest products" }] }
+  - { name: "All upcoming products", translations: [{ code: en, label: "All upcoming products" }] }
+  - { name: "Coming soon", translations: [{ code: en, label: "Coming soon" }] }
+  - { name: "Customers who bought this product also bought", translations: [{ code: en, label: "Customers who bought this product also bought" }] }
+  - { name: "Customers who viewed this product bought", translations: [{ code: en, label: "Customers who viewed this product bought" }] }
+  - { name: "Date: newest first", translations: [{ code: en, label: "Date: newest first" }] }
+  - { name: "Date: oldest first", translations: [{ code: en, label: "Date: oldest first" }] }
+  - { name: "New arrivals", translations: [{ code: en, label: "New arrivals" }] }
+  - { name: "New!", translations: [{ code: en, label: "New!" }] }
+  - { name: "Recently viewed", translations: [{ code: en, label: "Recently viewed" }] }
+  - { name: "This product will be shown in new arrivals", translations: [{ code: en, label: "This product will be shown in New arrivals" }] }
+  - { name: "This product will be shown in coming soon section", translations: [{ code: en, label: "This product will be shown in the Coming soon section" }] }
+  - { name: "expected on", translations: [{ code: en, label: "expected on" }] }
+  - { name: "Coming soon...", translations: [{ code: en, label: "Coming soon..." }] }
+  - { name: "a2cp-source-code-PAB", translations: [{ code: en, label: "Customers who bought this product also bought (Product Advisor module)" }] }

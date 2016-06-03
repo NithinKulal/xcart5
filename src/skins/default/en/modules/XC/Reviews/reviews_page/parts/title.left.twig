@@ -1,0 +1,24 @@
+{##
+ # Review block
+ #
+ # @ListChild (list="reviews.review.title", weight="100")
+ #}
+<div class="info">
+  <div class="reviewer-name">
+    {% if this.review.getReviewerName() %}
+      <span>{{ this.review.getReviewerName() }}</span>
+    {% endif %}
+    {% if not this.review.getReviewerName() %}
+      <span>{{ t('Anonymous reviewer') }}</span>
+    {% endif %}
+  </div>
+  <div class="date">
+    {{ this.formatTime(this.review.getAdditionDate()) }}
+  </div>
+</div>
+{% if this.isOwnReview(this.review) %}
+  <div class="separator"></div>
+{% endif %}
+{% if not this.isOnModeration(this.review) %}
+  <div class="approved-separator"></div>
+{% endif %}

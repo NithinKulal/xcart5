@@ -1,0 +1,37 @@
+{##
+ # Safe mode
+ #}
+<div id="safe_mode">
+  <div class="safe-mode-description">
+    {{ t('You need hard and soft reset links in case some 3rd party module crashes your web-store', {'article': this.getArticleURL()})|raw }}
+  </div>
+  {% if this.isCurrentSnapshotAvailable() %}
+  <div class="current-snapshot">
+    <span class="current-snapshot-label">{{ t('Restores to current state of active addons (use in case of emergency)')|raw }}:</span>
+    <div class="current-snapshot-link-block safe-mode-link">
+      {{ widget('XLite\\View\\Button\\CopyLink', copy=this.getCurrentSnapshotURL()) }}
+      {{ this.getCurrentSnapshotURL() }}
+    </div>
+  </div>
+  {% endif %}
+  <div class="soft-reset">
+    <span class="soft-reset-label">{{ t('Disables all addons except ones that are provided by X-Cart Team & Qualiteam (soft reset)')|raw }}:</span>
+    <div class="soft-reset-link-block safe-mode-link">
+      {{ widget('XLite\\View\\Button\\CopyLink', copy=this.getSoftResetURL()) }}
+      {{ this.getSoftResetURL() }}
+    </div>
+  </div>
+  <div class="hard-reset">
+    <span class="hard-reset-label">{{ t('Disables all addons except ones that are provided by X-Cart Team (hard reset)')|raw }}:</span>
+    <div class="hard-reset-link-block safe-mode-link">
+      {{ widget('XLite\\View\\Button\\CopyLink', copy=this.getHardResetURL()) }}
+      {{ this.getHardResetURL() }}
+    </div>
+  </div>
+  {{ widget('\\XLite\\View\\Button\\Regular', style='regular-main-button', label='Re-generate links', jsCode='self.location=\'' ~ url('safe_mode', 'safe_mode_key_regen') ~ '\'') }}
+</div>
+
+<p class="help-block">
+  {{ t('After clicking this button, your hard/soft reset links will be regenerated. You need it in case old links were compromised.') }}<br />
+  {{ t('Once links are regenerated, they will be sent to store administrator email.') }}
+</p>

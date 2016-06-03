@@ -1,0 +1,16 @@
+{##
+ # Product variant title 
+ #}
+
+<div id="product_variant_title">
+  <ul>
+    <li>
+      <a href="{{ url('product', this.null, {'product_id': this.productVariant.product.id, 'page': 'variants'}) }}">{{ t('Variants list') }}</a> : {{ this.product.name }}
+    </li>
+    {% for v in this.productVariant.values %}
+      <li class="arrtibute">
+        <b>{{ v.attribute.name }}:</b> {{ v.asString() }}<span>,</span>
+      </li>
+    {% endfor %}
+  </ul>
+</div>

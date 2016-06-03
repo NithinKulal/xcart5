@@ -1,0 +1,9 @@
+{##
+ # Membership field value in view mode
+ #}
+
+{% if this.getMembershipName() %}
+{{ this.getMembershipName() }}
+{% else %}
+{{ t('All customers wholesale') }}
+{% endif %}

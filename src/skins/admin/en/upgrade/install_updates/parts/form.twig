@@ -1,0 +1,40 @@
+{##
+ # Updates list
+ #
+ # @ListChild (list="upgrade.install_updates.sections", weight="200")
+ #}
+
+<form action="{{ url() }}" method="post">
+
+  <input type="hidden" name="target" value="upgrade">
+  <input type="hidden" name="action" value="start_upgrade" />
+  {% if this.isAdvancedMode() %}
+    <input type="hidden" name="entries[enabled]" value="1" />
+  {% endif %}
+
+  {{ widget('\\XLite\\View\\FormField\\Input\\FormId') }}
+
+  <div class="update-module-list-frame">
+
+    <ul class="update-module-list clearfix">
+
+      {% for entry in this.getUpgradeEntries() %}
+        <li class="update-module-info">
+          {{ widget_list('sections.form', type='inherited', entry=entry) }}
+        </li>
+      {% endfor %}
+
+    </ul>
+    <div class="actions">
+      {% if this.isAdvancedMode() %}
+        <div class="additional-actions">
+            <span class="uncheck-all">{{ t('Uncheck all') }}</span>
+            <span class="check-all">{{ t('Check all') }}</span>
+        </div>
+      {% endif %}
+      {{ widget('\\XLite\\View\\Button\\Submit', label=t('Install updates'), style='center regular-main-button') }}
+    </div>
+
+  </div>
+
+</form>

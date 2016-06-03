@@ -1,0 +1,11 @@
+{##
+ # Attribute value (Select)
+ #}
+
+<label class="checkbox-label {% if this.attrValues.1.defaultValue %} checked{% endif %}">
+  <div>
+    <input type="hidden" name="{{ this.getName() }}" value="{{ this.attrValues.0.id }}" />
+    <input type="checkbox" name="{{ this.getName() }}" data-attribute-id="{{ this.attribute.id }}" value="{{ this.attrValues.1.id }}" {% if this.isCheckedValue() %} checked="checked" {% endif %} data-unchecked="{{ this.attrValues.0.id }}" />
+  </div>
+  {{ this.getTitle() }}{{ this.getModifierTitle()|raw }}
+</label>

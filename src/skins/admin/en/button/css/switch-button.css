@@ -1,0 +1,24 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * ____file_title____
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+button.button.switch-button {
+  background: none;
+  border: 0 none;
+  margin: 0px;
+  padding: 0px 5px;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  height: 31px;
+}
+
+button.switch-button img {
+  background: transparent url(../images/switch-button.png) 0 0 no-repeat;
+  width: 23px;
+  height: 31px;
+}

@@ -1,0 +1,11 @@
+{##
+ # Product element
+ #
+ # @ListChild (list="product.modify.list", weight="832")
+ #}
+
+{% if this.product.isNewProduct() %}
+  <tr>
+    <td colspan="3">{{ t('This product will be shown in new arrivals') }}</td>
+  </tr>
+{% endif %}

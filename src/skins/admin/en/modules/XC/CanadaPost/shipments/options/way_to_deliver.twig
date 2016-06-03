@@ -1,0 +1,5 @@
+{##
+ # Option :: way to deliver
+ #}
+
+{{ widget('\\XLite\\Module\\XC\\CanadaPost\\View\\FormField\\Select\\DeliveryWayType', fieldId='opt-way-to-deliver-' ~ parcelIdx, fieldName='parcelsData[' ~ parcel.getId() ~ '][optWayToDeliver]', fieldOnly='true', value=parcel.getOptWayToDeliver()) }}

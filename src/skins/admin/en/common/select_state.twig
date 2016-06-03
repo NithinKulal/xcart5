@@ -1,0 +1,17 @@
+{##
+ # Select state
+ #}
+{% if this.isCustomState() %}
+  <input type="text" name="{{ this.field }}"{% if this.fieldId %} id="{{ this.fieldId }}"{% endif %} class="{{ this.getParam('className') }} field-state {% if this.isLinked %} linked{% endif %}" value="{{ this.getStateValue() }}" />
+{% else %}
+  <select name="{{ this.field }}"{% if this.fieldId %} id="{{ this.fieldId }}"{% endif %} class="{{ this.getParam('className') }} field-state {% if this.isLinked %} linked{% endif %}">
+   {% for v in this.getStates() %}
+     <option value="{{ v.getStateId() }}" {% if v.getStateId() == this.state.getStateId() %} selected="selected" {% endif %}>{{ v.state }}</option>
+   {% endfor %}
+  </select>
+{% endif %}
+{% if this.isDefineStates() %}
+  <script type="text/javascript">
+  {{ this.getJSDataDefinitionBlock()|raw }}
+  </script>
+{% endif %}

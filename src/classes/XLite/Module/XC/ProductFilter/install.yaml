@@ -1,0 +1,80 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: enable_in_stock_only_filter
+    category: 'XC\ProductFilter'
+    type: checkbox
+    orderby: 100
+    value: true
+    translations:
+      - code: en
+        option_name: 'Enable "In stock only" filter'
+  - name: enable_price_range_filter
+    category: 'XC\ProductFilter'
+    type: checkbox
+    orderby: 200
+    value: true
+    translations:
+      - code: en
+        option_name: 'Enable "Price range" filter'
+  - name: enable_attributes_filter
+    category: 'XC\ProductFilter'
+    type: checkbox
+    orderby: 300
+    value: true
+    translations:
+      - code: en
+        option_name: 'Enable "Attributes" filter'
+  - name: attributes_filter_by_category
+    category: 'XC\ProductFilter'
+    type: checkbox
+    orderby: 400
+    value: true 
+    translations:
+      - code: en
+        option_name: 'Show only available attributes and tags for products in category'
+        option_comment: 'If the setting is disabled, the filter shows all the attribute values and tags used in your store. If the setting is enabled, X-Cart generates a data cache that is used to display in the filter only the attribute values and tags that are actually used for the products in the category being viewed. Please be aware that the availability of the products for specific user membership levels is not taken into account during cache generation.'
+  - name: attributes_filter_cache_mode
+    category: 'XC\ProductFilter'
+    type: 'XLite\Module\XC\ProductFilter\View\FormField\Select\CacheResetMode'
+    orderby: 500
+    value: 1
+    translations:
+      - code: en
+        option_name: 'Cache reset mode'
+        option_comment: 'Cache is first generated when a category page is opened. When attribute, tag or product data is changed, the generated cache is removed. It is then generated again when any category is opened.'
+  - name: attributes_soting_type
+    category: 'XC\ProductFilter'
+    type: 'XLite\Module\XC\ProductFilter\View\FormField\Select\AttributesSortingType'
+    orderby: 600
+    value: A
+    translations:
+      - code: en
+        option_name: 'Sort order for class attributes'
+
+XLite\Model\LanguageLabel:
+  - { name: 'Shopping options', translations: [{ code: en, label: 'Shopping options' }] }
+  - { name: 'Show products', translations: [{ code: en, label: 'Show products' }] }
+  - { name: 'Reset filter', translations: [{ code: en, label: 'Reset filter' }] }
+  - { name: 'No products matching your criteria found. Please try again with different parameters.', translations: [{ code: en, label: 'No products matching your criteria found. Please try again with different parameters.' }] }
+  - { name: 'Show all products in this category', translations: [{ code: en, label: 'Show all products in this category' }] }
+  - { name: 'Price range', translations: [{ code: en, label: 'Price range' }] }
+  - { name: 'In stock only', translations: [{ code: en, label: 'In stock only' }] }
+  - { name: 'Generate cache on the fly', translations: [{ code: en, label: 'Generate cache on the fly' }] }
+  - { name: 'Remove cache when attribute, tag or product data is changed', translations: [{ code: en, label: 'Remove cache when attribute, tag or product data is changed' }] }
+  - { name: 'Remove product filter cache tooltip', translations: [{ code: en, label: 'Click the button to remove the data cache used by your product filter. After removing the cache, open any category in the storefront area to have the cache generated anew.' }] }
+  - { name: 'Remove product filter cache', translations: [{ code: en, label: 'Remove product filter cache' }] }
+  - { name: 'Hidden from products filter', translations: [{ code: en, label: 'Hidden from products filter' }] }
+  - { name: 'Visible in products filter', translations: [{ code: en, label: 'Visible in products filter' }] }
+  - { name: 'Classes for product filter', translations: [{ code: en, label: 'Classes for product filter' }] }
+  - { name: 'All classes from this category', translations: [{ code: en, label: 'All classes from this category' }] }
+  - { name: 'Do not show the filter', translations: [{ code: en, label: 'Do not show the filter' }] }
+  - { name: 'Choose classes...', translations: [{ code: en, label: 'Choose classes...' }] }
+  - { name: 'Alphabetical', translations: [{ code: en, label: 'Alphabetical' }] }
+  - { name: 'Manual', translations: [{ code: en, label: 'Manual' }] }
+  - { name: 'Wrong useClasses format', translations: [{ code: en, label: "Wrong useClasses format. This should be 'A', 'N' or 'D'" }] }

@@ -1,0 +1,12 @@
+{##
+ # ____file_title____
+ #}
+
+<div class="advanced-input-text">
+  <div class="original-label">{{ t(this.getLabel()) }}</div>
+  <div class="original-input">
+    {% include this.getDir() ~ '/' ~ this.getParentFieldTemplate() %}
+    <a class="cancel-input" href="javascript:void(0);">{{ t('Cancel') }}</a>
+    <img src="{{ asset('images/spacer.gif') }}" class="progress" alt="" />
+  </div>
+</div>

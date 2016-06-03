@@ -1,0 +1,60 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * RSS styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+div.feeds {
+  background-color: #F8F8F8;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  padding: 17px;
+}
+
+div.feeds h2 {
+  margin: 4px 0;
+  font-size: 18px;
+  color: #557DA5;
+}
+
+div.feeds ul h3 {
+  color: #999999;
+  font-size: 12px;
+  margin: 13px 0 5px;
+}
+
+div.feeds ul a {
+  text-decoration: none;
+  color: #3399ff;
+  font-size: 14px;
+}
+
+div.feeds ul a:hover {
+  text-decoration: underline;
+}
+
+div.feeds ul {
+  padding: 1px 0 25px;
+  border-bottom: 1px solid #d7d7d7;
+}
+
+div.feeds a.rss-feed,
+div.feeds a.blog {
+  font-size: 14px;
+  margin-top: 10px;
+  padding: 5px 0;
+}
+
+div.feeds a.rss-feed {
+  float: left;
+  background: transparent url(../images/rss.png) left center no-repeat;
+  padding-left: 32px;
+}
+
+div.feeds a.blog {
+  float: right;
+}

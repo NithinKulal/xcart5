@@ -1,0 +1,26 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * ____file_title____
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.model-form-access-denied
+{
+  color: #d00;
+  font-size: 1.2em;
+}
+
+.model-form-buttons
+{
+  clear: both;
+}
+
+.profile-form .header
+{
+  visibility: hidden;
+  padding: 0px;
+  height: 12px;
+}

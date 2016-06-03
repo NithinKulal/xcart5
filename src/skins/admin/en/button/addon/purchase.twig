@@ -1,0 +1,10 @@
+{##
+ # Regular button
+ #}
+
+<button
+  type="button"
+  {{ this.getJSCode()|raw }}
+  class="{{ this.getClass() }}">
+  <span>{{ t(this.getButtonLabel()) }}</span>
+</button>

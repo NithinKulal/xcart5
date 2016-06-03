@@ -1,0 +1,18 @@
+{##
+ # List of status messages
+ #}
+
+{# :TODO: merge with the "skins/admin/en/upgrade/step/prepare/status_messages/body.twig" #}
+
+<div class="service-messages-section">
+  <div class="ready-to-install-service-message">
+    {% for entryName, messageList in this.getMessages() %}
+      <div>
+        {% for message in messageList %}
+        {# :NOTE: do not add t(##) here: messages are already translated #}
+        <div class="message-entry">{{ message|raw }}</div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
+</div>

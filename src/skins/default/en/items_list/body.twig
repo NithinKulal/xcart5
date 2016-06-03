@@ -1,0 +1,30 @@
+{##
+ # List main template
+ #}
+
+<div {{ this.printTagAttributes(this.getWidgetTagAttributes())|raw }}>
+  {% do this.displayCommentedData(this.getJSData()) %}
+
+  {% if this.isHeadVisible() %}
+    <div class="head-h2 {{ this.getListHeadClass() }}">{{ this.getListHead() }}</div>
+  {% endif %}
+  {% if this.isPagerVisible() %}
+    <div class="list-pager">{% do this.pager.display() %}</div>
+  {% endif %}
+  {% if this.isHeaderVisible() %}
+    <div class="list-header">{{ widget_list('header', type='inherited') }}</div>
+  {% endif %}
+
+  {% include this.getPageBodyTemplate() %}
+
+  {% if this.isPagerVisible() and this.pager.isPagesListVisible() %}
+    <div class="list-pager list-pager-bottom">{% do this.pager.display() %}</div>
+  {% endif %}
+  {% if this.isFooterVisible() %}
+    <div class="list-footer">{{ widget_list('footer', type='inherited') }}</div>
+  {% endif %}
+
+  {% if this.isEmptyListTemplateVisible() %}
+    {% include this.getEmptyListTemplate() %}
+  {% endif %}
+</div>

@@ -1,0 +1,16 @@
+{##
+ # ____file_title____
+ #
+ # @ListChild (list="marketplace.landing.controls", weight="200")
+ #}
+
+<div class="tags-list-box">
+  <span class="icon icon-tags"></span>
+  <label for="edit-field-tags-tid">{{ t('Tags') }}</label>
+
+  <div class="tag-list">
+    {% for name, url in this.getTagsData() %}
+      <div class="tag-item"><a href="{{ url }}">{{ this.getTagName(name) }}</a></div>
+    {% endfor %}
+  </div>
+</div>

@@ -1,0 +1,12 @@
+{##
+ # Currency selector
+ #}
+
+{% form '\\XLite\\View\\Form\\Order\\CurrencySelector' %}
+
+  {{ widget('\\XLite\\View\\FormField\\Select\\Order\\Currency', fieldOnly='true', fieldName='currency', value=this.getCurrentCurrencyId()) }}
+
+
+  {{ widget_list('statistic.currency_selector.after') }}
+
+{% endform %}

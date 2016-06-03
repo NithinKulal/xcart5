@@ -1,0 +1,155 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+XLite\Model\Config:
+  directives: { addModel: 'XLite\Model\ConfigTranslation' }
+  - name: key
+    category: CDev\FedEx
+    translations:
+      - code: ru
+        option_name: Ключ идентификации FedEx
+  - name: password
+    category: CDev\FedEx
+    translations:
+      - code: ru
+        option_name: Пароль FedEx
+  - name: account_number
+    category: CDev\FedEx
+    translations:
+      - code: ru
+        option_name: Номер счета FedEx
+  - name: meter_number
+    category: CDev\FedEx
+    translations:
+      - code: ru
+        option_name: FedEx meter number
+  - name: test_mode
+    category: CDev\FedEx
+    translations:
+      - code: ru
+        option_name: Режим тестирования
+  - name: debug_enabled 
+    category: CDev\FedEx
+    translations:
+      - code: ru
+        option_name: Включить отладку
+
+  - name: additionalSettingsSeparator
+    category: CDev\FedEx
+    translations:
+      - code: ru
+        option_name: Дополнительные настройки
+
+  - name: carrierTypesSeparator
+    category: CDev\FedEx
+    translations:
+      - code: ru
+        option_name: Тип(ы) перевозчика(ов)
+  - name: fdxe
+    category: CDev\FedEx
+    translations:
+      - code: ru
+        option_name: FedEx Express (FDXE)
+  - name: fdxg
+    category: CDev\FedEx
+    translations:
+      - code: ru
+        option_name: FedEx Ground (FDXG)
+  - name: fxsp
+    category: CDev\FedEx
+    translations:
+      - code: ru
+        option_name: FedEx SmartPost (FXSP)
+
+  - name: packaging
+    category: CDev\FedEx
+    translations:
+      - code: ru
+        option_name: Упаковка
+  - name: dropoff_type
+    category: CDev\FedEx
+    translations:
+      - code: ru
+        option_name: Возврат тары
+  - name: ship_date
+    category: CDev\FedEx
+    translations:
+      - code: ru
+        option_name: Дата отгрузки (дни)
+  - name: currency_code
+    category: CDev\FedEx
+    translations:
+      - code: ru
+        option_name: Код валюты
+  - name: currency_rate
+    category: CDev\FedEx
+    translations:
+      - code: ru
+        option_name: Коэффициент пересчета валюты
+        option_comment: Если валюта выше отличается от валюты, используемой для оплаты в магазине, укажите коэффициент пересчёта для перевода стоимости доставки, предоставленной FedEx, в валюту магазина. Если валюты совпадают, оставьте значение 1.
+  - name: dimensions
+    category: CDev\FedEx
+    translations:
+      - code: ru
+        option_name: Размеры упаковки (в дюймах)
+  - name: max_weight
+    category: CDev\FedEx
+    translations:
+      - code: ru
+        option_name: Максимальный вес упаковки
+
+  - name: specialServicesSeparator
+    category: CDev\FedEx
+    translations:
+      - code: ru
+        option_name: Специальные услуги
+  - name: dg_accessibility
+    category: CDev\FedEx
+    translations:
+      - code: ru
+        option_name: Опасные Товары/Доступность
+  - name: signature
+    category: CDev\FedEx
+    translations:
+      - code: ru
+        option_name: Показать все сохраненные кредитные карты
+
+  - name: cacheOnDeliverySeparator
+    category: CDev\FedEx
+    translations:
+      - code: ru
+        option_name: Оплата при получении
+  - name: cod_type
+    category: CDev\FedEx
+    translations:
+      - code: ru
+        option_name: Тип наложного платежа
+
+  - name: advancedOptionsSeparator
+    category: CDev\FedEx
+    translations:
+      - code: ru
+        option_name: Расширенные опции
+  - name: opt_saturday_pickup
+    category: CDev\FedEx
+    translations:
+      - code: ru
+        option_name: Погрузка назначена на Субботу (эта опция используется, если день отгрузки - Суббота)
+  - name: opt_residential_delivery
+    category: CDev\FedEx
+    translations:
+      - code: ru
+        option_name: Доставка с адреса расположения
+  - name: send_insured_value
+    category: CDev\FedEx
+    translations:
+      - code: ru
+        option_name: Рассчитывать размер страховки по стоимости посылки
+
+XLite\Model\LanguageLabel:
+  - { name: 'FedEx module allows to use online shipping rates calculation via FedEx.', translations: [{ code: ru, label: 'Модуль FedEx позволяет рассчитывать онлайн стоимость доставки через FedEx.' }] }
+  - { name: '"Cash on delivery" status', translations: [{ code: ru, label: 'Состояние варианта оплаты "Наложенный платеж"' }] }
+  - { name: 'fedex.CODStatusOptionComment', translations: [{ code: ru, label: 'Важно: Чтобы включить/отключить вариант оплаты "Наложенный платеж", необходимо включить/отключить способ оплаты "Наложеный платеж (FedEx)" на <a href="{{URL}}">странице Способов оплаты</a>.' }] }

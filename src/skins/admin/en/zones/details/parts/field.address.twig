@@ -1,0 +1,9 @@
+{##
+ # Zone: address masks template
+ #
+ # @ListChild (list="zones.zone.details", weight="500")
+ #}
+
+{% if this.isAddressMasksEditEnabled() %}
+  {{ widget('\\XLite\\View\\FormField\\Textarea\\Simple', value=this.zone.getZoneAddresses(1), label='Address masks', rows='5', cols='70', fieldName='zone_addresses', help=t('Zone address masks help')) }}
+{% endif %}

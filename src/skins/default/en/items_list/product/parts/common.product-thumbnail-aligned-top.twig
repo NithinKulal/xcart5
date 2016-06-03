@@ -1,0 +1,10 @@
+{##
+ # Item thumbnail
+ #
+ # @ListChild (list="itemsList.product.list.customer.photo", weight="10")
+ #}
+<a 
+  href="{{ this.getProductURL(this.categoryId) }}"
+  class="product-thumbnail">
+  {{ widget('\\XLite\\View\\Image', image=this.product.getImage(), maxWidth=this.getIconWidth(), maxHeight=this.getIconHeight(), alt=this.product.name, verticalAlign='top', className='photo') }}
+</a>

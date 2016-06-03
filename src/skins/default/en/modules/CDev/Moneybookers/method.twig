@@ -1,0 +1,8 @@
+{##
+ # Payment method row
+ #}
+{% if this.method.processor.getIconPath(this.order, this.method) %}
+  <img src="{{ this.preparePaymentMethodIcon(this.method.processor.getIconPath(this.order, this.method)) }}" alt="{{ this.method.getName() }}" />
+{% else %}
+  {% if this.method.getDescription() %}{{ this.method.getDescription() }}{% else %}{{ this.method.getName() }}{% endif %}
+{% endif %}

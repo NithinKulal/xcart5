@@ -1,0 +1,7 @@
+{##
+ # Body
+ #}
+
+<div class="filter type-c clearfix{% if this.getValue() %} checked{% endif %}">
+  {{ widget('XLite\\View\\FormField\\Input\\Checkbox\\Enabled', fieldName='filter[inStock]', useColon='false', label='In stock only', value=this.getValue()) }}
+</div>

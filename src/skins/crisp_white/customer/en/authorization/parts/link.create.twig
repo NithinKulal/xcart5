@@ -1,0 +1,11 @@
+{##
+ # Link : create account
+ #
+ # @ListChild (list="customer.signin.links", weight="100")
+ #}
+
+{% if this.getTarget() == 'checkout' %}
+    <a class="create-account-link" href="{{ url('checkout', '', {'mode': 'register'}) }}">{{ t('Create account') }}</a>
+{% else %}
+    {{ widget('XLite\\Module\\XC\\CrispWhiteSkin\\View\\Button\\CreateAccount') }}
+{% endif %}

@@ -1,0 +1,12 @@
+{##
+ # Cell actions
+ #
+ # @ListChild (list="itemsList.orders.search.cell.status")
+ #}
+
+{% if this.hasPaymentActions(this.entity) %}
+  <div class="payment-actions">
+    {{ widget('\\XLite\\View\\Order\\Details\\Admin\\PaymentActions', order=this.entity, unitsFilter=this.getTransactionsFilter()) }}
+  </div>
+{% endif %}
+

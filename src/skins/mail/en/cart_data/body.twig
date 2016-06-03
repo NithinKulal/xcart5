@@ -1,0 +1,14 @@
+{##
+ # Order invoice
+ #}
+<table width="80%" style="font-family: Helvetica, Arial, sans-serif;">
+    <tr>
+        <td>
+            {% include 'order/invoice/parts/items.twig' %}
+            {% include 'order/invoice/parts/totals.twig' %}
+            {% include 'cart_data/parts/bottom.twig' %}
+            {% include 'order/invoice/parts/note.twig' %}
+            {% include 'order/invoice/parts/footer.twig' %}
+        </td>
+    </tr>
+</table>

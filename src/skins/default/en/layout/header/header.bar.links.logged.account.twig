@@ -1,0 +1,10 @@
+{##
+ # Account link
+ #
+ # @ListChild (list="layout.header.bar.links.logged", weight="200")
+ #}
+
+<li class="account-link-2">
+  <a href="{{ url('order_list', '') }}" class="register">{{ t('My account') }}</a>
+  <span class="email">({{ this.auth.profile.login }})</span>
+</li>

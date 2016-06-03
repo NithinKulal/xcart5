@@ -1,0 +1,131 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * CSS classes for Saved credit cards page
+ *
+ * @author    Qualiteam software Ltd <info@x-cart.com>
+ * @copyright Copyright (c) 2011-2016 Qualiteam software Ltd <info@x-cart.com>. All rights reserved
+ * @license   http://www.x-cart.com/license-agreement.html X-Cart 5 License Agreement
+ * @link      http://www.x-cart.com/
+ */
+
+.dialog-content .alert {
+  max-width: 1180px;
+  display: inline-block;
+  padding: 15;
+  margin-bottom: 30px;
+  font-size: 14px;
+}
+
+.zero-auth-address {
+  font-size: 14px;
+}
+
+.zero-auth-address select {
+  width: auto;
+  max-width: 500px;
+  margin: 15px;
+  font-size: 14px;
+}
+
+.zero-auth-address .single {
+  display: inline;
+  font-size: 14px;
+  margin: 15px;
+}
+
+.zero-auth-address a.add-address {
+  border-bottom: 1px dotted;
+  text-decoration: none;
+}
+
+.zero-auth-address a.add-address span {
+  font-size: 14px;
+}
+
+a.back-to-cards {
+  margin-left: 20px;
+  font-size: 14px;
+}
+
+.saved-card {
+  float: left;
+}
+
+.saved-card .card-number {
+  font-size: 19px;
+  margin-left: 82px;
+}
+
+.saved-card .card-expire {
+  width: 100%;
+  text-align: right;
+  line-height: 16px;
+  color: gray;
+}
+
+.address .cell .single {
+  line-height: 25px;
+  font-size: 14px;
+}
+
+div.cell div.card-icon-container {
+  float: left;
+  height: 35px;
+  width: 70px;
+  overflow: hidden;
+}
+
+td.cell.card div.cell {
+  min-width: 280px;
+}
+
+div.cell div.card-icon-container img {
+  float: left;
+}  
+
+div.cell span.card {
+  display: inline-block;
+  width: 140px;
+  height: 70px;
+  zoom: 0.5;
+  -moz-transform: scale(0.5);
+  -moz-transform-origin: 0 0 0;
+}
+
+td.cell.card.mc div.cell span.card {
+  background: url(card_types.png) 0px 0px no-repeat;
+}
+
+td.cell.card.visa div.cell span.card {
+  background: url(card_types.png) 0px -71px no-repeat;
+}
+
+td.cell.card.jcb div.cell span.card {
+  background: url(card_types.png) 0px -141px no-repeat;
+}
+
+td.cell.card.amex div.cell span.card {
+  background: url(card_types.png) 0px -211px no-repeat;
+}
+
+td.cell.card.dc div.cell span.card {
+  background: url(card_types.png) 0px -281px no-repeat;
+}
+
+td.cell.card.dicl div.cell span.card {
+  background: url(card_types.png) 0px -351px no-repeat;
+}
+
+td.cell.card.sw div.cell span.card {
+  background: url(card_types.png) 0px -421px no-repeat;
+}
+
+td.cell.card.cup div.cell span.card {
+  background: url(card_types.png) 0px -491px no-repeat;
+}
+
+td.cell.card.bc div.cell span.card {
+  background: url(card_types.png) 0px -561px  no-repeat;
+}
+

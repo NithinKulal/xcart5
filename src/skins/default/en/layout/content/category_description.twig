@@ -1,0 +1,7 @@
+{##
+ # Category page
+ #}
+
+{% if this.getDescription() %}
+<div class="category-description">{{ this.getDescription()|raw }}</div>
+{% endif %}

@@ -1,0 +1,27 @@
+{##
+ # Form buttons
+ #}
+
+<form action="{{ url() }}" method="post">
+  <input type="hidden" name="target" value="upgrade" />
+  <input type="hidden" name="action" value="install_upgrades" />
+
+  {{ widget('\\XLite\\View\\FormField\\Input\\FormId') }}
+
+  {{ widget('\\XLite\\View\\Upgrade\\Step\\ReadyToInstall\\UpgradeNotes') }}
+
+  {{ widget('\\XLite\\View\\Upgrade\\Step\\ReadyToInstall\\DisabledModulesHooks') }}
+
+  {{ widget('\\XLite\\View\\Upgrade\\Step\\ReadyToInstall\\PreUpgradeWarningModules') }}
+
+  {{ widget('\\XLite\\View\\Upgrade\\Step\\ReadyToInstall\\ModifiedFiles') }}
+
+  {{ widget('\\XLite\\View\\Upgrade\\Step\\ReadyToInstall\\EntriesList') }}
+
+  {{ widget('\\XLite\\View\\Upgrade\\Step\\ReadyToInstall\\CreateBackup') }}
+
+  <div class="ready-to-install-actions">
+    {{ widget_list('sections', type='inherited') }}
+  </div>
+
+</form>

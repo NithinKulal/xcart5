@@ -1,0 +1,218 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.target-checkout {
+  button.signin {
+      display: none;
+  }
+}
+
+.target-login {
+  .login-form {
+    max-width: 366px;
+  }
+}
+
+.widget-accountdialog {
+  max-width: 366px;
+  margin: 0 auto;
+}
+
+.widget-authorization, .widget-accountdialog, .widget-recoverpassword {
+  // min-width: 840px;
+
+  @media(min-width: @screen-sm-min) {
+    min-width: 366px;
+  }
+
+  form.login-form, form.recovery-form {
+    max-width: 366px;
+    margin: 0 auto;
+  }
+
+  .form-error {
+    margin-bottom: @rhythmic-unit;
+    text-align: center;
+  }
+}
+
+.login-box, .signin-anonymous-box, .register-box {
+  max-width: 366px;
+  margin: 0 auto;
+}
+
+.profile-form {
+  max-width: 366px;
+  div.table-value {
+    float: none;
+  }
+
+  .table {
+    width: 100%;
+    margin: 0 auto;
+    li.input {
+      .floating-label;
+    }
+
+  }
+  .model-form-buttons {
+    width: 100%;
+    margin-left: 0;
+
+    & > * {
+      width: 100% !important;
+      text-align: center;
+
+      a {
+        line-height: @rhythmic-unit;
+        display: inline-block;
+        margin-top: @rhythmic-unit;
+      }
+    }
+
+    button.submit {
+      .btn-lg;
+      width: 100%;
+    }
+  }
+}
+
+.recover-password-message {
+  text-align: center;
+}
+
+.recover-password-message:last-of-type {
+  margin-bottom: 60px;
+}
+
+table.login-form, table.recover-password-form {
+  width: 100%;
+  margin: 0 auto;
+  td, li.input {
+    border: 0;
+    padding: 0;
+
+    &.field {
+      .floating-label;
+    }
+  }
+
+  tr + tr {
+    td {
+      padding-top: @rhythmic-unit;
+
+      &.buttons {
+        padding-top: 0px;
+      }
+    }
+  }
+
+  .table-value, .input-field-wrapper {
+    width: 100%;
+  }
+
+  a.forgot {
+    float: right;
+  }
+
+  .form-error {
+    float: left;
+  }
+
+  button.submit {
+    .regular-main-button;
+    .btn-lg;
+    width: 100%;
+    margin-top: (2 * @rhythmic-unit);
+  }
+
+  .create-account-link, .popup-login {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+  }
+
+  .popup-login {
+    margin-top: @rhythmic-unit;
+  }
+}
+
+button.force-notice {
+  display: none;
+}
+
+.signin-header {
+  text-align: center;
+}
+
+.signin-login-wrapper {
+  padding-top: (@rhythmic-unit);
+
+  form {
+    padding-top: 0px !important;
+  }
+
+  .social-login-note, .social-login-container, .or-separator {
+    display: none;
+  }
+}
+
+/**
+ * Social login
+ */
+
+.social-login-note {
+  display: none;
+}
+
+.or-separator {
+  display: block;
+  width: 80%;
+  border-bottom: 1px solid @color-border;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: (2 * @rhythmic-unit - 1);
+  margin-top: (2 * @rhythmic-unit);
+  text-align: center;
+  position: relative;
+
+  .or-separator-text {
+    position: absolute;
+    background: @color-background;
+    top: -10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+}
+
+.social-login-container {
+  .social-login {
+    .social-net-element {
+
+      &:hover {
+        opacity: .8;
+      }
+    }
+  }
+}
+
+.signin-anonymous-wrapper {
+  padding-top: (@rhythmic-unit);
+
+  .anonymous-continue-button {
+    .btn-lg;
+    width: 100%;
+
+    @media(max-width: @screen-sm-max) {
+      margin-top: @rhythmic-unit;
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{##
+ # Layout editor show hidden blocks button
+ #
+ # @ListChild (list="layout_editor", weight="10")
+ #}
+
+<div class='layout-editor-show layout-editor--switchable'>
+	<span class='layout-editor-show_icon'><i class="fa fa-eye-slash"></i></span>
+	<span class='layout-editor-show_blocks-counter'>{{ t('Some') }}</span>
+	<span class='layout-editor-show_label'>{{ t('disabled blocks') }}</span>
+	{{ widget('XLite\\View\\Button\\SimpleLink', label=t('Show all'), style='layout-editor-show_button', jsCode='core.trigger("layout.show_hidden");') }}
+</div>

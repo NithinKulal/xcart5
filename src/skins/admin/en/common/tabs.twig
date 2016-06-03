@@ -1,0 +1,41 @@
+{##
+ # Tabber template
+ #}
+
+{% if this.getTitle() %}
+  <h1>{{ this.title|raw }}</h1>
+{% endif %}
+
+<div class="tabbed-content-wrapper">
+  <div class="tabs-container">
+    {% if this.isTabsNavigationVisible() %}
+      <div class="page-tabs">
+  
+        <ul>
+          {% for tabPage in this.getTabs() %}
+            <li class="tab{% if tabPage.selected %}-current{% endif %}">
+              <a href="{{ tabPage.url|raw }}">{{ tabPage.title|raw }}</a>
+            </li>
+          {% endfor %}
+          {{ widget_list('tabs.items') }}
+        </ul>
+      </div>
+    {% endif %}
+    <div class="tab-content">
+      {{ widget_list('tabs.content') }}
+      {% if this.isTemplateOnlyTab() %}
+        {% include this.getTabTemplate() %}
+      {% endif %}
+      {% if this.isWidgetOnlyTab() %}
+        {{ widget(this.getTabWidget()) }}
+      {% endif %}
+      {% if this.isFullWidgetTab() %}
+        {{ widget(this.getTabWidget(), template=this.getTabTemplate()) }}
+      {% endif %}
+      {% if this.isCommonTab() %}
+        {% include this.getPageTemplate() %}
+      {% endif %}
+    </div>
+
+  </div>
+</div>

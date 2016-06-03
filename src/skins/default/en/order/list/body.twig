@@ -1,0 +1,23 @@
+{##
+ # Orders list
+ #}
+<div class="orders-list {{ this.getClassIdentifier() }}">
+
+  {{ widget_list('orders.children') }}
+
+{# TODO Restore
+
+<script type="text/javascript">
+jQuery(document).ready(
+  function() {
+    jQuery('.orders-list.{getClassIdentifier()}').each(
+      function() {
+        new OrdersListController(this, {getAJAXRequestParamsAsJSObject():r});
+      }
+    );
+  }
+);
+</script>
+#}
+
+</div>

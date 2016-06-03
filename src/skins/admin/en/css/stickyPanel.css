@@ -1,0 +1,36 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Sticky panel common styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.sticky-panel {
+  position: relative;
+  margin-top: 40px;
+  padding: 0px;
+  overflow: visible;
+}
+
+.sticky-panel .box {
+  top: 0px;
+  background-color: #fff;
+  position: absolute;
+  margin: 0px;
+  padding-top: 6px;
+  padding-bottom: 14px;
+  overflow: visible;
+  border-top: 1px solid #d6d6d6;
+  z-index: 100;
+}
+
+.sticky-panel .box.sticky {
+  border-top: 1px solid #d6d6d6;
+}
+
+.sticky-panel .box .dropdown-menu button {
+  font-size: 14px;
+  text-align: left;
+}

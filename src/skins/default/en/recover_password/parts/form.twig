@@ -1,0 +1,14 @@
+{##
+ # Recover password : form
+ #
+ # @ListChild (list="recover.password", weight="200")
+ #}
+
+{% form 'XLite\\View\\Form' with {formTarget: 'recover_password', formAction: 'recover_password', className: 'recovery-form use-inline-error'} %}
+
+  <table class="recover-password-form">
+    {{ widget_list('recover.password.fields') }}
+  </table>
+
+{% endform %}
+

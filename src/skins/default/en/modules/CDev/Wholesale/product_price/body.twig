@@ -1,0 +1,9 @@
+{##
+ # Wholesale prices table
+ #}
+
+<div class="wholesale-prices {{ this.getFingerprint() }}">
+  {% if this.getWholesalePrices() %}
+    {{ widget_list('wholesale.price') }}
+  {% endif %}
+</div>

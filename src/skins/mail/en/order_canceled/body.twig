@@ -1,0 +1,9 @@
+{##
+ # Order canceled email body
+ #}
+<p>
+  {{ this.getNotificationText()|raw }}
+</p>
+<p>
+  {{ widget('XLite\\View\\Invoice', order=this.order) }}
+</p>

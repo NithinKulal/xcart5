@@ -1,0 +1,11 @@
+{##
+ # Simple form for searching products template
+ #}
+
+<div class="simple-search-product-form">
+
+  {% form '\\XLite\\View\\Form\\Product\\Search\\Customer\\SimpleForm' %}
+    {{ widget_list('product.simple-search-form.simple-box') }}
+  {% endform %}
+
+</div>

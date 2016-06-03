@@ -1,0 +1,14 @@
+{##
+ # ____file_title____
+ #}
+
+<div class="no-payment-methods-appearance">
+  <div class="box">
+    <div class="no-payments-found">{{ this.getNoPaymentMethodsFoundMessage() }}</div>
+    {% if this.getParam('country') %}
+      <div class="no-payments-found">{{ t('Try to search worldwide or find the needed solution in marketplace', {'URL': url('addons_list_marketplace', '', {'tag': 'Payment processing', 'substring': this.getParam('substring')})})|raw }}</div>
+    {% endif %}
+    {% if not this.getParam('country') %}
+      <div class="no-payments-found">{{ t('Try to change the search criteria or find the needed solution in marketplace', {'URL': url('addons_list_marketplace', '', {'tag': 'Payment processing', 'substring': this.getParam('substring')})})|raw }}</div>
+    {% endif %}
+</div>

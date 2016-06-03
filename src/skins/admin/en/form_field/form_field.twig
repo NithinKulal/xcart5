@@ -1,0 +1,48 @@
+{##
+ # Form field
+ #}
+
+{% if not this.getParam('fieldOnly') %}
+  <div class="{{ this.getLabelContainerClass() }}">
+    <label for="{{ this.getFieldId() }}" title="{{ this.getFormattedLabel()|raw }}">
+      {{ this.getFormattedLabel() }}{% if this.getParam('useColon') %}:{% endif %}
+      {% if this.hasLabelHelp() %}
+        {{ widget('\\XLite\\View\\Tooltip', text=t(this.getParam('labelHelp')), helpWidget=this.getParam('labelHelpWidget'), isImageTag='true', className='help-icon') }}
+      {% endif %}
+    </label>
+  </div>
+  {% if this.getParam('required') %}
+    <div class="star">*</div>
+  {% endif %}
+  {% if not this.getParam('required') %}
+    <div class="star">&nbsp;</div>
+  {% endif %}
+{% endif %}
+
+<div class="{{ this.getValueContainerClass() }}">
+  {% include this.getDir() ~ '/' ~ this.getFieldTemplate() %}
+  {% if this.getParam('linkHref') %}
+    {% if this.getParam('linkImg') %}
+      <img src="{{ this.getParam('linkImg') }}" class="form-field-link-img" alt="" height="20">
+    {% endif %}
+    <a class="form-field-link {{ this.getFieldId() }}-link" href="{{ this.getParam('linkHref') }}">
+      {{ t(this.getParam('linkText'))|raw }}
+    </a>
+  {% endif %}
+  {% if this.hasHelp() %}
+    <div class="help-wrapper">
+      {{ widget('XLite\\View\\Tooltip', text=t(this.getParam('help')), helpWidget=this.getParam('helpWidget'), isImageTag='true', className='help-icon') }}
+    </div>
+  {% endif %}
+  {% if this.getParam('comment') %}
+    <div class="form-field-comment {{ this.getFieldId() }}-comment">{{ t(this.getParam('comment'))|raw }}</div>
+  {% endif %}
+  {% if this.getFormFieldJSData() %}{{ this.displayCommentedData(this.getFormFieldJSData()) }}{% endif %}
+  {% if this.getInlineJSCode() %}
+    <script type="text/javascript">{{ this.getInlineJSCode()|raw }}</script>
+  {% endif %}
+</div>
+
+{% if not this.getParam('fieldOnly') %}
+  <div class="clear"></div>
+{% endif %}

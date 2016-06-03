@@ -1,0 +1,11 @@
+{##
+ # Horizontal minicart checkout button block
+ #
+ # @ListChild (list="minicart.horizontal.buttons", weight="10")
+ #}
+{% if this.cart.checkCart() %}
+  {{ widget('\\XLite\\View\\Button\\SimpleLink', label='Checkout', location=url('checkout'), style='regular-main-button checkout') }}
+{% endif %}
+{% if not this.cart.checkCart() %}
+  {{ widget('\\XLite\\View\\Button\\SimpleLink', label='Checkout', location=url('checkout'), style='regular-main-button checkout', disabled='true') }}
+{% endif %}

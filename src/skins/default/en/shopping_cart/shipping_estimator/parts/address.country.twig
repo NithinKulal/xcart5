@@ -1,0 +1,11 @@
+{##
+ # Shipping estimator : address : country
+ #
+ # @ListChild (list="shippingEstimator.address", weight="10")
+ #}
+
+{% if this.hasField('country_code') %}
+  <li class="country">
+    {{ widget('\\XLite\\View\\FormField\\Select\\Country', fieldName='destination_country', value=this.getCountryCode(), stateSelectorId='destination-state', stateInputId='destination-custom-state', label=t('Country'), required='true') }}
+  </li>
+{% endif %}

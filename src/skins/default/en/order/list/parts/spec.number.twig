@@ -1,0 +1,6 @@
+{##
+ # Orders list item : spec : number
+ #
+ # @ListChild (list="orders.children.spec", weight="200")
+ #}
+<li class="order-number"><a href="{{ url('order', '', {'order_number': this.order.getOrderNumber()}) }}">#{{ this.order.getOrderNumber() }}</a></li>

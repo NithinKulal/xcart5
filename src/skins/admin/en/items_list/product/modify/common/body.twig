@@ -1,0 +1,23 @@
+{##
+ # Products list (table variant)
+ #}
+
+<table class="data-table items-list">
+
+  <tr>
+    {{ widget_list('header', type='inherited', product=this.product) }}
+  </tr>
+
+  {% for idx, product in this.getPageData() %}
+    <tr class="{{ this.getRowClass(idx, '', 'highlight') }}">
+      {{ widget_list('columns', type='inherited', product=product) }}
+    </tr>
+  {% endfor %}
+
+  {% for w in this.getViewList('itemsList.product.modify.common.admin.items') %}
+    <tr>
+      {{ w.display() }}
+    </tr>
+  {% endfor %}
+
+</table>

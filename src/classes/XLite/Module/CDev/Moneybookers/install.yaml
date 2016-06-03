@@ -1,0 +1,107 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Payment\Method:
+  - { service_name: 'Moneybookers.WLT', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1010, countries: [DE, GB, FR, IT, ES, AT, HU, EE, FI, PL, SE], translations: [{ code: en, name: 'Skrill Wallet' }] }
+  - { service_name: 'Moneybookers.ACC', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: C, orderby: 1020, countries: [DE, GB, FR, IT, ES, AT, HU, EE, FI, PL], translations: [{ code: en, name: 'Skrill All Card Types' }] }
+  - { service_name: 'Moneybookers.VSA', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: C, orderby: 1030, translations: [{ code: en, name: 'Skrill Visa' }] }
+  - { service_name: 'Moneybookers.MSC', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: C, orderby: 1040, translations: [{ code: en, name: 'Skrill MasterCard' }] }
+  - { service_name: 'Moneybookers.VSD', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: C, orderby: 1050, countries: [US, CA, GB, DE], translations: [{ code: en, name: 'Skrill Visa Delta/Debit' }] }
+  - { service_name: 'Moneybookers.VSE', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: C, orderby: 1060, exCountries: [US, CA, AU, IE], translations: [{ code: en, name: 'Skrill Visa Electron' }] }
+  - { service_name: 'Moneybookers.MAE', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: C, orderby: 1070, countries: [GB], translations: [{ code: en, name: 'Skrill Maestro' }] }
+  - { service_name: 'Moneybookers.SLO', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: C, orderby: 1080, countries: [GB], translations: [{ code: en, name: 'Skrill Solo' }] }
+  - { service_name: 'Moneybookers.AMX', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: C, orderby: 1090, countries: [US], translations: [{ code: en, name: 'Skrill American Express' }] }
+  - { service_name: 'Moneybookers.DIN', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: C, orderby: 1100, countries: [US, CA, GB, IE], translations: [{ code: en, name: 'Skrill Diners' }] }
+  - { service_name: 'Moneybookers.JCB', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: C, orderby: 1110, countries: [JP], translations: [{ code: en, name: 'Skrill JCB' }] }
+  - { service_name: 'Moneybookers.LSR', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: C, orderby: 1120, countries: [IE], translations: [{ code: en, name: 'Skrill Laser' }] }
+  - { service_name: 'Moneybookers.GCB', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: C, orderby: 1130, countries: [FR], translations: [{ code: en, name: 'Skrill Carte Bleue' }] }
+  - { service_name: 'Moneybookers.DNK', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: C, orderby: 1140, countries: [DK], translations: [{ code: en, name: 'Skrill Dankort' }] }
+  - { service_name: 'Moneybookers.PSP', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: C, orderby: 1150, countries: [IT], translations: [{ code: en, name: 'Skrill PostePay' }] }
+  - { service_name: 'Moneybookers.CSI', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: C, orderby: 1160, countries: [IT], translations: [{ code: en, name: 'Skrill CartaSi' }] }
+  - { service_name: 'Moneybookers.OBT', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1170, countries: [GB, FR, IT, DE, AT, ES], translations: [{ code: en, name: 'Skrill Online Bank Transfer' }] }
+  - { service_name: 'Moneybookers.GIR', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1180, countries: [DE], translations: [{ code: en, name: 'Skrill Giropay' }] }
+  - { service_name: 'Moneybookers.DID', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1190, countries: [DE], translations: [{ code: en, name: 'Skrill Direct Debit / ELV' }] }
+  - { service_name: 'Moneybookers.SFT', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1200, countries: [DE], translations: [{ code: en, name: 'Skrill Sofortueberweisung' }] }
+  - { service_name: 'Moneybookers.EBT', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1220, countries: [SE, FI, NO, DK], translations: [{ code: en, name: 'Skrill Nordea Solo' }] }
+  - { service_name: 'Moneybookers.IDL', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1240, countries: [NL, BE, BG, CZ, DK, DE, EE, IE, EL, ES, FR, HR, IT, CY, LV, LT, LU, HU, MT, AT, PL, PT, RO, SI, SK, FI, SE, GB], translations: [{ code: en, name: 'Skrill iDEAL' }] }
+  - { service_name: 'Moneybookers.NPY', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1250, countries: [GB, IE], translations: [{ code: en, name: 'Skrill EPS (Netpay)' }] }
+  - { service_name: 'Moneybookers.PLI', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1260, countries: [AU, NZ], translations: [{ code: en, name: 'Skrill POLi' }] }
+  - { service_name: 'Moneybookers.PWY', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1270, countries: [PL], translations: [{ code: en, name: 'Skrill All Polish Banks' }] }
+  - { service_name: 'Moneybookers.PWY5', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1280, countries: [NL], translations: [{ code: en, name: 'Skrill ING Bank Śląski' }] }
+  - { service_name: 'Moneybookers.PWY6', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1290, countries: [PL], translations: [{ code: en, name: 'Skrill PKO BP (PKO Inteligo)' }] }
+  - { service_name: 'Moneybookers.PWY7', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1300, countries: [PL], translations: [{ code: en, name: 'Skrill Multibank (Multitransfer)' }] }
+  - { service_name: 'Moneybookers.PWY14', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1310, countries: [PL], translations: [{ code: en, name: 'Skrill Lukas Bank' }] }
+  - { service_name: 'Moneybookers.PWY15', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1320, countries: [PL], translations: [{ code: en, name: 'Skrill Bank BPH' }] }
+  - { service_name: 'Moneybookers.PWY17', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1330, countries: [AE], translations: [{ code: en, name: 'Skrill InvestBank' }] }
+  - { service_name: 'Moneybookers.PWY18', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1340, countries: [PL], translations: [{ code: en, name: 'Skrill PeKaO S.A.' }] }
+  - { service_name: 'Moneybookers.PWY19', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1350, countries: [PL], translations: [{ code: en, name: 'Skrill Citibank handlowy' }] }
+  - { service_name: 'Moneybookers.PWY20', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1360, countries: [PL], translations: [{ code: en, name: 'Skrill Bank Zachodni WBK (Przelew24)' }] }
+  - { service_name: 'Moneybookers.PWY21', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1370, countries: [BG], translations: [{ code: en, name: 'Skrill BGŻ' }] }
+  - { service_name: 'Moneybookers.PWY22', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1380, countries: [CA], translations: [{ code: en, name: 'Skrill Millenium' }] }
+  - { service_name: 'Moneybookers.PWY25', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1390, countries: [PL], translations: [{ code: en, name: 'Skrill mBank (mTransfer)' }] }
+  - { service_name: 'Moneybookers.PWY26', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: C, orderby: 1400, countries: [PL], translations: [{ code: en, name: 'Skrill Płacę z Inteligo' }] }
+  - { service_name: 'Moneybookers.PWY28', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1410, countries: [PL], translations: [{ code: en, name: 'Skrill Bank Ochrony Środowiska' }] }
+  - { service_name: 'Moneybookers.PWY32', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1420, countries: [SE, FI, NO, DK], translations: [{ code: en, name: 'Skrill Nordea' }] }
+  - { service_name: 'Moneybookers.PWY33', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1430, countries: [NL, GB, DE, FR], translations: [{ code: en, name: 'Skrill Fortis Bank' }] }
+  - { service_name: 'Moneybookers.PWY36', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1440, countries: [DE], translations: [{ code: en, name: 'Skrill Deutsche Bank PBC S.A.' }] }
+  - { service_name: 'Moneybookers.EPY', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1450, countries: [BG], translations: [{ code: en, name: 'Skrill ePay.bg' }] }
+
+XLite\Model\Config:
+  - name: email
+    category: 'CDev\Moneybookers'
+    type: text
+    orderby: 100
+    translations:
+      - code: en
+        option_name: "Merchant's skrill.com account"
+  - name: logo_url
+    category: 'CDev\Moneybookers'
+    type: 'XLite\View\FormField\Input\Text\URL'
+    orderby: 200
+    translations:
+      - code: en
+        option_name: 'Company logo URL'
+  - name: test
+    category: 'CDev\Moneybookers'
+    type: checkbox
+    orderby: 300
+    value: '0'
+    translations:
+      - code: en
+        option_name: 'Test mode'
+  - name: secret_word
+    category: 'CDev\Moneybookers'
+    type: text
+    orderby: 400
+    translations:
+      - code: en
+        option_name: 'Secret word'
+        option_comment: 'The uppercase MD5 value of the ASCII equivalent of the secret word submitted in the "Merchant Tools" section of the Merchant.s online Skrill account.'
+  - name: prefix
+    category: 'CDev\Moneybookers'
+    type: text
+    orderby: 500
+    value: 'xcart'
+    translations:
+      - code: en
+        option_name: 'Invoice number prefix'
+  - name: id
+    category: 'CDev\Moneybookers'
+
+XLite\Model\LanguageLabel:
+  - { name: "Skrill Quick Checkout enables you to take direct payment from credit cards, debit cards and over 80 other local payment options in over 200 countries as well as the Skrill eWallet.", translations: [{ code: en, label: "<strong>Skrill Quick Checkout</strong> enables you to take <strong>direct</strong> payment from credit cards, debit cards and over 80 other local payment options in over 200 countries as well as the Skrill eWallet. The highly competitive rates for this service are published on the Skrill website at <a href=\"//www.skrill.com/\" target=\"blank\">www.skrill.com</a>" }] }
+  - { name: "Don't have an account? Sign up for free", translations: [{ code: en, label: "Don't have an account? <a href=\"{{url}}\" target=\"blank\">Sign up for free</a>" }] }
+  - { name: "You have sent a request for activation on the X.", translations: [{ code: en, label: "Your activation request was sent on {{date}}. Please be aware that the verification process to use Skrill Quick Checkout could take up to 72 hours. You will be contacted by Skrill once the verification process has been completed. After activation, Skrill will give you access to a new section in your Skrill Account called Merchant Tools. Please set your secret word in the Merchant Tools (do NOT use your password for this) and also enter it in the section below to connect to Skrill. The secret word is the last step of your activation process; it is needed to encrypt your payments securely. After successful submission you will be ready to use all the direct payment options of Skrill." }] }
+  - { name: "Contact Skrill on ecommerce@skrill.com or by phone +44 203 308 2519", translations: [{ code: en, label: "Contact Skrill at <a href=\"mailto:ecommerce@skrill.com\">ecommerce@skrill.com</a> or by phone +44 203 308 2519" }] }
+  - { name: "Email address of your Skrill account", translations: [{ code: en, label: "Email address of your Skrill account" }] }
+  - { name: "Skrill Customer ID", translations: [{ code: en, label: "Skrill Customer ID" }] }
+  - { name: "Secret Word", translations: [{ code: en, label: "Secret Word" }] }
+  - { name: "You can define an order id prefix, which would precede each order number in your shop, to make it unique (each transaction id must be unique for a Skrill account)", translations: [{ code: en, label: "You can set an order id prefix that will be added to each order number in your shop to make it unique (each transaction id must be unique for a Skrill account)" }] }
+  - { name: "This options is relevant only if you share your Skrill account with other online shops.", translations: [{ code: en, label: "This option is relevant only if you share your Skrill account with other online shops." }] }
+  - { name: "Do you have questions?", translations: [{ code: en, label: "Do you have questions?" }] }
+  - { name: "Skrill settings", translations: [{ code: en, label: "Skrill settings" }] }
+  - { name: "To process your customers' payments with Skrill, you need a Skrill account. If you do not have one yet, you can sign up for free at http://www.skrill.com", translations: [{ code: en, label: "To process your customers\' payments with Skrill, you need a Skrill account. If you do not have one yet, you can sign up for free at http://www.skrill.com" }]}

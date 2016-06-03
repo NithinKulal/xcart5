@@ -1,0 +1,10 @@
+{##
+ # Product attributes 
+ #}
+<ul class="attribute-values">
+  {% for attribute in this.getAttributes() %}
+    <li>
+      {{ widget(attribute.getWidgetClass(attribute.getType(), 'Customer'), attribute=attribute, product=this.product, orderItem=this.orderItem, namePrefix=this.getCommonFieldName() ~ '[' ~ this.getIdx() ~ '][', nameSuffix=']') }}
+    </li>
+  {% endfor %}
+</ul>

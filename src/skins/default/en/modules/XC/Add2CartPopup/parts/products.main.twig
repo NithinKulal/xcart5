@@ -1,0 +1,15 @@
+{##
+ # Add to Cart popup page: products list box template
+ #
+ # @ListChild (list="add2cart_popup.products", weight="300")
+ #}
+
+{% if this.isProductsListEnabled() %}
+  <div class="products-list-box">
+  
+    {{ widget('\\XLite\\Module\\XC\\Add2CartPopup\\View\\Products', product=this.product) }}
+  
+    {{ widget_list('add2cart_popup.products.ext') }}
+  
+  </div>
+{% endif %}

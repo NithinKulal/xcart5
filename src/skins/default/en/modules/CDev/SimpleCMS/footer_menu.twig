@@ -1,0 +1,28 @@
+{##
+ # Top menu
+ #}
+
+<div id="secondary-menu" class="clearfix">
+ <ul class="footer-menu">
+    {% for i, item in this.getItems() %}
+      {% if this.isLevelUp(item.depth) %}
+        <ul>
+      {% else %}
+        {% if not this.isFirstElement() %}
+        </li>
+        {% endif %}
+      {% endif %}
+
+      {{ this.closeMenuList(item.depth)|raw }}
+      <li {{ this.displayItemClass(i, item)|raw }}>
+        {% if item.url %}
+        <a href="{{ item.url }}" {% if item.active %}class="active"{% endif %}>{{ item.label }}</a>
+        {% else %}
+        <span class="footer-title">{{ item.label }}</span>
+        {% endif %}
+          
+    {% endfor %}
+      </li>
+    {{ this.closeMenuList()|raw }}
+ </ul>
+</div>

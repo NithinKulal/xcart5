@@ -1,0 +1,66 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Menu styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.side-menu {
+  background: #eff8fe none;
+  padding: 0px;
+  margin: 0px 0px 25px 0px;
+}
+
+.side-menu h2 {
+  border-bottom: 1px solid #dee6ec;
+  padding: 23px 24px 17px;
+  margin: 0px;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: normal;
+  color: #90a7b6;
+  text-align: center;
+}
+
+.side-menu .content {
+  padding: 0px;
+}
+
+.side-menu .content ul {
+  margin: 0px;
+  padding: 2px 0px 0px 0px;
+}
+
+.side-menu .content li a {
+  display: block;
+  font-size: 16px;
+  padding: 10px 20px 11px;
+  margin: 0px;
+  width: 100%;
+  text-decoration: none;
+}
+
+.side-menu .content li a:hover {
+  background: #d0e9ff;
+}
+
+.side-menu .content li.selected a,
+.side-menu .content li.selected a:hover
+{
+  background-color: #7db2d9;
+}
+
+.side-menu .content li.selected a {
+  color: #fff;
+}
+
+body #main {
+  margin-left: 240px;
+  min-width: 705px;
+}
+
+body #leftSideBar {
+  display: block;
+}

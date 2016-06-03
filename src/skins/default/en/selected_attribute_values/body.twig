@@ -1,0 +1,20 @@
+{##
+ # Selected attribute values
+ #}
+
+<div class="item-attribute-values">
+  <ul class="selected-attribute-values">
+    {% for option in this.item.getSortedAttributeValues() %}
+      <li>
+        <span>{{ option.getActualName() }}:</span>
+        {{ option.getActualValue() }}{% if loop.index != loop.length %}, {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+  
+  {% if this.getParam('source') %}
+    <div class="item-change-attribute-values">
+      <a href="{{ this.getChangeAttributeValuesLink() }}">{{ t('Change attributes') }}</a>
+    </div>
+  {% endif %}
+</div>

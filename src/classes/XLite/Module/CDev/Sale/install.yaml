@@ -1,0 +1,57 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: sale_enabled
+    category: 'CDev\Sale'
+    type: checkbox
+    orderby: 20
+    value: Y
+    translations:
+      - code: en
+        option_name: 'Display the "Products on sale" block in the storefront'
+  - name: sale_in_current_category
+    category: 'CDev\Sale'
+    type: checkbox
+    orderby: 30
+    value: Y
+    translations:
+      - code: en
+        option_name: 'Display only the products on sale which are in the category being viewed (or its subcategories)'
+  - name: sale_max_count_in_block
+    category: 'CDev\Sale'
+    type: text
+    orderby: 80
+    value: 6
+    translations:
+      - code: en
+        option_name: 'The maximum number of products to be displayed in the "Products on sale" block'
+        option_comment: 'The maximum number of products to be displayed in the "Products on sale" block. Set zero to display all products in the block. Drupal block settings can override this option (when the DrupalConnector module is enabled).'
+
+XLite\Model\MoneyModificator:
+  - class: XLite\Module\CDev\Sale\Logic\SalePrice
+    validator: isApply
+    purpose: net
+    position: 5
+  - class: XLite\Module\CDev\Sale\Logic\PercentOff
+    validator: isApply
+    purpose: net
+    position: 500
+
+XLite\Model\LanguageLabel:
+  - { name: 'Billing address is not defined', translations: [{ code: en, label: 'Billing address is not defined' }] }
+  - { name: 'a side box', translations: [{ code: en, label: 'a side box' }] }
+  - { name: 'the main column', translations: [{ code: en, label: 'the main column' }] }
+  - { name: 'Put up for sale', translations: [{ code: en, label: 'Put up for sale' }] }
+  - { name: 'Cancel sale', translations: [{ code: en, label: 'Cancel sale' }] }
+  - { name: 'Sale price', translations: [{ code: en, label: 'Sale price' }] }
+  - { name: 'sale', translations: [{ code: en, label: 'sale' }] }
+  - { name: 'Product on sale', translations: [{ code: en, label: 'Product on sale' }] }
+  - { name: 'Percent off', translations: [{ code: en, label: 'Percent off' }] }
+  - { name: 'Set the sale price', translations: [{ code: en, label: 'Set the sale price' }] }
+  - { name: 'The changes will be applied to all selected products', translations: [{ code: en, label: 'The changes will be applied to all selected products' }] }
+  - { name: 'Apply price', translations: [{ code: en, label: 'Apply price' }] }

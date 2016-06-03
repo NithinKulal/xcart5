@@ -1,0 +1,9 @@
+{##
+ # Import titles 
+ #}
+
+<div class="header clearfix">
+  {% for title in this.getCurrentTitles() %}
+    <h2 class="{{ title.class }}">{{ t(title.text) }}</h2>
+  {% endfor %}
+</div>

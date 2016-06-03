@@ -1,0 +1,12 @@
+{##
+ # Shopping cart: cart items subtotal
+ #
+ # @ListChild (list="cart.totals", weight="30")
+ #}
+
+{% for row in this.cart.getItemsIncludeSurchargesTotals(1) %}
+  <li class='included-surcharge'>
+    <strong>{{ t('Including X', {'name': row.surcharge.getName()}) }}:</strong>
+    <span class="value">{{ widget('XLite\\View\\Surcharge', surcharge=row.cost, currency=this.cart.getCurrency()) }}
+  </li>
+{% endfor %}

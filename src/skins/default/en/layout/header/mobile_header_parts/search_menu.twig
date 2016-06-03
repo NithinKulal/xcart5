@@ -1,0 +1,20 @@
+{##
+ # Header right box
+ #
+ # @ListChild (list="layout.header.mobile.menu", weight="200")
+ #}
+
+<li class="dropdown mobile_header-search_menu">
+  <a id="search_menu" class="dropdown-toggle" data-toggle="dropdown" href="#">
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="20px" height="20px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+        <path d="M13.5,12.2h-0.7l-0.3-0.3c0.9-1.1,1.5-2.5,1.5-4c0-3.4-2.7-6.1-6.1-6.1C4.5,1.9,1.8,4.6,1.8,8c0,3.4,2.7,6.1,6.1,6.1
+c1.5,0,2.9-0.6,4-1.5l0.3,0.3v0.7l4.7,4.7l1.4-1.4L13.5,12.2z M7.9,12.2c-2.3,0-4.2-1.9-4.2-4.2c0-2.3,1.9-4.2,4.2-4.2
+c2.3,0,4.2,1.9,4.2,4.2C12.1,10.3,10.2,12.2,7.9,12.2z"/>
+      </svg>
+  </a>
+  <ul id="search_box" class="dropdown-menu" >
+    <li role="presentation">
+      {{ widget_list('layout.responsive.search') }}
+    </li>
+  </ul>
+</li>

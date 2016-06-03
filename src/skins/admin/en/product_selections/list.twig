@@ -1,0 +1,9 @@
+{##
+ # Product selections list table template
+ #}
+
+{% if this.isSearchVisible() %}
+    {{ widget('XLite\\View\\ItemsList\\Model\\ProductSelection', {'searchPanelClass': this.getSearchPanelView()}) }}
+{% else %}
+    {{ widget('XLite\\View\\ItemsList\\Model\\ProductSelection') }}
+{% endif %}

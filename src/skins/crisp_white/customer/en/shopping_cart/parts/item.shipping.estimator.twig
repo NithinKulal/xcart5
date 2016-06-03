@@ -1,0 +1,9 @@
+{##
+ # Discount coupon subpanel
+ #
+ # @ListChild (list="cart.panel.totals.modifier")
+ #}
+
+{% if this.isShippingEstimatorVisible(this.surcharge) %}
+  {{ widget('XLite\\View\\ShippingEstimator\\ShippingEstimateBox') }}
+{% endif %}

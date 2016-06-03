@@ -1,0 +1,36 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Invoice styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.invoice-box .egoods-list {
+  background: transparent url(images/egoods_bg_icon.png) no-repeat left 3px;
+  margin: 0px;
+  margin-top: 5px;
+  padding: 0px;
+  padding-left: 17px;
+  list-style: none;
+}
+
+.invoice-box .egoods-list li {
+  background: transparent none;
+  margin: 0px;
+  padding: 0px;
+  padding-left: 7px;
+}
+
+.invoice-box .egoods-list li .size {
+  color: #8f8f8f;
+  padding-left: 7px;
+}
+
+.invoice-box .subitem .egoods-list li a{
+  text-decoration: underline;
+  color: #5194c5;
+  cursor: auto;
+  font-size: 14px;
+}

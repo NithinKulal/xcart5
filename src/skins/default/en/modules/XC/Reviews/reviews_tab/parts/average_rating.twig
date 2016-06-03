@@ -1,0 +1,23 @@
+{##
+ # Average product rating widget in reviews tab
+ #}
+{% if this.isVisibleAverageRatingOnPage() %}
+  <div class="product-average-rating clearfix">
+    <input type="hidden" name="target_widget" value="\XLite\Module\XC\Reviews\View\Customer\ReviewsTab\AverageRating" />
+    <div class="comment">{{ t('Average rating') }}:</div>
+    {{ widget_list('reviews.product.rating', place='tab') }}
+    <div class="comment">
+      {{ t('Score: X. Votes: Y', {'score': this.getAverageRating(), 'votes': this.getVotesCount()}) }}
+    </div>
+    {% if this.isVisibleAverageRating() %}
+    <input type="button" value="Average rating" name="showRating" id="btnAverageRating" class="button-average-rating" />
+  
+    <div class="product-average-rating-container">
+      <div class="product-average-rating summary">
+        {{ widget_list('reviews.rating.details') }}
+      </div>
+    </div>
+    {% endif %}
+  
+  </div>
+{% endif %}

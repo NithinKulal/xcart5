@@ -1,0 +1,34 @@
+{##
+ # Attributes
+ #}
+
+<div class="{{ this.getBlockStyle() }}">
+  <div class="header clearfix">
+    <span class="title">{{ this.getTitle() }}</span>
+    {% if this.getTooltip() %}
+      {{ widget('\\XLite\\View\\Tooltip', text=this.getTooltip(), isImageTag='true', className='help-icon') }}
+    {% endif %}
+    {% if this.canAddAttributes() %}
+      {{ widget('\\XLite\\View\\Button\\Dropdown\\AddAttribute', listId=this.getListId()) }}
+    {% endif %}
+  </div>
+  <ul class="data" id="list{{ this.getListId() }}">
+    {% for id, a in this.getAttributesList() %}
+      <li class="line clearfix attribute">
+        <div class="attribute-name">
+          {{ a.name.display() }}
+        </div>
+        {{ a.value.display() }}
+        {{ widget_list('product.attributes.actions', item=a, itemId=id) }}
+      </li>
+    {% endfor %}
+    {% if not this.getAttributesList() %}
+      <li class="list-empty">
+        {{ t('No attributes assigned') }}
+      </li>
+    {% endif %}
+  </ul>
+</div>
+{% for group in this.getAttributeGroups() %}
+  {{ widget('XLite\\View\\Product\\Details\\Admin\\Attributes', group=group) }}
+{% endfor %}

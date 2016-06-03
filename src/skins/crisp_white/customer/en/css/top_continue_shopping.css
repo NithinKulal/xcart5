@@ -1,0 +1,16 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Top 'Continue shopping' button style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+#breadcrumb .top-continue {
+  float: right;
+}
+
+#breadcrumb .top-continue button {
+  margin: 1px 0 0;
+}

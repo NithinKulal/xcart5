@@ -1,0 +1,65 @@
+{##
+ # Payment configuration
+ #}
+
+<div class="payment-conf">
+
+{% if this.hasPaymentModules() %}
+  {% if this.hasGateways() %}
+    <div class="box gateways">
+      <h2>{{ t('Online methods') }}</h2>
+      {{ widget('XLite\\View\\Button\\Payment\\AddMethod', paymentType=constant('XLite\\Model\\Payment\\Method::TYPE_ALLINONE'), style='add-method top-button-add-method') }}
+      <div class="content">
+  
+        {% if this.hasAddedGateways() %}
+        {{ widget('XLite\\View\\ItemsList\\Payment\\Method\\Admin\\Gateways') }}
+        {% else %}
+        {% endif %}
+  
+        {% if this.hasAddedAlternative() %}
+        {{ widget('XLite\\View\\ItemsList\\Payment\\Method\\Admin\\Alternative') }}
+        {% else %}
+        {% endif %}
+  
+      </div>
+    </div>
+  {% endif %}
+{% else %}
+  <div class="box no-payment-modules">
+    <h2>{{ t('No payment modules installed') }}</h2>
+    <div class="content">
+      <p>{{ t('In order to accept credit cards payments you should install the necessary payment module from our Marketplace.') }}</p>
+      {{ widget('XLite\\View\\Button\\Link', label=t('Go to Marketplace'), location=url('addons_list_marketplace', '', {'tag': 'Payment processing'}), style='action') }}
+    </div>
+  </div>
+{% endif %}
+  <div class="right-panel-payment-modules">
+
+    {% if this.hasPaymentModules() %}
+      <div class="subbox marketplace">
+        <h2>{{ t('Need more payment methods?') }}</h2>
+  
+        <img src="{{ asset('images/payment_logos.gif') }}" alt="{{ t('Payment methods') }}" class="payment-logos" /><br />
+  
+        {{ widget('XLite\\View\\Button\\Payment\\AddMethod', paymentType=constant('XLite\\Model\\Payment\\Method::TYPE_ALLINONE'), label="Find your payment", style='regular-main-button') }}
+      </div>
+    {% endif %}
+
+    <div class="subbox watch-video">
+      <h2>{{ t('Understanding Online Payments') }}</h2>
+      <p>{{ t('Watch this short video and learn the basics of how online payment processing works') }}</p>
+      {{ widget('XLite\\View\\Button\\Link', label=t('Watch video'), location=this.getVideoURL(), style='watch-video', blank='true') }}
+    </div>
+
+  </div>
+
+  <div class="box offline-methods">
+  <h2>{{ t('Offline methods') }}</h2>
+  {{ widget('XLite\\View\\Button\\Payment\\AddMethod', paymentType=constant('XLite\\Model\\Payment\\Method::TYPE_OFFLINE'), style='add-method top-button-add-method') }}
+  <div class="content">
+    {{ widget('XLite\\View\\ItemsList\\Payment\\Method\\Admin\\OfflineModules') }}
+    {{ widget('XLite\\View\\ItemsList\\Payment\\Method\\Admin\\Offline') }}
+  </div>
+</div>
+
+</div>

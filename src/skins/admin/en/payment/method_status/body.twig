@@ -1,0 +1,22 @@
+{##
+ # Payment method status
+ #}
+<div class="payment-status" data-method="{{ this.getMethodId() }}">
+  <div class="{{ this.getClass() }}" role="alert">
+    <span class="status-message-before">
+      {{ widget_list(this.getBeforeListName()) }}
+    </span>
+
+    {% if this.isSwitchable() %}
+    {{ widget('XLite\\View\\FormField\\Input\\Checkbox\\OnOff', label='This payment method is', fieldName='payment_method_status', onLabel=t('shippingStatus.Active'), offLabel=t('shippingStatus.Inactive'), value=this.isEnabled()) }}
+    {% else %}
+      <div class="table-label">
+        <label>{{ this.getNotSwitchableReason()|raw }}</label>
+      </div>
+    {% endif %}
+
+    <span class="status-message-after">
+      {{ widget_list(this.getAfterListName()) }}
+    </span>
+  </div>
+</div>

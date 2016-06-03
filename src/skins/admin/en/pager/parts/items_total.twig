@@ -1,0 +1,16 @@
+{##
+ # Products list items total
+ #
+ # @ListChild (list="pager.itemsTotal", weight="20")
+ #}
+
+{% if this.isItemsPerPageVisible() %}
+  <div class="pager-items-total">
+    {{ t('Items') }}:
+    <span class="begin-record-number">{{ this.getBeginRecordNumber() }}</span>
+    &ndash;
+    <span class="end-record-number">{{ this.getEndRecordNumber() }}</span> {{ t('of') }} <span class="records-count">{{ this.getItemsTotal() }}</span>{% if this.isItemsPerPageSelectorVisible() %}<span>, <input type="text" value="{{ this.getItemsPerPage() }}" class="page-length" /> {{ t('per page') }} </span>{% endif %}
+  </div>
+{% endif %}
+
+<div class="clear"></div>

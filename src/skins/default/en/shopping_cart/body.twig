@@ -1,0 +1,14 @@
+{##
+ # Shopping cart
+ #}
+<div id="cart" class="clearfix">
+{#  <div id="cart-right">
+    <list name="cart.panel" />
+  </div>#}
+  <div id="shopping-cart">
+    {{ widget_list('cart.children') }}
+  </div>
+  <div id="cart-right">
+      {{ widget_list('cart.panel') }}
+  </div>
+</div>

@@ -1,0 +1,12 @@
+{##
+ # Field : username
+ #
+ # @ListChild (list="customer.signin.fields", weight="100")
+ # @ListChild (list="customer.signin.popup.fields", weight="100")
+ #}
+
+<tr>
+  <td class="email-field field">
+    {{ widget('XLite\\View\\FormField\\Input\\Text\\Email', value=this.login, required='true', fieldName='login', label=t('Email'), fieldOnly='false', fieldId='login-email') }}
+  </td>
+</tr>

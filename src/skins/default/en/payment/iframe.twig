@@ -1,0 +1,12 @@
+{##
+ # Payment IFRAME
+ #}
+
+<div class="block block-block">
+  <div class="content">
+    <div class="checkout-block">
+      {% include 'payment/header.twig' %}
+      <iframe id="pay_iframe" width="{{ this.width }}" height="{{ this.height }}" src="{{ this.src }}"></iframe>
+    </div>
+  </div>
+</div>

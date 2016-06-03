@@ -1,0 +1,23 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: featured_products_look
+    category: CDev\FeaturedProducts
+    type: 'XLite\Module\CDev\FeaturedProducts\View\FormField\FeaturedProductsLook'
+    orderby: 10
+    value: grid
+    translations:
+      - code: en
+        option_name: Featured products look and feel
+
+XLite\Model\LanguageLabel:
+  - { name: 'The product SKU#"X" is already set as featured for the category', translations: [{ code: en, label: 'The product SKU#"{{SKU}}" is already set as featured for the category' }] }
+  - { name: 'Add featured products for "X"', translations: [{ code: en, label: 'Add featured products for "{{category}}"' }] }
+  - { name: 'Add featured products for the front page', translations: [{ code: en, label: 'Add featured products for the front page' }] }
+  - { name: 'Featured', translations: [{ code: en, label: 'Featured' }] }
+

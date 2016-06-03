@@ -1,0 +1,6 @@
+{##
+ # Mime icon
+ #
+ # @ListChild (list="product.attachments.row", weight="300", zone="admin")
+ #}
+<img src="{{ asset('images/spacer.gif') }}" alt="{{ t(this.attachment.storage.mimeName) }}" class="mime-icon {{ this.attachment.storage.getMimeClass() }}" />

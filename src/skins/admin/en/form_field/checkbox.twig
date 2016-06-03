@@ -1,0 +1,8 @@
+{##
+ # Checkbox template
+ #}
+<span class="input-field-wrapper checkbox {{ this.getWrapperClass() }}">
+  {{ this.displayCommentedData(this.getCommentedData()) }}
+  <input type="hidden" name="{{ this.getName() }}" value="" />
+  <input{{ this.getAttributesCode()|raw }} />
+</span>

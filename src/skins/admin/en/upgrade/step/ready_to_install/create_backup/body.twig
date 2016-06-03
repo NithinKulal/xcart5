@@ -1,0 +1,32 @@
+{##
+ # Create backup warnings
+ #}
+
+ <div class="create-backup-section">
+  <div class="create-backup-section-frame">
+
+  {% if this.isForce() %}
+    <div class="header">{{ t('Restore links') }}!</div>
+
+    <div class="description safe-mode-description">
+      {{ t('If your store is crashed after upgrade, you can recover it', {'article': this.getArticleURL()})|raw }}
+      {{ t('For any emergency you can use the hard, soft and restore-state links') }}
+    </div>
+  {% else %}
+    <div class="header">{{ t('Create a backup') }}!</div>
+
+    <div class="description safe-mode-description">
+      {{ t('If your store is crashed after upgrade, you can recover it', {'article': this.getArticleURL()})|raw }}
+      {{ t('For any emergency you can use the hard, soft and restore-state links') }}
+      {{ t('These links were already provided to you after this store was installed and will be emailed to you again after you start the upgrade process') }}
+    </div>
+  {% endif %}
+
+  {{ widget_list('actions', type='inherited') }}
+
+  {% if this.isForce() %}
+    {{ widget('\\XLite\\View\\Button\\ProgressState', style='email-links regular-button', label='Email me the links', jsCode='') }}
+  {% endif %}
+
+  </div>
+ </div>

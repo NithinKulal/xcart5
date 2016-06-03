@@ -1,0 +1,9 @@
+{##
+ # Payment methods list : line : header : alternative icon
+ #
+ # @ListChild (list="payment.methods.list.header", weight=500)
+ #}
+
+{% if this.method.getAltAdminIconURL() %}
+  <div class="alt-icon"><img src="{{ this.method.getAltAdminIconURL() }}" alt="" /></div>
+{% endif %}

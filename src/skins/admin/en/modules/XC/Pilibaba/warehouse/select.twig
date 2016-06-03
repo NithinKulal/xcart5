@@ -1,0 +1,9 @@
+{##
+ # Pilibaba warehouse select field
+ #}
+
+{% include 'form_field/' ~ this.getOldFieldTemplate() %}
+
+{% if this.showHumanForm() %}
+  {{ widget('\\XLite\\View\\Address', address=this.getWarehouseAddress()) }}
+{% endif %}

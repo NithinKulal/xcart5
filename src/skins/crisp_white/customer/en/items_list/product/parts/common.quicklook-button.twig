@@ -1,0 +1,8 @@
+{##
+ # Overlapping box
+ #}
+{% if this.isQuickLookEnabled() %}
+  <div class="quicklook">
+    {{ widget('\\XLite\\View\\Button\\Link', style='quicklook-link quicklook-link-' ~ this.product.product_id ~ ' quicklook-link-category-' ~ this.categoryId, label='Quick view', jsCode='return false;') }}
+  </div>
+{% endif %}

@@ -1,0 +1,24 @@
+{##
+ # Languages list template
+ #}
+
+{% if this.getLanguages() %}
+  <ul class="languages-list">
+    {% for id, lng in this.getLanguages() %}
+      <li>
+        {% if lng.code != this.getCode() %}
+          <a href="{{ url('labels', '', {'code': lng.getCode()}) }}">
+              <span class="flag"><img src="{{ lng.getFlagURL() }}" /></span>
+              <span>{{ lng.getName() }}</span>
+          </a>
+        {% endif %}
+        {% if lng.code == this.getCode() %}
+          <span class='active'>
+              <span class="flag"><img src="{{ lng.getFlagURL() }}" /></span>
+              <span>{{ lng.getName() }}</span>
+          </span>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}

@@ -1,0 +1,15 @@
+{##
+ # Promo block content for chackout page
+ #}
+
+{% if this.hasNextDiscount() %}
+  <div class="volume-discounts-promo">
+  
+    <div class="banner">
+      <div class="banner-box">-{{ this.getNextDiscountValue() }}</div>
+    </div>
+  
+    <span class="next">{{ t('Get X off for order amount over Y', {'X': this.getNextDiscountValue(), 'Y': this.getNextDiscountSubtotal()}) }}</span>
+  
+  </div>
+{% endif %}

@@ -1,0 +1,18 @@
+{##
+ # Subcategories list (list style)
+ #}
+{% if this.getSubcategories() %}
+  <ul class="subcategory-view-list subcategory-list grid-list">
+    {% for subcategory in this.getSubcategories() %}
+    {% if subcategory.hasAvailableMembership() %}
+      <li>
+        <a href="{{ url('category', '', {'category_id': subcategory.category_id}) }}" class="subcategory-name">{{ subcategory.name }}</a>
+      </li>
+    {% endif %}
+    {% endfor %}
+    {% for item in this.getNestedViewList('children') %}
+      <li>{{ item.display() }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+{{ widget_list('subcategories.base') }}

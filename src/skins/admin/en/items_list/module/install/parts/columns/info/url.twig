@@ -1,0 +1,11 @@
+{##
+ # Modules main description section list
+ #
+ # @ListChild (list="itemsList.module.install.columns.module-description-section", weight="30")
+ #}
+
+{% if this.getPageURL(this.module) %}
+  <div class="module-url">
+    <a href="{{ this.getPageURL(this.module) }}" target="_blank" class="module-page-link form-external-link" data-store-url="{{ this.getStoreURL() }}" data-email="{{ this.getUserEmail() }}">{{ t('Module page') }}<i class="icon fa fa-external-link"></i></a>
+  </div>
+{% endif %}

@@ -1,0 +1,11 @@
+{##
+ # Left side menu info link
+ #}
+<div class="line">
+  {% if this.getLink() %}
+    <a href="{{ this.getLink() }}" class="link"{% if this.getTooltip() %} title="{{ this.getTooltip() }}"{% endif %}{% if this.getBlankPage() %} target="_blank"{% endif %}>{{ this.getIcon()|raw }}{% if this.getTitle() %}<span>{{ this.getTitle()|raw }}</span>{% endif %}</a>
+  {% else %}
+    <span class="link"{% if this.getTooltip() %} title="{{ this.getTooltip() }}"{% endif %}>{{ this.getIcon()|raw }}{% if this.getTitle() %}<span>{{ this.getTitle()|raw }}</span>{% endif %}</span>
+  {% endif %}
+  <span class="label"><span style="opacity: 0;">&nbsp;</span></span>
+</div>

@@ -1,0 +1,9 @@
+{##
+ # Restore modifier
+ #}
+
+<div class="restore-orig-price">
+  <a href="#" class="auto" title="{{ t('Recalculate this value automatically') }}"></a>
+  <a href="#" class="manual" title="{{ t('Save the existing value without re-calculating') }}"></a>
+  <input type="hidden" name="auto[surcharges][{{ this.surcharge.code }}][value]" {% if this.isAutoSurcharge(this.surcharge) %}value="1"{% else %}value=""{% endif %} />
+</div>

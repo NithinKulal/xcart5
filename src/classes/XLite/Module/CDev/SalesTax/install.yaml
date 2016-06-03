@@ -1,0 +1,33 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Taxes module install data
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - { name: ignore_memberships, category: 'CDev\SalesTax', type: checkbox, value: 'Y', orderby: 150, translations: [{ code: en, option_name: 'Use the same tax rates for all user membership levels' }] }
+  - { name: addressType, category: 'CDev\SalesTax', type: \XLite\Module\CDev\SalesTax\View\FormField\AddressType, value: billing, orderby: 160, translations: [{ code: en, option_name: 'Address for sales tax calculation' }] }
+  - { name: taxableBase, category: 'CDev\SalesTax', type: \XLite\Module\CDev\SalesTax\View\FormField\TaxableBase, value: 'ST', orderby: 170, translations: [{ code: en, option_name: 'Taxable base' }] }
+
+XLite\Model\Order\Modifier:
+  - { class: '\XLite\Module\CDev\SalesTax\Logic\Order\Modifier\Tax', weight: 1100 }
+
+XLite\Model\LanguageLabel:
+  - { name: 'Address for sales tax calculation', translations: [{ code: en, label: 'Address for sales tax calculation' }] }
+  - { name: 'Click here to specify tax rates that will apply only to shipping charges', translations: [{ code: en, label: 'Click here to specify tax rates that will apply only to shipping charges' }] }
+  - { name: 'Discounted subtotal', translations: [{ code: en, label: 'Discounted subtotal' }] }
+  - { name: 'Discounted subtotal + Shipping cost', translations: [{ code: en, label: 'Discounted subtotal + Shipping cost' }] }
+  - { name: 'General tax rates', translations: [{ code: en, label: 'General tax rates' }] }
+  - { name: 'Individual settings for every rate', translations: [{ code: en, label: 'Individual settings for every rate' }] }
+  - { name: 'New sale tax rate', translations: [{ code: en, label: 'New rate' }] }
+  - { name: 'Subtotal + Shipping cost', translations: [{ code: en, label: 'Subtotal + Shipping cost' }] }
+  - { name: 'Tax rate has been deleted successfully', translations: [{ code: en, label: 'Tax rate has been deleted successfully' }] }
+  - { name: 'Tax rate has not been deleted successfully', translations: [{ code: en, label: 'Tax rate has not been deleted' }] }
+  - { name: 'Taxable base', translations: [{ code: en, label: 'Taxable base' }] }
+  - { name: 'Tax rates for shipping charges have not yet been created.', translations: [{ code: en, label: 'Tax rates for shipping charges have not yet been created.' }] }
+  - { name: 'Tax rates have not yet been created.', translations: [{ code: en, label: 'Tax rates have not yet been created.' }] }
+  - { name: 'Tax rates on shipping cost', translations: [{ code: en, label: 'Tax rates on shipping cost' }] }
+  - { name: 'Use the same tax rates for all user membership levels', translations: [{ code: en, label: 'Use the same tax rates for all user membership levels' }] }
+  - { name: 'Sales tax', translations: [{ code: en, label: 'Sales tax' }] }
+

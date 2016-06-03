@@ -1,0 +1,384 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * ____file_title____
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.update-module-list-frame {
+  width: 1000px;
+  position: relative;
+  margin-top: 20px;
+}
+
+.update-module-list-frame button.center {
+  margin-left: 38%;
+  margin-top: 10px;
+}
+
+ul.update-module-list {
+  list-style: none;
+}
+
+.update-module-list li.update-module-info {
+  float: left;
+  display: block;
+  margin: 0 10px 30px 0;
+  width: 330px;
+  min-width: 310px;
+  max-width: 320px;
+  min-height: 84px;
+}
+
+li.update-module-info .module-icon {
+  float: left;
+  margin: 0 10px 0 0;
+}
+
+li.update-module-info ul.module-info {
+  float: left;
+}
+
+ul.module-info {
+  list-style: none;
+  max-width: 180px;
+}
+
+.module-info .name {
+  color: #333333;
+  font-size: 15px;
+}
+
+.module-info .name.core {
+  font-size: 24px;
+}
+
+.module-info .module .details li {
+  margin: 2px 0 0 0;
+}
+
+.module-info .module .enabled {
+  color: #2d8e10;
+}
+
+.module-info .module .disabled {
+  color: #8f8f8f;
+}
+
+.module-info .module .title {
+  color: #8f8f8f;
+}
+
+.module-info .version {
+  color: #333333;
+  font-size: 14px;
+  margin: 7px 0 0 0;
+}
+
+.upgrade-button {
+  position:absolute;
+  top: -70px;
+  right: 0;
+}
+
+/**
+ * Entries list styles
+ */
+
+table.entries-list {
+  border-collapse: collapse;
+  margin: 0 0 25px 0;
+  width: 800px;
+}
+
+table.entries-list td,
+table.entries-list th
+{
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+table.entries-list tr.header {
+  background: none #f3f3f3;
+  height: 35px;
+}
+
+table.entries-list tr.header .module-info-header {
+  text-align: left;
+  padding: 5px 5px 5px 15px;
+}
+
+table.entries-list tr.header th {
+  font-size: 16px;
+  font-weight: normal;
+  color: #53769d;
+}
+
+table.entries-list tr.separator,
+table.entries-list tr.separator td
+{
+  height: 10px;
+}
+
+table.entries-list tr td {
+  color: #333333;
+}
+
+table.entries-list tr.core-entry {
+  background: none #eff8fe;
+  height: 45px;
+}
+
+table.entries-list tr.module-entry {
+  border-top: #e5e5e5 1px solid;
+  border-bottom: #e5e5e5 1px solid;
+}
+
+table.entries-list tr.module-entry td,
+table.entries-list tr.core-entry td
+{
+  padding: 10px 15px;
+}
+
+.entries-list td.module-info span.name {
+  color: #333333;
+  font-size: 16px;
+}
+
+.entries-list td.module-info span.author {
+  color: #9e9e9e;
+  font-size: 12px;
+}
+
+.entries-list .status.disabled {
+  color: #8f8f8f;
+}
+
+.entries-list .status.not-installed {
+  color: #4a9821;
+}
+
+table.entries-list tr td.old-version {
+  color: #8f8f8f;
+  padding-right: 20px;
+  text-align: center;
+}
+
+table.entries-list tr td.version-separator {
+  width: 1px;
+  height: 14px;
+  padding: 10px;
+  background: transparent url(../images/icon_arrow_version.png) left 12px no-repeat;
+}
+
+table.entries-list tr.core-entry td.version-separator {
+  background-position: left 16px;
+}
+
+table.entries-list tr td.new-version {
+  color: #333333;
+  padding-left: 10px;
+}
+
+.entries-list .size {
+  color: #8f8f8f;
+  text-align: right;
+}
+
+.module-icon .addon-default-icon {
+  background: transparent url(../../../../images/addon_default.png) left top no-repeat;
+}
+
+/**
+ * Incompatible entries list styles
+ */
+
+.incompatible-list {
+  border: 1px solid #eaccd1;
+  border-radius: 5px;
+  position: relative;
+  margin-bottom: 30px;
+  width: 1022px;
+}
+
+.incompatible-list > h2 {
+  padding: 20px 17px;
+  margin: 0;
+  background-color: #f9f1f1;
+  border-bottom: 1px solid #eaccd1;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  color: #a74544;
+}
+
+.incompatible-list > .dialog-content {
+  padding: 20px 15px;
+}
+
+.incompatible-list li.update-module-info ul.module-info {
+  float: left;
+  margin: 0;
+}
+
+.incompatible-list .module-info .contact {
+  margin-top: 5px;
+}
+
+.incompatible-list .request-for-upgrade {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
+
+.incompatible-module-list-description {
+  color: #333333;
+  padding: 0px 5px 25px 5px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.free-space-warning-section div {
+  color: #333333;
+  padding: 0px 5px 25px 5px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+table.incompatible-modules-list {
+  border-collapse: collapse;
+  margin: 0px 0px 30px 0px;
+  width: 800px;
+}
+
+.incompatible-list .module-icon img {
+  width: 84px;
+  height: 84px;
+}
+
+.incompatible-list ul.module-info {
+  max-width: 226px;
+}
+
+.incompatible-status-message
+{
+  display: none;
+}
+
+.incompatible-list-actions {
+  width: 1020px;
+}
+
+.incompatible-list-actions button {
+  float: left;
+}
+
+.incompatible-list-actions div.update-trial-notice {
+  float: right;
+  margin: 10px;
+  font-size: 14px;
+  color: #982626;
+}
+
+.incompatible-list-actions button.main-button {
+  float: right;
+  height: 40px;
+  padding-left: 35px;
+  padding-right: 35px;
+  margin-top: -3px;
+}
+
+.incompatible-list-actions button.main-button span {
+  font-size: 18px;
+}
+
+.formError div.formErrorContent {
+  width: 300px;
+  line-height: 18px;
+}
+
+/* TODO: refactor with ready2install step!!  */
+.service-messages-section {
+  margin: 0px 0px 40px 0px;
+}
+
+.ready-to-install-service-message {
+  border: solid 1px #e9e9e9;
+  padding: 5px 5px 5px 5px;
+  background-color: #f7f7f7;
+  width: 788px;
+  margin: 0px 0px 20px 0px;
+}
+
+.ready-to-install-service-message .message-entry {
+  background-color: #ffffff;
+  padding: 15px 15px 15px 15px;
+  color: #d65335;
+  font-size: 16px;
+}
+
+/**
+ * Premium license modules section
+ */
+.premium-license-modules-section {
+  background: transparent url(../images/warning_circle.png) 0 15px no-repeat;
+}
+
+.premium-license-modules-message {
+  font-size: 14px;
+  color: #333333;
+  padding: 20px 0 30px 70px;
+  width: 800px;
+}
+
+.premium-license-modules-section .premium-license-modules-list {
+  margin-left: 70px;
+  width: 730px;
+}
+
+.target-upgrade #main > h1 {
+  color: #000;
+  margin-left: 18px;
+}
+
+.target-upgrade #main > h2 {
+  float: left;
+  color: #41a13a;
+  margin: 5px 17px 18px 18px;
+}
+
+.target-upgrade .update-module-list.upgrade {
+  display: none;
+  margin-left: 18px;
+  width: 1000px;
+}
+
+.target-upgrade .toggle-list {
+  line-height: 24px;
+  margin: 22px 0;
+}
+
+.target-upgrade .toggle-list a {
+  text-decoration: none;
+  border-bottom: 1px dashed #1a509a;
+  padding: 0 1px;
+  font-size: 14px;
+}
+
+.target-upgrade .update-module-list.upgrade li.update-module-info {
+  float: left;
+  display: block;
+  margin: 0 10px 30px 0;
+  width: 240px;
+  min-width: 240px;
+  max-width: 240px;
+  min-height: 102px;
+}
+
+.target-upgrade .update-module-list.upgrade .module-icon img {
+  width: 50px;
+  height: 50px;
+  background-size: 50px 50px;
+}
+

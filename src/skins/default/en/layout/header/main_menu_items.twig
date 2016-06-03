@@ -1,0 +1,11 @@
+{##
+ # Top menu
+ #}
+
+{% if this.hasItems() %}
+    <ul class="nav navbar-nav">
+        {% for i, item in this.getItems() %}
+            <li {{ this.displayItemClass(i, item)|raw }}><a href="{{ item.url }}" {% if item.active %}class="active"{% endif %}>{{ item.label }}</a></li>
+        {% endfor %}
+    </ul>
+{% endif %}

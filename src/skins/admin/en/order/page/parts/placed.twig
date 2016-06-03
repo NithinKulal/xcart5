@@ -1,0 +1,19 @@
+{##
+ # Order : placed box
+ #
+ # @ListChild (list="order.operations", weight="30")
+ #}
+
+<div class="title">
+  <div class="placed-date">{{ t('Placed on DATE', {'date': this.getOrderDate()})|raw }}</div>
+  <div class="placed-customer">
+  {% if this.hasProfilePage() %}
+    {{ t('Placed by _NAME_ EMAIL', {'name': this.getProfileName(), 'url': this.getProfileURL(), 'email': this.getProfileEmail()})|raw }}
+  {% else %}
+    {{ t('Placed by NAME EMAIL', {'name': this.getProfileName(), 'email': this.getProfileEmail()})|raw }}
+  {% endif %}
+  {% if this.getMembership() %}
+    <span class="membership">({{ this.membership.getName() }})</span>
+  {% endif %}
+  </div>
+</div>

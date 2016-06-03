@@ -1,0 +1,23 @@
+{##
+ # Checkout : order review step : items : list
+ #
+ # @ListChild (list="checkout.review.selected.items", weight="20")
+ # @ListChild (list="checkout.review.inactive.items", weight="20")
+ #}
+<div class="list" style="display: none;" v-bind:style="itemsList">
+
+  <ul>
+    {% for item in this.cart.getItems() %}
+      <li>
+        <a href="{{ item.getURL() }}">{{ item.getName() }}<img src="{{ asset('images/spacer.gif') }}" alt="" class="fade" /></a>
+        <div>
+          &times;
+          <span class="qty">{{ item.getAmount() }}</span>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <hr />
+  <a href="{{ url('cart') }}" class="cart">{{ t('View cart') }}</a>
+</div>

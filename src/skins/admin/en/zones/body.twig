@@ -1,0 +1,11 @@
+{##
+ # ____file_title____
+ #}
+
+{% if not this.isDisplayZoneDetails() %}
+  {% include 'zones/list/body.twig' %}
+{% endif %}
+
+{% if this.isDisplayZoneDetails() %}
+  {% include 'zones/details/body.twig' %}
+{% endif %}

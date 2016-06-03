@@ -1,0 +1,9 @@
+{##
+ # Offline carrier form
+ #
+ # @ListChild (list="edit_shipping")
+ #}
+<div class="offline-shipping-create">
+  {% include this.getOfflineHelpTemplate() %}
+  {{ widget('XLite\\View\\Model\\Shipping\\Offline') }}
+</div>

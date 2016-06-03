@@ -1,0 +1,20 @@
+{##
+ # Products list display mode selector
+ #
+ # @ListChild (list="itemsList.product.grid.customer.header", weight="20")
+ # @ListChild (list="itemsList.product.list.customer.header", weight="20")
+ # @ListChild (list="itemsList.product.table.customer.header", weight="20")
+ #}
+
+{% if this.isDisplayModeSelectorVisible() %}
+  <ul class="display-modes grid-list {{ this.getParam('displayMode') != 'table' ? 'mobile-hidden' : '' }}">
+    {% for key, name in this.displayModes %}
+      <li class="{{ this.getDisplayModeLinkClassName(key) }}">
+        <a href="{{ this.getActionURL({'displayMode': key}) }}" class="{{ key }}" title="{{ t(name) }}">
+          <i class="fa {{ this.getDisplayModeCSS(key) }}"></i>
+          <span class="text">{{ t(name) }}</span>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}

@@ -1,0 +1,8 @@
+{##
+ # Layout mode switcher
+ #
+ # @ListChild (list="layout_settings.settings", weight="40")
+ #}
+<div class="layout-mode-switch">
+  {{ widget('XLite\\View\\FormField\\Input\\Checkbox\\OnOff', label='Layout editor', labelHelp='Layout editor allows you to change the position of the blocks in drag-n-drop fashion', fieldName='layout_mode', value=this.config.XC.ThemeTweaker.layout_mode, comment=this.getStoreFrontLink()) }}
+</div>

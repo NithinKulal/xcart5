@@ -1,0 +1,472 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Attributes
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+div.attributes .header {
+  border-bottom: 1px solid #ddd;
+  -webkit-box-shadow: 0px 10px 15px -6px rgba(50, 50, 50, 0.75);
+  -moz-box-shadow:    0px 10px 15px -6px rgba(50, 50, 50, 0.75);
+  box-shadow:         0px 10px 15px -6px rgba(50, 50, 50, 0.75);
+}
+
+div.dialog-block div.attribute-group .header .title {
+  color: #6594bb;
+  margin: 20px 21px 4px;
+}
+
+div.dialog-block div.attribute-group .header {
+  border-bottom: none;
+}
+
+.header div.btn-dropdown {
+  position: absolute;
+  right: 19px;
+  top: 13px;
+}
+
+div.attribute-group .header div.btn-dropdown {
+  top: 11px;
+}
+
+li.list-empty {
+  color: #999;
+  font-size: 22px;
+  padding: 28px 0 23px;
+  text-align: center;
+  display: none;
+}
+
+.empty li.list-empty {
+  display: block;
+}
+
+div.attribute-group ul.data {
+  margin-top: 10px;
+}
+
+div.dialog-block ul.data {
+  margin: 10px;
+}
+
+ul.data li .attribute-name .table-value {
+  margin-top: -5px;
+  padding: 5px 0;
+  display: block;
+}
+
+ul.data li.create-line .attribute-name .table-value {
+  padding: 11px 0;
+  margin-left: 5px;
+}
+
+ul.data li .attribute-value,
+ul.data li .actions,
+ul.data li .attribute-name {
+  float: left;
+  display: inline-block;
+}
+
+ul.data li .actions {
+  float: right;
+  background: transparent url(../../items_list/model/table/images/line-separator.png) repeat-y left top;
+  padding: 2px 10px 2px 13px;
+  margin-top: 17px;
+}
+
+ul.data li .attribute-name {
+  width: 251px;
+  height: 46px;
+  padding: 6px 5px 5px;
+}
+
+ul.data li .attribute-name .inline-field.editable .view {
+  margin: 0;
+  padding: 4px 9px;
+}
+
+ul.data li .attribute-name .inline-field.editable .view span {
+  font-size: 20px;
+}
+
+ul.data li .attribute-name .inline-field .view.not-editable {
+  margin-top: 5px;
+}
+
+ul.data li .attribute-name .inline-field .view.not-editable span {
+  font-size: 18px;
+}
+
+ul.data li .attribute-value {
+  padding: 8px 18px 0;
+  width: 560px;
+}
+
+ul.data li .attribute-value input[type=text],
+ul.data li .attribute-value textarea {
+  width: 400px;
+}
+
+ul.data li .attribute-value .table-value {
+  padding: 4px 0 6px;
+}
+
+ul.data li .attribute-value.type-c .table-value input[type=text] {
+  border-color: #eee;
+}
+
+ul.data li .attribute-value.type-c .table-value select {
+  width: auto;
+}
+
+ul.data li .attribute-value.type-t .table-value {
+  padding-bottom: 2px;
+  float: left;
+}
+
+ul.data li .attribute-value.type-t {
+  padding-bottom: 0;
+}
+
+.remove-wrapper input {
+  display: none;
+}
+
+button.remove img {
+  background: transparent url(../../images/close_icon.png) no-repeat center -2px;
+  height: 19px;
+  width: 19px;
+  vertical-align: middle;
+}
+
+button.remove:hover img {
+  background: transparent url(../../images/close_icon.png) no-repeat center -24px;
+}
+
+button.remove.delete img,
+button.remove.delete:hover img {
+  background: transparent url(../../images/icon_trash.png) no-repeat center;
+}
+
+button.remove
+{
+  border: 0px none;
+  padding: 0px;
+  height: auto;
+  margin: 0px;
+  background: transparent none;
+  color: #526aa8;
+}
+
+ul.data li i.fa {
+  font-size: 18px;
+}
+
+ul.data li.remove-mark .attribute-name .inline-field.editable .view {
+  border-color: #fff;
+}
+
+li.line.value.remove-mark,
+li.line.attribute.remove-mark * {
+  filter: alpha(opacity=80);
+  opacity: .9;
+}
+
+li.line.value.remove-mark,
+li.line.attribute.remove-mark {
+  opacity: .6;
+}
+
+li.line.edit-mark .inline-field.editable .view {
+  border-color: #fff;
+  background-color: #fff;
+}
+
+li.line.edit-mark .inline-field.editable .view .right-fade {
+  display: block;
+}
+
+li.line.edit-mark .attribute-name:hover .inline-field.editable .view .right-fade {
+  display: block;
+  background: #faf5dd url(../../images/icon_pen.png) no-repeat center center;
+}
+.edit-mark .attribute-name:hover .inline-field.editable .view {
+  background-color: #faf5dd;
+  border: 1px solid #e0dabc;
+}
+
+ul.data li .attribute-value li .value {
+  float: left;
+}
+
+ul.data li .attribute-value li .actions {
+  background: none;
+  padding-left: 0;
+  position: absolute;
+  left: 407px;
+  top: -7px;
+  display: none;
+}
+
+ul.data li .attribute-value li:hover .actions {
+  display: block;
+}
+
+ul.data li .attribute-value label.inline-checkbox {
+  float: right;
+  position: relative;
+  left: -16px;
+  top: 11px;
+  display: none;
+  z-index: 99;
+  max-width: 90px;
+  white-space: nowrap;
+}
+
+ul.data li .attribute-value label.inline-checkbox * {
+  vertical-align: middle;
+}
+
+ul.data li .attribute-value label.inline-checkbox span {
+  font-size: 16px;
+  color: #333;
+}
+
+ul.data li .attribute-value ul.values li,
+ul.data li .attribute-value.multiple .single-option,
+ul.data li .attribute-value .multiple-options {
+  display: none;
+}
+
+div.modifiers {
+  position: absolute;
+  top: 10px;
+  right: 150px;
+  font-size: 14px;
+  padding: 2px 10px;
+  display: none;
+}
+
+div.modifiers span.text span,
+div.modifiers span.text {
+  color: #74ab65;
+  font-size: 14px;
+  font-style: italic;
+}
+
+div.modifiers span.text span.price-modifier {
+  background: transparent url(../../images/modifiers_icons.png) no-repeat left -1px;
+  padding-left: 22px;
+  margin-left: 3px;
+}
+
+div.modifiers span.text span.weight-modifier {
+  background: transparent url(../../images/modifiers_icons.png) no-repeat left -20px;
+  padding-left: 22px;
+  margin-left: 3px;
+}
+
+div.modifiers a {
+  text-decoration: underline;
+  display: none;
+}
+
+div.modifiers .popup {
+  position: absolute;
+  z-index: 100;
+  background: #fff;
+  border: 1px solid #b4b4b4;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -moz-box-shadow: 0 0 10px #bbc7d2;
+  -webkit-box-shadow: 0 0 10px #bbc7d2;
+  box-shadow: 0 0 10px #bbc7d2;
+  bottom: 34px;
+  right: -85px;
+  width: 238px;
+  display: none;
+}
+
+div.modifiers.open .popup {
+  display: block;
+}
+
+div.modifiers .popup .arrow {
+  border-bottom: #b4b4b4 1px solid;
+  border-right: #b4b4b4 1px solid;
+  background: #fff none;
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  bottom: -9px;
+  left: 50%;
+  margin-left: -8px;
+  -webkit-transform: rotate(45deg);
+  -khtml-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  -moz-box-shadow: 2px 2px 4px 0px #bbc7d2;
+  -webkit-box-shadow: 2px 2px 4px 0px #bbc7d2;
+  box-shadow: 2px 2px 4px 0px #bbc7d2;
+}
+
+div.modifiers .popup h4 {
+  background: #f9f9fb;
+  border-bottom: 1px solid #ebebeb;
+  padding: 13px 17px 11px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  -moz-border-top-left-radius: 5px;
+  -webkit-border-top-left-radius: 5px;
+  border-top-left-radius: 5px;
+  -moz-border-top-right-radius: 5px;
+  -webkit-border-top-right-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+div.modifiers .popup .default {
+  border-top: 1px solid #e4e4e4;
+  background: #f1f1f1;
+  margin: 10px;
+  padding: 11px 16px;
+  font-size: 14px;
+}
+
+div.modifiers .popup div.table-label {
+  color: #6594bb;
+  width: 100px;
+  padding: 12px 0 0 19px;
+  font-size: 18px;
+}
+
+div.modifiers .popup div.form-field-comment {
+  font-size: 14px;
+  color: #b8b8b8;
+  margin-left: 0px;
+  width: 130px;
+}
+
+ul.data li .attribute-value div.modifiers .popup input[type=text] {
+  width: 100px;
+}
+
+ul.data li .attribute-value.multiple li .modifiers,
+ul.data li .attribute-value.multiple li:hover .modifiers a,
+ul.data li .attribute-value.multiple li .modifiers.open a,
+ul.data li .attribute-value.multiple ul.values li,
+ul.data li .attribute-value ul.values li:first-child,
+ul.data li .attribute-value .single-option,
+ul.data li .attribute-value.multiple .multiple-options,
+ul.data li .attribute-value.multiple li:hover .combobox-select,
+ul.data li:hover .attribute-value label.inline-checkbox {
+  display: block;
+}
+
+ul.data li .attribute-value.multiple li:hover .modifiers span.text,
+ul.data li .attribute-value.multiple li .modifiers.open span.text,
+ul.data li .attribute-value li:first-child .actions,
+ul.data li.attribute.remove-mark .combobox-select,
+ul.data li .attribute-value.multiple.remove-mark li:hover .combobox-select,
+ul.data li.value.remove-mark .combobox-select,
+ul.data li.remove-mark .inline-field.editable .view .right-fade,
+ul.data li.remove-mark .attribute-value label.inline-checkbox,
+ul.data li .attribute-value li.new .actions,
+ul.data li .attribute-value li.new .modifiers,
+ul.data li.remove-mark .attribute-value li .actions {
+  display: none;
+}
+
+ul.data li .attribute-value.type-c li,
+ul.data li .attribute-value.type-s li {
+  position: relative;
+}
+
+div.dialog-block .attributes .header .title {
+  max-width: 685px;
+}
+
+div.dialog-block .attributes .header .tooltip-main {
+  margin-left: 0;
+  float: left;
+}
+
+div.dialog-block.product-class {
+  width: 938px;
+  overflow: hidden;
+}
+
+div.panel-cell.saveMode {
+  float: left;
+  margin-right: 20px;
+}
+
+div.panel-cell.saveMode .save-mode-value {
+  padding: 0px 0px 5px 0px;    
+}
+
+form.changed.view-changes li.create-line div.modifiers,
+form.changed.view-changes li.line.is-changed div.modifiers,
+form.changed.view-changes ul.data .attribute-value textarea.is-changed,
+form.changed.view-changes ul.data li.create-line .attribute-name .input-text input.is-changed,
+form.changed.view-changes ul.data li.create-line .attribute-value li.value .input-text input.is-changed,
+form.changed.view-changes ul.data li.create-line .attribute-value li.create-line .input-text input,
+form.changed.view-changes ul.data li.is-changed .attribute-value.type-c .input-text input,
+form.changed.view-changes .values li.create-line .input-text-attributeoption input,
+form.changed.view-changes li.create-line textarea.is-changed,
+form.changed.view-changes li.create-line select.is-changed,
+form.changed.view-changes li.create-line .attribute-value-checkbox input,
+form.changed.view-changes li.value.is-changed .input-text-attributeoption input {
+  border-color: #bba0c7;
+}
+
+form.changed.view-changes .single-option select.is-changed,
+form.changed.view-changes ul.data .attribute-value textarea.is-changed,
+form.changed.view-changes ul.data li.create-line .attribute-name .input-text input.is-changed,
+form.changed.view-changes ul.data li.create-line .attribute-value li.value .input-text input.is-changed,
+form.changed.view-changes ul.data li.create-line .attribute-value li.create-line .input-text input,
+form.changed.view-changes ul.data li.is-changed .attribute-value.type-c .input-text input,
+form.changed.view-changes .values li.create-line .input-text-attributeoption input,
+form.changed.view-changes li.create-line textarea.is-changed,
+form.changed.view-changes li.create-line select.is-changed,
+form.changed.view-changes li.create-line .attribute-value-checkbox input,
+form.changed.view-changes li.value.is-changed .input-text-attributeoption input {
+  background: #eec9ff;
+}
+
+div.save-mode-localy,
+div.save-mode-globaly {
+  position: absolute;
+  left: 25px;
+  top: 52px;
+  font-size: 10px;
+  width: 250px;
+}
+
+div.save-mode-localy,
+div.save-mode-globaly,
+form.changed.view-changes div.save-mode-localy {
+  display: none;
+}
+
+form.changed div.save-mode-localy,
+form.changed.view-changes div.save-mode-globaly {
+  display: block
+}
+
+form .sticky-panel .box {
+  height: 75px;
+}
+
+form.changed.view-changes select#save-mode:focus {
+  -moz-box-shadow: 0px 0px 5px 1px rgba(174, 14, 214, 0.5);
+  -webkit-box-shadow: 0px 0px 5px 1px rgba(174, 14, 214, 0.5);
+  box-shadow: 0px 0px 5px 1px rgba(174, 14, 214, 0.5);
+}
+

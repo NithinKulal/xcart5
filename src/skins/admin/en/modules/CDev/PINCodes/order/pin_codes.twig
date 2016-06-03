@@ -1,0 +1,7 @@
+{##
+ # Order pin codes tab
+ #}
+
+{% for item in this.getOrderItems() %}
+  {{ widget('\\XLite\\Module\\CDev\\PINCodes\\View\\OrderItemPinCodes', item=item) }}
+{% endfor %}

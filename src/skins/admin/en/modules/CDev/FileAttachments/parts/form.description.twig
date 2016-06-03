@@ -1,0 +1,9 @@
+{##
+ # Deswcription
+ #
+ # @ListChild (list="product.attachments.form", weight="200", zone="admin")
+ #}
+<tr class="description">
+  <td class="label"><label for="attachmentDesc{{ this.attachment.getId() }}">{{ t('Description') }}</label></td>
+  <td><textarea id="attachmentDesc{{ this.attachment.getId() }}" name="data[{{ this.attachment.getId() }}][description]" class="form-control">{{ this.attachment.getDescription() }}</textarea></td>
+</tr>

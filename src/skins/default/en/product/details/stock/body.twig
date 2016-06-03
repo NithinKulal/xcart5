@@ -1,0 +1,20 @@
+{##
+ # Product stock
+ #}
+
+<div class="product-stock {{ this.getFingerprint() }}">
+  {% if this.isInStock() %}
+    <span class="stock-level product-in-stock">
+      <span class="in-stock-label">{{ t('In stock') }}</span>
+      {% if this.isShowStockWarning() %}
+        <span class="product-items-available low-stock">({{ t('Only X left in stock', {'X': this.getAvailableAmount()}) }})</span>
+      {% else %}
+        <span class="product-items-available">({{ t('X items available', {'count': this.getAvailableAmount()}) }})</span>
+      {% endif %}
+    </span>
+  {% else %}
+    {% if this.isOutOfStock() %}
+      <span class="stock-level product-out-of-stock">{{ this.getOutOfStockMessage() }}</span>
+    {% endif %}
+  {% endif %}
+</div>

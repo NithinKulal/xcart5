@@ -1,0 +1,10 @@
+{##
+ # Total field
+ #}
+
+{% include this.getDir() ~ '/input.twig' %}
+
+<script type="text/javascript">
+var lbl_validate_coupons_begin_total_error = '{{ t('Minimum order subtotal must be less than maximum order subtotal') }}';
+var lbl_validate_coupons_end_total_error = '{{ t('Maximum order subtotal must be greater than minimum order subtotal') }}';
+</script>

@@ -1,0 +1,230 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Search panel styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.search-conditions-box {
+  border: 1px solid #d4dee4;
+  background: #ebf7fe;
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.search-conditions-box .search-conditions-hidden label {
+  font-size: 14px;
+}
+
+.ajax-container-loadable .search-conditions-box {
+  width: auto;
+}
+
+.search-conditions-box .search-conditions,
+.search-conditions-box .search-conditions-hidden
+{
+  margin: 18px 0 18px 18px;
+  position: relative;
+}
+
+.search-conditions-box .search-conditions {
+  display: table;
+  margin-top: 0;
+  min-width: 800px;
+}
+
+.search-conditions-box .search-conditions > li {
+  display: table-cell;
+}
+
+.search-conditions-box .search-conditions-hidden > li {
+  float: left;
+  margin-right: 40px;
+}
+
+.search-conditions-box .search-conditions > li {
+  padding-top: 18px;
+  padding-right: 20px;
+  vertical-align: top;
+}
+
+.search-conditions-box .search-conditions > li.actions {
+  white-space: nowrap;
+}
+
+.search-conditions-box .search-conditions > li.actions .btn.submit {
+  margin-bottom: 4px;
+}
+
+.search-conditions-box .search-conditions div.table-value {
+  display: block;
+}
+
+.search-conditions-box .search-conditions .star + div.table-value {
+  display: table-cell;
+}
+
+.search-conditions-box .search-conditions div.table-value input[type="text"],
+.search-conditions-box .search-conditions div.table-value input[type="password"],
+.search-conditions-box .search-conditions div.table-value select
+{
+  width: 190px;
+}
+
+.search-conditions-box .search-conditions-hidden div.table-value input[type="text"],
+.search-conditions-box .search-conditions-hidden div.table-value input[type="password"],
+.search-conditions-box .search-conditions-hidden div.table-value select
+{
+  width: 190px;
+}
+
+.search-conditions-box .search-conditions-hidden {
+  margin-top: 13px;
+  margin-bottom: 25px;
+  display: none;
+}
+
+.search-conditions-box.full .search-conditions-hidden {
+  display: block;
+}
+
+.search-conditions-box .arrow {
+  border: 1px solid #d4dee4;
+  border-top: none;
+  background: #ebf7fe url(../images/arrow_search.png) center 2px no-repeat;
+  -moz-border-radius: 0 0 5px 5px;
+  -webkit-border-radius: 0 0 5px 5px;
+  border-radius: 0 0 5px 5px;
+  bottom: -21px;
+  height: 21px;
+  left: 50%;
+  margin-left: -29px;
+  position: absolute;
+  width: 58px;
+  cursor: pointer;
+}
+
+.search-conditions-box.full .arrow {
+  background-position: center -16px;
+}
+
+.search-conditions-box select,
+.search-conditions-box input[type="text"],
+.search-conditions-box div.table-value select,
+.search-conditions-box div.table-value input[type="text"]
+{
+  margin: 0;
+}
+
+.search-conditions-box .search-conditions .table-value,
+.search-conditions-box .search-conditions .table-label
+{
+  padding: 0;
+}
+
+.search-conditions-box .search-conditions .table-label,
+.search-conditions-box .search-conditions-hidden .table-label {
+  padding-right: 18px;
+  vertical-align: middle;
+}
+
+.search-conditions-box .search-conditions-hidden .table-label.date-condition-label {
+  padding-top: 5px;
+}
+
+.search-conditions-box .search-conditions-hidden .star {
+  display: none;
+}
+
+.searchpanel-order-admin-main .search-conditions-box .substring-condition,
+.searchpanel-profile-admin-main .search-conditions-box .pattern-condition
+{
+  width: 100%
+}
+
+.searchpanel-order-admin-main .search-conditions-box .search-conditions .substring-value span.input-text,
+.searchpanel-profile-admin-main .search-conditions-box .search-conditions .pattern-value span.input-text
+{
+  display: inline;
+}
+
+.searchpanel-order-admin-main .search-conditions-box .search-conditions .substring-value .input-text input,
+.searchpanel-profile-admin-main .search-conditions-box .search-conditions .pattern-value .input-text input
+{
+  width: 100%;
+}
+
+.search-conditions-box .search-conditions div.table-label {
+  width: auto;
+  padding-right: 20px;
+}
+
+.search-conditions-box span.search-conditions-hr {
+  line-height: 1px;
+}
+
+.search-conditions-box .search-conditions-hr hr.line1,
+.search-conditions-box .search-conditions-hr hr.line2 {
+  border: 0 none;
+  height: 1px;
+  margin: 0;
+}
+
+.search-conditions-box .search-conditions-hr hr.line1 {
+  background-color: #dee8ef;
+ }
+
+.search-conditions-box .search-conditions-hr hr.line2 {
+  background-color: #f7fcff;
+}
+
+h1.title {
+  display: inline-block;
+}
+
+ul.saved-filter-options {
+  display: inline-block;
+  margin-left: 20px;
+  line-height: 27px;
+}
+
+ul.saved-filter-options li.filter-option {
+  display: inline;
+  margin-right: 10px;
+}
+
+ul.saved-filter-options li.filter-option .filter-title {
+  font-size: 13px;
+  text-decoration: none;
+}
+
+ul.saved-filter-options li.filter-option a.filter-title {
+  font-size: 13px;
+  text-decoration: none;
+  border-bottom: 1px dashed;
+}
+
+ul.saved-filter-options li.filter-option .filter-title.first {
+  margin-right: 16px;
+}
+
+ul.saved-filter-options li.filter-option .delete-filter {
+  margin-left: 1px;
+  color: #999999;
+  visibility: hidden;
+}
+
+ul.saved-filter-options li.filter-option .delete-filter:hover {
+  cursor: pointer;
+}
+
+ul.saved-filter-options li.filter-option:hover .delete-filter {
+  visibility: visible;
+}
+
+.title-margin {
+  margin-bottom: 20px;
+}
+

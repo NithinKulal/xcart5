@@ -1,0 +1,21 @@
+{##
+ # Date selector template
+ #}
+
+<select name="{{ this.getField() }}Month">
+  {% for k, v in this.getMonths() %}
+    <option value="{{ k }}" {% if v %} selected="selected" {% endif %}>{{ this.getMonthString(k) }}</option>
+  {% endfor %}
+</select>
+
+<select name="{{ this.getField() }}Day">
+  {% for k, v in this.getDays() %}
+    <option value="{{ k }}" {% if v %} selected="selected" {% endif %}>{{ k }}</option>
+  {% endfor %}
+</select>
+
+<select name="{{ this.getField() }}Year">
+  {% for k, v in this.getYears() %}
+    <option value="{{ k }}" {% if v %} selected="selected" {% endif %}>{{ k }}</option>
+  {% endfor %}
+</select>

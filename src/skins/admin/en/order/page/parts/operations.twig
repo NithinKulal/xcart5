@@ -1,0 +1,10 @@
+{##
+ # Order : operations
+ #
+ # @ListChild (list="order", weight="400")
+ #}
+
+{% form 'XLite\\View\\Form\\Order\\Operations' %}
+  {{ widget_list('order.operations') }}
+  {{ widget('XLite\\View\\StickyPanel\\Order\\Admin\\Info') }}
+{% endform %}

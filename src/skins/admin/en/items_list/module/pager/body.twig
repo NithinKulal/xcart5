@@ -1,0 +1,49 @@
+{##
+ # Pager
+ #}
+
+<div class="addons-pager-found-title">{{ this.getPagerTitle() }}</div>
+
+{% if this.isPagesListVisible() or this.isItemsPerPageVisible() %}
+  <div class="addons-pager-list-wrapper">
+  
+    <div class="addons-pager-list-container">
+  
+      {% if this.isPagesListVisible() %}
+        <ul class="pagination grid-list addons-pager-list">
+          {% for page in this.getPages() %}
+            <li class="{{ page.classes }}">
+              {% if page.href %}
+                <a href="{{ page.href }}" class="{{ page.page }}" title="{{ t(page.title) }}" data-text="{{ t(page.text) }}">{{ t(page.text)|raw }}</a>
+              {% endif %}
+              {% if not page.href %}
+                <span class="{{ page.page }}" title="{{ t(page.title) }}">{{ t(page.text)|raw }}</span>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+  
+      {% if this.isItemsPerPageVisible() %}
+        <div class="items-per-page-wrapper">
+          <span>{{ t('Items per page') }}:</span>
+          <select name="itemsPerPage" class="page-length not-significant">
+            {% for range in this.getItemsPerPageRanges() %}
+              <option value="{{ range }}" {% if this.isRangeSelected(range) %} selected="selected" {% endif %}>{{ range }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      {% endif %}
+  
+    </div>
+  
+  </div>
+{% endif %}
+
+<div class="addons-pager-buttons">
+  {{ widget_list('buttons', type='inherited') }}
+</div>
+
+<div class="addons-pager-bottom-title">{{ this.getPagerBottomTitle()|raw }}</div>
+
+{{ widget_list('tail', type='inherited') }}

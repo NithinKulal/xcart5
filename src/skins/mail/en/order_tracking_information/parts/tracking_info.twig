@@ -1,0 +1,28 @@
+{##
+ # ____file_title____
+ #
+ # @ListChild (list="tracking.info", weight="10")
+ #}
+
+<p style="font-weight: bold;">{{ t('Tracking numbers') }}:</p>
+
+{% for number in this.trackingNumbers %}
+<div>
+{% if this.order.getTrackingInformationURL(number.value) %}
+{% if this.order.isTrackingInformationForm(number.value) %}
+<form method="{{ this.order.getTrackingInformationMethod(number.value)|raw }}" action="{{ this.order.getTrackingInformationURL(number.value) }}" target="_blank" >
+{% for name, value in this.order.getTrackingInformationParams(number.value) %}
+<input type="hidden" name="{{ name }}" value="{{ value }}" />
+{% endfor %}
+<span>{{ number.value }} - </span>
+<button type="submit">{{ t('Track package') }}</button>
+</form>
+{% else %}
+<span>{{ number.value }} - </span>
+<a href="{{ this.order.getTrackingInformationURL(number.value) }}" target="_blank">{{ t('Track package') }}</a>
+{% endif %}
+{% else %}
+{{ number.value }}
+{% endif %}
+</div>
+{% endfor %}

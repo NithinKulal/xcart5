@@ -1,0 +1,9 @@
+{##
+ # Last page
+ #
+ # @ListChild (list="pager.admin.model.table.left", weight="300")
+ #}
+
+{% if this.getMoreLink() %}
+  <div class="more-link-button" onclick="self.location='{{ this.getMoreLink() }}';">{{ this.getMoreLinkTitle() }}</div>
+{% endif %}

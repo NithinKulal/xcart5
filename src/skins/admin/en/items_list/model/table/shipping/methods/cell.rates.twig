@@ -1,0 +1,13 @@
+{##
+ # Shipping rates link
+ #
+ # @ListChild (list="itemsList.shipping-methods.cell.rates", weight="100")
+ #}
+
+{% if this.entity.hasRates() %}
+  <a href="{{ url('shipping_rates', '', {'methodid': this.entity.getMethodId()}) }}" class="rates" title="{{ t('Click to edit rates') }}">{{ t('Edit rates (X)', {'count': this.entity.getRatesCount()}) }}</a>
+{% endif %}
+
+{% if not this.entity.hasRates() %}
+  <a href="{{ url('shipping_rates', '', {'methodid': this.entity.getMethodId()}) }}#addmarkup" class="rates no-rates" title="{{ t('Click to add rates') }}">{{ t('Add rates') }}</a>
+{% endif %}

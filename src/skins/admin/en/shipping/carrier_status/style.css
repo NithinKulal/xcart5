@@ -1,0 +1,36 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Payment methods status
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+.shipping-status .alert,
+.shipping-status .alert span
+{
+  font-size: 14px;
+}
+
+.shipping-status .alert {
+  display: inline-block;
+  padding-top: 5px;
+  padding-bottom: 7px;
+  margin-bottom: 10px;
+}
+
+.shipping-status .alert div.table-label {
+  color: inherit;
+  width: auto;
+}
+
+.shipping-status .alert .onoffswitch input[type=checkbox]:not(:checked) + label .off-label {
+  color: #8a6d3b;
+}
+.shipping-status .alert .onoffswitch input[type=checkbox]:checked + label .on-label {
+  color: #3c763d;
+}
+
+.shipping-status .sign-up {
+  margin-bottom: 10px;
+}

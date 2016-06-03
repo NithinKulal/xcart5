@@ -1,0 +1,119 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * CSS styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.import-page .import-box.import-begin .options ul.small-input li {
+  display: none;
+}
+
+.import-page .import-box.import-begin .options ul.small-input li.delimiter-option {
+  display: list-item;
+}
+
+.import-page .import-box.import-completed .subcontent ul.messages li span {
+  display: none;
+}
+
+.import-begin .subcontent .options ul {
+  margin-top: 20px;
+}
+
+div.dialog-block.import-begin .subcontent {
+  padding-bottom: 20px;
+}
+
+/**
+ * Import warnings 
+ */
+
+.import-completed .subcontent .import-completed-warnings {
+  padding-left: 20px;
+  margin-top: 35px;
+}
+
+.import-completed .subcontent ul.warnings span.count-w,
+.import-completed .subcontent ul.warnings span.count-e {
+  float: right;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background-color: #c09853;
+  padding: 2px 11px;
+  color: #fff;
+  font-size: 12px;
+  margin-left: 10px;
+}
+
+.import-completed .subcontent ul.warnings span.count-e {
+  background-color: #b94a48;
+}
+
+.import-completed .subcontent h3 {
+  margin-left: 0;
+  font-size: 16px;
+}
+
+div.dialog-block.import-box.import-completed .subcontent {
+  padding: 20px 40px 25px;
+}
+
+.import-completed .subcontent ul.warnings {
+  border: 1px solid #d6d6d6;
+  margin-top: 19px;
+  margin-bottom: 39px;
+}
+
+.import-completed .subcontent ul.warnings li {
+  border-top: 1px solid #d6d6d6;
+  padding: 12px 15px 11px;
+}
+
+.import-completed .subcontent ul.warnings li div {
+  font-size: 14px;
+  overflow: hidden;
+}
+
+.import-completed .subcontent ul.warnings li div.message {
+  width: 500px;
+  float: left;
+}
+.import-completed .subcontent ul.warnings li div.message hr{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.import-completed .subcontent ul.warnings li div.text {
+  width: 230px;
+  float: right;
+  text-align: right;
+  color: #c09853;
+}
+
+.import-completed .subcontent ul.warnings li.type-E div.text {
+  color: #b94a48;
+}
+
+.import-completed .subcontent ul.warnings li.title {
+  border: none;
+  padding: 17px 19px 12px;
+  font-size: 17px;
+  color: #658aaa;
+  background: #f2f2f2;
+}
+
+.import-completed .subcontent ul.warnings li.title i {
+  font-size: 18px;
+  color: #999999;
+  margin-right: 3px;
+}
+
+.import-completed .subcontent p {
+  font-size: 14px;
+  line-height: 20px;
+}
+

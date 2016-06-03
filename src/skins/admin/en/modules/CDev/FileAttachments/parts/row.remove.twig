@@ -1,0 +1,9 @@
+{##
+ # Move pointer
+ #
+ # @ListChild (list="product.attachments.row", weight="500", zone="admin")
+ #}
+
+<a href="{{ url('product', 'removeAttachment', {'product_id': this.product.getProductId(), 'id': this.attachment.getId()}) }}" class="remove" title="{{ t('Remove') }}">
+  <img src="{{ asset('images/spacer.gif') }}" alt="" />
+</a>

@@ -1,0 +1,10 @@
+{##
+ # Search in description
+ #
+ # @listChild (list="products.search.conditions.advanced.options", weight="200")
+ #}
+
+<li><label for="by-descr">
+  <input type="checkbox" name="by_descr" id="by-descr" value="Y" {% if this.getChecked('by_descr') %} checked="checked" {% endif %} />
+  {{ t('Description') }}
+</label></li>

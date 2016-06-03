@@ -1,0 +1,9 @@
+{##
+ # Header notice
+ #}
+<div class="activate-notice">
+  {{ widget('\\XLite\\View\\Button\\ActivateKey') }}
+  {% if this.isTrialNoticeAutoDisplay() %}
+    {{ widget('\\XLite\\View\\Button\\TrialNotice') }}
+  {% endif %}
+</div>

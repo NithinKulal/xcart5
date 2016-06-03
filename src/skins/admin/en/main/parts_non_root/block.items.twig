@@ -1,0 +1,15 @@
+{##
+ # Block content : items
+ #
+ # @ListChild (list="dashboard-center.welcome.non-root.content", weight="10")
+ #}
+
+<div class="step-items">
+  <ul>
+    {% for role in this.getRoles() %}
+      <li class="item-role">{{ role.name }}</li>
+    {% endfor %}
+  </ul>
+</div>
+
+

@@ -1,0 +1,163 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Admin 'Welcome...' block styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.admin-welcome {
+  max-width: 1000px;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  border: 1px solid #CFDFEA;
+  background-color: #F9FCFF;
+  overflow: hidden;
+  font-family: Arial, Helvetica, Garuda, sans-serif;
+}
+
+.admin-welcome.root {
+  background: #f8fcff;
+  background: -moz-linear-gradient(top,  rgba(248,252,255,1) 0%, rgba(232,245,255,1) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(248,252,255,1)), color-stop(100%,rgba(232,245,255,1)));
+  background: -webkit-linear-gradient(top,  rgba(248,252,255,1) 0%,rgba(232,245,255,1) 100%);
+  background: -o-linear-gradient(top,  rgba(248,252,255,1) 0%,rgba(232,245,255,1) 100%);
+  background: -ms-linear-gradient(top,  rgba(248,252,255,1) 0%,rgba(232,245,255,1) 100%);
+  background: linear-gradient(to bottom,  rgba(248,252,255,1) 0%,rgba(232,245,255,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8fcff', endColorstr='#e8f5ff',GradientType=0 );
+}
+
+.admin-welcome.root .inner-box {
+  background: transparent url(../images/launch.png) no-repeat left 12px;
+}
+
+.admin-welcome h1 {
+  color: #000000;
+  font-size: 24px;
+  margin-top: 35px;
+  margin-bottom: 6px;
+  padding-right: 23px;
+  padding-left: 258px;
+  font-family: Arial, Helvetica, Garuda, sans-serif;
+}
+
+.admin-welcome.non-root h1 {
+  text-align: left;
+  padding-left: 60px;
+}
+
+
+.admin-welcome .step-items {
+  margin-left: 248px;
+  padding-top: 26px;
+}
+
+.admin-welcome.non-root .step-items {
+  margin-left: 60px;
+}
+
+.admin-welcome .step-items ul li {
+  font-size: 18px;
+  color: #1C4973;
+  margin-bottom: 20px;
+  height: 40px;
+  padding-left: 48px;
+  vertical-align: middle;
+}
+
+.admin-welcome.non-root .step-items ul li {
+  padding-left: 0px;
+}
+
+.admin-welcome.root .step-items ul li {
+  background: url(../images/get_started_icons.png) no-repeat scroll left top;
+}
+
+.admin-welcome .step-items ul li a {
+  color: #328FDD;
+  font-size: 18px;
+  text-decoration: none;
+}
+
+.admin-welcome .step-items ul li a:hover {
+  text-decoration: underline;
+}
+
+.admin-welcome .step-items ul li.item-store {
+  background-position: 0 -20px;
+}
+
+.admin-welcome .step-items ul li.item-products {
+  background-position: 0 -77px;
+}
+
+.admin-welcome .step-items ul li.item-taxes {
+  background-position: 0 -136px;
+}
+
+.admin-welcome .step-items ul li.item-shipping {
+  background-position: 0 -196px;
+}
+
+.admin-welcome .step-items ul li.item-payment {
+  background-position: 0 -260px;
+}
+
+.admin-welcome .step-items ul li.item-domain {
+  background-position: 0 -317px;
+}
+
+.admin-welcome .step-items ul li.item-final {
+  background-position: 0 -374px;
+  font-size: 24px;
+  color: #279B21;
+}
+
+.admin-welcome .welcome-footer {
+  padding: 20px 28px;
+  position: relative;
+}
+
+.admin-welcome.non-root .welcome-footer {
+  padding: 20px 28px 20px 60px;
+}
+
+.admin-welcome .welcome-footer .bg {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 62px;
+  background-color: white;
+  filter:alpha(opacity=40);
+}
+
+.admin-welcome .welcome-footer .do-not-show,
+.admin-welcome .welcome-footer .close-button {
+  display: inline-block;
+  position: relative;
+}
+
+.admin-welcome .welcome-footer .do-not-show label{
+  color: #93B4CA;
+  font-size: 16px;
+  vertical-align: top;
+  padding-left: 5px;
+}
+
+.admin-welcome .welcome-footer .close-button {
+  float: right;
+  font-size: 16px;
+  color: #154E9C;
+  height: 22px;
+  padding-left: 26px;
+  padding-top: 2px;
+  background: url(../images/close_icon.png) no-repeat scroll 0 0;
+}
+
+.admin-welcome .welcome-footer .close-button:hover {
+  background: url(../images/close_icon.png) no-repeat scroll 0 -22px;
+  cursor: pointer;
+}

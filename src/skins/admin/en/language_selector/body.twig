@@ -1,0 +1,12 @@
+{##
+ # Language selector
+ #}
+
+{{ t('Language') }}: 
+<select name="language" onchange="window.location.href=this.options[this.selectedIndex].value">
+  {% for language in this.getActiveLanguages() %}
+    <option value="{{ this.getChangeLanguageLink(language) }}"{% if this.isLanguageSelected(language) %} selected="selected"{% endif %}>
+    {{ language.getName()|raw }}
+    </option>
+  {% endfor %}
+</select>

@@ -1,0 +1,9 @@
+{##
+ # Separator field
+ #}
+<h2 data-toggle="collapse" data-target="#{{ this.getSection() }}" aria-expanded="{% if this.isCollapsed() %}false{% else %}true{% endif %}" aria-controls="{{ this.getSection() }}" class="collapsible{% if this.isCollapsed() %} collapsed{% endif %}">
+{{ t(this.getLabel()) }}<i class="fa fa-chevron-down" aria-hidden="true"></i>
+{% if this.hasHelp() %}
+  {{ widget('\\XLite\\View\\Tooltip', text=t(this.getParam('help')), helpWidget=this.getParam('helpWidget'), isImageTag='true', className='help-icon') }}
+{% endif %}
+</h2>

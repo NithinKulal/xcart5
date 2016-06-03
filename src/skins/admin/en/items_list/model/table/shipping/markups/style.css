@@ -1,0 +1,160 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Shipping markups style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+.offline-shipping-create .table-label {
+  width: 185px;
+}
+
+.shipping-markups td.cell {
+  display: block;
+  float: left;
+}
+
+.shipping-markups td.cell.markup_flat {
+  margin-left: 18px;
+}
+
+.shipping-markups td.cell.break {
+  clear: left;
+  margin-left: 0;
+}
+
+.items-list-table.shipping-markups table.list tbody td,
+.items-list-table.shipping-markups table.list tbody td.main {
+  width: auto;
+  min-width: 0;
+}
+
+.shipping-markups div.table-value .input-group {
+}
+
+.shipping-markups div.table-value input[type="text"],
+.shipping-markups div.table-value .input-group {
+  width: 83px;
+}
+
+.shipping-markups div.table-value .input-group input[type="text"] {
+  width: 55px;
+}
+
+.ui-dialog .items-list-table.shipping-markups table.list {
+  width: 750px;
+  max-width: 750px;
+}
+
+.ui-dialog .items-list-table.shipping-markups table.list .lines .line {
+  /*display: none;*/
+}
+
+.items-list-table.shipping-markups table.list tbody tr.line td {
+  border-color: transparent;
+  padding-right: 0;
+}
+
+.items-list-table.shipping-markups table.list {
+  border-color: transparent;
+}
+
+.items-list-table.shipping-markups table.list tbody.lines tr.line.last td {
+  border-color: transparent;
+}
+
+.items-list-table.shipping-markups .cell-header {
+  display: block;
+  text-align: center;
+  margin-right: 2px;
+  font-size: 11px;
+  line-height: 18px;
+  color: #636363;
+}
+
+.shipping-markups .markup_percent div.table-value input[type="text"] {
+  width: 55px;
+}
+
+.create-inline span {
+  font-size: 28px;
+  line-height: 0;
+  display: block;
+  width: 17px;
+  height: 2px;
+}
+
+.items-list-table.shipping-markups {
+  margin-left: -18px;
+}
+
+.items-list-table.shipping-markups .cell.items:before {
+  content: '';
+  display: block;
+}
+
+.items-list-table.shipping-markups .right.actions {
+  float: right;
+}
+
+.items-list-table.shipping-markups .create .right.actions {
+  width: 82px !important;
+}
+
+.items-list-table.shipping-markups .right.actions .cell {
+  margin-top:14px;
+  height: 43px;
+  width: 75px;
+  text-align: right;
+}
+
+.items-list-table.shipping-markups table.list tbody.lines td.actions .action {
+  vertical-align: baseline;
+}
+
+.items-list-table.shipping-markups .list-footer {
+  display: inline-block;
+  position: relative;
+  margin: 0 5px -7px;
+}
+
+.items-list-table.shipping-markups .cell.formula {
+  clear: both;
+  margin-top: -15px;
+  text-transform: uppercase;
+}
+
+.items-list-table.shipping-markups .formula span {
+  vertical-align: baseline;
+  color: #8f8f8f;
+  font-size: 12px;
+}
+
+.items-list-table.shipping-markups .formula span.part-value {
+  vertical-align: baseline;
+  color: #000;
+  font-weight: bold;
+}
+
+.items-list-table.shipping-markups table.list tbody.lines tr.line td.formula,
+.items-list-table.shipping-markups table.list tbody.create tr.line td.formula {
+  padding-top: 0;
+}
+
+.items-list-table.shipping-markups .markup_flat .input-field-wrapper::after,
+.items-list-table.shipping-markups .markup_per_item .input-field-wrapper::after,
+.items-list-table.shipping-markups .markup_percent .input-field-wrapper::after {
+  content: "+";
+  margin-left: 2px;
+  margin-right: -12px;
+  color: #636363;
+}
+
+
+.items-list-table.shipping-markups table.list tbody.create td.actions.right .cell {
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}

@@ -1,0 +1,8 @@
+{##
+ # Payment method status
+ #
+ # @ListChild (list="payment_status.after.SagePay_form_protocol", weight="100")
+ #}
+{% if not this.paymentMethod.isConfigured() %}
+{{ t('Don\'t have account yet? Sign up for SagePay now!')|raw }}
+{% endif %}

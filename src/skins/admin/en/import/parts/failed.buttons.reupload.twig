@@ -1,0 +1,7 @@
+{##
+ # Import failed section : button
+ #
+ # @ListChild (list="import.failed.buttons", weight="100")
+ #}
+
+{{ widget('XLite\\View\\Button\\Link', location=url(this.getImportTarget(), 'reset'), label=t('Reupload files'), style='main-button') }}

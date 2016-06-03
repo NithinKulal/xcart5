@@ -1,0 +1,34 @@
+{##
+ # Invoice totals : modifier default template
+ #}
+
+{% if this.surcharge.count == '1' %}
+
+  <div class="title">
+    {{ this.surcharge.lastName }}:
+    {{ widget_list('order.base.totals.modifier.name', surcharge=this.surcharge, sType=this.surcharge.code, order=this.order) }}
+  </div>
+
+{% else %}
+
+  <div class="title list-owner">
+    {{ this.surcharge.name }}:
+    {{ widget_list('order.base.totals.modifier.name', surcharge=this.surcharge, sType=this.surcharge.code, order=this.order) }}
+  </div>
+
+{% endif %}
+
+{% if this.surcharge.available %}
+  <div class="value">
+    {{ this.surcharge.formField.display()|raw }}
+  </div>
+  <div class="recalc">
+    {{ widget(template='order/page/parts/restore.twig', surcharge=this.surcharge) }}
+  </div>
+  {% else %}
+  <div>
+    {{ t('n/a') }}
+  </div>
+  <div class="recalc"></div>
+  {% endif %}
+  {{ widget_list('order.base.totals.modifier.value', surcharge=this.surcharge, sType=this.surcharge.code, order=this.order) }}

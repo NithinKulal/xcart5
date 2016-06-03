@@ -1,0 +1,7 @@
+{##
+ # Tooltip 
+ #}
+
+{% if this.entity.getIsDefault() %}
+  {{ widget('\\XLite\\View\\Tooltip', id='menu-links-help-text', text=t('Default zone tooltip text'), isImageTag='true', className='help-small-icon') }}
+{% endif %}

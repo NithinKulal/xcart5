@@ -1,0 +1,20 @@
+{##
+ # Info message
+ #
+ # @ListChild (list="upgrade.step.prepare.incompatible_entries_upgrade.sections", weight="100")
+ #}
+{% if this.isRequestForUpgradeAvailable() %}
+  {{ widget('\\XLite\\View\\Button\\ProgressState', label='Request for upgrade', style='request-for-upgrade') }}
+{% endif %}
+
+{% if this.isRequestForUpgradeAvailable() %}
+  <div class="incompatible-module-list-description">
+    {{ t('The following modules currently do not have a version compatible with the X-Cart version to which you are upgrading')|raw }}
+  </div>
+{% endif %}
+
+{% if not this.isRequestForUpgradeAvailable() %}
+  <div class="incompatible-module-list-description">
+    {{ t('Please note that some of these modules are definitely incompatible with the upcoming upgrade and will be disabled in order to prevent the system crash') }}.
+  </div>
+{% endif %}

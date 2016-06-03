@@ -1,0 +1,27 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Profile box styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.section.access-section .table-value.statuscomment-value textarea {
+  height: 100px;
+}
+
+.section.summary-section .table-value.referer-value {
+  overflow: hidden;
+  max-width: 670px;
+}
+
+.section.summary-section .table-value.referer-value:after {
+  content: " ";
+  background: transparent url(../../images/right_fade.png) repeat-y right top;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  top: -24px;
+  float: right;
+}

@@ -1,0 +1,14 @@
+{##
+ # Common layout
+ #}
+<!DOCTYPE html>
+<html lang="{{ this.currentLanguage.getCode() }}"{% for k, v in this.getHTMLAttributes() %} {{ k }}="{{ v }}"{% endfor %}>
+  {{ widget('\\XLite\\View\\Header') }}
+<body {% if this.getBodyClass() %}class="{{ this.getBodyClass() }}"{% endif %}>
+{% do this.displayCommentedData(this.getCommonJSData()) %}
+{{ widget_list('body') }}
+{##
+ # Please note that any custom list child of 'body' will NOT have its CSS/JS resources loaded because the resources block is being 'body' child itself. Use 'layout.main' or 'layout.footer' instead.
+ #}
+</body>
+</html>

@@ -1,0 +1,14 @@
+{##
+ # Language label edit action
+ #}
+
+<div class="edit-label-wrapper">
+  <a
+    href="javascript:void(0);"
+    class="edit always-reload"
+    title="{{ t('Click to edit all this label translations') }}"
+    onclick="javascript: return openEditLabelDialog(this, {{ this.entity.label_id }}, '{{ this.code }}');">
+    <img src="{{ asset('images/spacer.gif') }}" alt="" />
+  </a>
+</div>
+

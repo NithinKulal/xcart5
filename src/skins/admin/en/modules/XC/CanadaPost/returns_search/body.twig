@@ -1,0 +1,11 @@
+{##
+ # Returns page template
+ #}
+
+{% if this.isSearchVisible() %}
+  {{ widget('XLite\\Module\\XC\\CanadaPost\\View\\SearchPanel\\ProductsReturn\\Admin\\Main') }}
+{% endif %}
+
+{# Move all from the widget here #}
+{{ widget(template='common/dialog.twig', body='modules/XC/CanadaPost/returns_search/list/body.twig') }}
+

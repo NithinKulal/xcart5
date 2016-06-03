@@ -1,0 +1,12 @@
+{##
+ # Module wrong dependencies
+ #
+ # @ListChild (list="itemsList.module.manage.columns.module-main-section.messages.cannot_enable", weight="100")
+ # @ListChild (list="itemsList.module.install.columns.module-main-section.cannot_enable", weight="100")
+ #}
+
+{% if this.hasWrongDependencies(this.module) %}
+  <div class="note dependencies">
+    {{ widget_list('dependencies', type='nested', module=this.module) }}
+  </div>
+{% endif %}

@@ -1,0 +1,14 @@
+{##
+ # Product price value
+ #
+ # @ListChild (list="product.plain_price", weight="10")
+ #}
+
+{% if this.participateSale() %}
+  <li class="sale-banner">
+    <div class="sale-banner-block">
+      <div class="text">{{ t('sale') }}</div>
+      <div class="percent">{{ t('percent X off', {'percent': this.getSalePercent()})|raw }}</div>
+    </div>
+  </li>
+{% endif %}

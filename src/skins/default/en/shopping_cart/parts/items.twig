@@ -1,0 +1,37 @@
+{##
+ # Shopping cart items block
+ #
+ # @ListChild (list="cart.children", weight="10")
+ # @ListChild (list="checkout.cart", weight="10")
+ #}
+<table class="selected-products">
+
+  {% for group in this.getCartItemsGroups() %}
+
+  {% if group.data %}
+    <tbody class="group">
+      <tr>
+         {{ widget_list('cart.group', group=group.data) }}
+      </tr>
+    </tbody>
+  {% endif %}
+
+  <tbody class="items">
+    {% for item in group.items %}
+      <tr class="selected-product">
+        {{ widget_list('cart.item', item=item) }}
+      </tr>
+    {% endfor %}
+  </tbody>
+
+  {% endfor %}
+
+  <tbody class="additional-items">
+    {% for w in this.getViewList('cart.items') %}
+      <tr class="selected-product additional-item">
+        {{ w.display() }}
+      </tr>
+    {% endfor %}
+  </tbody>
+
+</table>

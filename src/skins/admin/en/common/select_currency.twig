@@ -1,0 +1,8 @@
+{##
+ # Currency selector
+ #}
+<select name="{{ this.field }}" class="{{ this.className }}" onchange="{{ this.onchange }}" id="{{ this.fieldId }}">
+   {% for v in this.getCurrencies() %}
+     <option value="{{ v.getCurrencyId() }}" {% if v.getCurrencyId() == this.currency %} selected="selected" {% endif %}>{{ v.getName()|raw }}</option>
+   {% endfor %}
+</select>

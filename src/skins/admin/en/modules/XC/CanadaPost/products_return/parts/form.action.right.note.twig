@@ -1,0 +1,9 @@
+{##
+ # Canada Post products return :: from :: actions :: right :: status change
+ #
+ # @ListChild (list="capost_return.form.actions.right", weight="100")
+ #}
+
+<div class="admin-note">
+  {{ widget('\\XLite\\View\\FormField\\Textarea\\Simple', label='Note', fieldName='postedData[adminNotes]', value=this.productsReturn.getAdminNotes()) }}
+</div>

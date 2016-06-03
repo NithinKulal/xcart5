@@ -1,0 +1,62 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Product selections list styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.product_selections.items-list-table table.list td.cell.sku {
+  min-width: 100px;
+}
+
+.product_selections.items-list-table table.list td.cell.name {
+  min-width: 400px;
+}
+
+.product_selections.items-list-table table.list td.cell.sku div.cell {
+  width: 100px;
+}
+
+.product_selections.items-list-table table.list td.cell.name div.cell {
+  width: 450px;
+}
+
+.product_selections.items-list-table table.list tbody.lines tr.line td {
+  padding: 5px 12px 3px 18px;
+}
+
+.product_selections.items-list-table table.list tbody.lines td.actions.left {
+  padding-right: 0px;
+  padding-left: 7px;
+}
+
+.ui-dialog .ui-dialog-title {
+  font-size: 24px;
+  padding: 4px 0px 10px 0px;
+}
+
+.product-selection-sticky-panel.sticky-panel {
+  margin-top: 0px;
+}
+
+.product-selection-sticky-panel.sticky-panel .box {
+  border-top: none;
+}
+
+.items-list-table table.list tbody.lines td.actions div.selector div.title {
+  font-size: 19px;
+}
+
+.items-list-table table.list tbody.lines td.actions div.selector div.title .fa-check-square {
+  color: #5fab6f;
+}
+
+.items-list-table table.list tbody.lines td.actions div.selector div.title .fa-ban {
+  color:  #8f8f8f;
+}
+
+.ui-widget-content a {
+  color: #154e9c;
+}

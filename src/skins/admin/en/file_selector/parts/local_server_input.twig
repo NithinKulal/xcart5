@@ -1,0 +1,10 @@
+{##
+ # ____file_title____
+ #
+ # @ListChild (list="file_select_dialog.file_selections", weight="400")
+ #}
+
+<li class="local-server-input input-field">
+  {{ widget('\\XLite\\View\\FormField\\Input\\Text', fieldName='local_server_file', fieldOnly='true', value='') }}
+  {{ widget('\\XLite\\View\\Button\\BrowseServer', label=t('Browse server'), name='local_server_file') }}
+</li>

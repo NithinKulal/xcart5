@@ -1,0 +1,26 @@
+{##
+ # Steps block
+ #}
+<div class="steps clearfix">
+
+  {% for stepKey, step in this.getSteps() %}
+    <div class="step
+        {{ stepKey }}-step
+        {% if not this.isEnabledStep(step) %}disabled{% endif %}
+        {% if this.hasLeftArrow(step) %}left-arrow{% endif %}
+        {% if this.hasRightArrow(step) %}right-arrow{% endif %}
+      ">
+      <div class="step-title">
+        {% if this.hasLeftArrow(step) %}
+          <img src="{{ asset('images/spacer.gif') }}" class="arrow left" alt=""/>
+        {% endif %}
+        <span class="text">{{ t(step.getTitle()) }}</span>
+        {% if this.hasRightArrow(step) %}
+          <img src="{{ asset('images/spacer.gif') }}" class="arrow right" alt=""/>
+        {% endif %}
+      </div>
+      <div class="step-box clearfix">{{ step.display() }}</div>
+    </div>
+  {% endfor %}
+
+</div>

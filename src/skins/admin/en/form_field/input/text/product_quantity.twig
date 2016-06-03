@@ -1,0 +1,8 @@
+{##
+ # Product quantity input template
+ #}
+
+<span class="input-field-wrapper {{ this.getWrapperClass() }}">
+  {{ this.displayCommentedData(this.getCommentedData()) }}
+  <input{{ this.getAttributesCode()|raw }} />
+</span>

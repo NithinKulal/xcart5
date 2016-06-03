@@ -1,0 +1,25 @@
+{##
+ # Sort widget
+ #}
+{% form '\\XLite\\View\\Form\\Sort' with {params: this.getFormParams()} %}
+
+<span>{{ t('Sort by') }}</span>
+<select name="sortCriterion">
+  {% for key, name in this.getParam('sortCriterions') %}
+    <option value="{{ key }}" {% if this.isSortCriterionSelected(key) %} selected="selected" {% endif %}>{{ name }}</option>
+  {% endfor %}
+</select>
+<a href="{{ this.getSortOrderURL() }}" class="{{ this.getSortOrderLinkClassName() }}">{% if this.isSortOrderAsc() %}&darr;{% else %}&uarr;{% endif %}</a>
+
+{% endform %}
+<script type="text/javascript">
+$(document).ready(
+  function() {
+    $('.sort-box').each(
+      function() {
+        new SortBoxController(this);
+      }
+    );
+  }
+);
+</script>

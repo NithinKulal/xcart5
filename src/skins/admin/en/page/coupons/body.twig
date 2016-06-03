@@ -1,0 +1,29 @@
+{##
+ # License message template
+ #}
+<div class="license-message">
+  <div class="alert alert-warning" role="alert">
+    {{ t('This feature is available only for paid (non-free) X-Cart license plans', {'pricingUrl': this.getPricingURL()})|raw }}
+  </div>
+
+  <div class="info">
+    <div class="description">
+      {{ t('This page is intended for the creation and management of discount coupons.')|raw }}
+    </div>
+
+    <div class="features">
+      <ul>
+        <li><i class="fa fa-check"></i>{{ t('the dates the coupon should be valid for;')|raw }}</li>
+        <li><i class="fa fa-check"></i>{{ t('the order subtotal range for which the coupon can be used;')|raw }}</li>
+        <li><i class="fa fa-check"></i>{{ t('the categories and product classes to which the coupon may be applied;')|raw }}</li>
+        <li><i class="fa fa-check"></i>{{ t('whether the coupon may be used by everyone or only by users with specific memberships.')|raw }}</li>
+      </ul>
+    </div>
+
+    <div class="actions">
+      <a href="{{ this.getPricingURL() }}" target="_blank">{{ t('Choose the right plan') }}</a>
+      <span class="or">{{ t('or') }}</span>
+      {{ widget('XLite\\View\\Button\\Regular', label='Buy Business Edition', style='regular-main-button', jsCode='window.open(\'' ~ this.getPurchaseLicenseURL() ~ '\', \'_blank\');') }}
+    </div>
+  </div>
+</div>

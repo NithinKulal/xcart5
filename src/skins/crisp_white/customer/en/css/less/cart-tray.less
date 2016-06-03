@@ -1,0 +1,129 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.cart-tray
+{
+  position: fixed;
+  top: 11em;
+  right: 5em;
+  z-index: 200;
+  width: 160px;
+  height: 200px;
+  border-style: solid;
+  border-color: @color-contrast;
+  border-width: 4px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  box-shadow: 0 6px 6px 0 rgba(155, 154, 155, 0.5);
+  -moz-box-shadow: 0 6px 6px 0 rgba(155, 154, 155, 0.5);
+  -webkit-box-shadow: 0 6px 6px 0 rgba(155, 154, 155, 0.5);
+}
+
+.cart-tray .tray-area {
+  .flex-display();
+  .justify-content(center);
+  padding: @rhythmic-unit;
+  height: 100%;
+  background: @body-bg;
+}
+
+.cart-tray .tray-area .centered-tray-box
+{
+  .icon-bag;
+  position: relative;
+  color: @text-dark-color;
+  text-align: center;
+  margin: 0 auto;
+  padding-top: (@rhythmic-unit * 4);
+  .flex-display();
+  .align-items(center);
+
+  &:before {
+    position: absolute;
+    display: inline-block;
+    left: 0;
+    right: 0;
+    top: @rhythmic-unit;
+    font-size: (@rhythmic-unit * 2.5);
+    line-height: (@rhythmic-unit * 3);
+  }
+}
+
+.cart-tray .tray-status {
+  font-weight: 600;
+  line-height: @rhythmic-unit;
+}
+
+.cart-tray .product-added .regular-button
+{
+  white-space: normal;
+}
+
+.cart-tray .wait-progress {
+  width: 100px;
+}
+
+.cart-tray .block-wait {
+  border: 0px none;
+  min-width: 100%;
+}
+
+/*
+ * products_list.css styles
+ *
+ */
+
+.cart-tray .product-added.tray-status button.action
+{
+  position: relative;
+  top: 3px;
+  padding: 6px 24px;
+  margin: 0px;
+  white-space: normal;
+  height: auto;
+}
+
+.cart-tray .product-added.tray-status button.action span
+{
+  white-space: normal;
+}
+
+.preload-cart-tray {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
+.cart-tray-box,
+.cart-tray-active .progress-bar,
+.cart-tray-active .product-added,
+.cart-tray-adding .drop-here,
+.cart-tray-box .dropped-here,
+.cart-tray-adding .product-added,
+.cart-tray-added .drop-here,
+.cart-tray-added .progress-bar
+{
+  display: none !important;
+}
+
+.cart-tray-active,
+.cart-tray-moving .drop-here,
+.cart-tray-adding .progress-bar,
+.cart-tray-added .product-added
+{
+  display: block !important;
+}
+
+.cart-tray .tray-status,
+.cart-tray .block-wait
+{
+  text-align: center;
+  margin: 0 auto;
+}

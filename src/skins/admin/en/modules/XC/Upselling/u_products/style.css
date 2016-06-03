@@ -1,0 +1,36 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * U products list styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.u_products.items-list-table table.list td.cell.sku {
+  min-width: 100px;
+}
+
+.items-list button.remove img {
+  background: transparent url(../../../../images/close_icon.png) no-repeat center -2px;
+  height: 19px;
+  width: 19px;
+  vertical-align: middle;
+}
+
+.items-list button.remove:hover img {
+  background-position-y: -24px;
+}
+
+td.cell.product div.cell {
+  width: 212px;
+  overflow: hidden;
+  position: relative;
+}
+
+.xc-upselling-searchpanel-main .search-conditions-box .search-conditions > li.substring-condition,
+.xc-upselling-searchpanel-main .search-conditions-box .search-conditions > li.categoryId-condition
+{
+  width: 43%;
+  margin-right: 12px;
+}

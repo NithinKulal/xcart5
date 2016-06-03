@@ -1,0 +1,22 @@
+{##
+ # Modules main section list
+ #
+ # @ListChild (list="itemsList.module.manage.columns.module-main-section", weight="1000")
+ #}
+
+<script type="text/javascript">
+  moduleNames['{{ this.module.getModuleID() }}'] = '{{ this.getFormattedModuleName(this.module) }}';
+  moduleStatuses['{{ this.module.getModuleID() }}'] = '{% if this.module.getEnabled() %}1{% else %}0{% endif %}';
+  depends['{{ this.module.getModuleID() }}'] = [];
+  {% for k, m in this.module.getDependencyModules() %}
+    depends['{{ this.module.getModuleID() }}']['{{ k }}'] = '{{ m.getModuleID() }}';
+    if (!moduleNames['{{ m.getModuleID() }}']) {
+      moduleNames['{{ m.getModuleID() }}'] = '{{ this.getFormattedModuleName(m) }}';
+    }
+  {% endfor %}
+
+  dependents['{{ this.module.getModuleID() }}'] = [];
+  {% for k, m in this.module.getDependentModules() %}
+    dependents['{{ this.module.getModuleId() }}'].push('{{ m.getModuleID() }}');
+  {% endfor %}
+</script>

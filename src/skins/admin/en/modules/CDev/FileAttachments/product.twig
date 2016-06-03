@@ -1,0 +1,35 @@
+{##
+ # Product controller tab
+ #}
+<div class="product-attachments">
+
+  <div class="add-file">
+    {{ widget('XLite\\View\\Button\\FileSelector', label='Add file', object='product', objectId=this.product.getProductId(), fileObject='attachments') }}
+  </div>
+
+  {% if this.product.attachments.count() %}
+  {% form 'XLite\\Module\\CDev\\FileAttachments\\View\\Form\\Attachments' with {product: this.getProduct()} %}
+
+    {% if this.product.getAttachments() %}
+      <ul class="files">
+        {% for index, attachment in this.product.getAttachments() %}
+          <li class="{{ this.getItemClass(attachment) }}">
+    
+            <div class="row">
+              {{ widget_list('product.attachments.row', attachment=attachment) }}
+            </div>
+    
+            <div class="info" style="display: none;">
+              {{ widget_list('product.attachments.properties', attachment=attachment) }}
+            </div>
+    
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    {{ widget('XLite\\Module\\CDev\\FileAttachments\\View\\Panel\\Product') }}
+
+  {% endform %}
+  {% endif %}
+</div>

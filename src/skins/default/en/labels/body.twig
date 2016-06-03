@@ -1,0 +1,11 @@
+{##
+ # Labels
+ #}
+
+<ul class="labels">
+  {% for key, name in this.getLabels() %}
+    <li class="label-{{ key|raw }}">
+      {{ widget(template='label/body.twig', labelContent=name) }}
+    </li>
+  {% endfor %}
+</ul>

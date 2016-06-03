@@ -1,0 +1,55 @@
+{##
+ # OgoneEcomerce configuration page
+ #}
+
+<div class="settings-text">
+  {{ t('Ogone signup', {'url': this.getOgoneSignupURL()})|raw }}
+  {{ t('Ogone settings note', {'URL': this.getShopURL()})|raw }}
+</div>
+
+<table cellspacing="1" cellpadding="5" class="settings-table">
+    <tr>
+        <td class="setting-name">
+            <label for="settings_pspid">{{ t('Ogone PSPID') }}</label>
+        </td>
+        <td>
+            <input type="text" id="settings_pspid" name="settings[pspid]" value="{{ this.paymentMethod.getSetting('pspid') }}" class="validate[required,maxSize[255]]"/>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="setting-name">
+            <label for="settings_shaIn">{{ t('SHA-IN passphrase') }}</label>
+        </td>
+        <td>
+            <input type="text" id="settings_shaIn" name="settings[shaIn]" value="{{ this.paymentMethod.getSetting('shaIn') }}" class="validate[required,maxSize[255]]"/>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="setting-name">
+            <label for="settings_shaOut">{{ t('SHA-OUT passphrase') }}</label>
+        </td>
+        <td>
+            <input type="text" id="settings_shaOut" name="settings[shaOut]" value="{{ this.paymentMethod.getSetting('shaOut') }}" class="validate[required,maxSize[255]]"/>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="setting-name">
+            <label for="settings_prefix">{{ t('Invoice number prefix') }}</label>
+        </td>
+        <td>
+            <input type="text" id="settings_prefix" value="{{ this.paymentMethod.getSetting('prefix') }}" name="settings[prefix]" />
+        </td>
+    </tr>
+
+    <tr>
+        <td class="setting-name">
+            <label for="settings_mode">{{ t('Test/Live mode') }}</label>
+        </td>
+        <td>
+            {{ widget('\\XLite\\View\\FormField\\Select\\TestLiveMode', fieldId='settings_mode', fieldName='settings[mode]', fieldOnly='true', value=this.paymentMethod.getSetting('mode')) }}
+        </td>
+    </tr>
+</table>

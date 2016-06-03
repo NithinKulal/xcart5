@@ -1,0 +1,29 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Product variant title styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+#product_variant_title {
+  color: #456583;
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+
+#product_variant_title li.arrtibute {
+  color: #8f8f8f;
+}
+
+#product_variant_title ul li:last-of-type span {
+  display: none;
+}
+
+#product_variant_title a {
+}
+
+#product_variant_title ul li {
+  display: inline;
+}

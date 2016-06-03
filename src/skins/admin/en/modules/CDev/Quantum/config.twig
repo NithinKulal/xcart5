@@ -1,0 +1,51 @@
+{##
+ # QuantumGateway configuration page
+ #}
+
+<div class="settings-text">
+  {{ t('Use of Restriction key must be disabled in your Quantum Gateway merchant center account at all times.') }}
+</div>
+
+<table cellspacing="1" cellpadding="5" class="settings-table">
+
+  <tr>
+    <td class="setting-name">
+    <label for="settings_login">{{ t('Login') }}</label>
+    </td>
+    <td>
+    <input type="text" id="settings_login" name="settings[login]" value="{{ this.paymentMethod.getSetting('login') }}" class="validate[required,maxSize[255]]" />
+    </td>
+  </tr>
+
+  <tr>
+    <td class="setting-name">
+    <label for="settings_hash">{{ t('MD5 hash value') }}</label>
+    </td>
+    <td>
+    <input type="text" id="settings_hash" name="settings[hash]" value="{{ this.paymentMethod.getSetting('hash') }}" />
+    </td>
+  </tr>
+
+  <tr>
+    <td class="setting-name">
+    <label for="settings_prefix">{{ t('Invoice number prefix') }}</label>
+    </td>
+    <td>
+    <input type="text" id="settings_prefix" value="{{ this.paymentMethod.getSetting('prefix') }}" name="settings[prefix]" />
+    </td>
+  </tr>
+
+  <tr>
+    <td class="setting-name">
+      <label for="settings_include_response">{{ t('Include response in hash') }}</label>
+    </td>
+    <td>
+      <select id="settings_include_response" name="settings[include_response]">
+        <option value="Y"{% if this.paymentMethod.getSetting('include_response') == 'Y' %} selected="selected"{% endif %}>{{ t('Yes') }}</option>
+        <option value="N"{% if this.paymentMethod.getSetting('include_response') == 'N' %} selected="selected"{% endif %}>{{ t('No') }}</option>
+      </select>
+      {{ widget('\\XLite\\View\\Tooltip', id='include-response-help', text=t('This value must be set in exactly the same way as it is set on the payment gateway end.'), caption='', isImageTag='true', className='help-icon') }}
+    </td>
+  </tr>
+
+</table>

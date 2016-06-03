@@ -1,0 +1,15 @@
+{##
+ # Welcome page for logged admin
+ #}
+
+<div class="{{ this.getBoxClass() }}">
+  <div class="inner-box">
+    {% if this.isRootAccess() %}
+      {{ widget_list('dashboard-center.welcome') }}
+    {% endif %}
+    {% if not this.isRootAccess() %}
+      {{ widget_list('dashboard-center.welcome.non-root') }}
+    {% endif %}
+  </div>
+</div>
+

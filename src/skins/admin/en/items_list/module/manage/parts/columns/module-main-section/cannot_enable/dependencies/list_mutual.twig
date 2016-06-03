@@ -1,0 +1,16 @@
+{##
+ # Dependencies list
+ #
+ # @ListChild (list="itemsList.module.manage.columns.module-main-section.messages.cannot_enable.dependencies", weight="400")
+ # @ListChild (list="itemsList.module.install.columns.module-main-section.cannot_enable.dependencies", weight="400")
+ #}
+
+{% if this.getEnabledMutualModules(this.module) %}
+  <ul>
+    {% for depend in this.getEnabledMutualModules(this.module) %}
+      <li>
+        {{ widget_list('details', type='nested', depend=depend) }}
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}

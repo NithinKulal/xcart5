@@ -1,0 +1,12 @@
+{##
+ # Module status
+ #
+ # @ListChild (list="upgrade.install_updates.sections.form.info.module", weight="200")
+ #}
+
+{% if this.entry.isEnabled() %}
+  <li class="enabled">{{ t('enabled') }}</li>
+{% endif %}
+{% if not this.entry.isEnabled() %}
+  <li class="disabled">{{ t('now disabled') }}</li>
+{% endif %}

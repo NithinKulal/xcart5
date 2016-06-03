@@ -1,0 +1,11 @@
+{##
+ # Order failed note
+ #}
+
+{{ t('Sorry, your order payment is failed.')|raw }}
+
+<hr />
+
+{% if this.getFailureReason() %}
+  <div class="reason">{{ t('Failure reason:') }} {{ this.getFailureReason() }}</div>
+{% endif %}

@@ -1,0 +1,117 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: whoCanLeaveFeedback
+    category: 'XC\Reviews'
+    type: \XLite\Module\XC\Reviews\View\FormField\Select\WhoCanLeaveFeedback
+    orderby: 10
+    value: 'R'
+    translations:
+      - code: en
+        option_name: 'Who can leave feedback'
+  - name: disablePendingReviews
+    category: 'XC\Reviews'
+    type: checkbox
+    orderby: 20
+    value: true
+    translations:
+      - code: en
+        option_name: 'Admin moderates all reviews before showing them to customers'
+  - name: reviewsCountPerTab
+    category: 'XC\Reviews'
+    type: \XLite\View\FormField\Input\Text\Integer
+    widgetParameters: { min: 1 }
+    orderby: 30
+    value: 5
+    translations:
+      - code: en
+        option_name: 'The quantity of reviews for tabs product reviews'
+
+XLite\Model\LanguageLabel:
+  - { name: 'X stars_5', translations: [{ code: en, label: '{{count}} stars' }] }
+  - { name: 'X stars_4', translations: [{ code: en, label: '{{count}} stars' }] }
+  - { name: 'X stars_3', translations: [{ code: en, label: '{{count}} stars' }] }
+  - { name: 'X stars_2', translations: [{ code: en, label: '{{count}} stars' }] }
+  - { name: 'X star_1', translations: [{ code: en, label: '{{count}} star' }] }
+  - { name: 'Any rating', translations: [{ code: 'en', label: 'Any rating' }] }
+  - { name: 'Reviews for product', translations: [{ code: 'en', label: '{{product}} reviews' }] }
+  - { name: 'Product', translations: [{ code: 'en', label: 'Product' }] }
+  - { name: 'Product reviews', translations: [{ code: 'en', label: 'Product reviews' }] }
+  - { name: 'Products reviews', translations: [{ code: 'en', label: 'Products reviews' }] }
+  - { name: 'Add review', translations: [{ code: 'en', label: 'Add review' }] }
+  - { name: 'Edit review', translations: [{ code: 'en', label: 'Edit review' }] }
+  - { name: 'Approve review', translations: [{ code: 'en', label: 'Approve review' }] }
+  - { name: 'Review has been created', translations: [{ code: 'en', label: 'The review has been created' }] }
+  - { name: 'Review has been deleted', translations: [{ code: 'en', label: 'The review has been deleted' }] }
+  - { name: 'Review has not been created since product is not found', translations: [{ code: 'en', label: 'The review has not been created since the product {{product}} has not been found' }] }
+  - { name: 'Review has not been updated since product is not found', translations: [{ code: 'en', label: 'The review has not been updated since the product {{product}} has not been found' }] }
+  - { name: 'Reviewer', translations: [{ code: 'en', label: 'Reviewer' }] }
+  - { name: 'Rating', translations: [{ code: 'en', label: 'Rating' }] }
+  - { name: 'Unknown', translations: [{ code: 'en', label: 'Unknown' }] }
+  - { name: 'Reviews imported', translations: [{ code: 'en', label: 'Reviews imported' }] }
+  - { name: 'Product, SKU or customer info', translations: [{ code: 'en', label: 'Product, SKU or customer info' }] }
+  - { name: 'Approve', translations: [{ code: 'en', label: 'Approve' }] }
+  - { name: 'Start typing product name or SKU', translations: [{ code: 'en', label: 'Start typing product name or SKU' }] }
+  - { name: 'Customer name', translations: [{ code: 'en', label: 'Customer name' }] }
+  - { name: 'Start typing customer email or name', translations: [{ code: 'en', label: 'Start typing customer email or name' }] }
+  - { name: 'Text of review', translations: [{ code: 'en', label: 'Text of review' }] }
+  - { name: 'Published', translations: [{ code: 'en', label: 'Published' }] }
+  - { name: 'Pending', translations: [{ code: 'en', label: 'Pending' }] }
+  - { name: 'Please sign in to add review', translations: [{ code: 'en', label: 'Please sign in to add review' }] }
+  - { name: 'You have already reviewed this product', translations: [{ code: 'en', label: 'You have already reviewed this product' }] }
+  - { name: 'Edit your review', translations: [{ code: 'en', label: 'Edit your review' }] }
+  - { name: 'Add your own review', translations: [{ code: 'en', label: 'Add your own review' }] }
+  - { name: 'Thank your for sharing your opinion with us!', translations: [{ code: 'en', label: 'Thank you for sharing your opinion with us!' }] }
+  - { name: 'Your product rating is saved. Thank you!', translations: [{ code: 'en', label: 'Your product rating is saved. Thank you!' }] }
+  - { name: 'Your review has been updated. Thank your for sharing your opinion with us!', translations: [{ code: 'en', label: 'Your review has been updated. Thank your for sharing your opinion with us!' }] }
+  - { name: 'Rating of votes', translations: [{ code: 'en', label: 'Rating of votes' }] }
+  - { name: 'Your email', translations: [{ code: 'en', label: 'Your email' }] }
+  - { name: 'customers', translations: [{ code: 'en', label: 'customers' }] }
+  - { name: 'Average rating', translations: [{ code: 'en', label: 'Average rating' }] }
+  - { name: 'out of', translations: [{ code: 'en', label: 'out of' }] }
+  - { name: 'Based on', translations: [{ code: 'en', label: 'Based on' }] }
+  - { name: 'votes', translations: [{ code: 'en', label: 'votes' }] }
+  - { name: 'Reviews', translations: [{ code: 'en', label: 'Reviews' }] }
+  - { name: 'Reviews: X', translations: [{ code: 'en', label: 'Reviews: {{count}}' }] }
+  - { name: 'We use this email in case we need additional information on your review. We do not use it for any kind of mailing lists or spam subscriptions', translations: [{ code: 'en', label: 'We may use this email if we need additional information on your review. We will not use it for any kind of mailing lists or spam subscriptions' }] }
+  - { name: 'How do you rate this item?', translations: [{ code: 'en', label: 'How do you rate this item?' }] }
+  - { name: 'Write your review', translations: [{ code: 'en', label: 'Write your review' }] }
+  - { name: 'Your review', translations: [{ code: 'en', label: 'Your review' }] }
+  - { name: 'There are no reviews for this product yet', translations: [{ code: 'en', label: 'There are no reviews for this product yet' }] }
+  - { name: 'Back to product details', translations: [{ code: 'en', label: 'Back to product details' }] }
+  - { name: 'Customer reviews', translations: [{ code: 'en', label: 'Customer reviews' }] }
+  - { name: 'On moderation', translations: [{ code: 'en', label: 'On moderation' }] }
+  - { name: 'Read all reviews about the product', translations: [{ code: 'en', label: 'Read all reviews for the product' }] }
+  - { name: 'Rate sort', translations: [{ code: en, label: 'Rates' }] }
+  - { name: 'Rate asc', translations: [{ code: en, label: 'By Rate - 0-9' }] }
+  - { name: 'Rate desc', translations: [{ code: en, label: 'By Rate - 9-0' }] }
+  - { name: 'Only customers who purchased this product can leave feedback on this product', translations: [{ code: 'en', label: 'Only registered customers who purchased this product can leave feedback' }] }
+  - { name: 'Registered users who purchased product', translations: [{ code: 'en', label: 'Registered users who purchased the product' }] }
+  - { name: 'Score: X. Votes: Y', translations: [{ code: 'en', label: 'Score: {{score}}. Votes: {{votes}}' }] }
+  - { name: 'No reviews.', translations: [{ code: 'en', label: 'No reviews.' }] }
+  - { name: 'Not rated yet', translations: [{ code: 'en', label: 'Not rated yet' }] }
+  - { name: 'Be the first and leave a feedback.', translations: [{ code: 'en', label: 'Be the first and leave feedback.' }] }
+  - { name: 'All users', translations: [{ code: en, label: 'All users' }] }
+  - { name: 'Registered users only', translations: [{ code: en, label: 'Registered users only' }] }
+  - { name: 'Reviews and ratings', translations: [{ code: en, label: 'Reviews and ratings' }] }
+  - { name: 'Ratings only', translations: [{ code: en, label: 'Ratings only' }] }
+  - { name: 'Reviews only', translations: [{ code: en, label: 'Reviews only' }] }
+  - { name: Review, translations: [{ code: en, label: Review }] }
+  - { name: 'Selected reviews have been deleted', translations: [{ code: en, label: 'Selected reviews have been deleted' }] }
+  - { name: 'Please select the reviews first', translations: [{ code: en, label: 'Please select the reviews first' }] }
+  - { name: 'Selected reviews have been updated', translations: [{ code: en, label: 'Selected reviews have been updated' }] }
+  - { name: 'Reviews about product', translations: [{ code: en, label: 'Reviews about product' }] }
+  - { name: 'New product reviews', translations: [{ code: en, label: 'New product reviews' }] }
+
+  - { name: 'Ratings and Reviews of X', translations: [{ code: 'en', label: 'Ratings and Reviews of {{product}}' }] }
+  - { name: 'reviewMetaDescription', translations: [{ code: 'en', label: 'Rating: {{rating}} out of {{maxRating}}. Review by {{reviewerName}}: {{review}}' }] }
+  - { name: 'SEO', translations: [{ code: 'en', label: 'SEO' }] }
+  - { name: 'Select the review that should be included into the rich snippet shown for the page of this product when the page appears in search results by Google and other major search engines', translations: [{ code: 'en', label: 'Select the review that should be included into the rich snippet shown for the page of this product when the page appears in search results by Google and other major search engines. More info: <a href="https://support.google.com/webmasters/answer/146750" target="_blank">https://support.google.com/webmasters/answer/146750</a>' }] }
+  - { name: 'Anonymous reviewer', translations: [{ code: en, label: 'Anonymous reviewer' }] }
+
+  - { name: 'Reject', translations: [{ code: 'en', label: 'Reject' }] }

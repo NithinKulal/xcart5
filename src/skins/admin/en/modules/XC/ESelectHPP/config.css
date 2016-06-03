@@ -1,0 +1,40 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+table.settings-table.eselect td.note {
+  padding-bottom: 20px;
+}
+
+table.settings-table.eselect td.note * {
+  vertical-align: baseline;
+}
+
+.eselect-webhook {
+  margin-bottom: 13px;
+}
+
+.eselect-webhook .url {
+  font-size: 14px;
+  padding: 10px 20px 10px 10px;
+  border-radius: 6px;
+  border: solid 1px #efefef;
+  background: #f8f8f8;
+  color: #8f8f8f;
+  width: auto;
+  display: table-cell;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  -ms-text-overflow: ellipsis;
+}
+
+.eselect-webhook .url .copy-link {
+  margin-right: 6px;
+}

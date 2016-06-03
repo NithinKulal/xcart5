@@ -1,0 +1,26 @@
+{##
+ # Just a template for settings. We need it since we do not implement decorator for modules now
+ #}
+
+<div class="admin-welcome root mailchimp-welcome {{ this.isMailChimpConfigured() ? 'configured' : '' }}">
+  <div class="mailchimp-logo" align="center">
+    <a href="https://login.mailchimp.com/signup?source=website&pid=xcart" target="_blank">
+      <img src="{{ this.getLogoUrl() }}" alt="{{ t('MailChimp') }}" class="logo" />
+    </a>
+  </div>
+  <div class="mailchimp-additional-header">
+    <div class="mailchimp-options-header">
+      {% if this.isMailChimpConfigured() %}
+        {{ t('You have configured MailChimp as your primary email newsletter tool. New subscribers will be added directly to your MailChimp lists (this X-Cart list will be skipped). You can manage your subscriber lists under your MailChimp account <here>', {link: this.getMailChimpSignInLink() })|raw }}
+      {% else %}
+        {{ widget('XLite\\View\\Button\\SimpleLink', location=this.getMailChimpSettingsLink(), label=t('Connect your store to MailChimp'), style='btn regular-button always-enabled link') }}
+      {% endif %}
+    </div>
+
+    {% if not this.isItemsListEmpty() %}
+      <div class="mailchimp-options-header">
+        {{ t('To move your existing subscribers to MailChimp lists, <export your subscribers data> from X-Cart and use the import feature under your MailChimp account.', {link: this.getExportSubscribersLink() })|raw }}
+      </div>
+    {% endif %}
+  </div>
+</div>

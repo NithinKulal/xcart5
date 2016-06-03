@@ -1,0 +1,11 @@
+{##
+ # Total cell
+ #}
+
+{% if this.order.currency.prefix %}
+  <span class="symbol">{{ this.order.currency.getPrefix()|raw }}</span>
+{% endif %}
+<span class="value" data-value="{{ this.entity.total }}">{{ this.order.currency.formatValue(this.entity.total) }}</span>
+{% if this.order.currency.suffix %}
+  <span class="symbol">{{ this.order.currency.getSuffix()|raw }}</span>
+{% endif %}

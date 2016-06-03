@@ -1,0 +1,9 @@
+{##
+ # Invoice totals
+ #
+ # @ListChild (list="packing_slip.items", weight="10")
+ #}
+
+<td colspan="2" class="total-title">{{ t('Total')|raw }}:</td>
+<td class="total-item">{{ this.getTotalQty() }}</td>
+<td class="total-item"></td>

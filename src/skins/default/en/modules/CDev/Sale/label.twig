@@ -1,0 +1,14 @@
+{##
+ # Label (internal list element)
+ #
+ # @ListChild (list="product.plain_price.tail", weight="40")
+ #}
+
+{% if this.participateSale() %}
+  <div class="sale-label-product-details">
+    <div class="text">
+      {{ widget_list('sale_price.text', type='nested') }}
+    </div>
+    {{ widget_list('sale_price.label', type='nested') }}
+  </div>
+{% endif %}

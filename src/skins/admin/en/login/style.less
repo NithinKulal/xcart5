@@ -1,0 +1,110 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Authentication page
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+@import "../css/initialize.less";
+
+.login-box-wrapper {
+  min-height: ~"calc(100vh - 130px - 87px)";
+  .vertical-middle-box();
+
+  .login-box {
+    padding-top: 10px;
+
+    h2 {
+      font-family: Arial,Helvetica,sans-serif;
+    }
+
+    table {
+      width: 281px;
+      margin: auto;
+      margin-top: 9px;
+      margin-bottom: 28px;
+
+      tr td {
+        padding: 8px 0;
+        text-align: center;
+        font-weight: normal;
+      }
+
+      tbody.timer tr td {
+        text-align: center;
+        border-radius: 10px;
+        background: #fcf6b6;
+        padding: 24px;
+      }
+
+      tbody.timer tr td span,
+      tbody.timer tr td {
+        font-size: 30px;
+      }
+    }
+
+    input {
+      width: 281px;
+      height: 41px;
+      padding: 2px 13px 0px 13px;
+      vertical-align: middle;
+
+      &::-webkit-input-placeholder {
+        font-style: normal;
+      }
+      &:-moz-placeholder {
+        font-style: normal;
+      }
+      &::-moz-placeholder {
+        font-style: normal;  
+      }
+      &:-ms-input-placeholder {  
+        font-style: normal;  
+      }
+    }
+
+    button.submit {
+      min-width: 165px;
+      margin-top: 3px;
+      padding-top: 4px;
+      height: 45px;
+      font-family: Arial;
+      outline: none;
+
+      span {
+        font-size: 17px;
+      }
+    }
+
+    &.locked button.submit,
+    &.locked tbody.fields,
+    h2.timer-header,
+    tbody.timer,
+    &.locked h2 {
+      display: none;
+    }
+
+    &.locked h2.timer-header {
+      display: block;
+    }
+
+    &.locked tbody.timer {
+      display: table-row-group;
+    }
+
+    .forgot-password {
+      margin-top: 15px;
+
+      a {
+        font-size: 16px;
+      }
+	}
+
+	.additional-note {
+      display: inline-block;
+      margin-top: 10px;
+    }
+  }
+}

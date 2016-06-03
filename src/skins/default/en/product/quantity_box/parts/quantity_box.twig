@@ -1,0 +1,14 @@
+{##
+ # Main element (input)
+ #
+ # @ListChild (list="product.quantity-box", weight="20")
+ #}
+
+<input
+  type="text"
+  value="{{ this.getBoxValue() }}"
+  class="{{ this.getClass() }}"
+  id="{{ this.getBoxId() }}"
+  name="{{ this.getBoxName() }}"
+  title="{{ t(this.getBoxTitle()) }}" />
+<span class="wheel-mark">&nbsp;</span>

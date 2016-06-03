@@ -1,0 +1,39 @@
+{##
+ # Markups list
+ #}
+
+<div class="list{% if not this.hasResults() %} list-no-items{% endif %}">
+
+  <div class="lines">
+  {% for idx, entity in this.getPageData() %}
+  <ul {{ this.printTagAttributes(this.getLineAttributes(idx, entity))|raw }}>
+    {% for column in this.getColumns() %}
+      <li class="{{ this.getColumnClass(column, entity) }}">
+        <div class="cell">
+          {% if this.isTemplateColumnVisible(column, entity) %}
+            {{ widget(template=column.template, idx=idx, entity=entity, column=column, editOnly=column.editOnly, viewOnly=this.isStatic()) }}
+          {% endif %}
+          {% if this.isClassColumnVisible(column, entity) %}
+            {{ widget(column.class, idx=idx, entity=entity, column=column, itemsList=this.getSelf(), fieldName=column.code, fieldParams=column.params, editOnly=column.editOnly, viewOnly=this.isStatic()) }}
+          {% endif %}
+          {% if this.isEditLinkEnabled(column, entity) %}
+          <div class="entity-edit-link" {{ this.getEditLinkAttributes(entity, column) }}>
+            <a href="{{ this.buildEntityURL(entity, column) }}" class="regular-button" role="button">{{ this.getEditLinkLabel(entity) }}</a>
+          </div>
+          {% endif %}
+          {{ widget_list(this.getCellListNamePart('cell', column), type='inherited', column=column, entity=entity) }}
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+  {{ widget_list('row', type='inherited', idx=idx, entity=entity) }}
+  {% endfor %}
+  </div>
+
+  {% if this.isBottomInlineCreation() %}
+    <div class="create bottom-create">
+    {% include 'items_list/model/table/parts/create_box.twig' %}
+    </div>
+  {% endif %}
+
+</div>

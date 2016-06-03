@@ -1,0 +1,38 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Product image gallery styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.product-image-gallery
+{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.product-image-gallery ul
+{
+  margin-left: auto;
+  margin-right: auto;
+  list-style: none;
+  width: auto;
+  display: inline-block;
+}
+
+.product-image-gallery li
+{
+  list-style: none;
+  background-image: none;
+  float: left;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.product-image-gallery a
+{
+  vertical-align: middle;
+  text-align: center;
+}

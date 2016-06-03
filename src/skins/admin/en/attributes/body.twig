@@ -1,0 +1,16 @@
+{##
+ # Attributes page template
+ #}
+
+{% if this.isButtonsBlockVisible() %}
+<div class="buttons"{% if this.productClass %} data-class-id="{{ this.productClass.getId() }}{% endif %}" />
+  {{ widget('\\XLite\\View\\Button\\Submit', style='new-attribute', label=t('New attribute')) }}
+  {{ widget('\\XLite\\View\\Button\\Submit', style='manage-groups', label=t('Manage groups')) }}
+</div>
+{% endif %}
+
+{% if this.isListVisible() %}
+{{ widget(template='common/dialog.twig', body='attributes/list.twig') }}
+{% else %}
+{{ t('No attributes are defined for the product class yet.') }}
+{% endif %}

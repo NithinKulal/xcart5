@@ -1,0 +1,8 @@
+{##
+ # "Core version" info
+ #
+ # @ListChild (list="admin.main.page.header", weight="20")
+ #}
+{% if not this.auth.isLogged() %}
+  <div class="base-version">{{ t('X-Cart shopping cart software') }}</div>
+{% endif %}

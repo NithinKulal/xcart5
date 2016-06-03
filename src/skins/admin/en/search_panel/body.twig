@@ -1,0 +1,59 @@
+{##
+ # Base template
+ #}
+
+{% if this.isUseFilter() %}
+  {% include 'search_panel/filters.twig' %}
+{% endif %}
+
+<div class="title-margin"></div>
+{% form this.formOptions.class with { formTarget: this.formOptions.target, formAction: this.formOptions.action, formParams: this.formOptions.params, className: this.getContainerClass(), itemsList: this.getItemsList() } %}
+
+  {{ widget_list('before', type='nested') }}
+
+  <div class="search-conditions-box">
+
+    {{ this.displayCommentedData(this.getSearchPanelParams()) }}
+
+    <ul class="search-conditions clear clearfix">
+      {% for name, conditionWidget in this.getConditions() %}
+        <li class="{{ name }}-condition">{{ conditionWidget.display() }}</li>
+      {% endfor %}
+      <li class="actions">
+        {% for name, action in this.getActions() %}
+          {{ action.display() }}
+        {% endfor %}
+        {{ widget_list('actions', type='nested') }}
+      </li>
+      {{ widget_list('conditions', type='nested') }}
+    </ul>
+
+    {% if this.getHiddenConditions() %}
+      <span class="search-conditions-hr">
+        <hr noshade class="line1 search-conditions-hidden">
+        <hr noshade class="line2 search-conditions-hidden">
+      </span>
+    {% endif %}
+
+    {% if this.getHiddenConditions() %}
+      <ul class="search-conditions-hidden clear clearfix">
+        {% for name, conditionWidget in this.getHiddenConditions() %}
+          <li class="{{ name }}-condition {{ this.getRowClass(loop.index, 'odd', 'even') }}">{{ conditionWidget.display() }}</li>
+        {% endfor %}
+        {{ widget_list('hiddenConditions', type='nested') }}
+      </ul>
+    {% endif %}
+
+    {% if this.getHiddenConditions() %}
+      <div class="arrow"></div>
+    {% endif %}
+
+    {% if this.isUseFilter() %}
+      {{ widget('\\XLite\\View\\Button\\SaveSearchFilter') }}
+    {% endif %}
+
+  </div>
+
+  {{ widget_list('after', type='nested') }}
+
+{% endform %}

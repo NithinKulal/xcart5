@@ -1,0 +1,23 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Dropdown
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+div.btn-dropdown {
+  white-space: nowrap;
+  position: relative;
+}
+
+.dropdown-backdrop {
+  position: static;
+}
+
+div.btn-dropdown ul li button {
+  width: 100%;
+  text-align: left;
+  border: none;
+}

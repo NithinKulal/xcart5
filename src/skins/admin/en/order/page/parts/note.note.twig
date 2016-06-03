@@ -1,0 +1,9 @@
+{##
+ # Order notes
+ #
+ # @ListChild (list="order.note", weight="100")
+ #}
+
+<div class="admin-note">
+  {{ widget('\\XLite\\View\\FormField\\Textarea\\Simple', label='Order note', fieldName='adminNotes', value=this.order.getAdminNotes()) }}
+</div>

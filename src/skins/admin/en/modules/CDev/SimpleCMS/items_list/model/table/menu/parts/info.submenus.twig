@@ -1,0 +1,8 @@
+{##
+ # Submenus count link 
+ #}
+{% if this.entity.getSubmenusCount() %}
+<a href="{{ url('menus', '', {'id': this.entity.getMenuId(), 'page': this.entity.getType()}) }}" class="count-link">
+	{{ this.entity.getSubmenusCount() }} {{ t('items') }}
+</a>
+{% endif %}

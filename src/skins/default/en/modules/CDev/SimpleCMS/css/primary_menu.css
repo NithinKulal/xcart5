@@ -1,0 +1,151 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Default styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+#page .navbar.navbar-inverse.mobile-hidden {
+  border-bottom: none;
+}
+
+.top-main-menu {
+    padding: 0;
+    margin: 0;
+    position: relative;
+}
+
+.top-main-menu li ul {
+    background: #fff;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    box-shadow: 0px 1px 8px 1px rgba(0,0,0,0.15);
+    padding: 0px;
+    position: absolute;
+    top: 50px;
+    width: 200px;
+    left: -999em;
+    visibility: hidden;
+    opacity: 0;
+    -o-transition: visibility .15s, opacity .15s;
+    -ms-transition: visibility .15s, opacity .15s;
+    -moz-transition: visibility .15s, opacity .15s;
+    -webkit-transition: visibility .15s, opacity .15s;
+    transition: visibility .15s, opacity .15s;
+    z-index: 1000;
+}
+
+.top-main-menu > li.leaf > ul {
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+}
+
+.top-main-menu li:hover > ul {
+    left: auto;
+    visibility: visible;
+    opacity: 1;
+    -o-transition: visibility .3s, opacity .3s;
+    -ms-transition: visibility .3s, opacity .3s;
+    -moz-transition: visibility .3s, opacity .3s;
+    -webkit-transition: visibility .3s, opacity .3s;
+    transition: visibility .3s, opacity .3s;
+    z-index: 10000;
+}
+.top-main-menu li ul.tap {
+	left: auto;
+	visibility: visible;
+	opacity: 1;
+}
+.top-main-menu li ul.tap ul,
+.top-main-menu li ul ul {
+    top: 0;
+    left: 99%;
+}
+.top-main-menu li li {
+    background: transparent none;
+    position: relative;
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+.top-main-menu li li span.primary-title {
+    font-weight: bold;
+}
+.top-main-menu li li span.primary-title,
+.top-main-menu li li a:active, .top-main-menu li li a:link, .top-main-menu li li a:visited, .top-main-menu li li a:hover {
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+    text-decoration: none;
+    padding: 16px 25px;
+    white-space: normal;
+    -o-transition: color .15s;
+    -ms-transition: color .15s;
+    -moz-transition: color .15s;
+    -webkit-transition: color .15s;
+    transition: color .15s;
+    color: #333;
+    font-size: 16px;
+    line-height: 18px;
+}
+
+.top-main-menu li li.has-sub > a:after{
+    content: '\276F';
+    line-height: 1.25em;
+    font-size: 0.75em;
+    color: #777;
+}
+
+.navbar-nav > li > span.primary-title {
+    text-decoration: none;
+    font-size: 19px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 12px;
+    padding-bottom: 11px;
+    color: #fff;
+}
+.navbar-inverse .navbar-nav > .active > span.primary-title {
+    color: #fff;
+    background-color: #4e4e4e;
+}
+
+.top-main-menu > li > span.primary-title.tap,
+.top-main-menu > li > a.tap,
+.top-main-menu > li:hover > span.primary-title,
+.top-main-menu > li:hover > a {
+    background-color: #363636;
+}
+.top-main-menu li li:hover > a, .top-main-menu li li a:hover {
+    -o-transition: color .3s;
+    -ms-transition: color .3s;
+    -moz-transition: color .3s;
+    -webkit-transition: color .3s;
+    transition: color .3s;
+    background-color: #f5fafd;
+    border-radius: 3px;
+}
+.top-main-menu li li:first-child > a {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.top-main-menu li ul li{
+    margin:0;
+    height: auto;
+    width: auto;
+
+}
+
+.top-main-menu li:hover ul li ul{
+    position: absolute;
+    top: 0;
+    left: 100%;
+}
+
+.scrollable {
+    overflow-y: scroll;
+}

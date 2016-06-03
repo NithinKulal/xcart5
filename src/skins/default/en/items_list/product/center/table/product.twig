@@ -1,0 +1,9 @@
+{##
+ # Products list item (table variant)
+ #}
+
+<tr class="product-cell {{ this.getProductCellClass() }}">
+  {% for column in this.getViewList(this.getInheritedListName('columns'), {'product': this.product}) %}
+    <td>{{ column.display() }}</td>
+  {% endfor %}
+</tr>

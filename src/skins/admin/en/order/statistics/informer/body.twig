@@ -1,0 +1,17 @@
+{##
+ # Order summary mini informer (for dashboard)
+ #}
+
+<div class="order-statistics-mini-informer collapsed">
+  <div class="header">
+    {{ this.getSVGImage('images/statistics.svg')|raw }}
+    {{ t('Sale statistics') }}
+    <i class="fa fa-angle-down"></i>
+    <i class="fa fa-angle-right"></i>
+  </div>
+  <div class="content">
+    {% for tab in this.getTabs() %}
+    {% include tab.template %}
+    {% endfor %}
+  </div>
+</div>

@@ -1,0 +1,7 @@
+{##
+ # Invoice items
+ #
+ # @ListChild (list="order.items.wrapper", weight="10")
+ #}
+
+{{ widget('\\XLite\\View\\ItemsList\\Model\\OrderItem', order=this.order) }}

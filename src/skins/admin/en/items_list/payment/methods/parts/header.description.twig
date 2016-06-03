@@ -1,0 +1,9 @@
+{##
+ # Payment methods list : line : header : description
+ #
+ # @ListChild (list="payment.methods.list.header", weight=400)
+ #}
+
+{% if this.method.getAltAdminDescription() %}
+  <div class="description">{{ this.method.getAltAdminDescription()|raw }}</div>
+{% endif %}

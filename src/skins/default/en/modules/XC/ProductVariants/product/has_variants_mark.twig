@@ -1,0 +1,11 @@
+{##
+ # Product details image block
+ #
+ # @ListChild (list="product.details.quicklook.image", weight="10")
+ #}
+{% if this.product %}
+    <div class="has-variants-mark"
+        style="display: none;"
+        data-value="{{ this.product.hasVariants() }}">
+    </div>
+{% endif %}

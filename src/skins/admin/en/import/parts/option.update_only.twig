@@ -1,0 +1,12 @@
+{##
+ # Import begin section : settings : update-mode
+ #
+ # @ListChild (list="import.begin.options", weight="100")
+ #}
+
+<li class="import-mode-option">
+  {{ widget('\\XLite\\View\\FormField\\Select\\Regular', fieldName='options[updateOnly]', fieldId='importMode', label=t('Import mode'), value=this.config.Import.updateOnly, options=this.getImportModeOptions()) }}
+  {% if this.getImportModeComment() %}
+    {{ widget('\\XLite\\View\\Tooltip', text=this.getImportModeComment(), isImageTag='true', className='help-icon', placement='bottom') }}
+  {% endif %}
+</li>

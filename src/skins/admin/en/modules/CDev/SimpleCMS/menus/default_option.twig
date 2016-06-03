@@ -1,0 +1,9 @@
+{##
+ # Menus list table template
+ #
+ # @ListChild (list="itemsList.cdev.simplecms.menu.header", weight="10")
+ #}
+
+{% if this.isVisibleShowDefaultOption() %}
+  {{ widget('XLite\\View\\FormField\\Input\\Checkbox', isChecked=this.config.XC.SimpleCMS.show_default_menu, value='Y', fieldName='show_default_menu', label='Show default menu along with the custom one') }}
+{% endif %}

@@ -1,0 +1,18 @@
+{##
+ # Selector for Product classes
+ #}
+{% if not this.isListEmpty() %}
+  <div class="select-classes">
+    {% include 'form_field/select.twig' %}
+  {# TODO Rework
+  <div class="classes-list">
+  {getSelectedClassesList()}<a href="javascript:void(0);" class="popup-classes"></a>
+  </div>
+  #}
+  </div>
+{% endif %}
+{% if this.isListEmpty() %}
+  <span class="empty-list">
+    <a href="{{ url('product_classes') }}">{{ t('Define classes') }}</a>
+  </span>
+{% endif %}

@@ -1,0 +1,20 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\LanguageLabel:
+  - { name: "a2cp-source-code-R", translations: [{ code: ru, label: "Случайный набор товаров" }] }
+  - { name: "Install additional modules to add more product sources", translations: [{ code: ru, label: "Чтобы получить больше источников товаров, установите дополнительные модули: {{list}}" }] }
+  - { name: "This product has been added to you cart", translations: [{ code: ru, label: "Продукт добавлен в корзину" }] }
+  - { name: "Please choose the sources of products that will be displayed in the 'Customer also bought' section of the 'Add to Cart' popup dialog and set the priority of sources.", translations: [{ code: ru, label: "Выберите источники товаров, отображаемых в блоке рекомендуемых товаров в диалоге 'Товар добавлен в корзину' и укажите порядок применения источников." }] }
+  - { name: "Add to Cart Popup module settings", translations: [{ code: ru, label: "Настройки модуля 'Add to Cart Popup'" }] }
+  - { name: "Add to Cart popup module settings have been updated.", translations: [{ code: ru, label: "Настройки модуля 'Add to Cart popup' сохранены." }] }
+  - { name: "Adds a promotional popup dialog that is displayed after a customer adds a product to cart.", translations: [{ code: ru, label: "Добавляет всплывающий диалог со списком рекомендуемых товаров, отображаемый после добавления товара в корзину." }] }
+  - { name: "Product source", translations: [{ code: ru, label: "Источник товаров" }] }
+  - { name: "Customers also bought", translations: [{ code: ru, label: "Рекомендуемые товары" }] }
+  - { name: "Random products", translations: [{ code: ru, label: "Случайные товары" }] }
+  - { name: "This option is ignored as Add to Cart Popup module is installed and enabled.", translations: [{ code: ru, label: '<i class="fa fa-exclamation-triangle"></i> Эта опция игнорируется, так как включен модуль <a href="{{url}}">Add to Cart Popup</a>.' }] }
+  - { name: "Enable popup after product added to cart via drag-n-drop", translations: [{ code: ru, label: "Показывать попап, если товар добавлен в корзину перетаскиванием" }] }

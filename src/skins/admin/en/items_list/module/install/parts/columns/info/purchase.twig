@@ -1,0 +1,16 @@
+{##
+ # Modules main section list
+ #
+ # @ListChild (list="itemsList.module.install.columns.module-main-section", weight="200")
+ #}
+
+{% if this.canPurchase(this.module) %}
+  {{ widget('\\XLite\\View\\Button\\Addon\\Purchase', moduleObj=this.module, style='main-button') }}
+{% endif %}
+
+{% if this.canPurchase(this.module) %}
+  <div class="or-activate">{{ t('or') }}
+    {{ widget('\\XLite\\View\\Button\\ActivateKey', label='Activate key', isModule='true') }}
+    {{ widget('\\XLite\\View\\Button\\Addon\\EnterLicenseKey', label='Activate key', isModule='true') }}
+  </div>
+{% endif %}

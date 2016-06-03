@@ -1,0 +1,10 @@
+{##
+ # Invoice title
+ #
+ # @ListChild (list="invoice.base", weight="20")
+ #}
+<h2 class="invoice">{{ this.getInvoiceTitle()|raw }}</h2>
+<div class="subhead">
+  {{ this.formatTime(this.order.getDate()) }}
+  <span>{{ t('Grand total') }}: {{ this.getOrderTotal()|raw }}</span>
+</div>

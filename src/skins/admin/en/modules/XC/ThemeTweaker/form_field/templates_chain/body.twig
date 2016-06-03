@@ -1,0 +1,11 @@
+{##
+ # Templates chain
+ #}
+
+<div{{ this.getAttributesCode()|raw }}>
+  {% for _link, _body in this.getChain() %}
+    <div class="chain-link">
+      <a href="javascript: void(0);" data-content="{{ _body }}">{{ _link }}</a>
+    </div>
+  {% endfor %}
+</div>

@@ -1,0 +1,454 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: userID
+    category: XC\UPS
+    type: XLite\View\FormField\Input\Text
+    orderby: 10
+    translations:
+      - code: en
+        option_name: User ID
+  - name: password
+    category: XC\UPS
+    type: XLite\View\FormField\Input\PasswordWithValue
+    orderby: 20
+    translations:
+      - code: en
+        option_name: Password
+  - name: accessKey
+    category: XC\UPS
+    type: XLite\View\FormField\Input\Text
+    orderby: 30
+    translations:
+      - code: en
+        option_name: Access key
+  - name: shipper_number
+    category: XC\UPS
+    type: XLite\View\FormField\Input\Text
+    orderby: 40
+    translations:
+      - code: en
+        option_name: UPS Account number
+        option_comment: A shipper's UPS account number is required when requesting to receive the negotiated rates.
+  - name: test_mode
+    category: XC\UPS
+    type: XLite\View\FormField\Input\Checkbox\OnOffWithoutOffLabel
+    value: true
+    orderby: 50
+    translations:
+      - code: en
+        option_name: Test mode
+
+  - name: additionalSettingsSeparator
+    category: XC\UPS
+    type: separator
+    orderby: 100
+    translations:
+      - code: en
+        option_name: Additional settings
+
+  - name: packageSettingsSeparator
+    category: XC\UPS
+    type: separator
+    orderby: 200
+    translations:
+      - code: en
+        option_name: Package settings
+  - name: packaging_type
+    category: XC\UPS
+    type: XLite\Module\XC\UPS\View\FormField\Select\PackagingType
+    value: '00'
+    orderby: 210
+    translations:
+      - code: en
+        option_name: Package box type
+  - name: dimensions
+    category: XC\UPS
+    type: serialized
+    value: a:3:{i:0;i:10;i:1;i:10;i:2;i:10;}
+    orderby: 220
+    translations:
+      - code: en
+        option_name: Package dimensions
+  - name: max_weight
+    category: XC\UPS
+    type: XLite\View\FormField\Input\Text\FloatInput
+    value: 150
+    orderby: 230
+    translations:
+      - code: en
+        option_name: Maximum package weight
+
+  - name: serviceOptionsSeparator
+    category: XC\UPS
+    type: separator
+    orderby: 300
+    translations:
+      - code: en
+        option_name: Service options
+  - name: pickup_type
+    category: XC\UPS
+    type: XLite\Module\XC\UPS\View\FormField\Select\PickupType
+    value: '01'
+    orderby: 310
+    translations:
+      - code: en
+        option_name: Pickup type
+  - name: saturday_pickup
+    category: XC\UPS
+    type: XLite\View\FormField\Input\Checkbox\OnOffWithoutOffLabel
+    orderby: 320
+    translations:
+      - code: en
+        option_name: Saturday pickup
+  - name: additional_handling
+    category: XC\UPS
+    type: XLite\View\FormField\Input\Checkbox\OnOffWithoutOffLabel
+    orderby: 330
+    translations:
+      - code: en
+        option_name: Additional handling
+  - name: saturday_delivery
+    category: XC\UPS
+    type: XLite\View\FormField\Input\Checkbox\OnOffWithoutOffLabel
+    orderby: 340
+    translations:
+      - code: en
+        option_name: Saturday delivery
+  - name: negotiated_rates
+    category: XC\UPS
+    type: XLite\View\FormField\Input\Checkbox\OnOffWithoutOffLabel
+    orderby: 350
+    translations:
+      - code: en
+        option_name: Use negotiated rates
+  - name: delivery_conf
+    category: XC\UPS
+    type: XLite\Module\XC\UPS\View\FormField\Select\DeliveryConfirmation
+    value: '0'
+    orderby: 360
+    translations:
+      - code: en
+        option_name: Delivery confirmation
+  - name: extra_cover
+    category: XC\UPS
+    type: XLite\View\FormField\Input\Checkbox\OnOffWithoutOffLabel
+    orderby: 370
+    translations:
+      - code: en
+        option_name: Add insured value
+  - name: extra_cover_value
+    category: XC\UPS
+    type: XLite\View\FormField\Input\Text\Price
+    value: 0.00
+    orderby: 380
+    translations:
+      - code: en
+        option_name: Insured value
+
+  - name: cacheOnDeliverySeparator
+    category: XC\UPS
+    type: separator
+    orderby: 400
+    translations:
+      - code: en
+        option_name: Cash on delivery
+
+  - name: currencyConversionSeparator
+    category: XC\UPS
+    type: separator
+    orderby: 500
+    translations:
+      - code: en
+        option_name: Currency conversion options
+  - name: currency_code
+    category: XC\UPS
+    type: XLite\View\FormField\Input\Text
+    orderby: 510
+    translations:
+      - code: en
+        option_name: Shipping cost currency
+  - name: currency_rate
+    category: XC\UPS
+    type: XLite\View\FormField\Input\Text\FloatInput
+    value: 1
+    orderby: 520
+    translations:
+      - code: en
+        option_name: Currency rate
+        option_comment: If the UPS returns rates in currency which is differ from the currency the store uses for payments you need to specify the conversion rate to convert the shipping cost returned by UPS into the necessary currency. Otherwise leave 1.
+
+  - name: additionalOptionsSeparator
+    category: XC\UPS
+    type: separator
+    orderby: 600
+    translations:
+      - code: en
+        option_name: Additional options
+  - name: debug_enabled
+    category: XC\UPS
+    type: XLite\View\FormField\Input\Checkbox\OnOffWithoutOffLabel
+    value: true
+    orderby: 610
+    translations:
+      - code: en
+        option_name: Enable debugging
+        option_comment: This option enables logging of all communication between shopping cart and UPS server.
+
+XLite\Model\Shipping\Method:
+  - processor: ups
+    carrier: ''
+    code: ''
+    enabled: false
+    added: false
+    position: 0
+    moduleName: XC_UPS
+    translations:
+      - code: en
+        name: UPS
+
+  - processor: ups
+    carrier: ups
+    code: 'NDA'
+    enabled: 1
+    position: 10
+    translations:
+      - code: en
+        name: "UPS Next Day Air&reg;"
+  - processor: ups
+    carrier: ups
+    code: '2DA'
+    enabled: 1
+    position: 20
+    translations:
+      - code: en
+        name: "UPS 2nd Day Air&reg;"
+  - processor: ups
+    carrier: ups
+    code: 'GND'
+    enabled: 1
+    position: 30
+    translations:
+      - code: en
+        name: "UPS Ground"
+  - processor: ups
+    carrier: ups
+    code: 'WEXP'
+    enabled: 1
+    position: 40
+    translations:
+      - code: en
+        name: "UPS Worldwide Express"
+  - processor: ups
+    carrier: ups
+    code: 'WEXD'
+    enabled: 1
+    position: 50
+    translations:
+      - code: en
+        name: "UPS Worldwide Expedited"
+  - processor: ups
+    carrier: ups
+    code: 'STD'
+    enabled: 1
+    position: 60
+    translations:
+      - code: en
+        name: "UPS Standard"
+  - processor: ups
+    carrier: ups
+    code: '3DS'
+    enabled: 1
+    position: 70
+    translations:
+      - code: en
+        name: "UPS 3 Day Select&reg;"
+  - processor: ups
+    carrier: ups
+    code: 'NDAS'
+    enabled: 1
+    position: 80
+    translations:
+      - code: en
+        name: "UPS Next Day Air Saver&reg;"
+  - processor: ups
+    carrier: ups
+    code: 'NDAE'
+    enabled: 1
+    position: 90
+    translations:
+      - code: en
+        name: "UPS Next Day Air&reg; Early A.M."
+  - processor: ups
+    carrier: ups
+    code: 'WEXPP'
+    enabled: 1
+    position: 100
+    translations:
+      - code: en
+        name: "UPS Worldwide Express Plus"
+  - processor: ups
+    carrier: ups
+    code: '2DAAM'
+    enabled: 1
+    position: 110
+    translations:
+      - code: en
+        name: "UPS 2nd Day Air A.M.&reg;"
+  - processor: ups
+    carrier: ups
+    code: 'SAV'
+    enabled: 1
+    position: 120
+    translations:
+      - code: en
+        name: "UPS Saver"
+  - processor: ups
+    carrier: ups
+    code: 'TSTD'
+    enabled: 1
+    position: 130
+    translations:
+      - code: en
+        name: "UPS Today StandardSM"
+  - processor: ups
+    carrier: ups
+    code: 'TDC'
+    enabled: 1
+    position: 140
+    translations:
+      - code: en
+        name: "UPS Today Dedicated CourrierSM"
+  - processor: ups
+    carrier: ups
+    code: 'TI'
+    enabled: 1
+    position: 150
+    translations:
+      - code: en
+        name: "UPS Today Intercity"
+  - processor: ups
+    carrier: ups
+    code: 'TEXP'
+    enabled: 1
+    position: 160
+    translations:
+      - code: en
+        name: "UPS Today Express"
+  - processor: ups
+    carrier: ups
+    code: 'TEXPS'
+    enabled: 1
+    position: 170
+    translations:
+      - code: en
+        name: "UPS Today Express Saver"
+  - processor: ups
+    carrier: ups
+    code: 'WEXPF'
+    enabled: 1
+    position: 180
+    translations:
+      - code: en
+        name: "UPS WorldWide Express Freight"
+  - processor: ups
+    carrier: ups
+    code: 'EXP'
+    enabled: 1
+    position: 190
+    translations:
+      - code: en
+        name: "UPS Express"
+  - processor: ups
+    carrier: ups
+    code: 'EXPP'
+    enabled: 1
+    position: 200
+    translations:
+      - code: en
+        name: "UPS Express Plus"
+  - processor: ups
+    carrier: ups
+    code: 'EXDSM'
+    enabled: 1
+    position: 210
+    translations:
+      - code: en
+        name: "UPS ExpeditedSM"
+  - processor: ups
+    carrier: ups
+    code: 'WEXDSM'
+    enabled: 1
+    position: 220
+    translations:
+      - code: en
+        name: "UPS Worldwide ExpeditedSM"
+  - processor: ups
+    carrier: ups
+    code: 'WEXPSM'
+    enabled: 1
+    position: 230
+    translations:
+      - code: en
+        name: "UPS Worldwide ExpressSM"
+  - processor: ups
+    carrier: ups
+    code: 'SAVSM'
+    enabled: 1
+    position: 240
+    translations:
+      - code: en
+        name: "UPS SaverSM"
+  - processor: ups
+    carrier: ups
+    code: 'EXPEAMSM'
+    enabled: 1
+    position: 250
+    translations:
+      - code: en
+        name: "UPS Express Early A.M. SM"
+  - processor: ups
+    carrier: ups
+    code: 'NDAEAMSM'
+    enabled: 1
+    position: 260
+    translations:
+      - code: en
+        name: "UPS Next Day Air&reg; Early A.M. SM"
+  - processor: ups
+    carrier: ups
+    code: 'WEXPPSM'
+    enabled: 1
+    position: 270
+    translations:
+      - code: en
+        name: "UPS Worldwide Express PlusSM"
+
+XLite\Model\Payment\Method:
+  - service_name: COD_UPS
+    class: Module\XC\UPS\Model\Payment\Processor\COD
+    countries: [US, PR]
+    added: 1
+    translations:
+      - code: en
+        name: Cash on Delivery (UPS)
+
+XLite\Model\LanguageLabel:
+  - { name: 'UPS module allows to use online shipping rates calculation via UPS service.', translations: [{ code: en, label: '<b>UPS</b> module allows you to use online shipping rates calculation via <a href="http://www.ups.com" target="_new">UPS service</a>.<br/>To use UPS Rating API you need to register on <a href="http://www.ups.com/" target="_new">UPS.com</a> with a User ID and Password. Once you have registered you would need to obtain an Access Key from UPS.com that provides access to the Rating API. To obtain an Access Key an account number needs to be added or created in your UPS.com profile.' }] }
+  - { name: 'ups.CODStatusOptionComment', translations: [{ code: en, label: 'UPS module supports ''Cash on delivery'' feature for shipments within European Union, within United States and Puerto Rico, within Canada and from Canada to the United States.<br/>To enable ''Cash on delivery'' payment option you should enable payment method ''Cash on delivery (UPS)'' at the <a href="{{URL}}">Payment methods page</a>.' }] }
+  - { name: 'Air service center', translations: [{ code: en, label: 'Air service center' }] }
+  - { name: 'Customer counter', translations: [{ code: en, label: 'Customer counter' }] }
+  - { name: 'Daily Pickup', translations: [{ code: en, label: 'Daily Pickup' }] }
+  - { name: 'Delivery confirmation - adult signature required', translations: [{ code: en, label: 'Delivery confirmation - adult signature required' }] }
+  - { name: 'Delivery confirmation - no signature', translations: [{ code: en, label: 'Delivery confirmation - no signature' }] }
+  - { name: 'Delivery confirmation - signature required', translations: [{ code: en, label: 'Delivery confirmation - signature required' }] }
+  - { name: 'Letter center', translations: [{ code: en, label: 'Letter center' }] }
+  - { name: 'No confirmation', translations: [{ code: en, label: 'No confirmation' }] }
+  - { name: 'On call air', translations: [{ code: en, label: 'On call air' }] }
+  - { name: 'One time pickup', translations: [{ code: en, label: 'One time pickup' }] }
+  - { name: 'Suggested retail rates', translations: [{ code: en, label: 'Suggested retail rates' }] }

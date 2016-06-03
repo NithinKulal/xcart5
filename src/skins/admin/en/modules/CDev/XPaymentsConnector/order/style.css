@@ -1,0 +1,275 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * CSS classes for Saved credit cards page
+ *
+ * @author    Qualiteam software Ltd <info@x-cart.com>
+ * @copyright Copyright (c) 2011-2016 Qualiteam software Ltd <info@x-cart.com>. All rights reserved
+ * @license   http://www.x-cart.com/license-agreement.html X-Cart 5 License Agreement
+ * @link      http://www.x-cart.com/
+ */
+
+/**
+ * XPC Transactions block
+ */
+.xpc-transactions {
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+/* Credit card  block*/
+
+td.cell.card {
+  padding-top: 12px !important;
+  padding-right: 18px !important;
+  vertical-align: top !important;
+}
+
+div.card-container {
+  float: left;
+  margin-right: 30px;
+  margin-bottom: -30px;
+}
+
+div.card-container div.card-icon {
+  float: left;
+  height: 53px;
+  width: 105px;
+  overflow: hidden;
+}
+
+div.card-container div.card-icon span.card img {
+  float: left;
+}  
+
+div.card-container div.card-icon span.card {
+  display: inline-block;
+  width: 140px;
+  height: 70px;
+  zoom: 0.75;
+  -moz-transform: scale(0.75);
+  -moz-transform-origin: 0 0 0;
+}
+
+div.card-container div.card-icon span.card img {
+  float: left;
+}
+
+div.card-container div.card-number {
+  line-height: 53px !important;
+  font-size: 20px !important;
+  margin-top: -9px;
+}
+
+div.card-container div.card-number span.card-expire {
+  display: block;
+  position: relative;
+  left: 119px;
+  top: -24px;
+  font-size: 16px;
+}
+
+td.cell.card.mc div.cell span.card {
+  background: url(transactions/card_types.png) 0px 0px no-repeat;
+}
+
+td.cell.card.visa div.cell span.card {
+  background: url(transactions/card_types.png) 0px -71px no-repeat;
+}
+
+td.cell.card.jcb div.cell span.card {
+  background: url(transactions/card_types.png) 0px -141px no-repeat;
+}
+
+td.cell.card.amex div.cell span.card {
+  background: url(transactions/card_types.png) 0px -211px no-repeat;
+}
+
+td.cell.card.dc div.cell span.card {
+  background: url(transactions/card_types.png) 0px -281px no-repeat;
+}
+
+td.cell.card.dicl div.cell span.card {
+  background: url(transactions/card_types.png) 0px -351px no-repeat;
+}
+
+td.cell.card.sw div.cell span.card {
+  background: url(transactions/card_types.png) 0px -421px no-repeat;
+}
+
+td.cell.card.cup div.cell span.card {
+  background: url(transactions/card_types.png) 0px -491px no-repeat;
+}
+
+td.cell.card.bc div.cell span.card {
+  background: url(transactions/card_types.png) 0px -561px  no-repeat;
+}
+
+/* Transaction link block */
+
+div.links-container {
+  margin-bottom: 7px;
+}
+
+div.links-container a.dotted {
+  text-decoration: none !important;
+  border-bottom: 1px dotted;
+  margin-right: 23px;
+}
+
+/* Payment actions block */
+
+div.actions-container {
+  margin-top: 12px;
+  margin-left: 100px;
+  float: left;
+  display: block;
+}
+
+div.actions-container div.unit {
+  float: left;
+  margin-right: 10px;
+  display: block;
+  padding-left: 0px !important;
+}
+
+div.payment-action-unit input.amount-field {
+  width: 100px;
+  float: left;
+  margin-right: 5px;
+}
+
+div.payment-action-unit input.amount-field,
+div.payment-action-unit button.payment-action-button {
+  vertical-align: top !important;
+}
+
+div.payment-actions div.unit button.with-input {
+  width: 76px;
+}
+
+/* Fraud waring block */
+
+div.warning-container {
+  margin-bottom: 7px;
+  margin-top: 8px;
+}
+
+div.warning-container p.alert {
+  padding: 4px 15px 4px 15px;
+  font-size: 14px;
+}
+
+/**
+ * Recharge block
+ */
+
+div.recharge-button-container {
+  margin-top: 6px;
+}
+
+div.payment-actions {
+  margin-bottom: 15px;
+}
+
+div.payment-actions div.unit {
+  display: block;
+  padding-left: 0px !important;
+}
+
+div.payment-action-unit-border {
+  width: 180px;
+  height: 7px;
+}
+
+/**
+ * Kount results
+ */
+div.kount-result {
+  padding: 0 10px;
+}
+
+div.kount-result h2,
+div.kount-result p.lead {
+  margin-left: -10px;
+}
+
+div.kount-result p:not(.lead) {
+  font-size: 14px;
+}
+
+div.kount-result p.lead {
+  background-color: #fcf8e4;
+  display: inline-block;
+  padding: 3px 10px;
+}
+
+div.kount-result span.danger {
+  color: #d9534f;
+  padding-left: 22px;
+}
+
+div.kount-result span.success {
+  color: #5cb85c;
+  padding-left: 22px;
+}
+
+div.kount-result span.warning {
+  color: #f0ad4e;
+  padding-left: 22px;
+}
+
+ul.kount-result-lines {
+  padding-left: 26px;
+}
+
+ul.kount-result-lines li {
+  list-style: initial;
+  font-size: 14px;
+}
+
+div.alert {
+  font-size: 14px;
+}
+
+.fraud-status-Fraud .cell ,
+.fraud-status-Clean .cell ,
+.fraud-status-Review .cell ,
+.fraud-status-Fraud .cell  a,
+.fraud-status-Clean .cell  a,
+.fraud-status-Review .cell  a {
+  display: block;
+  height: 24px;
+  width: 24px;
+}
+
+.fraud-status-Fraud .cell  a,
+.fraud-status-Clean .cell  a,
+.fraud-status-Review .cell  a {
+  background-repeat: no-repeat;
+  background-position: center right;
+}
+
+.fraud-status-Fraud .cell  a {
+  background: url(fraud_status/fraud.svg);
+  background-size: 24px 24px;
+}
+
+.fraud-status-Clean .cell  a {
+  background: url(fraud_status/clean.svg);
+  background-size: 24px 24px;
+}
+
+.fraud-status-Review .cell  a {
+  background: url(fraud_status/review.svg);
+  background-size: 24px 24px;
+}
+
+td.fraud_warning .alert {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.confirm-operation .modal-body {
+  font-size: 16px;
+}

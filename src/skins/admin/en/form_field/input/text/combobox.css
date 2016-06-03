@@ -1,0 +1,66 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Combobox styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+input[type=text].combobox {
+  float: left;
+  padding-right: 35px;
+}
+
+div.combobox-select {
+  width: 30px;
+  height: 35px;
+  float: left;
+  position: relative;
+  top: 0px;
+  right: 31px;
+  cursor: pointer;
+  z-index: 1;
+  border-left: 1px solid #c3c3c3;
+  text-align: center;
+}
+
+div.combobox-select:hover i {
+  color: #154e9c;
+}
+
+div.combobox-select i {
+  font-size: 18px;
+  margin-top: 10px;
+  color: #c3c3c3;
+}
+
+.ui-autocomplete {
+  border: 1px solid #999999;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  background: #fff;
+  font-family: Helvetica,Arial,sans-serif;
+  padding: 5px;
+  margin-top: 2px;
+}
+
+.ui-autocomplete.ui-menu .ui-menu-item a {
+  border: none;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  background: #fff;
+  text-align: left;
+  padding: 5px 8px;
+  margin: 0;
+  font-size: 14px;
+  color: #2664b0;
+}
+
+.ui-menu .ui-menu-item a.ui-state-hover {
+  background: #f2f2f2;
+  margin: 0;
+  color: #2664b0;
+}

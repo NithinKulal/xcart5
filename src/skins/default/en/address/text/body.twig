@@ -1,0 +1,24 @@
+{##
+ # Address 
+ #}
+<ul class="address-entry">
+
+  {% for fieldName, fieldData in this.getSchemaFields() %}
+
+    {% if this.getFieldValue(fieldName, 1) %}
+      <li class="{{ this.getFieldStyle(fieldName) }}">
+  
+        <ul class="address-text">
+          <li class="address-text-label address-text-label-{{ fieldName }}">{{ fieldData.label }}:</li>
+          <li class="address-text-value">{{ this.getFieldValue(fieldName, 1) }}</li>
+          <li class="address-text-comma address-text-comma-{{ fieldName }}">,</li>
+        </ul>
+  
+      </li>
+    {% endif %}
+
+  {% endfor %}
+
+</ul>
+
+<div class="clear"></div>

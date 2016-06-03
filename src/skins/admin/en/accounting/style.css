@@ -1,0 +1,150 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Accounting styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+/*
+* Commmon styles
+*/
+.accounting-page-wrapper a{
+    text-decoration: none;
+}
+
+.accounting-page-wrapper a:hover{
+    text-decoration: underline;
+}
+
+.accounting-page-wrapper .description p{
+    font-size: 16px;
+}
+
+.accounting-page-wrapper .description hr{
+    margin-top: 0;
+}
+
+.accounting-page-wrapper .available-block-list,
+.accounting-page-wrapper .installed-block-list{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+            align-items: center;
+
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+}
+
+.accounting-page-wrapper .available-block-list li a,
+.accounting-page-wrapper .installed-block-list .installed-module
+{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-orient: vertical;
+}
+
+/*
+* Installed block
+*/
+.accounting-page-wrapper .installed-block .alert{
+    font-size: 14px;
+    display: inline-block;
+}
+
+.accounting-page-wrapper .installed-block .alert strong{
+    font-weight: 600;
+}
+
+.accounting-page-wrapper .installed-block .installed-block-list .installed-module{
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+            align-items: center;
+
+    margin-right: 30px;
+    min-width: 300px;
+    margin-bottom: 40px;
+}
+
+.accounting-page-wrapper .installed-block .installed-block-list .installed-module img{
+    max-width: 84px;
+}
+
+
+.accounting-page-wrapper .installed-block .installed-block-list .installed-module .info{
+    margin-left: 15px;
+}
+
+.accounting-page-wrapper .installed-block .installed-block-list .installed-module .info .name{
+    font-size: 16px;
+    color: #0062A0;
+    max-width: 200px;
+}
+
+.accounting-page-wrapper .installed-block .installed-block-list .installed-module .author-label{
+    color: #8f8f8f;
+}
+
+.accounting-page-wrapper .installed-block .installed-block-list .installed-module .author-value{
+    
+}
+
+.accounting-page-wrapper .installed-block .installed-block-list .installed-module .settings-button{
+    padding: 7px 20px;
+    height: auto;
+    margin-top: 15px;
+}
+
+
+/*
+* Available block
+*/
+.accounting-page-wrapper .available-block-list{
+    margin-top: 30px;
+}
+
+.accounting-page-wrapper .available-block-list li{
+    max-width: 190px;
+    margin-right: 5px;
+    margin-bottom: 70px;
+}
+.accounting-page-wrapper .available-block-list li a{
+  text-align: center;
+  display: inline-block;
+}
+.accounting-page-wrapper .available-block-list li a:hover {
+  color: #1a509a;
+}
+
+.accounting-page-wrapper .available-block-list li img{
+    width: 190px;
+    display: block;
+}
+
+.accounting-page-wrapper .available-block-list li .link-wrapper{
+    margin-top: 12px;
+    color: #1a509a;
+    font-size: 13px;
+    display: block;
+}

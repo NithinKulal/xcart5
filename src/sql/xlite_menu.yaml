@@ -1,0 +1,20 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Demo store (menu)
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Module\CDev\SimpleCMS\Model\Menu:
+  - { link: 'shipping.html', type: P, position: 200, translations: [{ code: en, name: Shipping }, { code: ru, name: Доставка }]}
+  - { link: '{new arrivals}', type: P, position: 400, translations: [{ code: en, name: New! },{ code: ru, name: Новинки }] }
+  - { link: '{coming soon}', type: P, position: 500, translations: [{ code: en, name: Coming soon },{ code: ru, name: 'Скоро в продаже' }] }
+  - { type: P, position: 150, translations: [{ code: en, name: 'Hot deals' }, { code: ru, name: 'Акции' }], children: [{ link: '{sale}', type: P, position: 100, translations: [{ code: en, name: Sale }, { code: ru, name: 'Распродажа' }]}, { link: '{bestsellers}', type: P, position: 200, translations: [{ code: en, name: 'Bestsellers' }, { code: ru, name: 'Бестселлеры' }]}, { enabled: 0, link: '?target=special_offers', type: P, position: 300, translations: [{ code: en, name: 'Special offers' }, { code: ru, name: 'Специальные предложения' }]}]}
+  - { link: '{contact us}', type: P, position: 700, translations: [{ code: en, name: 'Contact us' }, { code: ru, name: 'Напишите нам' }]}
+
+
+  - { type: F, position: 100, translations: [{ code: en, name: 'Categories' }, { code: ru, name: 'Товары' }], children: [{ link: 'apparel', type: F, position: 100, translations: [{ code: en, name: 'Apparel' }, { code: ru, name: 'Одежда' }]}, { link: 'igoods', type: F, position: 200, translations: [{ code: en, name: 'iGoods' }, { code: ru, name: 'Электроника' }]}, { link: 'toys', type: F, position: 300, translations: [{ code: en, name: 'Toys' }, { code: ru, name: 'Игрушки' }]}]}
+  - { type: F, position: 200, translations: [{ code: en, name: 'Offers' }, { code: ru, name: 'Акции' }], children: [{ link: '{sale}', type: F, position: 100, translations: [{ code: en, name: 'Sale' }, { code: ru, name: 'Распродажа' }]}, { link: '{coming soon}', type: F, position: 200, translations: [{ code: en, name: 'Coming soon' }, { code: ru, name: 'Скоро в продаже' }]}, { link: '{new arrivals}', type: F, position: 300, translations: [{ code: en, name: 'New!' }, { code: ru, name: 'Новинки' }]}]}
+  - { type: F, position: 300, translations: [{ code: en, name: 'Info links' }, { code: ru, name: 'Информация' }], children: [{ link: 'shipping.html', type: F, position: 100, translations: [{ code: en, name: 'Shipping' }, { code: ru, name: 'Правила доставки' }]},{ link: '?target=map', type: F, position: 200, translations: [{ code: en, name: 'Sitemap' }, { code: ru, name: 'Карта сайта' }]}, { link: 'terms-and-conditions.html', type: F, position: 300, translations: [{ code: en, name: 'Terms & Conditions' }, { code: ru, name: 'Условия использования' }]}]}
+  - { type: F, position: 400, translations: [{ code: en, name: 'Services' }, { code: ru, name: 'Сервисы' }], children: [{ link: 'shipping.html', type: F, position: 100, translations: [{ code: en, name: 'Shipping info' }, { code: ru, name: 'Доставка' }]}, { link: '{contact us}', type: F, position: 200, translations: [{ code: en, name: 'Contact us' }, { code: ru, name: 'Напишите нам' }]}]}
+  - { visibleFor: L, type: F, position: 500, translations: [{ code: en, name: 'My X-Cart' }, { code: ru, name: 'Мой X-Cart' }], children: [{ visibleFor: L, link: '?target=address_book', type: F, position: 100, translations: [{ code: en, name: 'Address book' }, { code: ru, name: 'Мои адреса' }]}, { visibleFor: L, link: '?target=order_list', type: F, position: 200, translations: [{ code: en, name: 'Order list' }, { code: ru, name: 'Мои заказы' }]}, { visibleFor: L, link: '?target=profile', type: F, position: 300, translations: [{ code: en, name: 'Account details' }, { code: ru, name: 'Личный кабинет' }]}]}

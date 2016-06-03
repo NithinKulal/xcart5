@@ -1,0 +1,52 @@
+{##
+ # Display product attribute values in invoice
+ #}
+
+{% if '1' != this.displayVariative %}
+
+  {% if this.isInvoiceMode() %}
+    <li class="item-options-list-item">{{ t('Options') }}: {{ this.getDisplayOptionValues(this.av) }}</li>
+  {% else %}
+    {% for av in this.item.getAttributeValues() %}
+      <li class="item-attribute-values-list-item">
+        <span class="name">{{ av.getActualName() }}:</span>
+        <span {{ this.printTagAttributes(this.getValueContainerAttributes(av))|raw }}><span>{{ av.getActualValue() }}</span></span>
+      </li>
+    {% endfor %}
+  {% endif %}
+
+{% else %}
+
+  {% if 1 < this.item.getAttributeValuesCount() %}
+
+    <li class="item-attribute-values-list-item">
+      <span class="options-title">{{ t('Options:') }}</span>
+      {% for av in this.getPlainValues() %}
+        <span class="attribute-box">
+          <span class="name">{{ av.getActualName() }}:</span>
+          <span {{ this.printTagAttributes(this.getValueContainerAttributes(av))|raw }} title="{{ av.getActualName() }}">{{ av.getActualValue() }}</span>
+          <span class="separator">/</span>
+        </span>
+      {% endfor %}
+    </li>
+
+    {% if this.getTextValues() %}
+      <li class="item-attribute-values-list-item-text">
+        {% for av in this.getTextValues() %}
+          <div>
+            <span class="name">{{ av.getActualName() }}:</span>
+            <span {{ this.printTagAttributes(this.getValueContainerAttributes(av))|raw }}><span>{{ av.getActualValue() }}</span></span>
+          </div>
+        {% endfor %}
+      </li>
+    {% endif %}
+
+  {% else %}
+
+    {% for av in this.item.getAttributeValues() %}
+      <li class="item-attribute-values-list-item">{{ av.getActualName() }}: <span {{ this.printTagAttributes(this.getValueContainerAttributes(av))|raw }}><span>{{ av.getActualValue() }}</span></span></li>
+    {% endfor %}
+
+  {% endif %}
+
+{% endif %}

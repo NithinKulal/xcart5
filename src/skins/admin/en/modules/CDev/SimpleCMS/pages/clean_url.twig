@@ -1,0 +1,10 @@
+{##
+ # Page URL cell template
+ #}
+
+<div class="plain-value">
+  <span class="value"><a href="{{ this.entity.getFrontURL() }}" target="new">{{ this.entity.getFrontURL() }}</a></span>
+  {% if this.column.noWrap %}
+    <img src="{{ asset('images/spacer.gif') }}" class="right-fade" alt="" />
+  {% endif %}
+</div>

@@ -1,0 +1,11 @@
+{##
+ # Wholesale prices table
+ #
+ # @ListChild (list="wholesale.price.widgetlist", weight="40")
+ #}
+
+<td>
+  <span class="price-value">{{ this.formatPrice(this.wholesalePrice.getDisplayPrice(), this.null, 1)|raw }}</span>
+  <span class="price-label">/ {{ t('each') }}</span>
+</td>
+ 

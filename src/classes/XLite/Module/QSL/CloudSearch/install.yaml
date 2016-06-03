@@ -1,0 +1,38 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# @author    Qualiteam software Ltd <info@x-cart.com>
+# @copyright Copyright (c) 2011-2014 Qualiteam software Ltd <info@x-cart.com>. All rights reserved
+# @license   http://www.x-cart.com/license-agreement.html X-Cart 5 License Agreement
+# @link      http://www.x-cart.com/
+
+XLite\Model\Config:
+  - name: api_key
+    category: QSL\CloudSearch
+    type: hidden
+  - name: secret_key
+    category: QSL\CloudSearch
+    type: hidden
+  - name: dashboard
+    category: QSL\CloudSearch
+    type: \XLite\Module\QSL\CloudSearch\View\FormField\Dashboard
+  - name: doSearch
+    category: QSL\CloudSearch
+    type: checkbox
+    value: Y
+    translations:
+      - code: en
+        option_name: Turn on the CloudSearch specific search on the product list
+      - code: ru
+        option_name: Включить поиск продуктов от CloudSearch
+
+XLite\Model\LanguageLabel:
+  - { name: "cs_showing_results_for", translations: [{ code: en, label: "Showing results for" }, { code: ru, label: "Показаны результаты для" }] }
+  - { name: "cs_see_details", translations: [{ code: en, label: "See details" }, { code: ru, label: "Подробнее" }] }
+  - { name: "cs_see_more_results_for", translations: [{ code: en, label: "See more results for" }, { code: ru, label: "Показать больше результатов для" }] }
+  - { name: "cs_suggestions", translations: [{ code: en, label: "Suggestions" }, { code: ru, label: "Предложения" }] }
+  - { name: "cs_products", translations: [{ code: en, label: "Products" }, { code: ru, label: "Товары" }] }
+  - { name: "cs_categories", translations: [{ code: en, label: "Categories" }, { code: ru, label: "Категории" }] }
+  - { name: "cs_pages", translations: [{ code: en, label: "Pages" }, { code: ru, label: "Страницы" }] }
+  - { name: "cs_did_you_mean", translations: [{ code: en, label: "Did you mean" }, { code: ru, label: "Возможно, вы имели в виду" }] }

@@ -1,0 +1,54 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Advanced input text style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.advanced-input-text {
+  height: 32px;
+}
+
+.advanced-input-text .original-input {
+  display: none;
+  color: #333333;
+}
+
+.advanced-input-text .original-label {
+  background-color: inherit;
+  color: #516f89;
+  width: 300px;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: text;
+}
+
+.advanced-input-text .original-input,
+  .advanced-input-text .original-label
+{
+  height: 23px;
+  line-height: 23px;
+  font-size: 14px;
+  padding: 3px;
+  margin: 3px;
+}
+
+.advanced-input-text .original-input input,
+  .advanced-input-text .original-label:hover
+{
+  background-color: #fffade;
+  font-size: 14px;
+}
+
+.advanced-input-text .original-input input {
+  width: 300px;
+  padding: 3px;
+  margin-right: 10px;
+}
+
+.advanced-input-text .original-input .cancel-input {
+  font-size: 12px;
+  text-decoration: underline;
+}

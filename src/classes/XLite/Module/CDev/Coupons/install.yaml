@@ -1,0 +1,67 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Coupons module data dump
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Order\Modifier:
+  - { class: '\XLite\Module\CDev\Coupons\Logic\Order\Modifier\Discount', weight: 200 }
+
+XLite\Model\Role\Permission:
+  - { code: manage coupons, section: Coupons, translations: [{ code: en, name: Manage coupons }] }
+
+XLite\Model\Role:
+  - { translations: [{ code: en, name: Coupons management }, { code: ru, name: Управление купонами }], permissions: [{ code: manage coupons }] }
+
+XLite\Model\LanguageLabel:
+  - { name: "The length of X field must be greater than Y", translations: [{ code: en, label: "The length of the {{name}} field must be greater than {{min}}" }] }
+  - { name: "The length of X field must be less than Y", translations: [{ code: en, label: "The length of the {{name}} field must be less than {{max}}" }] }
+  - { name: "Have more coupons?", translations: [{ code: en, label: "Have more coupons?" }] }
+  - { name: "Applied discount coupon", translations: [{ code: en, label: "Applied discount coupon" }] }
+  - { name: "X coupon(s) has been removed", translations: [{ code: en, label: "{{count}} coupon(s) removed" }] }
+  - { name: "X coupon(s) has been created", translations: [{ code: en, label: "{{count}} coupon(s) created" }] }
+  - { name: "X code is already used for other coupon, please specify a different code", translations: [{ code: en, label: "The code \"{{code}}\" is already used for another coupon. Please choose a different code." }] }
+  - { name: "There is no such a coupon, please check the spelling: X", translations: [{ code: en, label: "Invalid coupon code, please check the spelling: \"{{code}}\"" }] }
+  - { name: "You have already used the coupon", translations: [{ code: en, label: "The coupon has already been used" }] }
+  - { name: "The coupon has been applied to your order", translations: [{ code: en, label: "The coupon has been applied to your order" }] }
+  - { name: "Coupon discount", translations: [{ code: en, label: "Coupon discount" }] }
+  - { name: "Period start date must be sooner than period end date", translations: [{ code: en, label: "Period start date must be earlier than period end date" }] }
+  - { name: "Period end date must be later than period start date", translations: [{ code: en, label: "Period end date must be later than period start date" }] }
+  - { name: "Minimum order subtotal must be less than maximum order subtotal", translations: [{ code: en, label: "Minimum order subtotal must be less than maximum order subtotal" }] }
+  - { name: "Maximum order subtotal must be greater than minimum order subtotal", translations: [{ code: en, label: "Maximum order subtotal must be greater than minimum order subtotal" }] }
+  - { name: "The discount should be less than 100%", translations: [{ code: en, label: "Discount must be less than 100%" }] }
+  - { name: "The coupon has been added", translations: [{ code: en, label: "Coupon added" }] }
+  - { name: "The coupon has been updated", translations: [{ code: en, label: "Coupon updated" }] }
+  - { name: "Limit number of uses", translations: [{ code: en, label: "Limit number of uses" }] }
+  - { name: "Maximum number of uses", translations: [{ code: en, label: "Maximum number of uses" }] }
+  - { name: "To use the coupon, your order subtotal must be between X and Y", translations: [{ code: en, label: "This coupon can be applied only to orders with a subtotal amount between {{min}} and {{max}}" }] }
+  - { name: "To use the coupon, your order subtotal must be at least X", translations: [{ code: en, label: "This coupon can be applied only to orders with a subtotal amount of at least {{min}}" }] }
+  - { name: "To use the coupon, your order subtotal must not exceed Y", translations: [{ code: en, label: "This coupon can be applied only to orders with a subtotal amount not exceeding {{max}}" }] }
+  - { name: "Date when customers can start using the coupon", translations: [{ code: en, label: "Date when customers can start using the coupon" }] }
+  - { name: "Date when the coupon expires", translations: [{ code: en, label: "Date when the coupon expires" }] }
+  - { name: "Minimum order subtotal the coupon can be applied to", translations: [{ code: en, label: "Minimum order subtotal to which the coupon can be applied" }] }
+  - { name: "Maximum order subtotal the coupon can be applied to", translations: [{ code: en, label: "Maximum order subtotal to which the coupon can be applied" }] }
+  - { name: "Coupon discount can be limited to these product classes", translations: [{ code: en, label: "Coupon discount can be limited to these product classes" }] }
+  - { name: "Coupon discount can be limited to customers with these membership levels", translations: [{ code: en, label: "Coupon discount can be limited to customers with these membership levels" }] }
+  - { name: "This comment will be visible to shop administrators only", translations: [{ code: en, label: "This comment is visible to shop administrators only" }] }
+  - { name: "Add new coupon", translations: [{ code: en, label: "Add new coupon" }] }
+  - { name: "Enter code", translations: [{ code: en, label: "Enter code" }] }
+  - { name: "Coupon", translations: [{ code: en, label: "Coupon" }] }
+  - { name: "Redeem", translations: [{ code: en, label: "Redeem" }] }
+  - { name: "X off", translations: [{ code: en, label: "{{currency}} off" }] }
+  - { name: "Removed coupons", translations: [{ code: en, label: "Removed coupons" }] }
+  - { name: "Added coupons", translations: [{ code: en, label: "Added coupons" }] }
+  - { name: 'Add coupon', translations: [{ code: en, label: 'Add coupon' }] }
+  - { name: "This coupon cannot be combined with other coupons", translations: [{ code: en, label: "This coupon cannot be combined with other coupons" }] }
+  - { name: "Sorry, this coupon cannot be combined with the coupon already applied. Revome the previously applied coupon and try again.", translations: [{ code: en, label: "Sorry, this coupon cannot be combined with the coupon already applied. Remove the previously applied coupon and try again." }] }
+  - { name: "Coupon cannot be combined with other coupons", translations: [{ code: en, label: "Coupon cannot be combined with other coupons" }] }
+  - { name: "If you want the coupon discount to be applied only to products from specific categories, specify these categories here.", translations: [{ code: en, label: "If you want the coupon discount to be applied only to products from specific categories, specify these categories here." }] }
+
+  - { name: "Sorry, the coupon you entered is invalid. Make sure the coupon code is spelled correctly", translations: [{ code: en, label: "Sorry, the coupon you entered is invalid. Make sure the coupon code is spelled correctly" }] }
+  - { name: "Sorry, the coupon has expired", translations: [{ code: en, label: "Sorry, the coupon has expired" }] }
+  - { name: "Sorry, the coupon use limit has been reached", translations: [{ code: en, label: "Sorry, the coupon use limit has been reached" }] }
+  - { name: "Sorry, the coupon you entered cannot be applied to the items in your cart", translations: [{ code: en, label: "Sorry, the coupon you entered cannot be applied to the items in your cart" }] }
+  - { name: "Sorry, the coupon you entered is not valid for your membership level. Contact the administrator", translations: [{ code: en, label: "Sorry, the coupon you entered is not valid for your membership level. Contact the administrator" }] }
+
+  - { name: 'The maximum number of uses per user', translations: [{ code: en, label: 'The maximum number of uses per user' }] }

@@ -1,0 +1,44 @@
+{##
+ # 2-level tabber template
+ #}
+
+<div class="tabs2-tabbed-content-wrapper">
+  <div class="tabs2-tabs-container">
+    <div class="tabs2-page-tabs">
+
+      <ul>
+        {% for tabPage in this.getTabs() %}
+          <li class="tab{% if tabPage.selected %}-current{% endif %}">
+            {% if not tabPage.selected %}
+              <a href="{{ tabPage.url|raw }}">{{ tabPage.title|raw }}</a>
+            {% endif %}
+            {% if tabPage.selected %}
+              <div>{{ tabPage.title|raw }}</div>
+            {% endif %}
+            {% if tabPage.selected %}
+              <div class="footer"></div>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+
+    </div>
+    <div class="clear"></div>
+
+    <div class="tab-content">
+      {% if this.isTemplateOnlyTab() %}
+        {% include this.getTabTemplate() %}
+      {% endif %}
+      {% if this.isWidgetOnlyTab() %}
+        {{ widget(widget=this.getTabWidget()) }}
+      {% endif %}
+      {% if this.isFullWidgetTab() %}
+        {{ widget(widget=this.getTabWidget(), template=this.getTabTemplate()) }}
+      {% endif %}
+      {% if this.isCommonTab() %}
+        {% include this.getPageTemplate() %}
+      {% endif %}
+    </div>
+
+  </div>
+</div>

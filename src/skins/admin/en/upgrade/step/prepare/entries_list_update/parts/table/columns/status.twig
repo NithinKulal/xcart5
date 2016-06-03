@@ -1,0 +1,16 @@
+{##
+ # If entry disabled or enabled
+ #
+ # @ListChild (list="upgrade.step.prepare.entries_list_update.sections.table.columns", weight="200")
+ #}
+
+{% if this.entry.isEnabled() %}
+  <td class="status">&nbsp;</td>
+{% else %}
+  {% if this.entry.isInstalled() %}
+    <td class="status disabled">{{ t('Now disabled') }}</td>
+  {% endif %}
+  {% if not this.entry.isInstalled() %}
+    <td class="status not-installed">{{ t('Will be installed') }}</td>
+  {% endif %}
+{% endif %}

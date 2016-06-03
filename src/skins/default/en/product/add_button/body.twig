@@ -1,0 +1,9 @@
+{##
+ # Add to bag buttons
+ #}
+
+<div class="add-button-wrapper {{ this.getFingerprint() }}">
+  {% if not this.isOutOfStock() %}
+    {{ widget('\\XLite\\View\\Button\\Submit', label='Add to cart', style='regular-main-button add2cart') }}
+  {% endif %}
+</div>

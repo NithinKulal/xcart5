@@ -1,0 +1,137 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Progress state
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+/* {{{ BUTTON */
+.progress-state {
+  position: relative;
+}
+
+.progress-state > div {
+  opacity: 0;
+  visibility: hidden;
+  /*transform: scale(1.3);*/
+  transition: opacity .25s, transform .5s;
+}
+
+.progress-state.in_progress.disabled,
+.progress-state.success.disabled {
+  opacity: 1;
+  visibility: visible;
+}
+
+.progress-state .caption {
+}
+
+.progress-state.still .caption {
+  opacity: 1;
+  visibility: visible;
+  /*transform: scale(1);*/
+}
+
+.progress-state .success {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  font-size: 25px;
+  color: #2c5fa6;
+}
+
+.progress-state.success .success {
+  opacity: 1;
+  visibility: visible;
+  /*transform: scale(1);*/
+}
+
+.progress-state .fail {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  font-size: 25px;
+  color: #2c5fa6;
+}
+
+.progress-state.fail .fail {
+  opacity: 1;
+  visibility: visible;
+  /*transform: scale(1);*/
+}
+
+/* }}} */
+
+/* {{{ LOADER */
+
+.progress-state .loader {
+  position: absolute;
+  width: 40px;
+  height: 10px;
+  margin: auto;
+  left: 50%;
+  top: 50%;
+  margin-left: -20px;
+  margin-top: -5px;
+}
+
+.progress-state.in_progress .loader {
+  opacity: 1;
+  visibility: visible;
+  /*transform: scale(1);*/
+}
+
+.progress-state .loader .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  background: #2c5fa6;
+  position: absolute;
+  -webkit-animation-duration: 0.5s;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+}
+.regular-main-button.progress-state .loader .dot {
+  background-color: #fff;
+}
+.progress-state .loader .dot1,
+.progress-state .loader .dot2 {
+  left: 0;
+}
+
+.progress-state .loader .dot3 {
+  left: 15px;
+}
+
+.progress-state .loader .dot4 {
+  left: 30px;
+}
+
+@-webkit-keyframes reveal {
+  from { transform: scale(0.001); }
+  to { transform: scale(1); }
+}
+
+@-webkit-keyframes slide {
+  to { transform: translateX(15px) }
+}
+
+.progress-state .loader .dot1 {
+  -webkit-animation-name: reveal;
+}
+
+.progress-state .loader .dot2,
+.progress-state .loader .dot3 {
+  -webkit-animation-name: slide;
+}
+
+.progress-state .loader .dot4 {
+  -webkit-animation-name: reveal;
+  -webkit-animation-direction: reverse;
+}
+
+/* }}} */

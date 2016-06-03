@@ -1,0 +1,14 @@
+{##
+ # Notification help
+ #}
+<div class="notification-help">
+  <span>{{ t('Notification headers and signatures can be set using variables. A list of supported variables and their respective values is provided in the table below') }}:</span>
+  <table>
+    {% for variablePlaceholder, variableValue in this.getVariables() %}
+      <tr>
+        <td class="variable-placeholder">{{ variablePlaceholder }}</td>
+        <td class="variable-value">{{ variableValue }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+</div>

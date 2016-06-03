@@ -1,0 +1,41 @@
+{##
+ # Checkout : order review step : items : subtotal
+ #
+ # @ListChild (list="checkout.review.selected.items", weight="30")
+ #}
+
+<ul class="modifiers">
+  {% for sType, surcharge in this.getSurchargeTotals() %}
+    <li class="{{ this.getSurchargeClassName(sType, surcharge) }}">
+      {% if surcharge.count == '1' %}
+        <span class="name">{{ surcharge.lastName }}:</span>
+      {% else %}
+        <span class="name list-owner">{{ surcharge.name }}:</span>
+      {% endif %}
+      {% if surcharge.available %}
+        <span class="value">{{ widget('XLite\\View\\Surcharge', surcharge=this.formatSurcharge(surcharge), currency=this.cart.getCurrency()) }}</span>
+        <div class="surcharge-info-wrapper">
+            {# Refer to \XLite\View\SurchargeInfo\CODSurchargeInfo as an example #}
+            {{ widget_list('checkout.review.surcharge.info', surcharge=surcharge) }}
+        </div>
+      {% else %}
+        <span class="value">{{ t('n/a') }}</span>
+      {% endif %}
+      {% if surcharge.count == '1' %}
+        {{ widget_list('modifier', type='nested', surcharge=surcharge, sType=sType, cart=this.cart) }}
+      {% else %}
+        <div style="display: none;" class="order-modifier-details">
+          <ul>
+            {% for row in this.getExcludeSurchargesByType(sType) %}
+              <li>
+                <span class="name">{{ row.getName() }}:</span>
+                <span class="value">{{ widget('XLite\\View\\Surcharge', surcharge=row.getValue(), currency=this.cart.getCurrency()) }}</span>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    </li>
+  {% endfor %}
+
+</ul>

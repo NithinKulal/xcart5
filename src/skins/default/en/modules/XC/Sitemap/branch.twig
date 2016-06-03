@@ -1,0 +1,20 @@
+{##
+ # Main template
+ #}
+
+<ul {{ this.printTagAttributes(this.getContainerTagAttributes())|raw }}>
+  {% for cell in this.getBranch() %}
+    <li {{ this.printTagAttributes(this.getItemContainerTagAttributes(cell.type, cell.id))|raw }}>
+      <div class="item-box">
+        {% if cell.url %}
+          <a href="{{ cell.url }}" class="item">{{ cell.name }}</a>
+        {% else %}
+          <span class="item">{{ cell.name }}</span>
+        {% endif %}
+      </div>
+      {% if this.isDisplayChild(cell.type, cell.id) %}
+        {{ widget('XLite\\Module\\XC\\Sitemap\\View\\Sitemap\\Branch', type=cell.type, id=cell.id, level=this.getNextLevel()) }}
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>

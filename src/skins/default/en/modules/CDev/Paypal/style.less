@@ -1,0 +1,32 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Paypal style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.info:nth-child(1) .top-message.pp-button .message {
+  @media (max-width: @screen-sm-min) {
+    max-width: 100%;
+  }
+  @media (min-width: @screen-sm-min) {
+    max-width: @container-sm - @grid-gutter-width - 185px;
+  }
+  @media (min-width: @screen-md-min) {
+    max-width: @container-sm - @grid-gutter-width - 185px;
+  }
+  @media (min-width: @screen-lg-min) {
+    max-width: @container-sm - @grid-gutter-width - 185px;
+  }
+}
+
+#status-messages .info:nth-child(1) .top-message.pp-button .pp-ec-button {
+  @media (max-width: @screen-xs-min) {
+    left: 50%;
+    display: block;
+    position: relative;
+    margin-left: -79px;
+  }
+}

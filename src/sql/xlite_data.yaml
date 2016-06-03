@@ -1,0 +1,1546 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Minimum data dump
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  directives: { insert: true }
+  - { name: admin_presentation, category: General, type: separator, orderby: 40000, translations: [{ code: en, option_name: 'Administrator Zone settings' }] }
+  - { name: admin_security, category: Security, type: checkbox, orderby: 1000, value: N, translations: [{ code: en, option_name: 'Use HTTPS in the Administrator Zone' }] }
+  - { name: anonymous, category: Shipping, type: separator, orderby: 3000, translations: [{ code: en, option_name: 'Default customer address' }] }
+  - { name: anonymous_address, category: Shipping, type: text, orderby: 4000, translations: [{ code: en, option_name: 'Address line' }] }
+  - { name: anonymous_country, category: Shipping, type: country, orderby: 5000, value: US, translations: [{ code: en, option_name: Country }] }
+  - { name: anonymous_state, category: Shipping, type: state, orderby: 6000, value: 562, translations: [{ code: en, option_name: State }] }
+  - { name: anonymous_custom_state, category: Shipping, type: text, orderby: 7000, translations: [{ code: en, option_name: 'State' }] }
+  - { name: anonymous_city, category: Shipping, type: text, orderby: 8000, translations: [{ code: en, option_name: City }] }
+  - { name: anonymous_zipcode, category: Shipping, type: text, orderby: 9000, translations: [{ code: en, option_name: 'Zip/postal code' }] }
+  - { name: anonymous_address_type, category: Shipping, type: '\XLite\View\FormField\Select\AddressType', value: R, orderby: 10000, translations: [{ code: en, option_name: 'Address type' }] }
+  - { name: aggregate_css, category: Performance, type: checkbox, orderby: 2000, value: Y, translations: [{ code: en, option_name: 'Aggregate CSS files' }] }
+  - { name: aggregate_js, category: Performance, type: checkbox, orderby: 3000, value: Y, translations: [{ code: en, option_name: 'Aggregate JS files' }] }
+  - { name: use_view_cache, category: Performance, type: checkbox, orderby: 4000, value: Y, translations: [{ code: en, option_name: 'Use widget cache' }] }
+  - { name: use_dynamic_image_resizing, category: Performance, type: checkbox, orderby: 5000, value: N, translations: [{ code: en, option_name: 'Use dynamic image resizing', option_comment: 'This setting determines what happens if X-Cart cannot find a previously generated resized version of an image it needs to display. If this setting is enabled, an appropriately sized version of the image is generated on the fly. If this setting is disabled, the original (non-resized) image is used.' }] }
+  - { name: layout_type, category: Layout, type: XLite\View\FormField\Select\LayoutType, orderby: 1000, value: left, translations: [{ code: en, option_name: 'Layout type' }] }
+  - { name: cli_key, category: Security, orderby: 11000, translations: [{ code: en, option_name: 'CLI mode key' }] }
+  - { name: company_address, category: Company, type: separator, orderby: 38500, translations: [{ code: en, option_name: 'Company address' }] }
+  - { name: company_contacts, category: Company, type: separator, orderby: 45500, translations: [{ code: en, option_name: Contacts }] }
+  - { name: company_fax, category: Company, type: 'XLite\View\FormField\Input\Text\Phone', orderby: 42000, translations: [{ code: en, option_name: Fax }] }
+  - { name: company_identity, category: Company, type: separator, orderby: 35000, translations: [{ code: en, option_name: Identity }] }
+  - { name: company_name, category: Company, type: text, orderby: 36000, translations: [{ code: en, option_name: 'Company name', option_comment: "Changing the value of this or any other fields on this page will not affect the signature in your store's email notifications. The signature for notifications can be edited on the <a href=\"admin.php?target=notification_common\">Headers & signatures</a> page." }] }
+  - { name: company_website, category: Company, type: text, orderby: 37000, translations: [{ code: en, option_name: 'Company website' }] }
+  - { name: terms_url, category: General, type: text, orderby: 38000, value: 'terms-and-conditions.html', translations: [{ code: en, option_name: 'Terms and conditions relative URL' }] }
+  - { name: customer_presentation, category: General, type: separator, orderby: 20000, translations: [{ code: en, option_name: 'Customer Zone settings' }] }
+  - { name: customer_security, category: Security, type: checkbox, value: N, translations: [{ code: en, option_name: 'Use HTTPS in the Customer Zone (for login, Checkout and profile pages)' }] }
+  - { name: date_format, category: Units, type: 'XLite\View\FormField\Select\DateFormat', orderby: 66000, value: '%b %e, %Y', translations: [{ code: en, option_name: 'Date format' }] }
+  - { name: csv_delim, category: Units, type: 'XLite\View\FormField\Select\CSVDelimiter', orderby: 70000, value: ',', translations: [{ code: en, option_name: 'CSV column delimiter' }] }
+  - { name: export_import_charset, category: Units, type: 'XLite\View\FormField\Select\IconvCharset', orderby: 72500, value: 'UTF-8', translations: [{ code: en, option_name: 'Import/export charset' }] }
+  - { name: default_language, category: General, orderby: 33000, value: en }
+  - { name: default_admin_language, category: General, orderby: 33500, value: en }
+  - { name: default_offline_payment, category: Payments, type: text, translations: [{ code: en, option_name: 'Payment method to be assumed in case of zero order totals' }] }
+  - { name: default_purchase_limit, category: General, type: 'XLite\View\FormField\Input\Text\Integer', orderby: 29300, value: 9999, widgetParameters: { min: 1 }, translations: [{ code: en, option_name: 'Maximum order quantity (per product)' }] }
+  - { name: default_select_payment, category: Payments, type: text, translations: [{ code: en, option_name: 'Default payment method' }] }
+  - { name: display_check_number, category: General, type: checkbox, orderby: 21500, value: Y, translations: [{ code: en, option_name: 'Display check number for eCheck payment method' }] }
+  - { name: show_out_of_stock_products, category: General, type: 'XLite\View\FormField\Select\ShowOutOfStockProducts', orderby: 20000, value: 'directLink', translations: [{ code: en, option_name: 'How to show out of stock products' }] }
+  - { name: default_prod_display_mode, category: General, type: 'XLite\View\FormField\Select\DefaultDisplayModeForProductsList', orderby: 25000, value: 'grid', translations: [{ code: en, option_name: 'Default display mode for products list' }] }
+  - { name: license, category: License, type: text }
+  - { name: location_address, category: Company, type: text, orderby: 39000, translations: [{ code: en, option_name: 'Street address' }] }
+  - { name: location_country, category: Company, type: country, orderby: 40000, value: US, widgetParameters: { selectOne: false }, translations: [{ code: en, option_name: Country }] }
+  - { name: location_state, category: Company, type: state, orderby: 41000, translations: [{ code: en, option_name: State }] }
+  - { name: location_custom_state, category: Company, type: text, orderby: 41500, translations: [{ code: en, option_name: 'State' }] }
+  - { name: location_city, category: Company, type: text, orderby: 42000, translations: [{ code: en, option_name: City }] }
+  - { name: location_zipcode, category: Company, type: text, orderby: 43000, translations: [{ code: en, option_name: 'Zip/postal code' }] }
+
+  - { name: origin_use_company, category: Company, type: checkbox, orderby: 38000, value: true, translations: [{ code: en, option_name: 'Use the company address as the origin one', option_comment: 'See <a href="admin.php?target=settings&page=Company#company-address">company address</a>' }] }
+  - { name: origin_address, category: Company, type: text, orderby: 39000, translations: [{ code: en, option_name: 'Street address' }] }
+  - { name: origin_country, category: Company, type: country, orderby: 40000, value: US, widgetParameters: { selectOne: false }, translations: [{ code: en, option_name: Country }] }
+  - { name: origin_state, category: Company, type: state, orderby: 41000, translations: [{ code: en, option_name: State }] }
+  - { name: origin_custom_state, category: Company, type: text, orderby: 41500, translations: [{ code: en, option_name: 'State' }] }
+  - { name: origin_city, category: Company, type: text, orderby: 42000, translations: [{ code: en, option_name: City }] }
+  - { name: origin_zipcode, category: Company, type: text, orderby: 43000, translations: [{ code: en, option_name: 'Zip/postal code' }] }
+
+  - { name: company_phone, category: Company, type: 'XLite\View\FormField\Input\Text\Phone', orderby: 44000, translations: [{ code: en, option_name: Phone }] }
+  - { name: login_lifetime, category: General, type: 'XLite\View\FormField\Input\Text\Integer', orderby: 45000, value: 3, widgetParameters: { min: 1 }, translations: [{ code: en, option_name: 'Number of days to store the last login data' }] }
+  - { name: maximal_order_amount, category: General, type: 'XLite\View\FormField\Input\Text\FloatInput', orderby: 29000, value: 99999, widgetParameters: { min: 1 }, translations: [{ code: en, option_name: 'Maximum allowed order subtotal' }] }
+  - { name: minimal_order_amount, category: General, type: 'XLite\View\FormField\Input\Text\FloatInput', orderby: 28000, value: '0', widgetParameters: { min: 0 }, translations: [{ code: en, option_name: 'Minimum allowed order subtotal' }] }
+  - { name: order_number_counter, category: General, type: 'XLite\View\FormField\Input\Text\Integer', orderby: 39000, value: 1, translations: [{ code: en, option_name: 'Next order #', option_comment: 'You can change the number that will be assigned on the next order. The new order number should be greater than the current one.' }] }
+  - { name: cart_ttl, category: General, type: 'XLite\View\FormField\Input\Text\Integer', orderby: 39500, value: 7, translations: [{ code: en, option_name: 'Cart TTL (days)', option_comment: 'Specify the number of days after which a stored shopping cart should be considered old and should be removed. Leave empty if old carts should never be removed (not recommended)' }] }
+  - { name: internal_cron_enabled, category: General, type: checkbox, orderby: 39800, value: Y, translations: [{ code: en, option_name: 'Enable internal cron service', option_comment: "This setting allows you to enable/disable the use of your store's internal cron service. This service schedules the run of certain maintenance tasks for your store - like removing customers' expired shopping carts - at the periodicity of once per 100 user sessions." }] }
+  - { name: orders_department, category: Company, type: 'XLite\View\FormField\Input\Text\Email', orderby: 48000, value: bit-bucket@x-cart.com, translations: [{ code: en, option_name: 'Sales department e-mail', option_comment: '"TO:" address for notifications about orders (creation of new orders, changes of order status, etc). "FROM:" address for low limit warning messages.' }] }
+  - { name: orders_per_page, category: General, type: 'XLite\View\FormField\Input\Text\Integer', orderby: 43000, value: 30, widgetParameters: { min: 1 }, translations: [{ code: en, option_name: 'Orders per page' }] }
+  - { name: products_per_page, category: General, type: 'XLite\View\FormField\Input\Text\Integer', orderby: 25000, value: 12, widgetParameters: { min: 1 }, translations: [{ code: en, option_name: 'Products per category listing page' }] }
+  - { name: products_per_page_max, category: General, type: 'XLite\View\FormField\Input\Text\Integer', orderby: 25000, value: 100, widgetParameters: { min: 1 }, translations: [{ code: en, option_name: 'Maximum products per category listing page' }] }
+  - { name: products_per_page_admin, category: General, type: 'XLite\View\FormField\Input\Text\Integer', orderby: 41000, value: '10', widgetParameters: { min: 1 }, translations: [{ code: en, option_name: 'Products per page' }] }
+  - { name: recent_orders, category: General, type: 'XLite\View\FormField\Input\Text\Integer', orderby: 44000, value: '10', widgetParameters: { min: 1 }, translations: [{ code: en, option_name: 'The number of orders in the recent order list' }] }
+  - { name: force_choose_product_options, category: General, type: checkbox, orderby: 29900, value: N, translations: [{ code: en, option_name: 'Force customer to choose product options before the product can be added to cart' }] }
+  - { name: redirect_to_cart, category: General, type: checkbox, orderby: 30000, value: N, translations: [{ code: en, option_name: 'Redirect customer to the cart page after a product is added to cart' }] }
+  - { name: shop_closed, category: Internal, type: checkbox, orderby: 11000, value: N, translations: [{ code: en, option_name: 'Close the shop temporarily' }] }
+  - { name: shop_currency, category: General, type: '', orderby: 60500, value: 840, translations: [{ code: en, option_name: 'Shop currency' }] }
+  - { name: trailing_zeroes, category: General, type: '', orderby: 60500, value: 0, translations: [{ code: en, option_name: 'Hide trailing zeros in fractional part' }] }
+  - { name: site_administrator, category: Company, type: 'XLite\View\FormField\Input\Text\Email', orderby: 46000, value: bit-bucket@x-cart.com, translations: [{ code: en, option_name: 'Site administrator e-mail', option_comment: '"TO:" address for information on access to your store in safe mode (Hard and Soft reset links), notifications about failed administrator login attempts, low limit warnings, etc.<br />"FROM:" address for most notifications about user profiles.' }] }
+  - { name: smtp_password, category: Email, type: 'XLite\View\FormField\Input\PasswordWithValue', orderby: 16000, translations: [{ code: en, option_name: Password }] }
+  - { name: smtp_security, category: Email, type: 'XLite\View\FormField\Select\SMTPSecurity', orderby: 17000, value: no, translations: [{ code: en, option_name: 'Secure connection' }] }
+  - { name: smtp_server, category: Email, type: separator, orderby: 10000, translations: [{ code: en, option_name: 'SMTP server' }] }
+  - { name: smtp_server_port, category: Email, type: 'XLite\View\FormField\Input\Text\Integer', orderby: 13000, value: 25, widgetParameters: { min: 0, max: 65535 }, translations: [{ code: en, option_name: 'SMTP port', option_comment: 'By default, SMTP uses TCP port 25. However, if you are going to use secure SSL/TLS encrypted SMTP, you need to specify the correct TCP port number for your system here. Typically, port number for secure SMTP is 465.' }] }
+  - { name: smtp_server_url, category: Email, type: text, orderby: 12000, translations: [{ code: en, option_name: 'SMTP server' }] }
+  - { name: smtp_username, category: Email, type: text, orderby: 15000, translations: [{ code: en, option_name: Username }] }
+  - { name: start_year, category: Company, type: 'XLite\View\FormField\Input\Text\PastYear', orderby: 38000, value: 2016, translations: [{ code: en, option_name: 'Year when store started its operation' }] }
+  - { name: subcategories_look, category: General, type: 'XLite\View\FormField\Select\SubcategoriesLook', orderby: 22000, value: icons, translations: [{ code: en, option_name: 'Subcategory listings format' }] }
+  - { name: default_products_sort_order, category: General, type: 'XLite\View\FormField\Select\DefaultProductSortOrder', orderby: 22500, value: 'default', translations: [{ code: en, option_name: 'Default order to sort products within a category' }] }
+  - { name: support_department, category: Company, type: 'XLite\View\FormField\Input\Text\Email', orderby: 49000, value: bit-bucket@x-cart.com, translations: [{ code: en, option_name: 'HelpDesk/Support service e-mail', option_comment: "Address for messages sent by store visitors via the Contact us form." }] }
+  - { name: time_format, category: Units, type: 'XLite\View\FormField\Select\TimeFormat', orderby: 67000, value: '%H:%M', translations: [{ code: en, option_name: 'Time format' }] }
+  - { name: time_zone, category: Units, type: 'XLite\View\FormField\Select\TimeZone', orderby: 68000, translations: [{ code: en, option_name: 'Time zone' }] }
+  - { name: users_department, category: Company, type: 'XLite\View\FormField\Input\Text\Email', orderby: 47000, value: bit-bucket@x-cart.com, translations: [{ code: en, option_name: 'Customer relations e-mail', option_comment: '"TO:" address for notifications about user profile related events (creation of a new user profile, deletion of a user profile, etc). "FROM:" address for password reset messages.' }] }
+  - { name: users_per_page, category: General, type: 'XLite\View\FormField\Input\Text\Integer', orderby: 42000, value: '30', widgetParameters: { min: 1 }, translations: [{ code: en, option_name: 'Users per page' }] }
+  - { name: use_smtp, category: Email, type: checkbox, orderby: 11000, value: N, translations: [{ code: en, option_name: 'Use SMTP server' }] }
+  - { name: use_smtp_auth, category: Email, type: checkbox, orderby: 14000, value: N, translations: [{ code: en, option_name: 'Use authentication' }] }
+  - { name: version, category: Version, value: '5.3.0' }
+  - { name: weight_symbol, category: Units, type: text, orderby: 62000, value: lbs, translations: [{ code: en, option_name: 'Weight symbol' }] }
+  - { name: weight_unit, category: Units, type: 'XLite\View\FormField\Select\WeightUnit', orderby: 61000, value: lbs, translations: [{ code: en, option_name: 'Weight unit' }] }
+  - { name: weight_trailing_zeroes, category: Units, type: checkbox, orderby: 62100, value: Y, translations: [{ code: en, option_name: 'Hide trailing zeros in fractional part' }] }
+  - { name: weight_format, category: Units, type: 'XLite\View\FormField\Select\FloatFormat', orderby: 62200, value: '|.', translations: [{ code: en, option_name: 'Weight format' }] }
+  - { name: dim_symbol, category: Units, type: text, orderby: 62500, value: in, translations: [{ code: en, option_name: 'Dimensional symbol' }] }
+  - { name: dim_unit, category: Units, type: 'XLite\View\FormField\Select\DimUnit', orderby: 62300, value: in, translations: [{ code: en, option_name: 'Dimensional unit' }] }
+  - { name: curl_cainfo, category: Environment, type: text, orderby: 11000, value: '', translations: [{ code: en, option_name: "Path to Certificate Authority (CA) bundle" }] }
+  - { name: curl_capath, category: Environment, type: text, orderby: 12000, value: '', translations: [{ code: en, option_name: "Directory holding CA certificates" }] }
+  - { name: force_login_before_checkout, category: General, type: checkbox, orderby: 30500, value: Y, translations: [{ code: en, option_name: 'Ask anonymous users to create an account or sign in before checkout' }] }
+  - { name: enable_add2cart_button_grid, category: General, type: checkbox, orderby: 30100, value: Y, translations: [{ code: en, option_name: 'Display "Add to cart" buttons for products in grid view' }] }
+  - { name: clean_url_flag, category: CleanURL, type: checkbox, orderby: 10000, value: N, translations: [{ code: en, option_name: 'Clean URL availability flag' }] }
+  - { name: allow_membership_request, category: General, type: checkbox, orderby: 39900, value: N, translations: [{ code: en, option_name: 'Allow customers to sign up for membership' }] }
+  - { name: upgrade_wave_sep, category: Environment, type: separator, orderby: 20000, translations: [{ code: en, option_name: 'Upgrade options' }] }
+  - { name: upgrade_wave, category: Environment, type: 'XLite\View\FormField\Select\UpgradeWave', orderby: 21000, value: '', translations: [{ code: en, option_name: 'Upgrade access level' }] }
+  - { name: quick_data_rebuilding, category: CacheManagement, type: checkbox, orderby: 10000, value: N, translations: [{ code: en, option_name: 'Perform quick data calculation during store re-deployment', option_comment: 'Calculated quick data enhances your store''s performance by allowing quick product sorting. If you want quick data to be calculated along with store re-deployment, make sure this setting is enabled before running the "Re-deploy the store" tool. Keep the setting disabled if you want to do the re-deployment without the calculation of quick data.' }] }
+
+  - { name: enabled, category: BannerRotation, type: XLite\View\FormField\Input\Checkbox\OnOff, orderby: 10000, value: N, translations: [{ code: en, option_name: 'Enabled' }] }
+  - { name: interval, category: BannerRotation, type: XLite\View\FormField\Input\Text\FloatInput, orderby: 30000, value: 5, translations: [{ code: en, option_name: 'Banner inverval (in seconds)', option_comment: 'Set to "0" to disable automatic rotation' }] }
+
+  - { name: attach_pdf_invoices, category: NotificationAttachments, type: XLite\View\FormField\Input\Checkbox\OnOff, orderby: 10000, value: 0, translations: [{ code: en, option_name: 'Send the PDF version of invoices in the attachments' }] }
+
+XLite\Model\Category:
+  - { category_id: 1, show_title: false, translations: [{ code: en, name: 'Catalog' }] }
+XLite\Model\Currency:
+  directives: { insert: true }
+  - { currency_id: 784, code: AED, e: 2, symbol: د.إ, prefix: د.إ, translations: [{ code: en, name: 'UAE Dirtham' }] }
+  - { currency_id: 971, code: AFN, e: 2, symbol: ؋, prefix: ؋, translations: [{ code: en, name: Afghani }] }
+  - { currency_id: 8,   code: ALL, e: 2, symbol: L, prefix: L, translations: [{ code: en, name: Lek }] }
+  - { currency_id: 51,  code: AMD, e: 2, symbol: դր., prefix: դր., translations: [{ code: en, name: 'Armenian Dram' }] }
+  - { currency_id: 532, code: ANG, e: 2, symbol: ƒ, prefix: ƒ, translations: [{ code: en, name: 'Netherlands Antillian Guilder' }] }
+  - { currency_id: 973, code: AOA, e: 2, symbol: Kz, prefix: Kz, translations: [{ code: en, name: Kwanza }] }
+  - { currency_id: 32,  code: ARS, e: 2, symbol: $, prefix: $, translations: [{ code: en, name: 'Argentine Peso' }] }
+  - { currency_id: 36,  code: AUD, e: 2, symbol: $, prefix: $, translations: [{ code: en, name: 'Australian Dollar' }] }
+  - { currency_id: 533, code: AWG, e: 2, symbol: ƒ, prefix: ƒ, translations: [{ code: en, name: 'Aruban Guilder' }] }
+  - { currency_id: 944, code: AZN, e: 2, symbol: m, prefix: m, translations: [{ code: en, name: 'Azerbaijanian Manat' }] }
+  - { currency_id: 977, code: BAM, e: 2, symbol: KM, prefix: KM, translations: [{ code: en, name: 'Convertible Marks' }] }
+  - { currency_id: 52,  code: BBD, e: 2, symbol: $, prefix: $, translations: [{ code: en, name: 'Barbados Dollar' }] }
+  - { currency_id: 50,  code: BDT, e: 2, symbol: ৳, prefix: ৳, translations: [{ code: en, name: 'Bangladesh Taka' }] }
+  - { currency_id: 975, code: BGN, e: 2, symbol: лв, prefix: лв, translations: [{ code: en, name: 'Bulgarian Lev' }] }
+  - { currency_id: 48,  code: BHD, e: 3, symbol: .د.ب, prefix: .د.ب, translations: [{ code: en, name: 'Bahraini dinar' }] }
+  - { currency_id: 108, code: BIF, e: 0, symbol: ₣, prefix: ₣, translations: [{ code: en, name: 'Burundi Franc' }] }
+  - { currency_id: 60,  code: BMD, e: 2, symbol: $, prefix: $, translations: [{ code: en, name: 'Bermudian Dollar' }] }
+  - { currency_id: 96,  code: BND, e: 2, symbol: $, prefix: $, translations: [{ code: en, name: 'Brunei Dollar' }] }
+  - { currency_id: 68,  code: BOB, e: 2, symbol: $, prefix: $, translations: [{ code: en, name: Boliviano }] }
+  - { currency_id: 986, code: BRL, e: 2, symbol: $, prefix: $, translations: [{ code: en, name: 'Brazilian Real' }] }
+  - { currency_id: 44,  code: BSD, e: 2, symbol: $, prefix: $, translations: [{ code: en, name: 'Bahamian dollar' }] }
+  - { currency_id: 64,  code: BTN, e: 2, symbol: Nu, prefix: Nu, translations: [{ code: en, name: Ngultrum }] }
+  - { currency_id: 72,  code: BWP, e: 2, symbol: P, prefix: P, translations: [{ code: en, name: 'Botswana Pula' }] }
+  - { currency_id: 974, code: BYR, e: 0, symbol: Br, suffix: Br, translations: [{ code: en, name: 'Belarussian Rouble' }] }
+  - { currency_id: 84,  code: BZD, e: 2, symbol: $, prefix: $, translations: [{ code: en, name: 'Belize Dollar' }] }
+  - { currency_id: 124, code: CAD, e: 2, symbol: $, prefix: $, translations: [{ code: en, name: 'Canadian Dollar' }] }
+  - { currency_id: 976, code: CDF, e: 2, symbol: ₣, prefix: ₣, translations: [{ code: en, name: 'Franc Congolais' }] }
+  - { currency_id: 756, code: CHF, e: 2, symbol: ₣, prefix: ₣, translations: [{ code: en, name: 'Swiss Franc' }] }
+  - { currency_id: 152, code: CLP, e: 0, symbol: $, prefix: $, translations: [{ code: en, name: 'Chilean Peso' }] }
+  - { currency_id: 156, code: CNY, e: 2, symbol: ¥, prefix: ¥, translations: [{ code: en, name: 'Chinese Renminbi Yuan' }] }
+  - { currency_id: 170, code: COP, e: 2, symbol: $, prefix: $, translations: [{ code: en, name: 'Colombian Peso' }] }
+  - { currency_id: 188, code: CRC, e: 2, symbol: ₡, prefix: ₡, translations: [{ code: en, name: 'Cost Rican Colon' }] }
+  - { currency_id: 192, code: CUP, e: 2, symbol: $, prefix: $, translations: [{ code: en, name: 'Cuban Peso' }] }
+  - { currency_id: 132, code: CVE, e: 2, symbol: $, prefix: $, translations: [{ code: en, name: 'Cape Verde Escudo' }] }
+  - { currency_id: 203, code: CZK, e: 2, symbol: Kč, prefix: Kč, translations: [{ code: en, name: 'Czech Koruna' }] }
+  - { currency_id: 262, code: DJF, e: 0, symbol: ₣, prefix: ₣, translations: [{ code: en, name: 'Djibouti Franc' }] }
+  - { currency_id: 208, code: DKK, e: 2, symbol: kr, prefix: kr, translations: [{ code: en, name: 'Danish Krone' }] }
+  - { currency_id: 214, code: DOP, e: 2, symbol: $, prefix: $, translations: [{ code: en, name: 'Dominican Peso' }] }
+  - { currency_id: 12,  code: DZD, e: 2, symbol: د.ج, prefix: د.ج, translations: [{ code: en, name: 'Algerian Dinar' }] }
+  - { currency_id: 818, code: EGP, e: 2, symbol: LE, prefix: LE, translations: [{ code: en, name: 'Egyptian Pound' }] }
+  - { currency_id: 232, code: ERN, e: 2, symbol: Nfk, prefix: Nfk, translations: [{ code: en, name: Nakfa }] }
+  - { currency_id: 230, code: ETB, e: 2, symbol: Br, prefix: Br, translations: [{ code: en, name: 'Ethiopian Birr' }] }
+  - { currency_id: 978, code: EUR, e: 2, symbol: €, prefix: €, translations: [{ code: en, name: Euro }] }
+  - { currency_id: 242, code: FJD, e: 2, symbol: $, prefix: $, translations: [{ code: en, name: 'Fiji Dollar' }] }
+  - { currency_id: 238, code: FKP, e: 2, symbol: £, prefix: £, translations: [{ code: en, name: 'Falkland Islands Pound' }] }
+  - { currency_id: 826, code: GBP, e: 2, symbol: £, prefix: £, translations: [{ code: en, name: 'Pound Sterling' }] }
+  - { currency_id: 981, code: GEL, e: 2, symbol: ლ., prefix: ლ., translations: [{ code: en, name: Lari }] }
+  - { currency_id: 936, code: GHS, e: 2, symbol: ₵, prefix: ₵, translations: [{ code: en, name: 'Ghana Cedi' }] }
+  - { currency_id: 292, code: GIP, e: 2, symbol: £, prefix: £, translations: [{ code: en, name: 'Gilbraltar Pound' }] }
+  - { currency_id: 270, code: GMD, e: 2, symbol: D, prefix: D, translations: [{ code: en, name: Dalasi }] }
+  - { currency_id: 324, code: GNF, e: 0, symbol: ₣, prefix: ₣, translations: [{ code: en, name: 'Guinea Franc' }] }
+  - { currency_id: 320, code: GTQ, e: 2, symbol: Q, prefix: Q, translations: [{ code: en, name: Quetzal }] }
+  - { currency_id: 328, code: GYD, e: 2, symbol: $, prefix: $, translations: [{ code: en, name: 'Guyana Dollar' }] }
+  - { currency_id: 344, code: HKD, e: 2, symbol: $, prefix: $, translations: [{ code: en, name: 'Hong Kong Dollar' }] }
+  - { currency_id: 340, code: HNL, e: 2, symbol: L, prefix: L, translations: [{ code: en, name: Lempira }] }
+  - { currency_id: 191, code: HRK, e: 2, symbol: Kn, prefix: Kn, translations: [{ code: en, name: 'Croatian Kuna' }] }
+  - { currency_id: 332, code: HTG, e: 2, symbol: G, prefix: G, translations: [{ code: en, name: Gourde }] }
+  - { currency_id: 348, code: HUF, e: 2, symbol: ƒ, prefix: ƒ, translations: [{ code: en, name: 'Hungary Forint' }] }
+  - { currency_id: 360, code: IDR, e: 0, symbol: Rp, prefix: Rp, translations: [{ code: en, name: 'Indonesian Rupiah' }] }
+  - { currency_id: 376, code: ILS, e: 2, symbol: ₪, prefix: ₪, translations: [{ code: en, name: 'New Israeli Sheqel' }] }
+  - { currency_id: 356, code: INR, e: 2, symbol: ₹, prefix: ₹, translations: [{ code: en, name: 'Indian Rupee' }] }
+  - { currency_id: 368, code: IQD, e: 3, symbol: ع.د, prefix: ع.د, translations: [{ code: en, name: 'Iraqi Dinar' }] }
+  - { currency_id: 364, code: IRR, e: 2, symbol: ﷼, prefix: ﷼, translations: [{ code: en, name: 'Iranian Rial' }] }
+  - { currency_id: 352, code: ISK, e: 0, symbol: kr, prefix: kr, translations: [{ code: en, name: 'Iceland Krona' }] }
+  - { currency_id: 388, code: JMD, e: 2, symbol: $, prefix: $, translations: [{ code: en, name: 'Jamaican Dollar' }] }
+  - { currency_id: 400, code: JOD, e: 3, symbol: د.ا, prefix: د.ا, translations: [{ code: en, name: 'Jordanian Dinar' }] }
+  - { currency_id: 392, code: JPY, e: 0, symbol: ¥, prefix: ¥, translations: [{ code: en, name: 'Japanese Yen' }] }
+  - { currency_id: 404, code: KES, e: 2, symbol: KSh, prefix: KSh, translations: [{ code: en, name: 'Kenyan Shilling' }] }
+  - { currency_id: 417, code: KGS, e: 2, symbol: C, prefix: C, translations: [{ code: en, name: Son }] }
+  - { currency_id: 116, code: KHR, e: 2, symbol: $, prefix: $, translations: [{ code: en, name: 'Cambodian riel' }] }
+  - { currency_id: 174, code: KMF, e: 0, symbol: ₣, prefix: ₣, translations: [{ code: en, name: 'Comoro Franc' }] }
+  - { currency_id: 408, code: KPW, e: 2, symbol: ₩, prefix: ₩, translations: [{ code: en, name: 'North Korean Won' }] }
+  - { currency_id: 410, code: KRW, e: 0, symbol: ₩, prefix: ₩, translations: [{ code: en, name: 'South Korean Won' }] }
+  - { currency_id: 414, code: KWD, e: 3, symbol: د.ك, prefix: د.ك, translations: [{ code: en, name: 'Kuwaiti Dinar' }] }
+  - { currency_id: 136, code: KYD, e: 2, symbol: $, prefix: $, translations: [{ code: en, name: 'Cayman Islands Dollar' }] }
+  - { currency_id: 398, code: KZT, e: 2, symbol: ₸, prefix: ₸, translations: [{ code: en, name: Tenge }] }
+  - { currency_id: 418, code: LAK, e: 2, symbol: ₭, prefix: ₭, translations: [{ code: en, name: Kip }] }
+  - { currency_id: 422, code: LBP, e: 2, symbol: .ل.ل, prefix: .ل.ل, translations: [{ code: en, name: 'Lebanese Pound' }] }
+  - { currency_id: 144, code: LKR, e: 2, symbol: Re, prefix: Re, translations: [{ code: en, name: 'Sri Lanka Rupee' }] }
+  - { currency_id: 430, code: LRD, e: 2, symbol: $, prefix: $, translations: [{ code: en, name: 'Liberian Dollar' }] }
+  - { currency_id: 426, code: LSL, e: 2, symbol: L, prefix: L, translations: [{ code: en, name: Loti }] }
+  - { currency_id: 440, code: LTL, e: 2, symbol: Lt, prefix: Lt, translations: [{ code: en, name: 'Lithuanian Litus' }] }
+  - { currency_id: 428, code: LVL, e: 2, symbol: Ls, prefix: Ls, translations: [{ code: en, name: 'Latvian Lats' }] }
+  - { currency_id: 434, code: LYD, e: 3, symbol: ل.د, prefix: ل.د, translations: [{ code: en, name: 'Libyan Dinar' }] }
+  - { currency_id: 504, code: MAD, e: 2, symbol: د. م., prefix: د. م., translations: [{ code: en, name: 'Moroccan Dirtham' }] }
+  - { currency_id: 498, code: MDL, e: 2, symbol: L, prefix: L, translations: [{ code: en, name: 'Moldovan Leu' }] }
+  - { currency_id: 969, code: MGA, e: 0, symbol: Ar., prefix: Ar., translations: [{ code: en, name: 'Malagasy Ariary' }] }
+  - { currency_id: 807, code: MKD, e: 2, symbol: ден., prefix: ден., translations: [{ code: en, name: Denar }] }
+  - { currency_id: 104, code: MMK, e: 2, symbol: K, prefix: K, translations: [{ code: en, name: Kyat }] }
+  - { currency_id: 496, code: MNT, e: 2, symbol: ₮, prefix: ₮, translations: [{ code: en, name: Tugrik }] }
+  - { currency_id: 446, code: MOP, e: 2, symbol: $, prefix: $, translations: [{ code: en, name: Pataca }] }
+  - { currency_id: 478, code: MRO, e: 0, symbol: UM, prefix: UM, translations: [{ code: en, name: Ouguiya }] }
+  - { currency_id: 480, code: MUR, e: 2, symbol: Re, prefix: Re, translations: [{ code: en, name: 'Mauritius Rupee' }] }
+  - { currency_id: 462, code: MVR, e: 2, symbol: Rf, prefix: Rf, translations: [{ code: en, name: Rufiyaa }] }
+  - { currency_id: 454, code: MWK, e: 2, symbol: K, prefix: K, translations: [{ code: en, name: 'Malawian kwacha' }] }
+  - { currency_id: 484, code: MXN, e: 2, symbol: $, prefix: $, translations: [{ code: en, name: 'Mexican Peso' }] }
+  - { currency_id: 458, code: MYR, e: 2, symbol: RM, prefix: RM, translations: [{ code: en, name: 'Ringgit Malaysia' }] }
+  - { currency_id: 943, code: MZN, e: 2, symbol: MT, prefix: MT, translations: [{ code: en, name: 'Mozambique Metical' }] }
+  - { currency_id: 516, code: NAD, e: 2, symbol: N$, prefix: N$, translations: [{ code: en, name: 'Namibia Dollar' }] }
+  - { currency_id: 566, code: NGN, e: 2, symbol: ₦, prefix: ₦, translations: [{ code: en, name: Naira }] }
+  - { currency_id: 558, code: NIO, e: 2, symbol: $, prefix: $, translations: [{ code: en, name: 'Cordoba Oro' }] }
+  - { currency_id: 578, code: NOK, e: 2, symbol: kr, prefix: kr, translations: [{ code: en, name: 'Norwegian Krone' }] }
+  - { currency_id: 524, code: NPR, e: 2, symbol: Re, prefix: Re, translations: [{ code: en, name: 'Nepalese Rupee' }] }
+  - { currency_id: 554, code: NZD, e: 2, symbol: $, prefix: $, translations: [{ code: en, name: 'New Zealand Dollar' }] }
+  - { currency_id: 512, code: OMR, e: 3, symbol: ر.ع., prefix: ر.ع., translations: [{ code: en, name: 'Rial Omani' }] }
+  - { currency_id: 590, code: PAB, e: 2, symbol: 'B/.', prefix: 'B/.', translations: [{ code: en, name: Balboa }] }
+  - { currency_id: 604, code: PEN, e: 2, symbol: 'S/.', prefix: 'S/.', translations: [{ code: en, name: 'Nuevo Sol' }] }
+  - { currency_id: 598, code: PGK, e: 2, symbol: K, prefix: K, translations: [{ code: en, name: Kina }] }
+  - { currency_id: 608, code: PHP, e: 2, symbol: ₱, prefix: ₱, translations: [{ code: en, name: 'Philippine Peso' }] }
+  - { currency_id: 586, code: PKR, e: 2, symbol: Re, prefix: Re, translations: [{ code: en, name: 'Pakistan Rupee' }] }
+  - { currency_id: 985, code: PLN, e: 2, symbol: zł, prefix: zł, translations: [{ code: en, name: 'Polish Zloty' }] }
+  - { currency_id: 600, code: PYG, e: 0, symbol: ₲, prefix: ₲, translations: [{ code: en, name: Guarani }] }
+  - { currency_id: 634, code: QAR, e: 2, symbol: ر.ق, prefix: ر.ق, translations: [{ code: en, name: 'Qatari Rial' }] }
+  - { currency_id: 946, code: RON, e: 2, symbol: L, prefix: L, translations: [{ code: en, name: 'Romanian Leu' }] }
+  - { currency_id: 941, code: RSD, e: 2, symbol: дин., prefix: дин., translations: [{ code: en, name: 'Serbian Dinar' }] }
+  - { currency_id: 643, code: RUB, e: 2, symbol: р., suffix: р., translations: [{ code: en, name: 'Russian Ruble' }] }
+  - { currency_id: 646, code: RWF, e: 0, symbol: ₣, prefix: ₣, translations: [{ code: en, name: 'Rwanda Franc' }] }
+  - { currency_id: 682, code: SAR, e: 2, symbol: ر.س, prefix: ر.س, translations: [{ code: en, name: 'Saudi Riyal' }] }
+  - { currency_id: 90,  code: SBD, e: 2, symbol: $, prefix: $, translations: [{ code: en, name: 'Solomon Islands Dollar' }] }
+  - { currency_id: 690, code: SCR, e: 2, symbol: Re, prefix: Re, translations: [{ code: en, name: 'Seychelles Rupee' }] }
+  - { currency_id: 938, code: SDG, e: 2, symbol: £, prefix: £, translations: [{ code: en, name: 'Sudanese Pound' }] }
+  - { currency_id: 752, code: SEK, e: 2, symbol: kr, prefix: kr, translations: [{ code: en, name: 'Swedish Krona' }] }
+  - { currency_id: 702, code: SGD, e: 2, symbol: $, prefix: $, translations: [{ code: en, name: 'Singapore Dollar' }] }
+  - { currency_id: 654, code: SHP, e: 2, symbol: £, prefix: £, translations: [{ code: en, name: 'Saint Helena Pound' }] }
+  - { currency_id: 694, code: SLL, e: 2, symbol: Le, prefix: Le, translations: [{ code: en, name: Leone }] }
+  - { currency_id: 706, code: SOS, e: 2, symbol: S, prefix: S, translations: [{ code: en, name: 'Somali Shilling' }] }
+  - { currency_id: 968, code: SRD, e: 2, symbol: $, prefix: $, translations: [{ code: en, name: 'Surinam Dollar' }] }
+  - { currency_id: 728, code: SSP, e: 2, symbol: SSP, prefix: SSP, translations: [{ code: en, name: 'South Sudanese Pound' }] }
+  - { currency_id: 678, code: STD, e: 2, symbol: Db, prefix: Db, translations: [{ code: en, name: Dobra }] }
+  - { currency_id: 222, code: SVC, e: 2, symbol: ₡, prefix: ₡, translations: [{ code: en, name: 'El Salvador Colon' }] }
+  - { currency_id: 760, code: SYP, e: 2, symbol: S£, prefix: S£, translations: [{ code: en, name: 'Syrian Pound' }] }
+  - { currency_id: 748, code: SZL, e: 2, symbol: L, prefix: L, translations: [{ code: en, name: Lilangeni }] }
+  - { currency_id: 764, code: THB, e: 2, symbol: ฿, prefix: ฿, translations: [{ code: en, name: 'Thailand Baht' }] }
+  - { currency_id: 972, code: TJS, e: 2, symbol: с., prefix: с., translations: [{ code: en, name: Somoni }] }
+  - { currency_id: 934, code: TMT, e: 2, symbol: m, prefix: m, translations: [{ code: en, name: 'Turkmenistan New Manat' }] }
+  - { currency_id: 788, code: TND, e: 3, symbol: د.ت, prefix: د.ت, translations: [{ code: en, name: 'Tunisian Dinar' }] }
+  - { currency_id: 776, code: TOP, e: 2, symbol: $, prefix: $, translations: [{ code: en, name: 'Pa''anga' }] }
+  - { currency_id: 949, code: TRY, e: 2, symbol: ₤, prefix: ₤, translations: [{ code: en, name: 'Turkish Lira' }] }
+  - { currency_id: 780, code: TTD, e: 2, symbol: $, prefix: $, translations: [{ code: en, name: 'Trinidad and Tobago Dollar' }] }
+  - { currency_id: 901, code: TWD, e: 2, symbol: NT$, prefix: NT$, translations: [{ code: en, name: 'New Taiwan Dollar' }] }
+  - { currency_id: 834, code: TZS, e: 2, symbol: TSh, prefix: TSh, translations: [{ code: en, name: 'Tanzanian Shilling' }] }
+  - { currency_id: 980, code: UAH, e: 2, symbol: ₴, prefix: ₴, translations: [{ code: en, name: Hryvnia }] }
+  - { currency_id: 800, code: UGX, e: 2, symbol: USh, prefix: USh, translations: [{ code: en, name: 'Uganda Shilling' }] }
+  - { currency_id: 840, code: USD, e: 2, symbol: $, prefix: $, translations: [{ code: en, name: 'US Dollar' }] }
+  - { currency_id: 858, code: UYU, e: 2, symbol: $, prefix: $, translations: [{ code: en, name: 'Peso Uruguayo' }] }
+  - { currency_id: 860, code: UZS, e: 2, symbol: сўм, prefix: сўм, translations: [{ code: en, name: 'Uzbekistan som' }] }
+  - { currency_id: 937, code: VEF, e: 2, symbol: Bs, prefix: Bs, translations: [{ code: en, name: 'Bolivar Fuerte' }] }
+  - { currency_id: 704, code: VND, e: 0, symbol: ₫, prefix: ₫, translations: [{ code: en, name: 'Vietnamese Dong' }] }
+  - { currency_id: 548, code: VUV, e: 0, symbol: Vt, prefix: Vt, translations: [{ code: en, name: Vatu }] }
+  - { currency_id: 882, code: WST, e: 2, symbol: $, prefix: $, translations: [{ code: en, name: Tala }] }
+  - { currency_id: 950, code: XAF, e: 0, symbol: ₣, prefix: ₣, translations: [{ code: en, name: 'CFA Franc BEAC' }] }
+  - { currency_id: 951, code: XCD, e: 2, symbol: $, prefix: $, translations: [{ code: en, name: 'East Caribbean Dollar' }] }
+  - { currency_id: 952, code: XOF, e: 0, symbol: ₣, prefix: ₣, translations: [{ code: en, name: 'CFA Franc BCEAO' }] }
+  - { currency_id: 953, code: XPF, e: 0, symbol: ₣, prefix: ₣, translations: [{ code: en, name: 'CFP Franc' }] }
+  - { currency_id: 886, code: YER, e: 2, symbol: ﷼, prefix: ﷼, translations: [{ code: en, name: 'Yemeni Rial' }] }
+  - { currency_id: 710, code: ZAR, e: 2, symbol: R, prefix: R, translations: [{ code: en, name: 'South Africa Rand' }] }
+  - { currency_id: 894, code: ZMK, e: 2, symbol: K, prefix: K, translations: [{ code: en, name: 'Zambian kwacha' }] }
+  - { currency_id: 932, code: ZWL, e: 2, symbol: Z$, prefix: Z$, translations: [{ code: en, name: 'Zimbabwe Dollar' }] }
+
+XLite\Model\Membership:
+  - { position: 10, translations: [{ code: en, name: Wholesaler }, { code: ru, name: 'Оптовый покупатель' }] }
+
+XLite\Model\Language:
+  directives: { insert: true }
+  - { code: aa, code3: aar, translations: [{ code: en, name: Afar }] }
+  - { code: ab, code3: abk, translations: [{ code: en, name: Abkhazian }] }
+  - { code: af, code3: afr, translations: [{ code: en, name: Afrikaans }] }
+  - { code: ak, code3: aka, translations: [{ code: en, name: Akan }] }
+  - { code: sq, code3: alb, translations: [{ code: en, name: Albanian }] }
+  - { code: am, code3: amh, translations: [{ code: en, name: Amharic }] }
+  - { code: ar, code3: ara, translations: [{ code: en, name: Arabic }] }
+  - { code: an, code3: arg, translations: [{ code: en, name: Aragonese }] }
+  - { code: hy, code3: arm, translations: [{ code: en, name: Armenian }] }
+  - { code: as, code3: asm, translations: [{ code: en, name: Assamese }] }
+  - { code: av, code3: ava, translations: [{ code: en, name: Avaric }] }
+  - { code: ae, code3: ave, translations: [{ code: en, name: Avestan }] }
+  - { code: ay, code3: aym, translations: [{ code: en, name: Aymara }] }
+  - { code: az, code3: aze, translations: [{ code: en, name: Azerbaijani }] }
+  - { code: ba, code3: bak, translations: [{ code: en, name: Bashkir }] }
+  - { code: bm, code3: bam, translations: [{ code: en, name: Bambara }] }
+  - { code: eu, code3: baq, translations: [{ code: en, name: Basque }] }
+  - { code: be, code3: bel, translations: [{ code: en, name: Belarusian }] }
+  - { code: bn, code3: ben, translations: [{ code: en, name: Bengali }] }
+  - { code: bh, code3: bih, translations: [{ code: en, name: Bihari }] }
+  - { code: bi, code3: bis, translations: [{ code: en, name: Bislama }] }
+  - { code: bs, code3: bos, translations: [{ code: en, name: Bosnian }] }
+  - { code: br, code3: bre, translations: [{ code: en, name: Breton }] }
+  - { code: gb, code3: gbr, translations: [{ code: en, name: British }], module: 'XC\GbTranslation' }
+  - { code: bg, code3: bul, translations: [{ code: en, name: Bulgarian }] }
+  - { code: my, code3: bur, translations: [{ code: en, name: Burmese }] }
+  - { code: ca, code3: cat, translations: [{ code: en, name: Catalan }] }
+  - { code: ch, code3: cha, translations: [{ code: en, name: Chamorro }] }
+  - { code: ce, code3: che, translations: [{ code: en, name: Chechen }] }
+  - { code: zh, code3: chi, translations: [{ code: en, name: Chinese }] }
+  - { code: cu, code3: chu, translations: [{ code: en, name: 'Church Slavic' }] }
+  - { code: cv, code3: chv, translations: [{ code: en, name: Chuvash }] }
+  - { code: kw, code3: cor, translations: [{ code: en, name: Cornish }] }
+  - { code: co, code3: cos, translations: [{ code: en, name: Corsican }] }
+  - { code: cr, code3: cre, translations: [{ code: en, name: Cree }] }
+  - { code: cs, code3: cze, translations: [{ code: en, name: Czech }] }
+  - { code: da, code3: dan, translations: [{ code: en, name: Danish }] }
+  - { code: dv, code3: div, translations: [{ code: en, name: Divehi }] }
+  - { code: nl, code3: dut, translations: [{ code: en, name: Dutch }] }
+  - { code: dz, code3: dzo, translations: [{ code: en, name: Dzongkha }] }
+  - { code: en, code3: eng, translations: [{ code: en, name: English }], added: true, enabled: true }
+  - { code: eo, code3: epo, translations: [{ code: en, name: Esperanto }] }
+  - { code: et, code3: est, translations: [{ code: en, name: Estonian }] }
+  - { code: ee, code3: ewe, translations: [{ code: en, name: Ewe }] }
+  - { code: fo, code3: fao, translations: [{ code: en, name: Faroese }] }
+  - { code: fj, code3: fij, translations: [{ code: en, name: Fijian }] }
+  - { code: fi, code3: fin, translations: [{ code: en, name: Finnish }] }
+  - { code: fr, code3: fre, translations: [{ code: en, name: French }], module: 'CDev\FrTranslation' }
+  - { code: fy, code3: fry, translations: [{ code: en, name: 'Western Frisian' }] }
+  - { code: ff, code3: ful, translations: [{ code: en, name: Fulah }] }
+  - { code: ka, code3: geo, translations: [{ code: en, name: Georgian }] }
+  - { code: de, code3: ger, translations: [{ code: en, name: German }], module: 'CDev\DeTranslation' }
+  - { code: gd, code3: gla, translations: [{ code: en, name: Gaelic }] }
+  - { code: ga, code3: gle, translations: [{ code: en, name: Irish }] }
+  - { code: gl, code3: glg, translations: [{ code: en, name: Galician }] }
+  - { code: gv, code3: glv, translations: [{ code: en, name: Manx }] }
+  - { code: el, code3: gre, translations: [{ code: en, name: Greek }] }
+  - { code: gn, code3: grn, translations: [{ code: en, name: Guarani }] }
+  - { code: gu, code3: guj, translations: [{ code: en, name: Gujarati }] }
+  - { code: ht, code3: hat, translations: [{ code: en, name: Haitian }] }
+  - { code: ha, code3: hau, translations: [{ code: en, name: Hausa }] }
+  - { code: he, code3: heb, translations: [{ code: en, name: Hebrew }] }
+  - { code: hz, code3: her, translations: [{ code: en, name: Herero }] }
+  - { code: hi, code3: hin, translations: [{ code: en, name: Hindi }] }
+  - { code: ho, code3: hmo, translations: [{ code: en, name: 'Hiri Motu' }] }
+  - { code: hr, code3: hrv, translations: [{ code: en, name: Croatian }] }
+  - { code: hu, code3: hun, translations: [{ code: en, name: Hungarian }] }
+  - { code: ig, code3: ibo, translations: [{ code: en, name: Igbo }] }
+  - { code: is, code3: ice, translations: [{ code: en, name: Icelandic }] }
+  - { code: io, code3: ido, translations: [{ code: en, name: Ido }] }
+  - { code: ii, code3: iii, translations: [{ code: en, name: 'Sichuan Yi' }] }
+  - { code: iu, code3: iku, translations: [{ code: en, name: Inuktitut }] }
+  - { code: ie, code3: ile, translations: [{ code: en, name: Interlingue }] }
+  - { code: ia, code3: ina, translations: [{ code: en, name: Interlingua }] }
+  - { code: id, code3: ind, translations: [{ code: en, name: Indonesian }] }
+  - { code: ik, code3: ipk, translations: [{ code: en, name: Inupiaq }] }
+  - { code: it, code3: ita, translations: [{ code: en, name: Italian }] }
+  - { code: jv, code3: jav, translations: [{ code: en, name: Javanese }] }
+  - { code: ja, code3: jpn, translations: [{ code: en, name: Japanese }] }
+  - { code: kl, code3: kal, translations: [{ code: en, name: Kalaallisut }] }
+  - { code: kn, code3: kan, translations: [{ code: en, name: Kannada }] }
+  - { code: ks, code3: kas, translations: [{ code: en, name: Kashmiri }] }
+  - { code: kr, code3: kau, translations: [{ code: en, name: Kanuri }] }
+  - { code: kk, code3: kaz, translations: [{ code: en, name: Kazakh }] }
+  - { code: km, code3: khm, translations: [{ code: en, name: 'Khmer or Cambodian' }] }
+  - { code: ki, code3: kik, translations: [{ code: en, name: Kikuyu }] }
+  - { code: rw, code3: kin, translations: [{ code: en, name: Kinyarwanda }] }
+  - { code: ky, code3: kir, translations: [{ code: en, name: Kirghiz }] }
+  - { code: kv, code3: kom, translations: [{ code: en, name: Komi }] }
+  - { code: kg, code3: kon, translations: [{ code: en, name: Kongo }] }
+  - { code: ko, code3: kor, translations: [{ code: en, name: Korean }] }
+  - { code: kj, code3: kua, translations: [{ code: en, name: Kuanyama }] }
+  - { code: ku, code3: kur, translations: [{ code: en, name: Kurdish }] }
+  - { code: lo, code3: lao, translations: [{ code: en, name: Lao }] }
+  - { code: la, code3: lat, translations: [{ code: en, name: Latin }] }
+  - { code: lv, code3: lav, translations: [{ code: en, name: Latvian }] }
+  - { code: li, code3: lim, translations: [{ code: en, name: Limburgan }] }
+  - { code: ln, code3: lin, translations: [{ code: en, name: Lingala }] }
+  - { code: lt, code3: lit, translations: [{ code: en, name: Lithuanian }] }
+  - { code: lb, code3: ltz, translations: [{ code: en, name: Luxembourgish }] }
+  - { code: lu, code3: lub, translations: [{ code: en, name: Luba-Katanga }] }
+  - { code: lg, code3: lug, translations: [{ code: en, name: Ganda }] }
+  - { code: mk, code3: mac, translations: [{ code: en, name: Macedonian }] }
+  - { code: mh, code3: mah, translations: [{ code: en, name: Marshallese }] }
+  - { code: ml, code3: mal, translations: [{ code: en, name: Malayalam }] }
+  - { code: mi, code3: mao, translations: [{ code: en, name: Maori }] }
+  - { code: mr, code3: mar, translations: [{ code: en, name: Marathi }] }
+  - { code: ms, code3: may, translations: [{ code: en, name: Malay }] }
+  - { code: mg, code3: mlg, translations: [{ code: en, name: Malagasy }] }
+  - { code: mt, code3: mlt, translations: [{ code: en, name: Maltese }] }
+  - { code: mn, code3: mon, translations: [{ code: en, name: Mongolian }] }
+  - { code: na, code3: nau, translations: [{ code: en, name: Nauru }] }
+  - { code: nv, code3: nav, translations: [{ code: en, name: Navajo }] }
+  - { code: nr, code3: nbl, translations: [{ code: en, name: Ndebel }] }
+  - { code: nd, code3: nde, translations: [{ code: en, name: Ndebel }] }
+  - { code: ng, code3: ndo, translations: [{ code: en, name: Ndonga }] }
+  - { code: ne, code3: nep, translations: [{ code: en, name: Nepali }] }
+  - { code: no, code3: nor, translations: [{ code: en, name: Norwegian }] }
+  - { code: ny, code3: nya, translations: [{ code: en, name: Chichewa }] }
+  - { code: oc, code3: oci, translations: [{ code: en, name: Occitan }] }
+  - { code: oj, code3: oji, translations: [{ code: en, name: Ojibwa }] }
+  - { code: or, code3: ori, translations: [{ code: en, name: Oriya }] }
+  - { code: om, code3: orm, translations: [{ code: en, name: Oromo }] }
+  - { code: os, code3: oss, translations: [{ code: en, name: Ossetian }] }
+  - { code: pa, code3: pan, translations: [{ code: en, name: Panjabi }] }
+  - { code: fa, code3: per, translations: [{ code: en, name: Persian }] }
+  - { code: pi, code3: pli, translations: [{ code: en, name: Pali }] }
+  - { code: pl, code3: pol, translations: [{ code: en, name: Polish }] }
+  - { code: pt, code3: por, translations: [{ code: en, name: Portuguese }] }
+  - { code: ps, code3: pus, translations: [{ code: en, name: Pushto }] }
+  - { code: qu, code3: que, translations: [{ code: en, name: Quechua }] }
+  - { code: rm, code3: roh, translations: [{ code: en, name: Romansh }] }
+  - { code: ro, code3: rum, translations: [{ code: en, name: Romanian }] }
+  - { code: rn, code3: run, translations: [{ code: en, name: Rundi }] }
+  - { code: ru, code3: rus, translations: [{ code: en, name: Russian }], module: 'CDev\RuTranslation' }
+  - { code: sg, code3: sag, translations: [{ code: en, name: Sango }] }
+  - { code: sa, code3: san, translations: [{ code: en, name: Sanskrit }] }
+  - { code: si, code3: sin, translations: [{ code: en, name: Sinhala }] }
+  - { code: sk, code3: slo, translations: [{ code: en, name: Slovak }] }
+  - { code: sl, code3: slv, translations: [{ code: en, name: Slovenian }] }
+  - { code: se, code3: sme, translations: [{ code: en, name: 'Northern Sami' }] }
+  - { code: sm, code3: smo, translations: [{ code: en, name: Samoan }] }
+  - { code: sn, code3: sna, translations: [{ code: en, name: Shona }] }
+  - { code: sd, code3: snd, translations: [{ code: en, name: Sindhi }] }
+  - { code: so, code3: som, translations: [{ code: en, name: Somali }] }
+  - { code: st, code3: sot, translations: [{ code: en, name: Soth }] }
+  - { code: es, code3: spa, translations: [{ code: en, name: Spanish }] }
+  - { code: sc, code3: srd, translations: [{ code: en, name: Sardinian }] }
+  - { code: sr, code3: srp, translations: [{ code: en, name: Serbian }] }
+  - { code: ss, code3: ssw, translations: [{ code: en, name: Swati }] }
+  - { code: su, code3: sun, translations: [{ code: en, name: Sundanese }] }
+  - { code: sw, code3: swa, translations: [{ code: en, name: Swahili }] }
+  - { code: sv, code3: swe, translations: [{ code: en, name: Swedish }] }
+  - { code: ty, code3: tah, translations: [{ code: en, name: Tahitian }] }
+  - { code: ta, code3: tam, translations: [{ code: en, name: Tamil }] }
+  - { code: tt, code3: tat, translations: [{ code: en, name: Tatar }] }
+  - { code: te, code3: tel, translations: [{ code: en, name: Telugu }] }
+  - { code: tg, code3: tgk, translations: [{ code: en, name: Tajik }] }
+  - { code: tl, code3: tgl, translations: [{ code: en, name: Tagalog }] }
+  - { code: th, code3: tha, translations: [{ code: en, name: Thai }] }
+  - { code: bo, code3: tib, translations: [{ code: en, name: Tibetan }] }
+  - { code: ti, code3: tir, translations: [{ code: en, name: Tigrinya }] }
+  - { code: to, code3: ton, translations: [{ code: en, name: Tonga }] }
+  - { code: tn, code3: tsn, translations: [{ code: en, name: Tswana }] }
+  - { code: ts, code3: tso, translations: [{ code: en, name: Tsonga }] }
+  - { code: tk, code3: tuk, translations: [{ code: en, name: Turkmen }] }
+  - { code: tr, code3: tur, translations: [{ code: en, name: Turkish }] }
+  - { code: tw, code3: twi, translations: [{ code: en, name: Twi }] }
+  - { code: ug, code3: uig, translations: [{ code: en, name: Uighur }] }
+  - { code: uk, code3: ukr, translations: [{ code: en, name: Ukrainian }] }
+  - { code: ur, code3: urd, translations: [{ code: en, name: Urdu }] }
+  - { code: uz, code3: uzb, translations: [{ code: en, name: Uzbek }] }
+  - { code: ve, code3: ven, translations: [{ code: en, name: Venda }] }
+  - { code: vi, code3: vie, translations: [{ code: en, name: Vietnamese }] }
+  - { code: cy, code3: wel, translations: [{ code: en, name: Welsh }] }
+  - { code: wa, code3: wln, translations: [{ code: en, name: Walloon }] }
+  - { code: wo, code3: wol, translations: [{ code: en, name: Wolof }] }
+  - { code: xh, code3: xho, translations: [{ code: en, name: Xhosa }] }
+  - { code: yi, code3: yid, translations: [{ code: en, name: Yiddish }] }
+  - { code: yo, code3: yor, translations: [{ code: en, name: Yoruba }] }
+  - { code: za, code3: zha, translations: [{ code: en, name: Zhuang }] }
+  - { code: zu, code3: zul, translations: [{ code: en, name: Zulu }] }
+XLite\Model\Payment\Method:
+  directives: { insert: true }
+  - { service_name: PurchaseOrder, class: 'Model\Payment\Processor\PurchaseOrder', added: true, orderby: 20, translations: [{ code: en, name: 'Purchase Order' }] }
+  - { service_name: PhoneOrdering, class: 'Model\Payment\Processor\PhoneOrdering', added: true, enabled: true, orderby: 30, translations: [{ code: en, name: 'Phone Ordering', description: 'Phone: (555) 555-5555' }, { code: ru, name: 'Заказ по телефону', description: 'Тел. (555) 555-5555' }] }
+  - { service_name: FaxOrdering, class: 'Model\Payment\Processor\Offline', added: true, enabled: true, orderby: 40, translations: [{ code: en, name: 'Fax Ordering', description: 'Fax: (555) 555-5555' }] }
+  - { service_name: MoneyOrdering, class: 'Model\Payment\Processor\Offline', added: true, enabled: true, orderby: 50, translations: [{ code: en, name: 'Money Order', description: 'US Banks Only' }] }
+  - { service_name: Echeck, class: 'Model\Payment\Processor\Check', added: true, orderby: 60, translations: [{ code: en, name: Check, description: 'Check payment' }] }
+  - { service_name: COD, class: 'Model\Payment\Processor\Offline', added: true, enabled: true, orderby: 70, translations: [{ code: en, name: COD, description: 'Cash On Delivery' }] }
+
+XLite\Model\Region:
+  directives: { insert: true }
+  - { name: 'England', code: 'GB-ENG' }
+  - { name: 'Northern Ireland', code: 'GB-NIR' }
+  - { name: 'Scotland', code: 'GB-SCT' }
+  - { name: 'Wales', code: 'GB-WLS' }
+
+XLite\Model\Country:
+  - { translations: [{ code: en, country: Afghanistan }], id: 4,   code3: AFG, code: AF, currency: { currency_id: 971 } }
+  - { translations: [{ code: en, country: Åland Islands }], id: 248, code3: ALA, code: AX, currency: { currency_id: 978 } }
+  - { translations: [{ code: en, country: Albania }], id: 8,   code3: ALB, code: AL, currency: { currency_id: 8 } }
+  - { translations: [{ code: en, country: Algeria }], id: 12,  code3: DZA, code: DZ, currency: { currency_id: 12 } }
+  - { translations: [{ code: en, country: American Samoa }], id: 16,  code3: ASM, code: AS, currency: { currency_id: 840 } }
+  - { translations: [{ code: en, country: Andorra }], id: 20,  code3: AND, code: AD, currency: { currency_id: 978 } }
+  - { translations: [{ code: en, country: Angola }], id: 24,  code3: AGO, code: AO, currency: { currency_id: 973 } }
+  - { translations: [{ code: en, country: Anguilla }], id: 660, code3: AIA, code: AI, currency: { currency_id: 951 } }
+  - { translations: [{ code: en, country: Antarctica }], id: 10,  code3: ATA, code: AQ }
+  - { translations: [{ code: en, country: Antigua and Barbuda }], id: 28,  code3: ATG, code: AG, currency: { currency_id: 951 } }
+  - translations: [{ code: en, country: Argentina }]
+    id: 32
+    code3: ARG
+    code: AR
+    currency: { currency_id: 32 }
+    states:
+      - { state: Buenos Aires, code: B }
+      - { state: Catamarca, code: K }
+      - { state: Chaco, code: H }
+      - { state: Chubut, code: U }
+      - { state: Ciudad de Buenos Aires, code: C }
+      - { state: Córdoba, code: X }
+      - { state: Corrientes, code: W }
+      - { state: Entre Ríos, code: E }
+      - { state: Formosa, code: P }
+      - { state: Jujuy, code: Y }
+      - { state: La Pampa, code: L }
+      - { state: La Rioja, code: F }
+      - { state: Mendoza, code: M }
+      - { state: Misiones, code: N }
+      - { state: Neuquén, code: Q }
+      - { state: Río Negro, code: R }
+      - { state: Salta, code: A }
+      - { state: San Juan, code: J }
+      - { state: San Luis, code: D }
+      - { state: Santa Cruz, code: Z }
+      - { state: Santa Fe, code: S }
+      - { state: Santiago del Estero, code: G }
+      - { state: Tierra del Fuego, code: V }
+      - { state: Tucumán, code: T }
+  - { translations: [{ code: en, country: Armenia }], id: 51,  code3: ARM, code: AM, currency: { currency_id: 51 } }
+  - { translations: [{ code: en, country: Aruba }], id: 533, code3: ABW, code: AW, currency: { currency_id: 533 } }
+  - { translations: [{ code: en, country: Australia }], id: 36,  code3: AUS, code: AU, currency: { currency_id: 36 } }
+  - { translations: [{ code: en, country: Austria }], id: 40,  code3: AUT, code: AT, currency: { currency_id: 978 }, eu_member: true }
+  - { translations: [{ code: en, country: Azerbaijan }], id: 31,  code3: AZE, code: AZ, currency: { currency_id: 944 } }
+  - { translations: [{ code: en, country: Bahamas }], id: 44,  code3: BHS, code: BS, currency: { currency_id: 44 } }
+  - { translations: [{ code: en, country: Bahrain }], id: 48,  code3: BHR, code: BH, currency: { currency_id: 48 } }
+  - { translations: [{ code: en, country: Bangladesh }], id: 50,  code3: BGD, code: BD, currency: { currency_id: 50 } }
+  - { translations: [{ code: en, country: Barbados }], id: 52,  code3: BRB, code: BB, currency: { currency_id: 52 } }
+  - { translations: [{ code: en, country: Belarus }], id: 112, code3: BLR, code: BY, currency: { currency_id: 974 } }
+  - { translations: [{ code: en, country: Belgium }], id: 56,  code3: BEL, code: BE, currency: { currency_id: 978 }, eu_member: true }
+  - { translations: [{ code: en, country: Belize }], id: 84,  code3: BLZ, code: BZ, currency: { currency_id: 84 } }
+  - { translations: [{ code: en, country: Benin }], id: 204, code3: BEN, code: BJ, currency: { currency_id: 952 } }
+  - { translations: [{ code: en, country: Bermuda }], id: 60,  code3: BMU, code: BM, currency: { currency_id: 60 } }
+  - { translations: [{ code: en, country: Bhutan }], id: 64,  code3: BTN, code: BT, currency: { currency_id: 356 } }
+  - { translations: [{ code: en, country: 'Bolivia, Plurinational State of' }], id: 68,  code3: BOL, code: BO, currency: { currency_id: 68 } }
+  - { translations: [{ code: en, country: 'Bonaire, Sint Eustatius and Saba' }], id: 535, code3: BES, code: BQ, currency: { currency_id: 840 } }
+  - { translations: [{ code: en, country: Bosnia and Herzegowina }], id: 70,  code3: BIH, code: BA, currency: { currency_id: 977 } }
+  - { translations: [{ code: en, country: Botswana }], id: 72,  code3: BWA, code: BW, currency: { currency_id: 72 } }
+  - { translations: [{ code: en, country: Bouvet Island }], id: 74,  code3: BVT, code: BV, currency: { currency_id: 578 } }
+  - translations: [{ code: en, country: Brazil }]
+    id: 76
+    code3: BRA
+    code: BR
+    currency: { currency_id: 986 }
+    states:
+      - { state: Distrito Federal, code: DF }
+      - { state: Acre, code: AC }
+      - { state: Alagoas, code: AL }
+      - { state: Amapá, code: AP }
+      - { state: Amazonas, code: AM }
+      - { state: Bahia, code: BA }
+      - { state: Ceará, code: CE }
+      - { state: Espírito Santo, code: ES }
+      - { state: Goiás, code: GO }
+      - { state: Maranhão, code: MA }
+      - { state: Mato Grosso, code: MT }
+      - { state: Mato Grosso do Sul, code: MS }
+      - { state: Minas Gerais, code: MG }
+      - { state: Pará, code: PA }
+      - { state: Paraíba, code: PB }
+      - { state: Paraná, code: PR }
+      - { state: Pernambuco, code: PE }
+      - { state: Piauí, code: PI }
+      - { state: Rio de Janeiro, code: RJ }
+      - { state: Rio Grande do Norte, code: RN }
+      - { state: Rio Grande do Sul, code: RS }
+      - { state: Rondônia, code: RO }
+      - { state: Roraima, code: RR }
+      - { state: Santa Catarina, code: SC }
+      - { state: São Paulo, code: SP }
+      - { state: Sergipe, code: SE }
+      - { state: Tocantins, code: TO }
+  - { translations: [{ code: en, country: British Indian Ocean Territory }], id: 86,  code3: IOT, code: IO, currency: { currency_id: 840 } }
+  - { translations: [{ code: en, country: Brunei Darussalam }], id: 96,  code3: BRN, code: BN, currency: { currency_id: 96 } }
+  - { translations: [{ code: en, country: Bulgaria }], id: 100, code3: BGR, code: BG, currency: { currency_id: 975 }, eu_member: true }
+  - { translations: [{ code: en, country: Burkina Faso }], id: 854, code3: BFA, code: BF, currency: { currency_id: 952 } }
+  - { translations: [{ code: en, country: Burundi }], id: 108, code3: BDI, code: BI, currency: { currency_id: 108 } }
+  - { translations: [{ code: en, country: Cambodia }], id: 116, code3: KHM, code: KH, currency: { currency_id: 116 } }
+  - { translations: [{ code: en, country: Cameroon }], id: 120, code3: CMR, code: CM, currency: { currency_id: 950 } }
+  - translations: [{ code: en, country: Canada }]
+    id: 124
+    code3: CAN
+    code: CA
+    currency: { currency_id: 124 }
+    states:
+      - { state: Alberta, code: AB }
+      - { state: British Columbia, code: BC }
+      - { state: Manitoba, code: MB }
+      - { state: New Brunswick, code: NB }
+      - { state: Newfoundland and Labrador, code: NF }
+      - { state: Nova Scotia, code: NS }
+      - { state: Northwest Territories, code: NT }
+      - { state: Nunavut, code: NU }
+      - { state: Ontario, code: ON }
+      - { state: Prince Edward Island, code: PE }
+      - { state: Quebec, code: QC }
+      - { state: Saskatchewan, code: SK }
+      - { state: Yukon, code: YT }
+  - { translations: [{ code: en, country: Cape Verde }], id: 132, code3: CPV, code: CV, currency: { currency_id: 132 } }
+  - { translations: [{ code: en, country: Cayman Islands }], id: 136, code3: CYM, code: KY, currency: { currency_id: 136 } }
+  - { translations: [{ code: en, country: Central African Republic }], id: 140, code3: CAF, code: CF, currency: { currency_id: 950 } }
+  - { translations: [{ code: en, country: Chad }], id: 148, code3: TCD, code: TD, currency: { currency_id: 950 } }
+  - { translations: [{ code: en, country: Chile }], id: 152, code3: CHL, code: CL, currency: { currency_id: 152 } }
+  - translations: [{ code: en, country: China }]
+    id: 156
+    code3: CHN
+    code: CN
+    currency: { currency_id: 156 }
+    states:
+      - { state: Anhui, code: '34' }
+      - { state: Beijing, code: '11' }
+      - { state: Chongqing, code: '50' }
+      - { state: Fujian, code: '35' }
+      - { state: Gansu, code: '62' }
+      - { state: Guangdong, code: '44' }
+      - { state: Guangxi, code: '45' }
+      - { state: Guizhou, code: '52' }
+      - { state: Hainan, code: '46' }
+      - { state: Hebei, code: '13' }
+      - { state: Heilongjiang, code: '23' }
+      - { state: Henan, code: '41' }
+      - { state: Hong Kong, code: '91' }
+      - { state: Hubei, code: '42' }
+      - { state: Hunan, code: '43' }
+      - { state: Jiangsu, code: '32' }
+      - { state: Jiangxi, code: '36' }
+      - { state: Jilin, code: '22' }
+      - { state: Liaoning, code: '21' }
+      - { state: Macao, code: '92' }
+      - { state: Nei Mongol, code: '15' }
+      - { state: Ningxia, code: '64' }
+      - { state: Qinghai, code: '63' }
+      - { state: Shaanxi, code: '61' }
+      - { state: Shandong, code: '37' }
+      - { state: Shanghai, code: '31' }
+      - { state: Shanxi, code: '14' }
+      - { state: Sichuan, code: '51' }
+      - { state: Taiwan, code: '71' }
+      - { state: Tianjin, code: '12' }
+      - { state: Xinjiang, code: '65' }
+      - { state: Xizang, code: '54' }
+      - { state: Yunnan, code: '53' }
+      - { state: Zhejiang, code: '33' }
+  - { translations: [{ code: en, country: Christmas Island }], id: 162, code3: CXR, code: CX, currency: { currency_id: 36 } }
+  - { translations: [{ code: en, country: 'Cocos (Keeling) Islands' }], id: 166, code3: CCK, code: CC, currency: { currency_id: 36 } }
+  - { translations: [{ code: en, country: Colombia }], id: 170, code3: COL, code: CO, currency: { currency_id: 170 } }
+  - { translations: [{ code: en, country: Comoros }], id: 174, code3: COM, code: KM, currency: { currency_id: 174 } }
+  - { translations: [{ code: en, country: Congo }], id: 178, code3: COG, code: CG, currency: { currency_id: 950 } }
+  - { translations: [{ code: en, country: 'Congo, the Democratic Republic of the' }], id: 180, code3: COD, code: CD, currency: { currency_id: 976 } }
+  - { translations: [{ code: en, country: Cook Islands }], id: 184, code3: COK, code: CK, currency: { currency_id: 554 } }
+  - { translations: [{ code: en, country: Costa Rica }], id: 188, code3: CRI, code: CR, currency: { currency_id: 188 } }
+  - { translations: [{ code: en, country: 'Côte d''Ivoire' }], id: 384, code3: CIV, code: CI, currency: { currency_id: 950 } }
+  - { translations: [{ code: en, country: Croatia }], id: 191, code3: HRV, code: HR, currency: { currency_id: 191 } }
+  - { translations: [{ code: en, country: Cuba }], id: 192, code3: CUB, code: CU, currency: { currency_id: 192 } }
+  - { translations: [{ code: en, country: Curaçao }], id: 531, code3: CUW, code: CW, currency: { currency_id: 532 } }
+  - { translations: [{ code: en, country: Cyprus }], id: 196, code3: CYP, code: CY, currency: { currency_id: 978 }, eu_member: true }
+  - { translations: [{ code: en, country: Czech Republic }], id: 203, code3: CZE, code: CZ, currency: { currency_id: 203 } }
+  - { translations: [{ code: en, country: Denmark }], id: 208, code3: DNK, code: DK, currency: { currency_id: 208 }, eu_member: true }
+  - { translations: [{ code: en, country: Djibouti }], id: 262, code3: DJI, code: DJ, currency: { currency_id: 262 } }
+  - { translations: [{ code: en, country: Dominica }], id: 212, code3: DMA, code: DM, currency: { currency_id: 951 } }
+  - { translations: [{ code: en, country: Dominican Republic }], id: 214, code3: DOM, code: DO, currency: { currency_id: 214 } }
+  - { translations: [{ code: en, country: Ecuador }], id: 218, code3: ECU, code: EC, currency: { currency_id: 840 } }
+  - { translations: [{ code: en, country: Egypt }], id: 818, code3: EGY, code: EG, currency: { currency_id: 818 } }
+  - { translations: [{ code: en, country: El Salvador }], id: 222, code3: SLV, code: SV, currency: { currency_id: 222 } }
+  - { translations: [{ code: en, country: Equatorial Guinea }], id: 226, code3: GNQ, code: GQ, currency: { currency_id: 950 } }
+  - { translations: [{ code: en, country: Eritrea }], id: 232, code3: ERI, code: ER, currency: { currency_id: 232 } }
+  - { translations: [{ code: en, country: Estonia }], id: 233, code3: EST, code: EE, currency: { currency_id: 978 }, eu_member: true }
+  - { translations: [{ code: en, country: Ethiopia }], id: 231, code3: ETH, code: ET, currency: { currency_id: 230 } }
+  - { translations: [{ code: en, country: 'Falkland Islands (Malvinas)' }], id: 238, code3: FLK, code: FK, currency: { currency_id: 238 } }
+  - { translations: [{ code: en, country: Faroe Islands }], id: 234, code3: FRO, code: FO, currency: { currency_id: 208 } }
+  - { translations: [{ code: en, country: Fiji }], id: 242, code3: FJI, code: FJ, currency: { currency_id: 242 } }
+  - { translations: [{ code: en, country: Finland }], id: 246, code3: FIN, code: FI, currency: { currency_id: 978 }, eu_member: true }
+  - { translations: [{ code: en, country: France }], id: 250, code3: FRA, code: FR, currency: { currency_id: 978 }, eu_member: true }
+  - { translations: [{ code: en, country: French Guiana }], id: 254, code3: GUF, code: GF, currency: { currency_id: 978 } }
+  - { translations: [{ code: en, country: French Polynesia }], id: 258, code3: PYF, code: PF, currency: { currency_id: 953 } }
+  - { translations: [{ code: en, country: French Southern Territories }], id: 260, code3: ATF, code: TF, currency: { currency_id: 978 } }
+  - { translations: [{ code: en, country: Gabon }], id: 266, code3: GAB, code: GA, currency: { currency_id: 950 } }
+  - { translations: [{ code: en, country: Gambia }], id: 270, code3: GMB, code: GM, currency: { currency_id: 270 } }
+  - { translations: [{ code: en, country: Georgia }], id: 268, code3: GEO, code: GE, currency: { currency_id: 981 } }
+  - { translations: [{ code: en, country: Germany }], id: 276, code3: DEU, code: DE, currency: { currency_id: 978 }, eu_member: true }
+  - { translations: [{ code: en, country: Ghana }], id: 288, code3: GHA, code: GH, currency: { currency_id: 936 } }
+  - { translations: [{ code: en, country: Gibraltar }], id: 292, code3: GIB, code: GI, currency: { currency_id: 292 } }
+  - { translations: [{ code: en, country: Greece }], id: 300, code3: GRC, code: GR, currency: { currency_id: 978 }, eu_member: true }
+  - { translations: [{ code: en, country: Greenland }], id: 304, code3: GRL, code: GL, currency: { currency_id: 208 } }
+  - { translations: [{ code: en, country: Grenada }], id: 308, code3: GRD, code: GD, currency: { currency_id: 951 } }
+  - { translations: [{ code: en, country: Guadeloupe }], id: 312, code3: GLP, code: GP, currency: { currency_id: 978 } }
+  - { translations: [{ code: en, country: Guam }], id: 316, code3: GUM, code: GU, currency: { currency_id: 840 } }
+  - { translations: [{ code: en, country: Guatemala }], id: 320, code3: GTM, code: GT, currency: { currency_id: 320 } }
+  - { translations: [{ code: en, country: Guernsey }], id: 831, code3: GGY, code: GG, currency: { currency_id: 826 } }
+  - { translations: [{ code: en, country: Guinea }], id: 324, code3: GIN, code: GN, currency: { currency_id: 324 } }
+  - { translations: [{ code: en, country: Guinea-Bissau }], id: 624, code3: GNB, code: GW, currency: { currency_id: 952 } }
+  - { translations: [{ code: en, country: Guyana }], id: 328, code3: GUY, code: GY, currency: { currency_id: 328 } }
+  - { translations: [{ code: en, country: Haiti }], id: 332, code3: HTI, code: HT, currency: { currency_id: 332 } }
+  - { translations: [{ code: en, country: Heard and McDonald Islands }], id: 334, code3: HMD, code: HM, currency: { currency_id: 36 } }
+  - { translations: [{ code: en, country: Holy See (Vatican City State) }], id: 336, code3: VAT, code: VA, currency: { currency_id: 978 } }
+  - { translations: [{ code: en, country: Honduras }], id: 340, code3: HND, code: HN, currency: { currency_id: 340 } }
+  - { translations: [{ code: en, country: Hong Kong }], id: 344, code3: HKG, code: HK, currency: { currency_id: 344 } }
+  - { translations: [{ code: en, country: Hungary }], id: 348, code3: HUN, code: HU, currency: { currency_id: 348 }, eu_member: true }
+  - { translations: [{ code: en, country: Iceland }], id: 352, code3: ISL, code: IS, currency: { currency_id: 352 } }
+  - translations: [{ code: en, country: India }]
+    id: 356
+    code3: IND
+    code: IN
+    currency: { currency_id: 356 }
+    states:
+      - { state: Andaman and Nicobar Islands, code: AN }
+      - { state: Andhra Pradesh, code: AP }
+      - { state: Arunachal Pradesh, code: AR }
+      - { state: Assam, code: AS }
+      - { state: Bihar, code: BR }
+      - { state: Chandigarh, code: CH }
+      - { state: Chhattisgar, code: CT }
+      - { state: Dadra and Nagar Haveli, code: DN }
+      - { state: Daman and Diu, code: DD }
+      - { state: Delhi, code: DL }
+      - { state: Goa, code: GA }
+      - { state: Gujarat, code: GJ }
+      - { state: Haryana, code: HR }
+      - { state: Himachal Pradesh, code: HP }
+      - { state: Jammu and Kashmir, code: JK }
+      - { state: Jharkhand, code: JH }
+      - { state: Karnataka, code: KA }
+      - { state: Kerala, code: KL }
+      - { state: Lakshadweep, code: LD }
+      - { state: Madhya Pradesh, code: MP }
+      - { state: Maharashtra, code: MH }
+      - { state: Manipur, code: MN }
+      - { state: Meghalaya, code: ML }
+      - { state: Mizoram, code: MZ }
+      - { state: Nagaland, code: NL }
+      - { state: Odish, code: OR }
+      - { state: Puducherry, code: PY }
+      - { state: Punjab, code: PB }
+      - { state: Rajasthan, code: RJ }
+      - { state: Sikkim, code: SK }
+      - { state: Tamil Nadu, code: TN }
+      - { state: Telangan, code: TG }
+      - { state: Tripura, code: TR }
+      - { state: Uttarakhan, code: UT }
+      - { state: Uttar Pradesh, code: UP }
+      - { state: West Bengal, code: WB }
+  - translations: [{ code: en, country: Indonesia }]
+    id: 360
+    code3: IDN
+    code: ID
+    currency: { currency_id: 360 }
+    states:
+      - { state: Aceh, code: AC }
+      - { state: Bali, code: BA }
+      - { state: Bangka–Belitung Islands, code: BB }
+      - { state: Banten, code: BT }
+      - { state: Bengkulu, code: BE }
+      - { state: Central Java, code: JT }
+      - { state: Central Kalimantan, code: KT }
+      - { state: Central Sulawesi, code: ST }
+      - { state: East Java, code: JI }
+      - { state: East Kalimantan, code: KI }
+      - { state: East Nusa Tenggara, code: NT }
+      - { state: Gorontalo, code: GO }
+      - { state: Jakarta, code: JK }
+      - { state: Jambi, code: JA }
+      - { state: Lampung, code: LA }
+      - { state: Maluku, code: MA }
+      - { state: North Kalimantan, code: KU }
+      - { state: North Maluku, code: MU }
+      - { state: North Sulawesi, code: SA }
+      - { state: North Sumatra, code: SU }
+      - { state: Papua, code: PA }
+      - { state: Riau, code: RI }
+      - { state: Riau Islands, code: KR }
+      - { state: South Kalimantan, code: KS }
+      - { state: South Sulawesi, code: SN }
+      - { state: South Sumatra, code: SS }
+      - { state: Southeast Sulawesi, code: SG }
+      - { state: West Java, code: JB }
+      - { state: West Kalimantan, code: KB }
+      - { state: West Nusa Tenggara, code: NB }
+      - { state: West Papua, code: PB }
+      - { state: West Sulawesi, code: SR }
+      - { state: West Sumatra, code: SB }
+      - { state: Yogyakarta, code: YO }
+  - { translations: [{ code: en, country: 'Iran, Islamic Republic of' }], id: 364, code3: IRN, code: IR, currency: { currency_id: 364 } }
+  - { translations: [{ code: en, country: Iraq }], id: 368, code3: IRQ, code: IQ, currency: { currency_id: 368 } }
+  - { translations: [{ code: en, country: Ireland }], id: 372, code3: IRL, code: IE, currency: { currency_id: 978 }, eu_member: true }
+  - { translations: [{ code: en, country: Isle of Man }], id: 833, code3: IMN, code: IM, currency: { currency_id: 826 } }
+  - { translations: [{ code: en, country: Israel }], id: 376, code3: ISR, code: IL, currency: { currency_id: 376 } }
+  - { translations: [{ code: en, country: Italy }], id: 380, code3: ITA, code: IT, currency: { currency_id: 978 }, eu_member: true }
+  - { translations: [{ code: en, country: Jamaica }], id: 388, code3: JAM, code: JM, currency: { currency_id: 388 } }
+  - translations: [{ code: en, country: Japan }]
+    id: 392
+    code3: JPN
+    code: JP
+    currency: { currency_id: 392 }
+    states:
+      - { state: Aichi, code: '23' }
+      - { state: Akita, code: '05' }
+      - { state: Aomori, code: '02' }
+      - { state: Chiba, code: '12' }
+      - { state: Ehime, code: '38' }
+      - { state: Fukui, code: '18' }
+      - { state: Fukuoka, code: '40' }
+      - { state: Fukushima, code: '07' }
+      - { state: Gifu, code: '21' }
+      - { state: Gumma, code: '10' }
+      - { state: Hiroshima, code: '34' }
+      - { state: Hokkaido, code: '01' }
+      - { state: Hyogo, code: '28' }
+      - { state: Ibaraki, code: '08' }
+      - { state: Ishikawa, code: '17' }
+      - { state: Iwate, code: '03' }
+      - { state: Kagawa, code: '37' }
+      - { state: Kagoshima, code: '46' }
+      - { state: Kanagawa, code: '14' }
+      - { state: Kochi, code: '39' }
+      - { state: Kumamoto, code: '43' }
+      - { state: Kyoto, code: '26' }
+      - { state: Mie, code: '24' }
+      - { state: Miyagi, code: '04' }
+      - { state: Miyazaki, code: '45' }
+      - { state: Nagano, code: '20' }
+      - { state: Nagasaki, code: '42' }
+      - { state: Nara, code: '29' }
+      - { state: Niigata, code: '15' }
+      - { state: Oita, code: '44' }
+      - { state: Okayama, code: '33' }
+      - { state: Okinawa, code: '47' }
+      - { state: Osaka, code: '27' }
+      - { state: Saga, code: '41' }
+      - { state: Saitama, code: '11' }
+      - { state: Shiga, code: '25' }
+      - { state: Shimane, code: '32' }
+      - { state: Shizuoka, code: '22' }
+      - { state: Tochigi, code: '09' }
+      - { state: Tokushima, code: '36' }
+      - { state: Tokyo, code: '13' }
+      - { state: Tottori, code: '31' }
+      - { state: Toyama, code: '16' }
+      - { state: Wakayama, code: '30' }
+      - { state: Yamagata, code: '06' }
+      - { state: Yamaguchi, code: '35' }
+      - { state: Yamanashi, code: '19' }
+  - { translations: [{ code: en, country: Jersey }], id: 832, code3: JEY, code: JE, currency: { currency_id: 826 } }
+  - { translations: [{ code: en, country: Jordan }], id: 400, code3: JOR, code: JO, currency: { currency_id: 400 } }
+  - { translations: [{ code: en, country: Kazakhstan }], id: 398, code3: KAZ, code: KZ, currency: { currency_id: 398 } }
+  - { translations: [{ code: en, country: Kenya }], id: 404, code3: KEN, code: KE, currency: { currency_id: 404 } }
+  - { translations: [{ code: en, country: Kiribati }], id: 296, code3: KIR, code: KI, currency: { currency_id: 36 } }
+  - { translations: [{ code: en, country: 'Korea, Democratic People''s Republic of' }], id: 408, code3: PRK, code: KP, currency: { currency_id: 408 } }
+  - { translations: [{ code: en, country: 'Korea, Republic of' }], id: 410, code3: KOR, code: KR, currency: { currency_id: 410 } }
+  - { translations: [{ code: en, country: Kuwait }], id: 414, code3: KWT, code: KW, currency: { currency_id: 414 } }
+  - { translations: [{ code: en, country: Kyrgyzstan }], id: 417, code3: KGZ, code: KG, currency: { currency_id: 417 } }
+  - { translations: [{ code: en, country: 'Lao People''s Democratic Republic' }], id: 418, code3: LAO, code: LA, currency: { currency_id: 418 } }
+  - { translations: [{ code: en, country: Latvia }], id: 428, code3: LVA, code: LV, currency: { currency_id: 428 }, eu_member: true }
+  - { translations: [{ code: en, country: Lebanon }], id: 422, code3: LBN, code: LB, currency: { currency_id: 422 } }
+  - { translations: [{ code: en, country: Lesotho }], id: 426, code3: LSO, code: LS, currency: { currency_id: 426 } }
+  - { translations: [{ code: en, country: Liberia }], id: 430, code3: LBR, code: LR, currency: { currency_id: 430 } }
+  - { translations: [{ code: en, country: Libya }], id: 434, code3: LBY, code: LY, currency: { currency_id: 434 } }
+  - { translations: [{ code: en, country: Liechtenstein }], id: 438, code3: LIE, code: LI, currency: { currency_id: 756 } }
+  - { translations: [{ code: en, country: Lithuania }], id: 440, code3: LTU, code: LT, currency: { currency_id: 440 }, eu_member: true }
+  - { translations: [{ code: en, country: Luxembourg }], id: 442, code3: LUX, code: LU, currency: { currency_id: 978 }, eu_member: true }
+  - { translations: [{ code: en, country: Macao }], id: 446, code3: MAC, code: MO, currency: { currency_id: 446 } }
+  - { translations: [{ code: en, country: Macedonia }], id: 807, code3: MKD, code: MK, currency: { currency_id: 807 } }
+  - { translations: [{ code: en, country: Madagascar }], id: 450, code3: MDG, code: MG, currency: { currency_id: 969 } }
+  - { translations: [{ code: en, country: Malawi }], id: 454, code3: MWI, code: MW, currency: { currency_id: 454 } }
+  - { translations: [{ code: en, country: Malaysia }], id: 458, code3: MYS, code: MY, currency: { currency_id: 458 } }
+  - { translations: [{ code: en, country: Maldives }], id: 462, code3: MDV, code: MV, currency: { currency_id: 462 } }
+  - { translations: [{ code: en, country: Mali }], id: 466, code3: MLI, code: ML, currency: { currency_id: 952 } }
+  - { translations: [{ code: en, country: Malta }], id: 470, code3: MLT, code: MT, currency: { currency_id: 978 }, eu_member: true }
+  - { translations: [{ code: en, country: Marshall Islands }], id: 584, code3: MHL, code: MH, currency: { currency_id: 840 } }
+  - { translations: [{ code: en, country: Martinique }], id: 474, code3: MTQ, code: MQ, currency: { currency_id: 978 } }
+  - { translations: [{ code: en, country: Mauritania }], id: 478, code3: MRT, code: MR, currency: { currency_id: 478 } }
+  - { translations: [{ code: en, country: Mauritius }], id: 480, code3: MUS, code: MU, currency: { currency_id: 480 } }
+  - { translations: [{ code: en, country: Mayotte }], id: 175, code3: MYT, code: YT, currency: { currency_id: 978 } }
+  - translations: [{ code: en, country: Mexico }]
+    id: 484
+    code3: MEX
+    code: MX
+    currency: { currency_id: 484 }
+    states:
+      - { state:  Aguascalientes, code: AGU }
+      - { state:  Baja California, code: BCN }
+      - { state:  Baja California Sur, code: BCS }
+      - { state:  Campeche, code: CAM }
+      - { state:  Coahuila, code: COA }
+      - { state:  Colima, code: COL }
+      - { state:  Chiapas, code: CHP }
+      - { state:  Chihuahua, code: CHH }
+      - { state:  Distrito Federal, code: DIF }
+      - { state:  Durango, code: DUR }
+      - { state:  Guanajuato, code: GUA }
+      - { state:  Guerrero, code: GRO }
+      - { state:  Hidalgo, code: HID }
+      - { state:  Jalisco, code: JAL }
+      - { state:  México, code: MEX }
+      - { state:  Michoacán, code: MIC }
+      - { state:  Morelos, code: MOR }
+      - { state:  Nayarit, code: NAY }
+      - { state:  Nuevo León, code: NLE }
+      - { state:  Oaxaca, code: OAX }
+      - { state:  Puebla, code: PUE }
+      - { state:  Querétaro, code: QUE }
+      - { state:  Quintana Roo, code: ROO }
+      - { state:  San Luis Potosí, code: SLP }
+      - { state:  Sinaloa, code: SIN }
+      - { state:  Sonora, code: SON }
+      - { state:  Tabasco, code: TAB }
+      - { state:  Tamaulipas, code: TAM }
+      - { state:  Tlaxcala, code: TLA }
+      - { state:  Veracruz, code: VER }
+      - { state:  Yucatán, code: YUC }
+      - { state:  Zacatecas, code: ZAC }
+  - { translations: [{ code: en, country: 'Micronesia, Federated States of' }], id: 583, code3: FSM, code: FM, currency: { currency_id: 840 } }
+  - { translations: [{ code: en, country: 'Moldova, Republic of' }], id: 498, code3: MDA, code: MD, currency: { currency_id: 498 } }
+  - { translations: [{ code: en, country: Monaco }], id: 492, code3: MCO, code: MC, currency: { currency_id: 978 }, eu_member: true }
+  - { translations: [{ code: en, country: Mongolia }], id: 496, code3: MNG, code: MN, currency: { currency_id: 496 } }
+  - { translations: [{ code: en, country: Montenegro }], id: 499, code3: MNE, code: ME, currency: { currency_id: 978 }, eu_member: true }
+  - { translations: [{ code: en, country: Montserrat }], id: 500, code3: MSR, code: MS, currency: { currency_id: 951 } }
+  - { translations: [{ code: en, country: Morocco }], id: 504, code3: MAR, code: MA, currency: { currency_id: 504 } }
+  - { translations: [{ code: en, country: Mozambique }], id: 508, code3: MOZ, code: MZ, currency: { currency_id: 943 } }
+  - { translations: [{ code: en, country: Myanmar }], id: 104, code3: MMR, code: MM, currency: { currency_id: 64 } }
+  - { translations: [{ code: en, country: Namibia }], id: 516, code3: NAM, code: NA, currency: { currency_id: 516 } }
+  - { translations: [{ code: en, country: Nauru }], id: 520, code3: NRU, code: NR, currency: { currency_id: 36 } }
+  - { translations: [{ code: en, country: Nepal }], id: 524, code3: NPL, code: NP, currency: { currency_id: 524 } }
+  - { translations: [{ code: en, country: Netherlands }], id: 528, code3: NLD, code: NL, currency: { currency_id: 978 }, eu_member: true }
+  - { translations: [{ code: en, country: New Caledonia }], id: 540, code3: NCL, code: NC, currency: { currency_id: 953 } }
+  - { translations: [{ code: en, country: New Zealand }], id: 554, code3: NZL, code: NZ, currency: { currency_id: 554 } }
+  - { translations: [{ code: en, country: Nicaragua }], id: 558, code3: NIC, code: NI, currency: { currency_id: 558 } }
+  - { translations: [{ code: en, country: Niger }], id: 562, code3: NER, code: NE, currency: { currency_id: 952 } }
+  - { translations: [{ code: en, country: Nigeria }], id: 566, code3: NGA, code: NG, currency: { currency_id: 566 } }
+  - { translations: [{ code: en, country: Niue }], id: 570, code3: NIU, code: NU, currency: { currency_id: 554 } }
+  - { translations: [{ code: en, country: Norfolk Island }], id: 574, code3: NFK, code: NF, currency: { currency_id: 36 } }
+  - { translations: [{ code: en, country: Northern Mariana Islands }], id: 580, code3: MNP, code: MP, currency: { currency_id: 840 } }
+  - { translations: [{ code: en, country: Norway }], id: 578, code3: NOR, code: NO, currency: { currency_id: 578 } }
+  - { translations: [{ code: en, country: Oman }], id: 512, code3: OMN, code: OM, currency: { currency_id: 512 } }
+  - { translations: [{ code: en, country: Pakistan }], id: 586, code3: PAK, code: PK, currency: { currency_id: 586 } }
+  - { translations: [{ code: en, country: Palau }], id: 585, code3: PLW, code: PW, currency: { currency_id: 840 } }
+  - { translations: [{ code: en, country: 'Palestinian Territory, Occupied' }], id: 275, code3: PSE, code: PS, currency: { currency_id: 400 } }
+  - { translations: [{ code: en, country: Panama }], id: 591, code3: PAN, code: PA, currency: { currency_id: 590 } }
+  - { translations: [{ code: en, country: Papua New Guinea }], id: 598, code3: PNG, code: PG, currency: { currency_id: 598 } }
+  - { translations: [{ code: en, country: Paraguay }], id: 600, code3: PRY, code: PY, currency: { currency_id: 600 } }
+  - { translations: [{ code: en, country: Peru }], id: 604, code3: PER, code: PE, currency: { currency_id: 604 } }
+  - { translations: [{ code: en, country: Philippines }], id: 608, code3: PHL, code: PH, currency: { currency_id: 608 } }
+  - { translations: [{ code: en, country: Pitcairn }], id: 612, code3: PCN, code: PN, currency: { currency_id: 554 } }
+  - { translations: [{ code: en, country: Poland }], id: 616, code3: POL, code: PL, currency: { currency_id: 985 }, eu_member: true }
+  - { translations: [{ code: en, country: Portugal }], id: 620, code3: PRT, code: PT, currency: { currency_id: 978 }, eu_member: true }
+  - { translations: [{ code: en, country: Puerto Rico }], id: 630, code3: PRI, code: PR, currency: { currency_id: 840 } }
+  - { translations: [{ code: en, country: Qatar }], id: 634, code3: QAT, code: QA, currency: { currency_id: 634 } }
+  - { translations: [{ code: en, country: Réunion }], id: 638, code3: REU, code: RE, currency: { currency_id: 978 } }
+  - { translations: [{ code: en, country: Romania }], id: 642, code3: ROU, code: RO, currency: { currency_id: 946 }, eu_member: true }
+  - { translations: [{ code: en, country: Russian Federation }], id: 643, code3: RUS, code: RU, currency: { currency_id: 643 } }
+  - { translations: [{ code: en, country: Rwanda }], id: 646, code3: RWA, code: RW, currency: { currency_id: 646 } }
+  - { translations: [{ code: en, country: Saint Barthélemy }], id: 652, code3: BLM, code: BL, currency: { currency_id: 978 } }
+  - { translations: [{ code: en, country: 'Saint Helena, Ascension and Tristan da Cunha' }], id: 654, code3: SHN, code: SH, currency: { currency_id: 654 } }
+  - { translations: [{ code: en, country: Saint Kitts and Nevis }], id: 659, code3: KNA, code: KN, currency: { currency_id: 951 } }
+  - { translations: [{ code: en, country: Saint Lucia }], id: 662, code3: LCA, code: LC, currency: { currency_id: 951 } }
+  - { translations: [{ code: en, country: Saint Martin }], id: 663, code3: MAF, code: MF, currency: { currency_id: 978 } }
+  - { translations: [{ code: en, country: Saint Pierre and Miquelon }], id: 666, code3: SPM, code: PM, currency: { currency_id: 978 } }
+  - { translations: [{ code: en, country: Saint Vincent and the Grenadines }], id: 670, code3: VCT, code: VC, currency: { currency_id: 951 } }
+  - { translations: [{ code: en, country: Samoa }], id: 882, code3: WSM, code: WS, currency: { currency_id: 882 } }
+  - { translations: [{ code: en, country: San Marino }], id: 674, code3: SMR, code: SM, currency: { currency_id: 978 } }
+  - { translations: [{ code: en, country: Sao Tome and Principe }], id: 678, code3: STP, code: ST, currency: { currency_id: 678 } }
+  - { translations: [{ code: en, country: Saudi Arabia }], id: 682, code3: SAU, code: SA, currency: { currency_id: 682 } }
+  - { translations: [{ code: en, country: Senegal }], id: 686, code3: SEN, code: SN, currency: { currency_id: 952 } }
+  - { translations: [{ code: en, country: Serbia }], id: 688, code3: SRB, code: RS, currency: { currency_id: 941 } }
+  - { translations: [{ code: en, country: Seychelles }], id: 690, code3: SYC, code: SC, currency: { currency_id: 690 } }
+  - { translations: [{ code: en, country: Sierra Leone }], id: 694, code3: SLE, code: SL, currency: { currency_id: 694 } }
+  - { translations: [{ code: en, country: Singapore }], id: 702, code3: SGP, code: SG, currency: { currency_id: 702 } }
+  - { translations: [{ code: en, country: Sint Maarten }], id: 534, code3: SXM, code: SX, currency: { currency_id: 532 } }
+  - { translations: [{ code: en, country: Slovakia }], id: 703, code3: SVK, code: SK, currency: { currency_id: 978 }, eu_member: true }
+  - { translations: [{ code: en, country: Slovenia }], id: 705, code3: SVN, code: SI, currency: { currency_id: 978 }, eu_member: true }
+  - { translations: [{ code: en, country: Solomon Islands }], id: 90,  code3: SLB, code: SB, currency: { currency_id: 90 } }
+  - { translations: [{ code: en, country: Somalia }], id: 706, code3: SOM, code: SO, currency: { currency_id: 706 } }
+  - { translations: [{ code: en, country: South Africa }], id: 710, code3: ZAF, code: ZA, currency: { currency_id: 710 } }
+  - { translations: [{ code: en, country: South Georgia and the South Sandwich Islands }], id: 239, code3: SGS, code: GS, currency: { currency_id: 826 } }
+  - { translations: [{ code: en, country: South Sudan }], id: 728, code3: SSD, code: SS, currency: { currency_id: 728 } }
+  - { translations: [{ code: en, country: Spain }], id: 724, code3: ESP, code: ES, currency: { currency_id: 978 }, eu_member: true }
+  - { translations: [{ code: en, country: Sri Lanka }], id: 144, code3: LKA, code: LK, currency: { currency_id: 144 } }
+  - { translations: [{ code: en, country: Sudan }], id: 729, code3: SDN, code: SD, currency: { currency_id: 938 } }
+  - { translations: [{ code: en, country: Suriname }], id: 740, code3: SUR, code: SR, currency: { currency_id: 968 } }
+  - { translations: [{ code: en, country: Svalbard and Jan Mayen }], id: 744, code3: SJM, code: SJ, currency: { currency_id: 978 } }
+  - { translations: [{ code: en, country: Swaziland }], id: 748, code3: SWZ, code: SZ, currency: { currency_id: 748 } }
+  - { translations: [{ code: en, country: Sweden }], id: 752, code3: SWE, code: SE, currency: { currency_id: 752 }, eu_member: true }
+  - { translations: [{ code: en, country: Switzerland }], id: 756, code3: CHE, code: CH, currency: { currency_id: 756 } }
+  - { translations: [{ code: en, country: Syrian Arab Republic }], id: 760, code3: SYR, code: SY, currency: { currency_id: 760 } }
+  - { translations: [{ code: en, country: 'Taiwan, Province of China' }], id: 158, code3: TWN, code: TW, currency: { currency_id: 901 } }
+  - { translations: [{ code: en, country: Tajikistan }], id: 762, code3: TJK, code: TJ, currency: { currency_id: 972 } }
+  - { translations: [{ code: en, country: 'Tanzania, United Republic of' }], id: 834, code3: TZA, code: TZ, currency: { currency_id: 834 } }
+  - translations: [{ code: en, country: Thailand }]
+    id: 764
+    code3: THA
+    code: TH
+    currency: { currency_id: 764 }
+    states:
+      - { state: Amnat Charoen, code: 37 }
+      - { state: Ang Thong, code: 15 }
+      - { state: Bueng Kan, code: 38 }
+      - { state: Buri Ram, code: 31 }
+      - { state: Chachoengsao, code: 24 }
+      - { state: Chai Nat, code: 18 }
+      - { state: Chaiyaphum, code: 36 }
+      - { state: Chanthaburi, code: 22 }
+      - { state: Chiang Mai, code: 50 }
+      - { state: Chiang Rai, code: 57 }
+      - { state: Chon Buri, code: 20 }
+      - { state: Chumphon, code: 86 }
+      - { state: Kalasin, code: 46 }
+      - { state: Kamphaeng Phet, code: 62 }
+      - { state: Kanchanaburi, code: 71 }
+      - { state: Khon Kaen, code: 40 }
+      - { state: Krabi, code: 81 }
+      - { state: Krung Thep Maha Nakhon (Bangkok), code: 10 }
+      - { state: Lampang, code: 52 }
+      - { state: Lamphun, code: 51 }
+      - { state: Loei, code: 42 }
+      - { state: Lop Buri, code: 16 }
+      - { state: Mae Hong Son, code: 58 }
+      - { state: Maha Sarakham, code: 44 }
+      - { state: Mukdahan, code: 49 }
+      - { state: Nakhon Nayok, code: 26 }
+      - { state: Nakhon Pathom, code: 73 }
+      - { state: Nakhon Phanom, code: 48 }
+      - { state: Nakhon Ratchasima, code: 30 }
+      - { state: Nakhon Sawan, code: 60 }
+      - { state: Nakhon Si Thammarat, code: 80 }
+      - { state: Nan, code: 55 }
+      - { state: Narathiwat, code: 96 }
+      - { state: Nong Bua Lam Phu, code: 39 }
+      - { state: Nong Khai, code: 43 }
+      - { state: Nonthaburi, code: 12 }
+      - { state: Pathum Thani, code: 13 }
+      - { state: Pattani, code: 94 }
+      - { state: Phangnga, code: 82 }
+      - { state: Phatthalung, code: 93 }
+      - { state: Phatthaya, code: S }
+      - { state: Phayao, code: 56 }
+      - { state: Phetchabun, code: 67 }
+      - { state: Phetchaburi, code: 76 }
+      - { state: Phichit, code: 66 }
+      - { state: Phitsanulok, code: 65 }
+      - { state: Phrae, code: 54 }
+      - { state: Phra Nakhon Si Ayutthaya, code: 14 }
+      - { state: Phuket, code: 83 }
+      - { state: Prachin Buri, code: 25 }
+      - { state: Prachuap Khiri Khan, code: 77 }
+      - { state: Ranong, code: 85 }
+      - { state: Ratchaburi, code: 70 }
+      - { state: Rayong, code: 21 }
+      - { state: Roi Et, code: 45 }
+      - { state: Sa Kaeo, code: 27 }
+      - { state: Sakon Nakhon, code: 47 }
+      - { state: Samut Prakan, code: 11 }
+      - { state: Samut Sakhon, code: 74 }
+      - { state: Samut Songkhram, code: 75 }
+      - { state: Saraburi, code: 19 }
+      - { state: Satun, code: 91 }
+      - { state: Sing Buri, code: 17 }
+      - { state: Si Sa Ket, code: 33 }
+      - { state: Songkhla, code: 90 }
+      - { state: Sukhothai, code: 64 }
+      - { state: Suphan Buri, code: 72 }
+      - { state: Surat Thani, code: 84 }
+      - { state: Surin, code: 32 }
+      - { state: Tak, code: 63 }
+      - { state: Trang, code: 92 }
+      - { state: Trat, code: 23 }
+      - { state: Ubon Ratchathani, code: 34 }
+      - { state: Udon Thani, code: 41 }
+      - { state: Uthai Thani, code: 61 }
+      - { state: Uttaradit, code: 53 }
+      - { state: Yala, code: 95 }
+      - { state: Yasothon, code: 35 }
+  - { translations: [{ code: en, country: Timor-Leste }], id: 626, code3: TLS, code: TL, currency: { currency_id: 840 } }
+  - { translations: [{ code: en, country: Togo }], id: 768, code3: TGO, code: TG, currency: { currency_id: 952 } }
+  - { translations: [{ code: en, country: Tokelau }], id: 772, code3: TKL, code: TK, currency: { currency_id: 554 } }
+  - { translations: [{ code: en, country: Tonga }], id: 776, code3: TON, code: TO, currency: { currency_id: 776 } }
+  - { translations: [{ code: en, country: Trinidad and Tobago }], id: 780, code3: TTO, code: TT, currency: { currency_id: 780 } }
+  - { translations: [{ code: en, country: Tunisia }], id: 788, code3: TUN, code: TN, currency: { currency_id: 788 } }
+  - { translations: [{ code: en, country: Turkey }], id: 792, code3: TUR, code: TR, currency: { currency_id: 949 } }
+  - { translations: [{ code: en, country: Turkmenistan }], id: 795, code3: TKM, code: TM, currency: { currency_id: 934 } }
+  - { translations: [{ code: en, country: Turks and Caicos Islands }], id: 796, code3: TCA, code: TC, currency: { currency_id: 840 } }
+  - { translations: [{ code: en, country: Tuvalu }], id: 798, code3: TUV, code: TV, currency: { currency_id: 36 } }
+  - { translations: [{ code: en, country: Uganda }], id: 800, code3: UGA, code: UG, currency: { currency_id: 800 } }
+  - { translations: [{ code: en, country: Ukraine }], id: 804, code3: UKR, code: UA, currency: { currency_id: 980 } }
+  - { translations: [{ code: en, country: United Arab Emirates }], id: 784, code3: ARE, code: AE, currency: { currency_id: 784 } }
+  - translations: [{ code: en, country: United Kingdom }]
+    id: 826
+    code3: GBR
+    code: GB
+    currency: { currency_id: 826 }
+    eu_member: true
+    regions:
+      - { code: 'GB-ENG', weight: 100 }
+      - { code: 'GB-SCT', weight: 200 }
+      - { code: 'GB-WLS', weight: 300 }
+      - { code: 'GB-NIR', weight: 400 }
+    states:
+      - { state: 'Aberdeen City', code: 'ABE', region: { code: 'GB-SCT' } }
+      - { state: 'Aberdeenshire', code: 'ABD', region: { code: 'GB-SCT' } }
+      - { state: 'Angus', code: 'ANS', region: { code: 'GB-SCT' } }
+      - { state: 'Antrim', code: 'ANT', region: { code: 'GB-NIR' } }
+      - { state: 'Ards', code: 'ARD', region: { code: 'GB-NIR' } }
+      - { state: 'Argyll and Bute', code: 'AGB', region: { code: 'GB-SCT' } }
+      - { state: 'Armagh', code: 'ARM', region: { code: 'GB-NIR' } }
+      - { state: 'Ballymena', code: 'BLA', region: { code: 'GB-NIR' } }
+      - { state: 'Ballymoney', code: 'BLY', region: { code: 'GB-NIR' } }
+      - { state: 'Banbridge', code: 'BNB', region: { code: 'GB-NIR' } }
+      - { state: 'Barking and Dagenham', code: 'BDG', region: { code: 'GB-ENG' } }
+      - { state: 'Barnet', code: 'BNE', region: { code: 'GB-ENG' } }
+      - { state: 'Barnsley', code: 'BNS', region: { code: 'GB-ENG' } }
+      - { state: 'Bath and North East Somerset', code: 'BAS', region: { code: 'GB-ENG' } }
+      - { state: 'Bedford', code: 'BDF', region: { code: 'GB-ENG' } }
+      - { state: 'Belfast', code: 'BFS', region: { code: 'GB-NIR' } }
+      - { state: 'Bexley', code: 'BEX', region: { code: 'GB-ENG' } }
+      - { state: 'Birmingham', code: 'BIR', region: { code: 'GB-ENG' } }
+      - { state: 'Blackburn with Darwen', code: 'BBD', region: { code: 'GB-ENG' } }
+      - { state: 'Blackpool', code: 'BPL', region: { code: 'GB-ENG' } }
+      - { state: 'Blaenau Gwent', code: 'BGW', region: { code: 'GB-WLS' } }
+      - { state: 'Bolton', code: 'BOL', region: { code: 'GB-ENG' } }
+      - { state: 'Bournemouth', code: 'BMH', region: { code: 'GB-ENG' } }
+      - { state: 'Bracknell Forest', code: 'BRC', region: { code: 'GB-ENG' } }
+      - { state: 'Bradford', code: 'BRD', region: { code: 'GB-ENG' } }
+      - { state: 'Brent', code: 'BEN', region: { code: 'GB-ENG' } }
+      - { state: 'Bridgend', code: 'BGE', region: { code: 'GB-WLS' } }
+      - { state: 'Brighton and Hove', code: 'BNH', region: { code: 'GB-ENG' } }
+      - { state: 'Bristol, City of', code: 'BST', region: { code: 'GB-ENG' } }
+      - { state: 'Bromley', code: 'BRY', region: { code: 'GB-ENG' } }
+      - { state: 'Buckinghamshire', code: 'BKM', region: { code: 'GB-ENG' } }
+      - { state: 'Bury', code: 'BUR', region: { code: 'GB-ENG' } }
+      - { state: 'Caerphilly', code: 'CAY', region: { code: 'GB-WLS' } }
+      - { state: 'Calderdale', code: 'CLD', region: { code: 'GB-ENG' } }
+      - { state: 'Cambridgeshire', code: 'CAM', region: { code: 'GB-ENG' } }
+      - { state: 'Camden', code: 'CMD', region: { code: 'GB-ENG' } }
+      - { state: 'Cardiff', code: 'CRF', region: { code: 'GB-WLS' } }
+      - { state: 'Carmarthenshire', code: 'CMN', region: { code: 'GB-WLS' } }
+      - { state: 'Carrickfergus', code: 'CKF', region: { code: 'GB-NIR' } }
+      - { state: 'Castlereagh', code: 'CSR', region: { code: 'GB-NIR' } }
+      - { state: 'Central Bedfordshire', code: 'CBF', region: { code: 'GB-ENG' } }
+      - { state: 'Ceredigion', code: 'CGN', region: { code: 'GB-WLS' } }
+      - { state: 'Cheshire East', code: 'CHE', region: { code: 'GB-ENG' } }
+      - { state: 'Cheshire West and Chester', code: 'CHW', region: { code: 'GB-ENG' } }
+      - { state: 'Clackmannanshire', code: 'CLK', region: { code: 'GB-SCT' } }
+      - { state: 'Coleraine', code: 'CLR', region: { code: 'GB-NIR' } }
+      - { state: 'Conwy', code: 'CWY', region: { code: 'GB-WLS' } }
+      - { state: 'Cookstown', code: 'CKT', region: { code: 'GB-NIR' } }
+      - { state: 'Cornwall', code: 'CON', region: { code: 'GB-ENG' } }
+      - { state: 'Coventry', code: 'COV', region: { code: 'GB-ENG' } }
+      - { state: 'Craigavon', code: 'CGV', region: { code: 'GB-NIR' } }
+      - { state: 'Croydon', code: 'CRY', region: { code: 'GB-ENG' } }
+      - { state: 'Cumbria', code: 'CMA', region: { code: 'GB-ENG' } }
+      - { state: 'Darlington', code: 'DAL', region: { code: 'GB-ENG' } }
+      - { state: 'Denbighshire', code: 'DEN', region: { code: 'GB-WLS' } }
+      - { state: 'Derby', code: 'DER', region: { code: 'GB-ENG' } }
+      - { state: 'Derbyshire', code: 'DBY', region: { code: 'GB-ENG' } }
+      - { state: 'Derry', code: 'DRY', region: { code: 'GB-NIR' } }
+      - { state: 'Devon', code: 'DEV', region: { code: 'GB-ENG' } }
+      - { state: 'Doncaster', code: 'DNC', region: { code: 'GB-ENG' } }
+      - { state: 'Dorset', code: 'DOR', region: { code: 'GB-ENG' } }
+      - { state: 'Down', code: 'DOW', region: { code: 'GB-NIR' } }
+      - { state: 'Dudley', code: 'DUD', region: { code: 'GB-ENG' } }
+      - { state: 'Dumfries and Galloway', code: 'DGY', region: { code: 'GB-SCT' } }
+      - { state: 'Dundee City', code: 'DND', region: { code: 'GB-SCT' } }
+      - { state: 'Dungannon and South Tyrone', code: 'DGN', region: { code: 'GB-NIR' } }
+      - { state: 'Durham, County', code: 'DUR', region: { code: 'GB-ENG' } }
+      - { state: 'Ealing', code: 'EAL', region: { code: 'GB-ENG' } }
+      - { state: 'East Ayrshire', code: 'EAY', region: { code: 'GB-SCT' } }
+      - { state: 'East Dunbartonshire', code: 'EDU', region: { code: 'GB-SCT' } }
+      - { state: 'East Lothian', code: 'ELN', region: { code: 'GB-SCT' } }
+      - { state: 'East Renfrewshire', code: 'ERW', region: { code: 'GB-SCT' } }
+      - { state: 'East Riding of Yorkshire', code: 'ERY', region: { code: 'GB-ENG' } }
+      - { state: 'East Sussex', code: 'ESX', region: { code: 'GB-ENG' } }
+      - { state: 'Edinburgh, City of', code: 'EDH', region: { code: 'GB-SCT' } }
+      - { state: 'Eilean Siar', code: 'ELS', region: { code: 'GB-SCT' } }
+      - { state: 'Enfield', code: 'ENF', region: { code: 'GB-ENG' } }
+      - { state: 'Essex', code: 'ESS', region: { code: 'GB-ENG' } }
+      - { state: 'Falkirk', code: 'FAL', region: { code: 'GB-SCT' } }
+      - { state: 'Fermanagh', code: 'FER', region: { code: 'GB-NIR' } }
+      - { state: 'Fife', code: 'FIF', region: { code: 'GB-SCT' } }
+      - { state: 'Flintshire', code: 'FLN', region: { code: 'GB-WLS' } }
+      - { state: 'Gateshead', code: 'GAT', region: { code: 'GB-ENG' } }
+      - { state: 'Glasgow City', code: 'GLG', region: { code: 'GB-SCT' } }
+      - { state: 'Gloucestershire', code: 'GLS', region: { code: 'GB-ENG' } }
+      - { state: 'Greenwich', code: 'GRE', region: { code: 'GB-ENG' } }
+      - { state: 'Gwynedd', code: 'GWN', region: { code: 'GB-WLS' } }
+      - { state: 'Hackney', code: 'HCK', region: { code: 'GB-ENG' } }
+      - { state: 'Halton', code: 'HAL', region: { code: 'GB-ENG' } }
+      - { state: 'Hammersmith and Fulham', code: 'HMF', region: { code: 'GB-ENG' } }
+      - { state: 'Hampshire', code: 'HAM', region: { code: 'GB-ENG' } }
+      - { state: 'Haringey', code: 'HRY', region: { code: 'GB-ENG' } }
+      - { state: 'Harrow', code: 'HRW', region: { code: 'GB-ENG' } }
+      - { state: 'Hartlepool', code: 'HPL', region: { code: 'GB-ENG' } }
+      - { state: 'Havering', code: 'HAV', region: { code: 'GB-ENG' } }
+      - { state: 'Herefordshire', code: 'HEF', region: { code: 'GB-ENG' } }
+      - { state: 'Hertfordshire', code: 'HRT', region: { code: 'GB-ENG' } }
+      - { state: 'Highland', code: 'HLD', region: { code: 'GB-SCT' } }
+      - { state: 'Hillingdon', code: 'HIL', region: { code: 'GB-ENG' } }
+      - { state: 'Hounslow', code: 'HNS', region: { code: 'GB-ENG' } }
+      - { state: 'Inverclyde', code: 'IVC', region: { code: 'GB-SCT' } }
+      - { state: 'Isle of Anglesey', code: 'AGY', region: { code: 'GB-WLS' } }
+      - { state: 'Isle of Wight', code: 'IOW', region: { code: 'GB-ENG' } }
+      - { state: 'Isles of Scilly', code: 'IOS', region: { code: 'GB-ENG' } }
+      - { state: 'Islington', code: 'ISL', region: { code: 'GB-ENG' } }
+      - { state: 'Kensington and Chelsea', code: 'KEC', region: { code: 'GB-ENG' } }
+      - { state: 'Kent', code: 'KEN', region: { code: 'GB-ENG' } }
+      - { state: 'Kingston upon Hull', code: 'KHL', region: { code: 'GB-ENG' } }
+      - { state: 'Kingston upon Thames', code: 'KTT', region: { code: 'GB-ENG' } }
+      - { state: 'Kirklees', code: 'KIR', region: { code: 'GB-ENG' } }
+      - { state: 'Knowsley', code: 'KWL', region: { code: 'GB-ENG' } }
+      - { state: 'Lambeth', code: 'LBH', region: { code: 'GB-ENG' } }
+      - { state: 'Lancashire', code: 'LAN', region: { code: 'GB-ENG' } }
+      - { state: 'Larne', code: 'LRN', region: { code: 'GB-NIR' } }
+      - { state: 'Leeds', code: 'LDS', region: { code: 'GB-ENG' } }
+      - { state: 'Leicester', code: 'LCE', region: { code: 'GB-ENG' } }
+      - { state: 'Leicestershire', code: 'LEC', region: { code: 'GB-ENG' } }
+      - { state: 'Lewisham', code: 'LEW', region: { code: 'GB-ENG' } }
+      - { state: 'Limavady', code: 'LMV', region: { code: 'GB-NIR' } }
+      - { state: 'Lincolnshire', code: 'LIN', region: { code: 'GB-ENG' } }
+      - { state: 'Lisburn', code: 'LSB', region: { code: 'GB-NIR' } }
+      - { state: 'Liverpool', code: 'LIV', region: { code: 'GB-ENG' } }
+      - { state: 'London, City of', code: 'LND', region: { code: 'GB-ENG' } }
+      - { state: 'Luton', code: 'LUT', region: { code: 'GB-ENG' } }
+      - { state: 'Magherafelt', code: 'MFT', region: { code: 'GB-NIR' } }
+      - { state: 'Manchester', code: 'MAN', region: { code: 'GB-ENG' } }
+      - { state: 'Medway', code: 'MDW', region: { code: 'GB-ENG' } }
+      - { state: 'Merthyr Tydfil', code: 'MTY', region: { code: 'GB-WLS' } }
+      - { state: 'Merton', code: 'MRT', region: { code: 'GB-ENG' } }
+      - { state: 'Middlesbrough', code: 'MDB', region: { code: 'GB-ENG' } }
+      - { state: 'Midlothian', code: 'MLN', region: { code: 'GB-SCT' } }
+      - { state: 'Milton Keynes', code: 'MIK', region: { code: 'GB-ENG' } }
+      - { state: 'Monmouthshire', code: 'MON', region: { code: 'GB-WLS' } }
+      - { state: 'Moray', code: 'MRY', region: { code: 'GB-SCT' } }
+      - { state: 'Moyle', code: 'MYL', region: { code: 'GB-NIR' } }
+      - { state: 'Neath Port Talbot', code: 'NTL', region: { code: 'GB-WLS' } }
+      - { state: 'Newcastle upon Tyne', code: 'NET', region: { code: 'GB-ENG' } }
+      - { state: 'Newham', code: 'NWM', region: { code: 'GB-ENG' } }
+      - { state: 'Newport', code: 'NWP', region: { code: 'GB-WLS' } }
+      - { state: 'Newry and Mourne District', code: 'NYM', region: { code: 'GB-NIR' } }
+      - { state: 'Newtownabbey', code: 'NTA', region: { code: 'GB-NIR' } }
+      - { state: 'Norfolk', code: 'NFK', region: { code: 'GB-ENG' } }
+      - { state: 'North Ayrshire', code: 'NAY', region: { code: 'GB-SCT' } }
+      - { state: 'North Down', code: 'NDN', region: { code: 'GB-NIR' } }
+      - { state: 'North East Lincolnshire', code: 'NEL', region: { code: 'GB-ENG' } }
+      - { state: 'North Lanarkshire', code: 'NLK', region: { code: 'GB-SCT' } }
+      - { state: 'North Lincolnshire', code: 'NLN', region: { code: 'GB-ENG' } }
+      - { state: 'North Somerset', code: 'NSM', region: { code: 'GB-ENG' } }
+      - { state: 'North Tyneside', code: 'NTY', region: { code: 'GB-ENG' } }
+      - { state: 'North Yorkshire', code: 'NYK', region: { code: 'GB-ENG' } }
+      - { state: 'Northamptonshire', code: 'NTH', region: { code: 'GB-ENG' } }
+      - { state: 'Northumberland', code: 'NBL', region: { code: 'GB-ENG' } }
+      - { state: 'Nottingham', code: 'NGM', region: { code: 'GB-ENG' } }
+      - { state: 'Nottinghamshire', code: 'NTT', region: { code: 'GB-ENG' } }
+      - { state: 'Oldham', code: 'OLD', region: { code: 'GB-ENG' } }
+      - { state: 'Omagh', code: 'OMH', region: { code: 'GB-NIR' } }
+      - { state: 'Orkney Islands', code: 'ORK', region: { code: 'GB-SCT' } }
+      - { state: 'Oxfordshire', code: 'OXF', region: { code: 'GB-ENG' } }
+      - { state: 'Pembrokeshire', code: 'PEM', region: { code: 'GB-WLS' } }
+      - { state: 'Perth and Kinross', code: 'PKN', region: { code: 'GB-SCT' } }
+      - { state: 'Peterborough', code: 'PTE', region: { code: 'GB-ENG' } }
+      - { state: 'Plymouth', code: 'PLY', region: { code: 'GB-ENG' } }
+      - { state: 'Poole', code: 'POL', region: { code: 'GB-ENG' } }
+      - { state: 'Portsmouth', code: 'POR', region: { code: 'GB-ENG' } }
+      - { state: 'Powys', code: 'POW', region: { code: 'GB-WLS' } }
+      - { state: 'Reading', code: 'RDG', region: { code: 'GB-ENG' } }
+      - { state: 'Redbridge', code: 'RDB', region: { code: 'GB-ENG' } }
+      - { state: 'Redcar and Cleveland', code: 'RCC', region: { code: 'GB-ENG' } }
+      - { state: 'Renfrewshire', code: 'RFW', region: { code: 'GB-SCT' } }
+      - { state: 'Rhondda, Cynon, Taff', code: 'RCT', region: { code: 'GB-WLS' } }
+      - { state: 'Richmond upon Thames', code: 'RIC', region: { code: 'GB-ENG' } }
+      - { state: 'Rochdale', code: 'RCH', region: { code: 'GB-ENG' } }
+      - { state: 'Rotherham', code: 'ROT', region: { code: 'GB-ENG' } }
+      - { state: 'Rutland', code: 'RUT', region: { code: 'GB-ENG' } }
+      - { state: 'St. Helens', code: 'SHN', region: { code: 'GB-ENG' } }
+      - { state: 'Salford', code: 'SLF', region: { code: 'GB-ENG' } }
+      - { state: 'Sandwell', code: 'SAW', region: { code: 'GB-ENG' } }
+      - { state: 'Scottish Borders, The', code: 'SCB', region: { code: 'GB-SCT' } }
+      - { state: 'Sefton', code: 'SFT', region: { code: 'GB-ENG' } }
+      - { state: 'Sheffield', code: 'SHF', region: { code: 'GB-ENG' } }
+      - { state: 'Shetland Islands', code: 'ZET', region: { code: 'GB-SCT' } }
+      - { state: 'Shropshire', code: 'SHR', region: { code: 'GB-ENG' } }
+      - { state: 'Slough', code: 'SLG', region: { code: 'GB-ENG' } }
+      - { state: 'Solihull', code: 'SOL', region: { code: 'GB-ENG' } }
+      - { state: 'Somerset', code: 'SOM', region: { code: 'GB-ENG' } }
+      - { state: 'South Ayrshire', code: 'SAY', region: { code: 'GB-SCT' } }
+      - { state: 'South Gloucestershire', code: 'SGC', region: { code: 'GB-ENG' } }
+      - { state: 'South Lanarkshire', code: 'SLK', region: { code: 'GB-SCT' } }
+      - { state: 'South Tyneside', code: 'STY', region: { code: 'GB-ENG' } }
+      - { state: 'Southampton', code: 'STH', region: { code: 'GB-ENG' } }
+      - { state: 'Southend-on-Sea', code: 'SOS', region: { code: 'GB-ENG' } }
+      - { state: 'Southwark', code: 'SWK', region: { code: 'GB-ENG' } }
+      - { state: 'Staffordshire', code: 'STS', region: { code: 'GB-ENG' } }
+      - { state: 'Stirling', code: 'STG', region: { code: 'GB-SCT' } }
+      - { state: 'Stockport', code: 'SKP', region: { code: 'GB-ENG' } }
+      - { state: 'Stockton-on-Tees', code: 'STT', region: { code: 'GB-ENG' } }
+      - { state: 'Stoke-on-Trent', code: 'STE', region: { code: 'GB-ENG' } }
+      - { state: 'Strabane', code: 'STB', region: { code: 'GB-NIR' } }
+      - { state: 'Suffolk', code: 'SFK', region: { code: 'GB-ENG' } }
+      - { state: 'Sunderland', code: 'SND', region: { code: 'GB-ENG' } }
+      - { state: 'Surrey', code: 'SRY', region: { code: 'GB-ENG' } }
+      - { state: 'Sutton', code: 'STN', region: { code: 'GB-ENG' } }
+      - { state: 'Swansea', code: 'SWA', region: { code: 'GB-WLS' } }
+      - { state: 'Swindon', code: 'SWD', region: { code: 'GB-ENG' } }
+      - { state: 'Tameside', code: 'TAM', region: { code: 'GB-ENG' } }
+      - { state: 'Telford and Wrekin', code: 'TFW', region: { code: 'GB-ENG' } }
+      - { state: 'Thurrock', code: 'THR', region: { code: 'GB-ENG' } }
+      - { state: 'Torbay', code: 'TOB', region: { code: 'GB-ENG' } }
+      - { state: 'Torfaen', code: 'TOF', region: { code: 'GB-WLS' } }
+      - { state: 'Tower Hamlets', code: 'TWH', region: { code: 'GB-ENG' } }
+      - { state: 'Trafford', code: 'TRF', region: { code: 'GB-ENG' } }
+      - { state: 'Vale of Glamorgan, The', code: 'VGL', region: { code: 'GB-WLS' } }
+      - { state: 'Wakefield', code: 'WKF', region: { code: 'GB-ENG' } }
+      - { state: 'Walsall', code: 'WLL', region: { code: 'GB-ENG' } }
+      - { state: 'Waltham Forest', code: 'WFT', region: { code: 'GB-ENG' } }
+      - { state: 'Wandsworth', code: 'WND', region: { code: 'GB-ENG' } }
+      - { state: 'Warrington', code: 'WRT', region: { code: 'GB-ENG' } }
+      - { state: 'Warwickshire', code: 'WAR', region: { code: 'GB-ENG' } }
+      - { state: 'West Berkshire', code: 'WBK', region: { code: 'GB-ENG' } }
+      - { state: 'West Dunbartonshire', code: 'WDU', region: { code: 'GB-SCT' } }
+      - { state: 'West Lothian', code: 'WLN', region: { code: 'GB-SCT' } }
+      - { state: 'West Sussex', code: 'WSX', region: { code: 'GB-ENG' } }
+      - { state: 'Westminster', code: 'WSM', region: { code: 'GB-ENG' } }
+      - { state: 'Wigan', code: 'WGN', region: { code: 'GB-ENG' } }
+      - { state: 'Wiltshire', code: 'WIL', region: { code: 'GB-ENG' } }
+      - { state: 'Windsor and Maidenhead', code: 'WNM', region: { code: 'GB-ENG' } }
+      - { state: 'Wirral', code: 'WRL', region: { code: 'GB-ENG' } }
+      - { state: 'Wokingham', code: 'WOK', region: { code: 'GB-ENG' } }
+      - { state: 'Wolverhampton', code: 'WLV', region: { code: 'GB-ENG' } }
+      - { state: 'Worcestershire', code: 'WOR', region: { code: 'GB-ENG' } }
+      - { state: 'Wrexham', code: 'WRX', region: { code: 'GB-WLS' } }
+      - { state: 'York', code: 'YOR', region: { code: 'GB-ENG' } }
+  - translations: [{ code: en, country: United States }]
+    id: 840
+    code3: USA
+    code: US
+    currency: { currency_id: 840 }
+    states:
+      - { state: Alabama, code: AL }
+      - { state: Alaska, code: AK }
+      - { state: Arizona, code: AZ }
+      - { state: Arkansas, code: AR }
+      - { state: California, code: CA }
+      - { state: Colorado, code: CO }
+      - { state: Connecticut, code: CT }
+      - { state: Delaware, code: DE }
+      - { state: District of Columbia, code: DC }
+      - { state: Florida, code: FL }
+      - { state: Georgia, code: GA }
+      - { state: Guam, code: GU }
+      - { state: Hawaii, code: HI }
+      - { state: Idaho, code: ID }
+      - { state: Illinois, code: IL }
+      - { state: Indiana, code: IN }
+      - { state: Iowa, code: IA }
+      - { state: Kansas, code: KS }
+      - { state: Kentucky, code: KY }
+      - { state: Louisiana, code: LA }
+      - { state: Maine, code: ME }
+      - { state: Maryland, code: MD }
+      - { state: Massachusetts, code: MA }
+      - { state: Michigan, code: MI }
+      - { state: Minnesota, code: MN }
+      - { state: Mississippi, code: MS }
+      - { state: Missouri, code: MO }
+      - { state: Montana, code: MT }
+      - { state: Nebraska, code: NE }
+      - { state: Nevada, code: NV }
+      - { state: New Hampshire, code: NH }
+      - { state: New Jersey, code: NJ }
+      - { state: New Mexico, code: NM }
+      - { state: New York, code: NY }
+      - { state: North Carolina, code: NC }
+      - { state: North Dakota, code: ND }
+      - { state: Ohio, code: OH }
+      - { state: Oklahoma, code: OK }
+      - { state: Oregon, code: OR }
+      - { state: Pennsylvania, code: PA }
+      - { state: Puerto Rico, code: PR }
+      - { state: Rhode Island, code: RI }
+      - { state: South Carolina, code: SC }
+      - { state: South Dakota, code: SD }
+      - { state: Tennessee, code: TN }
+      - { state: Texas, code: TX }
+      - { state: Utah, code: UT }
+      - { state: Vermont, code: VT }
+      - { state: Virgin Islands, code: VI }
+      - { state: Virginia, code: VA }
+      - { state: Washington, code: WA }
+      - { state: West Virginia, code: WV }
+      - { state: Wisconsin, code: WI }
+      - { state: Wyoming, code: WY }
+  - { translations: [{ code: en, country: United States Minor Outlying Islands }], id: 581, code3: UMI, code: UM, currency: { currency_id: 840 } }
+  - { translations: [{ code: en, country: Uruguay }], id: 858, code3: URY, code: UY, currency: { currency_id: 858 } }
+  - { translations: [{ code: en, country: Uzbekistan }], id: 860, code3: UZB, code: UZ, currency: { currency_id: 860 } }
+  - { translations: [{ code: en, country: Vanuatu }], id: 548, code3: VUT, code: VU, currency: { currency_id: 548 } }
+  - { translations: [{ code: en, country: 'Venezuela, Bolivarian Republic of' }], id: 862, code3: VEN, code: VE, currency: { currency_id: 937 } }
+  - { translations: [{ code: en, country: Viet Nam }], id: 704, code3: VNM, code: VN, currency: { currency_id: 704 } }
+  - { translations: [{ code: en, country: 'Virgin Islands, British' }], id: 92,  code3: VGB, code: VG, currency: { currency_id: 840 } }
+  - { translations: [{ code: en, country: 'Virgin Islands, U.S.' }], id: 850, code3: VIR, code: VI, currency: { currency_id: 840 } }
+  - { translations: [{ code: en, country: Wallis And Futuna Islands }], id: 876, code3: WLF, code: WF, currency: { currency_id: 953 } }
+  - { translations: [{ code: en, country: Western Sahara }], id: 732, code3: ESH, code: EH, currency: { currency_id: 504 } }
+  - { translations: [{ code: en, country: Yemen }], id: 887, code3: YEM, code: YE, currency: { currency_id: 886 } }
+  - { translations: [{ code: en, country: Zambia }], id: 894, code3: ZMB, code: ZM, currency: { currency_id: 894 } }
+  - { translations: [{ code: en, country: Zimbabwe }], id: 716, code3: ZWE, code: ZW, currency: { currency_id: 932 } }
+XLite\Model\Order\Modifier:
+  - { class: '\XLite\Logic\Order\Modifier\Shipping', weight: 100 }
+XLite\Model\Zone:
+  - { zone_name: 'All Addresses (default zone)', is_default: true }
+XLite\Model\Task:
+  - { owner: 'XLite\Core\Task\EventListener' }
+XLite\Model\Role:
+  - { translations: [{ code: en, name: Administrator }, { code: ru, name: Administrator }], permissions: [ { code: root access, section: All, translations: [{ code: en, name: Root access }] } ] }
+XLite\Model\Role\Permission:
+  - { code: manage catalog, section: Catalog, translations: [{ code: en, name: Manage catalog }] }
+  - { code: manage users, section: Users, translations: [{ code: en, name: Manage users }] }
+  - { code: manage admins, section: Users, translations: [{ code: en, name: Manage administrators }] }
+  - { code: manage orders, section: Sales, translations: [{ code: en, name: Manage orders }] }
+  - { code: manage import, section: Import and Export, translations: [{ code: en, name: Manage import }] }
+  - { code: manage export, section: Import and Export, translations: [{ code: en, name: Manage export }] }
+
+XLite\Model\AddressField:
+  - { serviceName: title,         additional: false, required: false, translations: [{ code: en, name: Title }], schemaClass: \XLite\View\FormField\Select\Title, enabled: false }
+  - { serviceName: firstname,     additional: false, required: true,  translations: [{ code: en, name: First name }] }
+  - { serviceName: lastname,      additional: false, required: true,  translations: [{ code: en, name: Last name }] }
+  - { serviceName: street,        additional: false, required: true,  translations: [{ code: en, name: Address }] }
+  - { serviceName: city,          additional: false, required: true,  translations: [{ code: en, name: City }] }
+  - { serviceName: country_code,  additional: false, required: true,  translations: [{ code: en, name: Country }], schemaClass: \XLite\View\FormField\Select\Country, viewGetterName: country_name }
+  - { serviceName: state_id,      additional: false, required: false,  translations: [{ code: en, name: State }], schemaClass: \XLite\View\FormField\Select\State, viewGetterName: state_name }
+  - { serviceName: custom_state,  additional: false, required: false, translations: [{ code: en, name: State }], viewGetterName: state_name }
+  - { serviceName: zipcode,       additional: false, required: true,  translations: [{ code: en, name: Zip code }] }
+  - { serviceName: phone,         additional: false, required: false,  translations: [{ code: en, name: Phone }] }
+  - { serviceName: type,          additional: false, required: false, translations: [{ code: en, name: Address type }], schemaClass: \XLite\View\FormField\Select\AddressType, viewGetterName: type_name, enabled: false }
+
+XLite\Model\MoneyModificator:
+  - class: XLite\Logic\AttributeSurcharge
+    validator: isApply
+    purpose: net
+    position: 10
+
+XLite\Model\Order\Status\Payment:
+  - { code: Q, translations: [{ code: en, name: Awaiting payment, customerName: Awaiting payment }], position: 10 }
+  - { code: A, translations: [{ code: en, name: Authorized, customerName: Authorization hold }], position: 20 }
+  - { code: PP, translations: [{ code: en, name: Partially Paid, customerName: Partially Paid }], position: 30 }
+  - { code: P, translations: [{ code: en, name: Paid, customerName: Paid }], position: 40 }
+  - { code: D, translations: [{ code: en, name: Declined, customerName: Declined }], position: 50 }
+  - { code: C, translations: [{ code: en, name: Cancelled, customerName: Cancelled }], position: 60 }
+  - { code: R, translations: [{ code: en, name: Refunded, customerName: Refunded }], position: 70 }
+
+XLite\Model\Order\Status\Shipping:
+  - { code: N, translations: [{ code: en, name: New, customerName: New }], position: 10 }
+  - { code: P, translations: [{ code: en, name: Processing, customerName: Processing }], position: 20 }
+  - { code: S, translations: [{ code: en, name: Shipped, customerName: Shipped }], position: 30 }
+  - { code: D, translations: [{ code: en, name: Delivered, customerName: Delivered }], position: 40 }
+  - { code: WND, translations: [{ code: en, name: Will Not Deliver, customerName: Will Not Deliver }], position: 50 }
+  - { code: R, translations: [{ code: en, name: Returned, customerName: Returned }], position: 60 }
+
+XLite\Model\Order\Status\Property:
+  - { paymentStatus: { code: A }, shippingStatus: { code: N }, incStock: false}
+  - { paymentStatus: { code: A }, shippingStatus: { code: P }, incStock: false}
+  - { paymentStatus: { code: A }, shippingStatus: { code: S }, incStock: false}
+  - { paymentStatus: { code: A }, shippingStatus: { code: D }, incStock: false}
+  - { paymentStatus: { code: A }, shippingStatus: { code: WND }, incStock: false}
+  - { paymentStatus: { code: A }, shippingStatus: { code: R }, incStock: false}
+  - { paymentStatus: { code: PP }, shippingStatus: { code: N }, incStock: false}
+  - { paymentStatus: { code: PP }, shippingStatus: { code: P }, incStock: false}
+  - { paymentStatus: { code: PP }, shippingStatus: { code: S }, incStock: false}
+  - { paymentStatus: { code: PP }, shippingStatus: { code: D }, incStock: false}
+  - { paymentStatus: { code: PP }, shippingStatus: { code: WND }, incStock: false}
+  - { paymentStatus: { code: PP }, shippingStatus: { code: R }, incStock: false}
+  - { paymentStatus: { code: P }, shippingStatus: { code: N }, incStock: false}
+  - { paymentStatus: { code: P }, shippingStatus: { code: P }, incStock: false}
+  - { paymentStatus: { code: P }, shippingStatus: { code: S }, incStock: false}
+  - { paymentStatus: { code: P }, shippingStatus: { code: D }, incStock: false}
+  - { paymentStatus: { code: P }, shippingStatus: { code: WND }, incStock: false}
+  - { paymentStatus: { code: P }, shippingStatus: { code: R }, incStock: false}
+  - { paymentStatus: { code: D }, shippingStatus: { code: N }, incStock: true}
+  - { paymentStatus: { code: D }, shippingStatus: { code: P }, incStock: true}
+  - { paymentStatus: { code: D }, shippingStatus: { code: S }, incStock: true}
+  - { paymentStatus: { code: D }, shippingStatus: { code: D }, incStock: true}
+  - { paymentStatus: { code: D }, shippingStatus: { code: WND }, incStock: true}
+  - { paymentStatus: { code: D }, shippingStatus: { code: R }, incStock: true}
+  - { paymentStatus: { code: C }, shippingStatus: { code: N }, incStock: true}
+  - { paymentStatus: { code: C }, shippingStatus: { code: P }, incStock: true}
+  - { paymentStatus: { code: C }, shippingStatus: { code: S }, incStock: true}
+  - { paymentStatus: { code: C }, shippingStatus: { code: D }, incStock: true}
+  - { paymentStatus: { code: C }, shippingStatus: { code: WND }, incStock: true}
+  - { paymentStatus: { code: C }, shippingStatus: { code: R }, incStock: true}
+  - { paymentStatus: { code: Q }, shippingStatus: { code: N }, incStock: false}
+  - { paymentStatus: { code: Q }, shippingStatus: { code: P }, incStock: false}
+  - { paymentStatus: { code: Q }, shippingStatus: { code: S }, incStock: false}
+  - { paymentStatus: { code: Q }, shippingStatus: { code: D }, incStock: false}
+  - { paymentStatus: { code: Q }, shippingStatus: { code: WND }, incStock: false}
+  - { paymentStatus: { code: Q }, shippingStatus: { code: R }, incStock: false}
+  - { paymentStatus: { code: R }, shippingStatus: { code: N }, incStock: true}
+  - { paymentStatus: { code: R }, shippingStatus: { code: P }, incStock: true}
+  - { paymentStatus: { code: R }, shippingStatus: { code: S }, incStock: false}
+  - { paymentStatus: { code: R }, shippingStatus: { code: D }, incStock: false}
+  - { paymentStatus: { code: R }, shippingStatus: { code: WND }, incStock: true}
+  - { paymentStatus: { code: R }, shippingStatus: { code: R }, incStock: true}
+
+XLite\Model\Notification:
+  - { templatesDirectory: failed_admin_login, availableForAdmin: true, availableForCustomer: false, enabledForAdmin: true, enabledForCustomer: false, translations: [{ code: en, name: Failed admin login, description: "The notification is sent to the email address of the admin user for whose account failed login attempts have been detected several times in a row. A copy of the message is also sent to the store’s super admin user.", adminSubject: WARNING! Administrator login failure, adminText: Failed administrator login detected. }]}
+  - { templatesDirectory: low_limit_warning, availableForAdmin: false, availableForCustomer: false, enabledForAdmin: true, enabledForCustomer: false, translations: [{ code: en, name: Low limit warning, description: "This message is used to notify the administrator when the stock level of a product reaches the low stock limit as specified in the product details.", adminSubject: Low stock warning, adminText: "The inventory level of a product in your store has reached the low limit." }]}
+  - { templatesDirectory: order_advanced_changed, availableForAdmin: false, availableForCustomer: true, enabledForAdmin: false, enabledForCustomer: true, translations: [{ code: en, name: Order changed with advanced order management, description: "This message is sent to notify the customer of any changes made to their order by an administrator using the advanced order management feature.", customerSubject: Your order has been changed, customerText: "Your order has been changed by customer service. Here are the details of your order:" }]}
+  - { templatesDirectory: order_canceled, availableForAdmin: true, availableForCustomer: true, enabledForAdmin: true, enabledForCustomer: true, translations: [{ code: en, name: Order canceled, description: "This notification is sent to both the administrator and customer when an order gets the status Canceled.", customerSubject: Your order has been canceled, customerText: Your order has been canceled., adminSubject: Order has been canceled, adminText: Order has been canceled. }]}
+  - { templatesDirectory: order_changed, availableForAdmin: true, availableForCustomer: true, enabledForAdmin: true, enabledForCustomer: true, translations: [{ code: en, name: Order changed, description: "This notification is sent to both the administrator and customer when the status of an order is updated - in the event that no other type of notification is sent.", customerSubject: Your order has been changed, customerText: "Your order has been changed. Here are the details of your order:", adminSubject: Order has been changed, adminText: Order has been changed. }]}
+  - { templatesDirectory: order_created, availableForAdmin: true, availableForCustomer: true, enabledForAdmin: false, enabledForCustomer: false, translations: [{ code: en, name: Order created, description: "This notification is sent to both the administrator and customer when a new order is created (Disabled by default).", customerSubject: Order has been created, customerText: "Thank you for shopping with us! We received your order.<br />You will receive an order confirmation once your order is processed.", adminSubject: Order has been created, adminText: Order has been created. }]}
+  - { templatesDirectory: order_failed, availableForAdmin: true, availableForCustomer: true, enabledForAdmin: true, enabledForCustomer: true, translations: [{ code: en, name: Order declined, description: "This notification is sent to both the administrator and customer when an order gets the status Declined.", customerSubject: Your order has been declined, customerText: "The status of your order has been changed to \"Declined\". This could be for one of the following reasons:<br />1) The order was declined by the store administrator.<br />2) The payment could not be processed at the time of order placement.<br />For more information, please contact the store administrator.", adminSubject: Order has been declined, adminText: Order has been declined. }]}
+  - { templatesDirectory: order_processed, availableForAdmin: true, availableForCustomer: true, enabledForAdmin: true, enabledForCustomer: true, translations: [{ code: en, name: Order processed, description: "This notification is sent to both the administrator and customer when an order gets the status Paid.", customerSubject: Order confirmation, customerText: "Your order has been processed. Thank you for your business.<br />We will notify you by email of any further order status updates.", adminSubject: Order has been processed, adminText: Order has been processed. }]}
+  - { templatesDirectory: order_shipped, availableForAdmin: false, availableForCustomer: true, enabledForAdmin: false, enabledForCustomer: true, translations: [{ code: en, name: Order shipped, description: "This notification is sent to both the administrator and customer when an order gets the status Shipped.", customerSubject: Your order has been shipped, customerText: "Your order has been shipped. Thank you for your business.<br />Please come back soon!" }]}
+  - { templatesDirectory: order_tracking_information, availableForAdmin: false, availableForCustomer: false, enabledForAdmin: false, enabledForCustomer: true, translations: [{ code: en, name: Order tracking information, description: 'This notification is sent to the customer when an administrator clicks the "Send tracking information to customer" button.', customerSubject: Your order tracking information, customerText: "Here are the tracking details for your order" }]}
+  - { templatesDirectory: profile_created, availableForAdmin: true, availableForCustomer: true, enabledForAdmin: false, enabledForCustomer: true, translations: [{ code: en, name: User profile created, description: "This notification is sent to both the administrator and customer when a new customer profile is created.", customerSubject: Welcome!, customerText: Thank you for registering with us., adminSubject: New user registration, adminText: "A new user profile has been registered:" }]}
+  - { templatesDirectory: profile_deleted, availableForAdmin: true, availableForCustomer: false, enabledForAdmin: false, enabledForCustomer: false, translations: [{ code: en, name: User profile deleted, description: "This notification is sent to the administrator when a customer profile is deleted.", adminSubject: User profile has been deleted, adminText: "The following user profile has been deleted:" }]}
+  - { templatesDirectory: profile_modified, availableForAdmin: true, availableForCustomer: true, enabledForAdmin: false, enabledForCustomer: true, translations: [{ code: en, name: User profile modified, description: "This notification is sent to both the administrator and customer when a user profile is updated.", customerSubject: Your profile has been modified, customerText: "Your profile has been modified. To view your profile information, log in at our site.", adminSubject: User profile has been modified, adminText: The user profile has been modified. }]}
+  - { templatesDirectory: recover_password_request, availableForAdmin: true, availableForCustomer: true, enabledForAdmin: true, enabledForCustomer: true, translations: [{ code: en, name: Password reset request, description: "This notification is sent to the user when a password reset is requested for their account.", customerSubject: Confirm password reset request, customerText: "<p>You have received this message because you requested to reset your forgotten password.<br />If you did not submit such a request, it might mean that somebody was trying to gain access to your account.</p><p>To confirm that this request was submitted by you, click on the link below<br/>(If the link does not work, please copy and paste the entire URL into your browser's address bar and press Enter).</p>", adminSubject: Confirm password reset request, adminText: "<p>You have received this message because you requested to reset your forgotten password.<br />If you did not submit such a request, it might mean that somebody was trying to gain access to your account.</p><p>To confirm that this request was submitted by you, click on the link below<br/>(If the link does not work, please copy and paste the entire URL into your browser's address bar and press Enter).</p>" }]}
+  - { templatesDirectory: register_anonymous, availableForAdmin: false, availableForCustomer: true, enabledForAdmin: false, enabledForCustomer: true, translations: [{ code: en, name: User account created for guest buyer based on order info, description: "This notification is sent to the customer when a customer profile is created for them by the store administrator based on a previously created order.", customerSubject: User account created, customerText: "<p>Thank you for shopping with us! We noticed that one or more orders you made at our store were placed using guest checkout. We appreciate your business and look forward to continue serving you in the future. For your convenience, we created an account for you at our store. The account stores all the information about your previous orders with us.</p><p>To log in to your account, please use the following credentials:<br />(The password can be changed in your account profile.)</p>" }]}
+  - { templatesDirectory: failed_transaction, availableForAdmin: true, availableForCustomer: false, enabledForAdmin: true, enabledForCustomer: false, translations: [{ code: en, name: Failed transaction, description: "This notification is sent to the administrator if payment transaction was failed", adminSubject: Failed transaction, adminText: "" }]}
+
+XLite\Model\ImageSettings:
+  directives: { insert: true }
+  - model: XLite\Model\Image\Product\Image
+    code: Default
+    width: 300
+    height: 300
+  - model: XLite\Model\Image\Product\Image
+    code: LGThumbnailList
+    width: 160
+    height: 160
+  - model: XLite\Model\Image\Product\Image
+    code: LGThumbnailGrid
+    width: 160
+    height: 160
+  - model: XLite\Model\Image\Category\Image
+    code: Default
+    width: 160
+    height: 160
+
+XLite\Model\SearchFilter:
+  - filterKey: search-filter-order_list
+    translations: [{ code: en, name: Unpaid }, { code: ru, name: Не оплаченные }]
+    parameters: { paymentStatus: [1,2,3], shippingStatus: [] }
+  - filterKey: search-filter-order_list
+    translations: [{ code: en, name: Paid but not shipped }, { code: ru, name: Оплаченные, но не отправленные }]
+    parameters: { paymentStatus: [4], shippingStatus: [1,2] }

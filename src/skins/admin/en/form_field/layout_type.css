@@ -1,0 +1,46 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Layout type widget style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.layout-types {
+  padding: 5px;
+  display: inline-block;
+  line-height: 0;
+}
+
+.layout-types .hidden-field {
+  display: none;
+}
+
+.layout-type-selector .table-value {
+  display: block;
+}
+
+.layout-types .layout-type {
+  display: inline-block;
+  border: 1px solid #d6d9dc;
+  padding: 3px 2px;
+  margin-right: 6px;
+  cursor: pointer;
+}
+
+.layout-types .layout-type.selected,
+.layout-types .layout-type.selected:hover {
+  border-color: #f69c3b;
+  cursor: default;
+}
+
+.layout-types .layout-type:hover {
+  border-color: #64c1ee;
+}
+
+.layout-types .layout-type svg {
+  width: 50px;
+  height: 50px;
+  display: block;
+}

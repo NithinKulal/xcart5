@@ -1,0 +1,35 @@
+{##
+ # Top selling products block template
+ #}
+
+{% if not this.isEmptyStats() %}
+
+<div class="top-sellers">
+
+  {% for period, name in this.getOptions() %}
+  {% if this.isSelectedPeriod(period) %}
+    <div id="period-{{ period|raw }}" class="block-container">
+      {{ widget('\\XLite\\View\\ItemsList\\Model\\Product\\Admin\\TopSellers', period=period, products_limit='5') }}
+    </div>
+  {% endif %}
+  {% endfor %}
+
+  <div class="period-box">
+    <span class="label">{{ t('For the period') }}</span>
+    <span class="field">
+      <select name="period">
+        {% for period, name in this.getOptions() %}
+        <option value="{{ period }}" {% if this.isSelectedPeriod(period) %}selected="selected"{% endif %}>{{ t(name) }}</option>
+        {% endfor %}
+      </select>
+    </span>
+  </div>
+
+</div>
+
+{% else %}
+
+<div class="empty-list">{{ t('No products sold yet') }}</div>
+
+{% endif %}
+

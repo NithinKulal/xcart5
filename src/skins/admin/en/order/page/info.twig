@@ -1,0 +1,6 @@
+{##
+ # Order info
+ #}
+<div class="order-info{% if not this.isOrderEditable() %} not-editable{% endif %}" data-e="{{ this.order.currency.e }}" data-order-number="{{ this.order.orderNumber }}">
+  {{ widget_list('order') }}
+</div>

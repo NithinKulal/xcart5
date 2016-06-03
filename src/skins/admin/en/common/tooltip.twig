@@ -1,0 +1,22 @@
+{##
+ # Tooltip widget
+ #}
+
+{% spaceless %}
+<span
+        data-toggle="popover"
+        data-trigger="hover"
+        data-placement="{{ this.getParam('placement') }}"
+        data-content="{% if this.getParam('helpWidget') %}{{  this.getParam('helpWidget') }}{% else  %}{{ this.getParam('text') }}{% endif %}"
+        data-html="true"
+        v-xlite-tooltip
+        class="tooltip-main">
+
+{% if this.isImageTag() %}
+  <i {{ this.getAttributesCode()|raw }}></i>
+{% else %}
+  <span {{ this.getAttributesCode()|raw }}>{{ this.getParam('caption') }}</span>
+{% endif %}
+
+</span>
+{% endspaceless %}

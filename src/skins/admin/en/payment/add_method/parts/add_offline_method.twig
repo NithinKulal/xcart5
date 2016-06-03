@@ -1,0 +1,17 @@
+{##
+ # Add offline method
+ #
+ # @ListChild (list="payment.method.add.offline")
+ #}
+
+{% form 'XLite\\View\\Form\\Payment\\Method\\Admin\\AddOfflineMethod' with {className: 'add-offline-method validationEngine'} %}
+
+  <ul class="table">
+    <li>{{ widget('XLite\\View\\FormField\\Input\\Text', fieldName='name', label=t('Name'), required='true') }}</li>
+    <li>{{ widget('XLite\\View\\FormField\\Textarea\\Simple', fieldName='instruction', label=t('Payment instructions'), help=t('These instructions will appear below the order invoice on the page which customers see after they confirm their order.')) }}</li>
+    <li>{{ widget('XLite\\View\\FormField\\Textarea\\Simple', fieldName='description', label=t('Description'), help=t('Here you can define how your payment methods will look in customer area.')) }}</li>
+  </ul>
+
+  {{ widget('XLite\\View\\Button\\Submit', label=t('Add'), style='action') }}
+
+{% endform %}

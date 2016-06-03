@@ -1,0 +1,109 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * CSS classes
+ *
+ * @author    Qualiteam software Ltd <info@x-cart.com>
+ * @copyright Copyright (c) 2011-2016 Qualiteam software Ltd <info@x-cart.com>. All rights reserved
+ * @license   http://www.x-cart.com/license-agreement.html X-Cart 5 License Agreement
+ * @link      http://www.x-cart.com/
+ */
+
+iframe#xpc_iframe {
+  width: 100%;
+  border: 0px;
+  height: 335px;
+  margin-top: 10px;
+}
+
+div.save-card-box {
+  text-align: center;
+}
+
+div.save-card-box label {
+  font-size: 14px;
+  color: #333;
+}
+
+div.saved-cards-box {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+ul.saved-cards li.hidden,
+ul.saved-cards.single input {
+  display: none;
+}
+
+ul.saved-cards li {
+  list-style: none;
+}
+
+ul.saved-cards li label {
+  cursor: pointer;
+}
+
+ul.saved-cards li label input {
+  vertical-align: top;
+  margin-top: 4px;
+}
+
+ul.saved-cards span.card-icon-container {
+  display: inline-block;
+  height: 21px;
+  width: 42px;
+  overflow: hidden;
+}
+
+ul.saved-cards span.number {
+  display: inline-block;
+  height: 21px;
+  line-height: 21px;
+  vertical-align: top;
+}
+
+ul.saved-cards span.card {
+  display: inline-block;
+  width: 140px;
+  height: 70px;
+  zoom: 0.3;
+  -moz-transform: scale(0.3);
+  -moz-transform-origin: 0 0 0;
+}
+
+ul.saved-cards span.card.mc {
+  background: url(card_types.png) 0px 0px no-repeat;
+}
+
+ul.saved-cards span.card.visa {
+  background: url(card_types.png) 0px -71px no-repeat;
+}
+
+ul.saved-cards span.card.jcb {
+  background: url(card_types.png) 0px -141px no-repeat;
+}
+
+ul.saved-cards span.card.amex {
+  background: url(card_types.png) 0px -211px no-repeat;
+}
+
+ul.saved-cards span.card.dc {
+  background: url(card_types.png) 0px -281px no-repeat;
+}
+
+ul.saved-cards span.card.dicl {
+  background: url(card_types.png) 0px -351px no-repeat;
+}
+
+ul.saved-cards span.card.sw {
+  background: url(card_types.png) 0px -421px no-repeat;
+}
+
+ul.saved-cards span.card.cup {
+  background: url(card_types.png) 0px -491px no-repeat;
+}
+
+ul.saved-cards span.card.bc {
+  background: url(card_types.png) 0px -561px  no-repeat;
+}
+

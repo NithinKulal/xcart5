@@ -1,0 +1,13 @@
+{##
+ # Slidebar
+ #}
+
+<nav id="slidebar">
+    <ul>
+        <li class="slidebar-categories">
+            <span data-toggle="dropdown">{{ t('Categories') }}</span>
+            {{ widget_list('layout.header.categories') }}
+        </li>
+        {{ widget_list('header.menu', isSlidebar=true) }}
+    </ul>
+</nav>

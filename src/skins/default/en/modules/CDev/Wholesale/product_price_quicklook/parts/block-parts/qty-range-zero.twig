@@ -1,0 +1,12 @@
+{##
+ # Wholesale prices table
+ #
+ # @ListChild (list="wholesale-quicklook.price.widgetlist", weight="20")
+ #}
+
+{% if this.wholesalePrice.getQuantityRangeEnd() == 0 %}
+  <td>
+    <span class="items-range">{{ this.wholesalePrice.getQuantityRangeBegin() }}</span>
+    <span class="items-label">{{ t('or more items') }}</span>
+  </td>
+{% endif %}

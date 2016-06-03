@@ -1,0 +1,10 @@
+{##
+ # Order invoice pin codes
+ #}
+
+<div class="invoice-pin-codes">
+  <span class="header">{{ t('PIN') }}:</span>
+  {% for code in this.getPinCodes() %}
+    <span class="code">{{ code }}</span>
+  {% endfor %}
+</div>

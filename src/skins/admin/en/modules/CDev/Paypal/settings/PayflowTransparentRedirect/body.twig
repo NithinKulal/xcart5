@@ -1,0 +1,34 @@
+{##
+ # Settings template
+ #}
+
+{{ widget('\\XLite\\View\\Payment\\MethodStatus', method=this.getPaymentMethod()) }}
+
+<div class="payment-settings {{ this.paymentMethod.getServiceName() }}">
+
+  <div class="middle">
+
+    {{ widget('\\XLite\\Module\\CDev\\Paypal\\View\\Model\\PayflowTransparentRedirect', paymentMethod=this.getPaymentMethod()) }}
+
+    <div class="help">
+      <div class="logo-pfl"></div>
+
+      <div class="help-title">Accept Payments with Your Merchant Account</div>
+
+      <div class="help-text">PCI compliant payments on your site with Visa, MasterCard, American Express and Discover - without PayPal-hosted pages. Maintain full control over your customers' checkout experience by providing a credit card form that will post your customers' payment details from your site's native checkout page directly to the Gateway server.
+      </div>
+
+      <div class="links">
+        <div class="help-link">Don't have an account? <span class="external"><a href="{{ this.paymentMethod.getReferralPageURL() }}" target="_blank">Sign Up Now</a> <i class="icon fa fa-external-link"></i></span></div>
+        {% if this.paymentMethod.getKnowledgeBasePageURL() %}
+          <div class="help-link">Need instructions? <span class="external"><a href="{{ this.paymentMethod.getKnowledgeBasePageURL() }}" target="_blank">Show</a> <i class="icon fa fa-external-link"></i></span></div>
+        {% endif %}
+      </div>
+
+      <div class="help-text"><span class="external"><a href="{{ this.paymentMethod.getPartnerPageURL() }}" target="_blank">Get more information</a> <i class="icon fa fa-external-link"></i></span></div>
+
+    </div>
+
+  </div>
+
+</div>

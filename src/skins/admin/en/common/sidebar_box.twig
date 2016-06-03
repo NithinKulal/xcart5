@@ -1,0 +1,10 @@
+{##
+ # Side bar box
+ #}
+
+<div class="side-bar-box">
+  {% if this.getHead() %}
+    <h2>{{ t(this.getHead()) }}</h2>
+  {% endif %}
+  <div class="content">{% include this.getBody() %}</div>
+</div>

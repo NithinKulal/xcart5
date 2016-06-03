@@ -1,0 +1,16 @@
+{##
+ # Fastlane checkout shipping section
+ #}
+
+<div is='shipping-section' inline-template class="checkout_fastlane_section checkout_fastlane_section--shipping">
+	<h1 class="checkout_fastlane_section_heading">{{ t('Shipping method') }}</h1>
+	<div class="checkout_fastlane_section-left">
+		{{ widget_list('checkout_fastlane.sections.shipping.left') }}
+	</div>
+	<div class="checkout_fastlane_section-right">
+		{{ widget_list('checkout_fastlane.sections.shipping.right') }}
+  		<div class="clearfix visible-sm-block"></div>
+	</div>
+	<div class="clearfix"></div>
+	{{ widget_list('checkout_fastlane.sections.shipping.after') }}
+</div>

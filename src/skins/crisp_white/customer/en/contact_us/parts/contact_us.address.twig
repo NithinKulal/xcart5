@@ -1,0 +1,17 @@
+{##
+ # Contact us address links
+ #
+ # @ListChild (list="contact_us.parts", weight="10")
+ #}
+
+<ul class="contact_us-address_links">
+ 	{% if this.getLocation() %}
+		<li class="location">{{ this.getLocation() }}</li>
+	{% endif %}
+ 	{% if this.getPhone() %}
+		<li class="phone">{{ this.getPhone() }}</li>
+	{% endif %}
+ 	{% if this.getEmail() %}
+		<li class="email"><a href="mailto:{{ this.getEmail() }}">{{ this.getEmail() }}</a></li>
+	{% endif %}
+</ul>

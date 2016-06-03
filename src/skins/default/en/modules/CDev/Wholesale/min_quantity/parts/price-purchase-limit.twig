@@ -1,0 +1,12 @@
+{##
+ # Minimum quantity widget
+ #
+ # @ListChild (list="wholesale.minquantity", weight="10")
+ #}
+
+ <div class="wholesale-minimum-quantity-wrapper">
+   <span class="wholesale-minimum-quantity">
+     <span class="label">{{ t('Minimum purchase quantity') }}:</span>
+     <span class="unit-count">{{ this.getMinimumOrderQuantity() }} {{ t('units') }}</span>
+   </span>
+ </div>

@@ -1,0 +1,46 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+div.table-value.backup-value {
+  width: 90%;
+  border: 1px solid #999;
+  padding: 0;
+  display: inline-block;
+  margin-top: 20px;
+}
+
+#code_backup {
+  display: none;
+}
+
+#code_backup a.hide {
+  margin-left: 10px;
+  font-size: 14px;
+  position: relative;
+  top: 3px;
+}
+
+#code_backup_link a,
+#code_backup a.hide {
+  border-bottom: 1px #154e9c dotted;
+  text-decoration: none;
+}
+
+#code_backup_link {
+  position: relative;
+  top: 20px;
+  font-size: 17px;
+  background: transparent url(../../../../images/warning.png) no-repeat left top;
+  height: 28px;
+  padding: 5px 0 0 36px;
+}
+
+div.table-value.backup-value textarea {
+  width: 100%;
+}

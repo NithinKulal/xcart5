@@ -1,0 +1,11 @@
+{##
+ # Payment methods list : line : header : switcher : button
+ #}
+
+<div class="switch {{ this.style }}" title="{{ this.title }}">
+<span class="inactive">{{ t('paymentStatus.Inactive') }}</span>
+  {% if this.url %}<a href="{{ this.url }}">{% endif %}
+  <div><span class="fa fa-check"></span></div>
+  {% if this.url %}</a>{% endif %}
+<span class="active">{{ t('paymentStatus.Active') }}</span>
+</div>

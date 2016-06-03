@@ -1,0 +1,7 @@
+{##
+ # Form start
+ #}
+<form{% for paramName, paramValue in this.getFormAttributes() %} {{ paramName }}="{{ paramValue }}"{% endfor %}>
+  {% for paramName, paramValue in this.getFormParams() %}
+    <input type="hidden" name="{{ paramName }}" value="{{ paramValue }}" />
+  {% endfor %}

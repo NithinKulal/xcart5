@@ -1,0 +1,8 @@
+{##
+ # Switcher button
+ #}
+
+<input type="hidden" name="{{ this.getName() }}" value="{{ this.getEnabled() }}" />
+<button type="button" class="{{ this.getStyle() }}" title="{{ t(this.getTitle()) }}" data-lbl-enable="{{ t('Enable') }}" data-lbl-disable="{{ t('Disable') }}">
+  <img src="{{ asset('images/spacer.gif') }}" alt="" />
+</button>

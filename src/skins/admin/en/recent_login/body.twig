@@ -1,0 +1,24 @@
+{##
+ # "Recent login" page
+ #}
+
+<div class="items-list-table items-list">
+  <table class="list" cellspacing="0">
+    <thead>
+      <tr>
+        <th>{{ t('Date') }}</th>
+        <th>{{ t('Logged as') }}</th>
+      </tr>
+    </thead>
+    <tbody class="lines">
+    {% if this.recentAdmins %}
+      {% for recentAdmin in this.recentAdmins %}
+        <tr class="line">
+  		<td>{{ this.formatTime(recentAdmin.last_login)|raw }}</td>
+  		<td class="main">{{ recentAdmin.login|raw }}</td>
+  	  </tr>
+      {% endfor %}
+    {% endif %}
+    </tbody>
+  </table>
+</div>

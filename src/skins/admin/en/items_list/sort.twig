@@ -1,0 +1,20 @@
+{##
+ # ____file_title____
+ #}
+
+<div class="sort-order">
+  {% if this.isSortByModeSelected(this.sortByColumn) %}
+    <div class="part order-by">
+      <a
+        class="{% if this.isSortOrderAsc() %} asc-order{% else %} desc-order{% endif %}"
+        href="{{ this.getActionURL({(constant('PARAM_SORT_ORDER', this)): this.getSortOrderToChange()}) }}">
+        <span class="selected">{{ this.title|raw }}</span>
+      </a>
+    </div>
+  {% endif %}
+  {% if not this.isSortByModeSelected(this.sortByColumn) %}
+    <div class="part sort-crit">
+      <a class="{{ this.sortByColumn }}" href="{{ this.getActionURL({(constant('PARAM_SORT_BY', this)): this.sortByColumn}) }}">{{ this.title|raw }}</a>
+    </div>
+  {% endif %}
+</div>

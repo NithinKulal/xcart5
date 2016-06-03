@@ -1,0 +1,15 @@
+{##
+ # Canada Post post office details
+ #
+ # @ListChild (list="invoice.bottom.d2po", weight="10")
+ #}
+
+<strong>{{ t('Delivery to Post Office') }}</strong>
+
+<ul class="address-section capost-d2po-section">
+  <li class="address-field">{{ this.order.capostOffice.getName() }}</li>
+  <li class="address-street address-field">{{ this.order.capostOffice.getOfficeAddress() }},</li>
+  <li class="address-city address-field">{{ this.order.capostOffice.getCity() }},</li>
+  <li class="address-state address-field">{{ this.order.capostOffice.getProvince() }},</li>
+  <li class="address-zipcode address-field">{{ this.order.capostOffice.getPostalCode() }}</li>
+</ul>

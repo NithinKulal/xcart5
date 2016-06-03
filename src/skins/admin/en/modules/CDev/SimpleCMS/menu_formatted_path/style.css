@@ -1,0 +1,55 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Category formatted path style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.menu-formatted-path {
+  margin: 26px 0 -13px 0;
+}
+
+#page-title {
+  display: none;
+}
+
+.menu-formatted-path * {
+  color: #456583;
+  font-size: 26px;
+}
+
+.menu-formatted-path li {
+  display: inline-block;
+}
+
+.menu-formatted-path li:not(:last-child):after {
+  content: '\203A';
+  margin-right: 10px;
+  margin-left: 7px;
+  vertical-align: middle;
+  font-size: 23px;
+}
+
+.menu-formatted-path li a {
+  text-decoration: none;
+  vertical-align: middle;
+}
+
+.menu-formatted-path li a:hover {
+  text-decoration: underline;
+  color: #69a4c9;
+}
+
+.menu-formatted-path li:last-child a:hover {
+  text-decoration: none;
+  color: #191919;
+}
+
+.menu-formatted-path li:last-child a {
+  color: #191919;
+}
+
+
+

@@ -1,0 +1,38 @@
+{##
+ # Canada Post offices list
+ #}
+
+{% if this.isSelectedMethodSupportDeliveryToPO() %}
+
+  {% form '\\XLite\\Module\\XC\\CanadaPost\\View\\Form\\Checkout\\PostOffice' with {className: 'capost-offices-form'} %}
+
+    <div class="capost-offices-head">
+      <input type="hidden" name="capostDeliverToPO" value="0" />
+      <input type="checkbox" id="capost-deliver-to-po" name="capostDeliverToPO" {% if this.hasCartCapostOffice() %} checked="checked" {% endif %} value="1" />
+      <label for="capost-deliver-to-po">{{ t('Deliver to Post Office') }}</label>
+    </div>
+    
+    {% if this.getNearestCapostOffices() %}
+  
+      <ul class="capost-offices-list {% if this.isOfficesListVisible() %}offices-visible{% else %}offices-invisible{% endif %}">
+        {% for office in this.getNearestCapostOffices() %}
+          <li>
+            <input type="radio" id="capost-office-id-{{ office.getId() }}" name="capostOfficeId"{% if this.isCapostOfficeSelected(office) %} checked="checked"{% endif %} value="{{ office.getId() }}" />
+            <label for="capost-office-id-{{ office.getId() }}">
+              <span class="office-line office-title">{{ office.getName() }}<img src="{{ asset('images/spacer.gif') }}" alt="" class="fade" /></span>
+              <div class="office-line office-descr">{{ office.getOfficeAddress() }}</div>
+              <div class="office-line office-descr">{{ office.getCity() }}, {{ office.getProvince() }}, {{ office.getPostalCode() }}</div>
+            </label>
+          </li>
+        {% endfor %}
+      </ul>
+  
+    {% else %}
+
+      <p class="capost-offices-note">{{ t('There\'s no post offices available') }}</p>
+
+    {% endif %}
+
+  {% endform %}
+
+{% endif %}

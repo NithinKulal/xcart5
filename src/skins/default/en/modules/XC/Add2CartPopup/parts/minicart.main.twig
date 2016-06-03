@@ -1,0 +1,20 @@
+{##
+ # Add to Cart popup page: minicart box template
+ #
+ # @ListChild (list="add2cart_popup.minicart", weight="200")
+ #}
+
+<div class="minicart-box">
+
+  <div class="cart-tray">
+    <div class="tray-area">
+
+      <div class="centered-tray-box">
+        <div class="tray-status">{{ t('_X_ items', {'count': this.cart.countQuantity()})|raw }}</div>
+      </div>
+    </div>
+  </div>
+
+  {{ widget_list('add2cart_popup.minicart.ext') }}
+
+</div>

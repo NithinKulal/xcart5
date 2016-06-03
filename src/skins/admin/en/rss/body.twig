@@ -1,0 +1,16 @@
+{##
+ # RSS
+ #}
+<div class="feeds clearfix">
+  <h2>{{ t('X-Cart News') }}</h2>
+  <ul>
+    {% for feed in this.getFeeds() %}
+      <li>
+        <h3>{{ this.formatDate(feed.date) }}</h3>
+        <a href="{{ feed.link }}" target="_blank">{{ feed.title }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+  <a href="{{ this.getRSSFeedUrl() }}" target="_blank" class="rss-feed">{{ t('RSS feed') }}</a>
+  <a href="{{ this.getBlogUrl() }}" target="_blank" class="blog">{{ t('Our Blog') }}</a>
+</div>

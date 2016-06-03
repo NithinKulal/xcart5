@@ -1,0 +1,16 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\LanguageLabel:
+  - { name: "Update quantity", translations: [{ code: en, label: "Update quantity" },{ code: ru, label: "Обновление количества" }] }
+  - { name: "Products updated", translations: [{ code: en, label: "Products updated" },{ code: ru, label: "Обновлено товаров" }] }
+  - { name: "The script found {{number}} errors during update inventory", translations: [{ code: en, label: "The script found {{number}} problem(s) during update inventory" },{ code: ru, label: "В процессе обновления были обнаружены ошибки ({{number}})" }] }
+  - { name: 'Product with SKU "{{value}}" not found', translations: [{ code: en, label: 'Product with SKU "{{value}}" not found' },{ code: ru, label: 'Товар с артикулом "{{value}}" не найден' }] }
+  - { name: 'Wrong product quantity value format ("{{value}}")', translations: [{ code: en, label: 'Wrong product quantity value format ("{{value}}")' },{ code: ru, label: 'Некорректный формат в поле qty ("{{value}}")' }] }
+  - { name: "Products and product variants updated", translations: [{ code: en, label: "Products and product variants updated" },{ code: ru, label: "Обновлено товаров и вариантов товаров" }] }
+  - { name: 'Product or product variant with SKU "{{value}}" not found', translations: [{ code: en, label: 'Product or product variant with SKU "{{value}}" not found' },{ code: ru, label: 'Товар или вариант товара с артикулом "{{value}}" не найдены' }] }
+  - { name: "Update quantity import guide", translations: [{ code: en, label: "Update quantity import guide" },{ code: ru, label: "Руководство по обновлению количества" }] }

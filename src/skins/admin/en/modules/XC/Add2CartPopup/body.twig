@@ -1,0 +1,24 @@
+{##
+ # Add2CartPopup module settings template
+ #}
+
+{% form '\\XLite\\Module\\XC\\Add2CartPopup\\View\\Form\\Options' %}
+
+<div class="a2cp-options">
+  <input type="checkbox" id="a2cp_enable_for_dropping" name="a2cp_enable_for_dropping" {% if this.config.XC.Add2CartPopup.a2cp_enable_for_dropping %}checked="checked"{% endif %} />
+  <label for="a2cp_enable_for_dropping">{{ t('Enable popup after product added to cart via drag-n-drop') }}</label>
+</div>
+
+<div class="sources-note">
+  {{ t('Please choose the sources of products that will be displayed in the \'Customer also bought\' section of the \'Add to Cart\' popup dialog and set the priority of sources.') }}
+</div>
+
+<div class="sources-block">
+
+    {{ widget('\\XLite\\Module\\XC\\Add2CartPopup\\View\\Options') }}
+
+</div>
+
+{% endform %}
+
+<div class="sources-promo">{{ this.getPromotionMessage()|raw }}</div>

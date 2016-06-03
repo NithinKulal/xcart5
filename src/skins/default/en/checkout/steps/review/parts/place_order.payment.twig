@@ -1,0 +1,9 @@
+{##
+ # Checkout : order review step : selected state : place order : payment template
+ #}
+
+<div class="payment-tpl" v-el:payment>
+  {% if this.getPaymentTemplate() %}
+    {% include this.getPaymentTemplate() %}
+  {% endif %}
+</div>

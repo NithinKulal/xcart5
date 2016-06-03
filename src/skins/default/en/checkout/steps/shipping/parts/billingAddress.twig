@@ -1,0 +1,12 @@
+{##
+ # Checkout : payment step : selected state : address
+ #}
+
+<div class="substep step-billing-address {% if this.isFormVisible() %}address-visible{% else %}address-invisible{% endif %}">
+  <div class="head-h3"><span class="bullet">{{ this.getSubstepNumber('billingAddress') }}</span>{{ t('Billing address') }}</div>
+ 
+ {% if this.isDisplayAddressButton() %}
+   <a href="{{ url('select_address', '', {'atype': 'b'}) }}" class="address-book">{{ t('Address book') }}</a>
+ {% endif %}
+ {% include 'checkout/steps/shipping/parts/address.billing.twig' %}
+</div>

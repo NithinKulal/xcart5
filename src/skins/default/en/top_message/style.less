@@ -1,0 +1,154 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Top messages style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.status-messages-wrapper {
+  @media (max-width: @screen-sm-min) {
+    width: 100%;
+    left: 0;
+    top: 40px;
+  }
+  @media (min-width: @screen-sm-min) {
+    width: @container-sm - @grid-gutter-width;
+  }
+  @media (min-width: @screen-md-min) {
+    width: @container-md - @grid-gutter-width;
+  }
+  @media (min-width: @screen-lg-min) {
+    width: @container-lg - @grid-gutter-width;
+  }
+}
+
+#status-messages {
+  @media (max-width: @screen-xs-min) {
+    width: 100%;
+  }
+}
+
+@media (max-width: @screen-xs-min) {
+  #page #status-messages,
+  #page #status-messages ul,
+  #page #status-messages ul li:last-child
+  {
+    -moz-border-radius-bottomleft: 0;
+    -webkit-border-bottom-left-radius: 0;
+    border-bottom-left-radius: 0;
+    -moz-border-radius-bottomright: 0;
+    -webkit-border-bottom-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
+
+.status-messages-wrapper {
+  position: fixed;
+  z-index: 1300000;
+  display: table;
+  pointer-events: none;
+}
+
+.status-messages-wrapper2 {
+  display: table-cell;
+  text-align: center;
+}
+
+#status-messages
+{
+  top: 0;
+  margin: 0 auto;
+  font-size: 12px;
+  display: inline-block;
+  text-align: left;
+  vertical-align: top;
+  pointer-events: auto;
+}
+
+#status-messages,
+#status-messages ul,
+#status-messages ul li:last-child
+{
+  -moz-border-radius-bottomleft: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  -moz-border-radius-bottomright: 5px;
+  -webkit-border-bottom-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+#status-messages a.close
+{
+  display: block;
+  position: relative;
+  right: 8px;
+  top: 5px;
+  width: 15px;
+  height: 15px;
+  padding: 0;
+  background: transparent none;
+  opacity: 1;
+  font-size: 12px;
+  line-height: normal;
+}
+
+#status-messages a.close img
+{
+  background: transparent url(../images/icon_cross_white.png) no-repeat left top;
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  padding: 0;
+}
+
+#status-messages ul
+{
+  margin: 0;
+  padding: 0;
+}
+
+#status-messages li
+{
+  list-style: none;
+  background-image: none;
+  padding: 7px 31px 6px 1em;
+  margin: 0;
+}
+
+#status-messages .status
+{
+}
+
+#status-messages,
+#status-messages a
+{
+  background-color: #eeede8;
+  color: #1b5d8e;
+}
+
+#status-messages .info,
+#status-messages .info a
+{
+  background-color: #bae8aa;
+  color: #374334;
+}
+
+#status-messages .warning,
+#status-messages .warning a
+{
+  background-color: #eedeb4;
+  color: #94572a;
+}
+
+#status-messages .error,
+#status-messages .error a
+{
+  background-color: #e65e57;
+  color: #fff;
+}
+
+#status-messages li em {
+  margin-right: 6px;
+}

@@ -1,0 +1,18 @@
+{##
+ # Redirect URL protocol selector selector
+ #}
+
+{% if this.isEditableReturnURLProtocol() %}
+  <div class="fa fa-pencil-square-o toggle-edit"></div>
+{% endif %}
+<div class="view">{{ this.getSignInReturnURL() }}</div>
+{% if this.isEditableReturnURLProtocol() %}
+  <div class="value" style="display: none;">
+  <select id="{{ this.getFieldId() }}" name="{{ this.getName() }}"{{ this.getAttributesCode()|raw }}>
+    {% for optionValue, optionLabel in this.getOptions() %}
+      <option value="{{ optionValue }}" {% if optionValue == this.getValue() %} selected="selected" {% endif %}>{{ optionLabel|raw }}</option>
+    {% endfor %}
+  </select>
+  <div>{{ this.getSignInReturnURL(this.false) }}</div>
+  </div>
+{% endif %}

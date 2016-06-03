@@ -1,0 +1,10 @@
+{##
+ # Cached JS part
+ #
+ # @ListChild (list="jscontainer.js", weight="200")
+ #}
+{% if this.doJSAggregation() %}
+{% for file in this.getAggregateJSResources() %}
+  <script type="text/javascript" src="{{ this.getResourceURL(file.url) }}"></script>
+{% endfor %}
+{% endif %}

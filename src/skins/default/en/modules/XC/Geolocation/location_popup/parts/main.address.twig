@@ -1,0 +1,16 @@
+{##
+ # Location select : address
+ #
+ # @ListChild (list="location-select.main", weight="10")
+ #}
+{% form 'XLite\\Module\\XC\\Geolocation\\View\\Form\\LocationSelect' with {className: 'location'} %}
+
+  <ul class="form">
+    {{ widget_list('location-select.address') }}
+  </ul>
+
+  <div class="buttons main">
+    {{ widget('XLite\\View\\Button\\Submit', label='Save location') }}
+  </div>
+
+{% endform %}

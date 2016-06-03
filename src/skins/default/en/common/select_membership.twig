@@ -1,0 +1,15 @@
+{##
+ # ____file_title____
+ #}
+<select class="FixedSelect" name="{{ this.field }}" size="1" id="{{ this.field }}">
+   {% if this.allOption %}
+     <option value="%" {% if this.isSelected('%', this.value) %} selected="selected" {% endif %}>{{ t('All') }}</option>
+   {% endif %}
+   <option value="" {% if this.isSelected('', this.value) %} selected="selected" {% endif %}>{{ t('None') }}</option>
+   {% if this.pendingOption %}
+     <option value="pending_membership" {% if this.isSelected('pending_membership', this.value) %} selected="selected" {% endif %}>{{ t('Pending membership') }}</option>
+   {% endif %}
+   {% for membership in this.config.Memberships.memberships %}
+     <option {% if this.isSelected(membership, this.value) %} selected="selected" {% endif %} value="{{ membership }}">{{ membership }}</option>
+   {% endfor %}
+</select>

@@ -1,0 +1,32 @@
+{##
+ # ____file_title____
+ #}
+{% if this.hasResults() %}
+  <div class="widget items-list widgetclass-{{ this.getWidgetClass() }} widgettarget-{{ this.getWidgetTarget() }} sessioncell-{{ this.getSessionCell() }}">
+  
+    {{ this.displayCommentedData(this.getItemsListParams()) }}
+  
+    {% if this.pager.isVisible() %}
+      <div class="table-pager pager-top {{ this.pager.getCSSClasses() }}">{{ this.pager.display() }}</div>
+    {% endif %}
+  
+    {% if this.isHeaderVisible() %}
+      <div class="list-header">{{ widget_list('header', type='inherited') }}</div>
+    {% endif %}
+  
+    {% include this.getPageBodyTemplate() %}
+  
+    {% if this.pager.isVisibleBottom() %}
+      <div class="table-pager pager-bottom {{ this.pager.getCSSClasses() }}">{{ this.pager.display() }}</div>
+    {% endif %}
+  
+    {% if this.isFooterVisible() %}
+      <div class="list-footer">{{ widget_list('footer', type='inherited') }}</div>
+    {% endif %}
+  
+  </div>
+{% endif %}
+
+{% if this.isEmptyListTemplateVisible() %}
+  {% include this.getEmptyListTemplate() %}
+{% endif %}

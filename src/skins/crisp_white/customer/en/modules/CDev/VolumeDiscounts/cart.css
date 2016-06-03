@@ -1,0 +1,56 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Volume discounts styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+li.volume-discounts {
+  text-align: left;
+}
+
+.volume-discounts-promo {
+  margin-top: 20px;
+  padding: 0px;
+  white-space: normal;
+  text-align: left;
+  line-height: 1em;
+}
+
+.volume-discounts-promo .banner {
+  display: inline-block;
+  float: left;
+  margin-right: 16px;
+}
+
+.volume-discounts-promo .banner .banner-box {
+  background-color: #6abd0a; /* color-green */
+  border-radius: 2px;
+  height: 40px;
+  width: 40px;
+  text-transform: uppercase;
+  display: table-cell;
+  vertical-align: middle;
+  line-height: 20px;
+  text-align: center;
+  font-size: 0px;
+  color: white;
+}
+
+.volume-discounts-promo .banner .banner-box:before {
+  font-size: 25px;
+  content: '%';
+  font-weight: 300;
+  vertical-align: middle;
+  line-height: 21px;
+}
+
+.volume-discounts-promo .next {
+  color: #6abd0a; /* color-green */
+  text-align: left;
+  vertical-align: middle;
+  line-height: 20px;
+}
+

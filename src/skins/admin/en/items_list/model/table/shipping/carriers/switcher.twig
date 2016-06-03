@@ -1,0 +1,8 @@
+{##
+ # Entity switcher
+ #}
+{% if this.showConfigurationWarning(this.entity) %}
+<div class="warning" title="{{ t('Shipping method is not configured.') }}"><a href="{{ this.getSettingsURL(this.entity) }}" class="fa fa-exclamation-circle"></a></div>
+{% else %}
+{% include 'items_list/model/table/parts/switcher.twig' %}
+{% endif %}

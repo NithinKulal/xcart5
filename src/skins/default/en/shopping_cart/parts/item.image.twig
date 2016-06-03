@@ -1,0 +1,11 @@
+{##
+ # Shopping cart item : thumbnail
+ #
+ # @ListChild (list="cart.item", weight="20")
+ #}
+{% if this.item.hasImage() %}
+  <td class="item-thumbnail"><a href="{{ this.item.getURL() }}">{{ widget('\\XLite\\View\\Image', image=this.item.getImage(), alt=this.item.getName(), maxWidth='80', maxHeight='80', centerImage='0') }}</a></td>
+{% endif %}
+{% if not this.item.hasImage() %}
+  <td class="item-thumbnail">&nbsp;</td>
+{% endif %}

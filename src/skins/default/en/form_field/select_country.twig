@@ -1,0 +1,9 @@
+{##
+ # Select state
+ #}
+<select id="{{ this.getFieldId() }}" name="{{ this.getName() }}"{{ this.getAttributesCode()|raw }} >
+  <option value="">{{ t('Select one') }}</option>
+  {% for optionValue in this.getOptions() %}
+    <option value="{{ optionValue.getCode() }}" {% if optionValue.getCode() == this.getValue() %} selected="selected" {% endif %}>{{ optionValue.getCountry()|raw }}</option>
+  {% endfor %}
+</select>

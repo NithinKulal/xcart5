@@ -1,0 +1,40 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Data dump
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\LanguageLabel:
+  - { name: "Quantity in stock", translations: [{ code: en, label: "Quantity in stock" }] }
+  - { name: "Sold", translations: [{ code: en, label: "Sold" }] }
+  - { name: "X PIN code duplicates ignored.", translations: [{ code: en, label: "{{count}} PIN code duplicates ignored." }] }
+  - { name: "X PIN codes created successfully.", translations: [{ code: en, label: "{{count}} PIN codes created successfully." }] }
+  - { name: "X PIN codes longer than Y characters ignored.", translations: [{ code: en, label: "{{count}} PIN codes longer than {{max}} characters ignored." }] }
+  - { name: "Could not assign X PIN codes to order #Y.", translations: [{ code: en, label: "Could not assign {{count}} PIN codes to order #{{orderId}}." }] }
+  - { name: "No valid code found.", translations: [{ code: en, label: "No valid code found." }] }
+  - { name: "PIN codes are generated automatically", translations: [{ code: en, label: "PIN codes are generated automatically" }] }
+  - { name: "PIN codes are defined manually", translations: [{ code: en, label: "PIN codes are defined manually" }] }
+  - { name: "PIN", translations: [{ code: en, label: "PIN" }] }
+  - { name: "Can not be disabled for products with manually defined PIN codes", translations: [{ code: en, label: "Cannot be disabled for products with manually defined PIN codes" }] }
+  - { name: "PIN codes enabled", translations: [{ code: en, label: "PIN codes enabled" }] }
+  - { name: "Cannot remove a sold PIN code", translations: [{ code: en, label: "Cannot remove a sold PIN code" }] }
+  - { name: "Sold PINs", translations: [{ code: en, label: "Sold PINs" }] }
+  - { name: "Remaining PINs", translations: [{ code: en, label: "Remaining PINs" }] }
+  - { name: "Order deleted", translations: [{ code: en, label: "Order deleted" }] }
+  - { name: "Please, type in the new PIN codes one per line.", translations: [{ code: en, label: "Please type in the new PIN codes one per line. PIN codes max length is 64 characters." }] }
+  - { name: "Quantity in stock is determined by the amount of the remaining PIN codes.", translations: [{ code: en, label: "Quantity in stock is determined by the amount of the remaining PIN codes defined on the PIN codes management page." }] }
+  - { name: "You will be able to add pin codes after saving changes.", translations: [{ code: en, label: "You will be able to add pin codes after saving changes." }] }
+  - { name: "No PIN codes found.", translations: [{ code: en, label: "No PIN codes found." }] }
+  - { name: "Quantity in stock is determined by the amount of the remaining PIN codes", translations: [{ code: en, label: "Quantity in stock is determined by the amount of the remaining PIN codes" }] }
+  - { name: "X PIN Codes were not assigned.", translations: [{ code: en, label: "{{count}} PIN Codes were not assigned." }] }
+  - { name: "No pin codes are bought yet", translations: [{ code: en, label: "No pin codes have been bought yet" }] }
+  - { name: "PIN codes data have been successfully updated", translations: [{ code: en, label: "PIN codes data has been successfully updated" }] }
+  - { name: "Unknown error occurred", translations: [{ code: en, label: "Unknown error occurred" }] }
+  - { name: "PIN code", translations: [{ code: en, label: "PIN code" }] }
+  - { name: "PIN codes", translations: [{ code: en, label: "PIN codes" }] }
+  - { name: 'Add PIN codes', translations: [{ code: en, label: 'Add PIN codes' }] }
+  - { name: 'Inventory tracking for product X will not be imported', translations: [{ code: en, label: 'Inventory tracking for product {{value}} will not be imported' }] }
+
+XLite\Model\Notification:
+  - { templatesDirectory: modules/CDev/PINCodes/acquire_pin_codes_failed, availableForAdmin: true, availableForCustomer: false, enabledForAdmin: true, enabledForCustomer: false, translations: [{ code: en, name: PIN code generation failure (PIN codes module), description: "This notification is sent to the administrator in the event of an error in the process of generating PIN codes for one or more items - as a result of which the PIN codes have not been generated.", adminSubject: PIN code generation failure for one or more ordered items, adminText: "Could not generate PIN codes for the following products:" },{ code: ru, name: Ошибка создания пин-кода (модуль PIN codes), description: "Данное сообщение отправляется администратору в случае, когда при создании PIN-кодов для одного или нескольких товаров произошла ошибка, в результате которой PIN-код(ы) не были созданы.", adminSubject: Ошибка создания PIN-кода для одного или нескольких заказанных продуктов, adminText: "Не удалось создать PIN-коды для следующих продуктов:" }]}

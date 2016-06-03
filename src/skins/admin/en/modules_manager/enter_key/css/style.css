@@ -1,0 +1,78 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Activate license key page
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.enter-addon-key-form {
+  width: 490px;
+  height: 150px;
+}
+
+.enter-key-hint {
+  margin: 0px 30px 20px 0px;
+  font-size: 14px;
+}
+
+.addon-key {
+  background: transparent url(../images/key.png) 0 7px no-repeat;
+  padding: 0px 0px 0px 20px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.addon-key input {
+  width: 300px;
+}
+
+.enter-addon-key-form button {
+  margin-top: -4px;
+}
+
+.enter-addon-key-form .clear {
+  clear: both;
+}
+
+.enter-addon-key-form .line {
+  background-color: #ddd;
+  height: 1px;
+  width: 100%;
+  padding: 0px;
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
+.enter-addon-key-form a {
+  color: #154E9C;
+  text-decoration: underline;
+}
+
+.enter-addon-key-form .title {
+  font-size: 18px;
+  margin-top: 26px;
+  margin-bottom: 14px;
+  padding-top: 20px;
+  border-top: 1px solid #cccccc;
+}
+
+.enter-addon-key-form .bottom-buttons {
+  height: auto;
+  display: table-cell;
+}
+
+.enter-addon-key-form .bottom-buttons .text {
+  margin-left: 12px;
+  font-size: 16px;
+  display: inline-block;
+  line-height: 36px;
+}
+
+.enter-addon-key-form .text.or {
+  margin-left: 12px;
+  font-family: "Trebuchet MS", Helvetica, Jamrul, sans-serif;
+  font-size: 13px;
+  color: #cccccc;
+}

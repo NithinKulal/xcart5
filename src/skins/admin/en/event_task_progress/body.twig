@@ -1,0 +1,21 @@
+{##
+ # Event task progress bar
+ #}
+
+<div class="progress-bar {% if this.isBlockingDriver() %}blocking{% else %}noblocking{% endif %}" data-event="{{ this.getEvent() }}">
+
+  {% if this.getEventTitle() %}
+    <h3>{{ this.getEventTitle() }}</h3>
+  {% endif %}
+  <div class="bar" data-percent="{{ this.getPercent() }}" title="{{ this.getPercent() }}%"></div>
+  {% if this.isBlockingDriver() %}
+    {% if this.getBlockingNote() %}
+      <p class="note">{{ this.getBlockingNote() }}</p>
+    {% endif %}
+  {% else %}
+    {% if this.getNonBlockingNote() %}
+      <p class="note">{{ this.getNonBlockingNote() }}</p>
+    {% endif %}
+  {% endif %}
+
+</div>

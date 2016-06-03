@@ -1,0 +1,11 @@
+{##
+ # Orders search summary
+ #
+ # @ListChild (list="orders.search.base", weight="10")
+ #}
+{% if this.getTotalCount() != 0 %}
+  <div class="order-search-title head-h2">{{ t('X orders', {'count': this.getTotalCount()})|raw }}</div>
+{% endif %}
+{% if this.getTotalCount() == 0 %}
+  <div class="order-search-title head-h2">{{ t('No orders') }}</div>
+{% endif %}

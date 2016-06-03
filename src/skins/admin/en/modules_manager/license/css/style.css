@@ -1,0 +1,60 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Module license page
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.license-block {
+  width: 690px;
+  padding: 20px 20px 10px 20px;
+}
+
+.license-block table {
+  width: 100%;
+}
+
+.license-block .license-text {
+  margin: 0px;
+}
+
+.license-text textarea.form-control[readonly] {
+  width: 620px;
+  height: 130px;
+  background-color: #fff;
+  cursor: default;
+  opacity: 1;
+}
+
+.module-license {
+  width: auto;
+  height: auto;
+  margin: 0px;
+}
+
+.module-license table.agree,
+  .module-license table.install-addon
+{
+  width: 100%;
+  margin-top: 15px;
+}
+
+.module-license table.agree td,
+  .module-license table.install-addon td
+{
+  text-align: center;
+}
+
+.module-license table.agree label {
+  font-size: 14px;
+  color: #53769D;
+}
+
+/* It has been moved to Button\SwitchButton */
+
+.license-block table td.switch-button {
+  vertical-align: bottom;
+  text-align: left;
+}

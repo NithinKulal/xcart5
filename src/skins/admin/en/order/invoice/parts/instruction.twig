@@ -1,0 +1,13 @@
+{##
+ # Invoice payment instruction
+ #
+ # @ListChild (list="invoice.base", weight="55")
+ #}
+
+{% if this.getPaymentInstructions() %}
+  <div class="payment-instruction">
+    {% for method in this.getPaymentInstructions() %}
+      <p>{{ method.getInstruction()|raw }}</p>
+    {% endfor %}
+  </div>
+{% endif %}

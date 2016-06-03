@@ -1,0 +1,21 @@
+{##
+ # Payment methods list : right action
+ #
+ # @ListChild (list="payment.methods.list.row.after.PayflowLink", weight=100)
+ # @ListChild (list="payment.methods.list.row.after.PaypalAdvanced", weight=100)
+ # @ListChild (list="payment.methods.list.row.after.PaypalWPS", weight=100)
+ #}
+
+{% if this.method.getReferralPageURL() or this.getKnowledgeBasePageURL(this.method) %}
+  <div class="learn-more">
+    {% if this.getKnowledgeBasePageURL(this.method) %}
+      <a href="{{ this.getKnowledgeBasePageURL(this.method) }}" target="_blank">{{ t('Learn More') }}</a>
+    {% endif %}
+    {% if this.method.getReferralPageURL() and this.getKnowledgeBasePageURL(this.method) %}
+      <span>&amp;</span>
+    {% endif %}
+    {% if this.method.getReferralPageURL() %}
+      <a href="{{ this.method.getReferralPageURL() }}" target="_blank">{{ t('Sign Up') }}</a>
+    {% endif %}
+  </div>
+{% endif %}

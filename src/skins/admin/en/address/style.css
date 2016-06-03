@@ -1,0 +1,188 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * ____file_title____
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+/* Address modify dialog */
+.address-dialog h2 {
+  color: #84b8df;
+  font-size: 28px;
+  padding-bottom: 25px;
+}
+
+.address-dialog h4 {
+  color: #336699;
+  font-size: 14px;
+  font-weight: normal;
+  padding-bottom: 10px;
+}
+
+.address-dialog .model-properties label {
+  font-size: 14px;
+  font-weight: normal;
+  color: #53769d;
+  padding-left: 28px;
+  vertical-align: middle;
+  background-position: left 5px;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.address-dialog .model-properties ul li {
+  padding: 0 5px 6px 0;
+}
+
+.address-dialog input.name {
+  height: 17px;
+  border: 1px solid #ddd;
+}
+
+.address-dialog .model-properties ul.table.default-table {
+  min-width: 600px;
+}
+
+.address-dialog .model-form-buttons
+{
+ padding-left: 266px;
+}
+
+td.address-text {
+  width: 100%;
+}
+
+ul.address-entry,
+  ul.address-text
+{
+  list-style: none;
+}
+
+ul.address-entry li {
+  clear: left;
+  line-height: 1.6em;
+}
+
+ul.address-text li {
+  float: left;
+  padding: 0;
+  margin: 0;
+  clear: none;
+}
+
+ul.address-entry li span.address-text-value {
+  padding: 0;
+}
+
+ul li.address-text-title,
+ul li.address-text-firstname,
+ul li.address-text-lastname,
+ul li.address-text-city,
+ul li.address-text-state_id,
+ul li.address-text-custom_state
+{
+  float: left;
+  clear: none;
+  padding-right: 5px;
+}
+
+li.address-text-street,
+li.address-text-phone
+{
+  padding-top: 5px;
+}
+
+.address-text-comma-title,
+.address-text-comma-firstname,
+.address-text-comma-lastname,
+.address-text-comma-street,
+.address-text-comma-zipcode,
+.address-text-comma-country_code,
+.address-text-comma-phone,
+{
+  display: none;
+}
+
+.address-text-label-title,
+.address-text-label-firstname,
+.address-text-label-lastname,
+.address-text-label-street,
+.address-text-label-city,
+.address-text-label-state_id,
+.address-text-label-custom_state,
+.address-text-label-zipcode,
+.address-text-label-country_code
+{
+  display: none;
+}
+
+div.address-box
+{
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
+  float: left;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  padding: 20px;
+  width: 300px;
+  border-color: #dfdfdf;
+}
+
+.address-center-button
+{
+  text-align: center;
+  padding-top: 42px;
+  height: 120px;
+}
+
+.address-text
+{
+  font-family: Helvetica,Arial,sans-serif;
+  font-size: 14px;
+}
+
+img.address-type-icon
+{
+  display: block;
+  padding: 5px;
+}
+
+.address-form-label
+{
+  width: 100px;
+}
+
+.address-form-element
+{
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+button.delete-address
+{
+  border: 0;
+  vertical-align: middle;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-image: url(../images/icon_trash.png);
+  height: 24px;
+  padding-left: 15px;
+  padding-right: 5px;
+  cursor: pointer;
+}
+
+button.delete-address span
+{
+  font-family: Helvetica,Arial,sans-serif;
+  font-size: 10px;
+  color: #666;
+  text-decoration: underline;
+}

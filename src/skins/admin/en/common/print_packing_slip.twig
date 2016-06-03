@@ -1,0 +1,11 @@
+{##
+ # Printable packing slips
+ #}
+
+{{ widget('\\XLite\\View\\CommonResources') }}
+
+{% for i, order in this.getOrders() %}
+  <div{% if this.hasPageBreak(i) %} class="page-break"{% endif %}>
+    {{ widget('\\XLite\\View\\PackingSlip', order=order) }}
+  </div>
+{% endfor %}

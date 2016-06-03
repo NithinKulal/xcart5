@@ -1,0 +1,287 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * ____file_title____
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+/* Address modify dialog */
+.address-dialog .head-h2 {
+  color: #84b8df;
+  font-size: 28px;
+  padding-bottom: 25px;
+}
+
+.address-dialog .message {
+  color: #336699;
+  font-size: 14px;
+  font-weight: normal;
+  padding-bottom: 10px;
+}
+
+.address-dialog label {
+  font-size: 14px;
+  font-weight: normal;
+  color: #53769d;
+/*   padding-left: 28px; */
+  vertical-align: middle;
+  background-position: left 5px;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.address-dialog ul.default-table{
+  min-width: 0;
+}
+
+.address-dialog ul li
+{
+  padding: 0 5px 6px 0;
+}
+
+.address-dialog input
+{
+  width: 300px;
+}
+
+.address-dialog input.name {
+  height: 17px;
+  border: 1px solid #ddd;
+}
+
+.address-dialog .button {
+  padding: 0;
+}
+
+td.address-text {
+  width: 100%;
+  padding: 0;
+}
+
+ul.address-entry,
+  ul.address-text,
+  ul.address-book
+{
+  list-style: none;
+  margin: 0;
+}
+
+ul.address-entry {
+  float: left;
+  width: 230px;
+}
+
+div.address-box div.address-icons {
+  float: right;
+  margin-top: -26px;
+}
+
+ul.address-entry li,
+  ul.address-book li
+{
+  background: none;
+  margin: 0;
+}
+
+ul.address-book li.address-book {
+  float: left;
+  min-height: 250px;
+}
+
+div.address-box table td.address-entry-actions-cell {
+  padding: 23px 0 0 0;
+}
+
+div.address-box div.delete-action {
+  float: right;
+  position: absolute;
+  right: 20px;
+}
+
+div.address-box div.change-action {
+  float: left;
+}
+
+ul.address-text li {
+  padding: 0;
+  margin: 0;
+}
+
+ul.address-entry ul.address-text li.address-text-value,
+  ul.address-entry ul.address-text li.address-text-label
+{
+  padding: 0;
+}
+
+ul.address-entry li.address-text-cell,
+  ul.address-text li
+{
+  float: left;
+  padding-left: 5px;
+}
+
+ul.address-entry ul.address-text li.address-text-comma {
+  padding-left: 0;
+}
+
+ul.address-entry li.address-text-street,
+  ul.address-entry li.address-text-city,
+  ul.address-entry li.address-text-country_code,
+  ul.address-entry li.address-text-phone,
+  ul.address-entry li.address-text-type,
+  ul.address-entry li.additional-field
+{
+  clear: both;
+}
+
+li.address-text-street,
+li.address-text-phone
+{
+  padding-top: 5px;
+}
+
+li.additional-field ul.address-text li.address-text-comma,
+.address-text-comma-title,
+.address-text-comma-firstname,
+.address-text-comma-lastname,
+.address-text-comma-street,
+.address-text-comma-zipcode,
+.address-text-comma-country_code,
+.address-text-comma-phone,
+.address-text-comma-type,
+.address-text-comma-tax_number
+{
+  display: none;
+}
+
+.address-text-label-title,
+.address-text-label-firstname,
+.address-text-label-lastname,
+.address-text-label-street,
+.address-text-label-city,
+.address-text-label-state_id,
+.address-text-label-custom_state,
+.address-text-label-zipcode,
+.address-text-label-country_code
+{
+  display: none;
+}
+
+li.additional-field ul.address-text li.address-text-value,
+li.address-text-type ul.address-text li.address-text-value,
+li.address-text-phone ul.address-text li.address-text-value
+{
+  padding-left: 5px;
+}
+
+div.address-box {
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 1px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  padding: 15px;
+  width: 260px;
+  min-height: 170px;
+  border-color: #dfdfdf;
+  background-color: #f4f4f4;
+  position: relative; 
+}
+
+div.address-box table,
+  div.address-box table tbody,
+  div.address-box table tr,
+  div.address-box table th,
+  div.address-box table td
+{
+  background-color: #f4f4f4;
+  border: 0 none;
+  border-spacing: 0;
+  padding: 0;
+}
+
+div.address-box table {
+  margin: 0;
+}
+
+.address-center-button
+{
+  text-align: center;
+  padding-top: 51px;
+  height: 120px;
+}
+
+.address-text
+{
+  font-family: Helvetica,Arial,sans-serif;
+  font-size: 14px;
+}
+
+img.address-type-icon
+{
+  display: block;
+  padding: 5px 0;
+}
+
+.address-form-label
+{
+  width: 100px;
+}
+
+.address-form-element
+{
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+div.popup {
+  width: 600px !important;
+}
+
+.address-dialog input{
+  width: 300px;
+}
+
+span.address-firstname input {
+  width: 240px;
+}
+
+span.address-lastname input {
+  width: 240px;
+}
+
+span.address-street input {
+  width: 290px;
+}
+
+li.address-country select {
+  width: 300px;
+}
+
+li.address-state select {
+  width: 240px;
+}
+
+span.address-city input {
+  width: 240px;
+}
+
+span.address-zipcode input {
+  width: 75px;
+}
+
+span.address-phone input {
+  width: 125px;
+}
+
+.address-dialog ul.table.default-table li.address-phone {
+  clear: none;
+  float: right;
+}
+

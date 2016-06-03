@@ -1,0 +1,12 @@
+{##
+ # Address fields
+ #}
+
+<ul class="address-section">
+  {% for idx, f in this.getAddressSectionData(this.getEntityValue(), '1') %}
+    <li class="{{ f.css_class }} address-field">
+      <span class="address-title">{{ t(f.title) }}: </span><span class="address-field">{{ f.value }}</span><span class="address-comma">,</span><span class="address-space">&nbsp;</span>
+    </li>
+  {% endfor %}
+</ul>
+

@@ -1,0 +1,13 @@
+{##
+ # E-mail
+ #
+ # @ListChild (list="contact-us.send.fields", weight="200")
+ #}
+
+<div class="form-item">
+  <label for="email">
+    {{ t('Your e-mail') }}
+    <span class="form-required" title="{{ t('This field is required.') }}">*</span>
+  </label>
+  {{ widget('XLite\\View\\FormField\\Input\\Text\\Email', placeholder=t('Email Address'), fieldName='email', value=this.getValue('email'), fieldOnly='true', required='true') }}
+</div>

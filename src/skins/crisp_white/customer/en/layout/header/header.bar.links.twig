@@ -1,0 +1,11 @@
+{##
+ # Header bar account links
+ #
+ # @ListChild (list="layout.header.bar", weight="100")
+ #}
+
+{% if this.isAccountLinksVisible() %}
+  <div class="header_bar-sign_in">
+    {{ widget('XLite\\View\\Button\\PopupLogin', label='Sign in / sign up') }}
+  </div>
+{% endif %}

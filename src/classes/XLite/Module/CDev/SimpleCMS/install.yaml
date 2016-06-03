@@ -1,0 +1,105 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: logo
+    category: 'CDev\SimpleCMS'
+    type: 'XLite\Module\CDev\SimpleCMS\View\FormField\Input\Logo'
+    orderby: 100
+    translations:
+      - code: en
+        option_name: 'Logo'
+  - name: favicon
+    category: 'CDev\SimpleCMS'
+    type: 'XLite\Module\CDev\SimpleCMS\View\FormField\Input\Favicon'
+    orderby: 200
+    translations:
+      - code: en
+        option_name: 'Favicon'
+  - name: page_changefreq
+    category: CDev\XMLSitemap
+    type: 'XLite\Module\CDev\SimpleCMS\View\FormField\Select\ChangeFrequency'
+    orderby: 400
+    value: daily
+    translations:
+      - code: en
+        option_name: Frequency of content renewal for Static page
+  - name: page_priority
+    category: CDev\XMLSitemap
+    type: XLite\View\FormField\Input\Text\FloatInput
+    widgetParameters: { min: 0, max: 1, e: 1}
+    orderby: 800
+    value: 0.5
+    translations:
+      - code: en
+        option_name: Priority for Static page
+        option_comment: The value should range from 0 to 1.
+  - name: show_default_menu
+    category: CDev\SimpleCMS
+    type: checkbox
+    value: Y
+    orderby: 300
+    translations:
+      - code: en
+        option_name: Show the default menu along with the custom one
+
+XLite\Model\Role\Permission:
+  - { code: manage custom pages, section: Content, translations: [{ code: en, name: Manage custom pages }] }
+  - { code: manage menus, section: Content, translations: [{ code: en, name: Manage menus }] }
+
+XLite\Model\Role:
+  - { translations: [{ code: en, name: Content management }, { code: ru, name: Управлением контентом }], permissions: [ {code: manage menus}, {code: manage custom pages} ] }
+
+XLite\Module\CDev\SimpleCMS\Model\Page:
+  - id: 1
+    cleanURLs: [{ cleanURL: terms-and-conditions.html }]
+    translations:
+      - code: en
+        name: 'Terms and conditions'
+        teaser: 'Terms and conditions'
+        body: '<p>Terms and conditions text</p><p>To replace this text with the actual Terms and conditions, go to the "Content -> Pages" section, open the "Terms & Conditions" page and edit the "Content" field.</p>'
+      - code: ru
+        name: 'Условия использования'
+        teaser: 'Условия использования'
+        body: '<p>Чтобы разместить на этой странице Ваш собственный текст "Условия использования", перейдите в раздел "Содержание -> Страницы", откройте для редактирования страницу "Условия использования" и добавьте требуемый текст в поле "Содержание".</p>'
+  - cleanURLs: [{ cleanURL: shipping.html }]
+    translations:
+      - code: en
+        name: 'Shipping'
+        teaser: 'Shipping teaser'
+        body: '<p>Shipping text</p><p>To replace this text with the actual delivery information, go to the "Content -> Pages" section, open the "Shipping" page and edit the "Content" field.</p>'
+      - code: ru
+        name: 'Доставка'
+        teaser: 'Доставка'
+        body: '<p>Чтобы разместить на этой странице Ваш собственный текст "Доставка", перейдите в раздел "Содержание -> Страницы", откройте для редактирования страницу "Доставка" и добавьте требуемый текст в поле "Содержание".</p>'
+
+XLite\Module\CDev\SimpleCMS\Model\Menu:
+  - { link: '{home}', type: P, position: 100, translations: [{ code: en, name: Home }, { code: ru, name: Главная }]}
+  - { link: '{my account}', visibleFor: L, type: P, position: 600, translations: [{ code: en, name: "My Account" }, { code: ru, name: "Мой профиль" }], children: [{ enabled: 1, link: '?target=order_list', visibleFor: L, type: P, position: 100, translations: [{ code: en, name: My orders }, { code: ru, name: "Мои заказы" }]},{ enabled: 1, link: '?target=address_book', visibleFor: L, type: P, position: 200, translations: [{ code: en, name: My address book }, { code: ru, name: "Мои адреса" }]}]}
+
+XLite\Model\LanguageLabel:
+  - { name: "Contact us", translations: [{ code: en, label: "Contact us" }] }
+  - { name: "Logo", translations: [{ code: en, label: "Logo" }] }
+  - { name: "Favicon", translations: [{ code: en, label: "Favicon" },{ code: ru, label: "Фавикон" }] }
+  - { name: "Shipping", translations: [{ code: en, label: "Shipping" }] }
+  - { name: "Menu links help text", translations: [{ code: en, label: "If you want to add an external link, you should specify it with the <strong>http://</strong> prefix, e.g. <strong>http://www.example.com/</strong>.<br /><br />If you want to add a link to a page within your store (e.g. the checkout page), you can specify it as <strong>cart.php?target=checkout</strong> (relative path) or as <strong>{{URL}}cart.php?target=checkout</strong> (absolute path).<br /><br />Also the '{home}' shortcut value will lead to Home page" }] }
+  - { name: "Failed to update page image", translations: [{ code: en, label: "Failed to update the page image" }] }
+  - { name: "Visible for", translations: [{ code: en, label: "Visible for" }] }
+  - { name: "The menu has been updated", translations: [{ code: en, label: "The menu has been updated" }] }
+  - { name: "The menu has been added", translations: [{ code: en, label: "The menu has been added" }] }
+  - { name: "The page has been updated", translations: [{ code: en, label: "The page has been updated" }] }
+  - { name: "Any visitors", translations: [{ code: en, label: "Any visitors" }] }
+  - { name: "Anonymous users only", translations: [{ code: en, label: "Anonymous users only" }] }
+  - { name: "Logged in users only", translations: [{ code: en, label: "Logged in users only" }] }
+  - { name: "Save & Close", translations: [{ code: en, label: "Save & Close" }] }
+  - { name: "Logo & Favicon", translations: [{ code: en, label: "Logo & Favicon" }] }
+  - { name: "Terms and conditions", translations: [{ code: en, label: "Terms and conditions" }] }
+  - { name: 'Open graph image', translations: [{ code: 'en', label: 'Open graph image' }] }
+  - { name: 'The "{{file}}" file is not allowed image and was not uploaded. Allowed images are: {{extensions}}', translations: [{ code: 'en', label: 'The "{{file}}" file is not allowed image and was not uploaded. Allowed images are: {{extensions}}' }] }
+  - { name: "Submenu", translations: [{ code: en, label: "Submenu" },{ code: ru, label: "Подменю" }] }
+  - { name: "Content page title", translations: [{ code: en, label: "Content page title" },{ code: ru, label: "Заголовок страницы" }] }
+  - { name: "Leave blank to use page name as Page Title.", translations: [{ code: en, label: "Leave blank to use page name as Page Title." },{ code: ru, label: "Оставьте поле незаполненным чтобы использовать имя страницы в качестве заголовка." }] }

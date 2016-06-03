@@ -1,0 +1,28 @@
+{##
+ # Template selector
+ #}
+<div class="templates">
+  <div class="hidden-field">
+    {% include 'form_field/select.twig' %}
+  </div>
+
+  <div class="templates-list">
+
+  {% for module in this.getSkinModules() %}
+    <div class="{{ this.getStyleClass(module) }}" data-template-id="{{ this.getModuleId(module) }}" data-is-redeploy-required="{{ this.isRedeployRequired(module) }}">
+      <img src="{{ this.getModuleImage(module) }}" alt="{{ this.getModuleLabel(module) }}" />
+      <div class="name">
+        {{ this.getModuleLabel(module) }}
+      </div>
+    </div>
+  {% endfor %}
+
+  </div>
+</div>
+
+<div class="quote">
+  {{ t('Need custom design? We can modify this template or create a completely unique design for you')|raw }}
+
+  {{ widget('XLite\\View\\Button\\Link', label='FREE quote', location=this.getFreeQuoteURL(), blank='true', style='regular-main-button') }}
+
+</div>

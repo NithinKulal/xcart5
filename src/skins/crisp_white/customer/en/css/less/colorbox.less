@@ -1,0 +1,86 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+/**
+ * Colorbox styles
+ */
+
+#cboxOverlay {
+  background: rgba(63, 65, 68, 0.9) !important;
+}
+
+#cboxMiddleLeft, #cboxMiddleRight {
+  width: (@rhythmic-unit + 1) !important;
+  background: @color-background !important;
+  border-bottom: (3 * @rhythmic-unit)  solid @color-background;
+  border-top: (3 * @rhythmic-unit)  solid @color-background;
+      -ms-box-sizing: content-box;
+      moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+}
+
+#cboxContent {
+  padding-top: (2 * @rhythmic-unit);
+  padding-bottom: (2 * @rhythmic-unit);
+  border-bottom: (@rhythmic-unit) solid @color-background;
+  border-top: (@rhythmic-unit) solid @color-background;
+}
+
+#cboxTopLeft,
+#cboxTopCenter,
+#cboxTopRight,
+#cboxBottomLeft,
+#cboxBottomCenter,
+#cboxBottomRight {
+  display: none;
+}
+
+#cboxClose {
+  .icon-cross;
+  top: 0 !important;
+}
+
+#cboxNext {
+  .icon-chevron-right;
+  right: 0 !important;
+  left: auto !important;
+}
+
+#cboxPrevious {
+  .icon-chevron-left;
+}
+
+#cboxClose, #cboxNext, #cboxPrevious {
+  background: none !important;
+  text-indent: inherit !important;
+  font-size: 0px !important;
+
+  &:before {
+    font-size: (@rhythmic-unit);
+    margin: 0px;
+  }
+  width: (@rhythmic-unit) !important;
+  height: (@rhythmic-unit) !important;
+}
+
+#cboxTitle {
+  bottom: 0px !important;
+  color: @color-text-default !important;
+  padding-left: @rhythmic-unit;
+  padding-right: @rhythmic-unit;
+
+  @media(max-width: @screen-xs-max) {
+    display: none !important;
+  }
+}
+
+#cboxLoadedContent {
+  margin: 0px !important;
+}

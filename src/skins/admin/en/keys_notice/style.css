@@ -1,0 +1,155 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Activate license key page
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.target-keys-notice h1#page-title {
+  display: none;
+}
+
+.ui-dialog.no-title .ui-dialog-content.widget-modulesmanager-keysnotice {
+  padding-top: 1px;
+}
+
+.popup-window-entry .keys-notice-form {
+  width: 800px;
+}
+
+.keys-notice-form {
+  max-width: 1130px;
+  min-width: 800px;
+}
+
+.keys-notice-form button.recheck-license {
+  float: right;
+}
+
+.keys-notice-form button.recheck-license span:before {
+  font-family: 'FontAwesome';
+  content: "\f021";
+  padding-right: 6px;
+}
+
+.keys-notice-form .title {
+  font-family: 'Open Sans', sans-serif;
+  color: #191919;
+  font-weight: normal;
+  font-size: 26px;
+  line-height: 36px;
+  margin: 29px 0px 18px;
+}
+
+.keys-notice-form .indent {
+  margin: 0px 0px 0px 0px;
+  font-size: 14px;
+  padding: 5px 0px;
+}
+
+.keys-notice-form ul.indent {
+  list-style-type: disc;
+  margin-left: 40px;
+}
+
+.keys-notice-form .alert {
+  font-size: 14px;
+}
+
+.keys-notice-form .core.alert {
+  margin-top: 20px;
+}
+
+.keys-notice-form .clear {
+  clear: both;
+}
+
+.keys-notice-form .buttons {
+  padding-top: 19px;
+}
+
+.keys-notice-form .or {
+  display: inline-block;
+  margin: 0 15px;
+  font-family: "Trebuchet MS", Helvetica, Jamrul, sans-serif;
+  font-size: 13px;
+  color: #cccccc;
+}
+
+.keys-notice-form .indent.contact-us {
+  margin-top: 30px;
+}
+
+.keys-notice-form .indent.contact-us button {
+  margin-left: 10px;
+  vertical-align: baseline;
+}
+
+.keys-notice-form .bottom-buttons .text {
+  margin-left: 12px;
+  margin-right: 12px;
+  font-size: 16px;
+  display: inline-block;
+  line-height: 36px;
+}
+
+/**
+ * Modules list
+ */
+.keys-notice-form .modules-list {
+  margin: 20px 10px;
+}
+
+.keys-notice-form .modules-list .module-info {
+  display: table;
+  width: 100%;
+  padding: 10px 10px;
+  margin: 0;
+}
+
+.keys-notice-form .modules-list .module-info div {
+  display: table-cell;
+  font-size: 14px;
+}
+
+.keys-notice-form .modules-list .module-info:hover {
+  background-color: #f9f9f9;
+}
+
+.keys-notice-form .modules-list .module-info .module-name {
+  width: 200px;
+  font-weight: 600;
+  overflow-x: hidden;
+}
+
+.keys-notice-form .modules-list .module-info .module-reason {
+  margin-left: 20px;
+  width: 450px;
+}
+
+.keys-notice-form .modules-list .module-info .module-action {
+  padding-right: 10px;
+  text-align: right;
+  visibility: hidden;
+}
+
+.keys-notice-form .modules-list .module-info:hover .module-action {
+  visibility: visible;
+}
+
+.keys-notice-form .buttons .enter-license-key,
+.keys-notice-form .buttons .activate-key,
+.keys-notice-form .buttons .purchase {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.keys-notice-form .buttons .purchase {
+  margin-right: 5px;
+}
+
+.keys-notice-form .buttons a {
+  font-size: 14px;
+}

@@ -1,0 +1,19 @@
+{##
+ # OnOff checkbox
+ #}
+<div class="onoffswitch">
+  {% if not this.isDisabled() %}
+    <input type="hidden" name="{{ this.getName() }}" value="" />
+  {% endif %}
+  {% if this.isDisabled() %}
+    <input type="hidden" name="{{ this.getName() }}" value="{{ this.getValue() }}" />
+  {% endif %}
+  <input{{ this.getAttributesCode()|raw }} />
+  <label for="{{ this.getFieldId() }}">
+    <div class="onoffswitch-inner">
+      <div class="on-caption">{{ t(this.getOnLabel()) }}</div>
+      <div class="off-caption">{{ t(this.getOffLabel()) }}</div>
+    </div>
+    <span class="onoffswitch-switch"></span>
+  </label>
+</div>

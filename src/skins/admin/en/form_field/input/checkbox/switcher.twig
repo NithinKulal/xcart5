@@ -1,0 +1,12 @@
+{##
+ # Switcher checkbox
+ #}
+
+<span class="input-field-wrapper {{ this.getWrapperClass() }}">
+{{ this.displayCommentedData(this.getCommentedData()) }}
+<input type="hidden" name="{{ this.getName() }}" value="" />
+<input{{ this.getAttributesCode()|raw }} />
+<div class="widget" title="{{ t(this.getWidgetTitle()) }}" data-enabled-label="{{ t(this.getEnabledLabel()) }}" data-disabled-label="{{ t(this.getDisabledLabel()) }}">
+<i class="fa {{ this.getIcon() }}"></i>
+</div>
+</span>

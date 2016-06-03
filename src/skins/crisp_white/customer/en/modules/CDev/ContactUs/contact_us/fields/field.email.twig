@@ -1,0 +1,9 @@
+{##
+ # E-mail
+ #
+ # @ListChild (list="contact-us.send.fields", weight="200")
+ #}
+
+<div class="form-item">
+  {{ widget('XLite\\View\\FormField\\Input\\Text\\Email', placeholder=t('email@example.com'), label=t('Your email'), fieldName='email', value=this.getValue('email'), fieldOnly='false', required='true') }}
+</div>

@@ -1,0 +1,20 @@
+{##
+ # Backup template
+ #}
+
+<div id="code_backup_link">
+  {{ t('The database stores different version of the custom changes.') }}
+  <a href="#">{{ t('Review it.') }}</a>
+</div>
+<div id="code_backup">
+  {% form '\\XLite\\Module\\XC\\ThemeTweaker\\View\\Form\\Backup' %}
+  
+    {{ widget('\\XLite\\View\\FormField\\Textarea\\Simple', fieldName='backup', cols='140', rows='20', fieldId='backup', value=this.getBackupContent(), readOnly='true', fieldOnly='true') }}
+
+    <div class="buttons">
+      {{ widget('\\XLite\\View\\Button\\Submit', style='action', label=t('Restore this version')) }}
+      <a class="hide-button" href="#">{{ t('Hide') }}</a>
+    </div>
+  
+  {% endform %}
+</div>

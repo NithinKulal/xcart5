@@ -1,0 +1,10 @@
+{##
+ # Header part
+ #
+ # @ListChild (list="head.css", weight="200")
+ #}
+{% if this.doCSSAggregation() %}
+{% for file in this.getAggregateCSSResources() %}
+  <link href="{{ this.getResourceURL(file.url) }}" rel="stylesheet" type="text/css" media="{{ file.media }}" />
+{% endfor %}
+{% endif %}

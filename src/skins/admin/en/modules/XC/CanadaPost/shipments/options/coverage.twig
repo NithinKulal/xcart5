@@ -1,0 +1,5 @@
+{##
+ # Option :: coverage
+ #}
+
+{{ widget('\\XLite\\View\\FormField\\Input\\Text\\Price', fieldId='opt-coverage-' ~ parcelIdx, fieldName='parcelsData[' ~ parcel.getId() ~ '][optCoverage]', fieldOnly='true', min='0', comment=t('In store currency (0 - do not use coverage)'), value=parcel.getOptCoverage()) }}

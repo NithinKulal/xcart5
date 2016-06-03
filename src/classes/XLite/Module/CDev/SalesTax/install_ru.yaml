@@ -1,0 +1,25 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\LanguageLabel:
+  - { name: 'Address for sales tax calculation', translations: [{ code: ru, label: 'Адрес для расчета налога с продаж' }] }
+  - { name: 'Click here to specify tax rates that will apply only to shipping charges', translations: [{ code: ru, label: 'Нажмите здесь, чтобы задать ставки налогов на стоимость доставки' }] }
+  - { name: 'Discounted subtotal', translations: [{ code: ru, label: 'Сумма заказа с учетом скидки' }] }
+  - { name: 'Discounted subtotal + Shipping cost', translations: [{ code: ru, label: 'Сумма заказа с учетом скидки + стоимость доставки' }] }
+  - { name: 'General tax rates', translations: [{ code: ru, label: 'Основные ставки налогов' }] }
+  - { name: 'Individual settings for every rate', translations: [{ code: ru, label: 'Индивидуальные настройки для каждой ставки налога' }] }
+  - { name: 'New sale tax rate', translations: [{ code: ru, label: 'Новая ставка' }] }
+  - { name: 'Subtotal + Shipping cost', translations: [{ code: ru, label: 'Сумма заказа + стоимость доставки' }] }
+  - { name: 'Tax rate has been deleted successfully', translations: [{ code: ru, label: 'Сумма налога успешно удалена' }] }
+  - { name: 'Tax rate has not been deleted successfully', translations: [{ code: ru, label: 'Сумма налога не удалена' }] }
+  - { name: 'Taxable base', translations: [{ code: ru, label: 'Налогооблагаемая база' }] }
+  - { name: 'Tax rates for shipping charges have not yet been created.', translations: [{ code: ru, label: 'Ставки налога на стоимость доставки пока не созданы.' }] }
+  - { name: 'Tax rates have not yet been created.', translations: [{ code: ru, label: 'Ставки налога пока не созданы.' }] }
+  - { name: 'Tax rates on shipping cost', translations: [{ code: ru, label: 'Ставки налогов на стоимость доставки' }] }
+  - { name: 'Use the same tax rates for all user membership levels', translations: [{ code: ru, label: 'Использовать одни и те же ставки налога для всех групп покупателей' }] }
+  - { name: 'Sales tax', translations: [{ code: ru, label: 'Налог с продаж' }] }
+

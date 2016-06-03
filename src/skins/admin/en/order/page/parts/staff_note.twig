@@ -1,0 +1,12 @@
+{##
+ # Order: Staff note
+ #
+ # @ListChild (list="order.operations", weight="50")
+ #}
+
+<div class="order-note staff-note">
+  <div class="order-note-box">
+    <h2>{{ t('Staff note') }}</h2>
+    {{ this.orderForm.displayComplexField('staffNote') }}
+  </div>
+</div>

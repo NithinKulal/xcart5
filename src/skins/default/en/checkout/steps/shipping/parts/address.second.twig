@@ -1,0 +1,9 @@
+{##
+ # First address
+ #
+ # @ListChild (list="checkout.shipping.selected.sub.payment", weight="100")
+ #}
+
+{% if this.isShippingEnabled() %}
+  {{ widget('XLite\\View\\Checkout\\BillingAddress') }}
+{% endif %}

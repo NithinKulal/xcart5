@@ -1,0 +1,134 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * automate_shipping_routine styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+/*
+* Commmon styles
+*/
+.automate-shipping-routine-wrapper{
+    max-width: 1090px;
+}
+
+.automate-shipping-routine-wrapper .description{
+    font-size: 16px;
+}
+
+.target-automate-shipping-routine .description.bottom-description{
+    margin-top: 50px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.target-automate-shipping-routine .description.bottom-description p{
+    font-size: 16px;
+}
+.target-automate-shipping-routine hr{
+    margin-left: -25px;
+    margin-right: -25px;
+    box-shadow: 0px 1px 1px #BDBDBD;
+    color: #fff;
+    border: none;
+}
+.target-automate-shipping-routine .bottom-actions{
+    margin-left: -25px;
+    overflow: hidden;
+    font-size: 16px;
+    padding: 25px;
+    padding-top: 10px;
+}
+
+.automate-shipping-routine-wrapper .shipping-list-table{
+    width: 100%;
+}
+
+.automate-shipping-routine-wrapper .shipping-list-table .logo-image-container {
+  width: 210px;
+}
+
+.automate-shipping-routine-wrapper .shipping-list-table .logo-image {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.automate-shipping-routine-wrapper .shipping-list-table thead th{
+    text-align: center;
+    width: 150px;
+    padding: 40px 0;
+}
+.automate-shipping-routine-wrapper .shipping-list-table tbody th{
+    text-align: left;
+}
+
+
+.automate-shipping-routine-wrapper .shipping-list-table tbody th .property-label{
+    border-bottom: 1px solid  #E4E1E1;
+    padding: 20px 0;
+    font-weight: normal;
+    font-size: 16px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.automate-shipping-routine-wrapper .shipping-list-table .group-label .property-label{
+    padding-top: 40px;
+    font-weight: 600;
+}
+
+.automate-shipping-routine-wrapper .shipping-list-table tbody tr:nth-of-type(even) td{
+    background-color: #f9f9f9;
+    border-left: 1px solid #fff;
+    border-right: 1px solid #fff;
+}
+
+.automate-shipping-routine-wrapper .shipping-list-table tbody.app th{
+    padding-top: 40px;
+}
+
+.automate-shipping-routine-wrapper .shipping-list-table tbody.app td{
+    padding-top: 40px;
+    border-bottom: 1px solid  #E4E1E1;
+}
+
+.automate-shipping-routine-wrapper .shipping-list-table tbody.buttons td{
+    padding-top: 20px;
+}
+
+.automate-shipping-routine-wrapper .shipping-list-table tbody.buttons .btn{
+    padding: 0px 30px;
+}
+
+.automate-shipping-routine-wrapper .shipping-list-table tbody.buttons .installed-placeholder span{
+    color: #C3C3C3;
+}
+
+.automate-shipping-routine-wrapper .shipping-list-table td{
+    text-align: center;
+}
+
+.automate-shipping-routine-wrapper .property-value.yes{
+    color: #EB9223;
+    font-size: 22px;
+}
+
+.automate-shipping-routine-wrapper .property-value.no:before{
+    content: '';
+    display: block;
+    border-bottom: 3px solid #989898;
+    width: 20px;
+    margin: auto;
+}
+
+.automate-shipping-routine-wrapper .property-value.app-type,
+.automate-shipping-routine-wrapper .property-value.app-type .app-type-text{
+    color: #C7C7C7;
+    font-size: 16px;
+}
+
+.automate-shipping-routine-wrapper .property-value.app-type .app-type-text{
+    color: #757575;
+    margin-left: 5px;
+}

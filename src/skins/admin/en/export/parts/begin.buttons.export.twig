@@ -1,0 +1,12 @@
+{##
+ # Export completed section : button
+ #
+ # @ListChild (list="export.begin.buttons", weight="100")
+ #}
+
+<div class="export-button-container">
+	{{ widget('XLite\\View\\Button\\StartExport') }}
+	{% if this.isExportLocked() %}
+		<p class="export-blocked">{{ t('Background export is in progress') }}</p>
+	{% endif %}
+</div>

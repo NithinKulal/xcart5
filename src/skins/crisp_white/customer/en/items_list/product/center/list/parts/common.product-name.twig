@@ -1,0 +1,8 @@
+{##
+ # Item name
+ #}
+{% spaceless %}
+    <h4 class="product-name">
+        <a class="fn url" href="{{ this.getProductURL(this.categoryId) }}">{{ this.product.name|raw }}</a>
+    </h4>
+{% endspaceless %}

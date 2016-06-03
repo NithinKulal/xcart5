@@ -1,0 +1,7 @@
+{##
+ # "You save" label (internal list element)
+ #
+ # @ListChild (list="product.plain_price.tail.sale_price.text", weight="200")
+ #}
+
+, {{ t('you save') }} <span class="you-save">{{ this.formatPrice(this.getSalePriceDifference(), this.null, 1) }}</span>

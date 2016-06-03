@@ -1,0 +1,29 @@
+{##
+ # Pick address from address book
+ #}
+
+<div {{ this.printTagAttributes(this.getAddressContainerAttributes())|raw }}>
+
+  {% if this.hasAddresses() %}
+
+    <ul class="addresses">
+      {% for address in this.getAddresses() %}
+        <li class="{{ this.getItemClassName(address, loop.index) }}">
+          {{ widget(template='select_address/address.twig', address=address) }}
+          {% if this.isShipping(address) %}
+            <div class="shipping"></div>
+          {% endif %}
+          {% if this.isBilling(address) %}
+            <div class="billing"></div>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+
+  {% else %}
+
+    <p>{{ t('Addresses list is empty') }}</p>
+
+  {% endif %}
+
+</div>

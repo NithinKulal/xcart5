@@ -1,0 +1,14 @@
+{##
+ # Soft reset
+ #
+ # @ListChild (list="upgrade.step.completed.backup.actions", weight="100")
+ # @ListChild (list="upgrade.step.ready_to_install.create_backup.actions", weight="100")
+ #}
+
+<div class="upgrade-note soft-reset">
+  <span class="soft-reset-label">{{ t('Disables all addons except ones that are provided by X-Cart Team & Qualiteam (soft reset)')|raw }}:</span>
+  <div class="soft-reset-link-block safe-mode-link">
+	  {{ widget('XLite\\View\\Button\\CopyLink', copy=this.getSoftResetURL()) }}
+	  {{ this.getSoftResetURL() }}
+  </div>
+</div>

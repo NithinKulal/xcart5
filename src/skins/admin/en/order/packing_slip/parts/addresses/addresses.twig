@@ -1,0 +1,11 @@
+{##
+ # Invoice bottom block
+ #
+ # @ListChild (list="packing_slip.base", weight="20")
+ #}
+
+<table cellspacing="0" class="address">
+  <tr>
+    {{ widget_list('packing_slip.addresses') }}
+  </tr>
+</table>

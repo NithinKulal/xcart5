@@ -1,0 +1,8 @@
+{##
+ # Reviewer name
+ #
+ # @ListChild (list="review.add.fields", weight="200")
+ #}
+<div class="form-item clearfix">
+  {{ widget('\\XLite\\View\\FormField\\Input\\Text', required='true', placeholder=t('Full name'), fieldName='reviewerName', label=t('Your name'), value=this.review.reviewerName) }}
+</div>

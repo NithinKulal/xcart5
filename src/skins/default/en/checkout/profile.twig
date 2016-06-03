@@ -1,0 +1,10 @@
+{##
+ # Profile block
+ #}
+<div class="profile">
+  {% if this.isAnonymous() %}
+    {% include 'checkout/profile/anonymous.twig' %}
+  {% else %}
+    {% include 'checkout/profile/logged.twig' %}
+  {% endif %}
+</div>

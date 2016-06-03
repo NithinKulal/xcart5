@@ -1,0 +1,202 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Elements
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.toggler(@color-on: @good-color, @color-off: @neutral-color, @height: 30px, @width: 54px, @padding: 4px, @font-size: 14px) {
+
+  div {
+    display: inline-block;
+    .rounded(@height * 2);
+    background-color: @color-off;
+    transition: background 0.4s;
+    padding: @padding;
+    display: inline-block;
+    width: @width;
+    height: @height;
+    transition: background 0.4s;
+    position: relative;
+
+    span {
+      bottom: @padding;
+      width: @height - (@padding * 2);
+      height: @height - (@padding * 2);
+      background-color: #fff;
+      .rounded(@height);
+      transition: margin 0.4s, background 0.4s, color 0.4s;
+      background-color: #fff;
+      padding: @padding;
+      font-size: @font-size;
+      color: @color-off;
+      margin-left: 0;
+      margin-right: @width - (@padding * 2) - (@height - (@padding * 2));
+      vertical-align: top;
+      line-height: @font-size;
+
+      &.svg {
+        display: inline-block;
+        padding: 0;
+        text-align: center;
+
+        svg {
+          width: 7px;
+          height: @height - (@padding * 2);
+
+          path {
+            fill: @color-off;
+            transition: color 0.4s;
+          }
+        }
+      }
+    }
+  }
+
+  &.on {
+    div {
+      background-color: @color-on;
+
+      span {
+        color: @color-on;
+        margin-left: @width - (@padding * 2) - (@height - (@padding * 2));
+        margin-right: 0;
+
+        &.svg svg path {
+          fill: @color-on;
+        }
+      }
+    }
+  }
+  
+}
+
+.tabs() {
+  .clearfix;
+  border-bottom: 1px solid #d6d9dc;
+  position: relative;
+
+  ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    margin-left: @center-padding-left;
+    white-space: nowrap;
+
+    li {
+      display: inline-block;
+      margin-right: 21px;
+      margin-bottom: -1px;
+
+      &:last-child {
+        margin-right: 0px;
+      }
+
+      a {
+        display: block;
+        margin-right: 3px;
+        padding: 0px 0px 1px;
+        text-decoration: none;
+        font-size: 14px;
+        line-height: 17px;
+        color: #808f98;
+        border-color: transparent;
+      }
+
+      a:hover,
+      a:focus {
+        background-color: transparent;
+        border-color: transparent;
+      }
+
+      &:hover {
+
+        &::after {
+          content: "";
+          height: 3px;
+          width: 100%;
+          border: 1px solid @link-color-1-hover;
+          background-color: @link-color-1-hover;
+          .rounded(1px);
+          display: block;
+        }
+
+        a {
+          color: @link-color-1-hover;
+        }
+
+      }
+
+      &.tab-current,
+      &.tab.active{
+
+        &::after {
+          content: "";
+          height: 3px;
+          width: 100%;
+          border: 1px solid #a5aeb2;
+          background-color: #a5aeb2;
+          .rounded(1px);
+          display: block;
+        }
+
+        a {
+          color: #32323a;
+          font-weight: 600;
+          border-color: transparent;
+        }
+      }
+    }
+  }
+}
+
+.secondary-tabs() {
+  .clearfix;
+
+  ul {
+    height: 38px;
+    padding: 0;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-collapse: collapse;
+    border-color: @sec-tab-border-color;
+
+    li {
+      display: inline-block;
+      white-space: nowrap;
+
+      a {
+        display: block;
+        padding: 9px 18px 5px;
+        vertical-align: baseline;
+        border: @sec-tab-border-color 1px solid;
+        text-decoration: none;
+        font-size: 16px;
+        background-color: @sec-tab-bg-color;
+        .border-radius(12px, 0, 0, 12px);
+        color: #333;
+      }
+
+      &.tab-current {
+        a {
+          background-color: #fff;
+          cursor: default;
+          border-bottom-color: #fff;
+        }
+      }
+    }
+  }
+}
+
+.center-full-width() {
+  margin-left: -1 * @center-padding-left;
+  width: ~"calc(100% + " @center-padding-left ~" + " @center-padding-right ~")";
+}
+
+.vertical-middle-box() {
+  .flex-display();
+  .flex-direction(column);
+  .justify-content(center);
+}

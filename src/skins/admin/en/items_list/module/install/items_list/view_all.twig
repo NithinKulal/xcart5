@@ -1,0 +1,9 @@
+{##
+ # Marketplace banner
+ #
+ # @ListChild (list="install-modules.pager.buttons", weight="100")
+ #}
+
+{% if this.isLandingPage() %}
+  <a class="view-all-modules-link" href="{{ url('addons_list_marketplace') }}">{{ t('View all modules') }}</a>
+{% endif %}

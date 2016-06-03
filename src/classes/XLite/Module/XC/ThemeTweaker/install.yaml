@@ -1,0 +1,77 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: use_custom_css
+    category: 'XC\ThemeTweaker'
+    type: checkbox
+    orderby: 10
+    value: false
+    translations:
+      - code: en
+        option_name: 'Use custom css'
+  - name: use_custom_js
+    category: 'XC\ThemeTweaker'
+    type: checkbox
+    orderby: 20
+    value: false
+    translations:
+      - code: en
+        option_name: 'Use custom javascript'
+  - name: edit_mode
+    category: 'XC\ThemeTweaker'
+    type: checkbox
+    orderby: 30
+    value: false
+  - name: layout_mode
+    category: 'XC\ThemeTweaker'
+    type: checkbox
+    orderby: 30
+    value: false
+
+XLite\Model\LanguageLabel:
+  - { name: 'Use custom css', translations: [{ code: en, label: 'Use custom css' }] }
+  - { name: 'Use custom js', translations: [{ code: en, label: 'Use custom js' }] }
+  - { name: 'The database stores different version of the custom changes.', translations: [{ code: en, label: 'The database stores different version of the custom changes.' }] }
+  - { name: 'Review it.', translations: [{ code: en, label: 'Review it.' }] }
+  - { name: 'Restore this version', translations: [{ code: en, label: 'Restore this version' }] }
+  - { name: 'Your custom file is successfully saved', translations: [{ code: en, label: 'Your custom file has been saved successfully' }] }
+  - { name: 'Theme tweaker', translations: [{ code: en, label: 'Theme tweaker' }] }
+  - { name: 'Pick template from page element', translations: [{ code: en, label: 'Pick template from page element' }] }
+  - { name: 'Edited templates', translations: [{ code: en, label: 'Edited templates' }] }
+  - { name: 'Webmaster mode', translations: [{ code: en, label: 'Webmaster mode' }] }
+  - { name: 'Template', translations: [{ code: en, label: 'Template' }] }
+  - { name: 'Back to templates list', translations: [{ code: en, label: 'Back to templates list' }] }
+  - { name: 'Webmaster Mode allows you to change the storefront design in click-and-edit mode', translations: [{ code: en, label: 'Webmaster Mode allows you to change the storefront design in click-and-edit mode.<br /><br />If the design of your store''s customer area has been messed up by a template change, try restoring the original template in the Edited Templates section. More information about design changes in X-Cart is available in <a href="http://kb.x-cart.com/pages/viewpage.action?pageId=8224814">X-Cart''s Knowledge Base</a>.' }] }
+  - { name: 'Webmaster mode is enabled', translations: [{ code: en, label: 'Webmaster mode is enabled' }] }
+  - { name: 'Webmaster mode is disabled', translations: [{ code: en, label: 'Webmaster mode is disabled' }] }
+  - { name: 'The template has been updated', translations: [{ code: en, label: 'The template has been updated' }] }
+  - { name: 'The template has been added', translations: [{ code: en, label: 'The template has been added' }] }
+  - { name: 'webmasterMode.Enabled', translations: [{ code: en, label: 'Enabled' }] }
+  - { name: 'webmasterMode.Disabled', translations: [{ code: en, label: 'Disabled' }] }
+  - { name: 'Path for using in custom CSS', translations: [{ code: en, label: 'Path for use in custom CSS' }] }
+  - { name: URL, translations: [{ code: en, label: URL }] }
+  - { name: 'The file {{file}} does not exist or is not writable.', translations: [{ code: en, label: 'The file {{file}} does not exist or is not writable.' }] }
+  - { name: 'The directory {{dir}} does not exist or is not writable.', translations: [{ code: en, label: 'The directory {{dir}} does not exist or is not writable.' }] }
+  - { name: 'New images', translations: [{ code: en, label: 'New images' }] }
+  - { name: 'You are now in layout editing mode', translations: [{ code: en, label: '<b>Drag & drop blocks</b> to rearrange them.' }] }
+  - { name: 'Layout editor', translations: [{ code: en, label: 'Layout editor mode' }] }
+  - { name: 'Layout editor is', translations: [{ code: en, label: 'Layout editor is' }] }
+  - { name: 'disabled blocks', translations: [{ code: en, label: 'disabled blocks' }] }
+  - { name: 'Some', translations: [{ code: en, label: 'Some' }] }
+  - { name: 'Block is enabled', translations: [{ code: en, label: 'Block is enabled' }] }
+  - { name: 'Block is disabled', translations: [{ code: en, label: 'Block is disabled' }] }
+  - { name: 'Exit editor', translations: [{ code: en, label: 'Exit editor' }] }
+  - { name: 'Layout editor is enabled', translations: [{ code: en, label: 'Layout editor is enabled' }] }
+  - { name: 'Layout editor is disabled', translations: [{ code: en, label: 'Layout editor is disabled' }] }
+  - { name: 'Layout editor allows you to change the position of the blocks in drag-n-drop fashion', translations: [{ code: en, label: 'Layout editor allows you to change the position of the blocks in drag-n-drop fashion' }] }
+  - { name: 'There are some custom CSS styles in your store. These styles may affect the look of the installed template. Review the custom styles and disable them if necessary.', translations: [{ code: en, label: 'There are some custom CSS styles in your store. These styles may affect the look of the installed template. <a href="{{url}}">Review the custom styles</a> and disable them if necessary.' }] }
+  - { name: 'Entity was successfully saved', translations: [{ code: en, label: 'Entity was successfully saved' }]}
+  - { name: 'Error on saving image', translations: [{ code: en, label: 'Error on saving image' }]}
+  - { name: 'Unable to save edited content. Errors: ', translations: [{ code: en, label: 'Unable to save edited content. Errors: ' }]}
+  - { name: 'Unknown temporary file', translations: [{ code: en, label: 'Unknown temporary file' }]}
+  - { name: 'Show all', translations: [{ code: en, label: 'Show all' }]}

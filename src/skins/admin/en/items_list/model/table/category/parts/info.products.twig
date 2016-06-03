@@ -1,0 +1,7 @@
+{##
+ # Products count
+ #
+ # @ListChild (list="itemsList.category.cell.info", weight="100")
+ #}
+
+<a href="{{ url('category_products', '', {'id': this.entity.getCategoryId()}) }}"class="count-link">{{ this.entity.countProducts() }}</a>

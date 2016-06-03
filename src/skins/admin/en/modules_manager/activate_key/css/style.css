@@ -1,0 +1,102 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Activate license key page
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.activate-key-form {
+  width: 600px;
+}
+
+.enter-key-hint {
+  margin: 0 30px 20px 0;
+  font-size: 14px;
+}
+
+.addon-key {
+  background: transparent url(../images/key.png) 0 7px no-repeat;
+  padding: 0 0 0 20px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.addon-key input {
+  width: 250px;
+}
+
+.activate-key-form .clear {
+  clear: both;
+}
+
+.activate-key-form .line {
+  background-color: #ddd;
+  height: 1px;
+  width: 100%;
+  padding: 0;
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
+.activate-key-form a {
+  color: #154E9C;
+  text-decoration: underline;
+}
+
+.activate-key-form .title {
+  font-size: 18px;
+  margin-top: 26px;
+  margin-bottom: 14px;
+  padding-top: 20px;
+  border-top: 1px solid #cccccc;
+}
+
+.activate-key-form .bottom-buttons {
+  height: auto;
+  display: table-cell;
+}
+
+.activate-key-form .bottom-buttons .text {
+  font-size: 12px;
+  display: inline-block;
+  line-height: 36px;
+}
+
+.activate-key-form .text.or {
+  margin-left: 12px;
+  margin-right: 12px;
+  font-family: "Trebuchet MS", Helvetica, Jamrul, sans-serif;
+  font-size: 13px;
+  color: #cccccc;
+}
+
+.activate-key-form input[type="text"] {
+  width: 300px;
+}
+
+.activate-key-form button[type="submit"] {
+  margin-left: 12px;
+}
+
+.activate-key-form .buttons {
+  white-space: nowrap;
+}
+
+.activate-key-form .model-form-buttons {
+  padding: 0;
+}
+
+.activate-key-form button.activate-free-license-button {
+  margin-right: 12px;
+}
+
+.activate-key-form .license-key-form.module-activation {
+  display: none;
+}
+
+.activate-key-form .open-license-key-form {
+  text-decoration: none;
+  border-bottom: 1px dotted #1a509a;
+}

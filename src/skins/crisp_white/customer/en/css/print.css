@@ -1,0 +1,231 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Printable page style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+/* This prevent last blank page on the print invoice page */
+html, body {
+  height: auto;
+}
+
+.sidebar,
+.section .tabs,
+#toolbar,
+#main-menu,
+.lc-minicart,
+#search,
+#social-links,
+#header-bar,
+#header,
+#breadcrumb,
+.order-success-box .buttons-row,
+#footer-area,
+#header-area,
+.order-success-panel,
+.target-order #main .section h1.title,
+.order-box .order-statuses,
+.order-box .links,
+.order-box .tiny,
+#slidebar,
+.carousel-indicators,
+.mobile_header,
+.mobile-hidden,
+.desktop-hidden
+{
+  display: none !important;
+}
+
+.product-details .product-photo .mousetrap {
+  display: none !important;
+}
+
+div.product-details .product-details-info {
+  max-width: 620px;
+}
+
+.carousel-inner {
+  height: auto;
+}
+
+.carousel-inner a {
+  display: none;
+}
+
+.carousel-inner a:first-child {
+  display: block;
+}
+
+.carousel-inner img {
+  max-width: 100%;
+}
+
+#content {
+  width: 960px !important;
+  float: none;
+}
+
+.invoice-box {
+  max-width: 100%;
+}
+
+.invoice-box h2.invoice {
+  margin-bottom: 0;
+  font-size: 16px;
+}
+
+.invoice-box table.header {
+  margin-bottom: 30px;
+}
+
+.invoice-box .subhead {
+  font-size: 11px;
+}
+
+.invoice-box .subhead span {
+  display: none;
+}
+
+.invoice-box h1,
+.invoice-box h2,
+.invoice-box h3 {
+  font-family: 'Open Sans', sans-serif;
+  color: #191919;
+  font-weight: normal;
+}
+
+.invoice-box h2 {
+  font-size: 40px;
+  margin-top: 11px 0 18px 0;
+  padding-left: 3px;
+}
+
+.invoice-box p,
+.invoice-box div,
+.invoice-box th,
+.invoice-box td,
+.invoice-box span {
+  color: #333;
+  font-size: 12px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.invoice-box .totals {
+  margin-bottom: 5px;
+}
+
+.invoice-box .totals li {
+  margin: 0;
+}
+
+.invoice-box .totals div {
+  font-size: 10px;
+}
+
+.invoice-box .subhead span,
+.invoice-box .totals .total div {
+  font-size: 14px;
+}
+
+a[href]:after {
+  content: none !important;
+}
+
+.page-break {
+  page-break-after: always;
+}
+
+.invoice-box .items,
+.invoice-box .items th {
+  border: none;
+  background: none;
+  font-size: 10px;
+}
+
+.invoice-box .items td {
+  border-left: none;
+  border-right: none;
+  border-color: #cdcdcd;
+  font-size: 11px;
+}
+
+.invoice-box .items th {
+  font-size: 8px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+.invoice-box .items th.item,
+.invoice-box .items td.item {
+  padding: 7px 20px 7px 0;
+}
+
+.invoice-box .items td.item ul.subitem li,
+.invoice-box .items td.item ul.subitem li span {
+  font-size: 9px;
+}
+
+.invoice-box .items td.item .item-name {
+  font-size: 12px;
+}
+
+.invoice-box .items th.total,
+.invoice-box .items td.total {
+  padding-right: 0;
+}
+
+.invoice-box .addresses {
+  width: auto !important;
+}
+
+.invoice-box .addresses .payment,
+.invoice-box .addresses .shipping {
+  padding-top: 0;
+}
+
+.invoice-box .addresses li.address {
+  width: auto;
+}
+
+.invoice-box .addresses .wrapper {
+  background: none;
+}
+
+.invoice-box .addresses li.address p,
+.invoice-box .addresses li.address div {
+  font-size: 11px;
+}
+
+.invoice-box .header .address {
+  padding-top: 0;
+}
+
+.invoice-box .header .address strong {
+  display: block;
+  font-size: 16px;
+  padding-bottom: 12px;
+}
+
+.invoice-box .header .address p {
+  font-size: 9px;
+  padding-top: 0px;
+  line-height: initial;
+}
+
+.invoice-box .addresses .address .method-box,
+.invoice-box .addresses ul.address-section li.address-field * {
+  font-size: 10px;
+  line-height: initial;
+}
+
+.invoice-box .addresses strong.title,
+.invoice-box .addresses strong.method-title {
+  font-size: 14px;
+}
+
+.invoice-box .thank-you {
+  display: none;
+}

@@ -1,0 +1,11 @@
+{##
+ # Add to Cart popup page: Added product's price template
+ #
+ # @ListChild (list="add2cart_popup.item", weight="400")
+ #}
+
+<div class="item-price">
+  <span>{{ this.item.amount }}</span>
+  <span class="multiplier">x</span>
+  {{ widget('XLite\\View\\Surcharge', surcharge=this.item.getDisplayPrice(), currency=this.cart.getCurrency()) }}
+</div>

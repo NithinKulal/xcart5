@@ -1,0 +1,17 @@
+{##
+ # Export begin section : sections
+ #
+ # @ListChild (list="export.begin.content", weight="100")
+ #}
+
+<div class="parts">
+  <h3>{{ t('What to export') }}</h3>
+  <ul class="clearfix sections">
+    {% for i, section in this.getSections() %}
+      <li>
+        <input type="checkbox" name="section[]" value="{{ i }}" id="section{{ this.formatClassNameToString(i) }}"{% if this.isSectionSelected(i) %}checked="checked"{% endif %}{% if this.isSectionDisabled(i) %} disabled="disabled"{% endif %} />
+        <label for="section{{ this.formatClassNameToString(i) }}"{% if this.isSectionDisabled(i) %} class="disabled"{% endif %}>{{ t(section) }}</label>
+      </li>
+    {% endfor %}
+  </ul>
+</div>

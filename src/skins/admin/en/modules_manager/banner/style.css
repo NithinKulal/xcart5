@@ -1,0 +1,109 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Banner CSS styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.top-controls.banner {
+  height: 357px;
+  width: 944px;
+  margin-bottom: 22px;
+}
+
+.banner .banner-info.main-banner {
+  margin-right: 20px;
+  position: relative;
+}
+
+.banner .banners-collection-box {
+  margin-top: 20px;
+}
+
+.banner .banner-info.banners-collection {
+  float: left;
+  margin-right: 20px;
+}
+
+.tags-list-box {
+  position: absolute;
+  top: 47px;
+  right: -23px;
+  border-top: 1px solid #e8e8e8;
+  padding-top: 21px;
+  width: 227px;
+}
+
+.tags-list-box .icon {
+  font-size: 18px;
+  color: #9c9c9c;
+  padding-left: 10px;
+  padding-right: 5px;
+}
+
+.icon-tags.icon {
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+}
+
+.icon-tags:before {
+  content: "\f02c";
+}
+
+.tags-list-box label {
+  color: #ccc;
+  font-family: 'Open Sans',sans-serif;
+  font-size: 19px;
+  font-weight: normal;
+  vertical-align: middle;
+  text-transform: uppercase;
+}
+
+.tags-list-box .tag-list {
+  margin-top: 13px;
+  padding-left: 20px;
+}
+
+.tags-list-box .tag-list .tag-item {
+  font-size: 14px;
+  margin-bottom: 2px;
+  margin-top: 2px;
+  padding-top: 0;
+  padding-left: 8px;
+}
+
+.tags-list-box .tag-list .tag-item a {
+  text-decoration: none;
+  padding: 4px 0 4px 10px;
+  display: block;
+  color: #5194C5;
+}
+
+.tags-list-box .tag-list .tag-item:hover {
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  background: #E4F0F9;
+  position: relative;
+}
+
+.tags-list-box .tag-list .tag-item:hover a:before {
+  content: "\f111";
+  font: 400 10px/16px 'FontAwesome';
+  color: #FFF;
+  position: absolute;
+  right: 10px;
+  top: 7px;
+}
+
+.view-all-modules-link {
+  margin-right: 20px;
+  display: inline-block;
+  font-size: 14px;
+  vertical-align: middle;
+}

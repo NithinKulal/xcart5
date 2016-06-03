@@ -1,0 +1,36 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Payment\Method:
+  - service_name: 2Checkout.com
+    class: Module\CDev\TwoCheckout\Model\Payment\Processor\TwoCheckout
+    type: C
+    orderby: -10500
+    exCountries: [KP, CU, IR, SY, SD, MM]
+    translations:
+      - code: en
+        name: 2Checkout.com
+    settings:
+      - name: account
+      - name: secret
+      - name: language
+        value: en
+      - name: mode
+        value: test
+      - name: prefix
+        value: xcart
+      - name: currency
+        value: USD
+XLite\Model\LanguageLabel:
+  - { name: "2Checkout.com account number", translations: [{ code: en, label: "2Checkout.com account number" }] }
+  - { name: "Order prefix", translations: [{ code: en, label: "Order prefix" }] }
+  - { name: "Pricing currency", translations: [{ code: en, label: "Pricing currency" }] }
+  - { name: "To set up the integration you should follow ", translations: [{ code: en, label: "To set up the integration, go to the " }] }
+  - { name: "\"Site management\"", translations: [{ code: en, label: "\"Site management\"" }] }
+  - { name: " page and make sure that:", translations: [{ code: en, label: " page on the 2Checkout site and make sure of the following:" }] }
+  - { name: "The \"Pricing currency\" value must be exactly the same as on it.", translations: [{ code: en, label: "The \"Pricing currency\" value here in X-Cart must be exactly the same as on 2Checkout's Site management page." }] }
+  - { name: "The \"Approved URL\" value must be exact as this", translations: [{ code: en, label: "The \"Approved URL\" value on 2Checkout's Site management page must be set to this" }] }

@@ -1,0 +1,9 @@
+{##
+ # "Tabs" tab
+ #}
+
+{% if this.isProductTabPage() %}
+  {{ widget('XLite\\Module\\XC\\CustomProductTabs\\View\\Model\\Product\\Tab', useBodyTemplate='1') }}
+{% else %}
+  {{ widget(template='common/dialog.twig', body='modules/XC/CustomProductTabs/product/list.twig') }}
+{% endif %}

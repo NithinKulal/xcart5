@@ -1,0 +1,32 @@
+{##
+ # Trial upgrade notice
+ #
+ # @ListChild (list="upgrade.step.prepare.buttons.sections", weight="50")
+ #}
+
+{% if this.hasExpiredKeys() %}
+  <div class="alert alert-warning expired-keys">
+    <div>{{ t('There are expired license keys') }}</div>
+    <ul>
+      <li class="header">
+        <div class="key-title">{{ t('License key') }}</div>
+        <div class="key-exp-date">{{ t('Exp. date') }}</div>
+      </li>
+      {% for i, k in this.getExpiredKeys() %}
+        <li>
+          <div class="key-title">{{ k.title }}</div>
+          <div class="key-exp-date">{{ k.expDate }}</div>
+        </li>
+      {% endfor %}
+    </ul>
+    <div class="actions">
+      {% if this.getAllKeysPurchaseURL() %}
+        {{ widget('\\XLite\\View\\Button\\Link', location=this.getAllKeysPurchaseURL(), label=t('Prolongate keys'), style='regular-main-button', blank='true') }}
+      {% endif %}
+      <div class="revalidate-keys">
+        {{ widget('\\XLite\\View\\Button\\ProgressState', label='Re-validate license keys') }}
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+{% endif %}

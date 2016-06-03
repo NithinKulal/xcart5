@@ -1,0 +1,8 @@
+{##
+ # Product details
+ #}
+<div {{ this.printTagAttributes(this.getContainerAttributes())|raw }}>
+  {% form '\\XLite\\View\\Form\\Product\\AddToCart' with {product: this.product, className: 'product-details', validationEngine: '1'} %}
+    {{ widget_list('product.details.page') }}
+  {% endform %}
+</div>

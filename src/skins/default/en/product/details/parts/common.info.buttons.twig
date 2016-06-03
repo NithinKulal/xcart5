@@ -1,0 +1,14 @@
+{##
+ # Product details buttons block
+ #
+ # @ListChild (list="product.details.page.info", weight="100")
+ # @ListChild (list="product.details.quicklook.info", weight="100")
+ #}
+
+<div class="product-buttons shade-base">
+  {% if this.isProductAdded() %}
+    {{ widget_list('buttons-added', type='nested') }}
+  {% else %}
+    {{ widget_list('buttons', type='nested') }}
+  {% endif %}
+</div>

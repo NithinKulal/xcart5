@@ -1,0 +1,12 @@
+{##
+ # Order history event date
+ #
+ # @ListChild (list="order.history.base.events.details", weight="20")
+ #}
+{% if this.isDisplayDetails(this.event) %}
+  <li class="details">
+    <div class="action">
+      <i data-interval="0" data-toggle="collapse" id="event-{{ this.event.eventId }}-action" data-target=".event-{{ this.event.eventId }}" class="fa fa-plus-square-o"></i>
+    </div>
+  </li>
+{% endif %}

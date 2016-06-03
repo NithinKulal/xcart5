@@ -1,0 +1,72 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Add shipping styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+ul.online-carriers {
+  width: 681px;
+}
+ul.online-carriers li {
+  float: left;
+  width: 227px;
+  height: 138px;
+  text-align: center;
+}
+ul.online-carriers li a {
+  width: 190px;
+  height: 130px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  display: inline-block;
+  padding: 20px;
+}
+ul.online-carriers li a:hover {
+  border-color: #ccc;
+}
+ul.online-carriers li a .image,
+ul.online-carriers li a .image img {
+  width: 148px;
+  height: 73px;
+}
+.ui-dialog-content .add-shipping {
+  padding-top: 15px;
+}
+
+.form-field-link.shippingzone-link {
+  margin-left: 15px;
+  vertical-align: baseline;
+}
+.offline-help,
+.online-help {
+  width: 695px;
+}
+.offline-help .help-header,
+.online-help .help-header {
+  margin-bottom: 15px;
+}
+.offline-help .help-content {
+  display: none;
+  margin-bottom: 15px;
+}
+.offline-help .help-link {
+  display: inline-block;
+  cursor: pointer;
+  color: #2c5fa6;
+  border-bottom: 1px dotted #2c5fa6;
+}
+.offline-help .help-link:hover {
+  color: #0f9dcc;
+  border-color: #0f9dcc;
+}
+.add-shipping .sticky-panel,
+.edit-shipping .sticky-panel {
+  margin-top: 0;
+}
+.add-shipping .sticky-panel .box,
+.edit-shipping .sticky-panel .box {
+  border-top: none;
+  padding-left: 0;
+}

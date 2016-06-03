@@ -1,0 +1,79 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * AuctionInc settings style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+div.package {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  padding: 20px;
+  width: 100%;
+  border-color: #dfdfdf;
+}
+
+ul.fields li {
+  border-bottom: 1px solid #e9e9e9;
+  width: 404px;
+}
+
+ul.fields li:last-child {
+  border-bottom: none;
+}
+
+ul.fields span {
+  font-size: 12px;
+  display: inline-block;
+  width: 200px;
+  max-width: 200px;
+  padding: 5px 15px;
+}
+
+ul.items {
+  margin-top: 30px;
+}
+
+ul.items li {
+  display: table-row;
+}
+
+ul.items span.name {
+  width: 100%;
+}
+
+ul.items li > span {
+  font-size: 14px;
+  display: table-cell;
+  min-width: 200px;
+  max-width: 200px;
+  padding: 6px 12px 7px 18px;
+  line-height: 34px;
+  border-bottom: 1px solid #e9e9e9;
+}
+
+ul.items li:last-child > span {
+  border-bottom: none;
+}
+
+ul.items li.header {
+  font-size: 14px;
+  border-bottom: 1px solid #d5d5d5;
+  color: #546377;
+  white-space: nowrap;
+
+  background: -moz-linear-gradient(top,  rgba(244,244,244,1) 0%, rgba(236,236,236,1) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(244,244,244,1)), color-stop(100%,rgba(236,236,236,1)));
+  background: -webkit-linear-gradient(top,  rgba(244,244,244,1) 0%,rgba(236,236,236,1) 100%);
+  background: -o-linear-gradient(top,  rgba(244,244,244,1) 0%,rgba(236,236,236,1) 100%);
+  background: -ms-linear-gradient(top,  rgba(244,244,244,1) 0%,rgba(236,236,236,1) 100%);
+  background: linear-gradient(to bottom,  rgba(244,244,244,1) 0%,rgba(236,236,236,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f4f4f4', endColorstr='#ececec',GradientType=0 );
+}

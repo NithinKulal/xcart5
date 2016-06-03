@@ -1,0 +1,8 @@
+{##
+ # Layout settings template
+ #
+ # @ListChild (list="layout_settings.settings", weight="35")
+ #}
+<div class="webmaster-mode-switch">
+  {{ widget('XLite\\View\\FormField\\Input\\Checkbox\\OnOff', label='Webmaster mode', labelHelp='Webmaster Mode allows you to change the storefront design in click-and-edit mode', fieldName='edit_mode', value=this.config.XC.ThemeTweaker.edit_mode, comment=this.getStoreFrontLink()) }}
+</div>

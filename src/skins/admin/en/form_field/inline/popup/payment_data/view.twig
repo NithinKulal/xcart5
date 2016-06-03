@@ -1,0 +1,17 @@
+{##
+ # Inline text field view
+ #}
+
+<span class="value">
+  {% for item in this.getTransactionData() %}
+  <div class="{{ item.css_class }} payment-data-field-view">
+    <span class="param-title{% if not item.value %} force-display{% endif %}">{{ t(item.title) }}:</span>
+    {% if item.value %}
+      <span class="param-value">{{ item.value }}</span>
+    {% endif %}
+    {% if not item.value %}
+      <span class="param-value">{{ t('none') }}</span>
+    {% endif %}
+  </div>
+  {% endfor %}
+</span>

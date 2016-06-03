@@ -1,0 +1,6 @@
+{##
+ # Returns list table "total" cell
+ #}
+
+<span class="total">{{ this.formatPrice(this.entity.getItemsTotalCost(), this.entity.order.getCurrency()) }}</span>
+<span class="quantity">({{ t('N it.', {'count': this.entity.getItemsTotalAmount()}) }})</span>

@@ -1,0 +1,16 @@
+{##
+ # Image field
+ #}
+
+{% if this.getValue() %}
+  <div class="image"><img src="{{ this.value.getURL() }}" alt="" /></div>
+{% else %}
+  <div class="no-image">{{ t('No image') }}</div>
+{% endif %}
+
+{{ widget('\\XLite\\View\\Button\\FileSelector', label=this.getButtonLabel(), object=this.getObject(), objectId=this.getObjectId(), fileObject=this.getFileObject(), fileObjectId=this.getFileObjectId()) }}
+
+{% if this.isRemoveButtonVisible() %}
+  <input type="checkbox" name="imagesRemove[{{ this.getObject }}][{{ this.getObjectId() }}][{{ this.getFileObject() }}][{{ this.getFileObjectId() }}]" id="ir_{{ this.getObject }}_{{ this.getObjectId() }}_{{ this.getFileObject() }}_{{ this.getFileObjectId() }}" value="1" />
+  <label for="ir_{{ this.getObject }}_{{ this.getObjectId() }}_{{ this.getFileObject() }}_{{ this.getFileObjectId() }}">{{ t(this.getRemoveButtonLabel()) }}</label>
+{% endif %}

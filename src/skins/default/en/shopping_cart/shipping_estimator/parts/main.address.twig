@@ -1,0 +1,24 @@
+{##
+ # Shipping estimator : address
+ #
+ # @ListChild (list="shippingEstimator.main", weight="10")
+ #}
+{% form '\\XLite\\View\\Form\\Cart\\ShippingEstimator\\Destination' with {className: 'estimator'} %}
+
+  <ul class="form">
+    {{ widget_list('shippingEstimator.address') }}
+  </ul>
+
+  {% if this.isEstimate() %}
+    <div class="buttons">
+      {{ widget('\\XLite\\View\\Button\\Submit', label='Apply destination') }}
+    </div>
+  {% endif %}
+
+  {% if not this.isEstimate() %}
+    <div class="buttons main">
+      {{ widget('\\XLite\\View\\Button\\Submit', label='Apply destination') }}
+    </div>
+  {% endif %}
+
+{% endform %}

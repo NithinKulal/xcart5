@@ -1,0 +1,17 @@
+{##
+ # Layout
+ #}
+
+{% if this.isDeveloperMode() %}
+  <div id="profiler-messages"></div>
+{% endif %}
+
+{{ widget_list('layout.slidebar') }}
+
+
+<div id="page-wrapper">
+  <div id="page" class="{% if this.isForceChangePassword() %}force-change-password-page{% endif %}">
+    {{ widget_list('layout.main') }}
+  </div>
+  {{ widget_list('layout.footer') }}
+</div>

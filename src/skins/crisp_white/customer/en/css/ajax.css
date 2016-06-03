@@ -1,0 +1,32 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * AJAX-related styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.wait-block-overlay {
+  position: absolute;
+  cursor: wait;
+  margin: 0px;
+  padding: 0px;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.80);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff00, endColorstr=#ffffff00);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff00, endColorstr=#ffffff00)";
+  z-index: 10;
+}
+
+.shade-block-overlay {
+  position: absolute;
+  cursor: wait;
+  margin: 0px;
+  padding: 0px;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.80);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff00, endColorstr=#ffffff00);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff00, endColorstr=#ffffff00)";
+  z-index: 10;
+}

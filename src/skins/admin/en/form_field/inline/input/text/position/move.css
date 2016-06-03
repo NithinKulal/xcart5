@@ -1,0 +1,28 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Sortable position
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.inline-move .move {
+  cursor: move;
+  margin-left: auto;
+  margin-top: 0;
+  margin-right: 5px;
+  position: relative;
+  color: #bec6d8;
+  line-height: 1;
+}
+
+.inline-move .field .table-value,
+.inline-move .field .clear
+{
+  display: none;
+}
+
+.sortable-placeholder {
+  background: #fffecd;
+}

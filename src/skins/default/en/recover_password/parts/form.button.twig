@@ -1,0 +1,14 @@
+{##
+ # Recover password : form : button
+ #
+ # @ListChild (list="recover.password.fields", weight="300")
+ #}
+
+<tr>
+  <td colspan="2">&nbsp;</td>
+  <td class="buttons">
+    {{ widget('\\XLite\\View\\Button\\Submit', label=t('submit_restore_pass')) }}
+    <a href="{{ url('login') }}" class="back-login log-in" data-login="{{ this.email }}">{{ t('Back to Login form') }}</a>
+  </td>
+</tr>
+

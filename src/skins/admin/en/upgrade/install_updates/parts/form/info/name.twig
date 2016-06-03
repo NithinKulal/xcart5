@@ -1,0 +1,12 @@
+{##
+ # Upgrade entry name
+ #
+ # @ListChild (list="upgrade.install_updates.sections.form.info", weight="100")
+ #}
+
+{% if this.isModule(this.entry) %}
+  <li class="name">{{ this.entry.getName() }}</li>
+{% endif %}
+{% if not this.isModule(this.entry) %}
+  <li class="name core">{{ this.entry.getName() }}</li>
+{% endif %}

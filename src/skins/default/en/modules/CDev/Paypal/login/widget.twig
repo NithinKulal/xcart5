@@ -1,0 +1,26 @@
+{##
+ # Social Login sign-in button
+ #}
+
+{% if this.getTextBefore() %}
+  <div class="social-login-note note-before">
+    {{ this.getTextBefore() }}
+  </div>
+{% endif %}
+
+<div class="social-login-container">
+  <ul class="social-login">
+    <li class="social-net-element social-net-{{ this.getButtonStyle() }} social-net-PayPal">
+      <a href="javascript: void(0);" rel="{{ this.getAuthURL() }}" class="paypal-login button" onclick="return !PaypalLogin.openPopup(this);">
+        <i class="fa fa-paypal"></i>
+        <span class="provider-name">{{ t('PayPal') }}</span>
+      </a>
+    </li>
+  </ul>
+</div>
+
+{% if this.getTextAfter() %}
+  <div class="social-login-note note-after">
+    {{ this.getTextAfter() }}
+  </div>
+{% endif %}

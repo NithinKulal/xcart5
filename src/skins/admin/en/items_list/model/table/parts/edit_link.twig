@@ -1,0 +1,7 @@
+{##
+ # Edit link 
+ #}
+
+<div class="entity-edit-link" {{ this.getEditLinkAttributes(this.entity, this.column) }}>
+  <a href="{{ this.buildEntityURL(this.entity, this.column) }}" class="regular-button" role="button">{{ this.getEditLinkLabel(this.entity) }}</a>
+</div>

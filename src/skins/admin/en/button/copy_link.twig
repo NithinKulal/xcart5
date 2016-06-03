@@ -1,0 +1,11 @@
+{##
+ # Bookmark link button
+ #}
+
+<button {{ this.printTagAttributes(this.getAttributes())|raw }}>
+{{ this.displayCommentedData(this.getCommentedData()) }}
+{% if this.getIconStyle() %}
+  <i class="button-icon {{ this.getIconStyle() }}"></i>
+{% endif %}
+  <span>{{ t(this.getButtonLabel()) }}</span>
+</button>

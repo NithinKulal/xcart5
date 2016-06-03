@@ -1,0 +1,9 @@
+<xlite-sticky-panel inline-template :changed="isChanged()">
+    <div class="panel-wrapper">
+        <div class="{{ this.getClass() }}">
+            <div class="box">
+                {% include this.getBody() %}
+            </div>
+        </div>
+    </div>
+</xlite-sticky-panel>

@@ -1,0 +1,56 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Payment\Method:
+  - service_name: Stripe
+    class: Module\XC\Stripe\Model\Payment\Stripe
+    type: C
+    orderby: -10300
+    countries: [AU, CA, DK, US, FI, GB, IE, NO, SE, AT, BE, FR, DE, IT, JP, LU, MX, NL, ES, CH]
+    translations:
+      - code: en
+        name: 'Stripe'
+    settings:
+      - name: publishKey
+      - name: accessToken
+      - name: publishKeyTest
+      - name: accessTokenTest
+      - name: mode
+        value: live
+      - name: type
+        value: sale
+      - name: prefix
+        value: xcart
+
+XLite\Model\LanguageLabel:
+  directives: { addModel: 'XLite\Model\LanguageLabelTranslation' }
+  - { name: 'X items ($)', translations: [{ code: 'en', label: '{{count}} items ({{total}})' }, { code: 'ru', label: '{{count}} продуктов ({{total}})' }] }
+  - { name: 'Payment processed with errors. Please, try again or ask administrator', translations: [{ code: 'en', label: 'Token is empty' }, { code: 'ru', label: 'Токен пустой' }] }
+  - { name: 'CVC verification: X', translations: [{ code: 'en', label: 'CVC verification: {{state}}' }, { code: 'ru', label: 'Проверка подлинности кредитной карты (CVC): {{state}}' }] }
+  - { name: 'Address line verification: X', translations: [{ code: 'en', label: 'Address line verification: {{state}}' }, { code: 'ru', label: 'Проверка адреса: {{state}}' }] }
+  - { name: 'Address zipcode verification: X', translations: [{ code: 'en', label: 'Address zipcode verification: {{state}}' }, { code: 'ru', label: 'Проверка почтового индекса: {{state}}' }] }
+  - { name: 'Requested transaction type: X; real transaction type: Y', translations: [{ code: 'en', label: 'Requested transaction type: {{actual}}; real transaction type: {{real}}' }, { code: 'ru', label: 'Запрашивалася транзакция типа {{actual}}, а реально была выполнена типа {{real}}' }] }
+  - { name: 'Requested amount: X; real amount: Y', translations: [{ code: 'en', label: 'Requested amount: {{actual}}; real amount: {{real}}' }, { code: 'ru', label: 'Запрашивалось к оплате {{actual}}, а реально было оплачено {{real}}' }] }
+  - { name: 'Requested currency: X; real currency: Y', translations: [{ code: 'en', label: 'Requested currency: {{actual}}; real currency: {{real}}' }, { code: 'ru', label: 'Запрашивалось к оплате сумма в валюте {{actual}}, а реально было оплачено в валюте {{real}}' }] }
+  - { name: 'Copy Webhook URL and go to Account settings', translations: [{ code: 'en', label: 'Copy "Webhook URL" and go to <a href="https://manage.stripe.com/account/webhooks" target="_blank">Account settings</a>' }, { code: 'ru', label: 'Скопируйте "Webhook URL" и перейдите в <a href="https://manage.stripe.com/account/webhooks" target="_blank">Account settings</a>' }] }
+  - { name: 'Go to your account settings on www.stripe.com', translations: [{ code: 'en', label: 'Go to your <strong>"account settings"</strong> on www.stripe.com' }, { code: 'ru', label: 'Откройте страницу <strong>"account settings"</strong> на www.stripe.com' }] }
+  - { name: 'Choose Webhook tab and press + add URL button', translations: [{ code: 'en', label: 'Choose <strong>"Webhook tab"</strong> and press <strong>"+ add URL"</strong> button' }, { code: 'ru', label: 'Выберите вкладку <strong>"Webhooks"</strong> и нажмите кнопку <strong>"+ add URL"</strong>' }] }
+  - { name: 'Past Webhook URL to the field and press Create Webhook URL button', translations: [{ code: 'en', label: 'Past <strong>"Webhook URL"</strong> to the field and press <strong>"Create Webhook URL"</strong> button' }, { code: 'ru', label: 'Вставьте <strong>"Webhook URL"</strong> и нажмите кнопку <strong>"Create Webhook URL"</strong>' }] }
+  - { name: 'Disconnect', translations: [{ code: 'en', label: 'Disconnect' }, { code: 'ru', label: 'Разъеденить' }] }
+  - { name: 'Status: Connected', translations: [{ code: 'en', label: 'Status: <span>Connected</span> ({{mode}})' }, { code: 'ru', label: 'Статус: <span>Соединено</span> ({{mode}})' }] }
+  - { name: 'Click Connect with Stripe to be redirected to Stripe.com', translations: [{ code: 'en', label: 'Click "Connect with Stripe" to be redirected to Stripe.com' }, { code: 'ru', label: 'Нажмите "Connect with Stripe" чтобы перейти на Stripe.com' }] }
+  - { name: 'Fill out the form with your Company info to setup your account and start processing payments immedately', translations: [{ code: 'en', label: '<strong>Complete the form</strong> with your Company info to setup your account and start processing payments immedately.' }, { code: 'ru', label: '<strong>Заполняйте форму</strong>, имея на руках данные о Вашей компании. После регистрации Вы сможете сразу начать принимать платежи.' }] }
+  - { name: 'Refresh token', translations: [{ code: 'en', label: 'Refresh token' }, { code: 'ru', label: 'Обновить токен' }] }
+  - { name: 'Your Stripe account is no longer accessible. Please connect with Stripe once again.', translations: [{ code: 'en', label: 'Your Stripe account is no longer accessible. Please connect with Stripe once again.' }, { code: 'ru', label: 'Ваш Stripe аккаунт более недоступен. Пожалуста, пройдите соединение со Stripe еще раз.' }] }
+  - { name: "Webhook URL is your store's URL through which Stripe informs your store about any changes in the order", translations: [{ code: 'en', label: "Webhook URL is your store's URL through which Stripe informs your store about any changes in the order. For example, if you refund a payment transaction for a certain amount via Stripe backend, Stripe will send information about this refund to the store using a special request to the Webhook URL, and the store will update the order status to refunded. If Webhook URL is not specified, the store will not know that the order was updated in Stripe backend and the order status in the store will not be updated automatically." }, { code: 'ru', label: "Webhook URL это URL Вашего магазина, через который Stripe оповещает магазин о изменениях в заказе. Например, если вы черезе Stripe backend сделаете refund плоатежной транзакции на некую сумму, то Stripe сообщит об этом магазину при помощи специального запроса к Webhook URL и магазин изменит состояние заказа на refunded. Иначе, если Webhook URL не указан, магазин об этом не узнает и закза не изменит свое состояние автоматически." }] }
+  - { name: 'URL is copied', translations: [{ code: 'en', label: 'URL is copied' }, { code: 'ru', label: 'URL скопирован' }] }
+  - { name: 'Show "How to use" instruction', translations: [{ code: 'en', label: 'Show "How to use" instruction' }, { code: 'ru', label: 'Показать инструкцию' }] }
+  - { name: 'Hide "How to use" instruction', translations: [{ code: 'en', label: 'Hide "How to use" instruction' }, { code: 'ru', label: 'Спрятать инструкцию' }] }
+  - { name: 'Don''t have an account?', translations: [{ code: en, label: 'Don''t have an account?' }] }
+  - { name: 'Publishable key', translations: [{ code: en, label: 'Publishable key' }] }
+  - { name: 'Publishable key (test mode)', translations: [{ code: en, label: 'Publishable key (test mode)' }] }
+  - { name: 'Secret key (test mode)', translations: [{ code: en, label: 'Secret key (test mode)' }] }

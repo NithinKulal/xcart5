@@ -1,0 +1,62 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * CSS classes
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.form-item, .form-actions {
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
+#contact-site-form label,
+  #contact-site-form .captcha
+{
+  color: #2F5576;
+  font-size: 16px;
+  padding-top: 0;
+}
+
+#contact-site-form label {
+  width: 148px;
+  display: inline-block;
+  font-weight: normal;
+  vertical-align: top;
+}
+
+
+#contact-site-form div.table-value {
+  float: none;
+  display: inline;
+}
+
+#contact-site-form .resizable-textarea {
+  display: block;
+  padding-top: 7px;
+}
+
+#contact-site-form label .form-required {
+  float: right;
+  position: relative;
+  top: 2px;
+}
+
+#contact-site-form label.for-message .form-required {
+  float: none;
+  position: static;
+}
+
+#contact-site-form textarea {
+  width: 100%;
+}
+
+#contact-site-form .action {
+  margin-left: 250px;
+}
+
+#contact-site-form #recaptcha_widget_div {
+  margin-left: 150px;
+}

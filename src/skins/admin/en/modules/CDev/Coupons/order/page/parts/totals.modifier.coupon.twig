@@ -1,0 +1,52 @@
+{##
+ # Invoice totals : modifier default template
+ #}
+
+<div class="title">
+  {{ t('Coupon discount') }}:
+  {{ widget_list('order.base.totals.modifier.name', surcharge=this.surcharge, sType=this.surcharge.code, order=this.order) }}
+</div>
+<div class="value"></div>
+</li>
+
+<li class="hidden">
+  {{ this.surcharge.formField.display()|raw }}
+  <input type="hidden" name="auto[surcharges][{{ this.surcharge.code }}][value]" value="1" />
+</li>
+
+<li class="coupon-row new hidden">
+  <div class="code hidden"></div>
+  <div class="code"></div>
+  <div class="cost">
+    {{ this.formatPriceHTML('0', this.order.currency)|raw }}
+  </div>
+  <div class="recalc">
+    <a href="#" class="remove" title="{{ t('Remove') }}"><i class="fa fa-trash-o"></i></a>
+    <input type="hidden" name="newCoupon[]" value="" />
+  </div>
+</li>
+
+{% for coupon in this.getUsedCoupons() %}
+<li class="coupon-row">
+  <div class="code hidden">{{ coupon.code }}</div>
+  <div class="code">{{ coupon.getPublicName() }}:</div>
+  <div class="cost">{{ this.formatPriceHTML(coupon.value, this.order.currency)|raw }}</div>
+  <div class="recalc">
+    <a href="#" class="remove" title="{{ t('Remove') }}"><i class="fa fa-trash-o"></i></a>
+    <input type="hidden" name="removeCoupons[{{ this.getCouponCodeHash(coupon) }}]" value="" />
+  </div>
+</li>
+{% endfor %}
+
+<li class="coupon-row add-new-row">
+  <div></div>
+  <div></div>
+  <div class="add-new">
+    <a href="#" class="add">{{ t('Add coupon') }}</a>
+    <div class="box">
+      {{ widget('XLite\\Module\\CDev\\Coupons\\View\\FormField\\NewCode', fieldName='couponCode', fieldOnly='true', label=t('Coupon')) }}
+      <button type="button" class="btn regular-button action add-coupon"><span>{{ t('Redeem') }}</span></button>
+    </div>
+  </div>
+
+  {{ widget_list('order.base.totals.modifier.value', surcharge=this.surcharge, sType=this.surcharge.code, order=this.order) }}

@@ -1,0 +1,17 @@
+{##
+ # Online shipping carriers
+ #}
+<ul class="online-carriers">
+  {% for method in this.getMethods() %}
+    <li>
+      <a href="{{ this.getSettingsURL(method) }}" title="{{ method.name }}">
+        <div class="image">
+          {% if method.getAdminIconURL() %}
+            <img src="{{ method.getAdminIconURL() }}" alt="{{ method.name }}" />
+          {% endif %}
+        </div>
+        {{ method.name }}
+      </a>
+    </li>
+  {% endfor %}
+</ul>

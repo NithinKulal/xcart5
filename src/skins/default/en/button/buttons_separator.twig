@@ -1,0 +1,9 @@
+{##
+ # Checkout buttons separator template
+ #}
+
+{% if this.isCartTotalsBlock() %}<li class="button buttons-separator">{% endif %}
+<div class="buttons-separator">
+  <span>{{ t('- OR -') }}</span>
+</div>
+{% if this.isCartTotalsBlock() %}</li>{% endif %}

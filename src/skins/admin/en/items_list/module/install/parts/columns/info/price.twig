@@ -1,0 +1,18 @@
+{##
+ # Modules main section list
+ #
+ # @ListChild (list="itemsList.module.install.columns.module-main-section", weight="100")
+ #}
+
+{% if this.showPrice(this.module) %}
+  <div class="price">
+    {% if not this.isFree(this.module) %}
+      <div class="paid">
+        <span class="currency">{{ this.formatPrice(this.module.getPrice(), this.module.getCurrency()) }}</span>
+        {% if this.isPurchased(this.module) %}
+          <span class="purchased">({{ t('Purchased') }})</span>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+{% endif %}

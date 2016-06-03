@@ -1,0 +1,8 @@
+{##
+ # Email footer
+ #
+ # @ListChild (list="crud.settings.footer", zone="admin", weight="100")
+ #}
+{% if this.page == 'Email' %}
+  {{ widget('\\XLite\\View\\TestEmail') }}
+{% endif %}

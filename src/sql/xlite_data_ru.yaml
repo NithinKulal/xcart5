@@ -1,0 +1,182 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Demo store (RU)
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\State:
+  - { state: Адыгея Республика, code: AD, country: {code: RU} }
+  - { state: Алтай Республика, code: AL , country: {code: RU} }
+  - { state: Алтайский Край, code: ALT , country: {code: RU} }
+  - { state: Амурская Область, code: AMU , country: {code: RU} }
+  - { state: Архангельская Область, code: ARK , country: {code: RU} }
+  - { state: Астраханская Область, code: AST , country: {code: RU} }
+  - { state: Башкортостан Республика, code: BA , country: {code: RU} }
+  - { state: Белгородская Область, code: BEL , country: {code: RU} }
+  - { state: Брянская Область, code: BRY , country: {code: RU} }
+  - { state: Бурятия Республика, code: BU , country: {code: RU} }
+  - { state: Чеченская Республика, code: CH , country: {code: RU} }
+  - { state: Челябинская Область, code: CHE , country: {code: RU} }
+  - { state: Чукотский Автономный Округ, code: CHU , country: {code: RU} }
+  - { state: Чувашская Республика, code: CU , country: {code: RU} }
+  - { state: Дагестан Республика, code: DA , country: {code: RU} }
+  - { state: Еврейская Автономная Область, code: YEV , country: {code: RU} }
+  - { state: Хабаровский Край, code: KHA , country: {code: RU} }
+  - { state: Хакасия Республика, code: KK , country: {code: RU} }
+  - { state: Ханты-Мансийский-Югра Автономный Округ, code: KHM , country: {code: RU} }
+  - { state: Ингушетия Республика, code: IN , country: {code: RU} }
+  - { state: Иркутская Область, code: IRK , country: {code: RU} }
+  - { state: Ивановская Область, code: IVA , country: {code: RU} }
+  - { state: Ямало-Ненецкий Автономный Округ, code: YAN , country: {code: RU} }
+  - { state: Ярославская Область, code: YAR , country: {code: RU} }
+  - { state: Кабардино-Балкарская Республика, code: KB , country: {code: RU} }
+  - { state: Калининградская Область, code: KGD , country: {code: RU} }
+  - { state: Калмыкия Республика, code: KL , country: {code: RU} }
+  - { state: Калужская Область, code: KLU , country: {code: RU} }
+  - { state: Камчатский Край, code: KAM , country: {code: RU} }
+  - { state: Карачаево-Черкесская Республика, code: KC , country: {code: RU} }
+  - { state: Карелия Республика, code: KR , country: {code: RU} }
+  - { state: Кемеровская Область, code: KEM , country: {code: RU} }
+  - { state: Кировская Область, code: KIR , country: {code: RU} }
+  - { state: Коми Республика, code: KO , country: {code: RU} }
+  - { state: Костромская Область, code: KOS , country: {code: RU} }
+  - { state: Краснодарский Край, code: KDA , country: {code: RU} }
+  - { state: Красноярский Край, code: KYA , country: {code: RU} }
+  - { state: Курганская Область, code: KGN , country: {code: RU} }
+  - { state: Курская Область, code: KRS , country: {code: RU} }
+  - { state: Ленинградская Область, code: LEN , country: {code: RU} }
+  - { state: Липецкая Область, code: LIP , country: {code: RU} }
+  - { state: Магаданская Область, code: MAG , country: {code: RU} }
+  - { state: Марий Эл Республика, code: ME , country: {code: RU} }
+  - { state: Мордовия Республика, code: MO , country: {code: RU} }
+  - { state: Московская Область, code: MOS , country: {code: RU} }
+  - { state: Москва, code: MOW , country: {code: RU} }
+  - { state: Мурманская Область, code: MUR , country: {code: RU} }
+  - { state: Ненецкий Автономный Округ, code: NEN , country: {code: RU} }
+  - { state: Нижегородская Область, code: NIZ , country: {code: RU} }
+  - { state: Новгородская Область, code: NGR , country: {code: RU} }
+  - { state: Новосибирская Область, code: NVS , country: {code: RU} }
+  - { state: Омская Область, code: OMS , country: {code: RU} }
+  - { state: Оренбургская Область, code: ORE , country: {code: RU} }
+  - { state: Орловская Область, code: ORL , country: {code: RU} }
+  - { state: Пензенская Область, code: PNZ , country: {code: RU} }
+  - { state: Пермский Край, code: PER , country: {code: RU} }
+  - { state: Приморский Край, code: PRI , country: {code: RU} }
+  - { state: Псковская Область, code: PSK , country: {code: RU} }
+  - { state: Рязанская Область, code: RYA , country: {code: RU} }
+  - { state: Ростовская Область, code: ROS , country: {code: RU} }
+  - { state: Саха (Якутия) Республика, code: SA , country: {code: RU} }
+  - { state: Сахалинская Область, code: SAK , country: {code: RU} }
+  - { state: Самарская Область, code: SAM , country: {code: RU} }
+  - { state: Санкт-Петербург, code: SPE , country: {code: RU} }
+  - { state: Саратовская Область, code: SAR , country: {code: RU} }
+  - { state: Северная Осетия-Алания Республика, code: SE , country: {code: RU} }
+  - { state: Смоленская Область, code: SMO , country: {code: RU} }
+  - { state: Ставропольский Край, code: STA , country: {code: RU} }
+  - { state: Свердловская Область, code: SVE , country: {code: RU} }
+  - { state: Тамбовская Область, code: TAM , country: {code: RU} }
+  - { state: Татарстан Республика, code: TA , country: {code: RU} }
+  - { state: Тюменская Область, code: TYU , country: {code: RU} }
+  - { state: Томская Область, code: TOM , country: {code: RU} }
+  - { state: Тульская Область, code: TUL , country: {code: RU} }
+  - { state: Тверская Область, code: TVE , country: {code: RU} }
+  - { state: Тыва Республика, code: TY , country: {code: RU} }
+  - { state: Удмуртская Республика, code: UD , country: {code: RU} }
+  - { state: Ульяновская Область, code: ULY , country: {code: RU} }
+  - { state: Владимирская Область, code: VLA , country: {code: RU} }
+  - { state: Волгоградская Область, code: VGG , country: {code: RU} }
+  - { state: Вологодская Область, code: VLG , country: {code: RU} }
+  - { state: Воронежская Область, code: VOR , country: {code: RU} }
+  - { state: Забайкальский Край, code: ZAB , country: {code: RU} }
+  - { state: Крым Республика, code: CR , country: {code: RU} }
+  - { state: Севастополь, code: SEV , country: {code: RU} }
+
+XLite\Model\Config:
+  - name: shop_currency
+    category: General
+    value: 643
+
+  - name: default_language
+    category: General
+    value: 'ru'
+
+  - name: default_admin_language
+    category: General
+    value: 'ru'
+
+  - name: location_address
+    category: Company
+    value: '*Адрес вашей компании*'
+
+  - name: location_country
+    category: Company
+    value: RU
+
+  - name: location_state
+    category: Company
+    value: 689
+
+  - name: location_city
+    category: Company
+    value: 'Ульяновск'
+
+  - name: location_zipcode
+    category: Company
+    value: 432000
+
+  - name: company_name
+    category: Company
+    value: 'Демонстрационный магазин X-Cart'
+
+  - name: weight_unit
+    category: Units
+    value: 'kg'
+
+  - name: weight_symbol
+    category: Units
+    value: 'кг'
+
+  - name: dim_unit
+    category: Units
+    value: 'cm'
+
+  - name: dim_symbol
+    category: Units
+    value: 'см'
+
+  - name: csv_delim
+    category: Units
+    value: ';'
+
+  - name: export_import_charset
+    category: Units
+    value: 'WINDOWS-1251'
+
+  - name: anonymous_country
+    category: Shipping
+    value: RU
+
+  - name: anonymous_city
+    category: Shipping
+    value: 'Ульяновск'
+
+  - name: anonymous_zipcode
+    category: Shipping
+    value: '432000'
+
+  - name: anonymous_state
+    category: Shipping
+    value: 664
+
+XLite\Model\Language:
+  - code: en
+    enabled: false
+
+XLite\Model\Payment\Method:
+  - service_name: ExpressCheckout
+    added: false
+
+  - service_name: PaypalCredit
+    added: false
+

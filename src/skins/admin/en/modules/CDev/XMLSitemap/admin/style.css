@@ -1,0 +1,54 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * XML sitemap page styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.sitemap p.url {
+  padding-bottom: 10px;
+}
+
+.sitemap .engines {
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.sitemap .engines li {
+  padding: 5px;
+  vertical-align: middle;
+  display: inline-block;
+  padding-right: 20px;
+}
+
+.sitemap .engines li label {
+  padding-left: 5px;
+}
+
+.sitemap .engines li * {
+  vertical-align: middle;
+}
+
+.sitemap.general-settings ul.table .table-label {
+  width: 400px;
+}
+.sitemap.general-settings ul.table .table-value {
+  min-width: 160px;
+}
+.sitemap.general-settings ul.table .table-value .input-field-wrapper {
+  float: none;
+}
+.sitemap.general-settings .generate-button{
+  margin-right: 15px;
+}
+.sitemap.general-settings .generate-button,
+.sitemap.general-settings p.url {
+  display: inline-block;
+  margin-bottom: 15px;
+}
+.sitemap div.buttons {
+  margin-top: 40px;
+  margin-left: 440px;
+}

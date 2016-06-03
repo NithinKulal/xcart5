@@ -1,0 +1,474 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Demo store
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Profile:
+  - login: bit-bucket@example.com
+    password: 084e0343a0486ff05530df6c705c8bb4
+    anonymous: 1
+    cms_profile_id: 0
+    addresses:
+      - is_billing: true
+        is_shipping: true
+        state: { country_code: US, code: OK }
+        country: { code: US }
+        addressFields :
+          - addressField: { serviceName: title }
+            value : 'Mr.'
+          - addressField: { serviceName: firstname }
+            value: Guest
+          - addressField: { serviceName: lastname }
+            value: Guest
+          - addressField: { serviceName: phone }
+            value: '0123456789'
+          - addressField: { serviceName: street }
+            value: '51 apt, 87 street'
+          - addressField: { serviceName: city }
+            value: Edmond
+          - addressField: { serviceName: state_id }
+            value: 595
+          - addressField: { serviceName: country_code }
+            value: US
+          - addressField: { serviceName: zipcode }
+            value: '73003'
+
+XLite\Model\Order:
+  - order_id: 1
+    profile:
+      login: bit-bucket@example.com
+      password: 084e0343a0486ff05530df6c705c8bb4
+      anonymous: 1
+      cms_profile_id: 0
+      addresses:
+        - is_billing: true
+          is_shipping: true
+          state: { country_code: US, code: OK }
+          country: { code: US }
+          addressFields :
+            - addressField: { serviceName: title }
+              value : 'Mr.'
+            - addressField: { serviceName: firstname }
+              value: Guest
+            - addressField: { serviceName: lastname }
+              value: Guest
+            - addressField: { serviceName: phone }
+              value: '0123456789'
+            - addressField: { serviceName: street }
+              value: '51 apt, 87 street'
+            - addressField: { serviceName: city }
+              value: Edmond
+            - addressField: { serviceName: state_id }
+              value: 595
+            - addressField: { serviceName: country_code }
+              value: US
+            - addressField: { serviceName: zipcode }
+              value: '73003'
+    orig_profile: { login: bit-bucket@example.com }
+    total: 18.49
+    subtotal: 19.9900
+    date: 1394005540
+    currency: { code: USD }
+    paymentStatus: { code: P }
+    shippingStatus: { code: D }
+    orderNumber: 1
+    shipping_method_name: Courier
+    shipping_id: 1
+    recent: 0
+    note: 'Please send me this'
+    adminNote: 'Good client'
+    payment_transactions:
+      - method_name: MoneyOrdering
+        method_local_name: 'Money Ordering'
+        payment_method: { service_name: MoneyOrdering }
+        date: 1394005540
+        status: S
+        value: 110.65
+        type: sale
+        note: ''
+        publicTxnId: '000001-KGSP'
+        public_id: 'demostore-000001-KGSP'
+    items:
+      - object: { sku: '1204' }
+        name: 'Vinyl Idolz: Ghostbusters [Wholesale prices]'
+        sku: '1204'
+        price: 19.9900
+        itemNetPrice: 19.9900
+        discountedSubtotal: 16.9900
+        amount: 1
+        subtotal: 19.9900
+        total: 19.9900
+        object_type: product
+    surcharges:
+      - type: shipping
+        code: SHIPPING
+        class: '\XLite\Logic\Order\Modifier\Shipping'
+        name: Shipping cost
+        value: 1.5000
+      - type: discount
+        code: DISCOUNT
+        class: '\XLite\Module\CDev\VolumeDiscounts\Logic\Order\Modifier\Discount'
+        name: Discount
+        value: -3.00
+    events:
+      - date: 1394005540
+        code: PLACE ORDER
+        description: Order placed
+        author: { login: bit-bucket@example.com }
+      - date: 1394005540
+        code: TRANSACTION
+        description: 'Payment transaction [method: Phone Ordering, type: sale, amount: 18.49, status: Pending]'
+        author: { login: bit-bucket@example.com }
+      - date: 1394005540
+        code: EMAIL ADMIN SENT
+        description: Email sent to the admin
+        data: { orderId: 1 }
+        comment: Order is initially created
+        author: { login: bit-bucket@example.com }
+
+  - order_id: 2
+    profile:
+      login: bit-bucket@example.com
+      password: 084e0343a0486ff05530df6c705c8bb4
+      anonymous: 1
+      cms_profile_id: 0
+      addresses:
+        - is_billing: true
+          is_shipping: true
+          state: { country_code: US, code: OK }
+          country: { code: US }
+          addressFields :
+            - addressField: { serviceName: title }
+              value : 'Mr.'
+            - addressField: { serviceName: firstname }
+              value: Guest
+            - addressField: { serviceName: lastname }
+              value: Guest
+            - addressField: { serviceName: phone }
+              value: '0123456789'
+            - addressField: { serviceName: street }
+              value: '51 apt, 87 street'
+            - addressField: { serviceName: city }
+              value: Edmond
+            - addressField: { serviceName: state_id }
+              value: 595
+            - addressField: { serviceName: country_code }
+              value: US
+            - addressField: { serviceName: zipcode }
+              value: '73003'
+    orig_profile: { login: bit-bucket@example.com }
+    total: 42.1300
+    subtotal: 39.9800
+    date: 1396005895
+    currency: { code: USD }
+    paymentStatus: { code: P }
+    shippingStatus: { code: D }
+    orderNumber: 2
+    shipping_method_name: Courier
+    shipping_id: 1
+    payment_transactions:
+      - method_name: MoneyOrdering
+        method_local_name: 'Money Ordering'
+        payment_method: { service_name: MoneyOrdering }
+        date: 1396005895
+        status: S
+        value: 42.13
+        type: sale
+        note: ''
+        publicTxnId: '000002-FX7B'
+        public_id: 'demostore-000002-FX7B'
+    items:
+      - object: { sku: '12030' }
+        name: "Spiderman Selfie Ladies' Tee"
+        sku: '12030'
+        price: 19.9900
+        itemNetPrice: 19.9900
+        discountedSubtotal: 39.9800
+        amount: 2
+        subtotal: 39.9800
+        total: 39.9800
+        object_type: product
+    surcharges:
+      - type: shipping
+        code: SHIPPING
+        class: '\XLite\Logic\Order\Modifier\Shipping'
+        name: Shipping cost
+        value: 2.1500
+    events:
+      - date: 1396005895
+        code: PLACE ORDER
+        description: Order placed
+        author: { login: bit-bucket@example.com }
+      - date: 1396005895
+        code: TRANSACTION
+        description: 'Payment transaction [method: Phone Ordering, type: sale, amount: 42.13, status: Pending]'
+        author: { login: bit-bucket@example.com }
+      - date: 1396005895
+        code: EMAIL ADMIN SENT
+        description: Email sent to the admin
+        data: { orderId: 2 }
+        comment: Order is initially created
+        author: { login: bit-bucket@example.com }
+
+  - order_id: 3
+    profile:
+      login: bit-bucket@example.com
+      password: 084e0343a0486ff05530df6c705c8bb4
+      anonymous: 1
+      cms_profile_id: 0
+      addresses:
+        - is_billing: true
+          is_shipping: true
+          state: { country_code: US, code: OK }
+          country: { code: US }
+          addressFields :
+            - addressField: { serviceName: title }
+              value : 'Mr.'
+            - addressField: { serviceName: firstname }
+              value: Guest
+            - addressField: { serviceName: lastname }
+              value: Guest
+            - addressField: { serviceName: phone }
+              value: '0123456789'
+            - addressField: { serviceName: street }
+              value: '51 apt, 87 street'
+            - addressField: { serviceName: city }
+              value: Edmond
+            - addressField: { serviceName: state_id }
+              value: 595
+            - addressField: { serviceName: country_code }
+              value: US
+            - addressField: { serviceName: zipcode }
+              value: '73003'
+    orig_profile: { login: bit-bucket@example.com }
+    total: 158.9400
+    subtotal: 158.9400
+    date: 1407005895
+    currency: { code: USD }
+    paymentStatus: { code: P }
+    shippingStatus: { code: D }
+    orderNumber: 3
+    shipping_method_name: Courier
+    shipping_id: 1
+    payment_transactions:
+      - method_name: MoneyOrdering
+        method_local_name: 'Money Ordering'
+        payment_method: { service_name: MoneyOrdering }
+        date: 1407005895
+        status: S
+        value: 158.94
+        type: sale
+        note: ''
+        publicTxnId: '000002-FX7B'
+        public_id: 'demostore-000002-FX7B'
+    items:
+      - object: { sku: '12022' }
+        name: 'Minions Pop Vinyl Figures'
+        sku: '12022'
+        price: 9.9900
+        itemNetPrice: 9.9900
+        discountedSubtotal: 59.9400
+        amount: 6
+        subtotal: 59.9400
+        total: 59.9400
+        object_type: product
+      - object: { sku: '12026' }
+        name: 'Ollie - The App Controlled Robot'
+        sku: '12026'
+        price: 99.0000
+        itemNetPrice: 99.0000
+        discountedSubtotal: 99.9900
+        amount: 1
+        subtotal: 99.0000
+        total: 99.0000
+        object_type: product
+    surcharges:
+      - type: shipping
+        code: SHIPPING
+        class: '\XLite\Logic\Order\Modifier\Shipping'
+        name: Shipping cost
+        value: 0.0000
+    events:
+      - date: 1407005895
+        code: PLACE ORDER
+        description: Order placed
+        author: { login: bit-bucket@example.com }
+      - date: 1407005895
+        code: TRANSACTION
+        description: 'Payment transaction [method: Phone Ordering, type: sale, amount: 158.94, status: Pending]'
+        author: { login: bit-bucket@example.com }
+      - date: 1407005895
+        code: EMAIL ADMIN SENT
+        description: Email sent to the admin
+        data: { orderId: 3 }
+        comment: Order is initially created
+        author: { login: bit-bucket@example.com }
+
+  - order_id: 4
+    profile:
+      login: bit-bucket@example.com
+      password: 084e0343a0486ff05530df6c705c8bb4
+      anonymous: 1
+      cms_profile_id: 0
+      addresses:
+        - is_billing: true
+          is_shipping: true
+          state: { country_code: US, code: OK }
+          country: { code: US }
+          addressFields :
+            - addressField: { serviceName: title }
+              value : 'Mr.'
+            - addressField: { serviceName: firstname }
+              value: Guest
+            - addressField: { serviceName: lastname }
+              value: Guest
+            - addressField: { serviceName: phone }
+              value: '0123456789'
+            - addressField: { serviceName: street }
+              value: '51 apt, 87 street'
+            - addressField: { serviceName: city }
+              value: Edmond
+            - addressField: { serviceName: state_id }
+              value: 595
+            - addressField: { serviceName: country_code }
+              value: US
+            - addressField: { serviceName: zipcode }
+              value: '73003'
+    orig_profile: { login: bit-bucket@example.com }
+    total: 38.0100
+    subtotal: 34.9900
+    date: 1452604403
+    currency: { code: USD }
+    paymentStatus: { code: D }
+    shippingStatus: { code: WND }
+    payment_method_name: Simplify Commerce Hosted Payments
+    orderNumber: 4
+    shipping_method_name: Courier
+    shipping_id: 1
+    payment_transactions:
+      - method_name: SimplifyCommerceHP
+        method_local_name: 'Simplify Commerce Hosted Payments'
+        currency_id: 840
+        date: 1452604411
+        status: F
+        value: 38.0100
+        type: sale
+        note: "Simplify_BadRequestException: \"Request data is invalid\" (status: 400, error code: validation, reference: c5a0b8b8-92ac-4908-9506-88b843ecd399)\nField error: card.number\"Card bin Country rejected by acquirer\" (country.bin.not.accepted)"
+        publicTxnId: '000012-AS2T'
+        public_id: 'demostore-000012-AS2T'
+        data:
+          - name: 'test_mode'
+            label: 'Test mode'
+            access_level: A
+            value: 1
+          - name: 'error_field_name_card.number'
+            label: 'Error: field name'
+            access_level: A
+            value: 'card.number'
+          - name: 'error_field_code_card.number'
+            label: 'Error: field code'
+            access_level: A
+            value: 'country.bin.not.accepted'
+          - name: 'error_field_message_card.number'
+            label: 'Error: field message'
+            access_level: A
+            value: 'Card bin Country rejected by acquirer'
+          - name: 'cart_items'
+            label: 'Cart items'
+            access_level: A
+            value: 'a:1:{i:0;a:5:{s:4:"name";s:27:"Ewok Ladies Hooded Tank Top";s:3:"sku";s:6:"100ewl";s:5:"price";d:34.990000000000002;s:6:"amount";i:1;s:5:"attrs";a:0:{}}}'
+
+      - method_name: SimplifyCommerceHP
+        method_local_name: 'Simplify Commerce Hosted Payments'
+        currency_id: 840
+        date: 1452604437
+        status: F
+        value: 38.0100
+        type: sale
+        note: "Simplify_BadRequestException: \"Request data is invalid\" (status: 400, error code: validation, reference: 195c1b1a-44c8-46d4-8e48-ee4e65f271af)\nField error: card.number\"Card has expired.\" (card.expired)"
+        publicTxnId: '000013-3I22'
+        public_id: 'demostore-000013-3I22'
+        data:
+          - name: 'test_mode'
+            label: 'Test mode'
+            access_level: A
+            value: 1
+          - name: 'error_field_name_card.number'
+            label: 'Error: field name'
+            access_level: A
+            value: 'card.number'
+          - name: 'error_field_code_card.number'
+            label: 'Error: field code'
+            access_level: A
+            value: 'card.expired'
+          - name: 'error_field_message_card.number'
+            label: 'Error: field message'
+            access_level: A
+            value: 'Card has expired.'
+          - name: 'cart_items'
+            label: 'Cart items'
+            access_level: A
+            value: 'a:1:{i:0;a:5:{s:4:"name";s:27:"Ewok Ladies Hooded Tank Top";s:3:"sku";s:6:"100ewl";s:5:"price";d:34.990000000000002;s:6:"amount";i:1;s:5:"attrs";a:0:{}}}'
+    items:
+      - object: { sku: '100ewl' }
+        name: "Ewok Ladies Hooded Tank Top"
+        sku: '100ewl'
+        price: 34.99
+        itemNetPrice: 34.9900
+        discountedSubtotal: 34.9900
+        amount: 1
+        subtotal: 34.9900
+        total: 34.9900
+        object_type: product
+    surcharges:
+      - type: shipping
+        code: SHIPPING
+        class: '\XLite\Logic\Order\Modifier\Shipping'
+        name: Shipping cost
+        value: 3.0200
+    events:
+      - date: 1452604435
+        code: PLACE ORDER
+        description: Order placed
+        data: { orderId: 4 }
+        author: { login: bit-bucket@example.com }
+      - date: 1452604436
+        code: TRANSACTION
+        description: 'Back end payment transaction [method: Simplify Commerce Hosted Payments, type: sale, amount: 38.01, status: Failed] [initial request]'
+        author: { login: bit-bucket@example.com }
+      - date: 1452604436
+        code: TRANSACTION
+        description: 'Payment transaction [method: Simplify Commerce Hosted Payments, type: sale, amount: 38.01, status: Failed]'
+        author: { login: bit-bucket@example.com }
+      - date: 1452604437
+        code: CHANGE PAYMENT STATUS ORDER
+        description: "Order payment status changed from {{oldStatus}} to {{newStatus}}"
+        data: { orderId: 4, newStatus: "Declined", oldStatus: "Awaiting payment" }
+        author: { login: bit-bucket@example.com }
+      - date: 1452604501
+        code: CHANGE PAYMENT STATUS ORDER
+        description: "Order payment status changed from {{oldStatus}} to {{newStatus}}"
+        data: { orderId: 4, newStatus: "Awaiting payment", oldStatus: "Declined" }
+        author: { login: bit-bucket@example.com }
+      - date: 1452604502
+        code: TRANSACTION
+        description: 'Back end payment transaction [method: Simplify Commerce Hosted Payments, type: sale, amount: 38.01, status: Failed] [initial request]'
+        author: { login: bit-bucket@example.com }
+      - date: 1452604502
+        code: TRANSACTION
+        description: 'Payment transaction [method: Simplify Commerce Hosted Payments, type: sale, amount: 38.01, status: Failed]'
+        author: { login: bit-bucket@example.com }
+      - date: 1452604502
+        code: CHANGE PAYMENT STATUS ORDER
+        description: "Order payment status changed from {{oldStatus}} to {{newStatus}}"
+        data: { orderId: 4, newStatus: "Declined", oldStatus: "Awaiting payment" }
+        author: { login: bit-bucket@example.com }
+
+# The code below allows to recalculate 'sales' fields of updated products
+XLite\Model\Product:
+  - { sku: '12030', sales: 2 }
+  - { sku: '12022', sales: 6 }
+  - { sku: '1204', sales: 1 }
+  - { sku: '12026', sales: 1 }

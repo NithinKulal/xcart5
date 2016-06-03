@@ -1,0 +1,15 @@
+{##
+ # Rating
+ #
+ # @ListChild (list="review.modify.fields", weight="200")
+ #}
+<li class="input rating clearfix">
+  <div class="table-label">
+    <label for="rating" class="rating">{{ t('Rating') }}</label>
+  </div>
+
+  <div class="star">&nbsp;</div>
+  <div class="table-value">
+    {{ widget('\\XLite\\Module\\XC\\Reviews\\View\\FormField\\Input\\Rating', fieldName='rating', rate=this.entity.rating, is_editable='true', max='5') }}
+  </div>
+</li>

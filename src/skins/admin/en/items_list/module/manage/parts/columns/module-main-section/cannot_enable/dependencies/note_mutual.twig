@@ -1,0 +1,10 @@
+{##
+ # Top-level note
+ #
+ # @ListChild (list="itemsList.module.manage.columns.module-main-section.messages.cannot_enable.dependencies", weight="300")
+ # @ListChild (list="itemsList.module.install.columns.module-main-section.cannot_enable.dependencies", weight="300")
+ #}
+
+{% if this.getEnabledMutualModules(this.module) %}
+  {{ t('The following add-on(s) must be disabled') }}:
+{% endif %}

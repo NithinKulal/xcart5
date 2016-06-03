@@ -1,0 +1,22 @@
+{##
+ # Order summary mini informer (for dashboard)
+ #}
+<div class="order-statistics {{ tab.class }}">
+  <div class="revenue">
+    <span class="label">{{ t('Month') }}:</span>
+    <span class="value">{{ this.formatPrice(tab.revenue.value) }}</span>
+  </div>
+  <div class="dynamic-icon {{ this.getRevenueClass(tab) }}">{{ this.getIcon(tab)|raw }}</div>
+  <div class="orders">
+    <span class="label">/</span>
+    <span class="value">{{ tab.orders.value }}</span>
+  </div>
+  {% if this.showPrevious(tab) %}
+    <div class="previous">
+      <span class="label">{{ t('Last month') }}</span>
+      <span class="value">{{ this.formatPrice(tab.revenue.prev) }}</span>
+      <span class="separator">/</span>
+      <span class="value">{{ tab.orders.prev }}</span>
+    </div>
+  {% endif %}
+</div>

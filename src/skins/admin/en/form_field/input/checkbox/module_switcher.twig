@@ -1,0 +1,18 @@
+{##
+ # Switcher checkbox
+ #}
+
+<div class="input-field-wrapper {{ this.getWrapperClass() }}">
+{{ this.displayCommentedData(this.getCommentedData()) }}
+  <input type="hidden" class="old-value" name="{{ this.getOldName() }}" value="{{ this.getValue() }}" />
+  {% if this.getValue() and this.isSwitcherReadOnly() %}
+  <input type="hidden" class="new-value" name="{{ this.getName() }}" value="1" />
+  {% endif %}
+  <input{{ this.getAttributesCode()|raw }} />
+  <div class="widget">
+    <i class="normal fa {{ this.getIcon() }}"></i>
+    {% if this.isSwitcherReadOnly() and this.getHelpId() %}
+      {{ widget('\\XLite\\View\\Tooltip', isImageTag='true', className='help-icon', imageClass='warning fa %s'|format(this.getWarningIcon()), helpId=this.getHelpId()) }}
+    {% endif %}
+  </div>
+</div>

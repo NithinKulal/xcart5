@@ -1,0 +1,6 @@
+{##
+ # Orders list item : spec : total
+ #
+ # @ListChild (list="orders.children.spec", weight="500")
+ #}
+<li class="order-total"><span class="order-spec-label total-label">{{ t('Total') }}:</span><span class="order-spec-value total-value">{{ this.formatOrderPrice(this.order.getTotal(), this.order.getCurrency(), 1) }}</span></li>

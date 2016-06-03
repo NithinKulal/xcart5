@@ -1,0 +1,27 @@
+{##
+ # Item attributes
+ #}
+
+{% if this.isPopoverDisplayed() %}
+
+  <div class="edit-options-dialog" style="display: none;">
+    <a href="#" class="close" title="{{ t('Close') }}">×</a>
+    {{ widget('\\XLite\\View\\Product\\AttributeValues', orderItem=this.entity, idx=this.getIdx()) }}
+  </div>
+  <div class="edit-options-link">
+    <a href="javascript: void(0);" class="open-popover" data-placement="bottom">{{ t('Options') }}</a>
+  </div>
+
+{% else %}
+
+  <div class="edit-options-link">
+    <a href="javascript: void(0);" class="open-popup" data-popup-url="{{ this.getOptionsPopupURL({'productId': this.getProductId(), 'idx': this.getIdx()}) }}">{{ t('Options') }}</a>
+  </div>
+
+  <fieldset class="attribute-values-storage">
+    {% for av in this.entity.getAttributeValues() %}
+      <input type="hidden" name="{{ this.getAttributeInputName(this.entity, av) }}" value="{{ this.getAttributeValue(av) }}" />
+    {% endfor %}
+  </fieldset>
+
+{% endif %}

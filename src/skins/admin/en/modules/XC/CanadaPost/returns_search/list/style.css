@@ -1,0 +1,19 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Canada Post return table styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.items-list img.anonym {
+  width: 15px;
+  height: 17px;
+  background: transparent url(../../../../../images/anonym_icon.png) no-repeat left top;
+  margin-right: 5px;
+}
+
+.items-list img.hidden {
+  background-image: none;
+}

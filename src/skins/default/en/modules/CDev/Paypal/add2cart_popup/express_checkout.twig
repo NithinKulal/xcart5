@@ -1,0 +1,8 @@
+{##
+ # Express checkout
+ #
+ # @ListChild (list="add2cart_popup.item.buttons", weight="300")
+ #}
+{% if this.cart.checkCart() %}
+  {{ widget('\\XLite\\Module\\CDev\\Paypal\\View\\Button\\Add2CartPopup\\ExpressCheckout') }}
+{% endif %}

@@ -1,0 +1,7 @@
+{##
+ # Remove entity
+ #}
+
+{% if this.isAllowEntityRemove(this.entity) %}
+  {{ widget('XLite\\View\\Button\\Remove', buttonName=this.getRemoveDataPrefix() ~ '[' ~ this.entity.getUniqueIdentifier() ~ ']') }}
+{% endif %}

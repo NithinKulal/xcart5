@@ -1,0 +1,145 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Calculate quick data styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+/**
+ * Export
+ */
+div.dialog-block.quick-data-box {
+  width: 902px;
+  min-width: 902px;
+  display: block;
+}
+
+.quick-data-box h3 {
+  color: #333;
+  font-size: 20px;
+  line-height: normal;
+  font-family: Arial;
+  margin-bottom: 4px;
+  font-weight: normal;
+}
+
+div.dialog-block.quick-data-box .subcontent {
+  padding: 20px;
+}
+
+.quick-data-box .buttons {
+  text-align: center;
+  padding-top: 12px;
+}
+
+.quick-data-box .buttons .main-button {
+  padding-left: 75px;
+  padding-right: 75px;
+}
+
+/**
+ * Export (progress)
+ */
+div.dialog-block.quick-data-progress .subcontent {
+  padding: 40px;
+  padding-bottom: 12px;
+}
+
+div.dialog-block.quick-data-progress div.content {
+  width: 900px;
+}
+
+.quick-data-progress .subcontent .progress-bar {
+  float: left;
+  margin-right: 20px;
+}
+
+.quick-data-progress .subcontent .bar {
+  width: 650px;
+}
+
+.quick-data-progress .subcontent button {
+  padding: 1px 17px 2px 17px;
+  float: right;
+  min-height: 24px;
+}
+
+.quick-data-progress .subcontent .time {
+  font-size: 14px;
+  text-align: center;
+  color: #44769d;
+  height: 20px;
+  margin-top: 27px;
+}
+
+.quick-data-progress .help {
+  padding-left: 49px;
+  padding-top: 6px;
+  min-height: 38px;
+  line-height: 20px;
+}
+
+.quick-data-progress .help i {
+  color: #b9b9b9;
+  font-size: 36px;
+  float: left;
+}
+
+.quick-data-progress .help p {
+  font-size: 14px;
+  margin-left: 51px;
+}
+
+/**
+ * Export failed
+ */
+div.dialog-block.export-failed .header h2,
+.export-failed h3
+{
+  color: #b94a48;
+}
+
+.export-failed h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.export-failed .subcontent .errors {
+  padding: 2px 20px;
+}
+
+.export-failed .subcontent li {
+  padding-bottom: 12px;
+}
+
+.export-failed .subcontent p {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+#options-delimiter {
+  padding-top: 5px;
+}
+
+#options-delimiter li {
+  padding: 5px 0 0 0;
+  line-height: normal;
+}
+
+#options-delimiter input {
+  margin-right: 5px;
+}
+
+.files-option .tooltip-main {
+  padding-top: 0;
+}
+
+.files-option div.table-value select {
+  width: 150px;
+}
+
+.attrs-option div.table-value select {
+  width: 200px;
+}

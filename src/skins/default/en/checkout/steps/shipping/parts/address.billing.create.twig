@@ -1,0 +1,9 @@
+{##
+ # Shipping address : create profile checkbox
+ #
+ # @ListChild (list="checkout.payment.address.email", weight="100")
+ #}
+
+{% if this.isCreateVisible() %}
+  {% include 'checkout/steps/shipping/parts/address.create.twig' %}
+{% endif %}

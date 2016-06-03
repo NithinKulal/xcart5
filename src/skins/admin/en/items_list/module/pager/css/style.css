@@ -1,0 +1,79 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * ____file_title____
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.list-pager {
+  position: relative;
+  width: 1024px;
+  height: 60px;
+}
+
+.marketplace-landing .list-pager {
+  width: 700px;
+}
+
+.list-pager.addons-pager {
+  height: 90px;
+  margin-bottom: -16px;
+}
+
+.pager-bottom.addons-pager button,
+  .pager-bottom .addons-pager-found-title,
+  .pager-bottom .view-all-modules-link
+{
+  display: none;
+}
+
+.addons-pager-found-title {
+  font-size: 24px;
+  position: absolute;
+  top: 28px;
+  left: 12px;
+}
+
+.addons-pager-list-wrapper {
+  width: 100%;
+  text-align: center;
+}
+
+.target-addons-list-installed .pager-bottom .addons-pager-list-wrapper {
+  text-align: left;
+}
+
+.addons-pager-buttons {
+  position: absolute;
+  top: 28px;
+  right: 0;
+}
+
+.addons-pager-bottom-title {
+  display: none;
+}
+
+.marketplace-landing .pager-bottom.addons-pager {
+  padding-top: 0;
+}
+
+.marketplace-landing .pager-bottom .addons-pager-bottom-title {
+  display: block;
+  width: 100%;
+  height: 64px;
+  background: #f4fafe;
+  padding-top: 22px;
+}
+
+.marketplace-landing .pager-bottom .addons-pager-bottom-title a {
+  display: block;
+  width: 130px;
+  margin: 0 auto;
+  color: #20519b;
+  text-decoration: underline;
+  font-size: 16px;
+  white-space: nowrap;
+}
+

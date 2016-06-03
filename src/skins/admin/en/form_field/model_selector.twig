@@ -1,0 +1,23 @@
+{##
+ # Model selector
+ #}
+
+<div class="model-selector data-type-{{ this.getDataType() }}" data-type="{{ this.getDataType() }}">
+{{ this.displayCommentedData(this.getCommentedData()) }}
+  <input type="hidden" class="model-value" name="{{ this.getName() }}" value="{{ this.getValue() }}" />
+
+  <input type="text" placeholder="{{ this.getParam('placeholder') }}" class="{{ this.getCSSClasses() }}"{% if this.getTextName() %} name="{{ this.getTextName() }}"{% endif %} value="{{ this.getTextValue() }}" autocomplete="off" />
+
+  <div class="spinner hidden"><div class="box"><div class="subbox"></div></div></div>
+
+  <span class="no-items-found hidden">{{ this.getParam('empty_phrase') }}</span>
+
+  <span class="enter-more-characters hidden"></span>
+
+  <span class="model-definition model-not-defined hidden">{{ this.getParam('empty_model_definition') }}</span>
+
+  <span class="model-definition model-is-defined hidden">{% if this.getModelDefinedTemplate() %}{% include this.getModelDefinedTemplate() %}{% endif %}</span>
+
+  <ul class="items-list hidden"></ul>
+
+</div>

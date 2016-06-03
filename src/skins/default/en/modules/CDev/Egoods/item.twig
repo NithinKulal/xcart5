@@ -1,0 +1,23 @@
+{##
+ # Egoods
+ #}
+<li>
+  <ul class="egoods-list">
+    {% for attachment in this.getAttachments() %}
+      <li>
+        {% if attachment.isAvailable() %}
+          <a href="{{ attachment.getURL() }}">{{ attachment.attachment.getPublicTitle() }}</a>
+        {% else %}
+          {% if attachment.isActive() %}
+            <span>{{ attachment.attachment.getPublicTitle() }}</span>
+          {% else %}
+            <span>{{ attachment.getTitle() }}</span>
+          {% endif %}
+        {% endif %}
+        {% if attachment.isActive() and attachment.attachment.storage.getSize() %}
+          <span class="size">({{ this.formatSize(attachment.attachment.storage.getSize()) }})</span>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</li>

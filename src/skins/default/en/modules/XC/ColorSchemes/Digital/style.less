@@ -1,0 +1,366 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Digital variables
+ *
+ * Copyright (c) 2001-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+@body-bg: #000000;
+
+@font-family-sans-serif: Arial, Helvetica, sans-serif;
+@headings-font-family: @font-family-sans-serif;
+@headings-font-weight: 400;
+@small-headings-font-weight: 400;
+
+@brand-primary: #489df3;
+@link-hover-color: #ffffff;
+
+@border-radius-base: 2px;
+
+@button-gradient-start-color: #1b4c6b;
+@button-gradient-end-color: #103753;
+@btn-default-color: #ffffff;
+
+@button-main-gradient-start-color: #2e8bc7;
+@button-main-gradient-end-color: #1d75b9;
+
+@breadcrumb-bg: transparent;
+
+@input-bg: #111111;
+@input-border: #3e3e3e;
+@input-color: #ffffff;
+
+@navbar-inverse-font-size: floor((@font-size-base * 1.15));
+@navbar-inverse-bg-start: #343434;
+@navbar-inverse-bg-end: #212121;
+@navbar-inverse-bg: @navbar-inverse-bg-end;
+@navbar-inverse-link-color: #ffffff;
+@navbar-inverse-link-hover-color: #ffffff;
+@navbar-inverse-link-hover-bg-start: #494949;
+@navbar-inverse-link-hover-bg-end: #383838;
+@navbar-inverse-link-active-color: #ffffff;
+@navbar-inverse-link-active-bg: #343434;
+
+@navbar-border-radius: 0;
+@navbar-margin-bottom: 20px;
+
+
+@nav-tabs-border-color: #3e3e3e;
+@nav-tabs-link-hover-border-color: #dddddd;
+@nav-tabs-link-border-color: #3e3e3e;
+@nav-tabs-link-color: @brand-primary;
+@nav-tabs-link-hover-color: #ffffff;
+@nav-tabs-active-link-hover-bg: #000000;
+@nav-tabs-active-link-hover-color: #ffffff;
+
+@table-bg: transparent;
+
+@pagination-color: @brand-primary;
+@pagination-bg: transparent;
+@pagination-border: transparent;
+@pagination-active-bg: #2381c2;
+@pagination-active-border: #2381c2;
+@pagination-hover-bg: transparent;
+@pagination-hover-border: transparent;
+@pagination-disabled-color: @pagination-color;
+@pagination-disabled-bg: @pagination-bg;
+@pagination-disabled-border: @pagination-border;
+
+@base-gradient-start-color: #343434;
+@base-gradient-end-color: #222222;
+
+@table-gradient-start-color: @base-gradient-start-color;
+@table-gradient-end-color: @base-gradient-end-color;
+
+@table-border-color: #3e3e3e;
+
+@navtab-bgcolor-normal: @base-gradient-end-color;
+@navtab-bgcolor-normal-hover: @base-gradient-start-color;
+
+@mobile-menu-bg: #0091ea;
+@mobile-menu-shadow: none;
+@mobile-menu-dropdowns-bg: #2c2c2c;
+@slidebar-bg: #424242;
+@slidebar-arrow-color: #a8a8a8;
+@slidebar-links-color: #a6a6a6;
+
+/* Digital specific styles */
+
+#content .products div.product-photo {
+  .border-top-radius(0);
+  .border-bottom-radius(0);
+}
+
+.navbar-nav {
+  font-family: 'Open Sans';
+  text-transform: uppercase;
+}
+
+.navbar-inverse {
+  border: none;
+  #gradient > .vertical (@navbar-inverse-bg-start, @navbar-inverse-bg-end);
+  position: relative;
+
+  &:before {
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    background: #474747;
+  }
+
+  .navbar-nav {
+
+    > li > a {
+      color: @navbar-inverse-link-color;
+      position: relative;
+
+      &:hover,
+        &:focus {
+        #gradient > .vertical (@navbar-inverse-link-hover-bg-start, @navbar-inverse-link-hover-bg-end);
+        color: @navbar-inverse-link-hover-color;
+
+        &:before {
+          content: "";
+          position: absolute;
+          height: 1px;
+          width: 100%;
+          background: #5a5a5a;
+          top: 0;
+          left: 0;
+        }
+      }
+    }
+
+
+  }
+}
+
+.nav-tabs {
+  > li {
+    margin: 0;
+
+    > span,
+    > a {
+      margin: -1px 0 0 0;
+      color: @nav-tabs-link-color;
+      margin-right: 0;
+      border: none;
+      padding: 12px 15px;
+      background-image: none;
+      background: transparent;
+      border: none;
+
+      border-right: 1px solid @nav-tabs-border-color;
+
+
+      &:hover {
+        border-color: @nav-tabs-border-color;
+        color: @nav-tabs-link-hover-color;
+        background-color: @nav-tabs-active-link-hover-bg;
+        margin: 0;
+        border-bottom: 1px solid #3e3e3e;
+        padding-top: 11px;
+
+      }
+    }
+
+    // Active state, and its :hover to override normal :hover
+    &.active > span,
+    &.active > a       {
+      &,
+      &:hover,
+        &:focus {
+        margin: 0;
+        color: @nav-tabs-active-link-hover-color;
+        background-color: @nav-tabs-active-link-hover-bg;
+
+        border: none;
+        border-right: 1px solid @nav-tabs-border-color;
+        border-bottom: 1px solid #3e3e3e;
+        padding-top: 11px;
+        cursor: default;
+        text-decoration: none !important;
+      }
+    }
+  }
+}
+
+.regular-button {
+  border: none;
+  background-repeat: inherit;
+
+  &:active,
+    &.active {
+    outline: 0;
+    background-image: none;
+    background: @button-gradient-start-color;
+    border: none;
+    .box-shadow(inset 0 3px 5px rgba(0,0,0,.125));
+  }
+
+  &:hover,
+    &:focus {
+    border: none;
+  }
+
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    .opacity(1);
+    color: #fff;
+    background: #555555;
+    &:active,
+      &.active{
+      background: #555555;
+      color: #fff;
+    }
+
+    &:before{
+      display: none;
+    }
+  }
+
+  &:before{
+    background: #2d637f;
+  }
+}
+
+.regular-main-button {
+  &:active,
+    &.active {
+    #gradient > .vertical (@button-main-gradient-start-color, @button-main-gradient-end-color);
+  }
+
+  &:before{
+    display: block;
+    background: #459cd1;
+  }
+}
+
+.pagination {
+  > li {
+    > a,
+    > span {
+      padding: 3px 9px;
+    }
+    &:first-child {
+      > a,
+      > span {
+        background: url("@{customer-skin}/modules/XC/ColorSchemes/Digital/images/pager.png") 10px -32px no-repeat;
+      }
+    }
+    &:last-child {
+      > a,
+      > span {
+        background: url("@{customer-skin}/modules/XC/ColorSchemes/Digital/images/pager.png") 12px -62px no-repeat;
+      }
+    }
+  }
+}
+
+.mobile_header {
+
+  a {
+    color: @navbar-inverse-link-color;
+    &:hover{
+      color: @navbar-inverse-link-hover-color;
+    }
+  }
+
+  ul {
+
+    &#search_box {
+
+      #mobile_search{
+
+        .simple-search-box {
+         background: @mobile-menu-dropdowns-bg;
+         box-shadow: none;
+        }
+      }
+    }
+  }
+}
+
+.lc-minicart {
+  color: #aaaaaa;
+}
+
+#header .block:first-child .content {
+  border: none;
+}
+
+.checkout-block form.place .notes textarea{
+  .form-control;
+}
+
+.checkout-block ul.shipping-rates li label img.right-fade,
+.checkout-block ul.payments li label:after {
+  #gradient > .horizontal (rgba(34,34,34,0), rgba(34,34,34,1));
+}
+
+.table {
+  > thead,
+  > tbody,
+  > tfoot {
+    > tr > th {
+      color: #ffffff !important;
+    }
+    > tr > th:before {
+      display: none;
+    }
+  }
+  > tbody + tbody {
+    border-top: 1px solid @table-border-color;
+  }
+}
+
+
+.invoice-box .items td, .invoice-box .totals li.total, .invoice-box .items td *, .invoice-box .totals li.total * {
+  color: #000000;
+}
+
+@media (max-width: @screen-sm-max){
+  .or-line .line {
+    border-top: 1px dotted #3d3d3d !important;
+  }
+}
+
+@media (min-width: @screen-md-min) {
+  #header {
+    padding-top:15px;
+  }
+
+  #header .block .content {
+    height: 58px;
+    float: none;
+    background-color: transparent;
+  }
+
+  .lc-minicart{
+    color: #aaaaaa;
+    background: transparent url("@{customer-skin}/modules/XC/ColorSchemes/Digital/images/shopping-bag.png") 15px 15px no-repeat;
+  }
+
+  .lc-minicart.expanded,
+  .lc-minicart:hover,
+  .lc-minicart.empty:hover{
+    background-color: transparent !important;
+  }
+
+  .lc-minicart .minicart-items-number {
+    color: #aaaaaa !important;
+  }
+
+  #header .block:first-child .content {
+    border-left: 1px solid #404040;
+  }
+}
+
+.checkout-block .steps .shipping-step .shipping-rates li span.value,
+.checkout-block .review-step .total span
+{
+  color: @price-color;
+}

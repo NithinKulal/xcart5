@@ -1,0 +1,12 @@
+{##
+ # Left side menu link
+ #}
+
+{% if this.getLink() %}
+  <a href="{{ this.getLink() }}" class="link"{% if this.getBlankPage() %} target="_blank"{% endif %}>{{ this.getIcon()|raw }}{% if this.getTitle() %}<span>{{ this.getTitle()|raw }}</span>{% endif %}</a>
+{% else %}
+  <span class="link">{{ this.getIcon()|raw }}{% if this.getTitle() %}<span>{{ this.getTitle()|raw }}</span>{% endif %}</span>
+{% endif %}
+{% if this.getLabel() %}
+  <a href="{{ this.getLabelLink() }}" class="label" title="{{ this.getLabelTitle() }}">{{ this.getLabel()|raw }}</a>
+{% endif %}

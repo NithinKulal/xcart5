@@ -1,0 +1,12 @@
+{##
+ # Modules main description section list
+ #
+ # @ListChild (list="itemsList.module.manage.columns.module-description-section", weight="20")
+ #}
+
+{% if this.module.getAuthorEmail() %}
+  <div class="author">
+    <span>{{ t('Support') }}:</span>
+    <a href="mailto:{{ this.module.getAuthorEmail() }}">{{ this.module.getAuthorEmail() }}</a>
+  </div>
+{% endif %}

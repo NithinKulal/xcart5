@@ -1,0 +1,21 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Select upgrade wave style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.settings .input.select-upgradewave .upgrade-wave-value select,
+.settings .input.select-upgradewave .upgrade-wave-value .tooltip-main,
+.settings .input.select-upgradewave .upgrade-wave-value .btn {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+}
+
+.settings .input.select-upgradewave .upgrade-wave-value .tooltip-main{
+    float: none;
+    padding: 0;
+}

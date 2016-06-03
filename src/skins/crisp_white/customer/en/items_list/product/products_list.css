@@ -1,0 +1,151 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Products list styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+table.products-grid,
+table.products-grid td,
+table.product,
+table.product td
+{
+  border-style: none;
+}
+
+table.grid-1-columns td
+{
+  width: 100%;
+}
+
+table.grid-2-columns td
+{
+  width: 50%;
+}
+
+table.grid-3-columns td
+{
+  width: 33.3333%;
+}
+
+table.grid-4-columns td
+{
+  width: 25%;
+}
+
+table.grid-5-columns td
+{
+  width: 20%;
+}
+
+ul.products-sidebar li .clearfix {
+  clear: none;
+}
+
+.products .product-cell .drag-n-drop-handle
+{
+  background: transparent url(images/icon_drag.png) no-repeat left center;
+  padding-left: 20px;
+  visibility: hidden;
+  cursor: move;
+  min-height: 20px;
+}
+
+.products .product-cell .ui-draggable-disabled .drag-n-drop-handle {
+  background: none;
+}
+
+.products .product-cell:hover .drag-n-drop-handle,
+.products .ui-draggable-dragging .drag-n-drop-handle,
+.products .product-cell:hover .quicklook
+{
+  visibility: visible;
+}
+
+.products .out-of-stock .drag-n-drop-handle,
+.products .not-available .drag-n-drop-handle
+{
+  background: transparent none;
+  padding-left: 0;
+  cursor: default;
+}
+
+.products .drag-n-drop-handle .out-message,
+.products .drag-n-drop-handle .choose-product-option
+{
+  display: none;
+}
+
+.products .out-of-stock .drag-n-drop-handle .drag-message,
+.products .not-available .drag-n-drop-handle .drag-message,
+.products .need-choose-options .drag-n-drop-handle .drag-message
+{
+  display: none;
+}
+
+.products .out-of-stock .drag-n-drop-handle .out-message
+{
+  display: inline;
+}
+
+.products .need-choose-options .drag-n-drop-handle .choose-product-option
+{
+  display: inline;
+  cursor: default;
+}
+
+.items-list-products .products .product-cell .product.cancel-ui-state-disabled {
+  opacity: 1;
+  filter: Alpha(Opacity=100);
+  background-image: none;
+}
+
+.quicklook a.quicklook-link
+{
+  display: block;
+  width: 53px;
+  height: 53px;
+  margin: 0 auto;
+  padding: 0px;
+}
+
+.quicklook a.quicklook-link div.quicklook-view {
+  display: block;
+  width: 53px;
+  height: 53px;
+  background: transparent url(images/icon_quick_look.png) no-repeat top left;
+  margin: 0px;
+  padding: 0px;
+}
+
+.products .product-add2cart:hover,
+.products .product-add2cart:active,
+.products .product-add2cart:focus
+{
+  box-shadow: none;
+}
+
+.products-sidebar-small-thumbnails .clear,
+.products-sidebar-big-thumbnails .clear
+{
+  clear: both;
+}
+
+.products-sidebar-big-thumbnails .labels {
+  right: 0px;
+  top: 2px;
+}
+
+.show-more-link {
+  margin-top: 14px;
+}
+
+.items-list .products-grid .add-to-cart-button .out-of-stock{
+  display: none;
+}
+
+.products-table .product-cell.product.out-of-stock .regular-button{
+  display: none;
+}

@@ -1,0 +1,9 @@
+{##
+ # Title
+ #
+ # @ListChild (list="product.attachments.form", weight="100", zone="admin")
+ #}
+<tr class="title">
+  <td class="label"><label for="attachmentName{{ this.attachment.getId() }}">{{ t('File title') }}</label></td>
+  <td><input type="text" id="attachmentName{{ this.attachment.getId() }}" name="data[{{ this.attachment.getId() }}][title]" value="{{ this.attachment.getTitle() }}" /></td>
+</tr>

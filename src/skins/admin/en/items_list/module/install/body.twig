@@ -1,0 +1,19 @@
+{##
+ # Modules list
+ #}
+
+{% if this.promoBanner %}
+<a href="{{ this.promoBanner.module_banner_url }}" {% if this.promoBanner.is_external_link %} target="_blank"{% endif %}>
+ <img src="{{ this.promoBanner.banner_url }}" class="promo-banner" />
+</a>
+{% endif %}
+
+<table cellspacing="0" cellpadding="0" class="data-table items-list modules-list{% if this.promoBanner %} module-list-has-promo-banner{% endif %}">
+
+  {% for idx, module in this.getPageData() %}
+    <tr class="{{ this.getModuleClassesCSS(module) }}">
+      {{ widget_list('columns', type='inherited', module=this.getModuleFromMarketplace(module)) }}
+    </tr>
+  {% endfor %}
+
+</table>

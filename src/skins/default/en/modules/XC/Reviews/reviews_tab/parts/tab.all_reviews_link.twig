@@ -1,0 +1,12 @@
+{##
+ # Read all reviews link
+ #
+ # @ListChild (list="product.reviews.tab", weight="500")
+ #}
+
+{% if this.product.getReviewsCount() > 0 %}
+  <div class="link">
+    <div class="line"></div>
+    <a href="{{ url('product_reviews', '', {'product_id': this.product.getProductId(), 'category_id': this.product.getCategoryId()}) }}">{{ t('Read all reviews about the product') }}</a>
+  </div>
+{% endif %}

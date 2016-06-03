@@ -1,0 +1,20 @@
+{##
+ # Backup mesaage
+ #
+ # @ListChild (list="upgrade.step.completed.backup.sections", weight="100")
+ #}
+
+{# :NOTE: message is already translated #}
+<div class="upgrade-note upgrade-description">
+  {{ t('The upgrade is completed. Please, do not close this page until you check your web site and check that everything works properly') }}.
+</div>
+
+{{ widget('\\XLite\\View\\Button\\Link', style='main-button', label=t('Open storefront'), blank='1', location=this.getShopURL()) }}
+
+{{ widget('\\XLite\\View\\Upgrade\\Step\\Completed\\UpgradeNotes') }}
+
+<div class="upgrade-note upgrade-description">
+  {{ t('If there are some critical errors occurred you can do the following') }}:
+</div>
+
+{{ widget_list('actions', type='inherited') }}

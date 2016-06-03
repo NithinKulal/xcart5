@@ -1,0 +1,11 @@
+{##
+ # Location popup : address : country
+ #
+ # @ListChild (list="location-select.address", weight="10")
+ #}
+
+{% if this.hasField('country_code') %}
+  <li class="country">
+    {{ widget('\\XLite\\View\\FormField\\Select\\Country', fieldName='address_country', value=this.getCountryCode(), stateSelectorId='address-state', stateInputId='address-custom-state', label=t('Country'), required='true') }}
+  </li>
+{% endif %}

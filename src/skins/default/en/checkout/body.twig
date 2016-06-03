@@ -1,0 +1,11 @@
+{##
+ # Checkout widget body
+ #}
+
+<div class="checkout-block">
+  {% if this.isCheckoutAvailable() %}
+    {{ widget_list('checkout.main') }}
+  {% else %}
+    {{ widget('\\XLite\\View\\Signin') }}
+  {% endif %}
+</div>

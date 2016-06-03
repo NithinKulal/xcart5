@@ -1,0 +1,20 @@
+{##
+ # Country selector
+ #}
+{% if this.isLabelBasedSelector() %}
+
+  <span class="one-country">{{ this.oneCountry.country }}</span>
+  <input type="hidden" name="{{ this.field }}" value="{{ this.oneCountry.code }}" />
+
+{% else %}
+
+  <select name="{{ this.field }}"{% if this.onchange %} onchange="{{ this.onchange }}"{% endif %}{% if this.fieldId %} id="{{ this.fieldId }}"{% endif %} class="{{ this.getParam('className') }} field-country">
+    {% if not this.getSelectedValue() %}
+      <option value="">{{ t('Select one') }}</option>
+    {% endif %}
+    {% for v in this.getCountries() %}
+      <option value="{{ v.code }}" {% if this.isSelectedCountry(v.code) %} selected="selected" {% endif %}>{{ v.country }}</option>
+    {% endfor %}
+  </select>
+
+{% endif %}

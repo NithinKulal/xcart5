@@ -1,0 +1,42 @@
+{##
+ # Database backup tab template
+ #}
+
+<p>
+  {{ t('Use this section to back up the database of your online store. Please note that the database backup procedure can take up to several minutes.') }}
+</p>
+<p>
+  {{ t('You can choose if to download your database data')|raw }}
+</p>
+<div class="db-backup-form">
+  {% form '\\XLite\\View\\Form\\DbBackup' %}
+    <div class="model-form-buttons">
+    {{ widget('\\XLite\\View\\Button\\Submit', style='download-sql', label=t('Download SQL file')) }}
+
+    {% if this.isFileWritable() %}
+      {{ widget('\\XLite\\View\\Button\\Regular', style='create-sql-file', label=t('Create SQL file'), action='backup_write_to_file') }}
+      {{ widget('\\XLite\\View\\Tooltip', id='create-sql-file-help', text=t('If you choose to create SQL file, you will be able to download the file from the server later and after that delete it from the server by clicking on the "Delete SQL file" button.'), isImageTag='true', className='help-icon') }}
+    {% endif %}
+    </div>
+
+    <div class="clear"></div>
+    
+    {% if this.isFileExists() %}
+    <div class="model-form-buttons">
+      {{ widget('\\XLite\\View\\Button\\Regular', style='delete-sql-file', label=t('Delete SQL file'), action='delete') }}
+    </div>
+    {% endif %}
+
+    {% if not this.isFileWritable() %}
+      <p class="backup-warning-content">
+        {{ t('You cannot save database data to a file on the web server (\'var/backup/sqldump.sql.php\').') }}
+        {% if not this.isDirExists() %}
+          <span class="no-backup-dir">{{ t('The directory \'var/backup/\' does not exist or is not writable.') }}</span>
+        {% endif %}
+        {% if this.isDirExists() %}
+          <span class="backup-file-non-writable">{{ t('The directory \'var/backup/\' does not exist or is not writable.') }}</span>
+        {% endif %}    
+      </p>
+    {% endif %}
+  {% endform %}
+</div>

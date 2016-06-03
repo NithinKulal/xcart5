@@ -1,0 +1,34 @@
+{##
+ # Measure info
+ #}
+
+<div class="speed"></div>
+<p class="date">{{ this.formatDate(this.lastDate) }}</p>
+<p class="completed">{{ t('Benchmark completed in ') }} <span class="score{% if this.isHighScore() %} score-high{% endif %}">{{ this.measure.total }}</span> {{ t('ms') }}</p>
+<p class="info">{{ t('Benchmark result under 3000ms is considered good') }}</p>
+<div class="buttons buttons-rerun">
+  {{ widget('\\XLite\\View\\Button\\Link', location=url('measure', 'measure'), label=t('Run Benchmark again'), style='main-button') }}
+  {{ widget('\\XLite\\View\\Tooltip', id='measure-help-text', text=t('The benchmark evaluates server environment'), caption=t('What is benchmark?'), isImageTag='false', className='help') }}
+</div>
+{% if this.getHostingScore() %}
+<hr />
+<p class="compare">{{ t('Compare your result with other servers') }}:<span class="mark">*</span></p>
+<table cellspacing="0" >
+  {% for score in this.getHostingScore() %}
+    <tr title="{{ score.name }}">
+      <td class="name">
+        {% if score.link %}
+          <a href="{{ score.link }}">{{ score.name }}</a>
+        {% else %}
+          {{ score.name }}
+        {% endif %}
+      </td>
+      <td class="dash">&mdash;</td>
+      <td><span class="score">{{ score.score }}</span> {{ t('ms') }}</td>
+    </tr>
+  {% endfor %}
+</table>
+
+<span class="note"><span class="mark">*</span> {{ t('The values are average') }}</span>
+{% endif %}
+<span class="help-text" style="display: none;">{{ t('The benchmark evaluates server environment')|raw }}</span>

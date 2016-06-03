@@ -1,0 +1,56 @@
+{##
+ # SagePay Form protocol configuration page
+ #}
+
+{% if not this.paymentMethod.isMcryptDecrypt() %}
+  <div class="top-note warning">
+    <div>{{ t('You need to install the PHP mcrypt extension to use the Sage Pay integration') }}</div>
+  </div>
+{% endif %}
+
+<table cellspacing="1" cellpadding="5" class="settings-table">
+
+  <tr>
+    <td class="setting-name">
+    <label for="settings_login">{{ t('Sage Pay vendor name') }}</label>
+    </td>
+    <td>
+    <input type="text" id="settings_vendorName" name="settings[vendorName]" value="{{ this.paymentMethod.getSetting('vendorName') }}" class="validate[required,maxSize[255]]" />
+    </td>
+  </tr>
+
+  <tr>
+    <td class="setting-name">
+    <label for="settings_key">{{ t('Sage Pay password') }}</label>
+    </td>
+    <td>
+      {{ widget('\\XLite\\View\\FormField\\Input\\Text', fieldName='settings[password]', fieldOnly='true', value=this.paymentMethod.getSetting('password'), required=true, help=t('Please enter your encryption password (This is different from your merchant password). More info on encryption passwords is available <here>', { 'link': this.paymentMethod.getHelpPasswordLink() }) ) }}
+    </td>
+  </tr>
+
+  <tr>
+    <td class="setting-name">
+    <label for="settings_test">{{ t('Test/Live mode') }}</label>
+    </td>
+    <td>
+    <select id="settings_test" name="settings[test]">
+      <option value="1" {% if this.isSelected(this.paymentMethod.getSetting('test'), '1') %} selected="selected" {% endif %}>{{ t('Test mode: Test') }}</option>
+      <option value="0" {% if this.isSelected(this.paymentMethod.getSetting('test'), '0') %} selected="selected" {% endif %}>{{ t('Test mode: Live') }}</option>
+    </select>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="setting-name">
+    <label for="settings_prefix">{{ t('Sage pay invoice number prefix') }}</label>
+    </td>
+    <td>
+    <input type="text" id="settings_prefix" value="{{ this.paymentMethod.getSetting('prefix') }}" name="settings[prefix]" />
+    </td>
+  </tr>
+
+</table>
+
+<script type="text/javascript">
+  jQuery("#settings_currency").val("{{ this.paymentMethod.getSetting('currency') }}");
+</script>

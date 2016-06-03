@@ -1,0 +1,10 @@
+{##
+ # Form start (order search)
+ #}
+
+<form action="{{ this.getFormAction() }}" method="{{ this.getParam('formMethod') }}" accept-charset="utf-8" onsubmit="javascript: {{ this.getJSOnSubmitCode() }}" class="search-orders" style="display: none;">
+<div class="form-params" style="display: none;">
+  {% for paramName, paramValue in this.getFormParams() %}
+    <input type="hidden" name="{{ paramName }}" value="{{ paramValue }}" />
+  {% endfor %}
+</div>

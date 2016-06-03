@@ -1,0 +1,9 @@
+{##
+ # Rating value in product info
+ #
+ # @ListChild (list="product.details.page.info", weight="18")
+ #}
+
+{% if this.product.briefDescription %}
+  <div class="brief-descr product-description" data-inline-editable {{ this.printTagAttributes(this.product.getEditableMetadata('briefDescription'))|raw }} >{{ this.product.getProcessedBriefDescription()|raw }}</div>
+{% endif %}

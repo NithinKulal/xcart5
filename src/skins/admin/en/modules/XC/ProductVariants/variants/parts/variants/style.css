@@ -1,0 +1,133 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Attributes
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+div.variants .items-list-table table.list td.main {
+  min-width: 0;
+}
+
+div.variants .items-list-table table.list div.table-value span.input {
+  width: 100%;
+}
+
+div.variants .items-list-table table.list .inline-field input,
+  div.variants .items-list-table table.list .inline-field select
+{
+  width: 100%;
+  min-width: 120px;
+  font-size: 16px;
+  text-align: left;
+  height: auto;
+  line-height: 22px;
+  padding-top: 7px;
+  padding-bottom: 4px;
+}
+
+div.variants .items-list-table table.list tbody.create tr.line td,
+  div.variants .items-list-table table.list .inline-field select
+{
+  width: 180px;
+}
+
+div.variants .items-list-table table.list tbody.create tr.line td,
+  div.variants .items-list-table table.list tbody.lines tr.line td
+{
+  padding-left: 8px;
+  padding: 13px 3px 10px 17px;
+  background: #fff;
+}
+
+div.variants .items-list-table table.list tbody.create .inline-field,
+div.variants .items-list-table table.list tbody.lines .inline-field {
+  width: 100%;
+}
+
+
+div.variants .items-list-table table.list tbody.create tr.line td.actions.left,
+div.variants .items-list-table table.list tbody.lines tr.line td.actions.left {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+div.variants .items-list-table table.list tbody.create td.actions.right,
+  div.variants .items-list-table table.list tbody.lines td.actions.right
+{
+  padding-right: 10px;
+}
+
+div.variants .items-list-table table.list tbody.lines .plain-value {
+  width: 180px;
+}
+
+div.variants .items-list-table table.list tbody.lines .plain-value span {
+  font-size: 16px;
+  line-height: 20px;
+}
+
+div.variants .items-list-table table.list .table-value {
+  padding: 0;
+}
+
+div.variants .items-list-table table.list thead th {
+  padding-top: 23px;
+  padding-left: 17px;
+  font-size: 16px;
+  color: #4f6f96;
+}
+
+div.variants .items-list-table table.list thead {
+  background: #edf7fc;
+  background: -moz-linear-gradient(top, #edf7fc 0%, #7db9e8 100%, #d6ecf8 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#edf7fc), color-stop(100%,#d6ecf8));
+  background: -webkit-linear-gradient(top, #edf7fc 0%,#d6ecf8 100%);
+  background: -o-linear-gradient(top, #edf7fc 0%,#d6ecf8 100%);
+  background: -ms-linear-gradient(top, #edf7fc 0%,#d6ecf8 100%);
+  background: linear-gradient(to bottom, #edf7fc 0%,#d6ecf8 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#edf7fc', endColorstr='#d6ecf8',GradientType=0 );
+}
+
+div.variants .items-list-table table.list {
+  -moz-box-shadow: 0 0 10px #bbc7d2;
+  -webkit-box-shadow: 0 0 10px #bbc7d2;
+  box-shadow: 0 0 10px #bbc7d2;
+}
+
+div.variants .items-list-table table.list .cell.amount.attention input{
+  background: #FFF5F5;
+  color: #d91a1a;
+}
+
+div.variants .items-list-table table.list .cell.amount input:target{
+  border-color: #DCA3A3;
+}
+
+.sticky-additional a.submit-form {
+  text-decoration: underline;
+  color: #154e9c;
+  font-size: 16px;
+}
+
+.sticky-additional {
+  padding: 5px;
+  display: inline;
+}
+
+.sticky-additional .or {
+  margin: 5px;
+  font-size: 16px;
+}
+
+div.variants .create-variants-block {
+  float: right;
+  margin-top: 20px;
+  margin-right: 22px;
+}
+
+div.variants .create-variants span {
+  font-size: 14px;
+}

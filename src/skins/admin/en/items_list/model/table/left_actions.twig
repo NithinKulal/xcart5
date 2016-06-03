@@ -1,0 +1,8 @@
+{##
+ # Left actions
+ #}
+
+{% for i, tpl in this.getLeftActions() %}
+  <div class="{{ this.getActionCellClass(i, tpl) }}">{% include tpl %}</div>
+{% endfor %}
+<div class="separator"></div>

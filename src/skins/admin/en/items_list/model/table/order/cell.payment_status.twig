@@ -1,0 +1,5 @@
+{##
+ # Payment status cell
+ #}
+
+<span class="status-{{ this.entity.paymentStatus.code }}"><a href="{{ url('order', '', {'order_number': this.entity.getOrderNumber()}) }}">{{ this.entity.paymentStatus.name }}</a></span>

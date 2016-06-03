@@ -1,0 +1,8 @@
+{##
+ # Popup button
+ #}
+<a href="#" class="{{ this.getClass() }}">
+  {{ this.displayCommentedData(this.getURLParams()) }}
+  <i class="fa fa-map-marker"></i>
+  {{ t(this.getButtonContent()) }}: <span class='country'>{{ this.getLocation() }}</span>
+</a>

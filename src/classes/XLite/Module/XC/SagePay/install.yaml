@@ -1,0 +1,34 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Payment\Method:
+  - service_name: SagePay form protocol
+    class: Module\XC\SagePay\Model\Payment\Processor\SagePayForm
+    type: C
+    orderby: -101500
+    countries: [GB, IE]
+    translations:
+      - code: en
+        name: Sage Pay form protocol
+    settings:
+      - name: vendorName
+      - name: password
+      - name: test
+        value: 1
+      - name: prefix
+        value: xcart
+
+XLite\Model\LanguageLabel:
+  - { name: "Sage Pay vendor name", translations: [{ code: en, label: "Vendor name" }] }
+  - { name: "Sage Pay processing mode", translations: [{ code: en, label: "Processing mode" }] }
+  - { name: "Sage Pay password", translations: [{ code: en, label: "Encryption Password" }] }
+  - { name: "Sage pay invoice number prefix", translations: [{ code: en, label: "Invoice number prefix" }] }
+  - { name: "Sage Pay pricing currency", translations: [{ code: en, label: "Pricing currency" }] }
+  - { name: "Don't have account yet? Sign up for SagePay now!", translations: [{ code: en, label: "Don't have an account yet? <a href=\"https://support.sagepay.com/apply/default.aspx?PartnerID=BB1670B8-01B0-42D3-8AEC-6AF423BE26E7\">Sign up</a> for SagePay now!" }] }
+  - { name: 'You need to install the PHP mcrypt extension to use the Sage Pay integration', translations: [{ code: en, label: 'You need to install the PHP mcrypt extension to use the Sage Pay integration' }] }
+  - { name: 'SagePay Form admin description', translations: [{ code: en, label: "Sage Pay is UK's leading independent payment service provider (PSP) and is one of the most trusted payment brands. Every year Sage Pay processes billions of pounds worth of secure payments for its 50,000+ customers and makes the process of accepting payments online, over the phone, or in person simpler, faster, safer and more profitable for businesses.<br /><br />Sage Pay is a subsidiary of FTSE 100 business management software and services company The Sage Group plc." }] }
+  - { name: 'Please enter your encryption password (This is different from your merchant password). More info on encryption passwords is available <here>', translations: [{ code: en, label: "Please enter your encryption password (This is different from your merchant password). More info on encryption passwords is available <a href='{{link}}'  target='_blank'>here</a>" }] }

@@ -1,0 +1,14 @@
+{##
+ # Rating value in text
+ #
+ # @ListChild (list="reviews.page.rating", weight="200")
+ # @ListChild (list="reviews.tooltip.rating", weight="200")
+ #}
+<div class="text">
+  {% if this.getAverageRating() > 0 %}
+    <div>{{ t('Score: X. Votes: Y', {'score': this.getAverageRating(), 'votes': this.getVotesCount()}) }}</div>
+  {% endif %}
+  {% if this.getAverageRating() == 0 %}
+    <div>{{ t('Not rated yet') }}</div>
+  {% endif %}
+</div>

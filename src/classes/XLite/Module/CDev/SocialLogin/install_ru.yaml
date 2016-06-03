@@ -1,0 +1,17 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\LanguageLabel:
+  - { name: 'Use existing account from', translations: [{ code: ru, label: 'Используйте существующую учетную запись в' }] }
+  - { name: 'Or use your social account', translations: [{ code: ru, label: 'Или используйте вашу учетную запись в социальной сети' }] }
+  - { name: 'Or sign in the classic way', translations: [{ code: ru, label: 'Или войдите, используя учетную запись в нашем магазине' }] }
+  - { name: 'Profile is disabled', translations: [{ code: ru, label: 'Учетная запись отключена' }] }
+  - { name: 'We were unable to process this request', translations: [{ code: ru, label: 'Мы не смогли обработать запрос' }] }
+  - { name: 'Or register with', translations: [{ code: ru, label: 'Или создайте учетную запись используя' }] }
+  - { name: 'Register with', translations: [{ code: ru, label: 'Создайте учетную запись используя' }] }
+  - { name: 'Profile does not have any email address. Please sign in the classic way.', translations: [{ code: ru, label: 'Учетная запись не содержит адреса электронной почты. Войдите, используя учетную запись нашего магазина.' }] }
+  - { name: 'or go to checkout as a New customer', translations: [{ code: ru, label: 'или продолжите оплату как новый пользователь' }] }

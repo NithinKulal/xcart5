@@ -1,0 +1,11 @@
+{##
+ # Order address : info
+ #
+ # @ListChild (list="address.order.main", weight="100")
+ #}
+
+<div class="info">
+  <strong><a href="{{ url('profile', '', {'profile_id': this.order.origProfile.profileId}) }}">{{ this.getName() }}</a></strong>
+  <span class="separator">-</span>
+  <span class="email"><a href="mailto:{{ this.getEmail() }}">{{ this.getEmail() }}</a></span>
+</div>

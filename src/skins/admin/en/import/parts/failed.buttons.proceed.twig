@@ -1,0 +1,11 @@
+{##
+ # Import failed section : button
+ #
+ # @ListChild (list="import.failed.buttons", weight="200")
+ #}
+
+{% if this.isDisplayProceedButton() %}
+	{{ widget('XLite\\View\\Button\\Link', location=url(this.getImportTarget(), 'proceed'), label=t('Proceed import'), style='main-button pull-right regular-main-button') }}
+{% else %}
+	{{ widget('XLite\\View\\Button\\Link', jsCode='return false;', label=t('Proceed import'), style='main-button regular-main-button pull-right disabled') }}
+{% endif %}

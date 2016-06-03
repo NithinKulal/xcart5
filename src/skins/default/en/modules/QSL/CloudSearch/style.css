@@ -1,0 +1,234 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * CloudSearch widget style
+ *
+ * @author    Qualiteam software Ltd <info@x-cart.com>
+ * @copyright Copyright (c) 2011-2013 Qualiteam software Ltd <info@x-cart.com>. All rights reserved
+ * @license   http://www.x-cart.com/license-agreement.html X-Cart 5 License Agreement
+ * @link      http://www.x-cart.com/
+ */
+
+/**
+ * Popup widget
+ */
+
+.instant-search-menu {
+  text-align: left;
+  background: white;
+  background: rgba(255, 255, 255, 0.95);
+  position: absolute;
+  border: 1px solid silver;
+  border-radius: 3px;
+  font-family: tahoma, geneva, arial, verdana, helvetica, sans-serif;
+  font-size: 12px;
+  box-shadow: 0 1px 5px silver;
+  z-index: 100000;
+}
+
+.instant-search-menu, .instant-search-menu * {
+  box-sizing: content-box;
+}
+
+.instant-search-menu dl {
+  margin: 0;
+  padding: 5px 17px 10px 22px;
+  font-family: 'Trebuchet MS', Helvetica, Jamrul, sans-serif;
+}
+
+.instant-search-menu.left dl {
+  padding: 5px 22px 10px 17px;
+}
+
+.instant-search-menu dt {
+  padding: 6px 0;
+  font-weight: normal;
+}
+
+.instant-search-menu dt a {
+  font-size: 16px;
+}
+
+/* Normal search result link color */
+.instant-search-menu dt a {
+  color: #2c5fa6;
+}
+
+/* Active (hovered) search result link color */
+.instant-search-menu dt a:hover,
+.instant-search-menu dt a.hover,
+.instant-search-menu .name a {
+  color: #0f9dcc;
+}
+
+.instant-search-menu a,
+.instant-search-menu a:hover {
+  text-decoration: none;
+  outline: none;
+}
+
+.instant-search-menu dd {
+  display: none;
+  border: 1px solid #b1c9e0;
+  border-radius: 3px;
+  margin: 0 3px 3px 3px;
+  padding: 20px;
+  background: white;
+  background: rgba(255, 255, 255, 0.95);
+  position: absolute;
+  top: 0;
+  left: -306px;
+  width: 270px;
+  box-shadow: 0 1px 5px silver;
+}
+
+.instant-search-menu.left dd {
+  left: 285px;
+}
+
+.instant-search-menu dd .arrow {
+  position: absolute;
+  background: white;
+  border: none;
+  border-top: 1px solid #b1c9e0;
+  border-right: 1px solid #b1c9e0;
+  width: 14px;
+  height: 14px;
+  right: -9px;
+  top: 14px;
+  box-shadow: 2px -2px 2px rgba(100, 100, 100, 0.07);
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.7071067811865474, M12=-0.7071067811865477, M21=0.7071067811865477, M22=0.7071067811865474, SizingMethod='auto expand')";
+
+  filter: progid:DXImageTransform.Microsoft.Matrix(
+    M11=0.7071067811865474,
+    M12=-0.7071067811865477,
+    M21=0.7071067811865477,
+    M22=0.7071067811865474,
+    SizingMethod='auto expand');
+}
+
+.instant-search-menu.left dd .arrow {
+  border: none;
+  border-bottom: 1px solid #b1c9e0;
+  border-left: 1px solid #b1c9e0;
+  left: -8px;
+  box-shadow: -2px 2px 2px rgba(100, 100, 100, 0.07);
+}
+
+.instant-search-menu.ie dd .arrow {
+  right: -8px;
+  top: 10px;
+}
+
+.instant-search-menu.left.ie dd .arrow {
+  left: -9px;
+}
+
+.instant-search-menu .clearing {
+  clear: both;
+}
+
+.instant-search-menu .highlight-hit {
+  background-color: #cce8ff;
+}
+
+/**
+ * Product price styles
+ */
+
+.instant-search-menu .price {
+  float: right;
+  color: #1f6188;
+  font-size: 22px;
+}
+
+/**
+ * Product image
+ */
+
+.instant-search-menu .image {
+  float: left;
+  margin: 0 10px 5px 0;
+  border: solid 1px #dbdbdb;
+  padding: 5px;
+  background: white;
+}
+
+.instant-search-menu .image.show-on-load {
+  display: none;
+}
+
+.instant-search-menu .description {
+  margin: 10px 0 0;
+  text-align: justify;
+  color: black;
+}
+
+.instant-search-menu .header {
+  margin: 15px 17px 0;
+  color: #444;
+}
+
+.instant-search-menu .results-for,
+.instant-search-menu .results-for:hover {
+  font-weight: bold;
+}
+
+.instant-search-menu .see-details {
+  text-align: center;
+  font-size: 16px;
+  margin: 13px 0 0 0;
+}
+
+.instant-search-menu .name {
+  font-size: 16px;
+  margin: 0 0 20px;
+}
+
+.instant-search-menu .see-more-results {
+  border-top: 1px solid #ddd;
+  padding-top: 15px;
+  text-align: center;
+  font-size: 12px;
+  margin: 0 0 15px 0;
+}
+
+.instant-search-menu .suggestions {
+  margin: 10px 17px 12px;
+}
+
+.instant-search-menu .suggestions .suggestion {
+  line-height: 26px;
+  font-size: 14px;
+}
+
+.instant-search-menu .header-right {
+  text-align: right;
+  color: #777;
+  font-weight: bold;
+  margin: 0 17px 0;
+}
+
+.instant-search-menu .header-right:first-child {
+  margin: 15px 17px 0;
+}
+
+.instant-search-menu .powered-by {
+  font-size: 10px;
+  text-align: center;
+  margin: 0 0 10px;
+  padding-top: 10px;
+}
+
+.instant-search-menu dt .parent-category {
+  font-size: 12px;
+}
+
+.instant-search-menu .category-sep {
+  color: #777;
+}

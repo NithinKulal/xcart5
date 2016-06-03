@@ -1,0 +1,7 @@
+{##
+ # Default radio
+ #}
+
+<div class="default-value-checkbox{% if this.entity.getDefaultValue() %} checked{% endif %}" title="{{ this.getDefaultActionTitle() }}">
+  {{ widget('XLite\\View\\FormField\\Input\\Radio', value=this.entity.getId(), fieldName='defaultValue', fieldOnly='true', isChecked=this.entity.getDefaultValue()) }}
+</div>

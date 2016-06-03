@@ -1,0 +1,16 @@
+{##
+ # Overlapping box
+ #
+ # @ListChild (list="itemsList.product.grid.customer.info.photo", weight="999")
+ # @ListChild (list="itemsList.product.list.customer.quicklook", weight="999")
+ # @ListChild (list="productBlock.info", weight="999")
+ #}
+{% if this.isQuickLookEnabled() %}
+  <div class="quicklook">
+    <a
+      href="{{ this.getProductURL(this.categoryId) }}"
+      class="quicklook-link quicklook-link-{{ this.product.product_id }} quicklook-link-category-{{ this.categoryId }}">
+      <div class="quicklook-view">&nbsp;</div>
+    </a>
+  </div>
+{% endif %}

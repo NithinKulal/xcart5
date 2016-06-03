@@ -1,0 +1,14 @@
+{##
+ # "Custom Attributes" tab
+ #}
+
+{% form 'XLite\\View\\Form\\Product\\Modify\\Attributes' %}
+
+  <div class="dialog-block">
+    {{ widget('XLite\\View\\Product\\Details\\Admin\\Attributes', personalOnly='true') }}
+  </div>
+  {{ widget('\\XLite\\View\\StickyPanel\\Product\\Attributes') }}
+
+{% endform %}
+
+{{ widget('XLite\\View\\Product\\Details\\Admin\\CreateBox') }}

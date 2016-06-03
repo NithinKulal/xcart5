@@ -1,0 +1,82 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * style.less
+ *
+ * Copyright (c) 2001-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+.checkout_fastlane_section--address {
+	.checkout_fastlane_section-left {
+    .make-sm-column(12; 0);
+		.make-md-column(8; @grid-gutter-width);
+
+    @media(max-width: @screen-sm-max) {
+      padding-left: 0;
+      padding-right: 0;
+    }
+	}
+
+	.checkout_fastlane_section-right {
+    .make-sm-column(12; 0);
+		.make-md-column(4; @grid-gutter-width);
+
+    @media(max-width: @screen-sm-max) {
+      padding-left: 0;
+      padding-right: 0;
+    }
+	}
+}
+
+.checkout_fastlane_address_forms {
+  .clearfix;
+
+  & > .checkout_fastlane_address_form_wrapper {
+    @media(min-width: @screen-sm-min) {
+      width: 50%;
+      float: left;
+      padding-right: @grid-gutter-width;
+
+      &:last-of-type {
+        padding-right: 0px;
+      }
+    }
+  }
+}
+
+.wait-block,
+.block-wait {
+    min-width: 0;
+    min-height: 0;
+  position: absolute;
+  margin: auto;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  border-radius: 100%;
+  width: 15px;
+  height: 15px;
+  box-shadow: 15px 15px #f29221, -15px 15px #1C9AE8, -15px -15px #f29221, 15px -15px #1C9AE8;
+  -webkit-animation: spin ease infinite 2s;
+
+  & > div {
+  	background: none !important;
+  }
+}
+
+@-webkit-keyframes spin {
+  0%,
+  100% {
+    box-shadow: 15px 15px #f29221, -15px 15px #1C9AE8, -15px -15px #f29221, 15px -15px #1C9AE8;
+  }
+  25% {
+    box-shadow: -15px 15px #1C9AE8, -15px -15px #f29221, 15px -15px #1C9AE8, 15px 15px #f29221;
+  }
+  50% {
+    box-shadow: -15px -15px #f29221, 15px -15px #1C9AE8, 15px 15px #f29221, -15px 15px #1C9AE8;
+  }
+  75% {
+    box-shadow: 15px -15px #1C9AE8, 15px 15px #f29221, -15px 15px #1C9AE8, -15px -15px #f29221;
+  }
+}

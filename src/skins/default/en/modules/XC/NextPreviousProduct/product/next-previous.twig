@@ -1,0 +1,21 @@
+{##
+ # Next previous product links
+ #}
+
+<div class="next-previous-product">
+    <div>
+        {% if this.isPreviousAvailable() %}
+          <div class="next-previous-link">
+              {{ widget(template='modules/XC/NextPreviousProduct/product/parts/body.twig', next=0, item=this.previousItem, dataString=this.getDataStringPrevious()) }}
+          </div>
+        {% endif %}
+        {% if this.isShowSeparator() %}
+          <span class="next-previous-separator">|</span>
+        {% endif %}
+        {% if this.isNextAvailable() %}
+          <div class="next-previous-link">
+              {{ widget(template='modules/XC/NextPreviousProduct/product/parts/body.twig', next=1, item=this.nextItem, dataString=this.getDataStringNext()) }}
+          </div>
+        {% endif %}
+    </div>
+</div>

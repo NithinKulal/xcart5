@@ -1,0 +1,27 @@
+{##
+ # Orders search Order ID condition
+ #
+ # @ListChild (list="orders.search.conditions", weight="20")
+ #}
+<tr class="date">
+  <td class="title">{{ t('Date range') }}:</td>
+  <td>
+
+    {{ widget('\\XLite\\View\\DatePicker', field='startDate', value=this.getCondition('startDate')) }}
+    &ndash;
+    {{ widget('\\XLite\\View\\DatePicker', field='endDate', value=this.getCondition('endDate')) }}
+
+    <br />
+
+{# TODO Restore
+
+    <ul class="date-buttons">
+      <li><a href="javascript:void(0);" onclick="javascript:">{t(#This week#)}</a></li>
+      <li><a href="javascript:void(0);" onclick="javascript:">{t(#This month#)}</a></li>
+      <li><a href="javascript:void(0);" onclick="javascript:">{t(#This year#)}</a></li>
+    </ul>
+
+#}
+
+  </td>
+</tr>

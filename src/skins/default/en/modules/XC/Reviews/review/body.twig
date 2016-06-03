@@ -1,0 +1,12 @@
+{##
+ # Add/edit review
+ #}
+
+<div class="modify-review-dialog">
+  {% form '\\XLite\\Module\\XC\\Reviews\\View\\Form\\Review\\Customer\\Review' %}
+    <div class="model-properties">
+      {{ widget_list('review.add.fields') }}
+    </div>
+    {{ widget_list('review.add.buttons') }}
+  {% endform %}
+</div>

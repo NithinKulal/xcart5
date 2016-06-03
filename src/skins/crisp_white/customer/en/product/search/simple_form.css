@@ -1,0 +1,38 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Simple form styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+/*
+.simple-search-box {
+  border: solid 1px #dfdfdf;
+  clear: both;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+
+#search .simple-search-box input.form-text {
+  font-size: 12px;
+  outline: none;
+  background: none;
+  border: none;
+  margin: 2px;
+  padding-right: 20px;
+}
+
+.simple-search-box button.submit-button {
+  background: transparent url(images/search.png) no-repeat;
+  border: none;
+  float: left;
+  padding: 0px;
+  width: 18px;
+  height: 17px;
+  text-indent: -8000em;
+  position: relative;
+}
+*/
+*

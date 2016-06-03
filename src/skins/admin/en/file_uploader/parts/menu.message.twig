@@ -1,0 +1,12 @@
+{##
+ # File uploader menu
+ #
+ # @ListChild (list="file-uploader.menu", weight="10")
+ #}
+
+{% if this.getMessage() %}
+  <li role="presentation" class="dropdown-header message">
+    <i class="fa fa-exclamation-triangle"></i> {{ this.getMessage() }}
+  </li>
+  <li role="presentation" class="divider"></li>
+{% endif %}

@@ -1,0 +1,130 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Styles
+ *
+ * Copyright (c) 2001-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+//
+// Pagination (multiple pages)
+// --------------------------------------------------
+.pagination {
+  display: inline-block;
+  margin: 0;
+  //padding-left: 0;
+  //margin: @line-height-computed 0;
+  //border-radius: 0;
+
+  > li {
+    display: inline; // Remove list-style and block-level defaults
+    > a,
+    > span {
+      position: relative;
+      float: left; // Collapse white-space
+
+      #rhythmless > .rhythm(16px);
+      line-height: (2 * @rhythmic-unit - 2 * @border-base);
+      min-width: 40px;
+      padding: 0 10px;
+
+      color: @link-color;
+      background-color: transparent;
+      border: none;
+      //margin-left: -1px;
+    }
+    &:first-child {
+      > a,
+      > span {
+        .border-left-radius(0);
+        .icon-chevron-left();
+
+        font-size: 30px;
+      }
+    }
+    &:last-child {
+      > a,
+      > span {
+        .border-right-radius(0);
+        .icon-chevron-right();
+
+        font-size: 30px;
+      }
+    }
+  }
+
+  > li > a,
+  > li > span {
+    &:hover,
+    &:focus {
+      color: @link-color;
+      background-color: transparent;
+      //border-color: @pagination-hover-border;
+    }
+  }
+
+  > .active > a,
+  > .active > span {
+
+    color: @link-color;
+    background-color: transparent;
+    // border: 1px solid #25c5df;
+
+    &:hover,
+    &:focus {
+      //z-index: 2;
+      color: @link-hover-color;
+      background-color: transparent;
+      //border-color: @pagination-hover-border;
+      cursor: pointer;
+    }
+  }
+  
+  > .selected > a,
+  > .selected > span {
+    
+    &,
+    &:hover,
+    &:focus {
+      color: @color-highlight;
+      border: @border-base solid @color-highlight;
+      .rounded(@border-radius-base);
+      cursor: default;
+      margin-bottom: (-2 * @border-base);
+    }
+  }
+  
+  > .more-pages > span {
+    //border: none;
+  }
+
+  > .disabled {
+    > span,
+    > span:hover,
+    > span:focus,
+    > a,
+    > a:hover,
+    > a:focus {
+      border: none;
+      //color: @pagination-disabled-color;
+      //background-color: @pagination-disabled-bg;
+      //border-color: @pagination-disabled-border;
+      //cursor: not-allowed;
+      //opacity: 0.7;
+    }
+  }
+}
+
+// Sizing
+// --------------------------------------------------
+
+// Large
+.pagination-lg {
+  .pagination-size(@padding-large-vertical; @padding-large-horizontal; @font-size-large; @border-radius-large);
+}
+
+// Small
+.pagination-sm {
+  .pagination-size(@padding-small-vertical; @padding-small-horizontal; @font-size-small; @border-radius-small);
+}

@@ -1,0 +1,9 @@
+{##
+ # The "Continue" button
+ #
+ # @ListChild (list="upgrade.step.ready_to_install.buttons.sections.right", weight="200")
+ #}
+
+{% if this.isNextStepAvailable() %}
+  {{ widget('\\XLite\\View\\Button\\Submit', label=t('Install updates'), disabled='true', style='regular-main-button disabled') }}
+{% endif %}

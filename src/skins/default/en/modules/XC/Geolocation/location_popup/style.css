@@ -1,0 +1,132 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * button style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.btn.location-select{
+  padding: 0 6px;
+  text-decoration: none;
+  margin-right:12px;
+}
+.btn.location-select span{
+  border-bottom: 1px dashed #5194c5;
+}
+
+@media (max-width: 991px) {
+  .btn.location-select {
+    display: none;
+  }
+}
+
+/**
+ * Location select
+ */
+
+.ajax-container-loadable.widget-xc-geolocation-locationselect {
+  min-width: 400px !important;
+}
+
+form.location ul,
+  .estimate-methods ul
+{
+  margin: 0;
+  padding: 0;
+}
+
+form.location ul.form li
+{
+  list-style: none;
+  background-image: none;
+  padding: 0;
+  margin: 0;
+}
+
+form.location ul.form li {
+  padding: 5px 0;
+  display: block;
+  clear: both;
+  float: left;
+  width: 100%;
+}
+
+form.location ul.form label
+{
+  color: #53769d;
+}
+
+form.location ul.form div.star{
+  width: 3%;
+  text-align: center;
+  vertical-align: middle;
+}
+
+form.location ul.form div.table-label{
+  width: 21%;
+}
+
+form.location ul.form div.table-value{
+  width: 75%;
+  float: right;
+}
+
+form.location ul.form .input-field-wrapper{
+  display: block;
+}
+
+form.location ul.form .field-country,
+form.location ul.form .field-state
+{
+  width: 200px;
+}
+
+form.location ul.form .field-zipcode {
+  width: 62px;
+}
+
+form.location ul.form input[type="text"],
+form.location ul.form select {
+  min-width: 200px;
+}
+
+form.location ul.form select {
+  min-width: 212px;
+}
+
+form.location .buttons {
+  padding-left: 25%;
+  padding-top: 20px;
+  float: left;
+}
+
+form.location .main {
+  padding-top: 10px;
+}
+
+img.fade {
+  background: -moz-linear-gradient(left,  rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,255,255,0)), color-stop(100%,rgba(255,255,255,1)));
+  background: -webkit-linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+  background: -o-linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+  background: -ms-linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+  background: linear-gradient(to right,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=1 );
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 20px;
+  height: 100%;
+}
+
+img.fade-a {
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 20px;
+  height: 100%;
+}

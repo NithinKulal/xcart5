@@ -1,0 +1,12 @@
+{##
+ # "Module upgrade needed"
+ #
+ # @ListChild (list="itemsList.module.manage.columns.module-main-section.messages.cannot_enable", weight="300")
+ # @ListChild (list="itemsList.module.install.columns.module-main-section.cannot_enable", weight="300")
+ #}
+
+{% if this.isModuleUpgradeNeeded(this.module) %}
+  <div class="note version error">
+    {{ widget_list('module_upgrade_needed', type='nested', module=this.module) }}
+  </div>
+{% endif %}

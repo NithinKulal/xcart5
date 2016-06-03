@@ -1,0 +1,10 @@
+{##
+ # Checkout : order review step : selected state : button
+ #
+ # @ListChild (list="checkout.review.selected", weight="20")
+ #}
+{% form '\\XLite\\View\\Form\\Checkout\\Place' with {className: 'place'} %}
+
+  {{ widget_list('checkout.review.selected.placeOrder') }}
+
+{% endform %}

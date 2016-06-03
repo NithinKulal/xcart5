@@ -1,0 +1,11 @@
+{##
+ # Shipping estimator : address : zipcode
+ #
+ # @ListChild (list="shippingEstimator.address", weight="30")
+ #}
+
+{% if this.hasField('zipcode') %}
+  <li class="zipcode">
+    {{ widget('\\XLite\\View\\FormField\\Input\\Text', fieldName='destination_zipcode', value=this.getZipcode(), label=t('Zip code'), required='true') }}
+  </li>
+{% endif %}

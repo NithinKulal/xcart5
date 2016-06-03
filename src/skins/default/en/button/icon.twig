@@ -1,0 +1,12 @@
+{##
+ # Switch tax button
+ #}
+<button {{ this.printTagAttributes(this.getAttributes())|raw }}>
+  {% if this.isLeftIcon() %}
+    <img src="{{ asset('images/spacer.gif') }}" alt="" />
+  {% endif %}
+  <span>{{ t(this.getButtonLabel()) }}</span>
+  {% if not this.isLeftIcon() %}
+    <img src="{{ asset('images/spacer.gif') }}" alt="" />
+  {% endif %}
+</button>

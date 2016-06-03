@@ -1,0 +1,10 @@
+{##
+ # Remove button for wholesale prices items list
+ #}
+
+{% if not this.isRemovableEntity(this.entity) %}
+  {% include 'items_list/model/table/parts/empty.twig' %}
+{% endif %}
+{% if this.isRemovableEntity(this.entity) %}
+  {% include 'items_list/model/table/parts/remove.twig' %}
+{% endif %}

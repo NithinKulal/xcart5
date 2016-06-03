@@ -1,0 +1,24 @@
+{##
+ # Product element
+ #
+ # @ListChild (list="sale_discount_types", weight="10")
+ #}
+
+ <ul class="sale-discount sale-discount-price">
+   <li class="discount-type">
+     <input
+         id="sale-price-sale-price"
+         type="radio"
+         name="{{ this.getNamePostedData('discountType') }}"
+         value="{{ constant('XLite\\Model\\Product::SALE_DISCOUNT_TYPE_PRICE') }}"
+         {% if this.getParam('discountType') == constant('XLite\\Model\\Product::SALE_DISCOUNT_TYPE_PRICE') %}checked="checked"{% endif %} />
+     <label for="sale-price-sale-price">
+      {{ t('Sale price') }}
+     </label>
+   </li>
+   <li class="sale-price-value">
+     {{ widget('\\XLite\\View\\FormField\\Input\\Text\\Price', fieldOnly='true', mouseWheelIcon='false', fieldId='sale-price-value-' ~ constant('XLite\\Model\\Product::SALE_DISCOUNT_TYPE_PRICE'), value=this.getParam('salePriceValue')) }}
+   </li>
+ </ul>
+
+ <div class="clear"></div>

@@ -1,0 +1,11 @@
+{##
+ # Printable invoices
+ #}
+
+{{ widget('\\XLite\\View\\CommonResources') }}
+
+{% for i, order in this.getOrders() %}
+<div{% if this.hasPageBreak(i) %} class="page-break"{% endif %}>
+  {{ widget('\\XLite\\View\\Invoice', order=order) }}
+</div>
+{% endfor %}

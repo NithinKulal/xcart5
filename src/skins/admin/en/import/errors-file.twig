@@ -1,0 +1,15 @@
+{##
+ # Errors file template
+ #}
+{% for file in this.getFiles() %}
+{{ file.file }} - {{ this.getMessageType('E') }}: {{ file.countE }} - {{ this.getMessageType('W') }}: {{ file.countW }}{{ this.getEOL()|raw }}
+{% for type, messageGroup in this.getMessagesGroups(file.file) %}
+{% if messageGroup %}
+{{ this.getEOL()|raw }}
+{{ this.getMessageType(type) }}{{ this.getEOL()|raw }}
+{% for type, errorGroup in messageGroup %}
+{{ this.getGroupErrorMessage(errorGroup)|raw }} ({{ this.getErrorText(errorGroup) }}) - {{ this.getGroupErrorRows(errorGroup) }}{{ this.getEOL()|raw }}
+{% endfor %}
+{% endif %}
+{% endfor %}
+{% endfor %}

@@ -1,0 +1,46 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Use separate box related fields block styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+#block-use-separate-box ul {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#block-use-separate-box ul li {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+#block-use-separate-box ul li div {
+padding-bottom: 6px;
+}
+
+/*
+.period-box {
+  background-color: #F1F1F1;
+  height: 38px;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+.period-box span {
+  font-size: 14px;
+  color: #8F8F8F;
+}
+
+.period-box span.label {
+  margin-right: 5px;
+}
+
+.top-sellers .block-container .items-list-table.products .empty-list {
+  text-align: center;
+  padding: 20px;
+  display: block;
+}
+*/

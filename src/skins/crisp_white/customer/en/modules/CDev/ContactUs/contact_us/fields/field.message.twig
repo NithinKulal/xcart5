@@ -1,0 +1,11 @@
+{##
+ # Message
+ #
+ # @ListChild (list="contact-us.send.fields", weight="400")
+ #}
+
+<div class="form-item">
+  <div class="resizable-textarea">
+    {{ widget('XLite\\View\\FormField\\Textarea\\Simple', placeholder=t(''), label=t('Message'), fieldName='message', value=this.getValue('message'), fieldOnly='false', required='true') }}
+  </div>
+</div>

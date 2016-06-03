@@ -1,0 +1,75 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+ul.attribute-values {
+  width: 302px;
+  padding: 13px 20px 1px;
+  background-color: #f4f4f4;
+  list-style: none;
+  max-width: 100%;
+}
+
+.ui-dialog ul.attribute-values {
+  width: auto;
+  margin: 0 0 20px;
+  padding: 20px 20px 1px;
+}
+
+ul.attribute-values li {
+  list-style: none;
+  margin: 0 0 18px;
+  background-image: none;
+  padding: 0;
+}
+
+ul.attribute-values span.title {
+  display: block;
+  margin: 0;
+  font-size: 14px;
+}
+
+ul.attribute-values select {
+  margin: 4px 0 0;
+  font-size: 14px;
+}
+
+ul.attribute-values textarea {
+  height: 100px;
+  margin: 4px 0 0;
+}
+
+ul.attribute-values label {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 14px;
+}
+
+ul.attribute-values span.title,
+ul.attribute-values label {
+  color: #56768e;
+}
+
+ul.attribute-values label div {
+  display: inline-block;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border: 1px solid #f8f8f8;
+  border-radius: 3px;
+  background: #fff;
+  padding: 5px;
+  margin-right: 6px;
+}
+
+ul.attribute-values label span {
+  color: #333;
+}
+
+.ui-dialog-content div#status-messages-popup {
+  color: #cc0000;
+}

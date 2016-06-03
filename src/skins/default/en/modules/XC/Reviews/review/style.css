@@ -1,0 +1,74 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Add/edit review form styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+div.modify-review-dialog div.buttons {
+  text-align: center;
+}
+
+div.modify-review-dialog input,
+div.modify-review-dialog textarea {
+  font-size: 14px;
+}
+
+div.modify-review-dialog input {
+  width: 280px;
+}
+
+div.modify-review-dialog textarea {
+  font-family: Arial;
+  font-size: 12px !important;
+}
+
+div.add-review-button-disabled {
+  font-size: 12px;
+  color: #9F9F9F;
+  padding-bottom: 5px;
+}
+
+div.icon-help-container {
+  font-family: Helvetica, Arial, sans-serif;
+  float: left;
+}
+
+div.modify-review-dialog div.form-item div.icon-help {
+  background: transparent url(../images/iconHelp.png) no-repeat 1px top;
+  height: 18px;
+  width: 18px;
+  display: inline-block;
+  margin-right: 5px;
+  float: left;
+}
+
+div.modify-review-dialog div.form-item div.icon-help:hover {
+  cursor: pointer;
+}
+
+label.rating {
+  float: left;
+  white-space: nowrap;
+}
+
+div.modify-review-dialog .form-item {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+div.modify-review-dialog .form-item label {
+  width: 110px;
+}
+
+div.modify-review-dialog .form-item label.email {
+  width: 97px;
+}
+
+div.modify-review-dialog .form-item label.rating,
+div.modify-review-dialog .form-item label.review {
+  width: 190px;
+}
+

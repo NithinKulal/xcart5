@@ -1,0 +1,42 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Pager base styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+ul.pager,
+ul.pager li
+{
+  margin: 0;
+  padding: 0;
+}
+
+ul.pager li
+{
+  list-style: none;
+  background-image: none;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+ul.pager a,
+ul.pager span
+{
+  width: 1em;
+}
+
+ul.pager li a,
+ul.pager li span
+{
+  display: block;
+  text-align: center;
+  text-decoration: none;
+}
+
+div.list-pager input.page-length {
+  width: 4em;
+  text-align: right;
+}

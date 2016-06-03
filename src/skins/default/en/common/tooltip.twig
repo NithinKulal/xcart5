@@ -1,0 +1,18 @@
+{##
+ # Tooltip widget
+ #}
+
+<div class="tooltip-main">
+{% if this.isImageTag() %}
+<i {{ this.getAttributesCode()|raw }}></i>
+{% else %}
+<span {{ this.getAttributesCode()|raw }}>{{ this.getParam('caption') }}</span>
+{% endif %}
+{% if this.getParam('helpWidget') %}
+  <div class="help-text" style="display: none;">{{ widget(this.getParam('helpWidget')) }}</div>
+{% endif %}
+{% if not this.getParam('helpWidget') %}
+  <div class="help-text" style="display: none;">{{ this.getParam('text')|raw }}</div>
+{% endif %}
+</div>
+<div class="clear"></div>

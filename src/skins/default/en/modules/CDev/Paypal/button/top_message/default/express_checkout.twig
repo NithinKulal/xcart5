@@ -1,0 +1,13 @@
+{##
+ # Express checkout
+ #}
+<div class="top-message pp-button">
+
+  <div class="message">
+    {{ t('Product has been added to cart') }}
+  </div>
+
+  <button type="button" onclick="javascript: {{ this.getJSCode()|raw }}" class="{{ this.getClass() }}"{% if this.getId() %} id="{{ this.getId() }}"{% endif %}>
+    <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-small.png" alt="Check out with PayPal" />
+  </button>
+</div>

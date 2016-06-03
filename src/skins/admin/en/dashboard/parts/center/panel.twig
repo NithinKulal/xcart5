@@ -1,0 +1,42 @@
+{##
+ # Panel
+ #
+ # @ListChild (list="dashboard-center", weight="200")
+ #}
+
+{% if this.getTabs() %}
+  <div class="js-tabs dashboard-tabs">
+  
+    <div class="tabs">
+      <ul>
+        {% for index, tab in this.getTabs() %}
+          <li class="{{ this.getTabClass(tab) }}">
+            <a href="#link-{{ tab.id|raw }}" data-id="{{ tab.id|raw }}">{{ t(tab.name) }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  
+    {% for tab in this.getTabs() %}
+      <div id="{{ tab.id|raw }}" class="tab-content" style="{{ this.getTabStyle(tab) }}">
+        <a name="link-{{ tab.id|raw }}"></a>
+        {% if tab.template %}
+          {% include tab.template %}
+    
+        {% elseif tab.widget %}
+          {{ widget(tab.widget) }}
+    
+        {% elseif tab.list %}
+          {{ widget_list(tab.list) }}
+    
+        {% else %}
+          No content
+        {% endif %}
+      </div>
+    {% endfor %}
+  
+  </div>
+{% endif %}
+
+<div class="clear"></div>
+

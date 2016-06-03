@@ -1,0 +1,13 @@
+{##
+ # Import language button widget template
+ #
+ # @ListChild (list="languages.add-language", weight="300")
+ #}
+
+<div class="or">{{ t('or') }}</div>
+
+{{ widget('\\XLite\\View\\Button\\FileSelector', label='Import language from CSV file', object='language', fileObject='file') }}
+
+{% if this.isImportActive() %}
+  {{ widget('\\XLite\\View\\Button\\ImportLanguage') }}
+{% endif %}

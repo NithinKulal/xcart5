@@ -1,0 +1,25 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Countries list styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.target-countries .search-conditions li.actions {
+  width: 100%;
+  vertical-align: top;
+}
+
+.items-list-table.countries table.list tbody.lines td.actions.left {
+  padding-left: 0px;
+}
+
+.items-list-table.countries .cell.states a.country-states {
+  font-size: 12px;
+}
+
+.items-list-table.countries .cell.states a.country-states.no-states {
+*  color: #aaa;
+}

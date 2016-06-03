@@ -1,0 +1,12 @@
+{##
+ # Create return :: form :: products :: column :: name
+ #
+ # @ListChild (list="capost_create_return.form.columns", weight="20")
+ #}
+
+{% if not this.item.isDeleted() %}
+  <a href="{{ this.item.getURL() }}">{{ this.item.getName() }}</a>
+{% endif %}
+{% if this.item.isDeleted() %}
+  <span>{{ this.item.getName() }}</span>
+{% endif %}

@@ -1,0 +1,18 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Roles list styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.items-list-table.roles table.list tbody td.name div.cell {
+  width: 400px;
+}
+
+.roles table.list tbody .permanent .input-field-wrapper.switcher .widget {
+  background-position: 0px -32px;
+  cursor: auto;
+}
+

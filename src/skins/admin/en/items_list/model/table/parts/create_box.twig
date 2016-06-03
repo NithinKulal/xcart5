@@ -1,0 +1,19 @@
+{##
+ # Create box
+ #}
+
+<tr {{ this.printTagAttributes(this.getLineAttributes(-1, this.dumpEntity))|raw }}>
+  {% for column in this.getCreateColumns() %}
+    <td class="{{ this.getColumnClass(column, this.dumpEntity) }}">
+      <div class="cell">
+        {% if this.isCreateTemplateColumnVisible(column) %}
+          {{ widget(template=column.template, idx=this.idx, entity=this.getDumpEntity(), column=column, editOnly='true') }}
+        {% endif %}
+        {% if this.isCreateClassColumnVisible(column) %}
+          {{ widget(column.createClass, idx=this.idx, entity=this.getDumpEntity(), column=column, itemsList=this.getSelf(), fieldName=column.code, fieldParams=column.params, editOnly='true') }}
+        {% endif %}
+        {{ widget_list(this.getCellListNamePart('dumpCell', column), type='inherited', column=column, entity=this.getDumpEntity()) }}
+      </div>
+    </td>
+  {% endfor %}
+</tr>

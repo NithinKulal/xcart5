@@ -1,0 +1,7 @@
+{##
+ # Subcategories count link
+ #
+ # @ListChild (list="itemsList.category.cell.subcategories", weight="100")
+ #}
+
+<a href="{{ url('categories', '', {'id': this.entity.getCategoryId()}) }}" class="count-link">{{ this.entity.getSubcategoriesCount() }}</a>

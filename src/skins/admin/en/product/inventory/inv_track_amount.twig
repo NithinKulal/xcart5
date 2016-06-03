@@ -1,0 +1,12 @@
+{##
+ # ____file_title____
+ #
+ # @ListChild (list="product.inventory.parts", weight="20")
+ #}
+
+<tr>
+  <td>{{ t('Quantity in stock') }}</td>
+  <td>
+    <input type="text" name="{{ this.getNamePostedData('amount') }}" size="18" value="{{ this.product.getAmount() }}" />
+  </td>
+</tr>

@@ -1,0 +1,16 @@
+{##
+ # Top categories tree
+ #}
+<ul class="flyout-menu{% if not this.isSubtree() %} catalog-categories catalog-categories-tree{% else %} sublevel{% endif %}">
+  {% for idx, _category in this.getCategories(this.rootId) %}
+    <li {{ this.displayItemClass(idx, loop.length, _category)|raw }}>
+      {{ widget(template=this.getDir() ~ "parts/category.link.twig", _category=_category, isShowTriangle=this.isShowTriangle() and _category.hasSubcategories and this.isNotDeep(_category.depth)) }}
+      {% if _category.hasSubcategories and this.isNotDeep(_category.depth) %}
+        {{ widget(template=this.getBody(), rootId=_category.id, is_subtree='1') }}
+      {% endif %}
+    </li>
+  {% endfor %}
+  {% for idx, w in this.getViewList('topCategories.children', {'rootId': this.getParam('rootId'), 'is_subtree': this.getParam('is_subtree')}) %}
+    <li {{ this.displayListItemClass(idx, loop.length, w)|raw }}>{{ w.display() }}</li>
+  {% endfor %}
+</ul>

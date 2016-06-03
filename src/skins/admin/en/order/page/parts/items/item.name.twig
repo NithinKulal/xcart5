@@ -1,0 +1,22 @@
+{##
+ # Name item cell
+ #
+ # @ListChild (list="order.item", weight="10")
+ #}
+<td class="item">
+  {% if this.item.getURL() %}
+    <a href="{{ this.item.getURL() }}" class="item-name">{{ this.item.getName() }}</a>
+  {% endif %}
+  {% if not this.item.getURL() %}
+    <span class="item-name">{{ this.item.getName() }}</span>
+  {% endif %}
+  {% if not this.item.product.isPersistent() %}
+    <span class="deleted-product-note">({{ t('deleted') }})</span>
+  {% endif %}
+
+  {% if this.isViewListVisible('invoice.item.name', {'item': this.item}) %}
+    <ul class="subitem additional simple-list">
+    {{ widget_list('invoice.item.name', item=this.item) }}
+    </ul>
+  {% endif %}
+</td>

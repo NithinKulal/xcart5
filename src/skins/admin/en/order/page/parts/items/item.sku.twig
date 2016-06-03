@@ -1,0 +1,9 @@
+{##
+ # SKU item cell
+ #
+ # @ListChild (list="order.item.name", weight="10")
+ #}
+<li class="sku">
+  <span class="name">{{ t('SKU') }}</span>
+  <span class="sku-value">{{ this.item.getSku() }}</span>
+</li>

@@ -1,0 +1,19 @@
+{##
+ # Selector
+ #
+ # @ListChild (list="upgrade.step.prepare.incompatible_entries_update.sections.table.columns", weight="300")
+ #}
+
+<td class="disable">
+  {# :FIXME: see the FlexyCompiler #}
+  {% if this.isModuleToDisable(this.entry) %}
+    <input id="toDisable{{ this.entry.getMarketplaceID() }}" type="checkbox" name="toDisable[{{ this.entry.getMarketplaceID() }}]" value="1" disabled="disabled" checked="1" />
+  {% endif %}
+  {% if this.isModuleToDisable(this.entry) %}
+    <input id="toDisable{{ this.entry.getMarketplaceID() }}" type="hidden" name="toDisable[{{ this.entry.getMarketplaceID() }}]" value="1" />
+  {% endif %}
+  {% if not this.isModuleToDisable(this.entry) %}
+    <input id="toDisable{{ this.entry.getMarketplaceID() }}" type="checkbox" name="toDisable[{{ this.entry.getMarketplaceID() }}]" value="1" />
+  {% endif %}
+  <label for="toDisable{{ this.entry.getMarketplaceID() }}">{{ t('Disable') }}</label>
+</td>

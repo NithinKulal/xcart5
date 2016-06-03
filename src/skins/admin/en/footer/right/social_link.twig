@@ -1,0 +1,13 @@
+{##
+ # Link to Facebook
+ #
+ # @ListChild (list="admin.main.page.footer.right", weight="300")
+ #}
+
+{% if not this.auth.isAdmin() %}
+  <div class="social-links">
+    <span>{{ t('Find us on') }}</span>
+    <a href="http://www.facebook.com/xcart/" class="facebook" target="_blank" title="{{ t('Facebook') }}"><i class="fa fa-facebook-square"></i></a>
+    <a href="https://twitter.com/x_cart" class="twitter" target="_blank" title="{{ t('Twitter') }}"><i class="fa fa-twitter-square"></i></a>
+  </div>
+{% endif %}

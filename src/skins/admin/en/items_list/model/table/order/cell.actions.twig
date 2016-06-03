@@ -1,0 +1,11 @@
+{##
+ # Cell actions
+ #
+ # @ListChild (list="itemsList.orders.search.cell.status")
+ #}
+
+{% for action in this.getOrderActions(this.entity) %}
+  <div>
+    {{ action.display()|raw }}
+  </div>
+{% endfor %}

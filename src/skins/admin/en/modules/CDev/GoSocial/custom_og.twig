@@ -1,0 +1,9 @@
+{##
+ # Product element
+ #}
+<div class="control">
+  {{ widget('\\XLite\\Module\\CDev\\GoSocial\\View\\FormField\\Select\\UseCustomOpenGraph', fieldName=this.getNamePostedData('useCustomOG'), value=this.getUseCustomOG(), fieldOnly='true') }}
+</div>
+<div class="og-textarea">
+  {{ widget('\\XLite\\View\\FormField\\Textarea\\Simple', fieldName=this.getNamePostedData('ogMeta'), cols='200', rows='8', value=this.getOpenGraphMetaTags(this.false), help=t('These Open Graph meta tags were generated automatically based on general product information.'), fieldOnly='true') }}
+</div>

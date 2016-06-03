@@ -1,0 +1,24 @@
+{##
+ # Order history event date
+ #
+ # @ListChild (list="order.history.base.events.details.info", weight="30")
+ #}
+{% if this.getDetails(this.event) %}
+  <div id="event-{{ this.event.eventId }}" class="order-event-details event-{{ this.event.eventId }}">
+    <div class="details">
+      <ul>
+        {% for columnId, columnData in this.getDetails(this.event) %}
+          <li class="order-history-object-detail-column">
+            <ul>
+              {% for cell_id, cell in columnData %}
+                <li>
+                  <span class="event-details-label">{{ cell.getName() }}:</span> <span class="value">{{ cell.getValue() }}</span>
+                </li>
+              {% endfor %}
+            </ul>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endif %}

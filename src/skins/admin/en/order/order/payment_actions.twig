@@ -1,0 +1,13 @@
+{##
+ # Order transactions
+ #}
+
+<div class="payment-actions">
+  {% for index, transaction in this.getTransactions() %}
+  {% for id, unit in this.getTransactionUnits(transaction) %}
+    <div class="unit">
+      {{ widget('\\XLite\\View\\Order\\Details\\Admin\\PaymentActionsUnit', transaction=transaction, unit=unit, displaySeparator='{!isLastUnit(id)}') }}
+    </div>
+  {% endfor %}
+  {% endfor %}
+</div>

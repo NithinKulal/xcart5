@@ -1,0 +1,21 @@
+{##
+ # Common field output
+ #}
+
+<div class="plain-value">
+  {% if this.isLink(this.column, this.entity) %}
+    <span class="value">
+      <a
+        href="{{ this.buildEntityURL(this.entity, this.column) }}"
+        {% if this.column.noWrap %} title="{{ this.getColumnValue(this.column, this.entity) }}"{% endif %}
+        class="link">{{ this.getColumnValue(this.column, this.entity) }}
+      </a>
+    </span>
+  {% endif %}
+  {% if not this.isLink(this.column, this.entity) %}
+    <span class="value">{{ this.getColumnValue(this.column, this.entity)|raw }}</span>
+  {% endif %}
+  {% if this.column.noWrap %}
+    <img src="{{ asset('images/spacer.gif') }}" class="right-fade" alt="" />
+  {% endif %}
+</div>

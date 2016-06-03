@@ -1,0 +1,126 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Labels
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.label-main-box {
+  vertical-align: middle;
+}
+
+.label-main-box .arrow {
+  display: inline-block;
+  vertical-align: middle;
+  width: 0;
+  height: 0;
+  border-top: 3px solid transparent;
+  border-right: 4px solid;
+  border-bottom: 3px solid transparent;
+  margin: 0;
+  padding: 0;
+}
+
+.label-main-box .content {
+  padding: 4px 10px;
+  font-style: italic;
+  font-size: 12px;
+  color: #fff;
+  border-radius: 4px;
+  display: inline-block;
+  margin-left: -4px;
+  vertical-align: baseline;
+  line-height: 1.5;
+  cursor: default;
+}
+
+.label-main-box .content {
+  background-color: #ffa531;
+}
+
+.label-main-box .arrow {
+  border-right-color: #ffa531;
+}
+
+.label-main-box.big .arrow {
+  border-top-width: 5px;
+  border-bottom-width: 5px;
+  border-right-width: 5px;
+  vertical-align: baseline;
+}
+
+.label-main-box.big .content {
+  font-size: 16px;
+  padding: 4px 16px;
+  padding-top: 6px;
+}
+
+ul.labels li {
+  clear: both;
+  float: right;
+}
+
+ul.products-sidebar ul.labels li .label-main-box .arrow,
+ul.products-sidebar ul.labels li .label-main-box .content {
+  background: none;
+  color: #615656;
+  border: none;
+}
+
+/**
+ * Grey labels (default)
+ */
+.label-grey .label-main-box .content {
+  background-color: #b7b7b7;
+}
+
+.label-grey .label-main-box .arrow {
+  border-right-color: #b7b7b7;
+}
+
+/**
+ * Orange labels
+ */
+ul.products-sidebar ul.labels li.label-orange .label-main-box .content {
+  color: #ffa531;
+}
+
+.label-orange .label-main-box .content {
+  background-color: #ffa531;
+}
+
+.label-orange .label-main-box .arrow {
+  border-right-color: #ffa531;
+}
+
+/**
+ * Green labels
+ */
+ul.products-sidebar ul.labels li.label-green .label-main-box .content {
+  color: #85bc4b;
+}
+
+.label-green .label-main-box .content {
+  background-color: #85bc4b;
+}
+
+.label-green .label-main-box .arrow {
+  border-right-color: #85bc4b;
+}
+
+/**
+ * Blue labels
+ */
+ul.products-sidebar ul.labels li.label-blue .label-main-box .content {
+  color: #5a9fd2;
+}
+
+.label-blue .label-main-box .content {
+  background-color: #5a9fd2;
+}
+
+.label-blue .label-main-box .arrow {
+  border-right-color: #5a9fd2;
+}

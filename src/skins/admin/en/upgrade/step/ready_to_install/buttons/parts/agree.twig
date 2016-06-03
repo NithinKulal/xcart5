@@ -1,0 +1,12 @@
+{##
+ # Checkbox
+ #
+ # @ListChild (list="upgrade.step.ready_to_install.buttons.sections.right", weight="100")
+ #}
+
+{% if this.isNextStepAvailable() %}
+  <div class="alert alert-warning agree">
+    <input type="checkbox" id="agree" name="agree" />
+    <label for="agree">{{ t('I confirm that I have created backups of my store\'s files and database before upgrading the store')|raw }}</label>
+  </div>
+{% endif %}

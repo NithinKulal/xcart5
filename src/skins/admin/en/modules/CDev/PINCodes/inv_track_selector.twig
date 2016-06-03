@@ -1,0 +1,16 @@
+{##
+ # ____file_title____
+ #
+ # @ListChild (list="product.inventory.parts", weight="10")
+ #}
+
+{% if this.product.hasManualPinCodes() %}
+  <tr>
+    <td>{{ t('Inventory tracking for this product is') }}</td>
+    <td>{{ t('Enabled') }} ({{ t('Can not be disabled for products with manually defined PIN codes') }})</td>
+  </tr>
+{% endif %}
+
+{% if not this.product.hasManualPinCodes() %}
+  {% include 'product/inventory/inv_track_selector.twig' %}
+{% endif %}

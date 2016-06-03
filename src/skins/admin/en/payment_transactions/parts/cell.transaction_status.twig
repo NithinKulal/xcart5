@@ -1,0 +1,12 @@
+{##
+ # Payment status cell
+ #}
+
+<div class="plain-value">
+    <span class="value">{{ this.getHumanStatus(this.entity.status) }}</span>
+</div>
+{% if this.isTransactionStatusPopoverVisible(this.entity) %}
+  <div class="details">
+      {{ widget('\\XLite\\View\\Tooltip', text=this.getTransactionStatusPopoverContent(this.entity), entityTest=this.entity, caption=this.getTransactionStatusPopoverTitle(), isImageTag='false', placement='left', delay='0', className='help') }}
+  </div>
+{% endif %}

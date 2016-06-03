@@ -1,0 +1,20 @@
+{##
+ # Parcel options
+ #}
+
+<h3>{{ t('Parcel options') }}</h3>
+
+<table class="capost-parcel-options">
+
+  {% for optionClass in parcel.getAllowedOptionClasses() %}
+    <tr>
+      <td>
+        <label>{{ t(optionClass.title) }}</label>
+      </td>
+      <td>
+        {% include optionClass.template %}
+      </td>
+    </tr>
+  {% endfor %}
+
+</table>

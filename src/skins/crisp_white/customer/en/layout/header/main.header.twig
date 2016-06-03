@@ -1,0 +1,14 @@
+{##
+ # Header
+ #
+ # @ListChild (list="layout.main", weight="200")
+ #}
+<div id="header-area">
+  <div class="desktop-header">
+  	<div class="container">
+	    {{ widget_list('layout.header') }}
+	</div>
+  </div>
+
+  {{ widget_list('layout.header.mobile') }}
+</div>

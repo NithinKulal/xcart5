@@ -1,0 +1,164 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.checkout_fastlane_title, .checkout_fastlane_navigation {
+  h1{
+    margin-bottom: @rhythmic-unit;
+  }
+  h2 {
+    display: none;
+  }
+}
+
+.checkout_fastlane_block_heading {
+  margin-bottom: @rhythmic-unit;
+}
+
+.checkout_fastlane_section-buttons {
+  margin-top: (@rhythmic-unit * 3);
+  button {
+    .btn-lg;
+  }
+
+  @media(max-width: @screen-xs-max) {
+    display: none;
+  }
+}
+
+.checkout_fastlane_header {
+  @media(max-width: @screen-xs-max) {
+    text-align: center;
+    .checkout_fastlane_header-left, .checkout_fastlane_header-right {
+      display: inline-block;
+      float: none;
+    }
+  }
+}
+
+.checkout_fastlane_header-left {
+  float: left;
+}
+
+@media(min-width: @screen-sm-min) {
+  .checkout_fastlane_header-right {
+    position: absolute;
+    right: 0;
+    top: 10px;
+  }
+}
+
+.checkout_fastlane_header-right {
+  float: right;
+}
+
+.checkout_fastlane_section-left {
+  @media(min-width: @screen-md-min) {
+    padding-left: 0px !important;
+  }
+}
+
+.checkout_fastlane_section-right {
+  @media(min-width: @screen-md-min) {
+    padding-right: 0px !important;
+  }
+}
+
+.checkout_fastlane_back_button {
+  display: block;
+  text-decoration: none;
+  font-size: 15px;
+
+  i + span {
+    margin-left: 10px;
+  }
+}
+
+/* Header */
+.reloading {
+  position: relative;
+}
+
+.reloading:before {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  content: "";
+  display:block;
+  z-index: 1000;
+
+  background: rgba(255,255,255, 0.9);
+
+  -webkit-animation: appear 0.3s ease-in-out;
+  animation: appear 0.3s ease-in-out;
+}
+
+.reloading:after {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  content: "";
+  display:block;
+  left: 0;
+  right: 0;
+  top: 0;
+  margin: auto;
+  opacity: 0.99;
+  z-index: 1002;
+  bottom: 0;
+  border-radius: 100%;
+  box-shadow: 10px 10px #808080, -10px 10px #25c5df, -10px -10px #808080, 10px -10px #25c5df;
+  -webkit-animation: spin ease infinite 2s;
+  animation: spin ease infinite 2s;
+}
+
+
+@-webkit-keyframes spin {
+  0%,
+  100% {
+    box-shadow: 10px 10px #808080, -10px 10px #25c5df, -10px -10px #808080, 10px -10px #25c5df;
+  }
+  25% {
+    box-shadow: -10px 10px #25c5df, -10px -10px #808080, 10px -10px #25c5df, 10px 10px #808080;
+  }
+  50% {
+    box-shadow: -10px -10px #808080, 10px -10px #25c5df, 10px 10px #808080, -10px 10px #25c5df;
+  }
+  75% {
+    box-shadow: 10px -10px #25c5df, 10px 10px #808080, -10px 10px #25c5df, -10px -10px #808080;
+  }
+}
+
+
+@keyframes spin {
+  0%,
+  100% {
+    box-shadow: 10px 10px #808080, -10px 10px #25c5df, -10px -10px #808080, 10px -10px #25c5df;
+  }
+  25% {
+    box-shadow: -10px 10px #25c5df, -10px -10px #808080, 10px -10px #25c5df, 10px 10px #808080;
+  }
+  50% {
+    box-shadow: -10px -10px #808080, 10px -10px #25c5df, 10px 10px #808080, -10px 10px #25c5df;
+  }
+  75% {
+    box-shadow: 10px -10px #25c5df, 10px 10px #808080, -10px 10px #25c5df, -10px -10px #808080;
+  }
+}
+
+@-webkit-keyframes appear {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes appear {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}

@@ -1,0 +1,17 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\LanguageLabel:
+  - { name: 'Related products', translations: [{ code: en, label: 'Related products' }] }
+  - { name: 'Mutual link', translations: [{ code: en, label: 'Mutual link' }] }
+  - { name: 'Related products page', translations: [{ code: en, label: 'Related products page' }] }
+  - { name: 'You cannot choose this product', translations: [{ code: en, label: 'You cannot choose this product' }] }
+  - { name: 'The product SKU#"X" is already set as related for the product', translations: [{ code: en, label: 'The product SKU#{{SKU}} is already set as related for the product' }] }
+  - { name: 'Add related products', translations: [{ code: en, label: 'Add related products' }] }
+  - { name: "a2cp-source-code-REL", translations: [{ code: en, label: "Related products (Related Products module)" }] }
+  - { name: 'The product SKU#"X" is already set as Related for the product', translations: [{ code: en, label: 'The product SKU#"X" is already set as Related for the product' }] }
+

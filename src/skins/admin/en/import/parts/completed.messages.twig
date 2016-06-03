@@ -1,0 +1,24 @@
+{##
+ # Import completed section : errors 
+ #
+ # @ListChild (list="import.completed.content", weight="100")
+ #}
+
+{% if this.getMessages() %}
+  <ul class="messages">
+    {% for message in this.getMessages() %}
+      <li>
+        <i class="icon-ok"></i> {{ message.text }} {% if message.comment %}<span>{{ message.comment }}</span>{% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}
+{% if not (this.getMessages() and this.getErrorMessages()) %}
+  <div class="empty">
+    {% for message in this.getErrorMessages() %}
+      <div class="message">
+        <i class="icon-ok"></i> {{ message.text|raw }} {% if message.comment %}<div class="comment">{{ message.comment|raw }}</div>{% endif %}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}

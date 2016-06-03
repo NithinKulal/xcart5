@@ -1,0 +1,16 @@
+{##
+ # Dashboard page markup template
+ #
+ # @ListChild (list="dashboard", weight="100")
+ #}
+
+<div class="center-block">
+  {{ widget_list('dashboard-center') }}
+</div>
+
+<div class="sidebar {% if this.isAdminWelcomeBlockVisible() %}admin-welcome-indent{% endif %}">
+  {{ widget_list('dashboard-sidebar') }}
+</div>
+
+<div class="clear"></div>
+

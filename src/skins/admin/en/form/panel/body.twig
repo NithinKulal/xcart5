@@ -1,0 +1,7 @@
+{##
+ # Form sticky panel body
+ #}
+
+{% for i, button in this.getButtons() %}
+  <div {{ this.printTagAttributes(this.getCellAttributes(loop.index, i, button))|raw }}>{{ button.display()|raw }}</div>
+{% endfor %}

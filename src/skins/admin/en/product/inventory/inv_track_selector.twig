@@ -1,0 +1,15 @@
+{##
+ # ____file_title____
+ #
+ # @ListChild (list="product.inventory.parts", weight="10")
+ #}
+
+<tr>
+  <td>{{ t('Inventory tracking for this product is') }}</td>
+  <td>
+    <select name="{{ this.getNamePostedData('enabled') }}">
+      <option value="1" {% if this.product.getInventoryEnabled() == '1' %} selected="selected" {% endif %}>{{ t('Enabled') }}</option>
+      <option value="0" {% if this.iproduct.getInventoryEnabled() == '0' %} selected="selected" {% endif %}>{{ t('Disabled') }}</option>
+    </select>
+  </td>
+</tr>

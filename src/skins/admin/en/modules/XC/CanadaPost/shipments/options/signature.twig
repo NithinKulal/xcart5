@@ -1,0 +1,5 @@
+{##
+ # Option :: signature
+ #}
+
+{{ widget('\\XLite\\View\\FormField\\Input\\Checkbox', fieldId='opt-signature-' ~ parcelIdx, fieldName='parcelsData[' ~ parcel.getId() ~ '][optSignature]', fieldOnly='true', value='1', isChecked=parcel.getOptSignature()) }}

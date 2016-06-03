@@ -1,0 +1,25 @@
+{##
+ # Select state
+ #
+ # @TODO move it to the common selector widget
+ #}
+
+<select id="{{ this.getFieldId() }}" name="{{ this.getName() }}"{{ this.getAttributesCode()|raw }} data-value="{{ this.getValue() }}">
+    {% if this.getParam('country') %}
+        <noscript>
+    {% endif %}
+    {% for index, state in this.getOptions() %}
+        {% if this.isGroup(state) %}
+            <optgroup {{ this.getOptionGroupAttributesCode(index, state)|raw }} data-id='{{ index }}'>
+                {% for state2 in state.options %}
+                    <option value="{{ state2.getStateId() }}" {% if state2.getStateId() == this.getValue() %} selected="selected" {% endif %}>{{ state2.getState()|raw }}</option>
+                {% endfor %}
+            </optgroup>
+        {% else %}
+            <option value="{{ state.getStateId() }}" {% if state.getStateId() == this.getValue() %} selected="selected" {% endif %}>{{ state.getState()|raw }}</option>
+        {% endif %}
+    {% endfor %}
+    {% if this.getParam('country') %}
+        </noscript>
+    {% endif %}
+</select>

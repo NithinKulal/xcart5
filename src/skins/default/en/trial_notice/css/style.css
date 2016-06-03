@@ -1,0 +1,81 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Activate license key page
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.trial-notice-form .indent {
+  margin: 0px 0px 0px 0px;
+  font-size: 14px;
+  padding: 10px 0px;
+}
+
+.trial-notice-form .title {
+  font-size: 18px;
+}
+
+.trial-notice-form .clear {
+  clear: both;
+}
+
+.trial-notice-form .text a {
+  color: #154E9C;
+  text-decoration: underline;
+}
+
+.trial-notice-form .buttons {
+  text-align: left;
+  padding-top: 19px;
+}
+
+.trial-notice-form .activate-key-form {
+  height: auto;
+  width: auto;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.trial-notice-form .or {
+  display: inline-block;
+  margin-left: 12px;
+  font-size: 12px;
+  color: #cccccc;
+}
+
+.trial-notice-form .need-key-text {
+  position: absolute;
+  margin-left: 20px;
+  margin-top: 5px;
+  font-size: 12px;
+  color: #cccccc;
+}
+
+.indent.faq {
+  margin-top: 30px;
+  padding-top: 22px;
+  border-top: 1px solid #cccccc;
+}
+
+.trial-notice-form .buttons .text {
+  margin-left: 12px;
+  margin-right: 12px;
+  font-size: 16px;
+  display: inline-block;
+  line-height: 48px;
+}
+
+.trial-notice-form .text.or {
+  margin-left: 12px;
+  font-family: "Trebuchet MS", Helvetica, Jamrul, sans-serif;
+  font-size: 13px;
+  color: #cccccc;
+}
+
+.trial-notice-form .indent.important {
+  color: #993333;
+  font-size: 16px;
+  font-weight: bold;
+}

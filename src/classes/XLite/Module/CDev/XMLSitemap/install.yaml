@@ -1,0 +1,71 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Data dump
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: welcome_changefreq
+    category: CDev\XMLSitemap
+    type: 'XLite\Module\CDev\XMLSitemap\View\FormField\Select\ChangeFrequency'
+    orderby: 100
+    value: daily
+    translations:
+      - code: en
+        option_name: Frequency of content renewal for Welcome page
+  - name: category_changefreq
+    category: CDev\XMLSitemap
+    type: 'XLite\Module\CDev\XMLSitemap\View\FormField\Select\ChangeFrequency'
+    orderby: 200
+    value: daily
+    translations:
+      - code: en
+        option_name: Frequency of content renewal for Category page
+  - name: product_changefreq
+    category: CDev\XMLSitemap
+    type: 'XLite\Module\CDev\XMLSitemap\View\FormField\Select\ChangeFrequency'
+    orderby: 300
+    value: daily
+    translations:
+      - code: en
+        option_name: Frequency of content renewal for Product page
+  - name: welcome_priority
+    category: CDev\XMLSitemap
+    type: XLite\View\FormField\Input\Text\FloatInput
+    widgetParameters: { min: 0, max: 1, e: 1}
+    orderby: 500
+    value: 0.5
+    translations:
+      - code: en
+        option_name: Priority for Welcome page
+        option_comment: The value should range from 0 to 1.
+  - name: category_priority
+    category: CDev\XMLSitemap
+    type: XLite\View\FormField\Input\Text\FloatInput
+    widgetParameters: { min: 0, max: 1, e: 1}
+    orderby: 600
+    value: 0.5
+    translations:
+      - code: en
+        option_name: Priority for Category page
+        option_comment: The value should range from 0 to 1.
+  - name: product_priority
+    category: CDev\XMLSitemap
+    type: XLite\View\FormField\Input\Text\FloatInput
+    widgetParameters: { min: 0, max: 1, e: 1}
+    orderby: 700
+    value: 0.5
+    translations:
+      - code: en
+        option_name: Priority for Product page
+        option_comment: The value should range from 0 to 1.
+
+XLite\Model\LanguageLabel:
+  - { name: "Site map has not been registred in X", translations: [{ code: en, label: "Site map failed to register in {{engine}}." }] }
+  - { name: "Site map successfully registred on X", translations: [{ code: en, label: "Site map successfully registered in {{engine}}." }] }
+  - { name: "XML sitemap URL: X", translations: [{ code: en, label: "XML sitemap URL: <a href=\"{{url}}\">{{url}}</a>" }] }
+  - { name: "Generate sitemap", translations: [{ code: en, label: "Generate sitemap" }] }
+
+XLite\Model\Task:
+  - owner: XLite\Module\CDev\XMLSitemap\Core\Task\GenerateSitemap

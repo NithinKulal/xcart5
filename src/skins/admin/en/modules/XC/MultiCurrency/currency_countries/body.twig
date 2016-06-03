@@ -1,0 +1,15 @@
+{##
+ # Marketplace banner
+ #}
+
+<h2>{{ t('Available countries for') }}:&nbsp;{{ this.getCurrencyName() }}</h2>
+
+<p>{{ t('Here you can set countries associated with particular currency.') }}</p>
+
+<br />
+
+{{ widget('\\XLite\\Module\\XC\\MultiCurrency\\View\\SearchPanel\\Countries\\CurrencyCountries') }}
+
+{% form '\\XLite\\Module\\XC\\MultiCurrency\\View\\Form\\Countries\\CurrencyCountries' %}
+{{ widget('\\XLite\\Module\\XC\\MultiCurrency\\View\\ItemsList\\Model\\Country') }}
+{% endform %}

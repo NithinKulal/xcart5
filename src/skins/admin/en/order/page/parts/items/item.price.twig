@@ -1,0 +1,6 @@
+{##
+ # Price item cell
+ #
+ # @ListChild (list="order.item", weight="20")
+ #}
+<td class="price">{{ this.formatPrice(this.item.getItemNetPrice(), this.order.getCurrency()) }}</td>

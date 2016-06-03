@@ -1,0 +1,15 @@
+{##
+ # Head search
+ #}
+
+<tr>
+  {% for column in this.getColumns() %}
+    <td class="{{ this.getSearchCellClass(column) }}">
+      {% if this.isSearchColumn(column) %}
+        {{ widget(column.searchWidget, column=column) }}
+      {% else %}
+        &nbsp;
+      {% endif %}
+    </td>
+  {% endfor %}
+</tr>

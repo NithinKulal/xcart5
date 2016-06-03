@@ -1,0 +1,31 @@
+{##
+ # Invoice bottom block
+ #
+ # @ListChild (list="invoice.base", weight="50")
+ #}
+
+<ul cellspacing="0" class="addresses">
+
+  {% if this.order.isPaymentSectionVisible() %}
+    <li class="address payment{% if this.order.isShippingSectionVisible() %} payment-wrapping{% endif %}">
+      <div class="wrapper">
+      {{ widget_list('invoice.bottom.address.billing', baddress=this.order.profile.billing_address, saddress=this.order.profile.shipping_address) }}
+      </div>
+    </li>
+  {% endif %}
+
+  {% if this.order.isShippingSectionVisible() %}
+    <li class="address shipping">
+      <div class="wrapper{% if not this.order.trackingNumbers.isEmpty() %} tracking-info-section-included{% endif %}">
+      {{ widget_list('invoice.bottom.address.shipping', baddress=this.order.profile.billing_address, saddress=this.order.profile.shipping_address) }}
+      </div>
+    </li>
+  {% endif %}
+
+  {% for w in this.getViewList('invoice.bottom') %}
+    <li>
+    {{ w.display() }}
+    </li>
+  {% endfor %}
+
+</ul>

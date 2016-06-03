@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="7px" height="4px" viewBox="0 0 7 4" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.3 (12081) - http://www.bohemiancoding.com/sketch -->
+    <title>Path Copy</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Headers-&amp;-Widgets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Header_Selectors" sketch:type="MSArtboardGroup" transform="translate(-319.000000, -109.000000)" fill="#9B9B9B">
+            <g id="Header_Selector" sketch:type="MSLayerGroup">
+                <g id="menu_links" transform="translate(129.000000, 78.000000)" sketch:type="MSShapeGroup">
+                    <g id="Special-Offers-+-Path-Copy" transform="translate(95.000000, 22.000000)">
+                        <path d="M95.1648037,9.65100233 L98.2357102,12.7219089 C98.3146166,12.8002784 98.417678,12.84 98.5207393,12.84 C98.6232639,12.84 98.7263253,12.8002784 98.8046949,12.7224456 L101.881506,9.65583334 C102.039319,9.49909418 102.039319,9.24358789 101.882579,9.08631196 C101.72584,8.92903602 101.470871,8.92903602 101.313595,9.08577518 L98.8122097,11.4717531 L98.221754,11.4610175 L95.7343251,9.08201773 C95.5765124,8.9247418 95.3220797,8.9247418 95.1648037,9.08201773 C95.0080646,9.23929366 95.0080646,9.4937264 95.1648037,9.65100233 Z" id="Path-Copy"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

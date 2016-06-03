@@ -1,0 +1,250 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: userid
+    category: CDev\USPS
+    type: XLite\View\FormField\Input\Text
+    orderby: 10
+    translations:
+      - code: en
+        option_name: User ID
+  - name: server_url
+    category: CDev\USPS
+    type: XLite\View\FormField\Input\Text\URL
+    value: http://testing.shippingapis.com/ShippingAPI.dll
+    orderby: 20
+    translations:
+      - code: en
+        option_name: U.S.P.S. API server URL
+        option_comment: Enter the URL provided to you by U.S.P.S. in the notification about your successful registration for the U. S. Postal Service's Web Tools Application Program Interfaces. For example: <ul><li>http://testing.shippingapis.com/ShippingAPITest.dll</li><li>http://production.shippingapis.com/ShippingAPI.dll</li></ul>
+
+  - name: additionalSettingsSeparator
+    category: CDev\USPS
+    type: separator
+    orderby: 100
+    translations:
+      - code: en
+        option_name: Additional settings
+
+  - name: commonOptionsSeparator
+    category: CDev\USPS
+    type: separator
+    orderby: 200
+    translations:
+      - code: en
+        option_name: Common options
+  - name: dimensions
+    category: CDev\USPS
+    type: serialized
+    value: a:3:{i:0;i:10;i:1;i:7;i:2;i:9;}
+    orderby: 210
+    translations:
+      - code: en
+        option_name: Package dimensions (inches)
+  - name: girth
+    category: CDev\USPS
+    type: XLite\View\FormField\Input\Text\FloatInput
+    value: 0
+    orderby: 220
+    translations:
+      - code: en
+        option_name: Girth
+        option_comment: Required for large size and if the container is non-rectangular or variable
+  - name: max_weight
+    category: CDev\USPS
+    type: XLite\View\FormField\Input\Text\FloatInput
+    value: 70
+    orderby: 230
+    translations:
+      - code: en
+        option_name: Maximum package weight
+  - name: currency_rate
+    category: CDev\USPS
+    type: XLite\View\FormField\Input\Text\FloatInput
+    value: 1
+    orderby: 240
+    translations:
+      - code: en
+        option_name: Currency conversion rate
+        option_comment: Specify rate X, where 1 USD = X in shop currency.<br/>The shipping cost is always returned in US Dollars. So if the store uses a different currency for payments, you need to specify a conversion rate to convert the shipping cost returned by the shipping service into your store's currency. If the same currency is used, leave this set to 1.
+
+  - name: domesticUSPSSeparator
+    category: CDev\USPS
+    type: separator
+    orderby: 300
+    translations:
+      - code: en
+        option_name: Domestic U.S.P.S.
+  - name: container
+    category: CDev\USPS
+    type: XLite\Module\CDev\USPS\View\FormField\Select\Container
+    value: VARIABLE
+    orderby: 310
+    translations:
+      - code: en
+        option_name: Container
+  - name: package_size
+    category: CDev\USPS
+    type: XLite\Module\CDev\USPS\View\FormField\Select\PackageSize
+    value: REGULAR
+    orderby: 320
+    translations:
+      - code: en
+        option_name: Package Size (length + girth, inches)
+  - name: first_class_mail_type
+    category: CDev\USPS
+    type: XLite\Module\CDev\USPS\View\FormField\Select\FirstClassMailType
+    value: PARCEL
+    orderby: 330
+    translations:
+      - code: en
+        option_name: First-Class mail type
+  - name: machinable
+    category: CDev\USPS
+    type: XLite\View\FormField\Input\Checkbox\OnOffWithoutOffLabel
+    value: true
+    orderby: 340
+    translations:
+      - code: en
+        option_name: Machinable
+  - name: use_rate_type
+    category: CDev\USPS
+    type: XLite\Module\CDev\USPS\View\FormField\Select\UseRateType
+    value: Rate
+    orderby: 350
+    translations:
+      - code: en
+        option_name: Pricing type to be used
+
+  - name: internationalUSPSSeparator
+    category: CDev\USPS
+    type: separator
+    orderby: 400
+    translations:
+      - code: en
+        option_name: International U.S.P.S.
+  - name: mail_type
+    category: CDev\USPS
+    type: XLite\Module\CDev\USPS\View\FormField\Select\MailType
+    value: Package
+    orderby: 410
+    translations:
+      - code: en
+        option_name: Mail type
+  - name: container_intl
+    category: CDev\USPS
+    type: XLite\Module\CDev\USPS\View\FormField\Select\ContainerIntl
+    value: RECTANGULAR
+    orderby: 420
+    translations:
+      - code: en
+        option_name: Container
+  - name: commercial
+    category: CDev\USPS
+    type: XLite\View\FormField\Input\Checkbox\OnOffWithoutOffLabel
+    orderby: 430
+    translations:
+      - code: en
+        option_name: Get commercial base postage
+  - name: gxg
+    category: CDev\USPS
+    type: XLite\View\FormField\Input\Checkbox\OnOffWithoutOffLabel
+    orderby: 440
+    translations:
+      - code: en
+        option_name: Global Express Guarantee (GXG)
+  - name: gxg_pobox
+    category: CDev\USPS
+    type: XLite\View\FormField\Input\Checkbox\OnOffWithoutOffLabel
+    orderby: 450
+    translations:
+      - code: en
+        option_name: GXG destination is a post office box
+  - name: gxg_gift
+    category: CDev\USPS
+    type: XLite\View\FormField\Input\Checkbox\OnOffWithoutOffLabel
+    orderby: 460
+    translations:
+      - code: en
+        option_name: GXG package contains a gift
+
+  - name: cacheOnDeliverySeparator
+    category: CDev\USPS
+    type: separator
+    orderby: 500
+    translations:
+      - code: en
+        option_name: Cash on delivery
+  - name: use_cod_price
+    category: CDev\USPS
+    type: XLite\View\FormField\Input\Checkbox\OnOffWithoutOffLabel
+    value: true
+    orderby: 510
+    translations:
+      - code: en
+        option_name: Use a fixed amount Collect on Delivery fee
+        option_comment: If you are planning to allow your customers to use the COD payment method for orders shipped with USPS shipping methods, you can make the calculation of shipping costs faster by setting a fixed extra fee for using the COD payment method.<br /><br />If a fixed amount COD fee is not set on the store's end, it will be calculated on the USPS end, and to get information about the COD fee amount the store will need to send several requests to the USPS API (one for each USPS service type), which may take up to 14 seconds. When using a fixed amount COD fee, the store will only send a single request to the USPS API, which will take under one second.<br /><br />Using a <b>fixed amount COD fee</b> allows the store to calculate the shipping cost much faster and is the <b>recommended option</b>.
+  - name: cod_price
+    category: CDev\USPS
+    type: XLite\View\FormField\Input\Text\Price
+    value: 6.95
+    orderby: 520
+    translations:
+      - code: en
+        option_name: Fixed COD price
+        option_comment: If you have selected to use a fixed COD fee, specify the fee amount here. The COD fee will be used for all shipping methods returned by the USPS server.<br /><br />You can find the current price for the USPS Collect on Delivery (COD) extra service on this page: <a href="https://www.usps.com/business/add-extra-services.htm" target="_blank">https://www.usps.com/business/add-extra-services.htm</a>
+
+  - name: additionalOptionsSeparator
+    category: CDev\USPS
+    type: separator
+    orderby: 600
+    translations:
+      - code: en
+        option_name: Additional options
+  - name: debug_enabled
+    category: CDev\USPS
+    type: XLite\View\FormField\Input\Checkbox\OnOffWithoutOffLabel
+    orderby: 610
+    translations:
+      - code: en
+        option_name: Log all communication between shopping cart and USPS server
+  - name: autoenable_new_methods
+    category: CDev\USPS
+    type: XLite\View\FormField\Input\Checkbox\OnOffWithoutOffLabel
+    value: true
+    orderby: 620
+    translations:
+      - code: en
+        option_name: Auto enable new USPS shipping methods
+
+XLite\Model\Shipping\Method:
+  - processor: usps
+    carrier: ''
+    code: ''
+    enabled: false
+    added: false
+    position: 0
+    moduleName: CDev_USPS
+    translations:
+      - code: en
+        name: U.S.P.S
+
+XLite\Model\Payment\Method:
+  - service_name: COD_USPS
+    class: Module\CDev\USPS\Model\Payment\Processor\COD
+    countries: [US]
+    added: 1
+    translations:
+      - code: en
+        name: Cash on Delivery (USPS)
+
+XLite\Model\LanguageLabel:
+  - { name: 'U.S.P.S. module allows to use online shipping rates calculation via USPS Web Tools Ecommerce API.', translations: [{ code: en, label: '<strong>U.S.P.S.</strong> module allows to use online shipping rates calculation via <a href="http://www.usps.com/webtools">USPS Web Tools Ecommerce API</a>.' }] }
+  - { name: '"Cash on delivery" status', translations: [{ code: en, label: '"Cash on delivery" status' }] }
+  - { name: 'usps.CODStatusOptionComment', translations: [{ code: en, label: 'Note: To enable/disable the "Cash on delivery" payment option, you should enable/disable the payment method "Cash on delivery (U.S.P.S.)" on the <a href="{{URL}}">Payment methods page</a>.' }] }
+  - { name: 'Refresh list of available methods', translations: [{ code: en, label: 'Refresh list of available methods' }] }

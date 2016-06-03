@@ -1,0 +1,9 @@
+{##
+ # Zone details form template
+ #}
+
+<a href="{{ url('zones') }}" class="back">Back to Zones list</a>
+
+{% form '\\XLite\\View\\Form\\Zones\\Zone' %}
+  {{ widget_list('zones.zone') }}
+{% endform %}

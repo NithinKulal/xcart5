@@ -1,0 +1,14 @@
+{##
+ # Create profile checkbox
+ #}
+
+<p class="subbox subnote create-warning">
+  {{ t('There is already an account with your email address. You can sign in or continue as guest', {'URL': url('login')})|raw }}
+</p>
+
+<div class="subbox create checkbox">
+  <label>
+    <input type="checkbox" id="create_profile" name="create_profile" value="1" {% if this.isCreateProfile() %} checked="checked" {% endif %} />
+    {{ t('Create an account for later use') }}
+  </label>
+</div>

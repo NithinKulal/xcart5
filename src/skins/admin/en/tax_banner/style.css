@@ -1,0 +1,82 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Tax banner styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+#sub-section {
+  position: absolute;
+  top: 34px;
+  right: 0;
+  width: 275px;
+}
+
+.tax-banner {
+  padding: 0px 16px 0px 10px;
+  max-width: 300px;
+}
+
+.tax-banner .subbox.marketplace {
+  width:100%;
+  padding: 16px;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  background: #fefaee;
+}
+
+.tax-banner .subbox.marketplace p {
+  font-size: 14px;
+  line-height: 18px;
+  margin-bottom: 10px;
+}
+
+.tax-banner .subbox.marketplace svg {
+  margin: 15px 0px;
+}
+
+.tax-banner .subbox.marketplace .horizontal-divider {
+  display: table;
+  white-space: nowrap;
+  height: auto;
+  margin: '';
+  text-align: center;
+  margin: 30px 0px 10px;
+}
+
+.tax-banner .subbox.marketplace .horizontal-divider:after,
+.tax-banner .subbox.marketplace .horizontal-divider:before {
+  content: '';
+  display: table-cell;
+  position: relative;
+  top: 50%;
+  width: 50%;
+  background-repeat: no-repeat;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABaAAAAACCAYAAACuTHuKAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo1OThBRDY4OUNDMTYxMUU0OUE3NUVGOEJDMzMzMjE2NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo1OThBRDY4QUNDMTYxMUU0OUE3NUVGOEJDMzMzMjE2NyI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjU5OEFENjg3Q0MxNjExRTQ5QTc1RUY4QkMzMzMyMTY3IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU5OEFENjg4Q0MxNjExRTQ5QTc1RUY4QkMzMzMyMTY3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+VU513gAAADVJREFUeNrs0DENACAQBDBIWLGBJQby/mUcJn5sJXQmOQMAAAAAAJqt+2prAAAAAACg2xdgANk6BEVuJgyMAAAAAElFTkSuQmCC);
+}
+
+.tax-banner .subbox.marketplace .horizontal-divider:before {
+  background-position: right 1em top 50%;
+}
+
+.tax-banner .subbox.marketplace .horizontal-divider span {
+  border-radius: 50%;
+  border: 1px solid #888;
+  padding: 9px;
+  margin: 0px -13px;
+}
+
+.tax-banner .subbox.marketplace .horizontal-divider:after {
+  background-position: left 1em top 50%;
+}
+
+.tax-banner .subbox.marketplace h2 {
+  color: #e69b09;
+}
+
+.tabbed-content-wrapper {
+  margin-right: 282px;
+}

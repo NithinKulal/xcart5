@@ -1,0 +1,16 @@
+{##
+ # AuctionInc settings
+ #}
+{% if this.isXSAvailable() %}
+  <div>
+    {{ t('30 Day Trial of AuctionInc ShippingCalc Module. Days Left: X', {'days': this.getXSDays()})|raw }}
+  </div>
+{% endif %}
+
+{% if this.isXSExpired() %}
+  <div>
+    {{ t('30 Day Trial of AuctionInc ShippingCalc Module is over')|raw }}
+  </div>
+{% endif %}
+
+{{ widget('XLite\\Module\\XC\\AuctionInc\\View\\Model\\Settings') }}

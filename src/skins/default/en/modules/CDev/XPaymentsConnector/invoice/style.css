@@ -1,0 +1,75 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * CSS classes for invoice page
+ *
+ * @author    Qualiteam software Ltd <info@x-cart.com>
+ * @copyright Copyright (c) 2011-2016 Qualiteam software Ltd <info@x-cart.com>. All rights reserved
+ * @license   http://www.x-cart.com/license-agreement.html X-Cart 5 License Agreement
+ * @link      http://www.x-cart.com/
+ */
+
+.invoice-box .addresses .wrapper {
+  height: auto !important;
+  position: static !important;
+  margin-top: 20px;
+}
+
+.invoice-box .addresses .method-box {
+  position: static !important;
+  margin-top: 20px;
+}
+
+div.xpc-card-box {
+  margin-top: 20px;
+}
+
+div.xpc-card {
+  line-height: 26px;
+}
+
+div.xpc-card span.card {
+  width: 140px;
+  height: 70px;
+  display: inline-block;
+  zoom: 0.3;
+  -moz-transform: scale(0.3);
+  -moz-transform-origin: 0 0 0;
+}
+
+div.xpc-card span.card.mc {
+  background: url(card_types.png) 0px 0px no-repeat;
+}
+
+div.xpc-card span.card.visa {
+  background: url(card_types.png) 0px -71px no-repeat;
+}
+
+div.xpc-card span.card.jcb {
+  background: url(card_types.png) 0px -141px no-repeat;
+}
+
+div.xpc-card span.card.amex {
+  background: url(card_types.png) 0px -211px no-repeat;
+}
+
+div.xpc-card span.card.dc {
+  background: url(card_types.png) 0px -281px no-repeat;
+}
+
+div.xpc-card span.card.dicl {
+  background: url(card_types.png) 0px -351px no-repeat;
+}
+
+div.xpc-card span.card.sw {
+  background: url(card_types.png) 0px -421px no-repeat;
+}
+
+div.xpc-card span.card.cup {
+  background: url(card_types.png) 0px -491px no-repeat;
+}
+
+div.xpc-card span.card.bc {
+  background: url(card_types.png) 0px -561px  no-repeat;
+}
+

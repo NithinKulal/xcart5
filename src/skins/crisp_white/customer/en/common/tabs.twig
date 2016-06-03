@@ -1,0 +1,57 @@
+{##
+ # Tabber template
+ #}
+
+{% if this.isWrapperVisible() %}
+  <div class="tabbed-content-wrapper">
+    <div class="tabs-container">
+      {% if this.isTabsNavigationVisible() %}
+        <div class="page-tabs">
+    
+          <ul>
+            {% for tabPage in this.getTabs() %}
+              <li class="tab{% if tabPage.selected %}-current active{% endif %}">
+                <a href="{{ tabPage.url|raw }}">{{ tabPage.title|raw }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+    
+        </div>
+      {% endif %}
+      <div class="clear"></div>
+  
+      <div class="tab-content">
+        {% if this.isTemplateOnlyTab() %}
+          {% include this.getTabTemplate() %}
+        {% endif %}
+        {% if this.isWidgetOnlyTab() %}
+          {{ widget(widget=this.getTabWidget()) }}
+        {% endif %}
+        {% if this.isFullWidgetTab() %}
+          {{ widget(widget=this.getTabWidget(), template=this.getTabTemplate()) }}
+        {% endif %}
+        {% if this.isCommonTab() %}
+          {% include this.getPageTemplate() %}
+        {% endif %}
+      </div>
+  
+    </div>
+  </div>
+{% endif %}
+
+{% if not this.isWrapperVisible() %}
+  <div>
+    {% if this.isTemplateOnlyTab() %}
+      {% include this.getTabTemplate() %}
+    {% endif %}
+    {% if this.isWidgetOnlyTab() %}
+      {{ widget(widget=this.getTabWidget()) }}
+    {% endif %}
+    {% if this.isFullWidgetTab() %}
+      {{ widget(widget=this.getTabWidget(), template=this.getTabTemplate()) }}
+    {% endif %}
+    {% if this.isCommonTab() %}
+      {% include this.getPageTemplate() %}
+    {% endif %}
+  </div>
+{% endif %}

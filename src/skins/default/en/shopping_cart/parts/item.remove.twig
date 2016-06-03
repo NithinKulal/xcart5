@@ -1,0 +1,10 @@
+{##
+ # Shopping cart item : main
+ #
+ # @ListChild (list="cart.item", weight="10")
+ #}
+<td class="item-remove delete-from-list">
+  {% form '\\XLite\\View\\Form\\Cart\\Item\\Delete' with {item: this.item} %}
+    <div>{{ widget('\\XLite\\View\\Button\\Image', label='Delete item', style='remove', jsCode='return jQuery(this).closest(\'form\').submit();') }}</div>
+  {% endform %}
+</td>

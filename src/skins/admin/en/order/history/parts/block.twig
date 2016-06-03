@@ -1,0 +1,12 @@
+{##
+ # Order history block
+ #
+ # @ListChild (list="order.history.base", weight="10")
+ #}
+{% for index, block in this.getOrderHistoryEventsBlock() %}
+  <li class="block">
+    <ul class="block-item">
+      {{ widget_list('order.history.base.events', index=index, block=block) }}
+    </ul>
+  </li>
+{% endfor %}

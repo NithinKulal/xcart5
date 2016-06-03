@@ -1,0 +1,8 @@
+{##
+ # Express checkout
+ #}
+<div class="button pp-button">
+  <button type="submit" onclick="paypalExpressCheckout(this.form, true)" class="{{ this.getClass() }}"{% if this.getId() %} id="{{ this.getId() }}"{% endif %}>
+    <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/buy-logo-medium.png" alt="Check out with PayPal" />
+  </button>
+</div>

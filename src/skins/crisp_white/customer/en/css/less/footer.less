@@ -1,0 +1,153 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.subscription-block {
+  padding: (@rhythmic-unit * 2) 0;
+  background-color: @color-contrast;
+  .flex-display();
+  .align-items(center);
+  .justify-content(center);
+  color: @color-background;
+
+  button {
+    .regular-inverted-button;
+  }
+
+  .subscription-form-label {
+    .h4;
+    display: block;
+    margin-right: 0px;
+    margin-bottom: @rhythmic-unit;
+  }
+}
+
+body.target-checkout,
+body.target-checkoutPayment {
+  #footer-area {
+    display: none;
+  }
+}
+
+#footer-area {
+  position: relative;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  min-height: 78px;
+
+  .container {
+    padding-top: (@rhythmic-unit * 3 - 1);
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  &:before {
+    border-top: 1px solid @color-border;
+    content: '';
+    display: block;
+  }
+
+  .footer_contacts {
+    .make-sm-column(12; 0);
+    .make-md-column(4; 0);
+    @media(min-width: @screen-md-min) {
+      padding-right: (@rhythmic-unit * 2);
+    }
+
+    @media(max-width: @screen-sm-max) {
+      margin-bottom: (@rhythmic-unit * 2);
+    }
+  }
+
+  #secondary-menu {
+    @media(max-width: @screen-sm-max) {
+      clear: both;
+    }
+
+    @media(min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+      margin-left: (-@rhythmic-unit);
+    }
+
+    @media(min-width: @screen-sm-min) {
+      .footer-menu > .leaf > .collapser {
+        display: none;
+      }
+
+      .footer-menu > .leaf > ul.collapse {
+        height: auto !important;
+      }
+    }
+
+    @media(max-width: @screen-xs-max) {
+      .footer-menu > .leaf > a {
+        display: inline-block;
+      }
+
+      .footer-menu > .leaf > .collapser {
+        float: right;
+        display: inline-block;
+
+        &.trigger-hide {
+          .icon-minus;
+          &:before{
+            font-size: 20px;
+          }
+        }
+
+        &.trigger-show {
+          .icon-plus;
+          &:before{
+            font-size: 20px;
+          }
+        }
+      }
+
+      .footer-menu > .leaf > ul.collapse:not(.in) {
+        display: none;
+      }
+    }
+  }
+
+  #footer {
+    &:before {
+      border-top: 1px solid rgba(215, 215, 215, 0.5);
+      content: '';
+      display: block;
+
+      margin-top: (@rhythmic-unit * 2 - 1);
+      margin-bottom: (@rhythmic-unit * 2);
+    }
+  }
+
+  @media(max-width: @screen-sm-max) {
+    .container {
+      padding-left: (@rhythmic-unit);
+      padding-right: (@rhythmic-unit);
+    }
+  }
+}
+
+.powered-by {
+  #rhythmless > .rhythm(@font-size-small);
+  margin-bottom: (@rhythmic-unit * 2);
+
+  & > * {
+    line-height: 20px;
+    display: inline-block;
+  }
+}
+
+@media(max-width: @screen-xs-max) {
+  #page {
+    padding-bottom: 0px !important;
+  }
+  #footer-area {
+    position: relative;
+  }
+}

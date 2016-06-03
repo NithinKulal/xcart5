@@ -1,0 +1,7 @@
+{##
+ # Switch tax button
+ #}
+<button {{ this.printTagAttributes(this.getAttributes())|raw }}>
+  <img src="{{ asset('images/spacer.gif') }}" alt="" />
+  <span>{{ t(this.getButtonLabel()) }}</span>
+</button>

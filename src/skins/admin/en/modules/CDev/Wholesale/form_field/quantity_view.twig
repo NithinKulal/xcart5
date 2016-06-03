@@ -1,0 +1,8 @@
+{##
+ # Subtotal field in view mode
+ #}
+
+{% for f in this.getFields() %}
+  <span class="text-grey">{{ t('from wholesale') }}</span>
+  <span class="value">{{ this.getViewValue(f)|raw }}</span>
+{% endfor %}

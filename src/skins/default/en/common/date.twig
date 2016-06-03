@@ -1,0 +1,26 @@
+{##
+ # Select date
+ #}
+{% if not this.hide_months %}
+  <select id='{{ this.getField() }}Month' name="{{ this.getField() }}Month" style="width: 120px;">
+  	{% for k, v in this.getMonths() %}
+     <option value="{{ k }}" {% if v == 'selected' %} selected="selected" {% endif %}>{{ this.getMonthString(k) }}</option>
+   {% endfor %}
+  </select>
+{% endif %}
+
+{% if not this.hide_days %}
+  <select id='{{ this.getField() }}Day' name="{{ this.getField() }}Day" style="width: 120px;">
+  	{% for k, v in this.getDays() %}
+     <option value="{{ k }}" {% if v == 'selected' %} selected="selected" {% endif %}>{{ k }}</option>
+   {% endfor %}
+  </select>
+{% endif %}
+
+{% if not this.hide_years %}
+  <select id='{{ this.getField() }}Year' name="{{ this.getField() }}Year" style="width: 80px;">
+  	{% for k, v in this.getYears() %}
+     <option value="{{ k }}" {% if v == 'selected' %} selected="selected" {% endif %}>{{ k }}</option>
+   {% endfor %}
+  </select>
+{% endif %}

@@ -1,0 +1,9 @@
+{##
+ # Payment methods list : line : header : icon
+ #
+ # @ListChild (list="payment.methods.list.header", weight=100)
+ #}
+
+{% if this.method.getAdminIconURL() and not this.method.getAltAdminIconURL() %}
+  <div class="icon"><img src="{{ this.method.getAdminIconURL() }}" alt="" /></div>
+{% endif %}

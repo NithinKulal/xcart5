@@ -1,0 +1,41 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+div.checkbox-list ul
+{
+  max-height: 268px;
+  overflow-y: auto;
+  padding: 10px 0;
+}
+
+div.checkbox-list
+{
+  position: relative;
+}
+
+div.fade-down,
+div.fade-up 
+{
+  height: 10px;
+  position: absolute;
+  display: block;
+  width: 100%;
+}
+
+div.fade-down 
+{
+  bottom: 0;
+  background: transparent url(images/fade_down.png) repeat-x;
+}
+
+div.fade-up 
+{
+  top: 0;
+  background: transparent url(images/fade_up.png) repeat-x;
+}

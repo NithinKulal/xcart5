@@ -1,0 +1,7 @@
+{##
+ # Item price
+ #
+ # @ListChild (list="itemsList.product.modify.brief.admin.header", weight="60")
+ #}
+
+<th class="price">{{ widget(template='items_list/sort.twig', title=t('Price') ~ ' <span class="currency">(' ~ this.xlite.currency.getCurrencySymbol() ~ ')</span>', sortByColumn=constant('SORT_BY_MODE_PRICE', this)) }}</th>

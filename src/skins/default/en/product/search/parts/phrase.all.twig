@@ -1,0 +1,10 @@
+{##
+ # Search phrase : all
+ #
+ # @listChild (list="products.search.conditions.phrase", weight="100")
+ #}
+
+<li>
+  <input type="radio" name="including" id="including-all" value="all" {% if this.getChecked('including', 'all') %} checked="checked" {% endif %} />
+  <label for="including-all">{{ t('All words') }}<label/>
+</li>

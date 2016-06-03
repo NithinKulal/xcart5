@@ -1,0 +1,9 @@
+{##
+ # Display horizontal minicart item name
+ #
+ # @ListChild (list="minicart.horizontal.item", weight="5")
+ #}
+
+{% if this.item.hasImage() %}
+	<span class="item-image"><img src="{{ this.item.getImageURL() }}" /></span>
+{% endif %}

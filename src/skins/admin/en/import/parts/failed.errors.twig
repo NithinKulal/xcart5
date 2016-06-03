@@ -1,0 +1,19 @@
+{##
+ # Import failed section : errors 
+ #
+ # @ListChild (list="import.failed.content", weight="100")
+ #}
+
+{{ widget_list('import.failed.content.errors') }}
+
+{% if this.hasErrors() %}
+  <div class="much-errors">{{ t('Critical errors have been detected in the files you are trying to import. Please correct the errors and try again.') }}</div>
+{% endif %}
+{% if this.isBroken() %}
+  <div class="much-errors">{{ t('Import has been cancelled.') }}</div>
+{% endif %}
+{% if this.hasErrorsOrWarnings() %}
+  <div class="download-errors">
+      <a href="{{ url('import', 'getErrorsFile') }}">{{ t('Download error file') }}</a>
+  </div>
+{% endif %}

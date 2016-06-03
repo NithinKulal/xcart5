@@ -1,0 +1,13 @@
+{##
+ # Invoice totals : total
+ #
+ # @ListChild (list="invoice.base.totals", weight="300")
+ #}
+
+<tr>
+    <td style="color: #000000;padding-top: 10px;vertical-align: top; border: none;">
+        <span style="font-weight: bold;font-size: 20px;">{{ t('Grand total') }}:</span>
+        <span style="font-weight: bold;font-size: 20px;padding-left: 6px;">{{ this.getOrderTotal()|raw }}</span>
+    </td>
+</tr>
+

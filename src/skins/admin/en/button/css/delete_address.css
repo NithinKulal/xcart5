@@ -1,0 +1,22 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * ____file_title____
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+button.delete-address {
+  border: 0px;
+  vertical-align: middle;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-image: url(../../images/icon_trash.png);
+  height: 24px;
+  margin: 0px;
+  padding-left: 15px;
+  padding-right: 5px;
+  cursor: pointer;
+}

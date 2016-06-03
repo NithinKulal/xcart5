@@ -1,0 +1,17 @@
+{##
+ # Images sizes settings template
+ #
+ # @ListChild (list="images_settings", weight="100")
+ #}
+
+<div class="custom-images">
+
+  <h2>{{ t('Custom images') }}</h2>
+
+  {{ widget('\\XLite\\Module\\XC\\ThemeTweaker\\View\\Images') }}
+
+  <div class="new-image">
+    {{ t('New images') }}: <input type="file" name="new_images[]" multiple />
+  </div>
+
+</div>

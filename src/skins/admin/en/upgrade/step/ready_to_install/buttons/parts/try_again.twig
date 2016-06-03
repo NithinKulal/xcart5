@@ -1,0 +1,10 @@
+{##
+ # The "Try again" button
+ #
+ # @ListChild (list="upgrade.step.ready_to_install.buttons.sections.right", weight="200")
+ # @ListChild (list="upgrade.step.ready_to_install.entries_list.sections.permissions.buttons", weight="200")
+ #}
+
+{% if not this.isNextStepAvailable() %}
+  {{ widget('\\XLite\\View\\Button\\Link', label=t('Check again'), style='regular-main-button', location=this.getCheckIntegrityURL()) }}
+{% endif %}

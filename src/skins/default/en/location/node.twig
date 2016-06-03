@@ -1,0 +1,33 @@
+{##
+ # Common node
+ #}
+
+<li {{ this.printTagAttributes(this.getListContainerAttributes())|raw }}>
+
+  {% if this.getLink() %}
+    <a href="{{ this.getLink() }}" class="location-title"><span>{{ this.getName() }}</span></a>
+  {% else %}
+    <span class="location-text">{{ this.getName() }}</span>
+  {% endif %}
+
+  {% if this.getSubnodes() %}
+    <ul class="location-subnodes">
+      {% for node in this.getSubnodes() %}
+        <li>
+          {% if node.getName() != this.getName() %}
+            <a href="{{ node.getLink() }}">{{ node.getName() }}</a>
+          {% endif %}
+          {% if node.getName() == this.getName() %}
+            <a href="{{ node.getLink() }}" class="current">{{ node.getName() }}</a>
+          {% endif %}
+        </li>
+      {% endfor %}
+      {% if this.moreLinkNeeded() and this.getLink() %}
+        <li class='more-link'>
+            <a href="{{ this.getMoreLink() }}" class="location-title"><span>{{ t('More') }}...</span></a>
+        </li>
+      {% endif %}
+    </ul>
+  {% endif %}
+
+</li>

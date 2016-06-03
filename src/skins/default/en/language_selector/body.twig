@@ -1,0 +1,12 @@
+{##
+ # Language selector
+ #}
+<li class="language_label">{{ t('Language') }}</li>
+<li class="language-selector">
+  <ul>
+    <li class="current"><span class="lng"><img src="{{ this.currentLanguage.flagURL }}" alt="" /> <span>{{ this.currentLanguage.code }}</span></span></li>
+    {% for language in this.getActiveLanguages() %}
+      <li class="not-current"><a href="{{ this.getChangeLanguageLink(language) }}"><img src="{{ language.flagURL }}" alt="" /> <span>{{ language.code }}</span></a></li>
+    {% endfor %}
+  </ul>
+</li>

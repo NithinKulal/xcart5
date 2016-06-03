@@ -1,0 +1,14 @@
+{##
+ # Inline JS code for Product Variants page
+ #}
+
+<script type="text/javascript">
+//<![CDATA[
+var variantMessages = [];
+variantMessages['limit-error'] = '{{ this.getLimitErrorMessage() }}';
+variantMessages['limit-warning'] = '{{ this.getLimitWarningMessage() }}';
+variantMessages['limit-confirmation'] = '{{ this.getLimitConfirmationMessage() }}';
+var maxVariantsWarning = {{ this.getVariantsNumberSoftLimit() }};
+var maxVariantsError = {{ this.getVariantsNumberHardLimit() }};
+//]]>
+</script>

@@ -1,0 +1,11 @@
+{##
+ # SocialLogin widget
+ #
+ # @ListChild (list="social.login", weight="100")
+ #}
+
+<div class="{{ this.getStyleClass() }}">
+  <ul class="social-login">
+  {{ widget_list('buttons', type='nested', widgetStyle=this.getButtonStyle()) }}
+  </ul>
+</div>

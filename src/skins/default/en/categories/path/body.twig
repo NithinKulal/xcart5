@@ -1,0 +1,16 @@
+{##
+ # Top categories tree (path version)
+ #}
+<ul class="menu{% if not this.isSubtree() %} catalog-categories catalog-categories-path{% endif %}">
+  {% for idx, _category in this.getCategories() %}
+    <li {{ this.displayItemClass(idx, loop.length, _category)|raw }}>
+      <a href="{{ url('category', '', {'category_id': _category.getCategoryId()}) }}" {{ this.displayLinkClass(idx, loop.length, _category)|raw }}>{{ _category.getName() }}</a>
+      {% if this.isActiveTrail(_category) and _category.getSubcategoriesCount() %}
+        {{ widget(template=this.getBody(), rootId=_category.getCategoryId(), is_subtree='1') }}
+      {% endif %}
+    </li>
+  {% endfor %}
+  {% for idx, w in this.getViewList('topCategories.children', {'rootId': this.getParam('rootId'), 'is_subtree': this.getParam('is_subtree')}) %}
+    <li {{ this.displayListItemClass(idx, loop.length, w)|raw }}>{{ w.display() }}</li>
+  {% endfor %}
+</ul>

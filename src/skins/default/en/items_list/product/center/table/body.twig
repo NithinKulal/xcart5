@@ -1,0 +1,21 @@
+{##
+ # Products list (table variant)
+ #}
+<div class="products">
+
+  {% if this.getPageData() %}
+    <table class="products-table" cellspacing="0">
+      <tr>
+        {{ widget_list('captions', type='inherited') }}
+      </tr>
+  
+      {% for product in this.getPageData() %}
+        {{ this.getProductWidgetContent(product)|raw }}
+      {% endfor %}
+  
+    </table>
+  {% endif %}
+
+  {{ widget_list('buttons', type='nested') }}
+
+</div>

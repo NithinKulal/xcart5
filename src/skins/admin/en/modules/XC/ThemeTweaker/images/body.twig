@@ -1,0 +1,37 @@
+{##
+ # Images 
+ #}
+
+{% if this.getImages() %}
+<div class="items-list-table items-list">
+  <table class="list" cellspacing="0">
+    <thead>
+      <tr>
+        <th>{{ t('Image') }}</th>
+        <th>{{ t('Path for using in custom CSS') }}</th>
+        <th>{{ t('URL') }}</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody class="lines">
+      {% for image in this.getImages() %}
+        <tr class="line">
+          <td class="image"><a href="{{ this.getImageUrl(image) }}" target="_blank"><img src="{{ this.getImageUrl(image) }}" alt="" /></a></td>
+          <td>images/{{ image }}</td>
+          <td>{{ this.getImageUrl(image) }}</td>
+          <td class="actions right">
+            <div class="cell">
+              <div class="separator"></div>
+              <div class="action">
+                {{ widget('XLite\\Module\\XC\\ThemeTweaker\\View\\Button\\Remove', buttonName='delete[]', value=image) }}
+              </div>
+            </div>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="no-images">{{ t('No images uploaded') }}</div>
+{% endif %}

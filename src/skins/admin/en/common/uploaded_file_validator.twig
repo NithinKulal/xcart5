@@ -1,0 +1,11 @@
+{##
+ # ____file_title____
+ #}
+{% if not this.state %}
+<span class="validate-error-message">&nbsp;&nbsp;&lt;&lt;&nbsp;{{ t('Warning! CSV file was not specified.') }}</span>
+{% else %}
+    {% if this.state == 'invalid_file' %}<br /><span class="validate-error-message">&nbsp;&nbsp;{{ t('Warning! The file you have specified in the \'File (CSV) local\' field does not exist or cannot be read.') }}<br /> &nbsp;&nbsp;{{ t('Please enter the correct file location or set correct file permissions.') }}</span>
+    {% endif %}
+    {% if this.state == 'invalid_upload_file' %}&nbsp;&nbsp;&lt;&lt;&nbsp;{{ t('Warning! The file you have specified in the \'File (CSV) for upload\' field has not been uploaded to the server.') }}{% endif %}
+    {% if this.state == 'empty_file' %}<br /><br /><span class="validate-error-message">&nbsp;&nbsp;{{ t('Warning! CSV file was not specified.') }}{% endif %}</span>
+{% endif %}

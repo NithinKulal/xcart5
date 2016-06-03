@@ -1,0 +1,16 @@
+{##
+ # AustraliaPost settings page main template
+ #}
+<div class="shipping-description">
+  <strong>Australia Post</strong> module allows to use online shipping rates calculation via <a href="http://auspost.com.au/devcentre/pacpcs.html" target="_new">Postage Assessment Calculation service</a>.
+  <br />Please note that rates are calculated for shipping from Australian locations only.
+
+  <br /><br />
+
+  {% if this.config.CDev.AustraliaPost.optionValues %}
+  {% else %}
+  <br />{{ t('Before you can start configure Australia Post module you should update available options from Australia Post. Please click button below.') }}
+  {% endif %}
+</div>
+{{ widget('XLite\\Module\\CDev\\AustraliaPost\\View\\Model\\Settings') }}
+

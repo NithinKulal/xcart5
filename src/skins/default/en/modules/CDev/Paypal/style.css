@@ -1,0 +1,112 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Paypal style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.lc-minicart .pp-ec-button,
+#cart-right ul.totals .pp-ec-button,
+.lc-minicart .pp-pc-button,
+#cart-right ul.totals .pp-pc-button
+{
+  background: transparent none;
+  border: 0 none;
+  margin: 0;
+  padding: 1px 0 0 0;
+}
+
+.lc-minicart .buttons-row a.pp-ec-button,
+.lc-minicart .buttons-row a.pp-pc-button
+{
+  margin-bottom: 5px;
+  margin-top: 5px;
+  display: inline-block;
+}
+
+#cart-right ul.totals a.pp-ec-button,
+#cart-right ul.totals a.pp-pc-button
+{
+  display: inline-block;
+}
+
+.payments a.paypal-ec
+{
+  font-size: 10px;
+}
+
+.payments img.paypal
+{
+  display: block;
+  padding-top: 4px;
+  width: 250px;
+  max-width: 100%;
+}
+
+button.pp-ec-button
+{
+  border: none;
+  background: none;
+}
+
+.product-details .button.pp-button
+{
+  display: inline-block;
+}
+
+.product-quicklook .product-details .button.pp-button
+{
+  display: inline-block;
+  padding-top: 15px;
+}
+
+.product-quicklook .product-details button.pp-ec-button
+{
+  padding: 0;
+}
+
+.info:nth-child(1) .top-message.pp-button
+{
+  min-height: 30px;
+}
+
+.top-message.pp-button .message
+{
+  display: inline-block;
+}
+
+.info:nth-child(1) .top-message.pp-button .message
+{
+  margin-top: 5px;
+  margin-right: 1em;
+}
+
+.top-message.pp-button .pp-ec-button
+{
+  display: inline-block;
+}
+
+.info:nth-child(n+2) .top-message.pp-button .message
+{
+  width: auto;
+  display: inline-block;
+}
+
+.info:nth-child(n+2) .top-message.pp-button .pp-ec-button
+{
+  display:none;
+}
+
+.products-list .add-to-cart-button {
+  display: inline-block;
+}
+
+.products-list .add-to-cart-button.pp-button {
+  margin-left: 15px;
+}
+
+ul.account-links li.social-login {
+  margin-left: 0;
+}

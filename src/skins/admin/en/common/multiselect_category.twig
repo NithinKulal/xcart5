@@ -1,0 +1,11 @@
+{##
+ # ____file_title____
+ #}
+<select class="fixed-select" name="{{ this.formField }}" multiple size="10" style="width:200px">
+   {% if this.allOption %}
+     <option value="">{{ t('All') }}</option>
+   {% endif %}
+   {% for k, v in this.categories %}
+     <option value="{{ v.category_id }}" {% if v.isSelected('category_id', this.selectedCategory) %} selected="selected" {% endif %}>{{ v.getStringPath()|raw }}</option>
+   {% endfor %}
+</select>

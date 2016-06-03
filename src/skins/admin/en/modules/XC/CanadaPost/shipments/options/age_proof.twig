@@ -1,0 +1,5 @@
+{##
+ # Option :: age proof
+ #}
+
+{{ widget('\\XLite\\Module\\XC\\CanadaPost\\View\\FormField\\Select\\AgeProofType', fieldId='opt-age-proof-' ~ parcelIdx, fieldName='parcelsData[' ~ parcel.getId() ~ '][optAgeProof]', fieldOnly='true', value=parcel.getOptAgeProof()) }}

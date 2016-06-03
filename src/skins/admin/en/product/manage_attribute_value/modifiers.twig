@@ -1,0 +1,18 @@
+{##
+ # Multiple options 
+ #}
+
+{% if this.isModified(attributeValue) %}
+  <div class="modifiers">
+    <a href="#" tabindex="-1">{{ t('Modifiers') }}</a>
+    <span class="text">{{ this.getModifiersAsString(attributeValue)|raw }}</span>
+    <div class="popup">
+      <h4>{{ t('Modifiers') }}</h4>
+      {% for field, modifier in this.getModifiers() %}
+        {{ widget('\\XLite\\View\\FormField\\Input\\Text\\Modifier', fieldName=this.getName(field, id), label=t(modifier.title), value=this.getModifierValue(attributeValue, field), attributes={'data-type': field}) }}
+      {% endfor %}
+      <div class="default clearfix"><label><input type="checkbox" name="{{ this.getName('default', id) }}"{% if this.isDefault(attributeValue) %} checked{% endif %} data-title="{{ t('Default') }}" /> {{ t('Default option') }}</label></div>
+      <div class="arrow"></div>
+    </div>
+  </div>
+{% endif %}

@@ -1,0 +1,76 @@
+{##
+ # Template
+ #
+ # @ListChild (list="order.operations", weight="105")
+ #}
+{% if this.isAmazonControlsVisible() %}
+
+  <h2>{{ t('PayWithAmazon available actions') }}</h2>
+
+  <script type="text/javascript">
+    //<![CDATA[
+    var lbl_amazon_pa_confirm_capture = '{{ t('This operation will capture funds from customer. Please confirm to proceed.') }}';
+    var lbl_amazon_pa_confirm_void = '{{ t('This operation will cancel order. Payment authorization will be voided. Please confirm to proceed.') }}';
+    var lbl_amazon_pa_confirm_refund = '{{ t('This operation will refund funds to customer. Please confirm to proceed.') }}';
+
+    function amz_submit_form(formObj, formMode) {{ this.getLdelim() }}
+      if (!formObj)
+        return false;
+
+      if (formObj.tagName != "FORM") {{ this.getLdelim() }}
+        if (!formObj.form)
+          return false;
+        formObj = formObj.form;
+      {{ this.getRdelim() }}
+
+      if (formObj.action) 
+        formObj.action.value = formMode;
+
+      return formObj.submit();
+    {{ this.getRdelim() }}
+    //]]>
+  </script>
+
+  {{ t('Amazon Order Ref ID') }}: <b>{{ this.getOrderDetail('AmazonOrderReferenceId') }}</b>
+
+  <table>
+  <tr>
+
+  {% if this.isCaptureButtonVisible() %}
+  <td>
+    {% if this.order.getDetail('amazon_pa_capture_status') %}
+      {{ t('Capture status') }}: <b>{{ this.getOrderDetail('amazon_pa_capture_status') }}</b>
+    {% else %}
+      <input type="button" value="{{ t('Capture') }}" onclick="javascript: if(confirm(lbl_amazon_pa_confirm_capture)) amz_submit_form(this, 'amz_capture');" />&nbsp;
+    {% endif %}
+  </td>
+
+  <td>
+    <input type="button" value="{{ t('Void') }}" onclick="javascript: if(confirm(lbl_amazon_pa_confirm_void)) amz_submit_form(this, 'amz_void');" />
+  </td>
+  {% endif %}
+
+  {% if this.isRefundButtonVisible() %}
+  <td>
+    {% if this.order.getDetail('amazon_pa_refund_status') %}
+      {{ t('Refund status') }}: <b>{{ this.getOrderDetail('amazon_pa_refund_status') }}</b>
+      <br />
+      <input type="button" value="{{ t('Refresh status') }}" onclick="javascript: amz_submit_form(this, 'amz_refresh_refund_status');" />
+    {% else %}
+      <input type="button" value="{{ t('Refund') }}" onclick="javascript: if(confirm(lbl_amazon_pa_confirm_refund)) amz_submit_form(this, 'amz_refund');" />
+    {% endif %}
+  </td>
+  {% endif %}
+
+  {% if this.isRefreshButtonVisible() %}
+  <td>
+    <input type="button" value="{{ t('Refresh status') }}" onclick="javascript: amz_submit_form(this, 'amz_refresh');" />
+  </td>
+  {% endif %}
+
+  </tr>
+
+  </table>
+  <br >
+  <br />
+{% endif %}

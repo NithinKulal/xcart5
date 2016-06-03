@@ -1,0 +1,13 @@
+{##
+ # Script variables initialization
+ #
+ # @ListChild (list="product.pinCodes", weight="10")
+ #}
+
+<script type="text/javascript">
+//<![CDATA[
+  var lbl_cannot_remove_sold_pincode = '{{ t('Cannot remove a sold PIN code') }}';
+  var pins_enabled = "{% if this.product.getPinCodesEnabled() %}1{% endif %}";
+//]]>
+</script>
+

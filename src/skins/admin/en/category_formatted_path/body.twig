@@ -1,0 +1,18 @@
+{##
+ # Category page template
+ #}
+
+<ul class="category-formatted-path">
+  <li class="root-category">
+    <a href="{{ url('categories') }}">{{ t('Categories') }}</a>
+  </li>
+  {% for index, elem in this.getCategoryPath() %}
+    <li>
+      {% if this.isCurrentCategory(elem) %}
+          <a>{{ elem.getName() }}</a>
+      {% else %}
+          <a href="{{ url('categories', '', {'id': elem.getCategoryId()}) }}">{{ elem.getName() }}</a>
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>

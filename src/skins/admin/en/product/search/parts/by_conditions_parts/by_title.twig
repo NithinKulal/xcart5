@@ -1,0 +1,10 @@
+{##
+ # ____file_title____
+ #
+ # @ListChild (list="product.search.conditions.by-keywords", weight="10")
+ #}
+
+<li>
+  <input type="checkbox" name="by_title" id="by-title" value="Y" {% if this.getCondition('by_title') %} checked="checked" {% endif %} />
+  <label for="by-title">{{ t('Name') }}</label>
+</li>

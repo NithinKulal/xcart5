@@ -1,0 +1,5 @@
+{##
+ # Modules actions list
+ #}
+
+ {{ widget('XLite\\View\\Button\\SimpleLink', location=url('addons_list_installed', 'pack', {'moduleId': this.module.getModuleId()}), label=t('Pack it'), style='regular-button pack-it') }}

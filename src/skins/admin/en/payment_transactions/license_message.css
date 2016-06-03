@@ -1,0 +1,80 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Payment transactions license message
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+.license-message {
+  min-width: 1000px;
+}
+
+.license-message .alert {
+  font-size: 16px;
+  padding-top: 17px;
+  margin-bottom: 38px;
+}
+
+.license-message .info {
+  background: url(images/screenshot.png) no-repeat 100% 0;
+  background-size: 43%;
+  min-height: 325px;
+  margin-bottom: 20px;
+  padding-left: 16px;
+  max-width: 1180px;
+}
+
+.license-message .description {
+  font-size: 15px;
+  width: 500px;
+}
+
+.license-message .features {
+  font-size: 15px;
+  margin-top: 23px;
+  margin-bottom: 27px;
+  width: 500px;
+}
+
+
+.license-message .features li {
+  margin-top: 6px;
+  margin-left: 26px;
+}
+
+
+.license-message .features li .module-link a{
+  font-size: 15px;
+  vertical-align: initial;
+}
+
+.license-message .features i {
+  color: #f69c3b;
+  font-size: 17px;
+  position: absolute;
+  margin-left: -26px;
+  margin-top: 3px;
+}
+
+.license-message .actions {
+  font-size: 16px;
+}
+
+.license-message .actions .or {
+  font-size: 16px;
+  color: #ccc;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.license-message .actions button {
+  padding-left: 29px;
+  padding-right: 29px;
+  height: 52px;
+}
+
+.license-message .actions button span {
+  font-size: 19px;
+}
+

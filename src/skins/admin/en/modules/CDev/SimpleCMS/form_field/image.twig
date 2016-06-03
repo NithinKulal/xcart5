@@ -1,0 +1,12 @@
+{##
+ # Image
+ #}
+
+<img src="{{ this.getImage() }}?{{ date().timestamp }}" alt="" />
+<input{{ this.getAttributesCode()|raw }}/>
+{% if this.getValue() %}
+  <label>
+    <input type="checkbox" name="useDefaultImage[{{ this.getImageName() }}]" />
+    {{ t(this.getReturnToDefaultLabel()) }}
+  </label>
+{% endif %}

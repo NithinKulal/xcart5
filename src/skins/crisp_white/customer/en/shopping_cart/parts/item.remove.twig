@@ -1,0 +1,10 @@
+{##
+ # Shopping cart item : main
+ #
+ # @ListChild (list="cart.item", weight="100")
+ #}
+<td class="item-remove delete-from-list">
+  {% form '\\XLite\\View\\Form\\Cart\\Item\\Delete' with {item: this.item} %}
+  	<a onclick="return jQuery(this).closest('form').submit();" class="remove"></a>
+  {% endform %}
+</td>

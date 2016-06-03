@@ -1,0 +1,7 @@
+{##
+ # Move pointer
+ #
+ # @ListChild (list="product.attachments.row", weight="100", zone="admin")
+ #}
+<a href="#" class="move" title="{{ t('Move') }}"><img src="{{ asset('images/spacer.gif') }}" alt="" /></a>
+<input type="hidden" class="orderby" name="data[{{ this.attachment.getId() }}][orderby]" value="{{ this.attachment.getOrderby() }}" />

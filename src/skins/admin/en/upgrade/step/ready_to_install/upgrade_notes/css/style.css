@@ -1,0 +1,40 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Upgrade notes style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+.upgrade-notes-section {
+  border: solid #e9e9e9 1px;
+  width: 707px;
+  margin: 0 0 40px 0;
+}
+
+.upgrade-notes-section-frame {
+  border: solid #f7f7f7 6px;
+  padding: 10px 35px 10px 85px;
+  width: auto;
+  position: relative;
+}
+
+.upgrade-notes-section-frame {
+  background: transparent url(../../images/warning_circle.png) 20px 15px no-repeat;
+}
+
+.upgrade-notes-section li:first-child .header {
+  margin-top: 8px;
+}
+
+.upgrade-notes-section .header {
+  font-size: 18px;
+  margin: 20px 0 10px 0;
+  color: #9e3b00;
+}
+
+.upgrade-notes-section .description {
+  font-size: 14px;
+  line-height: 19px;
+  margin: 0 0 10px 0;
+}

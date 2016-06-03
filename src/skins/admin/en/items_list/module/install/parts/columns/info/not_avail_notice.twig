@@ -1,0 +1,10 @@
+{##
+ # Not available module notice
+ #
+ # @ListChild (list="itemsList.module.install.columns.module-main-section", weight="200")
+ #}
+{% if this.showNotAvailModuleNotice(this.module) %}
+  <div class="note error xcn-module-notice">
+  {{ t('This module is available for X-Cart hosted stores only.', {'url': this.getMoreInfoURL()})|raw }}
+  </div>
+{% endif %}

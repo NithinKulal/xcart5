@@ -1,0 +1,10 @@
+{##
+ # Product class inline view
+ #}
+
+<div>
+  <span class="value">{{ this.getViewValue(this.singleField) }}</span>
+  {% if this.entity.getId() %}
+    <span class="products">({{ this.entity.getProductsCount() }} {{ t('products') }})</span>
+  {% endif %}
+</div>

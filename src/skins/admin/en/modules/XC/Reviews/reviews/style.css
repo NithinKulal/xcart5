@@ -1,0 +1,96 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Reviews list styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.list-header {
+  margin-bottom: 20px;
+}
+
+.cell div.approved {
+  color: #298A08;
+}
+
+.cell div.pending {
+  color: #FF8000;
+}
+
+.items-list div.list-footer {
+  text-align: left;
+}
+
+.items-list-table button.edit-review {
+  display: inline-block;
+  width: 30px;
+  height: 26px;
+  text-indent: -5000px;
+  background: transparent url(../../../../items_list/model/table/images/link-icon.png) no-repeat left top;
+  -moz-border-radius: 0px !important;
+  -webkit-border-radius: 0px !important;
+  border-radius: 0px !important;
+  border: 0px;
+  padding: 0px;
+  margin: 3px 7px 0px 5px;
+  min-height: auto;
+}
+
+.items-list.reviews table.list td.product .plain-value {
+  width: 212px;
+}
+
+.items-list-table table.list tbody.lines td.cell.rating .cell div.vote-bar {
+  vertical-align: baseline;
+}
+
+.items-list.reviews td.cell.product{
+  max-width: 200px;
+}
+
+.items-list.reviews td.cell.review{
+  max-width: 215px;
+}
+
+.items-list.reviews td.cell.additionDate .value{
+  font-size: 12px;
+}
+
+.items-list.reviews td.cell.reviewerName .cell {
+  font-size: 14px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.items-list.reviews td.cell.reviewerName a{
+    display: block;
+    line-height: 16px;
+}
+
+.items-list.reviews td.cell.reviewerName .profile-email{
+    color: #8f8f8f;
+    font-size: 12px;
+    line-height: 20px;
+}
+
+.items-list.reviews td.cell.review .tooltip-main {
+  padding: 0;
+  margin: 0;
+  display: block;
+}
+
+.items-list.reviews td.cell.review .tooltip-main .tooltip-caption {
+  font-size: 14px;
+  color: #333333;
+}
+
+.items-list.reviews td.cell.review .review-text {
+  width: 200px;
+  overflow: hidden;
+}
+
+.items-list.reviews td.cell.actions.right button:focus {
+  outline: none;
+}

@@ -1,0 +1,81 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Product classes list styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+div.buttons {
+  margin-bottom: 25px;
+}
+
+.items-list-table.product_classes table.list {
+  width: 100%;
+}
+
+.items-list-table table.list thead {
+  background: #fff;
+}
+
+.items-list-table table.list thead th {
+  padding-left: 28px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #e9e9e9;
+}
+
+.items-list-table table.list thead th.attributes a,
+.items-list-table table.list tbody.lines td.cell span.products,
+.items-list-table table.list tbody.lines td.cell a
+{
+  color: #8f8f8f;
+}
+
+.items-list-table table.list tbody.lines td.cell a {
+  text-decoration: underline;
+  vertical-align: baseline;
+}
+
+.items-list-table table.list tbody.no-items td {
+  width: 767px;
+  background: #fff;
+}
+
+p.page-note {
+  padding: 20px;
+  padding-left: 40px;
+  width: 600px;
+  font-size: 14px;
+  line-height: 18px;
+  background: transparent url(../images/lightbulb.png) 0 23px no-repeat;
+  margin-bottom: 20px;
+}
+
+.items-list-table table.list tbody.lines td.cell.name div.view div {
+  max-width: 400px;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.items-list-table table.list thead th.name {
+  color: #333333;
+  font-size: 16px;
+  line-height: 20px;
+  width: 450px;
+}
+
+.items-list-table table.list thead th.actions.left {
+  width: 46px;
+  padding: 0;
+  background: url(../images/dotes.png) no-repeat 37px center;
+}
+
+.items-list-table table.list thead th.attributes {
+  width: 150px;
+}
+
+.items-list-table table.list thead th.actions.right {
+  width: 40px;
+  background: url(../images/dotes.png) no-repeat center left;
+}

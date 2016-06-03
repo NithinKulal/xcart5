@@ -1,0 +1,132 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: test_mode
+    category: CDev\AustraliaPost
+    type: XLite\View\FormField\Input\Checkbox\OnOffWithoutOffLabel
+    value: true
+    orderby: 10
+    translations:
+      - code: en
+        option_name: Test mode
+  - name: api_key
+    category: CDev\AustraliaPost
+    type: XLite\View\FormField\Input\Text
+    orderby: 20
+    translations:
+      - code: en
+        option_name: API key
+        option_comment: A unique 32 character API key is used to authorise inbound requests to the APIs. To obtain an API key please visit <a href="http://auspost.com.au/devcentre">http://auspost.com.au/devcentre</a> and follow the link to create your Australia Post ID. After registration has been successfully completed you will be emailed an API key.
+
+  - name: packageSettingsSeparator
+    category: CDev\AustraliaPost
+    type: separator
+    orderby: 100
+    translations:
+      - code: en
+        option_name: Package settings
+
+  - name: package_type
+    category: CDev\AustraliaPost
+    value: Parcel
+
+  - name: package_box_type
+    category: CDev\AustraliaPost
+    type: XLite\Module\CDev\AustraliaPost\View\FormField\PackageBoxType
+    value: AUS_PARCEL_TYPE_BOXED_OTH
+    orderby: 110
+    translations:
+      - code: en
+        option_name: Package box type
+  - name: dimensions
+    category: CDev\AustraliaPost
+    type: serialized
+    value: a:3:{i:0;i:10;i:1;i:10;i:2;i:10;}
+    orderby: 120
+    translations:
+      - code: en
+        option_name: Package dimensions (mm)
+
+  - name: additionalSettingsSeparator
+    category: CDev\AustraliaPost
+    type: separator
+    orderby: 200
+    translations:
+      - code: en
+        option_name: Additional settings
+  - name: service_option
+    category: CDev\AustraliaPost
+    type: XLite\Module\CDev\AustraliaPost\View\FormField\ServiceOption
+    value: AUS_SERVICE_OPTION_STANDARD
+    orderby: 210
+    translations:
+      - code: en
+        option_name: Service option
+  - name: extra_cover
+    category: CDev\AustraliaPost
+    type: XLite\View\FormField\Input\Checkbox\OnOffWithoutOffLabel
+    orderby: 220
+    translations:
+      - code: en
+        option_name: Extra cover type
+  - name: extra_cover_value
+    category: CDev\AustraliaPost
+    type: XLite\View\FormField\Input\Text\Price
+    value: 0.00
+    orderby: 230
+    translations:
+      - code: en
+        option_name: Extra cover value
+        option_comment: The specified value (if not empty) will be used as an extra cover value. Otherwise an order total will be used.
+  - name: currency_rate
+    category: CDev\AustraliaPost
+    type: XLite\View\FormField\Input\Text\FloatInput
+    value: 1
+    orderby: 240
+    translations:
+      - code: en
+        option_name: Currency rate
+        option_comment: Specify rate X, where 1 AUD = X in shop currency.
+  - name: enable_new_methods
+    category: CDev\AustraliaPost
+    type: XLite\View\FormField\Input\Checkbox\OnOffWithoutOffLabel
+    value: true
+    orderby: 250
+    translations:
+      - code: en
+        option_name: Enable new methods
+        option_comment: When AustraliaPost return shipping methods which does not exists in the available methods list, these methods will be created in the list automatically. You can specify should these methods be created as enabled and accessible customers just after they created, or these methods must be hidden from customer until you manually validate them.
+  - name: debug_enabled
+    category: CDev\AustraliaPost
+    type: XLite\View\FormField\Input\Checkbox\OnOffWithoutOffLabel
+    value: true
+    orderby: 260
+    translations:
+      - code: en
+        option_name: Enable debugging
+        option_comment: This option enables logging of all communication between the shopping cart and AustraliaPost server.
+  - name: max_weight
+    category: CDev\AustraliaPost
+    value: 20
+
+XLite\Model\Shipping\Method:
+  - processor: aupost
+    carrier: ''
+    code: ''
+    enabled: false
+    added: false
+    position: 0
+    moduleName: CDev_AustraliaPost
+    translations:
+      - code: en
+        name: AustraliaPost
+
+XLite\Model\LanguageLabel:
+  - { name: 'When AustraliaPost returns shipping methods which does not exists in the available methods list, these methods will be created in the list automatically', translations: [{ code: en, label: 'If AustraliaPost returns shipping methods that do not exist in the available methods list, these methods will be created in the list automatically. You can specify whether these methods should be created as enabled and available to customers right away, or should be hidden from customers until you manually enable them on <a href="{{URL}}">the shipping methods list page</a>.' }] }
+  - { name: 'Before you can start configure Australia Post module you should update available options from Australia Post. Please click button below.', translations: [{ code: en, label: 'Before you can start configuring the Australia Post module, you must receive the available options for the configuration settings from Australia Post. Please click the button below.' }] }
+  - { name: 'Option values has been successfully updated.', translations: [{ code: en, label: 'The option values have been successfully updated.' }] }

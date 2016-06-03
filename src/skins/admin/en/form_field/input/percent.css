@@ -1,0 +1,18 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Price field styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+div.table-value .input-text-symbol input.percent {
+  padding-left: 6px;
+  padding-right: 30px;
+}
+
+.input-text-symbol.input-text-percent .symbol.text {
+  left: auto;
+  right: 10px;
+}

@@ -1,0 +1,7 @@
+{##
+ # Search results
+ #}
+{# TODO: REMOVE? we are using items_list/products/* templates instead#}
+<div class="{{ this.getListTitleClass() }}">{{ t('X results found', {'count': this.getCount()}) }}</div>
+
+{% include 'products_list/body.twig' %}

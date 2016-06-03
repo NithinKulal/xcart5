@@ -1,0 +1,14 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# BulkEditing
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\LanguageLabel:
+  - { name: 'Bulk edit', translations: [{ code: en, label: 'Bulk edit' }]}
+  - { name: 'Bulk edit...', translations: [{ code: en, label: 'Bulk edit...' }]}
+  - { name: 'Click to apply value to selected products', translations: [{ code: en, label: 'Click to apply value to selected products' }]}
+  - { name: 'Edit all', translations: [{ code: en, label: 'Edit all' }]}
+  - { name: 'Inventory', translations: [{ code: en, label: 'Inventory' }]}
+  - { name: 'Price ans membership', translations: [{ code: en, label: 'Price ans membership' }]}

@@ -1,0 +1,63 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Admin interface styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.target-add2-cart-popup .dialog-content .btn {
+    vertical-align: top;
+}
+
+.target-add2-cart-popup h1 {
+  padding-bottom: 30px;
+}
+
+.a2cp-options {
+  padding-bottom: 30px;
+}
+
+.a2cp-options input {
+  margin-right: 10px;
+}
+
+.sources-block {
+  padding-top: 30px;
+}
+
+.items-list.a2cp-sources table thead {
+  display: none;
+}
+
+.target-add2-cart-popup .a2cp-options,
+.target-add2-cart-popup .sources-note,
+.target-add2-cart-popup .a2cp-sources .cell {
+  font-size: 16px;
+}
+
+.target-add2-cart-popup .dialog-content .sources-promo,
+ .target-add2-cart-popup .dialog-content .sources-promo a {
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+.settings .model-properties .table-value.redirect-to-cart-value span.input {
+  display: none;
+}
+
+.settings .model-properties .table-value.redirect-to-cart-value .form-field-comment {
+  margin-left: 0;
+  font-size: 12px;
+  color: #896c3f;
+}
+
+.settings .model-properties .table-value.redirect-to-cart-value .form-field-comment .fa {
+  color: #e4a037;
+  margin-right: 7px;
+}
+
+.target-add2-cart-popup .dialog-content .model-form-buttons {
+  padding: 0;
+}

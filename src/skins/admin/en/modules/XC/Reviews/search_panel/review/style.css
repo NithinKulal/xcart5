@@ -1,0 +1,24 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Reviews list search panel styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.search-conditions-box .keywords-condition div.table-value input[type="text"] {
+  width: 230px;
+}
+
+.search-conditions-box .rating-condition div.table-value select {
+  width: 100px
+}
+
+.search-conditions-box .status-condition div.table-value select {
+  width: 130px
+}
+
+.search-conditions-box .dateRange-condition div.table-value input[type="text"] {
+  width: 230px;
+}

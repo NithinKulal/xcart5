@@ -1,0 +1,7 @@
+{##
+ # Item category
+ #
+ # @ListChild (list="itemsList.product.admin.featured.columns", weight="40")
+ #}
+
+<td><a class="category" href="{{ url('category', '', {'category_id': this.product.category.getCategoryId()}) }}">{{ this.product.category.getName() }}</a></td>

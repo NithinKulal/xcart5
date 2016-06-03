@@ -1,0 +1,7 @@
+{##
+ # Checkout : payment step : selected state : methods
+ #}
+<div class="substep step-payment-methods">
+  <div class="head-h3"><span class="bullet">{{ this.getSubstepNumber('paymentMethods') }}</span>{{ t('Payment methods') }}</div>
+  {% include 'checkout/steps/shipping/parts/paymentMethodsList.twig' %}
+</div>

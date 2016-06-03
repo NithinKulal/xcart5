@@ -1,0 +1,9 @@
+{##
+ # The "Continue" button
+ #
+ # @ListChild (list="upgrade.step.prepare.buttons.sections", weight="200")
+ #}
+
+{% if this.isNextStepAvailable() %}
+  {{ widget('\\XLite\\View\\Button\\Submit', style='regular-main-button main-button', label=t('Continue')) }}
+{% endif %}

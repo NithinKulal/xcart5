@@ -1,0 +1,9 @@
+{##
+ # Layout editor exit button
+ #
+ # @ListChild (list="layout_editor", weight="30")
+ #}
+
+<div class='layout-editor-exit'>
+	{{ widget('XLite\\View\\Button\\Regular', label=t('Exit editor'), style='layout-editor-exit_button', jsCode='core.trigger("layout.disable_editor");') }}
+</div>

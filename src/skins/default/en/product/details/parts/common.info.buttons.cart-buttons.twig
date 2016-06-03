@@ -1,0 +1,12 @@
+{##
+ # Product details buttons block
+ #
+ # @ListChild (list="product.details.page.info.buttons", weight="10")
+ # @ListChild (list="product.details.page.info.buttons-added", weight="10")
+ # @ListChild (list="product.details.quicklook.info.buttons", weight="20")
+ # @ListChild (list="product.details.quicklook.info.buttons-added", weight="20")
+ #}
+
+<div class="buttons-row">
+  {{ widget_list('cart-buttons', type='nested') }}
+</div>

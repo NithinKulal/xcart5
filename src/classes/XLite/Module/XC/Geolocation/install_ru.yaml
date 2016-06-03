@@ -1,0 +1,12 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Russian fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\LanguageLabel:
+  - { name: 'My location', translations: [{ code: ru, label: 'Страна' }] }
+  - { name: 'Choose your location', translations: [{ code: ru, label: 'Укажите ваш адрес' }] }
+  - { name: 'Save location', translations: [{ code: ru, label: 'Сохранить адрес' }] }
+  - { name: 'Location was successfully set', translations: [{ code: ru, label: 'Адрес был сохранен' }] }

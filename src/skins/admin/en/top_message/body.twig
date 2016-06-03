@@ -1,0 +1,21 @@
+{##
+ # Top messages
+ #}
+
+<div id="status-messages" {% if this.isHidden() %} style="display: none;"{% endif %}>
+
+  <a href="#" class="close-message" title="{{ t('Close') }}"><img src="{{ this.getPath() }}/spacer3.gif" alt="{{ t('Close') }}" /></a>
+
+  {% if this.hasTopMessages() %}
+    <ul>
+      {% for data in this.getTopMessages() %}
+        <li class="{{ this.getType(data) }}">
+          {% if this.getPrefix(data) %}
+            <em>{{ this.getPrefix(data) }}</em>
+          {% endif %}{{ this.getText(data)|raw }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+</div>

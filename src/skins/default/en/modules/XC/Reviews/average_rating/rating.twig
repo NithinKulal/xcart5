@@ -1,0 +1,24 @@
+{##
+ # Rating
+ #
+ # @ListChild (list="reviews.product.rating.form.content", weight="100")
+ #}
+
+{% if this.isVisibleAverageRatingOnPage() %}
+  <div class="rating{% if this.isAllowedRateProduct() %} edit{% endif %}">
+    {% if this.isAllowedRateProduct() %}
+      {{ widget('\\XLite\\Module\\XC\\Reviews\\View\\FormField\\Input\\Rating', fieldName='rating', rate=this.getAverageRating(), is_editable=this.isAllowedRateProduct(), max='5') }}
+    {% endif %}
+    {% if not this.isAllowedRateProduct() %}
+      {{ widget('\\XLite\\Module\\XC\\Reviews\\View\\VoteBar', rate=this.getAverageRating(), max='5') }}
+    {% endif %}
+    <br />
+  
+    {% if 'tab' != this.place %}
+      <div class="rating-tooltip">
+        {{ widget_list('reviews.tooltip.rating') }}
+      </div>
+    {% endif %}
+  
+  </div>
+{% endif %}

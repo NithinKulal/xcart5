@@ -1,0 +1,58 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Vote bar style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.vote-bar span.editable span
+{
+  background-position: 1px -40px;
+}
+
+.vote-bar span.editable span.full {
+  background-position: 1px -60px;
+}
+
+.vote-bar span.editable:hover span {
+  background-position: 1px -80px;
+  cursor: pointer;
+}
+
+.vote-bar span.editable span.over {
+  background-position: 1px -80px;
+}
+
+.vote-bar span.editable span img {
+  background-position: 1px -60px;
+}
+
+.vote-bar span.editable span.over img {
+  background-position: 1px -80px;
+}
+
+div.rating-tooltip {
+  background-color: #FFFFFF;
+  color: #333333;
+  border: 1px solid #CADCE8;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  position: absolute;
+  display: none;
+  padding: 4px 10px;
+  margin-top: 0px;
+  line-height: 18px;
+  z-index: 2000;
+}
+
+div.rating-tooltip div.text {
+  padding-bottom: 0px !important;
+  font-size: 12px;
+}
+
+div.rating-tooltip div.rate-tip {
+  color: #2c5fa6;
+}

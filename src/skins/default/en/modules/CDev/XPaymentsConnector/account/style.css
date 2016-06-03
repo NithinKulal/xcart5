@@ -1,0 +1,170 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * CSS classes for Saved credit cards page
+ *
+ * @author    Qualiteam software Ltd <info@x-cart.com>
+ * @copyright Copyright (c) 2011-2016 Qualiteam software Ltd <info@x-cart.com>. All rights reserved
+ * @license   http://www.x-cart.com/license-agreement.html X-Cart 5 License Agreement
+ * @link      http://www.x-cart.com/
+ */
+
+table.saved-cards {
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  font-size: 14px;
+}
+
+table.saved-cards td {
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+table.saved-cards th {
+  font-weight: bold;
+}
+
+table.saved-cards td.default-column,
+table.saved-cards td.orderid, 
+table.saved-cards th.default-column {
+  text-align: center;
+}
+
+table.saved-cards td.address {
+  max-width: 300px;
+}
+
+table.saved-cards td.address select {
+  max-width: 300px;
+}
+
+.saved-card div.number {
+  height: 35px;
+  line-height: 35px;
+}
+
+.saved-card div.card-icon-container {
+  float: left;
+  height: 35px;
+  width: 70px;
+  overflow: hidden;
+}
+
+.saved-card div.card-icon-container img {
+  float: left;
+}  
+
+.saved-card {
+  float: left;
+}
+
+.saved-card .card-number {
+  font-size: 19px;
+  margin-left: 82px;
+}
+
+.saved-card .card-expire {
+  width: 100%;
+  text-align: right;
+  line-height: 16px;
+  color: gray;
+}
+
+.card-icon-container span.card {
+  display: inline-block;
+  width: 140px;
+  height: 70px;
+  zoom: 0.5;
+  -moz-transform: scale(0.5);
+  -moz-transform-origin: 0 0 0;
+}
+
+.card-icon-container span.card.mc {
+  background: url(card_types.png) 0px 0px no-repeat;
+}
+
+.card-icon-container span.card.visa {
+  background: url(card_types.png) 0px -71px no-repeat;
+}
+
+.card-icon-container span.card.jcb {
+  background: url(card_types.png) 0px -141px no-repeat;
+}
+
+.card-icon-container span.card.amex {
+  background: url(card_types.png) 0px -211px no-repeat;
+}
+
+.card-icon-container span.card.dc {
+  background: url(card_types.png) 0px -281px no-repeat;
+}
+
+.card-icon-container span.card.dicl {
+  background: url(card_types.png) 0px -351px no-repeat;
+}
+
+.card-icon-container span.card.sw {
+  background: url(card_types.png) 0px -421px no-repeat;
+}
+
+.card-icon-container span.card.cup {
+  background: url(card_types.png) 0px -491px no-repeat;
+}
+
+.card-icon-container span.card.bc {
+  background: url(card_types.png) 0px -561px  no-repeat;
+}
+
+iframe#add_new_card_iframe {
+  width: 300px;
+}
+
+div.add-new-card-header strong.important-label {
+  color: #f0ad4e; 
+  text-transform:uppercase;
+}
+
+div.add-new-card-header strong.highlight-label {
+  text-transform:uppercase;
+}
+
+input.add-new-card-button {
+  margin-left: 20px;
+  margin-right: 30px;
+}
+
+div.add-new-card-error strong.important-label {
+  text-transform: uppercase;
+}
+
+div.zero-auth-address select,
+div.zero-auth-address span.single-address {
+  width: auto;
+  max-width: 500px;
+  margin: 15px;
+}
+
+div.zero-auth-address a.add-address {
+  font-size: 14px;
+  border-bottom: 1px dotted;
+  text-decoration: none;
+}
+
+.wait-overlay > div, .wait-overlay-progress {
+  background: #fff none;
+  border: 1px solid #ddd;
+  padding: 10px;
+  width: 30%;
+  position: absolute;
+  top: 50%;
+  left: 33%;
+  margin-top: -15px;
+}
+
+.wait-overlay div div, .wait-overlay-progress div {
+  background: transparent url(progress.gif) repeat-x left top;
+  width: 100%;
+  height: 11px;
+}

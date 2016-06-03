@@ -1,0 +1,29 @@
+{##
+ # ____file_title____
+ #}
+
+<p align="justify">{{ t('This section displays order processing statistics') }}</p>
+
+<br /><br />
+
+<table class="data-table order-statistics">
+
+  <tr class="TableHead">
+    <th class="title">{{ widget('XLite\\View\\Order\\Statistics\\CurrencySelector') }}</th>
+    {% for c in this.getStatsColumns() %}
+      <th>{{ t(this.getColumnTitle(c)) }}</th>
+    {% endfor %}
+  </tr>
+
+  {% for idx, row in this.getStats() %}
+    <tr class="dialog-box{% if this.isTotalsRow(idx) %} totals{% endif %}">
+      <td class="title">{{ t(this.getRowTitle(idx)) }}</td>
+      {% for idx1, val in row %}
+        <td>
+          {% if this.isTotalsRow(idx) %}{{ this.formatPrice(val, this.getCurrency()) }}{% else %}{{ val }}{% endif %}
+        </td>
+      {% endfor %}
+    </tr>
+  {% endfor %}
+
+</table>

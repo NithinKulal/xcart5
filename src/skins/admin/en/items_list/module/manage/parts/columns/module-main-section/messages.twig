@@ -1,0 +1,9 @@
+{##
+ # Module messages block
+ #
+ # @ListChild (list="itemsList.module.manage.columns.module-main-section", weight="40")
+ #}
+
+<div id="moduleMessages{{ this.module.getModuleId() }}" class="messages">
+  {{ widget_list('messages', type='nested', module=this.module) }}
+</div>

@@ -1,0 +1,14 @@
+{##
+ # Account pin codes order 
+ #}
+
+<div class="order" id="order-{{ this.order.getOrderNumber() }}">
+  <div class="order-items">
+    {% for item in this.order.getItems() %}
+      {% if item.countPinCodes() %}
+        {{ widget(template='modules/CDev/PINCodes/accountPinCodes/orderItem.twig', item=item) }}
+      {% endif %}
+    {% endfor %}
+  </div>
+  <a href="{{ this.getOrderUrl() }}" target="_blank">{{ t('Order') }} #{{ this.order.getOrderNumber() }}</a> {{ this.formatTime(this.order.date) }}
+</div>

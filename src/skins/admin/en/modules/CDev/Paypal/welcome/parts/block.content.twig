@@ -1,0 +1,16 @@
+{##
+ # Block content : items
+ #
+ # @ListChild (list="paypal.welcome.content", weight="10")
+ #}
+<div class="content">
+  <div class="info">
+
+    {{ t('paypal_welcome_text', {'email': this.getPaypalEmail()})|raw }}
+
+    <div class="action">
+      {{ widget('\\XLite\\Module\\CDev\\Paypal\\View\\Button\\SignUp', label=t('Launch PayPal')) }}
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,6 @@
+{##
+ # Display horizontal minicart item price
+ #
+ # @ListChild (list="minicart.horizontal.item", weight="20")
+ #}
+<div class="item-price">{{ widget('XLite\\View\\Surcharge', surcharge=this.item.getDisplayPrice(), currency=this.cart.getCurrency()) }} &times; {{ this.item.getAmount() }}</div>

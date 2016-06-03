@@ -1,0 +1,82 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: amazon_pa_sid
+    category: Amazon\PayWithAmazon
+    type: XLite\Module\Amazon\PayWithAmazon\View\FormField\Input\SellerID
+    orderby: 5
+    value: ''
+    translations:
+      - code: en
+        option_name: 'Amazon Seller ID'
+  - name: amazon_pa_mode
+    category: Amazon\PayWithAmazon
+    type: XLite\Module\Amazon\PayWithAmazon\View\FormField\Select\OpMode
+    orderby: 10
+    value: 'test'
+    translations:
+      - code: en
+        option_name: Operation mode
+  - name: amazon_pa_access_key
+    category: Amazon\PayWithAmazon
+    type: text
+    orderby: 15
+    value: ''
+    translations:
+      - code: en
+        option_name: Access Key ID
+  - name: amazon_pa_secret_key
+    category: Amazon\PayWithAmazon
+    type: text
+    orderby: 20
+    value: ''
+    translations:
+      - code: en
+        option_name: Secret Access Key
+  - name: amazon_pa_currency
+    category: Amazon\PayWithAmazon
+    type: XLite\Module\Amazon\PayWithAmazon\View\FormField\Select\Currency
+    orderby: 30
+    value: 'USD'
+    translations:
+      - code: en
+        option_name: Country of Merchant account
+  - name: amazon_pa_capture_mode
+    category: Amazon\PayWithAmazon
+    type: XLite\Module\Amazon\PayWithAmazon\View\FormField\Select\CaptureMode
+    orderby: 40
+    value: 'C'
+    translations:
+      - code: en
+        option_name: Capture mode
+  - name: amazon_pa_sync_mode
+    category: Amazon\PayWithAmazon
+    type: XLite\Module\Amazon\PayWithAmazon\View\FormField\Select\SyncMode
+    orderby: 45
+    value: 'S'
+    translations:
+      - code: en
+        option_name: Type of authorization request
+  - name: amazon_pa_order_prefix
+    category: Amazon\PayWithAmazon
+    type: text
+    orderby: 50
+    translations:
+      - code: en
+        option_name: OrderId prefix
+
+XLite\Model\LanguageLabel:
+  - { name: 'Amazon Order Ref ID', translations: [{ code: en, label: 'Amazon Order Ref ID' }] }
+  - { name: 'Immediate Charge', translations: [{ code: en, label: 'Immediate Charge' }] }
+  - { name: 'Pay with Amazon', translations: [{ code: en, label: 'Pay with Amazon' }] }
+  - { name: 'PayWithAmazon available actions', translations: [{ code: en, label: 'PayWithAmazon available actions' }] }
+  - { name: 'Refresh status', translations: [{ code: en, label: 'Refresh status' }] }
+  - { name: 'Refund status', translations: [{ code: en, label: 'Refund status' }] }
+  - { name: 'This operation will cancel order. Payment authorization will be voided. Please confirm to proceed.', translations: [{ code: en, label: 'This operation will cancel order. Payment authorization will be voided. Please confirm to proceed.' }] }
+  - { name: 'This operation will capture funds from customer. Please confirm to proceed.', translations: [{ code: en, label: 'This operation will capture funds from customer. Please confirm to proceed.' }] }
+  - { name: 'This operation will refund funds to customer. Please confirm to proceed.', translations: [{ code: en, label: 'This operation will refund funds to customer. Please confirm to proceed.' }] }

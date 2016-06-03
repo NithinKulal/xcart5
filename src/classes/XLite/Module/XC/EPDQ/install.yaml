@@ -1,0 +1,40 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Payment\Method:
+  - service_name: ePDQ e-Commerce
+    class: Module\XC\EPDQ\Model\Payment\Processor\EPDQ
+    type: C
+    orderby: -10200
+    countries: [GB]
+    translations:
+      - code: en
+        name: Barclaycard ePDQ e-Commerce
+    settings:
+      - name: pspid
+      - name: sha_in
+      - name: sha_out
+      - name: currency
+        value: GBP
+      - name: test
+        value: 1
+      - name: prefix
+        value: xcart_
+      - name: debug_enabled
+        value: 0
+
+XLite\Model\LanguageLabel:
+  - { name: "ePDQ settings note", translations: [{ code: en, label: "Note: In order to setup ePDQ essential payment gateway, you have to complete these steps: <ul><li>Log in to your ePDQ backoffice</li> <li>Open the \"Configuration\" -> \"Technical information\" page -> \"Global security parameters\" tab -> \"Hashing method\" section and select SHA-512 and UTF-8 options.</li> <li>Open the \"Configuration\" -> \"Technical information\" page -> \"Data and origin verification\" tab -> \"Checks for e-Commerce\" section and in the URL field enter this URL: <em>{{URL}}</em></li> <li>Define SHA-IN pass phrase in the corresponding section and further enter it here in X-Cart in the \"SHA-IN pass phrase\" field.</li> <li>Open the \"Configuration\" -> \"Technical information\" page -> \"Transaction feedback\" tab -> \"e-Commerce\" section and enable <em>I would like to receive transaction feedback parameters on the redirection URLs</em> option.</li> <li>Scroll down to the \"All transaction submission modes\" section and define SHA-OUT pass phrase and further enter it here in X-Cart in the \"SHA-OUT pass phrase\" field.</li></ul>" }] }
+  - { name: "ePDQ PSPID", translations: [{ code: en, label: "PSPID" }] }
+  - { name: "ePDQ SHA-IN pass phrase", translations: [{ code: en, label: "SHA-IN pass phrase" }] }
+  - { name: "ePDQ SHA-OUT pass phrase", translations: [{ code: en, label: "SHA-OUT pass phrase" }] }
+  - { name: "ePDQ Currency", translations: [{ code: en, label: "Currency" }] }
+  - { name: "ePDQ Invoice number prefix", translations: [{ code: en, label: "Invoice number prefix" }] }
+  - { name: "ePDQ Enable logging of ePDQ transactions", translations: [{ code: en, label: "Enable logging of ePDQ transactions" }] }
+  - { name: 'Response from ePDQ is not trusted (SHA checking is failed)', translations: [{ code: en, label: 'Response from ePDQ is not trusted (SHA checking is failed)' }] }
+  - { name: 'Unexpected result was received from ePDQ (transaction status is not set)', translations: [{ code: en, label: 'Unexpected result was received from ePDQ (transaction status is not set)' }] }
+

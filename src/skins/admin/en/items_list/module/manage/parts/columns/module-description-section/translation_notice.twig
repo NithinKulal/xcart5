@@ -1,0 +1,9 @@
+{##
+ # Modules main description section list
+ #
+ # @ListChild (list="itemsList.module.install.columns.module-description-section", weight="15")
+ #}
+
+{% if this.module.isTranslation() %}
+  <div class="description">{{ t('Warning! Installing this module will overwrite all language labels translated to the appropriate language.') }}</div>
+{% endif %}

@@ -1,0 +1,22 @@
+{##
+ # File upload template
+ #}
+
+<div class="{{ this.getDivStyle() }}" data-object-id="{{ this.getObjectId() }}">
+  <input type="checkbox" name="{{ this.getName() }}[delete]" v-model="{{ this.getVModel() }}.delete" value="1" class="input-delete" />
+  {% if this.isMultiple() %}
+    <input type="hidden" name="{{ this.getName() }}[position]" v-model="{{ this.getVModel() }}.position" value="{{ this.getPosition() }}" class="input-position" />
+  {% endif %}
+  {% if this.isTemporary() %}
+    <input type="hidden" name="{{ this.getName() }}[temp_id]" v-model="{{ this.getVModel() }}.temp_id" value="{{ this.object.id }}" class="input-temp-id" />
+  {% endif %}
+  <a href="{{ this.getLink() }}" class="link" data-toggle="dropdown">
+    {{ this.getPreview()|raw }}
+    <div class="icon">
+      <i class="{{ this.getIconStyle() }}"></i>
+    </div>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    {{ widget_list('file-uploader.menu') }}
+  </ul>
+</div>

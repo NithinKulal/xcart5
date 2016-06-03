@@ -1,0 +1,1196 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Theme common styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+/*
+ * Borders
+ */
+
+#header-bar div.block .content
+{
+  border-style: none;
+}
+
+#header,
+#header .block .content,
+#header-bar
+{
+  border-color: #cadce8;
+}
+
+#main-menu ul
+{
+  border-color: #b1c9e0;
+}
+
+div.block,
+#social-links a,
+blockquote,
+.internal-popup
+{
+  border-color: #dfdfdf;
+}
+
+/*
+ * Forms
+ */
+
+fieldset
+{
+  border-style: none;
+}
+
+label
+{
+  font-size: 15px;
+  font-weight: normal;
+  line-height: 18px;
+  vertical-align: top;
+}
+
+.form-item label {
+  display: inline-block;
+  vertical-align: top;
+  color: #53769d;
+  padding-top: 3px;
+  font-weight: normal;
+  width: 160px;
+}
+
+.form-item .description,
+form .wysiwyg,
+.form-item label.option,
+form .wysiwyg + p
+{
+  padding-left: 165px;
+}
+
+.form-item .form-radios label.option,
+.form-item .form-checkboxes label.option,
+form table .form-item label.option
+{
+  padding-left: 0;
+}
+
+.form-item .description {
+  color: #1a6992;
+  font-size: 10px;
+  margin-top: 7px;
+}
+
+.form-item .resizable-textarea {
+  display: inline-block;
+  width: auto;
+}
+
+.form-item .form-radios,
+.form-item .form-checkboxes
+{
+  display: inline-block;
+  margin: 0;
+}
+
+.form-required {
+  line-height: 16px;
+}
+
+.password-parent {
+  width: 42em;
+}
+
+div.password-strength,
+div.password-confirm
+{
+  margin-top: 0;
+  font-size: 12px;
+  padding-left: 3px;
+}
+
+.password-description ul li {
+  background-image: none;
+}
+
+.form-type-radio .description,
+.form-type-checkbox .description
+{
+  margin-left: 0;
+}
+
+.form-type-radio label,
+.form-type-checkbox label
+{
+  width: auto;
+}
+
+.form-item label.option {
+}
+
+/*
+ * Buttons
+ */
+
+.action-links
+{
+  padding: 0;
+  margin: 1.5em 0;
+}
+
+
+button {
+  white-space: nowrap;
+}
+
+.action-links li
+{
+  display: inline;
+  background-image: none;
+  padding: 0 2em 0 0;
+}
+
+
+
+.action-links li a
+{
+/*   text-decoration: none; */
+}
+
+
+/* Hide the dotted outline */
+
+input[type="submit"]::-moz-focus-inner,   /* FireFox */
+input[type="button"]::-moz-focus-inner,
+input[type="reset"]::-moz-focus-inner,
+button::-moz-focus-inner
+{
+  border: 0;
+}
+input[type="submit"]:focus,               /* IE8 */
+input[type="button"]:focus,
+input[type="reset"]:focus,
+button:focus
+{
+  outline: none;
+}
+
+/*
+ * Definition lists
+ */
+
+dd
+{
+  margin: 0 0 1em;
+}
+
+/*
+ * Paragraphs
+ */
+
+p,
+ul,
+ol,
+blockquote
+{
+/*   line-height: 1.6em; */
+  margin: 0 0 1em;
+  padding: 0;
+}
+
+li:first-child
+{
+  margin-top: 0;
+}
+
+div p:last-child
+{
+  margin-bottom: 0;
+}
+
+/*
+ * Quotes
+ */
+
+blockquote
+{
+  color: #888;
+  padding: 10px 20px 14px 50px;
+  border-style: solid;
+  border-width: 1px;
+}
+
+blockquote .quote-author
+{
+  font-weight: normal;
+  font-size: 14px;
+  font-style: italic;
+}
+
+blockquote .quote-author em
+{
+  font-weight: bold;
+}
+
+/*
+ * Lists
+ */
+
+ul,
+ol
+{
+  padding-left: 0;
+  margin-left: 0;
+}
+
+ol li
+{
+  list-style: decimal outside;
+  padding-left: 0;
+  margin-left: 26px;
+}
+
+ul li
+{
+  list-style: none;
+  padding-left: 0;
+}
+
+.item-list li,
+  #toolbar li,
+  ul.contextual-links li,
+  ul.links li,
+  .field-type-taxonomy-term-reference ul li,
+  #main-menu li,
+  #secondary-menu li,
+  .account-links li,
+  ul.menu li,
+  ul.tabs li
+{
+  background-image: none;
+}
+
+#block-user-login .item-list ul li {
+  margin-left: 0;
+}
+
+.category-description ul,
+.product-description ul,
+.news-message-body ul,
+.mce-content-body ul
+{
+  padding: 0;
+  margin: 8px 0 0 8px;
+}
+
+.category-description ul li,
+.product-description ul li,
+.news-message-body ul li,
+.mce-content-body ul li
+{
+  list-style: inherit;
+  list-style-position: inside;
+  padding: inherit;
+  margin: inherit;
+}
+
+/*
+ * Shadows
+ */
+
+#main-menu ul,
+.internal-popup,
+.buttons-box
+{
+  box-shadow: 1px 1px 5px silver;
+  -webkit-box-shadow: 1px 1px 5px silver;
+  -moz-box-shadow: 1px 1px 5px silver;
+  /* Commented due to a problem in IE: IE crops drop-down submenus in the main menu */
+  /*
+  filter: progid:DXImageTransform.Microsoft.Shadow(color='silver', Direction= 135, Strength=3);
+  */
+}
+
+/**
+ * Popup
+ */
+.internal-popup
+{
+  border-style: solid;
+  border-width: 1px;
+  text-align: left;
+  background: white;
+}
+
+/*
+ *
+ * HEADER
+ *
+ */
+
+#site-name h1,
+#site-name strong
+{
+  margin: 0;
+  font-family: Verdana, Helvetica, sans-serif;
+  font-weight: normal;
+  font-size: 30px;
+}
+
+#site-name a
+{
+  text-decoration: none;
+  color: #316185;
+}
+
+#site-slogan
+{
+  font-style: italic;
+  font-size: 15px;
+  color: #5d94bd;
+}
+
+/* Action links */
+
+.node ul.links
+{
+  display: block;
+}
+
+ul.links
+{
+  clear: both;
+  margin: 0;
+}
+
+ul.links li
+{
+  padding: 0 1em 0 0;
+  display: inline;
+}
+
+/*
+ * Links generated by theme_links().
+ */
+
+ul.inline,
+ul.links.inline
+{
+  display: inline;
+  padding-left: 0;
+}
+
+ul.inline li
+{
+  display: inline;
+  list-style-type: none;
+  padding: 0 0.5em;
+}
+
+
+/*
+ * Account links
+ */
+
+ul.account-links
+{
+  padding: 0;
+  margin: 0;
+  height: 46px;
+  line-height: 44px;
+}
+
+ul.account-links li
+{
+  display: inline-block;
+  list-style: none;
+  padding: 0;
+  margin-left: 15px;
+}
+
+ul.account-links a
+{
+  text-decoration: none;
+}
+
+ul.account-links > li > a:hover
+{
+  text-decoration: none;
+  border-bottom: 1px solid #5194c5;
+}
+
+ul.account-links span.email {
+  color: #8a8a8a;
+}
+
+/* Popup forms */
+
+#login-popup-box,
+#password-popup-box
+{
+  width: 564px;
+}
+
+#login-popup-box #user-login,
+#password-popup-box #user-pass
+{
+  text-align: left;
+}
+
+#login-popup-box label,
+#password-popup-box label
+{
+  float: left;
+}
+
+#login-popup-box button,
+#login-popup-box .description,
+#login-popup-box .item-list
+{
+  margin-left: 90px;
+}
+
+#login-popup-box label
+{
+  width: 90px;
+}
+
+#password-popup-box button,
+#password-popup-box .description,
+#password-popup-box .item-list
+{
+  margin-left: 140px;
+}
+
+#password-popup-box label
+{
+  width: 140px;
+}
+
+.ui-dialog #login-popup-box .description,
+.ui-dialog #password-popup-box .description
+{
+  margin-top: 4px;
+  font-size: 11px;
+  padding-left: 0;
+}
+
+.ui-dialog #login-popup-box .description,
+.ui-dialog #login-popup-box .description a,
+.ui-dialog #password-popup-box .description,
+.ui-dialog #password-popup-box .description a
+{
+  color: #1a6992;
+}
+
+.ui-dialog #login-popup-box input,
+.ui-dialog #password-popup-box input
+{
+  width: 248px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #949494 #ddd #ddd #949494;
+  height: 22px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.ui-dialog .form-required
+{
+  display: none;
+}
+
+.ui-dialog .form-item
+{
+  margin: 2em 0 1.5em;
+}
+
+.ui-dialog .item-list
+{
+  margin-top: 0.5em;
+}
+
+.ui-dialog ul,
+.ui-dialog div.item-list li
+{
+  margin: 0;
+  padding: 0;
+}
+
+.ui-dialog div.item-list li
+{
+  list-style: none;
+  background-image: none;
+}
+
+/*
+ * Popup box
+ */
+
+.ui-dialog {
+   border: 0 none;
+  overflow: visible;
+  padding: 10px;
+  background: #7a7a7a none;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+  padding: 0;
+  margin: 0;
+  -moz-border-radius: 0;
+  -webkit-border-top: 0;
+  border-radius: 0;
+  border: 0 none;
+  background: #fff none;
+  -moz-border-radius: 3px 3px 0 0;
+  -webkit-border-radius: 3px 3px 0 0;
+  border-radius: 3px 3px 0 0;
+}
+
+.ui-dialog .ui-dialog-title {
+  margin: 30px 30px 7px 30px;
+  width: auto;
+  white-space: normal;
+  word-break: break-word;
+  padding-bottom: 3px;
+}
+
+.ui-dialog .ui-dialog-titlebar-close {
+  position: absolute;
+  display: block;
+  width: 41px;
+  height: 41px;
+  background: #7a7a7a url(../images/icon_window_close.png) no-repeat 10px 10px;
+  outline: none;
+  border: 0 none;
+  z-index: 999999;
+}
+
+.ui-dialog .ui-dialog-titlebar-close .ui-icon-closethick {
+  display: none;
+}
+
+.ui-dialog .ui-dialog-content {
+  background-color: #fff;
+  overflow: hidden;
+  -moz-border-radius: 0 0 3px 3px;
+  -webkit-border-radius: 0 0 3px 3px;
+  border-radius: 0 0 3px 3px;
+  padding: 30px;
+  padding-top: 10px;
+  position: relative;
+}
+
+.ui-dialog.no-title .ui-dialog-title {
+  display: none;
+}
+
+.ui-dialog.no-title .ui-dialog-content {
+  padding-top: 40px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+
+.mini-block-wait div {
+  margin: 0;
+}
+
+/*
+ * Search box
+ */
+
+.simple-search-product-form
+{
+  float: right;
+}
+
+#search div.form-actions
+{
+  display: none;
+}
+
+/*
+ * Primary links
+ */
+
+#main-menu
+{
+  margin: 0;
+  padding: 0;
+}
+
+.no-breadcrumbs #main-menu
+{
+  margin-bottom: 20px;
+}
+
+.no-breadcrumbs h1#page-title {
+  padding-top: 11px;
+}
+
+/*
+ * Breadcrumbs
+ */
+
+#breadcrumb
+{
+  position: relative;
+    float: left;
+    width: 100%;
+}
+
+#breadcrumb li.last > a {
+  color: #a9a9a9;
+}
+
+#breadcrumb .home-link {
+  line-height: 20px;
+}
+
+#breadcrumb .home-link img
+{
+  vertical-align: middle;
+  position: relative;
+  top: -2px;
+  width: 20px;
+  height: 20px;
+}
+
+#breadcrumb ul.breadcrumb {
+  float: left;
+}
+
+ul.breadcrumb li.location-node {
+  background: transparent none;
+  position: relative;
+  padding-left: 0;
+  margin: 2px 0 0;
+}
+
+ul.breadcrumb li.location-node > a,
+  ul.breadcrumb li.location-node > span
+{
+  font-size: 15px;
+  text-decoration: none;
+}
+
+ul.breadcrumb li.location-node > a:hover{
+  text-decoration: underline;
+}
+
+#breadcrumb li.location-node .more-link span{
+  font-weight: bold;
+  color: #5194c5;
+}
+
+#breadcrumb li.location-node .more-link a{
+    text-decoration: none;
+     border-bottom: 1px dotted #0f9dcc;
+}
+
+ul.breadcrumb li.location-node span.separator {
+  line-height: 20px;
+}
+
+ul.breadcrumb > li.location-node + li:before {
+  color: #888;
+  padding-left: 10px;
+  padding-right: 5px;
+  content: '\203A\00A0';
+}
+
+ul.breadcrumb li:first-child {
+  margin: 0;
+}
+
+li.location-node:hover ul.location-subnodes {
+  display: inline;
+}
+
+ul.location-subnodes {
+  position: absolute;
+  top: 20px;
+  left: 29px;
+  list-style-type: none;
+  background-color: #fff;
+  z-index: 10000;
+  display: none;
+}
+
+ul.location-subnodes li {
+  background-image: none;
+  padding: 0;
+  white-space: nowrap;
+}
+
+ul.location-subnodes li a {
+  line-height: inherit;
+}
+
+.location-title-subnodes-mark {
+  text-decoration: none;
+  padding-top: 0.2em;
+}
+
+ul.location-subnodes li a.current {
+  font-weight: bold;
+}
+
+/*
+ *
+ * SIDEBARS
+ *
+ */
+
+/*
+ * Blocks
+ */
+
+.sidebar .block
+{
+  border-style: solid;
+  border-width: 1px;
+  padding: 20px;
+  margin: 0 0 20px;
+}
+
+.sidebar .block .head-h2
+{
+  margin-top: -4px;
+}
+
+.sidebar .block-menu,
+.sidebar .block-user
+{
+  padding-bottom: 14px;
+}
+
+.sidebar .block-menu .head-h2,
+.sidebar .block-user .head-h2
+{
+  margin-bottom: 7px;
+}
+
+/*
+ * Menus
+ */
+
+.sidebar ul.menu
+{
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar ul.menu li
+{
+  display: block;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar ul.menu .first a           /* Hide the dotted border for the first item */
+{
+  border-style: none;
+}
+
+.sidebar ul.menu a,
+.sidebar ul.menu li .first a,
+.sidebar ul.menu .first li a        /* Restore the border for nested first items */
+{
+  border-top: 1px dotted #dfdfdf;
+}
+
+.sidebar ul.menu a
+{
+  display: block;
+  text-decoration: none;
+  padding: 8px 14px 6px 0;
+}
+
+.sidebar .block-without-title div > ul.menu > li.first > a
+{
+  padding-top: 0;
+}
+
+.sidebar ul.menu li li a
+{
+  padding-left: 16px;
+}
+
+.sidebar ul.menu li li li a
+{
+  padding-left: 32px;
+  font-size: 12px;
+}
+
+.sidebar ul.menu li li li li a
+{
+  padding-left: 48px;
+}
+
+.sidebar ul.menu li li li li li a
+{
+  padding-left: 64px;
+}
+
+.sidebar ul.menu .leaf a
+{
+  background-image: none;
+}
+
+.sidebar ul.menu .collapsed ul
+{
+  display: none;
+}
+
+.sidebar ul.menu a.active
+{
+  color: #646c76;
+}
+
+/*
+ * Tabs
+ */
+
+/* Secondary tabs */
+
+div.tabs .secondary
+{
+  padding: 11px;
+  height: 22px;
+  line-height: 22px;
+}
+
+div.tabs .secondary li
+{
+  border-style: none;
+  margin: 0 10px 0 0;
+}
+
+div.tabs .secondary a,
+div.tabs .secondary span
+{
+  text-decoration: underline;
+}
+
+div.tabs .secondary a.active,
+div.tabs .secondary span.active
+{
+  border-style: none;
+  background-color: #5296ca;
+  text-decoration: none;
+  color: white;
+  padding: 3px 10px;
+}
+
+/*
+ *
+ * FOOTER
+ *
+ */
+
+.sidebar,
+#content
+{
+  margin-bottom: 40px;
+}
+
+#footer-area {
+  font-size: 12px;
+  background: #f7f7f7;
+  padding: 0 26px;
+  margin: 0;
+  position: relative;  /* Position Facebook and Twitter links inside the footer box */
+  bottom: 0;
+  width: auto;
+}
+
+.powered-by {
+  padding-top: 13px;
+  padding-bottom: 10px;
+  font-size: 11px;
+}
+
+/*
+ * Twitter and Facebook links
+ */
+
+#social-links
+{
+  position: absolute;
+  top: -10px;
+  right: 30px;
+}
+
+#social-links .social-link
+{
+  float: left;
+  margin: 0 0 0 20px;
+  height: 60px;
+  padding-top: 30px;
+}
+
+#social-links a
+{
+  display: block;
+  font-size: 11px;
+  width: 126px;
+  height: 26px;
+  line-height: 26px;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+}
+
+#twitter-link a
+{
+  width: 121px;
+  color: #0080bc;
+}
+
+/**
+ * Secondary links
+ */
+#secondary-menu
+{
+  background: transparent;
+  margin: 0 auto;
+  width: 50%;
+  text-align: center;
+  padding-top: 15px;
+}
+
+#secondary-menu span
+{
+  padding: 5px 0 5px 0;
+  margin: 0;
+  border: none !important;
+  background: transparent !important;
+}
+
+#secondary-menu span a {
+  line-height: 1.5em;
+}
+
+/**
+ * Float box
+ */
+form .floatable-box {
+  width: 30%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  text-align: center;
+  padding: 14px 17px;
+  vertical-align: middle;
+}
+
+form .floatable-box.float-box {
+  position: fixed;
+  bottom: 20px;
+  background-color: #fff;
+  opacity: 0.9;
+}
+
+
+/*
+ * Pagers
+ */
+
+.item-list ul.pager
+{
+  text-align: left;
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid #dfdfdf;
+}
+
+.item-list ul.pager li
+{
+  padding: 0;
+  list-style: none;
+  vertical-align: top;
+  display: -moz-inline-stack;   /* FF2 supports this instead of "inline-block" */
+  display: inline-block;
+  border-style: solid;          /* Weird but FF requires this in order to display "inline-blocks" properly */
+  border-color: transparent;    /* Hide the border in all browsers but IE6 */
+  border-width: 0;
+}
+
+
+ul.pager a,
+ul.pager span
+{
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+}
+
+ul.pager li.next-page,
+ul.pager li.previous-page
+{
+  text-indent: -8000em;
+  background: transparent url(../images/pager.png) no-repeat top left;
+}
+
+ul.pager li.previous-page
+{
+  background-position: 10px -31px;
+}
+
+ul.pager li.next-page
+{
+  background-position: 12px -61px;
+}
+
+/**
+ * Form : user-profile
+ */
+#user-profile-form fieldset {
+  margin-top: 33px;
+}
+
+#user-profile-form .form-item label {
+  padding-left: 4px;
+  width: 151px;
+}
+
+#user-profile-form .form-type-radio label,
+#user-profile-form .form-type-checkbox label
+{
+  width: auto;
+}
+
+
+#user-profile-form legend {
+  margin-left: -6px;
+}
+
+#user-profile-form .form-item .description,
+#user-profile-form .wysiwyg,
+#user-profile-form .wysiwyg + p
+{
+  padding-left: 160px;
+}
+
+#user-profile-form .form-item .form-checkbox,
+#user-profile-form .form-item .form-radio
+{
+  padding-left: 0;
+  margin-left: 135px;
+}
+
+#user-profile-form .form-item .form-radios label.option,
+#user-profile-form .form-item .form-checkboxes label.option
+{
+  padding-left: 0;
+}
+
+#user-profile-form .form-required {
+  float: right;
+}
+
+#user-profile-form #edit-mail-wrapper {
+  margin-top: 10px;
+}
+
+#user-profile-form #edit-mail,
+#user-profile-form #edit-pass-wrapper input,
+#user-profile-form #edit-pass-pass2-wrapper input
+{
+  width: 240px;
+}
+
+#user-profile-form .form-type-password-confirm {
+  margin-top: 48px;
+}
+
+#user-profile-form .form-item-pass-pass2 {
+  margin-top: 30px;
+}
+
+#user-profile-form #edit-pass-wrapper input,
+#user-profile-form #edit-pass-pass2-wrapper input
+{
+  vertical-align: middle;
+}
+
+#user-profile-form .form-item .password-suggestions {
+  margin-left: 159px;
+  margin-top: 14px;
+  width: 416px;
+  line-height: 20px;
+  font-size: 12px;
+  padding: 13px 17px;
+}
+
+#user-profile-form .password-suggestions li {
+  background-image: none;
+}
+
+#user-profile-form .picture-block .fieldset-wrapper {
+  margin-top: 9px;
+}
+
+#user-profile-form .picture-block .user-picture {
+  float: left;
+}
+
+#user-profile-form .picture-block label.option,
+#user-profile-form .picture-block .description
+{
+  padding-left: 0;
+}
+
+#user-profile-form .picture-block .form-item {
+  margin-left: 97px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+#user-profile-form .picture-block .form-item-picture-delete input {
+  margin-top: 5px;
+  margin-left: 2px;
+}
+
+#user-profile-form .picture-block .form-item-picture-delete label {
+  vertical-align: middle;
+}
+
+#user-profile-form .picture-block .form-item-picture-delete .description {
+  margin-left: 2.4em;
+}
+
+#user-profile-form .picture-block .form-item-files-picture-upload {
+  padding-top: 4px;
+}
+
+#user-profile-form .picture-block .form-item-files-picture-upload label {
+  display: block;
+  width: 100%;
+  padding-bottom: 4px;
+}
+
+#user-profile-form #edit-delete {
+  border: 0 none;
+  background: transparent url(../images/icon_trash.png) no-repeat left 10px;
+  color: #333;
+  padding-left: 18px;
+  padding-top: 5px;
+  height: 36px;
+  vertical-align: middle;
+}
+
+#user-profile-form #edit-delete span {
+  text-decoration: underline;
+  vertical-align: middle;
+}
+
+.this-is-demo-store {
+  background-color: #ececec;
+}

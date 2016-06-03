@@ -1,0 +1,17 @@
+{##
+ # Marketplace banner
+ #}
+
+<div class="top-controls banner">
+  <div class="banner-info main-banner">
+    <a class="module-link" href="{{ this.getMainBannerURL() }}" {% if this.isMainBannerExternalURL() %}target="_blank"{% endif %}><img class="module-image" src="{{ this.getMainBannerImg() }}" alt="" /></a>
+    {{ widget_list('marketplace.landing.controls') }}
+  </div>
+  <div class="banners-collection-box">
+    {% for banner in this.getBannersCollection() %}
+      <div class="banner-info banners-collection">
+        <a class="module-link" href="{{ this.getBannerURL(banner) }}" {% if this.isBannerExternalURL(banner) %}target="_blank"{% endif %}><img class="module-image" src="{{ this.getBannerImg(banner) }}" alt="" /></a>
+      </div>
+    {% endfor %}
+  </div>
+</div>

@@ -1,0 +1,30 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Coupon form styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+
+.coupons div.star {
+  padding-top: 13px;
+}
+
+.coupons .wheel-mark {
+  margin-right: 0px;
+}
+
+.coupons ul li {
+  float: none;
+}
+
+.coupons div.default-section {
+  float: none;
+}
+
+.coupons select {
+  float: left;
+}
+

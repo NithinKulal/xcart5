@@ -1,0 +1,10 @@
+{##
+ # Template
+ #
+ # @ListChild (list="minicart.horizontal.buttons", weight="1000")
+ #}
+{% if this.isPayWithAmazonActive() %}
+<div id="payWithAmazonDiv_mini_cart_btn" style="padding-top:8px;">
+	<img src="{{ this.getAmazonButtonURL() }}" style="cursor: pointer;" />
+</div>
+{% endif %}

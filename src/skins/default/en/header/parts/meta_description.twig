@@ -1,0 +1,9 @@
+{##
+ # Head list children
+ #
+ # @ListChild (list="head", weight="600")
+ #}
+
+{% if this.getMetaDescription() %}
+  <meta name="description" content="{{ t(this.getMetaDescription()) }}" />
+{% endif %}

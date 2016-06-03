@@ -1,0 +1,43 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * F products list styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.f_products.items-list-table table.list td.cell.sku {
+  min-width: 100px;
+}
+
+.items-list button.remove .fa-trash-o:before {
+  content: "";
+}
+
+.items-list button.remove .fa-trash-o {
+  background: transparent url(../../../../images/close_icon.png) no-repeat center -2px;
+  height: 19px;
+  width: 19px;
+  vertical-align: middle;
+}
+
+.items-list button.remove:hover .fa-trash-o {
+  background-position-y: -24px;
+}
+
+td.cell.product div.cell {
+  width: 212px;
+  overflow: hidden;
+  position: relative;
+}
+
+.cdev-featuredproducts-searchpanel-main .search-conditions-box .search-conditions {
+  min-width: initial;
+}
+
+.cdev-featuredproducts-searchpanel-main .search-conditions-box .search-conditions > li.substring-condition,
+.cdev-featuredproducts-searchpanel-main .search-conditions-box .search-conditions > li.categoryId-condition
+{
+  width: 41%;
+}

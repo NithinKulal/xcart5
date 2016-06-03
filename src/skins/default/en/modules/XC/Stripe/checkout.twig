@@ -1,0 +1,7 @@
+{##
+ # Checko payment template
+ #}
+
+<div class="stripe-box" {{ this.printTagAttributes(this.getDataAtttributes())|raw }}>
+  <input type="hidden" name="payment[token]" value="" class="token" />
+</div>

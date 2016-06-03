@@ -1,0 +1,19 @@
+{##
+ # Payment method
+ #}
+
+{{ widget('\\XLite\\View\\Payment\\MethodStatus', method=this.getPaymentMethod()) }}
+
+{% form '\\XLite\\View\\Form\\Payment\\Method\\Admin\\Settings' %}
+
+  {% if this.isWidgetSettings() %}
+    {{ widget(this.paymentMethod.processor.getSettingsWidget(), paymentMethod=this.getPaymentMethod()) }}
+  {% else %}
+    {% include this.paymentMethod.processor.getSettingsWidget() %}
+  {% endif %}
+
+  {% if this.paymentMethod.processor.useDefaultSettingsFormButton() %}
+    {{ widget('\\XLite\\View\\StickyPanel\\Payment\\Settings') }}
+  {% endif %}
+
+{% endform %}

@@ -1,0 +1,8 @@
+{##
+ # Left side menu control
+ #
+ # @ListChild (list="admin.main.page.header", weight="30")
+ #}
+{% if this.auth.isAdmin() %}
+  <div class="left-menu-ctrl"><a href="{{ url() }}"><i class="fa fa-bars"></i></a></div>
+{% endif %}

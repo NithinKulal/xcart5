@@ -1,0 +1,10 @@
+{##
+ # Module settings page warning
+ #
+ # @ListChild (list="crud.modulesettings.header", zone="admin", weight="10")
+ #}
+{% if this.target == 'module' and this.module.getActualName() == 'XC\\WebmasterKit' %}
+  <div class="alert alert-warning">
+    {{ t('Webmaster Kit module is recommended for use by advanced users only. It must not be used on production servers as it may significantly reduce the website performance.') }}
+  </div>
+{% endif %}

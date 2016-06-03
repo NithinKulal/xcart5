@@ -1,0 +1,7 @@
+{##
+ # News messages :: name cell
+ #
+ # @ListChild (list="itemsList.newsMessages.customer.center.row", weight="200")
+ #}
+
+<div class="news-message-link"><a href="{{ url('news_message', '', {'id': this.model.id}) }}">{{ this.model.name }}</a></div>

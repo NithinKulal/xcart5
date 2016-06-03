@@ -1,0 +1,8 @@
+{##
+ # Shipment action button template
+ #}
+
+<button type="button" class="{{ this.getClass() }}"{% if this.getId() %} id="{{ this.getId() }}"{% endif %}{% if this.isDisabled() %} disabled="disabled"{% endif %}>
+  {{ this.displayCommentedData(this.getJSParams()) }}
+  <span>{{ t(this.getButtonLabel()) }}</span>
+</button>

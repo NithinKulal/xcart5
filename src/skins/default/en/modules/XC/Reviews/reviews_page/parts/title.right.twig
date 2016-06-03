@@ -1,0 +1,18 @@
+{##
+ # Review management buttons
+ #
+ # @ListChild (list="reviews.review.title", weight="200")
+ #}
+<div class="right-actions">
+  {% if this.isOnModeration(this.review) %}
+    <div class="moderation">{{ t('On moderation') }}</div>
+  {% endif %}
+  {% if this.isOwnReview(this.review) %}
+    <div class="separator"></div>
+  {% endif %}
+  {% if this.isOwnReview(this.review) %}
+    <div class="buttons">
+      {{ widget('\\XLite\\Module\\XC\\Reviews\\View\\Button\\Customer\\EditReview', label=' ', review=this.review) }}
+    </div>
+  {% endif %}
+</div>

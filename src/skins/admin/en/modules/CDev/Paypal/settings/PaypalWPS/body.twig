@@ -1,0 +1,35 @@
+{##
+ # Settings template
+ #}
+
+{{ widget('\\XLite\\View\\Payment\\MethodStatus', method=this.getPaymentMethod()) }}
+
+<div class="payment-settings {{ this.paymentMethod.getServiceName() }}">
+
+  <div class="middle">
+
+    {{ widget('\\XLite\\Module\\CDev\\Paypal\\View\\Model\\PaypalWPS', paymentMethod=this.getPaymentMethod()) }}
+
+    <div class="help">
+      <div class="logo-ppa"></div>
+
+      <div class="help-title">Accept PayPal and Credit Cards Securely</div>
+
+      <div class="help-text">
+        Add a PayPal payment button to your site to accept Visa, MasterCard&reg;, American Express, Discover and PayPal payments securely. When your customers check out, they are redirected to PayPal to pay, then return to your site after they are finished.
+      </div>
+
+      <div class="links">
+        <div class="help-link">Don't have an account? <span class="external"><a href="{{ this.paymentMethod.getReferralPageURL() }}" target="_blank">Sign Up Now</a> <i class="icon fa fa-external-link"></i></span></div>
+        {% if this.paymentMethod.getKnowledgeBasePageURL() %}
+          <div class="help-link">Need instructions? <span class="external"><a href="{{ this.paymentMethod.getKnowledgeBasePageURL() }}" target="_blank">Show</a> <i class="icon fa fa-external-link"></i></span></div>
+        {% endif %}
+      </div>
+
+      <div class="help-text"><span class="external"><a href="{{ this.paymentMethod.getPartnerPageURL() }}" target="_blank">Get more information</a> <i class="icon fa fa-external-link"></i></span></div>
+
+    </div>
+
+  </div>
+
+</div>

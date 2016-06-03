@@ -1,0 +1,30 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Average rating widget styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+div.rating-end {
+  background-color: #222222;
+}
+
+ul.reviews-list .title {
+  background: #222222 !important;
+}
+
+div.product-average-rating div.ratings-details {
+  color: #222222;
+}
+
+div.product-average-rating div.ratings-details .title {
+  font-size: 18px;
+}
+
+.product-details .title div.moderation 
+{
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+}

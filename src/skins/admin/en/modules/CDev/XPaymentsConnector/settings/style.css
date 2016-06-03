@@ -1,0 +1,276 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * CSS classes for Saved credit cards page
+ *
+ * @author    Qualiteam software Ltd <info@x-cart.com>
+ * @copyright Copyright (c) 2011-2016 Qualiteam software Ltd <info@x-cart.com>. All rights reserved
+ * @license   http://www.x-cart.com/license-agreement.html X-Cart 5 License Agreement
+ * @link      http://www.x-cart.com/
+ */
+
+
+/**
+ * Wellcome page
+ */
+div.welcome-container {
+  max-width: 936px;
+  margin: 45px auto;
+}
+
+div.xp-icon-circle {
+  background: url(img/circle_xp_logo.png);
+  width: 70px;
+  height: 70px;
+  position: absolute;
+  left: -35px;
+  top: 50%;
+  margin-top: -35px;
+}
+
+div.scary-note {
+  border-radius: 6px;
+  border-width: 2px;
+  border-color:  #e1e1e1;
+  border-style: dashed;
+  box-shadow: 0px 0px 5px 0px rgba(2, 3, 3, 0.1);
+  width: 100%;
+  position: relative;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+div.scary-note div.logo {
+  height: 100px;
+  float: left;
+  padding-top: 11px;
+  padding-right: 25px;
+}
+
+div.logo.xp {
+  margin-left: 25px;
+}
+
+div.logo.xp img {
+  max-height: 48px;
+  margin-top: 15px;
+}
+  
+div.scary-text {
+  font-size: 14px;
+} 
+
+div.pci-logo {
+  background: url(img/pci_dss_compliance.png);
+  width: 100px;
+  height: 48px;
+  position: absolute;
+  right: -37px;
+  top: -28px;
+}
+
+
+div.connect-caption {
+  color:  #333333;
+  font-size: 26px;
+  margin: 23px auto;
+  text-align: center;
+}
+
+
+div.steps {
+  margin: 0 auto;
+  width: 964px;
+  margin-bottom: 100px;
+}
+
+div.steps div.top-line {
+  height: 104px;
+  margin-bottom: 35px;
+}
+
+div.steps div.top-line div.arrow {
+  background: url(img/arrow.png) no-repeat center;
+  width: 60px;
+  height: 104px;
+  float: left;
+  margin-right: 70px;
+}
+
+div.steps div.top-line div.step {
+  width: 112px;
+  height: 140px;
+  padding-bottom: 35px;
+  float: left;
+}
+
+div.steps div.top-line div.step1 {
+  margin-right: 70px;
+  margin-left: 70px;
+  background: url(img/icons.png) no-repeat 0 0;
+  background-clip: content-box;
+}
+
+div.steps div.top-line div.step1:hover,
+div.steps div.top-line div.step1.hover {
+  background: url(img/icons.png) no-repeat 0 -104px;
+}
+
+
+div.steps div.top-line div.step2 {
+  background: url(img/icons.png) no-repeat -115px 0;
+  background-clip: content-box;
+  margin-right: 70px;
+}
+
+div.steps div.top-line div.step2:hover,
+div.steps div.top-line div.step2.hover {
+  background: url(img/icons.png) no-repeat -115px -104px;
+}
+
+div.steps div.top-line div.step3 {
+  background: url(img/icons.png) no-repeat -230px 0;
+  background-clip: content-box;
+  width: 230px;
+}
+
+div.steps div.top-line div.step3:hover,
+div.steps div.top-line div.step3.hover {
+  background: url(img/icons.png) no-repeat -230px -104px;
+}
+
+
+
+div.middle-line {
+  height: 43px;
+}
+
+div.steps div.middle-line div.step1,
+div.steps div.bottom-line div.step1, 
+div.steps div.middle-line div.step2,
+div.steps div.bottom-line div.step2 {
+  width: 252px;
+  text-align: center;
+  float: left; 
+  margin-right: 60px;
+}
+
+div.steps div.middle-line div.step3,
+div.steps div.bottom-line div.step3 { 
+  width: 340px;
+  text-align: center;
+  float: left;
+}
+
+div.steps div.middle-line div.step1 span,
+div.steps div.middle-line div.step2 span,
+div.steps div.middle-line div.step3 span {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+div.steps div.middle-line strong.nowrap,
+div.steps div.middle-line span.nowrap {
+  white-space: nowrap;
+}
+
+div.steps div.bottom-line a {
+  margin-top: 7px;
+  display: inline-block;
+  font-size: 14px;
+  min-height: 35px;
+  padding: 6px 12px;
+}
+
+div.steps div.bottom-line a.btn {
+  margin-top: 8px;
+  width: 180px;
+  font-size: 14px;
+}
+
+div.welcome-container div.video-container {
+  margin: 0 auto;
+  width: 560px;
+}
+
+/*
+ * /Wellcome page
+ **/
+
+
+div.settings.general-settings div.tooltip-main {
+  padding-right: 10px;
+}
+
+div.settings.general-settings p,
+div.connection-status,
+div.no-zero-auth-methods {
+  font-size: 15px;
+}
+
+div.connection-status,
+div.no-zero-auth-methods {
+  width: 600px;
+}
+
+div.settings.general-settings p b {
+  color: #456583;
+}
+
+div.settings.general-settings input[type=text] {
+  width: 480px;
+}
+
+div.settings.general-settings input#deploy-configuration {
+  width: 820px;
+}
+
+div.settings.general-settings select {
+  width: 496px;
+}
+
+div.settings.general-settings textarea {
+  white-space: normal;
+  font-size: 15px;
+  width: 480px;
+  height: 100px;
+  overflow-x: hidden;
+}
+
+
+div.xpc-currency div.tooltip-main i {
+  color: #a94442;
+  font-size: 16px;
+}
+
+div.xpc-currency div.tooltip-main .tooltip-inner,
+div.xpc-currency div.tooltip-main .tooltip-inner a {
+  font-size: 14px !important;
+}
+
+
+td.cell.save_cards div.check {
+  text-align: center;
+}
+
+div.table-label.amount-label,
+div.table-label.method-id-label,
+div.table-label.decline-period-label,
+div.table-label.description-label {
+  width: 350px;
+}
+
+div.table-value.amount-value input#amount,
+div.table-value.decline-period-value input#decline-period {
+  width: 100px;
+}
+
+.no-payments-requested a.addons-list-back-button {
+  margin-left: 52px;
+}
+
+.no-payments-requested a.addons-list-back-button span {
+  margin-bottom: -5px;
+}

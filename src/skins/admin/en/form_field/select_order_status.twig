@@ -1,0 +1,21 @@
+{##
+ # ____file_title____
+ #}
+<div class="order-status-selector{% if this.isStatusWarning() %} status-warning{% endif %}">
+  <select {{ this.getAttributesCode()|raw }}>
+    {% if this.getParam('allOption') %}
+      <option value="">{{ t('All Order Statuses') }}</option>
+    {% endif %}
+    {% for optionValue, optionLabel in this.getOptions() %}
+    <option value="{{ optionValue }}"{% if optionValue == this.getValue() %} selected="selected"{% endif %}{% if this.isOptionDisabled(optionValue) %} disabled="disabled"{% endif %}>{{ t(optionLabel) }}</option>
+    {% endfor %}
+  </select>
+    {% if this.isStatusWarning() %}
+      <a id="status_warning_{{ this.getParam('orderId') }}" class="icon-warning popup-warning" href="{{ this.getURL() }}"><img src="{{ asset('images/spacer.gif') }}" width="1" height="1" alt="" /></a>
+    {% endif %}
+  {% if this.isStatusWarning() %}
+    <div class="status-warning-content">
+      {{ t(this.getStatusWarningContent()) }}
+    </div>
+  {% endif %}
+</div>

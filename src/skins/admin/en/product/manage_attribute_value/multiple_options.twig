@@ -1,0 +1,8 @@
+{##
+ # Multiple options 
+ #}
+
+<label class="inline-checkbox multiple-checkbox">
+  <input type="checkbox" tabindex="-1" name="{{ this.getName('multiple') }}"{% if this.isMultiple() %} checked="checked"{% endif %} />
+  <span>{{ this.getMultipleTitle() }}</span>
+</label>

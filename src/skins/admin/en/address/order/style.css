@@ -1,0 +1,127 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Order's addresses popup styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+/* Field */
+.inline-order-address.same-as-billing .address-section,
+.inline-order-address .same-note
+{
+  display: none;
+}
+
+.inline-order-address.same-as-billing .same-note {
+  display: inline;
+}
+
+/* Popup */
+.ui-dialog.no-title .widget-address-ordermodify.ui-dialog-content {
+  padding-top: 19px;
+}
+
+.order-address-dialog {
+  min-width: 470px;
+}
+
+.order-address-dialog h1 {
+  margin-top: 0px;
+  margin-bottom: 24px;
+}
+
+.order-address-dialog .expander,
+.order-address-dialog .collapsed .collapser,
+.order-address-dialog .billing.collapsed .model-properties,
+.order-address-dialog .shipping.collapsed .model-properties,
+.order-address-dialog .same-note
+{
+  display: none;
+}
+
+.order-address-dialog .collapsed .expander,
+.order-address-dialog.billing-section.same-address .same-note
+{
+  display: block;
+}
+
+.order-address-dialog .info {
+  border-bottom: 1px solid #e5e5e5;
+  padding-bottom: 27px;
+}
+
+.order-address-dialog .info {
+  text-decoration: none;
+}
+
+.order-address-dialog h3,
+.order-address-dialog .expander,
+.order-address-dialog .collapser
+{
+  float: left;
+}
+
+.order-address-dialog h3 {
+  color: #333;
+}
+
+.order-address-dialog .address-box {
+  padding-top: 15px;
+  width: 100%;
+  float: none;
+}
+
+.order-address-dialog .expander,
+.order-address-dialog .collapser
+{
+  line-height: 43px;
+  vertical-align: middle;
+  margin-left: 10px;
+}
+
+.order-address-dialog .address-book {
+  float: right;
+  text-decoration: none;
+  margin-top: 1px;
+}
+
+.order-address-dialog .model-properties,
+.order-address-dialog .same-note,
+.order-address-dialog .address-box
+{
+  clear: both;
+}
+
+.order-address-dialog .buttons {
+  text-align: center;
+}
+
+.order-address-dialog .section {
+  padding-top: 7px;
+}
+
+.order-address-dialog div.table-label {
+  width: 110px;
+  font-size: 14px;
+}
+
+.order-address-dialog div.table-label,
+.order-address-dialog div.table-label label {
+  text-align: right;
+  font-size: 14px;
+}
+
+.order-address-dialog .model-properties ul.table li div.star {
+  padding-left: 2px;
+  padding-right: 12px;
+}
+
+.order-address-dialog div.table-value input[type="text"],
+.order-address-dialog div.table-value input[type="password"],
+.order-address-dialog div.table-value textarea,
+.order-address-dialog div.table-value select
+{
+  width: 340px;
+}

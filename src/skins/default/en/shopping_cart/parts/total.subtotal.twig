@@ -1,0 +1,12 @@
+{##
+ # Shopping cart subtotal
+ #
+ # @ListChild (list="cart.totals", weight="10")
+ # @ListChild (list="cart.panel.totals", weight="10")
+ #}
+<li class="subtotal">
+  <strong>{{ t('Subtotal') }}:</strong>
+  <span class="cart-subtotal">
+    {{ widget('XLite\\View\\Surcharge', surcharge=this.cart.getDisplaySubtotal(), currency=this.cart.getCurrency()) }}
+  </span>
+</li>

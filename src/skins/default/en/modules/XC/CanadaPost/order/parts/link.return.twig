@@ -1,0 +1,11 @@
+{##
+ # Order "Return products" link
+ #
+ # @ListChild (list="order.links", weight="30")
+ #}
+
+{% if this.order.isCapostShippingMethod() %}
+  <li>
+    {{ widget('\\XLite\\Module\\XC\\CanadaPost\\View\\Button\\PopupReturnProducts', orderId=this.order.getOrderId()) }}
+  </li>
+{% endif %}

@@ -1,0 +1,22 @@
+{##
+ # Shipping estimator : address : state
+ #
+ # @ListChild (list="shippingEstimator.address", weight="20")
+ #}
+
+{% if this.isStateFieldVisible() %}
+  <li class="state">
+    {% if this.hasField('country_code') %}
+      {{ widget('\\XLite\\View\\FormField\\Select\\State', fieldName='destination_state', value=this.getState(), style='field-required', label=t('State'), required='true') }}
+    {% endif %}
+    {% if not this.hasField('country_code') %}
+      {{ widget('\\XLite\\View\\FormField\\Select\\State', fieldName='destination_state', value=this.getState(), style='field-required', label=t('State'), required='true', country=this.getCountryCode()) }}
+    {% endif %}
+  </li>
+{% endif %}
+
+{% if this.isCustomStateFieldVisible() %}
+  <li class="state">
+    {{ widget('\\XLite\\View\\FormField\\Input\\Text', fieldName='destination_custom_state', value=this.getOtherState(), label=t('State')) }}
+  </li>
+{% endif %}

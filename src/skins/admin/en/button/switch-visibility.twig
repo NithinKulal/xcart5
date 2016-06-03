@@ -1,0 +1,8 @@
+{##
+ # Remove button
+ #}
+<div class="switch-wrapper {{ this.getStyle() }}">
+  <button type="button" class="{{ this.getStyle() }} {% if this.isEnabled() %}mark{% endif %}" title="{{ t(this.getButtonLabel()) }}" tabindex="-1"><i class="fa fa-power-off"></i></button>
+  <input type="hidden" name="{{ this.getName() }}" value="0" tabindex="-1" />
+  <input type="checkbox" name="{{ this.getName() }}" value="{{ this.isEnabled() }}" {% if this.isEnabled() %}checked{% endif %} tabindex="-1" />
+</div>

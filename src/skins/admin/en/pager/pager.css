@@ -1,0 +1,111 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * ____file_title____
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.list-pager,
+.list-pager-low
+{
+  height: 6em;
+  padding-bottom: 1em;
+  padding-top: 1em;
+}
+
+ul.pager {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+ul.pager li {
+  list-style: none;
+  background: none;
+  height: 1.9em;
+  width: 2.1em;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid #fff;
+  float: left;
+  padding: 0.3em 0 0 0;
+}
+
+ul.pager li.active {
+  cursor: pointer;
+}
+
+ul.pager li a,
+ul.pager li span {
+  border: 0;
+  text-decoration: none;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 1.2em;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
+
+ul.pager li:hover {
+  border-width: 1px;
+  border-color: #b1c9e0;
+}
+
+ul.pager li.disabled
+{
+  display: none;
+}
+
+ul.pager li.selected,
+  ul.pager li.selected span
+{
+  background: #869cb1 none;
+  color: #fff;
+  cursor: text;
+  border-color: #869cb1;
+}
+
+ul.pager li.spacer,
+ul.pager li.more-pages {
+  border: none;
+  width: 30px;
+}
+
+ul.pager li.more-pages {
+  vertical-align: bottom;
+}
+
+ul.pager li.previous-page {
+  background: transparent url(images/arrow_pager_left.png) no-repeat center center;
+}
+
+ul.pager li.next-page {
+  background: transparent url(images/arrow_pager_right.png) no-repeat center center;
+}
+
+ul.pager li a:after {
+  content: attr(data-text);
+}
+
+ul.pager li.next-page a:after,
+  ul.pager li.previous-page a:after
+{
+  content: none;
+}
+
+div.pager-items-total {
+  float: right;
+  padding-top: 0.6em;
+}
+
+div.pager-items-total input.page-length {
+  border-color: #7f7f7f #cbcbcb #cbcbcb #7f7f7f;
+  border-style: solid;
+  border-width: 1px;
+  text-align: center;
+  width: 2em;
+}

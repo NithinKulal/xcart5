@@ -1,0 +1,8 @@
+{##
+ # Title
+ #
+ # @ListChild (list="product.attachments.properties", weight="200", zone="admin")
+ #}
+<div class="reupload-file">
+  {{ widget('XLite\\View\\Button\\FileSelector', style='reupload', label='Re-upload file', object='attachment', objectId=this.attachment.getId(), fileObject='attachments') }}
+</div>

@@ -1,0 +1,9 @@
+{##
+ # Canada Post products return :: from :: actions :: left :: status change
+ #
+ # @ListChild (list="capost_return.form.actions.left", weight="100")
+ #}
+
+<div class="status">
+  {{ widget('\\XLite\\Module\\XC\\CanadaPost\\View\\FormField\\Select\\ReturnStatus', label='Status', fieldName='postedData[status]', value=this.productsReturn.getStatus()) }}
+</div>

@@ -1,0 +1,8 @@
+{##
+ # Orders search page
+ #}
+{% if this.isSearchVisible() %}
+  {{ widget('XLite\\View\\SearchPanel\\Order\\Admin\\Main') }}
+{% endif %}
+
+{{ widget('\\XLite\\View\\ItemsList\\Model\\Order\\Admin\\Search') }}

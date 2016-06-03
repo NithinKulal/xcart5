@@ -1,0 +1,31 @@
+{##
+ # Order items short list
+ #}
+<table cellspacing="0" class="order-list-items">
+  {% for i, item in this.getItems() %}
+    <tr>
+  
+      <td class="image">
+        {{ widget('\\XLite\\View\\Image', image=item.getImage(), alt=item.getName(), maxWidth='40', maxHeight='40', centerImage='0') }}
+      </td>
+  
+      <td>
+        <ul class="name-qty">
+          <li class="name">
+            {% if not item.isDeleted() %}
+              <a href="{{ item.getURL() }}">{{ item.name }}</a>
+            {% endif %}
+            {% if item.isDeleted() %}
+              <span>{{ item.name }}</span>
+            {% endif %}
+          </li>
+          <li class="qty">{{ t('Qty') }}: <span class="quantity">{{ item.amount }}</span></li>
+        </ul>
+      </td>
+  
+    </tr>
+  {% endfor %}
+
+</table>
+
+{{ widget_list('orders.children.view_all_items_link') }}

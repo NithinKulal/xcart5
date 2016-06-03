@@ -1,0 +1,62 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: enable_in_stock_only_filter
+    category: 'XC\ProductFilter'
+    translations:
+      - code: ru
+        option_name: 'Включить фильтр "Только товары в наличии"'
+  - name: enable_price_range_filter
+    category: 'XC\ProductFilter'
+    translations:
+      - code: ru
+        option_name: 'Включить фильтр "Цена"'
+  - name: enable_attributes_filter
+    category: 'XC\ProductFilter'
+    translations:
+      - code: ru
+        option_name: 'Включить фильтр "Атрибуты"'
+  - name: attributes_filter_by_category
+    category: 'XC\ProductFilter'
+    translations:
+      - code: ru
+        option_name: 'Отображать только атрибуты и теги, реально используемые для продуктов в категории'
+        option_comment: 'Если данная настройка выключена, в фильтре показываются все значения атрибутов и все теги, используемые в магазине. Если настройка включена, X-Cart генерирует кеш данных, позволяющий отображать в фильтре только те значения атрибутов и теги, которые реально используются для товаров в просматриваемой категории. Обратите внимание, что доступность товаров для отдельных групп пользователей при генерации кеша не учитывается.'
+  - name: attributes_filter_cache_mode
+    category: 'XC\ProductFilter'
+    translations:
+      - code: ru
+        option_name: 'Режим обновления кэша'
+        option_comment: 'Кеш впервые генерируется при открытии страницы категории. При внесении изменений в данные атрибутов, тегов или товаров, кеш сбрасывается. Затем он генерируется заново, когда происходит открытие любой категории.'
+  - name: attributes_soting_type
+    category: 'XC\ProductFilter'
+    translations:
+      - code: ru
+        option_name: 'Порядок сортировки классовых атрибутов'
+
+XLite\Model\LanguageLabel:
+  - { name: 'Shopping options', translations: [{ code: ru, label: 'Поиск' }] }
+  - { name: 'Show products', translations: [{ code: ru, label: 'Показать' }] }
+  - { name: 'Reset filter', translations: [{ code: ru, label: 'Сбросить' }] }
+  - { name: 'No products matching your criteria found. Please try again with different parameters.', translations: [{ code: ru, label: 'Нет товаров удовлетворяющих выбранным условиям.' }] }
+  - { name: 'Show all products in this category', translations: [{ code: ru, label: 'Показать все товары в категории' }] }
+  - { name: 'Price range', translations: [{ code: ru, label: 'Цена' }] }
+  - { name: 'In stock only', translations: [{ code: ru, label: 'Только в наличии' }] }
+  - { name: 'Generate cache on the fly', translations: [{ code: ru, label: 'Генерировать кеш в процессе работы' }] }
+  - { name: 'Remove cache when attribute, tag or product data is changed', translations: [{ code: ru, label: 'Сбрасывать кеш при изменении данных атрибутов, тегов или товаров' }] }
+  - { name: 'Remove product filter cache tooltip', translations: [{ code: ru, label: 'Кнопка служит для удаления кеша данных, используемого фильтром товаров. После удаления кеша откройте любую категорию в клиентской части сайта, чтобы кеш был сгенерирован заново' }] }
+  - { name: 'Remove product filter cache', translations: [{ code: ru, label: 'Удалить кеш фильтра товаров' }] }
+  - { name: 'Hidden from products filter', translations: [{ code: ru, label: 'Скрыт из фильтра товаров' }] }
+  - { name: 'Visible in products filter', translations: [{ code: ru, label: 'Отображается в фильтре товаров' }] }
+  - { name: 'Classes for product filter', translations: [{ code: ru, label: 'Классы для фильтра продуктов' }] }
+  - { name: 'All classes from this category', translations: [{ code: ru, label: 'Все классы из этой категории' }] }
+  - { name: 'Do not show the filter', translations: [{ code: ru, label: 'Не отображать фильтр' }] }
+  - { name: 'Choose classes...', translations: [{ code: ru, label: 'Выбрать классы...' }] }
+  - { name: 'Alphabetical', translations: [{ code: ru, label: 'По алфавиту' }] }
+  - { name: 'Manual', translations: [{ code: ru, label: 'Вручную' }] }
+  - { name: 'Wrong useClasses format', translations: [{ code: ru, label: "Неправильный формат значения useClasses. Возможные значения: 'A', 'N' or 'D'" }] }

@@ -1,0 +1,119 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Products list styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.search-form-main-part,
+.advanced-search-options,
+.search-form-main-part td,
+.advanced-search-options td
+{
+  border: none 0px;
+}
+
+.search-form-main-part button.search-form-submit {
+  width: 147px;
+  height: 32px;
+  padding: 0;
+}
+
+.search-form-main-part button.search-form-submit span {
+  padding: 0;
+  font-size: 14px;
+}
+
+tr.including-options-list td {
+  padding: 9px 0 0 16px;
+}
+
+.search-form .search-form-main-part,
+.search-form .search-form-main-part td,
+.search-form .advanced-search-options,
+.search-form .advanced-search-options td
+{
+  background-color: #f9f9f9;
+}
+
+.search-product-form {
+  margin-bottom: 0px;
+}
+
+.search-product-form td {
+  padding: 17px 17px 0 0;
+}
+
+.search-product-form .substring-cell {
+  width: 80%;
+  padding: 17px 17px 0 17px;
+  float: none;
+}
+
+.search-product-form .submit-button{
+    text-align: center;
+}
+
+.search-product-form .substring-cell input.form-text {
+  width: 100%;
+  height: 32px;
+  margin: 0;
+}
+
+ul.search-including-options li,
+ul.search-by-options li
+{
+  list-style: none outside none;
+  background: none;
+  padding: 1px 26px 6px 3px;
+  float: left;
+  margin: 0px;
+}
+
+.search-form-main-part td.less-search-options-cell {
+  vertical-align: middle;
+  padding-left: 0;
+  padding-right: 17px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.advanced-search-options td {
+  padding: 17px 0px 3px 0px;
+  vertical-align: middle;
+}
+
+.advanced-search-options td.option-name {
+  font-size: 14px;
+  color: #53769d;
+  padding-left: 33px;
+  width: 125px;
+  vertical-align: top;
+}
+
+.advanced-search-options td.title-category {
+  vertical-align: middle;
+}
+
+.search-product-form table.search-form-main-part tr:last-child td {
+  padding-bottom: 10px;
+}
+
+.search-product-form table.advanced-search-options tr:last-child td {
+  padding-bottom: 15px;
+}
+
+.search-product-form table {
+  margin-bottom: 5px;
+}
+
+.advanced-search-options td select {
+  margin-left: 0;
+  width: auto;
+}
+
+.items-list-title {
+  margin-top: 30px;
+}

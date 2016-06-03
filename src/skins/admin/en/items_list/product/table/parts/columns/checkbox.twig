@@ -1,0 +1,7 @@
+{##
+ # Column with checkboxes
+ #
+ # @ListChild (list="itemsList.product.table.admin.search.columns", weight="10")
+ #}
+
+<td><input type="checkbox" class="checkbox {{ this.product.getProductId() }}" value="1" name="{{ this.getNameToDelete(this.product.getProductId()) }}" /></td>

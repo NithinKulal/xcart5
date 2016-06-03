@@ -1,0 +1,21 @@
+{##
+ # ____file_title____
+ #}
+
+<div class="address-dialog">
+
+  {% if this.address %}
+    <h2>{{ t('Change address') }}</h2>
+  {% endif %}
+  {% if not this.address %}
+    <h2>{{ t('New address') }}</h2>
+  {% endif %}
+
+  {% if this.address %}
+    {{ widget('\\XLite\\View\\Model\\Address\\Address', modelObject=this.address, useBodyTemplate='1') }}
+  {% endif %}
+  {% if not this.address %}
+    {{ widget('\\XLite\\View\\Model\\Address\\Address', profile_id=this.profile_id, useBodyTemplate='1') }}
+  {% endif %}
+
+</div>

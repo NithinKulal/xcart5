@@ -1,0 +1,237 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Fashion variables
+ *
+ * Copyright (c) 2001-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+@font-family-sans-serif:  Arial, Helvetica, sans-serif;
+@headings-font-family: 'Open Sans', Arial, sans-serif;
+@headings-font-weight: 400;
+@small-headings-font-weight: 400;
+
+@brand-primary: #a23b66;
+@link-hover-color: #000000;
+
+@border-radius-base: 2px;
+
+@base-border-color: #c8c8c8;
+
+@button-gradient-start-color: #575757;
+@button-gradient-end-color: #363636;
+@btn-default-color: #ffffff;
+
+@button-main-gradient-start-color: #cc4f86;
+@button-main-gradient-end-color: #b72e63;
+
+@navbar-inverse-font-size: floor((@font-size-base * 1.15));
+@navbar-height: 40px;
+@navbar-inverse-bg: #000000;
+@navbar-inverse-link-color: #ffffff;
+@navbar-inverse-link-hover-color: #e14285;
+@navbar-inverse-link-hover-bg: #444444;
+@navbar-border-radius: 0;
+@navbar-margin-bottom: 20px;
+
+@nav-link-padding: 7px 15px;
+
+@nav-tabs-active-link-hover-bg: #ffffff;
+@nav-tabs-border-color: @base-border-color;
+
+@display-modes-selected-bg: #333333;
+@display-modes-selected-color: #ffffff;
+
+@display-sort-link-color: @display-modes-selected-bg;
+@display-sort-selected-link-bg: @display-modes-selected-bg;
+
+@price-color: #e14285;
+@products-lists-price-color: @price-color;
+
+@pagination-border: transparent;
+@pagination-hover-border: #a23b66;
+@pagination-active-color: #ffffff;
+@pagination-active-bg: #333333;
+@pagination-active-border: #333333;
+
+@base-gradient-start-color: #ececec;
+@base-gradient-end-color: #ececec;
+
+@table-gradient-start-color: @base-gradient-start-color;
+@table-gradient-end-color: @base-gradient-end-color;
+
+@navtab-bgcolor-normal: #fff0f6;
+@navtab-bgcolor-normal-hover: #eb6ba4;
+
+@mobile-menu-bg: #212121;
+
+/* Fashion mixins */
+
+.link-transition(@animationspeed){
+  -moz-transition: color @animationspeed ease;
+  -o-transition: color @animationspeed ease;
+  -webkit-transition: color @animationspeed ease;
+}
+
+/* Fashion specific styles */
+
+.navbar-nav > li > a {
+  padding: 10px 20px;
+}
+
+.navbar-inverse {
+  border: none;
+}
+
+a,
+#header-area a,
+#main-menu ul.menu a,
+div.tabs .primary a:hover,
+div.tabs .primary span:hover {
+  .link-transition(0.3s);
+}
+
+#header-area .desktop-header a:not(.cart):not(.checkout){
+  color: #8aa1b3;
+}
+
+.regular-button {
+  border: none;
+  &:active,
+    &.active {
+    outline: 0;
+    background-image: none;
+    background: #484848;
+    border: none;
+    .box-shadow(inset 0 3px 5px rgba(0,0,0,.125));
+  }
+  &:hover,
+    &:focus {
+    border: none;
+  }
+
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    .opacity(1);
+    color: #fff;
+    background: #dfdfdf;
+    &:active,
+      &.active{
+      background: #dfdfdf;
+      color: #fff;
+    }
+  }
+
+  &:before{
+    display: none;
+  }
+}
+
+.regular-main-button {
+  &:active,
+    &.active {
+    opacity: 0.9;
+    #gradient > .vertical (@button-main-gradient-start-color, @button-main-gradient-end-color);
+  }
+}
+
+
+.sidebar .catalog-categories > li > a,
+.products .product-name,
+.subcategory-icons a,
+.lc-minicart .title
+{
+  font-family: Arial, "Trebuchet MS", Helvetica, Jamrul, sans-serif;
+}
+
+#header .block:first-child .content,
+#header .block:first-child .content > div,
+#header .block:last-child .content,
+#header .block:last-child .content > div{
+  .border-top-radius(0);
+  .border-bottom-radius(0);
+}
+
+
+.nav-tabs {
+  > li {
+
+    > span,
+    > a {
+      border-radius: 0 0 0 0;
+      background: #ececec;
+      color: @nav-tabs-active-link-hover-color;
+      &:hover {
+        border-color: @base-border-color @base-border-color @base-border-color @base-border-color;
+        #gradient > .vertical (#ffffff, #e5e5e5);
+      }
+    }
+
+    // Active state, and its :hover to override normal :hover
+    &.active > span,
+    &.active > a       {
+      &,
+      &:hover,
+        &:focus {
+        color: @nav-tabs-active-link-hover-color;
+        background: transparent none;
+        border: 1px solid @base-border-color;
+        border-bottom-color: #ffffff;
+        cursor: default;
+        text-decoration: none !important;
+      }
+    }
+  }
+}
+
+.pagination {
+  > li {
+    &:first-child {
+      > a,
+      > span {
+        background: url("@{customer-skin}/modules/XC/ColorSchemes/Fashion/images/pager.png") 10px -29px no-repeat;
+      }
+    }
+    &:last-child {
+      > a,
+      > span {
+        background-image: url("@{customer-skin}/modules/XC/ColorSchemes/Fashion/images/pager.png");
+      }
+    }
+  }
+}
+
+.mobile_header {
+  a {
+    color: @navbar-inverse-link-color;
+    &:hover{
+      color: @navbar-inverse-link-hover-color;
+    }
+  }
+
+  .simple-search-box{
+    box-shadow: none !important;
+  }
+}
+
+.lc-minicart {
+  color: #ffffff;
+}
+
+@media (min-width: @screen-md-min) {
+  .lc-minicart{
+    color: #8f8f8f;
+    background: #fafafa url("@{customer-skin}/modules/XC/ColorSchemes/Fashion/images/shopping-bag.png") 10px 15px no-repeat;
+  }
+
+  .lc-minicart .minicart-items-number {
+    color: #333333 !important;
+  }
+}
+
+.checkout-block .steps .shipping-step .shipping-rates li span.value,
+.checkout-block .review-step .total span {
+  color: @price-color;
+}

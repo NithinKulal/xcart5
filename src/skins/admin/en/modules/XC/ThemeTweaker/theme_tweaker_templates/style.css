@@ -1,0 +1,41 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Theme tweaker templates list styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+/*
+.dialog-content .alert.alert-info {
+  max-width: 1180px;
+  display: inline-block;
+  border: none;
+  background: none;
+  color: #828282;
+  padding: 0;
+  margin-bottom: 30px;
+  font-size: 14px;
+}
+*/
+
+div.tooltip-main {
+  padding-top: 5px;
+}
+
+.edit-mode-comment {
+  clear: none;
+  display: inline-block;
+  margin-left: 30px;
+  width: 200px;
+}
+
+.edit-mode-comment a span {
+  font-size: 16px;
+  color: #1a509a;
+}
+
+.edit-mode-comment a:hover span {
+  color: #2a6496;
+}

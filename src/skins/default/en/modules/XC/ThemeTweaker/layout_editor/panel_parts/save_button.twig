@@ -1,0 +1,9 @@
+{##
+ # Layout editor save button
+ #
+ # @ListChild (list="layout_editor", weight="20")
+ #}
+
+<div class='layout-editor-save layout-editor--switchable'>
+	{{ widget('XLite\\View\\Button\\Regular', disabled='true', label=t('Save changes'), style='regular-main-button layout-editor-save_button', jsCode='core.trigger("layout.submit");') }}
+</div>

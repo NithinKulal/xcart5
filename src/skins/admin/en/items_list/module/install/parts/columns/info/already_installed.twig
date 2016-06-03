@@ -1,0 +1,14 @@
+{##
+ # Modules main section list
+ #
+ # @ListChild (list="itemsList.module.install.columns.module-main-section", weight="100")
+ #}
+
+{% if this.isInstalled(this.module) %}
+  <div class="installed">{{ t('Installed') }}</div>
+{% endif %}
+{% if this.isInstalled(this.module) %}
+  <div class="view-module-in-list">
+    <a href="{{ this.getModulePageURL(this.module) }}">{{ t('View in list') }}</a>
+  </div>
+{% endif %}

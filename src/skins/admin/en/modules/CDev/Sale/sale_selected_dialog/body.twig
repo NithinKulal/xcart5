@@ -1,0 +1,17 @@
+{##
+ # Set the sale price dialog. Products list popup dialog.
+ #}
+
+{% form '\\XLite\\Module\\CDev\\Sale\\View\\Form\\SaleSelectedDialog' %}
+
+ <div class="set-price-dialog">
+
+   {{ widget('\\XLite\\Module\\CDev\\Sale\\View\\SaleDiscountTypes', salePriceValue='0', discountType=constant('XLite\\Model\\Product::SALE_DISCOUNT_TYPE_PRICE')) }}
+
+   <div class="sale-label">{{ t('The changes will be applied to all selected products') }}</div>
+
+   {{ widget('\\XLite\\View\\Button\\Submit', style='action', label='Apply price') }}
+
+ </div>
+
+{% endform %}

@@ -1,0 +1,58 @@
+{##
+ # Tax edit page
+ #}
+
+<div class="{{ this.getDialogCSSClasses() }}">
+
+  {% form '\\XLite\\Module\\CDev\\SalesTax\\View\\Form\\EditTax' %}
+
+  <table class="form" cellspacing="0">
+
+    <tr>
+      <td class="label"><label for="tax-title">{{ t('Tax title') }}:</label></td>
+      <td class="star">*</td>
+      <td><input type="text" name="name" value="{{ this.tax.getName() }}" class="field-required form-control" /></td>
+      <td class="button {% if this.tax.getEnabled() %}enabled{% else %}disabled{% endif %}">
+          {{ widget('\\XLite\\View\\Button\\SwitchState', label=t('Tax enabled'), enabled='true', action='switch') }}
+          {{ widget('\\XLite\\View\\Button\\SwitchState', label=t('Tax disabled'), enabled='false', action='switch') }}
+      </td>
+    </tr>
+
+  </table>
+
+  <div class="sales-tax-options">
+    <div class="sales-tax-options-block">
+      {{ widget('\\XLite\\View\\FormField\\Input\\Checkbox', fieldName='ignore_memberships', isChecked=this.config.CDev.SalesTax.ignore_memberships, label=t('Use the same tax rates for all user membership levels')) }}
+    </div>
+    <div class="sales-tax-options-block">
+      {{ widget('\\XLite\\Module\\CDev\\SalesTax\\View\\FormField\\AddressType', fieldName='addressType', value=this.config.CDev.SalesTax.addressType, label=t('Address for sales tax calculation')) }}
+    </div>
+    <div class="sales-tax-options-block">
+      {{ widget('\\XLite\\Module\\CDev\\SalesTax\\View\\FormField\\TaxableBase', fieldName='taxableBase', value=this.config.CDev.SalesTax.taxableBase, label=t('Taxable base')) }}
+    </div>
+  </div>
+
+  <div id="main-rates">
+    <div class="title">{{ t('General tax rates') }}</div>
+    {{ widget('XLite\\Module\\CDev\\SalesTax\\View\\ItemsList\\Model\\Rate') }}
+  </div>
+
+  {% if not this.isShippingRatesDisplayed() %}
+    <div id="items-list-switcher">
+      <span>{{ t('Click here to specify tax rates that will apply only to shipping charges') }}</span>
+      <i class="fa fa-caret-right"></i>
+    </div>
+  {% endif %}
+
+  <div id="shipping-rates"{% if not this.isShippingRatesDisplayed() %} class="hidden"{% endif %}>
+    <div class="title">{{ t('Tax rates on shipping cost') }}</div>
+    {{ widget('XLite\\Module\\CDev\\SalesTax\\View\\ItemsList\\Model\\ShippingRate') }}
+  </div>
+
+  <div class="buttons">
+    {{ widget('\\XLite\\View\\Button\\Submit', label=t('Save changes'), style=' regular-main-button action') }}
+  </div>
+
+  {% endform %}
+
+</div>

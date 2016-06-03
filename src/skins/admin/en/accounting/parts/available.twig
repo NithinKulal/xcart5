@@ -1,0 +1,14 @@
+{##
+ # Available
+ #}
+
+<ul class="available-block-list">
+  {% for module in this.getAvailableModules() %}
+    <li>
+      {{ widget(template='accounting/parts/available.module.twig', moduleParam=module) }}
+    </li>
+  {% endfor %}
+  <li>
+    {{ widget(template='accounting/parts/available.module.twig', moduleParam=this.getExportNode()) }}
+  </li>
+</ul>

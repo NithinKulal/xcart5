@@ -1,0 +1,8 @@
+{##
+ # Link to official website
+ #
+ # @ListChild (list="admin.main.page.footer.right", weight="100")
+ #}
+{% if not this.auth.isAdmin() %}
+  <a href="{{ this.getXCartURL() }}" target="_blank">{{ t('Official website') }}</a>
+{% endif %}

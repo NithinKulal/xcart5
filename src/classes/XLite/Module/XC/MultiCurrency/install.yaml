@@ -1,0 +1,75 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Task:
+  - owner: XLite\Module\XC\MultiCurrency\Core\Task\UpdateRates
+
+XLite\Model\Config:
+  - name: 'rateProvider'
+    category: XC\MultiCurrency
+    type: text
+    orderby: 100
+    value: 'google'
+    translations:
+      - code: en
+        option_name: 'Online currency rate service'
+      - code: en
+        option_name: 'Сервис обновления курсов валют онлайн'
+  - name: 'updateInterval'
+    category: XC\MultiCurrency
+    type: XLite\Module\XC\MultiCurrency\View\FormField\Select\RateUpdateInterval
+    orderby: 100
+    value: '3600'
+    translations:
+      - code: en
+        option_name: 'Update online rates every'
+      - code: en
+        option_name: 'Интервал онлайн обновления курсов валют'
+
+XLite\Model\LanguageLabel:
+  - { name: 'Currencies', translations: [{ code: en, label: 'Currencies' }, { code: ru, label: 'Валюты' }] }
+  - { name: 'Name', translations: [{ code: en, label: 'Name' }, { code: ru, label: 'Имя' }] }
+  - { name: 'Code', translations: [{ code: en, label: 'Code' }, { code: ru, label: 'Код' }] }
+  - { name: 'Default', translations: [{ code: en, label: 'Default' }, { code: ru, label: 'По умолчанию' }] }
+  - { name: 'Format', translations: [{ code: en, label: 'Format' }, { code: ru, label: 'Формат' }] }
+  - { name: 'Prefix', translations: [{ code: en, label: 'Prefix' }, { code: ru, label: 'Префикс' }] }
+  - { name: 'Suffix', translations: [{ code: en, label: 'Suffix' }, { code: ru, label: 'Суффикс' }] }
+  - { name: 'Rate', translations: [{ code: en, label: 'Rate' }, { code: ru, label: 'Курс' }] }
+  - { name: 'Date', translations: [{ code: en, label: 'Date' }, { code: ru, label: 'Дата' }] }
+  - { name: 'Last update', translations: [{ code: en, label: 'Last update' }, { code: ru, label: 'Последнее обновление' }] }
+  - { name: 'Add currency', translations: [{ code: en, label: 'Add currency' }, { code: ru, label: 'Добавить валюту' }] }
+  - { name: 'Google Finance Currency Converter', translations: [{ code: en, label: 'Google Finance Currency Converter' }, { code: ru, label: 'Конвертер валют "Google Finance"' }] }
+  - { name: 'WebserviceX.NET', translations: [{ code: en, label: 'WebserviceX.NET' }, { code: ru, label: 'WebserviceX.NET' }] }
+  - { name: 'Online currency rates service', translations: [{ code: en, label: 'Online currency rates service' }, { code: ru, label: 'Онлайн сервис курса валют' }] }
+  - { name: 'Update rates', translations: [{ code: en, label: 'Update rates' }, { code: ru, label: 'Обновить курс' }] }
+  - { name: 'err_change_default_currency', translations: [{ code: en, label: 'You may not change the rate, disable or delete the default currency.' }, { code: ru, label: 'Вы не можете поменять курс, выключить или удалить валюту, которая используется по умолчанию.' }] }
+  - { name: 'Note: All prices billed in {{currency}}. Current exchange rate is {{exchange_rate}}.', translations: [{ code: en, label: 'Note: All prices billed in {{currency}}. Current exchange rate is {{exchange_rate}}.' }, { code: ru, label: 'Заметка: Все товары будут оплачены в {{currency}}. Текущий обменный курс равен {{exchange_rate}}.' }] }
+  - { name: 'Note: Order billed in {{currency}}. Exchange rate is {{exchange_rate}}.', translations: [{ code: en, label: 'Note: Order billed in {{currency}}. Exchange rate is {{exchange_rate}}.' }, { code: ru, label: 'Заметка: Заказ был оплачен в {{currency}}. Обменный курс равен {{exchange_rate}}.' }] }
+  - { name: 'Total charge', translations: [{ code: en, label: 'Total charge' }, { code: ru, label: 'Всего к оплате' }] }
+  - { name: 'Default currency', translations: [{ code: en, label: 'Default currency' }, { code: ru, label: 'Основная валюта' }] }
+  - { name: 'Rates update', translations: [{ code: en, label: 'Rates update' }, { code: ru, label: 'Oбновление курсов валют' }] }
+  - { name: 'None', translations: [{ code: en, label: 'None' }, { code: ru, label: 'Отсутствует' }] }
+  - { name: '1 minute', translations: [{ code: en, label: '1 minute' }, { code: ru, label: '1 минута' }] }
+  - { name: '10 minutes', translations: [{ code: en, label: '10 minutes' }, { code: ru, label: '10 минут' }] }
+  - { name: '15 minutes', translations: [{ code: en, label: '15 minutes' }, { code: ru, label: '15 минут' }] }
+  - { name: '30 minutes', translations: [{ code: en, label: '30 minutes' }, { code: ru, label: '30 минут' }] }
+  - { name: '1 hour', translations: [{ code: en, label: '1 hour' }, { code: ru, label: '1 час' }] }
+  - { name: '2 hours', translations: [{ code: en, label: '2 hours' }, { code: ru, label: '2 часа' }] }
+  - { name: '4 hours', translations: [{ code: en, label: '4 hours' }, { code: ru, label: '4 часа' }] }
+  - { name: '6 hours', translations: [{ code: en, label: '6 hours' }, { code: ru, label: '6 часов' }] }
+  - { name: '12 hours', translations: [{ code: en, label: '12 hours' }, { code: ru, label: '12 часов' }] }
+  - { name: '1 day', translations: [{ code: en, label: '1 day' }, { code: ru, label: '1 день' }] }
+  - { name: 'Available countries for', translations: [{ code: en, label: 'Available countries for' }, { code: ru, label: 'Страны доступные для' }] }
+  - { name: 'Here you can set countries associated with particular currency.', translations: [{ code: en, label: 'Here you can set the countries associated with a particular currency.' }, { code: ru, label: 'На этой странице вы можете задать список стран, ассоциированных с выбранной валютой.' }] }
+  - { name: 'Currency', translations: [{ code: en, label: 'Currency' }, { code: ru, label: 'Валюта' }] }
+  - { name: 'Country', translations: [{ code: en, label: 'Country' }, { code: ru, label: 'Страна' }] }
+  - { name: 'Language', translations: [{ code: en, label: 'Language' }, { code: ru, label: 'Язык' }] }
+  - { name: 'Select regional settings', translations: [{ code: en, label: 'Select regional settings' }, { code: ru, label: 'Выберите региональные настройки' }] }
+  - { name: 'Update online rates every', translations: [{ code: en, label: 'Update online rates every' }] }
+  - { name: 'Last update date', translations: [{ code: en, label: 'Last update date' }] }
+  - { name: 'Back to currencies list', translations: [{ code: en, label: 'Back to currencies list' }] }
+  - { name: 'Location & Currency', translations: [{ code: en, label: 'Location & Currency' }]}

@@ -1,0 +1,17 @@
+{##
+ # Membership selection template
+ #
+ # @deprecated Used only in deprecated class (\XLite\View\MembershipSelect)
+ #}
+<select {% if not this.nonFixed %}class="fixed-select"{% endif %} name="{{ this.getParam('field') }}">
+  {% if this.getParam('allOption') %}
+    <option value="%" {% if this.isSelected('%', this.getParam('value')) %} selected="selected" {% endif %}>{{ t('All membership levels') }}</option>
+  {% endif %}
+  <option value="" {% if this.isSelected('', this.getParam('value')) %} selected="selected" {% endif %}>{{ t('No membership') }}</option>
+  {% if this.getParam('pendingOption') %}
+    <option value="pending_membership" {% if this.isSelected('pending_membership', this.getParam('value')) %} selected="selected" {% endif %}>{{ t('Pending membership') }}</option>
+  {% endif %}
+  {% for membership in this.getMemberships() %}
+    <option value="{{ membership.getMembershipId() }}" {% if this.isSelected(membership.getMembershipId(), this.getParam('value')) %} selected="selected" {% endif %}>{{ membership.getName() }}</option>
+  {% endfor %}
+</select>

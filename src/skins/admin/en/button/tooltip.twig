@@ -1,0 +1,18 @@
+{##
+ # Regular button
+ #}
+
+<div class="button-tooltip-wrapper">
+<div class="{{ this.getWrapperClass() }}">
+
+  {% include 'button/regular.twig' %}
+
+  {% if this.getButtonTooltip() %}
+    <div class="help-text" style="display: none;">{{ this.getButtonTooltip()|raw }}</div>
+  {% endif %}
+</div>
+{% if this.getSeparateTooltip() %}
+  {{ widget('\\XLite\\View\\Tooltip', text=this.getSeparateTooltip(), isImageTag='true', className='help-icon') }}
+{% endif %}
+
+</div>

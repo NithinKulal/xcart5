@@ -1,0 +1,13 @@
+{##
+ # Address book
+ #}
+
+<ul class="address-book clearfix">
+
+  {% for address in this.getAddresses() %}
+    {{ widget('\\XLite\\View\\Address', displayMode='text', displayWrapper='1', address=address) }}
+  {% endfor %}
+
+  {{ widget('\\XLite\\View\\Address', displayMode='text', displayWrapper='1') }}
+
+</ul>

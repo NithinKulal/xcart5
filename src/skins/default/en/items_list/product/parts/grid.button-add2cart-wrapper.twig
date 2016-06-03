@@ -1,0 +1,11 @@
+{##
+ # Add to Cart button template
+ #
+ # @ListChild (list="itemsList.product.grid.customer.tail", weight="600")
+ #}
+
+{% if this.isDisplayAdd2CartButton() %}
+  <div class="add-to-cart-button">
+    {{ widget(template='items_list/product/parts/common.button-add2cart.twig', product=this.product) }}
+  </div>
+{% endif %}

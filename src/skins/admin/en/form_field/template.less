@@ -1,0 +1,111 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Template selector style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.templates {
+  .hidden-field {
+    display: none;
+  }
+}
+
+.templates-list {
+  .flex-display();
+  .flex-wrap(wrap);
+
+  .template {
+    width: 233px;
+    cursor: pointer;
+    margin-bottom: 37px;
+    padding: 18px 0;
+    img {
+      display: block;
+      margin: 2px auto 15px;
+      width: 196px;
+      height: 252px;
+      border: 1px solid #d6d9dc;
+    }
+
+    .name {
+      text-align: center;
+      font-size: 17px;
+    }
+
+    &.selected, &.selected:hover, &.selected.checked, &.selected.checked:hover {
+      img {
+        width: 200px;
+        height: 256px;
+        margin: 0 auto 13px;
+        border: 3px solid #f69c3b;
+      }
+      .name {
+        color: #f69c3b;
+      }
+    }
+
+    &.selected.checked {
+      cursor: default;
+    }
+
+    &.checked {
+      img {
+        width: 200px;
+        height: 256px;
+        margin: 0 auto 13px;
+        border: 3px solid #64c1ee;
+      }
+    }
+
+    &:hover {
+      img {
+        width: 200px;
+        height: 256px;
+        margin: 0 auto 13px;
+        border: 3px solid #64c1ee;
+      }
+      .name {
+        color: #64c1ee;
+      }
+    }
+
+    &.marked {
+      transition: background 20s linear 5s;
+      background-color: #fffecd;
+
+      &.active {
+        background-color: #fff;
+      }
+    }
+  }
+}
+
+.quote {
+  border-top: 1px solid #d6d9dc;
+  margin-left: -25px;
+  padding-left: 25px;
+  width: ~"calc(100% + 25px + 25px)";
+  text-align: center;
+  font-size: 22px;
+  font-weight: lighter;
+  padding-top: 31px;
+  letter-spacing: -0.55px;
+  line-height: 45px;
+
+  button {
+    margin-bottom: 4px;
+    padding: 0 16px;
+    margin-left: 10px;
+
+    span {
+      font-size: 18px;
+    }
+  }
+}
+
+.select-template div.table-value {
+  display: block;
+}

@@ -1,0 +1,11 @@
+{##
+ # Checkout items totals block
+ #
+ # @ListChild (list="checkout.cart", weight="20")
+ #}
+<ul class="cart-sums">
+  <li>
+    <em>{{ t('Subtotal') }}:</em>
+    <span>{{ this.formatPrice(this.cart.getSubtotal(), this.cart.getCurrency(), 1) }}</span>
+  </li>
+</ul>

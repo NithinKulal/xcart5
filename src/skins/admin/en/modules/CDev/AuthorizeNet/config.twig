@@ -1,0 +1,78 @@
+{##
+ # Authorize.Net SIM configuration page
+ #}
+
+<style>
+  #settings_prefix{
+    width: 175px;
+  }
+</style>
+
+<table cellspacing="1" cellpadding="5" class="settings-table">
+
+  <tr>
+    <td class="setting-name">
+    <label for="settings_login">{{ t('API Login ID') }}</label>
+    </td>
+    <td>
+    <input type="text" id="settings_login" name="settings[login]" value="{{ this.paymentMethod.getSetting('login') }}" class="validate[required,maxSize[255]]" />
+    </td>
+  </tr>
+
+  <tr>
+    <td class="setting-name">
+    <label for="settings_key">{{ t('Transaction key') }}</label>
+    </td>
+    <td>
+    <input type="text" id="settings_key" name="settings[key]" value="{{ this.paymentMethod.getSetting('key') }}" class="validate[required,maxSize[255]]" />
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="2" class="note">
+To obtain the transaction key from the Merchant Interface, do the following:
+<ol>
+  <li>Log into the Merchant Interface</li>
+  <li>Select Settings from the Main Menu</li>
+  <li>Click on Obtain Transaction Key in the Security section</li>
+  <li>Type in the answer to the secret question configured on setup</li>
+  <li>Click Submit</li>
+</ol>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="setting-name">
+    <label for="settings_type">{{ t('Transaction type') }}</label>
+    </td>
+    <td>
+    <select id="settings_type" name="settings[type]">
+      <option value="sale" {% if this.isSelected(this.paymentMethod.getSetting('type'), 'sale') %} selected="selected" {% endif %}>Auth and Capture</option>
+      <option value="auth" {% if this.isSelected(this.paymentMethod.getSetting('type'), 'auth') %} selected="selected" {% endif %}>Auth only</option>
+    </select>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="setting-name">
+    <label for="settings_test">{{ t('Test/Live mode') }}</label>
+    </td>
+    <td>
+    <select id="settings_test" name="settings[test]">
+      <option value="1" {% if this.isSelected(this.paymentMethod.getSetting('test'), '1') %} selected="selected" {% endif %}>{{ t('Test mode: Test') }}</option>
+      <option value="0" {% if this.isSelected(this.paymentMethod.getSetting('test'), '0') %} selected="selected" {% endif %}>{{ t('Test mode: Live') }}</option>
+    </select>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="setting-name">
+    <label for="settings_prefix">{{ t('Invoice number prefix') }}</label>
+    </td>
+    <td>
+    <input type="text" id="settings_prefix" value="{{ this.paymentMethod.getSetting('prefix') }}" name="settings[prefix]" />
+    {{ widget('XLite\\View\\Tooltip', id='settings_prefix_help', text=t('It\'s recommended to limit the length of invoice prefix to 9 characters'), caption='', isImageTag='true', className='help-icon') }}
+    </td>
+  </tr>
+
+</table>

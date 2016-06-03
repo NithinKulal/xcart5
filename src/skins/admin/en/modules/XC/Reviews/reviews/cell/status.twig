@@ -1,0 +1,10 @@
+{##
+ # Review status
+ #}
+
+{% if this.isApproved(this.entity) %}
+  <div class="approved">{{ t('Published') }}</div>
+{% endif %}
+{% if not this.isApproved(this.entity) %}
+  <div class="pending">{{ t('Pending') }}</div>
+{% endif %}

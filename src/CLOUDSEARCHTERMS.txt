@@ -1,0 +1,65 @@
+Cloudsearch Terms of Service
+
+By using the CloudSearch (the "Service") whether via free or paid subscription, you ("You") accept and agree to be bound by the following terms and conditions (the "Agreement") with Qualiteam software Ltd ("Service Provider").
+
+For purposes of this Agreement, "Site" shall mean the Web site or sites on which You place JavaScript or similar programming which renders search box to enter a search query on the Site ("Search Box"). Service Provider will receive queries from You, process the queries using Service Provider's search engine and return search results ("Search Results").
+
+Service Provider reserves the right to modify these terms without notice.
+
+1. USE OF SERVICE
+
+1.1 You may use the Service solely for purposes of maintaining a Search Box and showing Search Results on your Site. You agree not to use the Service in any way that is unlawful, or harms Service Provider, its service providers, its suppliers, your end users, or any other person. Service Provider may terminate your use of the Service if and when Service Provider determines that your use is inappropriate.
+1.2 You are responsible for using the Service in a private and secure manner. Service Provider is not liable for any damage or loss due to unauthorized account access resulting from your actions.
+1.3 You may not exploit the Service to access unauthorized information.
+1.4 Service Provider reserves the right to modify, suspend, or discontinue the Service for any reason, with or without notice.
+1.5 Abuse or excessively frequent requests to the Service may result in the temporary or permanent suspension of your account’s access to the Service. Service Provider, at its sole discretion, will determine abuse or excessive usage. Service Provider will make a reasonable attempt via email to warn the account owner prior to suspension.
+1.6 Service Provider owns intellectual property rights to any protectable part of the Service, including but not limited to the design, artwork, functionality, and documentation. You may not copy, modify, or reverse engineer any part of the Service owned by Service Provider.
+1.7 Limitation on Use. You represent and warrant that the Search Service will not be used, accessed or displayed on any Sites that contain, encourage, promote or engage in: (a) pornographic or adult content material or sites with links to pornographic or adult content sites; (b) illegal activity, sites encouraging racism or sites providing instructions or discussions about performing illegal activities; (c) gambling (including, without limitation, online casinos, sports books and bingo or links thereto); (d) the sale of tobacco or alcohol to persons under twenty-one (21) years of age; (e) libelous or harassing activities; or (f) any activities similar thereto.
+
+2. SUPPORT SERVICES, INTEGRATION & REPORTS
+
+2.1 Support Services. Service Provider may provide technical support for the Service through Service Provider’s helpdesk system available at https://secure.qtmsoft.com/
+2.2 No Integration Assistance. Service Provider shall provide online documentation to you that can be used by you to integrate the Search Service into your Site. At your request, Service Provider may provide technical support to you to assist in such integration at Service Provider’s rates.
+2.3 Reports. Although Service Provider may provide you with reports relating to your use of the Search Service, Service Provider has no obligation to provide you such reports. You acknowledge and agree that Service Provider shall have no reporting obligations to you regarding Search Services provided to you.
+
+3. PAYMENT AND FEES
+
+3.1 A valid credit card is required to use paid subscription for the Service.
+3.2 When You subscribe for paid Service plan your credit card will be billed according to current Service Provider's rates for selected subscription plan and subsequently in 6-month or 12-month intervals to prepay usage of the Service for the next term.
+3.3 If You choose to downgrade Your subscription by switching to free or cheaper subscription plan Service Provider will continue to provide the Service using Your current plan until prepaid period ends and then downgrade Your account.
+3.4 If You choose to upgrade subscription, Your account will be switched to the new plan immediately and You credit card will be billed according to current Service Provider's rates for newly selected subscription plan. If there is an unused remainder of prepaid subscription that was active at the moment of upgrade Service Provider will provide You the Service according to the new plan for the duration of such remainder (which may not exceed 30 days) without imposing additional charges for that.
+
+4. NO WARRANTY
+
+4.1 SERVICE PROVIDER PROVIDES THE SERVICE "AS IS," "WITH ALL FAULTS" AND "AS AVAILABLE", AND THE ENTIRE RISK AS TO SATISFACTORY QUALITY, PERFORMANCE, ACCURACY, AND EFFORT IS WITH YOU. TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, SERVICE PROVIDER AND ITS SUPPLIERS MAKE NO REPRESENTATIONS, WARRANTIES OR CONDITIONS, EXPRESS OR IMPLIED. SERVICE PROVIDER AND ITS SUPPLIERS EXPRESSLY DISCLAIM ANY AND ALL WARRANTIES OR CONDITIONS, EXPRESS, STATUTORY AND IMPLIED, INCLUDING WITHOUT LIMITATION (A) WARRANTIES OR CONDITIONS OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, WORKMANLIKE EFFORT, ACCURACY, TITLE, QUIET ENJOYMENT, NO ENCUMBRANCES, NO LIENS AND NON-INFRINGEMENT, (B) WARRANTIES OR CONDITIONS ARISING THROUGH COURSE OF DEALING OR USAGE OF TRADE, AND (C) WARRANTIES OR CONDITIONS OF UNINTERRUPTED OR ERROR-FREE ACCESS OR USE.
+
+5. LIMITATION OF LIABILITY
+
+5.1 IN NO EVENT WILL SERVICE PROVIDER OR ANY SUPPLIER BE LIABLE FOR ANY DAMAGES, INCLUDING WITHOUT LIMITATION ANY INDIRECT, CONSEQUENTIAL, SPECIAL, INCIDENTAL, OR PUNITIVE DAMAGES ARISING OUT OF, BASED ON, OR RESULTING FROM THIS AGREEMENT OR YOUR USE OF SERVICE EVEN IF SUCH PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. THE EXCLUSION OF DAMAGES UNDER THIS PARAGRAPH IS INDEPENDENT OF YOUR EXCLUSIVE REMEDY AND SURVIVES IN THE EVENT SUCH REMEDY FAILS OF ITS ESSENTIAL PURPOSE OR IS OTHERWISE DEEMED UNENFORCEABLE. THESE LIMITATIONS AND EXCLUSIONS APPLY WITHOUT REGARD TO WHETHER THE DAMAGES ARISE FROM (A) BREACH OF CONTRACT, (B) BREACH OF WARRANTY, (C) NEGLIGENCE, OR (D) ANY OTHER CAUSE OF ACTION, TO THE EXTENT SUCH EXCLUSION AND LIMITATIONS ARE NOT PROHIBITED BY APPLICABLE LAW. IF YOU DO NOT AGREE WITH ANY PART OF THIS AGREEMENT, OR YOU HAVE ANY DISPUTE OR CLAIM AGAINST SERVICE PROVIDER OR ITS SUPPLIERS WITH RESPECT TO THIS AGREEMENT OR THE SERVICE, THEN YOUR SOLE AND EXCLUSIVE REMEDY IS TO DISCONTINUE USING THE SERVICE.
+
+6. INDEMNITY
+
+6.1 You agree to indemnify, defend and hold harmless Service Provider, its parent companies, subsidiaries, affiliated companies, joint venturers, business partners, licensors, employees, agents, and any third-party information providers to the Service from and against all claims, losses, expenses, damages and costs (including, but not limited to, direct, incidental, consequential, exemplary and indirect damages), and reasonable attorneys' fees, resulting from or arising out of your use, misuse, or inability to use the Service, or any violation by you of this Agreement.
+
+7. TERMINATION
+
+7.1 Service Provider may change, suspend or discontinue the Service and suspend or terminate your use of the Service at any time for any reason, without notice.
+7.2 You can at any time cancel your paid subscription for the Service by downgrading to free plan. There will be no subsequent charges to your credit card after cancellation.
+7.3 You may terminate the Agreement by discontinuing use of the Service.
+
+8. ADDITIONAL TERMS
+
+8.1 In addition to this Agreement, You have to comply with the following Additional Terms when using the Service. We expect You to read these Additional Terms carefully, all of which are made part of this Agreement:
+a) Privacy policy: http://www.qtmsoft.com/privacy-policy.html
+b) Moneyback policy: http://www.x-cart.com/moneyback_policy.html
+c) Trademark policy: http://www.qtmsoft.com/trademark-policy.html
+
+9. GENERAL
+
+9.1 Any abuse or threatened abuse of other users of the Service or of Service Provider's personnel will result in immediate account termination.
+9.2 Any failure of Service Provider to enforce or exercise a right provided in these terms is not a waiver of that right.
+9.3 If any provision of this Agreement is declared void or unenforceable by any judicial authority, this shall not nullify the remaining provisions of the Agreement, which shall remain in full force and effect.
+9.4 This Terms of Service constitutes the entire agreements between you and Service Provider and supersedes any and all previous agreements, written or oral, between you and Service Provider, including previous versions of the Terms of Service.
+9.5 This agreement (and any dispute or claim relating to it or its subject matter) is governed by and is to be construed in accordance with the laws of the Republic of Cyprus. All disputes arising out of or in connection with this Agreement shall be finally settled under the Rules of the Arbitration Institute of the Stockholm Chamber of Commerce by one or more arbitrators appointed in accordance with the said Rules. The place of arbitration shall be Nicosia, Cyprus.
+9.6 Promotional Rights. You hereby grant to Service Provider a non-exclusive, worldwide, royalty-free license to use and display your trademarks and service marks on the Service Provider’s website and any Service Provider’s customer newsletter stating that you are using Service Provider’s products and/or services. Subject to approval from you, which shall not be unreasonably withheld or delayed, Service Provider may issue a press release stating that you are a user of Service Provider’s products.
+9.7 Assignment. You may not assign or transfer this Agreement or any rights hereunder, in whole or in part, whether voluntarily or by operation of law, without the prior written consent of Service Provider. Service Provider may assign this Agreement or any rights hereunder without your consent. Any attempt by you to assign this Agreement in breach of this Section shall be null and void. Subject to the foregoing, this Agreement shall be binding upon and inure to the benefit of the parties hereto, their successors and assigns.

@@ -1,0 +1,27 @@
+{##
+ # Product
+ #
+ # @ListChild (list="review.modify.fields", weight="100")
+ #}
+<li class="input clearfix">
+  <div class="table-label">
+    <label for="product" class="product">{{ t('Product') }}</label>
+  </div>
+
+  <div class="star">*</div>
+  {% if not this.getRequestTargetProductId() %}
+    <div class="wrapper-table-value">
+      {{ widget('\\XLite\\View\\FormField\\Select\\Model\\ProductSelector', fieldOnly='true', fieldName='product_title', placeholder=t('Start typing product name or SKU'), is_model_required='true', value=this.getProductId()) }}
+    </div>
+  {% endif %}
+
+  {% if not this.getRequestTargetProductId() %}
+    <input type="hidden" name="product_id" value="{{ this.getProductId() }}" class="product-id-value" id="product-id" />
+  {% endif %}
+
+  {% if this.getRequestTargetProductId() %}
+    <div class="table-value">
+      {{ this.getRequestTargetProductTitle() }}
+    </div>
+  {% endif %}
+</li>

@@ -1,0 +1,24 @@
+{##
+ # Invoice : header : address box
+ #
+ # @ListChild (list="invoice.head", weight="10")
+ #}
+<td style="white-space: nowrap;">
+  <strong>{{ this.config.Company.company_name }}</strong>
+  <p style="font-weight: lighter;margin-top: 7px;margin-bottom: 7px;">
+    {% if this.config.Company.location_address %}{{ this.config.Company.location_address }}<br />{% endif %}
+    {% if this.config.Company.location_city %}{{ this.config.Company.location_city }}, {% endif %}{% if this.config.Company.locationState.state %}{{ this.config.Company.locationState.state }}, {% endif %}{% if this.config.Company.location_zipcode %}{{ this.config.Company.location_zipcode }}{% endif %}<br />
+    {% if this.config.Company.locationCountry %}{{ this.config.Company.locationCountry.getCountry() }}{% endif %}
+  </p>
+  {% if this.config.Company.company_phone or this.config.Company.company_fax %}
+    <p style="font-weight: lighter;margin-top: 7px;margin-bottom: 7px;">
+      {% if this.config.Company.company_phone %}{{ t('Phone') }}: {{ this.config.Company.company_phone }}<br />{% endif %}
+      {% if this.config.Company.company_fax %}{{ t('Fax') }}: {{ this.config.Company.company_fax }}{% endif %}
+    </p>
+  {% endif %}
+  {% if this.config.Company.company_website %}
+    <p class="url" style="font-weight: lighter;margin-top: 7px;margin-bottom: 7px;">
+      <a href="{{ this.config.Company.company_website }}">{{ this.config.Company.company_website }}</a>
+    </p>
+  {% endif %}
+</td>

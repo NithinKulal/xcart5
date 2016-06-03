@@ -1,0 +1,60 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Specific styles for "Digital" color scheme
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.top-main-menu li ul {
+    background: #222222 url(sideblock_bg.gif) 0 0 repeat-x;
+    border: 0 none;
+    box-shadow: 1px 1px 5px #000;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    top: 50px;
+}
+.top-main-menu li a:active,
+.top-main-menu li a:link,
+.top-main-menu li a:visited {
+    color: #fff;
+}
+.top-main-menu li li span.primary-title,
+.top-main-menu li li a:active,
+.top-main-menu li li a:link,
+.top-main-menu li li a:visited{
+    color: #aaa;
+}
+
+.top-main-menu li li span.primary-title,
+.top-main-menu li li a:active,
+.top-main-menu li li a:visited,
+.top-main-menu li li a:link {
+    background-color: #222222;
+}
+
+.top-main-menu li li:hover > a,
+.top-main-menu li li:hover > a:after{
+    color: #fff;
+    background-color: #363636;
+}
+
+.top-main-menu li:hover > a {
+    background-color: #363636;
+}
+.top-main-menu > li.active > span.primary-title {
+    background-color: #343434;
+}
+.top-main-menu > li > span.primary-title {
+    font-size: 16px;
+    padding: 14px 20px;
+    text-transform: uppercase;
+}
+.top-main-menu > li > span.primary-title:hover {
+    background-image: -webkit-linear-gradient(top, #494949 0%, #383838 100%);
+    background-image: linear-gradient(to bottom, #494949 0%, #383838 100%);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff494949', endColorstr='#ff383838', GradientType=0);
+}

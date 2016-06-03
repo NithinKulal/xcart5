@@ -1,0 +1,60 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\LanguageLabel:
+  - { name: "Variants", translations: [{ code: en, label: "Variants" }] }
+  - { name: "The product does not have attributes with multiple options", translations: [{ code: en, label: "The product does not have attributes with multiple options" }] }
+  - { name: "Choose the optional attributes that your variants will be based on", translations: [{ code: en, label: "Choose the optional attributes that your variants will be based on" }] }
+  - { name: "{{count}} variants", translations: [{ code: en, label: "{{count}} variants" }] }
+  - { name: "No variants added, and the product is not available for sale yet. Create at least one variant.", translations: [{ code: en, label: "No variants added, and the product is not available for sale yet. Create at least one variant." }] }
+  - { name: "Product variants are based on {{variants}}", translations: [{ code: en, label: "Product variants are based on {{variants}}" }] }
+  - { name: "{{count}} options", translations: [{ code: en, label: "{{count}} options" }] }
+  - { name: "This item is out of stock", translations: [{ code: en, label: "This item is out of stock" }] }
+  - { name: "This item is not available", translations: [{ code: en, label: "This item is not available" }] }
+  - { name: "Default SKU", translations: [{ code: en, label: "Default SKU" }] }
+  - { name: "Default QTY", translations: [{ code: en, label: "Default QTY" }] }
+  - { name: "Add variant", translations: [{ code: en, label: "Add variant" }] }
+  - { name: "Variants have been created successfully", translations: [{ code: en, label: "Variants have been created successfully" }] }
+  - { name: "Variants have been discarded successfully", translations: [{ code: en, label: "Variants have been discarded successfully" }] }
+  - { name: "Variants have been updated successfully", translations: [{ code: en, label: "Variants have been updated successfully" }] }
+  - { name: "Variants have been successfully deleted", translations: [{ code: en, label: "Variants have been successfully deleted" }] }
+  - { name: "Please select the products first", translations: [{ code: en, label: "Please select the products first" }] }
+  - { name: "Please, add product variants.", translations: [{ code: en, label: "Please, add product variants." }] }
+  - { name: "To set product variants you should select attributes with multiple options.", translations: [{ code: en, label: "To set product variants you should select attributes with multiple options. The product variants will be based on these attributes. For example, if you select Size and Color, you should create product variants with all the possible intersections of these two attributes." }] }
+  - { name: "Add variants manually", translations: [{ code: en, label: "Add variants manually" }] }
+  - { name: "Create all possible variants", translations: [{ code: en, label: "Create all possible variants" }] }
+  - { name: "Add attributes", translations: [{ code: en, label: "Add attributes" }] }
+  - { name: "Product with selected attribute value(s) is not available or out of stock. Please select other.", translations: [{ code: en, label: "Product with selected attribute value(s) is not available or out of stock. Please select another product." }] }
+  - { name: "X variants have been created", translations: [{ code: en, label: "{{count}} variant(s) have been created" }] }
+  - { name: "Variant with specified attribute values already exists", translations: [{ code: en, label: "A variant with the specified attribute values already exists ({{list}})." }] }
+  - { name: "Default variant", translations: [{ code: en, label: "Default variant" }] }
+  - { name: "Number of variants warning", translations: [{ code: en, label: "The number of variants that can be created based on the selected attributes exceeds {{limit}}. Too many variants may be difficult to manage and may slow down your site performance. We recommend optimizing your attribute values to decrease the number of variants." }] }
+  - { name: "Number of variants confirmation", translations: [{ code: en, label: "The number of variants that can be created based on the selected attributes exceeds {{limit}}. Too many variants may be difficult to manage and may slow down your site performance. Are you sure you want to create all possible variants?" }] }
+  - { name: "Number of variants error", translations: [{ code: en, label: "The number of variants that can be created based on the selected attributes exceeds {{limit}}. Such a number of variants may impair your site operability on certain pages. Please optimize your attribute values to decrease the number of variants or create variants manually." }] }
+  - { name: "Number of variants warning message", translations: [{ code: en, label: "The number of created variants exceeds {{limit}}. Too many variants may be difficult to manage and may slow down your site performance. We recommend optimizing your attribute values to decrease the number of variants." }] }
+  - { name: unlimited, translations: [{ code: en, label: unlimited }] }
+
+  - { name: 'Click the link to increase variant amount', translations: [{ code: en, label: 'Click the link to increase variant amount' }] }
+  - { name: 'Variants list', translations: [{ code: en, label: 'Variants list' }]}
+
+XLite\Model\Notification:
+  - templatesDirectory: modules/XC/ProductVariants/low_variant_limit_warning
+    availableForAdmin: false
+    availableForCustomer: false
+    enabledForAdmin: true
+    enabledForCustomer: false
+    translations:
+      - code: en
+        name: Variant low limit warning
+        description: 'This message is used to notify the administrator when the stock level of a product variant reaches the low stock limit as specified in the product details.'
+        adminSubject: Variant low stock warning
+        adminText: 'The inventory level of a product variant in your store has reached the low limit.'
+      - code: ru
+        name: Предупреждение об уменьшении количества варианта товара на складе до минимального уровня
+        description: "Данное уведомление используется для оповещения администратора об уменьшении количества какого-либо варианта товара до минимального уровня (в соответствии со значением, установленным на странице соответствующего товара)"
+        adminSubject: 'Предупреждение об уменьшении количества варианта товара на складе до минимального уровня'
+        adminText: 'Количество варианта товара на складе достигло минимального уровня.'

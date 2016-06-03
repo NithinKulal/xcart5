@@ -1,0 +1,12 @@
+{##
+ # Product details image box
+ #}
+{% if this.isViewListVisible('product.details.page.image.photo') %}
+  <table class="product-photo-box">
+    <tr>
+      {% for item in this.getViewList('product.details.page.image.photo') %}
+        <td>{{ item.display() }}</td>
+      {% endfor %}
+    </tr>
+  </table>
+{% endif %}

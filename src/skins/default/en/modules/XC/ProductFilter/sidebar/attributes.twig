@@ -1,0 +1,16 @@
+{##
+ # Attributes 
+ #}
+
+<div class="filter{% if this.getTitle() %} group{% endif %}">
+  {% if this.getTitle() %}
+    <div class="head-h4">{{ this.getTitle() }}</div>
+  {% endif %}
+  <ul class="clearfix attributes">
+    {% for a in this.getAttributesList() %}
+      <li class="clearfix {{ a.class }}">
+        {{ a.widget.display() }}
+      </li>
+    {% endfor %}
+  </ul>
+</div>

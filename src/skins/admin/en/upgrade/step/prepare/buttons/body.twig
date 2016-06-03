@@ -1,0 +1,26 @@
+{##
+ # Buttons
+ #}
+<form action="{{ url() }}" method="post">
+  <input type="hidden" name="target" value="upgrade" />
+  <input type="hidden" name="action" value="download" />
+  <input type="hidden" name="mode"   value="download_updates" />
+
+  {% if not this.isFreeSpaceCheckAvailable() %}
+    <div class="free-space-warning-section">
+        <h2>{{ t('Check for available free disk space has failed') }}</h2>
+        <div>{{ t('You should check available free disk space yourself before continuing upgrade') }}</div>
+    </div>
+  {% endif %}
+
+  {{ widget('\\XLite\\View\\FormField\\Input\\FormId') }}
+
+  <div class="incompatible-list">
+    {{ widget('\\XLite\\View\\Upgrade\\Step\\Prepare\\IncompatibleEntries') }}
+  </div>
+
+  <div class="incompatible-list-actions">
+    {{ widget_list('sections', type='inherited') }}
+    <div class="clear"></div>
+  </div>
+</form>

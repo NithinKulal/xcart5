@@ -1,0 +1,30 @@
+{##
+ # Top menu
+ #}
+
+{% if not this.isSlidebar() %}
+<ul class="nav navbar-nav top-main-menu">
+{% endif %}
+  {{ widget_list('header.flycategories') }}
+  {% for i, item in this.getItems() %}
+    {% if this.isLevelUp(item.depth) %}
+  <ul>
+    {% else %}
+      {% if not this.isFirstElement() %}
+    </li>
+      {% endif %}
+    {% endif %}
+
+    {{ this.closeMenuList(item.depth)|raw }}
+    <li {{ this.displayItemClass(i, item)|raw }}>
+    {% if item.url %}
+      <a href="{{ item.url }}" {% if item.active %}class="active"{% endif %}><span>{{ item.label }}</span></a>
+    {% else %}
+      <span class="primary-title">{{ item.label }}</span>
+    {% endif %}
+  {% endfor %}
+    </li>
+  {{ this.closeMenuList()|raw }}
+{% if not this.isSlidebar() %}
+</ul>
+{% endif %}

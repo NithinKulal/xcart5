@@ -1,0 +1,19 @@
+{##
+ # Name column
+ #}
+{% if not this.isOffline(this.entity) %}
+{% if this.entity.getAdminIconURL() %}
+  <div class="image">
+    <img src="{{ this.entity.getAdminIconURL() }}" alt="{{ this.entity.name }}" />
+  </div>
+{% endif %}
+{% endif %}
+{% if this.isOffline(this.entity) %}
+  {{ widget('XLite\\View\\Button\\Shipping\\EditMethod', method=this.entity) }}
+{% endif %}
+{% if not this.isOffline(this.entity) %}
+  {{ widget(template='items_list/model/table/field.twig', column=this.column, entity=this.entity) }}
+{% endif %}
+{% if this.isOffline(this.entity) %}
+  {{ widget(template='items_list/model/table/shipping/carriers/cell.zones.twig', entity=this.entity) }}
+{% endif %}

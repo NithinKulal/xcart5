@@ -1,0 +1,31 @@
+{##
+ # Payment methods list widget for popup
+ #}
+
+<ul class="payments-list">
+  {% for family, entries in this.getPaymentMethods() %}
+  {% for id, payment in entries %}
+    <li class="item-row">
+      <ul class="payment-method-entry">
+        <li class="title-row module-name-{{ payment.getModuleName() }}">
+          {% include 'items_list/payment/online_methods/list.twig' %}
+          <div class="clearfix"></div>
+        </li>
+        {% if payment.getAdminDescription() %}
+          <li class="description">{{ payment.getAdminDescription() }}</li>
+        {% endif %}
+        {% if payment.getLinks() %}
+          <li class="links">
+            <ul>
+              {% for name, href in payment.getLinks() %}
+                <li><a href="{{ href }}">{{ t(name) }}</a></li>
+              {% endfor %}
+            </ul>
+            <div class="clearfix"></div>
+          </li>
+        {% endif %}
+      </ul>
+    </li>
+  {% endfor %}
+  {% endfor %}
+</ul>

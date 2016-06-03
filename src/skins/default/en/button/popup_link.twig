@@ -1,0 +1,10 @@
+{##
+ # Popup button
+ #}
+<a href="#" class="{{ this.getClass() }}">
+  {{ this.displayCommentedData(this.getURLParams()) }}
+  {% if this.getParam('icon-style') %}
+  <i class="fa {{ this.getParam('icon-style') }}"></i>
+  {% endif %}
+  {{ t(this.getButtonContent()) }}
+</a>

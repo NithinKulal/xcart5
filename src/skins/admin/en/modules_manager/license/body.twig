@@ -1,0 +1,48 @@
+{##
+ # Modules
+ #}
+
+{# :TODO: divide into parts #}
+<form action="{{ url() }}" method="post" class="no-popup-ajax-submit">
+  <input type="hidden" name="target" value="upgrade" />
+  <input type="hidden" name="action" value="install_addon_force" />
+  {{ widget('\\XLite\\View\\FormField\\Input\\FormId') }}
+  {% for id in this.getModuleIds() %}
+  <input type="hidden" name="moduleIds[]" value="{{ id }}" />
+  {% endfor %}
+
+  <div class="module-license">
+
+    <div class="form">
+      <div class="license-block">
+        <table>
+          <tr>
+            <td class="license-text">
+              <textarea class="form-control license-area" id="license-area" readonly="readonly">{{ this.getLicense()|raw }}</textarea>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <table class="agree">
+        <tr>
+          <td>
+            <label>
+              <input type="checkbox" name="agree" value="Y" {% if this.checked %} checked="checked" {% endif %} />
+              {{ t('Yes, I agree with License agreements') }}
+            </label>
+          </td>
+        </tr>
+      </table>
+
+      <table class="install-addon">
+        <tr>
+          <td>
+          {{ widget_list('install-addon.buttons') }}
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+</form>

@@ -1,0 +1,7 @@
+{##
+ # Sign in: SocialLogin widget
+ #
+ # @ListChild (list="customer.signin", weight="100")
+ #}
+
+{{ widget('\\XLite\\Module\\CDev\\SocialLogin\\View\\SocialLoginWidget', placement='signin', text_before=t('Use existing account from'), text_after=t('Or sign in the classic way')) }}

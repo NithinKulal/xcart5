@@ -1,0 +1,27 @@
+{##
+ # Profile cell
+ #}
+
+
+{% if this.entity.origProfile.anonymous %}
+  <div class="profile-anonymous-icon" title="{{ t('Anonymous Customer') }}">
+    {{ this.getSVGImage('images/anonymous.svg')|raw }}
+  </div>
+{% endif %}
+{% if not this.entity.origProfile.anonymous %}
+  <div class="profile-icon">&nbsp;</div>
+{% endif %}
+
+<div class="profile-box">
+  {% if this.isProfileRemoved(this.entity) %}
+    <span class="removed-profile-name">{{ this.getColumnValue(this.column, this.entity) }}</span>
+  {% else %}
+    <a href="{{ url('profile', '', {'profile_id': this.entity.origProfile.getProfileId()}) }}">{{ this.getColumnValue(this.column, this.entity) }}</a>
+  {% endif %}
+  {% if this.entity.profile %}
+    <span class="profile-email"><a href="mailto:{{ this.entity.profile.getLogin() }}">{{ this.entity.profile.getLogin() }}</a></span>
+  {% endif %}
+  {% if this.column.noWrap %}
+    <img src="{{ asset('images/spacer.gif') }}" class="right-fade" alt="" />
+  {% endif %}
+</div>

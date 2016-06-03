@@ -1,0 +1,12 @@
+{##
+ # Product element
+ #
+ # @ListChild (list="sale_discount_types", weight="40")
+ #}
+
+ {% if this.getParam('discountType') == constant('XLite\\Model\\Product::SALE_DISCOUNT_TYPE_PERCENT') %}
+   <input type="hidden"
+     id="sale-price-value"
+     name="{{ this.getNamePostedData('salePriceValue') }}"
+     value="{{ this.getPercentOffValue() }}" />
+ {% endif %}

@@ -1,0 +1,9 @@
+{##
+ # Rating value in product info
+ #}
+
+{% form '\\XLite\\Module\\XC\\Reviews\\View\\Form\\AverageRating' with {product_id: this.getRatedProductId(), target_widget: '\\\\XLite\\\\Module\\\\XC\\\\Reviews\\\\View\\\\Customer\\\\ProductInfo\\\\ItemsList\\\\AverageRating'} %}
+
+  {{ widget_list('reviews.product.rating.average', product=this.getRatedProduct(), widgetMode=this.getWidgetMode()) }}
+
+{% endform %}

@@ -1,0 +1,13 @@
+{##
+ # Review
+ #
+ # @ListChild (list="review.add.fields", weight="400")
+ #}
+<div class="form-item clearfix">
+  <label for="review" class="review">
+    {{ t('Write your review') }}
+  </label>
+  <br />
+  {{ widget('\\XLite\\View\\FormField\\Textarea\\Simple', placeholder=t('Your review'), fieldOnly='true', fieldName='review', rows='6', cols='78', value=this.review.review) }}
+
+</div>

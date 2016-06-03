@@ -1,0 +1,8 @@
+{##
+ # Link 
+ #}
+{% if this.isConfigured() %}
+  <p class="ga-note"><a href="https://www.google.com/analytics/web/" target="_blank" class="google-analytics">{{ t('Advanced statistics with Google Analytics') }}</a></p>
+{% else %}
+  <p class="ga-note"><a href="{{ this.getModuleLink() }}" target="_blank" class="google-analytics">{{ t('Configure the Google Analytics module to view the advanced statistics') }}</a></p>
+{% endif %}

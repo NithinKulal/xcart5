@@ -1,0 +1,14 @@
+{##
+ # Module author
+ #
+ # @ListChild (list="upgrade.step.prepare.incompatible_entries_upgrade.sections.table.info.module", weight="200")
+ #}
+<li class="author">
+  <span class="title">{{ t('Author') }}:</span>
+  {% if this.entry.getAuthorPageUrl() %}
+    <a href="{{ this.entry.getAuthorPageUrl() }}">{{ this.entry.getAuthor() }}</a>
+  {% endif %}
+  {% if not this.entry.getAuthorPageUrl() %}
+    <span>{{ this.entry.getAuthor() }}</span>
+  {% endif %}
+</li>

@@ -1,0 +1,28 @@
+{##
+ # License message template
+ #}
+<div class="license-message">
+  <div class="alert alert-warning" role="alert">
+    {{ t('This feature is available only for paid (non-free) X-Cart license plans', {'pricingUrl': this.getPricingURL()})|raw }}
+  </div>
+
+  <div class="info">
+    <div class="description">
+      {{ t('This page is intended for the management of volume discounts based on the order subtotal.')|raw }}
+    </div>
+
+    <div class="features">
+      <ul>
+        <li><i class="fa fa-check"></i>{{ t('Set absolute or %-based discount rates;')|raw }}</li>
+        <li><i class="fa fa-check"></i>{{ t('Make a discount available to all customers or only to specific membership levels;')|raw }}</li>
+        <li><i class="fa fa-check"></i>{{ t('Set a single discount or add multiple volume discounts.')|raw }}</li>
+      </ul>
+    </div>
+
+    <div class="actions">
+      <a href="{{ this.getPricingURL() }}" target="_blank">{{ t('Choose the right plan') }}</a>
+      <span class="or">{{ t('or') }}</span>
+      {{ widget('XLite\\View\\Button\\Regular', label='Buy Business Edition', style='regular-main-button', jsCode='window.open(\'' ~ this.getPurchaseLicenseURL() ~ '\', \'_blank\');') }}
+    </div>
+  </div>
+</div>

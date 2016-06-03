@@ -1,0 +1,53 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Payment transaction cart items styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.items-list-table table.list tbody.lines tr.line table.cart-items-summary {
+	width: 100%;
+	margin-top: 10px;
+	table-layout: fixed;
+}
+
+.items-list-table table.list tbody.lines tr.line table.cart-items-summary tr td {
+	border: none;
+	padding: 5px 0;
+	line-height: 1.25em;
+	background: #fff;
+	vertical-align: top;
+    position: relative;
+}
+
+.items-list-table table.list tbody.lines tr.line table.cart-items-summary td.name-column {
+	padding-right: 10px;
+	width: 200px;
+	overflow: hidden;
+}
+
+.items-list-table table.list tbody.lines tr.line table.cart-items-summary td.attr-column {
+	padding-left: 10px;
+	width: 120px;
+	overflow: hidden;
+}
+
+.items-list-table table.list tbody.lines tr.line table.cart-items-summary td.attr-column ul.attributes {
+	font-size: 12px;
+}
+
+.items-list-table table.list tbody.lines tr.line table.cart-items-summary td.price-column {
+	width: 100px;
+	text-align: right;
+}
+
+.items-list-table table.list tbody.lines tr.line table.cart-items-summary p.name {
+	font-size: 1em;
+	font-weight: 600;
+}
+
+.items-list-table table.list tbody.lines tr.line table.cart-items-summary p.sku {
+	color: #666;
+}

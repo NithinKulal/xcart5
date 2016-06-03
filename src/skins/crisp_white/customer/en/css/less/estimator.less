@@ -1,0 +1,140 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Shipping estimator
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+// .ajax-container-loadable.ctrl-customer-shippingestimate {
+//   min-width: 470px !important;
+// }
+
+form.estimator ul,
+  .estimate-methods ul
+{
+  margin: 0px;
+  padding: 0px;
+}
+
+form.estimator, .estimate-methods {
+  .clearfix;
+}
+
+form.estimator ul.form li,
+  .estimate-methods ul li
+{
+  list-style: none;
+  background-image: none;
+  padding: 0px;
+  margin: 0px;
+}
+
+form.estimator ul.form {
+  .clearfix;
+}
+
+form.estimator ul.form li {
+  .floating-label;
+  display: block;
+  clear: both;
+  width: 100%;
+}
+
+
+form.estimator ul.form li + li {
+  padding-top: @rhythmic-unit;
+}
+
+
+form.estimator ul.form div.table-value{
+  width: 100%;
+}
+
+form.estimator ul.form .input-field-wrapper{
+  display: block;
+}
+
+form.estimator ul.form input[type="text"],
+form.estimator ul.form select {
+  min-width: 200px;
+}
+
+form.estimator .buttons,
+.estimate-methods .buttons {
+  padding-top: @rhythmic-unit;
+  text-align: center;
+
+  @media(max-width: @screen-xs-max) {
+    width: 100%;
+
+    button {
+      width: 100%;
+    }
+  }
+}
+
+form.estimator .main {
+  padding-top: 10px;
+}
+
+.estimate-methods .chosen-container .chosen-results {
+  max-height: 100px;
+}
+
+.estimate-methods{
+  margin-top: @rhythmic-unit;
+  width: 100%;
+}
+
+.estimate-methods .head-h3 {
+  margin-top: (@rhythmic-unit);
+  margin-bottom: @rhythmic-unit;
+}
+
+.estimate-methods .shipping-rates.selected {
+  display: none;
+}
+
+img.fade {
+  background: -moz-linear-gradient(left,  rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,255,255,0)), color-stop(100%,rgba(255,255,255,1)));
+  background: -webkit-linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+  background: -o-linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+  background: -ms-linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+  background: linear-gradient(to right,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=1 );
+  display: block;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  width: 20px;
+  height: 100%;
+}
+
+img.fade-a {
+  display: block;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  width: 20px;
+  height: 100%;
+}
+
+.estimate-methods ul li label {
+  width: 220px;
+}
+
+.estimate-methods ul li span.value {
+  white-space: nowrap;
+  float: right;
+}
+.estimate-methods .shipping-selector-box .table-value {
+  float: none;
+  padding-bottom: 30px;
+}
+
+.estimate-methods .table-value.methodid-value select {
+  width: 100%;
+}

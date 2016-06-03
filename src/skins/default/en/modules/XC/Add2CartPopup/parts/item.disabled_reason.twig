@@ -1,0 +1,11 @@
+{##
+ # Add to Cart popup page: cart disabled reason template
+ #
+ # @ListChild (list="add2cart_popup.item.buttons", weight="300")
+ #}
+
+{% if not this.cart.checkCart() %}
+  <div class="reason-details">
+    {{ this.getDisabledReason()|raw }}
+  </div>
+{% endif %}

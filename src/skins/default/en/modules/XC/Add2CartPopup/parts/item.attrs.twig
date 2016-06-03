@@ -1,0 +1,9 @@
+{##
+ # Add to Cart popup page: 'Added product' message template
+ #
+ # @ListChild (list="add2cart_popup.item", weight="500")
+ #}
+
+<div class="item-attrs">
+  {{ widget('\\XLite\\View\\SelectedAttributeValues', item=this.item) }}
+</div>

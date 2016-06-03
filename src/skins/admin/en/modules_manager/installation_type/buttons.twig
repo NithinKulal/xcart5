@@ -1,0 +1,15 @@
+{##
+ # Install updates or not (select installation type)
+ #
+ # @ListChild (list="installation_types.buttons")
+ #}
+
+  <ul class="actions">
+    <li class="button">
+      {{ widget('\\XLite\\View\\Button\\Regular', label=t('Install anyway'), action='install_addon_force') }}
+    </li>
+    <li class="or">{{ t('or') }}</li>
+    <li class="button">
+      {{ widget('\\XLite\\View\\Button\\Submit', label=t('Update modules')) }}
+    </li>
+  </ul>

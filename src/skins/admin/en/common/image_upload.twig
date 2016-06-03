@@ -1,0 +1,15 @@
+{##
+ # Image upload template
+ #}
+
+<input type="file" name="{{ this.getNamePostedData(this.getParam('field')) }}" />&nbsp;&nbsp;&nbsp;
+{% if this.hasImage() %}
+  {{ widget('\\XLite\\View\\Button\\Regular', label=t('Delete'), jsCode='document.' ~ this.formName ~ '.' ~ this.field ~ '_delete.value=\'1\';document.' ~ this.formName ~ '.action.value=\'' ~ this.actionName ~ '\';document.' ~ this.formName ~ '.submit()') }}
+{% endif %}
+<input type="hidden" value="0" name="{{ this.getParam('field') }}_delete" />
+
+<br />
+
+{#<input type="checkbox" name="{getParam(#field#)}_filesystem" value="1" checked="{isFS()}" /> Upload to file system#}
+
+<br />

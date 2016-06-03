@@ -1,0 +1,24 @@
+{##
+ # Payment transaction page template
+ #}
+
+<div {{ this.printTagAttributes(this.getContainerAttributes())|raw }}>
+
+  {% form 'XLite\\View\\Form\\Order\\PaymentMethodData' %}
+
+  <input type="hidden" name="transaction_id" value="{{ this.getTransactionId() }}" />
+  <div class="payment-method-data-orig-values">
+    {% for w in this.getFieldValues() %}
+      <input type="hidden" name="{{ w.name }}" value="{{ w.value }}" />
+    {% endfor %}
+  </ul>
+
+  <div class="payment-method-data-fields">
+    {{ widget('\\XLite\\View\\PaymentMethodDataTemplate') }}
+  </div>
+
+  {{ widget('\\XLite\\View\\Button\\Submit', label=t('Update')) }}
+
+  {% endform %}
+
+</div>

@@ -1,0 +1,22 @@
+{##
+ # Page selector
+ #
+ # @ListChild (list="pager.bulk-edit.left", weight="100")
+ #}
+
+{% if this.isPagesListVisible() %}
+  <div class="pagination-wrapper">
+    <ul class="pagination">
+      {% for page in this.getPages() %}
+        <li class="{{ page.classes }}">
+          {% if page.href %}
+            <a href="{{ page.href }}" class="{{ page.page }}" data-pageId="{{ page.num }}">{{ t(page.text)|raw }}</a>
+          {% endif %}
+          {% if not page.href %}
+            <span>{{ t(page.text)|raw }}</span>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}

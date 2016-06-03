@@ -1,0 +1,11 @@
+{##
+ # Checkout : shipping step : selected state : methods
+ #
+ # @ListChild (list="checkout.shipping.selected.sub.payment", weight="200")
+ #}
+{% if this.isShippingAvailable() %}
+  <div class="substep step-shipping-methods">
+    <div class="head-h3"><span class="bullet">{{ this.getSubstepNumber('shippingMethods') }}</span>{{ t('Delivery methods') }}</div>
+    {{ widget('\\XLite\\View\\Checkout\\ShippingMethodsList') }}
+  </div>
+{% endif %}

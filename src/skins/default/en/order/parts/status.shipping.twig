@@ -1,0 +1,6 @@
+{##
+ # Order shipping status
+ #
+ # @ListChild (list="order.status", weight="20")
+ #}
+<div class="shipping order-status-{{ this.order.getShippingStatusCode() }}">{{ widget('\\XLite\\View\\OrderStatus\\Shipping', order=this.getOrder(), useWrapper='true') }}</div>

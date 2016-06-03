@@ -1,0 +1,8 @@
+{##
+ # Featured products count link
+ #
+ # @ListChild (list="itemsList.category.cell.featured_products", weight="100")
+ #}
+
+<i class="fa fa-star"></i>
+<a href="{{ url('featured_products', '', {'id': this.entity.getCategoryId()}) }}" class="count-link">{{ this.entity.getFeaturedProductsCount() }}</a>

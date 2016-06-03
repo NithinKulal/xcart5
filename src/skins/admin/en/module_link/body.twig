@@ -1,0 +1,12 @@
+{##
+ # Module banner template
+ #}
+
+<div class="module-link {{ this.getStyleClass() }}">
+    <span class="module-button">
+        {% if this.isIconVisible() %}
+            <img class="module-icon" src="{{ this.getModuleIcon() }}" alt="{{ this.getStringModuleName() }}">
+        {% endif %}
+        <a href="{{ this.getModuleURL() }}">{{ this.getLabelText() }}</a>
+    </span>
+</div>

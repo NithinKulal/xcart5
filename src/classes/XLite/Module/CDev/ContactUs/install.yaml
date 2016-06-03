@@ -1,0 +1,74 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: enable_form
+    category: 'CDev\ContactUs'
+    type: checkbox
+    orderby: 100
+    value: true
+    translations:
+      - code: en
+        option_name: 'Enable form'
+  - name: email
+    category: 'CDev\ContactUs'
+    type: 'XLite\View\FormField\Input\Text\Email'
+    orderby: 200
+    translations:
+      - code: en
+        option_name: 'E-mail address of the message recipient'
+        option_comment: 'If the field is blank, then administration email is used'
+  - name: contact_us_sep_1
+    category: 'CDev\ContactUs'
+    type: separator
+    orderby: 1000
+    translations:
+      - code: en
+        option_name: 'reCAPTCHA'
+  - name: recaptcha_public_key
+    category: 'CDev\ContactUs'
+    type: text
+    orderby: 1100
+    value: ''
+    translations:
+      - code: en
+        option_name: 'Public key'
+        option_comment: 'To use reCAPTCHA you should get an API key from <a href="https://www.google.com/recaptcha/admin/create">https://www.google.com/recaptcha/admin/create</a>'
+  - name: recaptcha_private_key
+    category: 'CDev\ContactUs'
+    type: text
+    orderby: 1200
+    value: ''
+    translations:
+      - code: en
+        option_name: 'Private key'
+XLite\Model\LanguageLabel:
+  - { name: "This field is required.", translations: [{ code: en, label: "This field is required." }] }
+  - { name: "Please enter the correct captcha", translations: [{ code: en, label: "Please enter the correct code" }] }
+  - { name: "Message has been sent", translations: [{ code: en, label: "The message has been sent" }] }
+  - { name: "Your Message", translations: [{ code: en, label: "Your Message" }] }
+  - { name: 'Email Address', translations: [{ code: en, label: 'Email Address' }]}
+  - { name: 'Full Name', translations: [{ code: en, label: 'Full Name' }]}
+
+XLite\Model\Notification:
+  - templatesDirectory: modules/CDev/ContactUs/message
+    availableForAdmin: false
+    availableForCustomer: false
+    enabledForAdmin: true
+    enabledForCustomer: false
+    translations: 
+      - code: en
+        name: Contact us form submitted (Contact us module)
+        description: 'This notification is sent to the administrator when someone submits a request via the "Contact us" form.'
+        adminSubject: Someone has used the Contact us form
+        adminText: ""
+      - code: ru
+        name: Заполнена форма для связи с администрацией магазина (модуль Contact us)
+        description: "Данное сообщение используется для оповещения администратора в случае поступления в адрес магазина обращения через форму для связи с администрацией."
+        adminSubject: Поступило обращение через форму для связи с администрацией магазина
+        adminText: ""
+

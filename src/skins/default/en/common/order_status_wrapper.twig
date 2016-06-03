@@ -1,0 +1,9 @@
+{##
+ # Order status label. CSS Wrapper
+ #
+ # @ListChild (list="order_status.wrapper", weight="10")
+ #}
+
+<span class="order-status-wrapper {{ this.getCSSClass() }}">
+{{ widget_list('order_status.nowrapper') }}
+</span>

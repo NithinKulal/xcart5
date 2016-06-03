@@ -1,0 +1,12 @@
+{##
+ # Orders search condition
+ #
+ # @ListChild (list="orders.search.conditions", weight="30")
+ #}
+<tr class="payment-status">
+  <td class="title">{{ t('Payment status') }}:</td>
+  <td height="10">
+    {{ widget('\\XLite\\View\\FormField\\Select\\OrderStatus\\Payment', fieldOnly='true', fieldName='status', value=this.getCondition('paymentStatus'), allOption='1') }}
+  </td>
+  <td>&nbsp;</td>
+</tr>

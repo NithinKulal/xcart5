@@ -1,0 +1,23 @@
+{##
+ # Shipping estimator : methods
+ #
+ # @ListChild (list="shippingEstimator.main", weight="20")
+ #}
+{% if this.isEstimate() %}
+  <div class="estimate-methods">
+    <div class="head-h3">{{ t('Choose shipping method') }}</div>
+    {% form 'XLite\\View\\Form\\Cart\\ShippingEstimator\\Change' with {className: 'method-change'} %}
+  
+      {% if this.hasRates() %}
+        {{ widget('XLite\\View\\ShippingList') }}
+  
+        <div class="buttons main">
+          {{ widget('XLite\\View\\Button\\Submit', label='Save') }}
+        </div>
+      {% else %}
+        <p class="error">{{ t('Shipping methods are not available') }}</p>
+      {% endif %}
+  
+    {% endform %}
+  </div>
+{% endif %}

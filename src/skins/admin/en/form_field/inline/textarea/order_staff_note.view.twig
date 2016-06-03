@@ -1,0 +1,8 @@
+{##
+ # Order staff note field view
+ #}
+
+<span class="truncated">{% include 'form_field/inline/view.twig' %}</span>
+<span class="value" data-empty="{{ this.getCommonEmptyValue() }}">{% include 'form_field/inline/view.twig' %}</span>
+<a class="more-less-link more">{{ t('more') }}</a>
+<a class="more-less-link less">{{ t('less') }}</a>

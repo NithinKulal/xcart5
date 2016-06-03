@@ -1,0 +1,14 @@
+{##
+ # Modules main section list
+ #
+ # @ListChild (list="itemsList.module.manage.columns.module-main-section", weight="10")
+ #}
+
+{% if this.getPageURL(this.module) %}
+  <div class="name">
+    <a class="module-name" name="{{ this.module.getName() }}" target="blank" href="{{ this.getPageURL(this.module) }}">{{ this.module.getModuleName() }}</a>
+    <a href="{{ this.getPageURL(this.module) }}" target="blank" class="fa fa-external-link"></a>
+  </div>
+{% else %}
+  <div class="name"><a class="module-name no-link" name="{{ this.module.getName() }}">{{ this.module.getModuleName() }}</a></div>
+{% endif %}

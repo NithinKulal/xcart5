@@ -1,0 +1,20 @@
+{##
+ # Entries list
+ #
+ # @ListChild (list="upgrade.step.prepare.entries_list_upgrade.sections", weight="100")
+ #}
+<div class="toggle-list">
+  <a href="javascript: void(0)" onclick="toggleModulesList();">{{ t('view list') }}</a>
+</div>
+
+<div class="clearfix"></div>
+
+<ul class="update-module-list upgrade clearfix">
+
+  {% for entry in this.getUpgradeEntries() %}
+    <li class="update-module-info">
+      {{ widget_list('sections.table', type='inherited', entry=entry) }}
+    </li>
+  {% endfor %}
+
+</ul>

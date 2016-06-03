@@ -1,0 +1,14 @@
+{##
+ # ____file_title____
+ #}
+{% if this.moreThanOnePage %}
+  <p class="navigation-path">
+  <table width="90%">
+  <tr>
+  <td>
+  {{ t('Result pages') }}:&nbsp;{% for num, pageURL in this.pageURLs %}{% if this.isCurrentPage(num) %}<b>[{{ num }}]</b>{% else %}<a href="{{ pageURL|raw }}">[{{ num }}]</a>{% endif %} {% endfor %}
+  </td>
+  </tr>
+  </table>
+  </p>
+{% endif %}

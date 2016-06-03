@@ -1,0 +1,56 @@
+{##
+ # Pilibaba configuration page
+ #}
+
+{% include 'modules/XC/Pilibaba/info_block.twig' %}
+
+<h3>Your account settings</h3>
+{% form '\\XLite\\View\\Form\\Payment\\Method\\Admin\\Settings' with {formParams: {'method_id': this.paymentMethod.getMethodId()}} %}
+
+  <table cellspacing="1" cellpadding="5" class="settings-table pilibaba-settings">
+    <tr>
+        <td class="setting-name"><label for="settings_merchant_no">{{ t('Merchant NO') }}</label></td>
+        <td>
+          <input type="text" id="settings_merchant_no" name="settings[merchantNO]" value="{{ this.paymentMethod.getSetting('merchantNO') }}" class="validate[maxSize[255]]" />
+        </td>
+        <td>
+          <div class="pilibaba-myaccount-link">
+              {{ widget('XLite\\View\\Button\\SimpleLink', label='My Pilibaba account dashboard', blank='true', location=this.getPilibabaAccountUrl(this.paymentMethod.getSetting('mode'))) }}
+          </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="setting-name"><label for="settings_secret_key">{{ t('Secret key') }}</label></td>
+        <td><input type="text" id="settings_secret_key" name="settings[secretKey]" value="{{ this.paymentMethod.getSetting('secretKey') }}" class="validate[maxSize[255]]" /></td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td class="setting-name"><label for="settings_order_prefix">{{ t('Order prefix') }}</label></td>
+        <td><input type="text" id="settings_order_prefix" name="settings[orderPrefix]" value="{{ this.paymentMethod.getSetting('orderPrefix') }}" /></td>
+        <td></td>
+    </tr>
+
+    <tr>
+      <td class="setting-name"><label for="settings_shipping_fee">{{ t('Shipping fee') }}</label></td>
+      <td>
+        {{ widget('\\XLite\\View\\FormField\\Input\\Text\\FloatInput', fieldId='settings_shipping_fee', fieldName='settings[shippingFee]', fieldOnly='true', min='0', value=this.paymentMethod.getSetting('shippingFee')) }}
+
+        {{ widget('\\XLite\\View\\Tooltip', isImageTag='true', className='help-icon', text='The shipping cost from your warehouse to Pilibaba warehouse') }}
+      </td>
+      <td></td>
+    </tr>
+
+    <tr>
+        <td class="setting-name"><label for="settings_mode">{{ t('Test/Live mode') }}</label></td>
+        <td>
+          {{ widget('\\XLite\\View\\FormField\\Select\\TestLiveMode', fieldId='settings_mode', fieldName='settings[mode]', fieldOnly='true', value=this.paymentMethod.getSetting('mode')) }}
+        </td>
+        <td></td>
+    </tr>
+  </table>
+
+  {{ widget('\\XLite\\View\\StickyPanel\\Payment\\Settings') }}
+
+{% endform %}

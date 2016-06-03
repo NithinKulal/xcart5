@@ -1,0 +1,14 @@
+{##
+ # Search total block
+ #}
+
+<div class="search-total-wrapper">
+  <ul>
+    <li>{{ t('Search total') }}:</li>
+    {% for k, totals in this.getSearchTotals() %}
+      <li class="amount">
+        <span>{{ this.formatPrice(totals.orders_total, this.getSearchTotalCurrency(totals.currency_id)) }}{% if this.isNeedSearchTotalsSeparator(k) %}, {% endif %}</span>
+      </li>
+    {% endfor %}
+  </ul>
+</div>

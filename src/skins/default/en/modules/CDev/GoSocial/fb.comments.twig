@@ -1,0 +1,5 @@
+{##
+ # Facebook comments
+ #}
+
+<div class="fb-comments"{% for k, v in this.getAttributes() %} data-{{ k }}="{{ v }}"{% endfor %}></div>

@@ -1,0 +1,11 @@
+{##
+ # Modules main section list
+ #
+ # @ListChild (list="itemsList.module.install.columns.module-description-section.info-element", weight="20")
+ #}
+
+{% if this.module.getDownloads() > 0 %}
+  <li class="downloads-counter{{ this.getDownloadsCSSClass(this.module) }}">
+    {{ t('Popularity') }}: <span class="counter">{{ this.module.getDownloads() }}</span>
+  </li>
+{% endif %}

@@ -1,0 +1,10 @@
+{##
+ # Dialog
+ #}
+
+<div class="{{ this.getBlockClasses() }}">
+  {% if this.getHead() %}
+    <div class="head-h2">{{ t(this.getHead()) }}</div>
+  {% endif %}
+  <div class="content">{% include this.getBody() %}</div>
+</div>

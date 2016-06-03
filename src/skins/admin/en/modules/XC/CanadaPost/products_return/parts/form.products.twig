@@ -1,0 +1,13 @@
+{##
+ # Canada Post products return :: from :: products
+ #
+ # @ListChild (list="capost_return.form", weight="200")
+ #}
+
+<div class="return-products">
+
+  <h2>{{ t('Products') }}</h2>
+  
+  {{ widget('\\XLite\\Module\\XC\\CanadaPost\\View\\ItemsList\\Model\\ProductsReturnItem', returnId=this.productsReturn.getId()) }}
+
+</div>

@@ -1,0 +1,12 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Images-specified Apache options
+#
+
+Options -Indexes
+
+<Files ~ "(?i:\.jpg|\.gif|\.png|\.bmp|\.tiff|\.swf|\.jpeg|\.ico|\.svg|\.pdf)">
+  Allow from all
+</Files>
+
+Deny from all

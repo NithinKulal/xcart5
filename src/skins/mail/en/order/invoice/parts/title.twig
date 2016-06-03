@@ -1,0 +1,11 @@
+{##
+ # Invoice title
+ #
+ # @ListChild (list="invoice.base", weight="20")
+ #}
+
+{% include 'order/invoice/parts/title.invoice.twig' %}
+<div style="color: #333333;font-size: 20px;padding-left: 3px;padding-top: 1px;width: 100%;max-width: 700px;">
+  {{ this.formatTime(this.order.getDate()) }}
+  <span style="float: right; color: #000;font-size: 20px;font-weight: bold;">{{ t('Grand total') }}: {{ this.getOrderTotal()|raw }}</span>
+</div>

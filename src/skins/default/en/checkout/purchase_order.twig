@@ -1,0 +1,19 @@
+{##
+ # Purchase order input form
+ #}
+<ul class="form clearfix">
+
+  <li class="clearfix">
+    {{ widget('XLite\\View\\FormField\\Input\\Text', fieldName='payment[po_number]', label=t('PO number'), required='true', attributes={'v-model': 'payment.po_number'}) }}
+  </li>
+  <li class="clearfix">
+    {{ widget('XLite\\View\\FormField\\Input\\Text', fieldName='payment[po_company]', label=t('Company name'), required='true', attributes={'v-model': 'payment.po_company'}) }}
+  </li>
+  <li class="clearfix">
+    {{ widget('XLite\\View\\FormField\\Input\\Text', fieldName='payment[po_purchaser]', label=t('Name of purchaser'), required='true', attributes={'v-model': 'payment.po_purchaser'}) }}
+  </li>
+  <li class="clearfix">
+    {{ widget('XLite\\View\\FormField\\Input\\Text', fieldName='payment[po_position]', label=t('Position'), required='true', attributes={'v-model': 'payment.po_position'}) }}
+  </li>
+
+</ul>

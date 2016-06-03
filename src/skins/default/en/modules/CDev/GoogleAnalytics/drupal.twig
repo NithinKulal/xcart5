@@ -1,0 +1,11 @@
+{##
+ # Header
+ #}
+<script type="text/javascript">
+if (typeof(window._gaq) != 'undefined') {
+{% for command in this.getGatCommands() %}
+  _gaq.push([{{ command|raw }}]);
+
+{% endfor %}
+}
+</script>

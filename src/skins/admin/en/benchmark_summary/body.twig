@@ -1,0 +1,13 @@
+{##
+ # Benchmark summary
+ #}
+<div class="summary-box benchmark-summary">
+  <div class="summary-box-content">
+      {% if this.isAlreadyMeasure() %}
+        {% include 'benchmark_summary/measure.twig' %}
+      {% endif %}
+      {% if not this.isAlreadyMeasure() %}
+        {% include 'benchmark_summary/empty.twig' %}
+      {% endif %}
+  </div>
+</div>

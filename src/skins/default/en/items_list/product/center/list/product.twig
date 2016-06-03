@@ -1,0 +1,19 @@
+{##
+ # Products list item (list variant)
+ #}
+
+<table class="{{ this.getProductCellClass() }}">
+  <tr>
+    <td class="product-photo">
+      <div class="product-photo" style="width: {{ this.getIconWidth() }}px;">
+        {{ widget_list('photo', type='inherited', product=this.product) }}
+      </div>
+      {{ widget_list('quicklook', type='inherited', product=this.product) }}
+    </td>
+    <td class="product-info">
+      <div class="product-info">
+        {{ widget_list('info', type='inherited', product=this.product) }}
+      </div>
+    </td>
+  </tr>
+</table>

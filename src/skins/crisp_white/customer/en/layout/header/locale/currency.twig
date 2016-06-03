@@ -1,0 +1,11 @@
+{##
+ # Country part
+ #
+ # @ListChild (list="layout.header.bar.locale", weight="30")
+ #}
+
+{% if this.getCurrentCurrency() %}
+<span class='currency-indicator'>
+	{{ this.getCurrentCurrency().getCode() }}
+</span>
+{% endif %}

@@ -1,0 +1,18 @@
+{##
+ # Date type selector
+ #}
+
+<div class="table-label date-condition-label">
+  <label>{{ t('User activity') }}:</label>
+</div>
+<div class="star">&nbsp;</div>
+<div class="table-value date-condition-value">
+  <ul class="clearfix">
+    {{ widget_list('profiles.search.dateTypes') }}
+  </ul>
+
+  <input type="hidden" name="date_period" value="C" />
+
+  {{ widget('\\XLite\\View\\FormField\\Input\\Text\\DateRange', fieldName='dateRange', value=this.getCondition('dateRange'), fieldOnly='true') }}
+</div>
+

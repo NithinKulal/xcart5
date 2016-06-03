@@ -1,0 +1,42 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Shipping settings style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+.separator h2 {
+  margin-top: 30px;
+  font-weight: 600;
+}
+h2#additionalsettingsseparator {
+  display: inline-block;
+  cursor: pointer;
+  color: #2c5fa6;
+  border-bottom: 2px dotted #2c5fa6;
+  font-weight: normal;
+  margin-left: 18px;
+}
+h2#additionalsettingsseparator:hover {
+  color: #0f9dcc;
+  border-color: #0f9dcc;
+}
+h2#additionalsettingsseparator:before {
+  content: "\f196";
+  width: 10px;
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  position: relative;
+  margin-left: -18px;
+  margin-right: 4px;
+}
+h2#additionalsettingsseparator.expanded:before {
+  content: "\f147";
+}
+.cod-status-value .form-field-comment {
+  padding-top: 10px;
+}
+.cod-status-value .onoffswitch input[type=checkbox]:disabled + label {
+  cursor: no-drop;
+}

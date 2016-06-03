@@ -1,0 +1,17 @@
+{##
+ # Billing adddress
+ #}
+
+{% form '\\XLite\\View\\Form\\Checkout\\UpdateProfile' with {className: 'address billing-address'} %}
+  <ul class="form">
+    {{ widget_list('checkout.payment.address.before', address=this.getAddressInfo()) }}
+      {% for fieldName, fieldData in this.getAddressSchemaFields() %}
+        <li class="address-item item-{{ fieldName }} {{ fieldData.additionalClass }} clearfix">
+          {{ this.displayCommentedData(this.getFieldCommentedData(fieldData)) }}
+          {{ fieldData.widget.display() }}
+          {{ widget_list('checkout.payment.address.' ~ fieldName, address=this.getAddressInfo(), fieldName=fieldName, fieldData=fieldData) }}
+        </li>
+      {% endfor %}
+    {{ widget_list('checkout.payment.address.after', address=this.getAddressInfo()) }}
+  </ul>
+{% endform %}

@@ -1,0 +1,9 @@
+{##
+ # Separator field
+ #}
+<h3 id="{{ this.getFieldId() }}" data-name="{{ this.getName() }}">
+{{ t(this.getLabel()) }}
+{% if this.hasHelp() %}
+  {{ widget('\\XLite\\View\\Tooltip', text=t(this.getParam('help')), helpWidget=this.getParam('helpWidget'), isImageTag='true', className='help-icon') }}
+{% endif %}
+</h3>

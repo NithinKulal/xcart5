@@ -1,0 +1,36 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Categories list styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.categories div.list-footer {
+  text-align: left;
+}
+
+.items-list-table.categories table.list tbody td.main.name input {
+  width: 450px;
+}
+
+.items-list-table.categories table.list tbody td.main.name .view {
+  width: 454px;
+  overflow: hidden;
+}
+
+span.count-label,
+  a.count-link,
+  a.edit
+{
+  font-size: 14px;
+  line-height: 16px;
+  padding: 0px 5px 0px 0px;
+}
+
+.info .cell,
+  .subcategories .cell
+{
+  text-align: right;
+}

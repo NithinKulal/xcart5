@@ -1,0 +1,8 @@
+{##
+ # Product details main block
+ #
+ # @ListChild (list="product.details.quicklook", weight="30")
+ #}
+<div class="product-details-info product-info-{{ this.product.getProductId() }} product-quicklook-info">
+  {{ widget_list('product.details.quicklook.info') }}
+</div>

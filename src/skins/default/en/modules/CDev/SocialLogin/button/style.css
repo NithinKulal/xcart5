@@ -1,0 +1,125 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Social Login widget styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+/* COMMON */
+ul.social-login li.social-net-element {
+  display: inline-block;
+}
+
+/* ICON */
+
+.social-net-icon .provider-name {
+  display: none;
+}
+
+ul.social-login{
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content:center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: end;
+  -webkit-align-items: flex-end;
+  -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+ul.social-login li.social-net-element.social-net-icon {
+  margin-left: 0;
+  height: auto;
+  line-height: 1;
+}
+
+ul.social-login li.social-net-element.social-net-icon:not(:last-of-type) {
+  margin-right: 5px;
+}
+
+.social-net-icon {
+  text-align: center;
+  margin: 0;
+}
+
+.social-net-icon .fa {
+  font-size: 16px;
+  color: #fff;
+  padding: 3px 2px 1px 2px;
+  border-radius: 2px;
+  width: 20px;
+  height: 20px;
+}
+
+.social-net-icon .fa.fa-facebook {
+  background-color: #385aa1;
+}
+
+.social-net-icon .fa.fa-google-plus {
+  background-color: #c02d1a;
+}
+
+/* BUTTON */
+ul.social-login li.social-net-button {
+  background: none;
+  padding: 0;
+  margin: 9px 6px;
+}
+
+.social-net-button .provider-name {
+  position: relative;
+  top: 2px;
+  padding: 0 15px 0 15px;
+  font-size: 14px;
+  display: inline-block;
+  color: #fff;
+  height: 100%;
+  border-left: solid 1px;
+}
+
+.social-net-button a {
+  text-decoration: none;
+  display: block;
+  border-radius: 3px;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 1px solid;
+}
+
+.social-net-button .fa {
+  font-size: 19px;
+  color: #fff;
+  margin-left: 8px;
+  margin-right: 2px;
+  margin-top: 5px;
+  width: 24px;
+  height: 24px;
+  vertical-align: -4px;
+  text-align: center;
+}
+
+.social-net-button.social-net-Facebook a {
+  border-color: #385aa1;
+  background: linear-gradient(#395795, #4c72c0);
+}
+
+.social-net-button.social-net-Facebook .provider-name {
+  border-left-color: #385aa1;
+}
+
+.social-net-button.social-net-Google a {
+  border-color: #c02d1a;
+  background: linear-gradient(#c02d1a, #dd4b39);
+}
+
+.social-net-button.social-net-Google .provider-name {
+  border-left-color: #c02d1a;
+}
+

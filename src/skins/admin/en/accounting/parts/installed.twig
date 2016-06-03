@@ -1,0 +1,13 @@
+{##
+ # Installed
+ #}
+
+<div class="installed-block-list-wrapper">
+  <ul class="installed-block-list">
+    {% for module in this.getInstalledModules() %}
+      <li class="installed-module">
+        {{ widget(template='accounting/parts/installed.module.twig', moduleParam=module) }}
+      </li>
+    {% endfor %}
+  </ul>
+</div>

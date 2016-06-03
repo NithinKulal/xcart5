@@ -1,0 +1,11 @@
+{##
+ # Address book list. Admin area.
+ #}
+
+{% for address in this.getAddresses() %}
+  {{ widget('\\XLite\\View\\Address', displayMode='text', displayWrapper='1', address=address) }}
+{% endfor %}
+
+{{ widget('\\XLite\\View\\Address', displayMode='text', displayWrapper='1') }}
+
+<div class="clear"></div>

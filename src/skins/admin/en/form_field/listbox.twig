@@ -1,0 +1,22 @@
+{##
+ # Listbox template
+ #}
+
+<div class="listbox">
+
+  <input type="hidden" id="{{ this.getFieldId() }}-store" name="{{ this.getName() }}" value="" />
+
+  <div class="listbox-item from">
+    {{ widget('\\XLite\\View\\FormField\\Select\\Multiple', fieldId=this.getFieldId() ~ '-listbox-select-from', label=this.getLabelFrom(), options=this.getOptionsFrom()) }}
+  </div>
+
+  <div class="listbox-actions">
+    {{ widget('\\XLite\\View\\Button\\Regular', label='&gt;&gt;', id='to-' ~ this.getFieldId(), jsCode='moveSelect(\'' ~ this.getFieldId() ~ '\', true);') }}
+    {{ widget('\\XLite\\View\\Button\\Regular', label='&lt;&lt;', id='from-' ~ this.getFieldId(), jsCode='moveSelect(\'' ~ this.getFieldId() ~ '\', false);') }}
+  </div>
+
+  <div class="listbox-item from">
+    {{ widget('\\XLite\\View\\FormField\\Select\\Multiple', fieldId=this.getFieldId() ~ '-listbox-select-to', label=this.getLabelTo(), options=this.getOptionsTo()) }}
+  </div>
+
+</div>

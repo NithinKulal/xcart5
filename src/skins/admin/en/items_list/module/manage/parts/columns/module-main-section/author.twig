@@ -1,0 +1,11 @@
+{##
+ # Module author
+ #
+ # @ListChild (list="itemsList.module.manage.columns.module-main-section", weight="25")
+ #}
+
+{% if this.getAuthorURL(this.module) %}
+  <div class="author"><a href="{{ this.getAuthorURL(this.module) }}">{{ this.module.getAuthorName() }}</a></div>
+{% else %}
+  <div class="author">{{ this.module.getAuthorName() }}</div>
+{% endif%}

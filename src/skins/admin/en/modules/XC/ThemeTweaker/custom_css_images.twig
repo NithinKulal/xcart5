@@ -1,0 +1,17 @@
+{##
+ # Custom CSS template
+ #}
+
+{% form '\\XLite\\Module\\XC\\ThemeTweaker\\View\\Form\\CustomCssImages' %}
+
+  {{ widget('\\XLite\\Module\\XC\\ThemeTweaker\\View\\Images') }}
+
+  <div class="new-image">
+    {{ t('New image') }}: <input type="file" name="new_image" />
+  </div>
+
+  <div class="buttons">
+    {{ widget('\\XLite\\View\\Button\\Submit', style='action', label='Save changes') }}
+  </div>
+
+{% endform %}

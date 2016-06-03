@@ -1,0 +1,566 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: wizard_enabled
+    category: XC\CanadaPost
+    value: true
+  - name: wizard_hash
+    category: XC\CanadaPost
+
+  - name: user
+    category: XC\CanadaPost
+    type: XLite\View\FormField\Input\Text
+    orderby: 10
+    translations:
+      - code: en
+        option_name: User
+  - name: password
+    category: XC\CanadaPost
+    type: XLite\View\FormField\Input\PasswordWithValue
+    orderby: 20
+    translations:
+      - code: en
+        option_name: Password
+  - name: developer_mode
+    category: XC\CanadaPost
+    type: XLite\View\FormField\Input\Checkbox\OnOffWithoutOffLabel
+    orderby: 30
+    translations:
+      - code: en
+        option_name: Developer mode
+  - name: debug_enabled
+    category: XC\CanadaPost
+    type: XLite\View\FormField\Input\Checkbox\OnOffWithoutOffLabel
+    orderby: 40
+    translations:
+      - code: en
+        option_name: Log all comunications between shopping cart and UPS server
+
+  - name: additionalSettingsSeparator
+    category: XC\CanadaPost
+    type: separator
+    orderby: 100
+    translations:
+      - code: en
+        option_name: Additional settings
+
+  - name: quote_type
+    category: XC\CanadaPost
+    type: XLite\Module\XC\CanadaPost\View\FormField\Select\QuoteType
+    value: C
+    orderby: 110
+    translations:
+      - code: en
+        option_name: Quote type
+  - name: customer_number
+    category: XC\CanadaPost
+    type: XLite\View\FormField\Input\Text
+    orderby: 120
+    translations:
+      - code: en
+        option_name: Customer number
+  - name: currency_rate
+    category: XC\CanadaPost
+    type: XLite\View\FormField\Input\Text\FloatInput
+    value: 1
+    orderby: 130
+    translations:
+      - code: en
+        option_name: Currency rate
+        option_comment: (specify rate X, where 1 CAD = X in shop currency)
+
+  - name: contractShippingSeparator
+    category: XC\CanadaPost
+    type: separator
+    orderby: 200
+    translations:
+      - code: en
+        option_name: Contract shipping options
+
+  - name: contract_id
+    category: XC\CanadaPost
+    type: XLite\View\FormField\Input\Text
+    orderby: 210
+    translations:
+      - code: en
+        option_name: Contract ID
+  - name: pick_up_type
+    category: XC\CanadaPost
+    type: XLite\Module\XC\CanadaPost\View\FormField\Select\PickUpType
+    orderby: 220
+    translations:
+      - code: en
+        option_name: Shipments pick up type
+  - name: deposit_site_num
+    category: XC\CanadaPost
+    type: XLite\Module\XC\CanadaPost\View\FormField\Input\Text\DepositSiteNum
+    orderby: 230
+    translations:
+      - code: en
+        option_name: Site number of the deposit location
+        option_comment: Look up the site number using <a href="https://www.canadapost.ca/cpotools/apps/fdl/business/findDepositLocation?execution=e1s1">Find a Deposit Location</a>
+  - name: detailed_manifests
+    category: XC\CanadaPost
+    type: XLite\View\FormField\Input\Checkbox\OnOffWithoutOffLabel
+    value: true
+    orderby: 240
+    translations:
+      - code: en
+        option_name: Render detailed manifest
+  - name: manifest_name
+    category: XC\CanadaPost
+    type: XLite\View\FormField\Input\Text
+    orderby: 250
+    translations:
+      - code: en
+        option_name: Contact name for the manifest address
+
+  - name: deliverToPostOfficeSeparator
+    category: XC\CanadaPost
+    type: separator
+    orderby: 300
+    translations:
+      - code: en
+        option_name: Deliver to Post Office options
+
+  - name: deliver_to_po_enabled
+    category: XC\CanadaPost
+    type: XLite\View\FormField\Input\Checkbox\OnOffWithoutOffLabel
+    value: false
+    orderby: 310
+    translations:
+      - code: en
+        option_name: Enable "Deliver to Post Office" feature
+  - name: max_post_offices
+    category: XC\CanadaPost
+    type: XLite\View\FormField\Input\Text\Integer
+    value: 5
+    orderby: 320
+    translations:
+      - code: en
+        option_name: Maximum Post Offices that will be displayed
+
+  - name: parcelCharacteristicsSeparator
+    category: XC\CanadaPost
+    type: separator
+    orderby: 400
+    translations:
+      - code: en
+        option_name: Parcel characteristics
+
+  - name: length
+    category: XC\CanadaPost
+    type: XLite\View\FormField\Input\Text\FloatInput
+    value: 10
+    orderby: 410
+    translations:
+      - code: en
+        option_name: Package length (cm)
+        option_comment: Longest dimension. (3.1 digits e.g. 999.9 pattern)
+  - name: width
+    category: XC\CanadaPost
+    type: XLite\View\FormField\Input\Text\FloatInput
+    value: 9
+    orderby: 420
+    translations:
+      - code: en
+        option_name: Package width (cm)
+        option_comment: Second longest dimension. (3.1 digits e.g. 999.9 pattern)
+  - name: height
+    category: XC\CanadaPost
+    type: XLite\View\FormField\Input\Text\FloatInput
+    value: 7
+    orderby: 430
+    translations:
+      - code: en
+        option_name: Package height (cm)
+        option_comment: Shortest dimension. (3.1 digits e.g. 999.9 pattern)
+  - name: max_weight
+    category: XC\CanadaPost
+    type: XLite\View\FormField\Input\Text\FloatInput
+    value: 30
+    orderby: 440
+    translations:
+      - code: en
+        option_name: Package maximum weight (kg)
+        option_comment: This value will be used to separate ordered products into several packages by weight
+  - name: document
+    category: XC\CanadaPost
+    type: XLite\View\FormField\Input\Checkbox\OnOffWithoutOffLabel
+    value: false
+    orderby: 450
+    translations:
+      - code: en
+        option_name: Document
+        option_comment: Indicates whether the shipment is a document or not.
+  - name: unpackaged
+    category: XC\CanadaPost
+    type: XLite\View\FormField\Input\Checkbox\OnOffWithoutOffLabel
+    value: false
+    orderby: 460
+    translations:
+      - code: en
+        option_name: Unpackaged
+        option_comment: Indicates whether a shipment is unpackaged or not. For example, auto tires may be an example of an unpackaged shipment.
+  - name: mailing_tube
+    category: XC\CanadaPost
+    type: XLite\View\FormField\Input\Checkbox\OnOffWithoutOffLabel
+    value: false
+    orderby: 470
+    translations:
+      - code: en
+        option_name: Mailing tube
+        option_comment: Indicates whether a shipment is contained in a mailing tube. (e.g. a poster tube)
+  - name: oversized
+    category: XC\CanadaPost
+    type: XLite\View\FormField\Input\Checkbox\OnOffWithoutOffLabel
+    value: false
+    orderby: 480
+    translations:
+      - code: en
+        option_name: Oversized
+        option_comment: Indicates whether the parcel is oversized or not.
+
+  - name: parcelSeparator
+    category: XC\CanadaPost
+    type: separator
+    orderby: 500
+    translations:
+      - code: en
+        option_name: Parcel options
+
+  - name: way_to_deliver
+    category: XC\CanadaPost
+    type: XLite\Module\XC\CanadaPost\View\FormField\Select\DeliveryWayType
+    orderby: 510
+    translations:
+      - code: en
+        option_name: Way to deliver
+  - name: signature
+    category: XC\CanadaPost
+    type: XLite\View\FormField\Input\Checkbox\OnOffWithoutOffLabel
+    value: false
+    orderby: 520
+    translations:
+      - code: en
+        option_name: Signature
+  - name: age_proof
+    category: XC\CanadaPost
+    type: XLite\Module\XC\CanadaPost\View\FormField\Select\AgeProofType
+    orderby: 530
+    translations:
+      - code: en
+        option_name: Proof of age
+  - name: coverage
+    category: XC\CanadaPost
+    type: XLite\View\FormField\Input\Text\FloatInput
+    value: 0.00
+    orderby: 540
+    translations:
+      - code: en
+        option_name: Coverage
+        option_comment: In percent of the order subtotal (0 - do not use coverage)
+  - name: non_delivery
+    category: XC\CanadaPost
+    type: XLite\Module\XC\CanadaPost\View\FormField\Select\NonDeliveryType
+    orderby: 550
+    translations:
+      - code: en
+        option_name: "Non-delivery instructions"
+
+XLite\Model\Shipping\Method:
+  - processor: capost
+    carrier: ''
+    code: ''
+    enabled: false
+    added: false
+    position: 0
+    moduleName: XC_CanadaPost
+    translations:
+      - code: en
+        name: CanadaPost
+
+  - processor: capost
+    carrier: capost
+    code: DOM.RP
+    enabled: 1
+    position: 10
+    translations:
+      - code: en
+        name: "Regular Parcel"
+  - processor: capost
+    carrier: capost
+    code: DOM.EP
+    enabled: 1
+    position: 20
+    translations:
+      - code: en
+        name: "Expedited Parcel"
+  - processor: capost
+    carrier: capost
+    code: DOM.XP
+    enabled: 1
+    position: 30
+    translations:
+      - code: en
+        name: "Xpresspost"
+  - processor: capost
+    carrier: capost
+    code: DOM.XP.CERT
+    enabled: 1
+    position: 40
+    translations:
+      - code: en
+        name: "Xpresspost Certified"
+  - processor: capost
+    carrier: capost
+    code: DOM.PC
+    enabled: 1
+    position: 50
+    translations:
+      - code: en
+        name: "Priority"
+  - processor: capost
+    carrier: capost
+    code: DOM.LIB
+    enabled: 1
+    position: 60
+    translations:
+      - code: en
+        name: "Library Books"
+  - processor: capost
+    carrier: capost
+    code: USA.EP
+    enabled: 1
+    position: 70
+    translations:
+      - code: en
+        name: "Expedited Parcel USA"
+  - processor: capost
+    carrier: capost
+    code: USA.PW.ENV
+    enabled: 1
+    position: 80
+    translations:
+      - code: en
+        name: "Priority Worldwide Envelope USA"
+  - processor: capost
+    carrier: capost
+    code: USA.PW.PAK
+    enabled: 1
+    position: 90
+    translations:
+      - code: en
+        name: "Priority Worldwide pak USA"
+  - processor: capost
+    carrier: capost
+    code: USA.PW.PARCEL
+    enabled: 1
+    position: 100
+    translations:
+      - code: en
+        name: "Priority Worldwide Parcel USA"
+  - processor: capost
+    carrier: capost
+    code: USA.SP.AIR
+    enabled: 1
+    position: 110
+    translations:
+      - code: en
+        name: "Small Packet USA Air"
+  - processor: capost
+    carrier: capost
+    code: USA.TP
+    enabled: 1
+    position: 120
+    translations:
+      - code: en
+        name: "Tracked Packet – USA"
+  - processor: capost
+    carrier: capost
+    code: USA.TP.LVM
+    enabled: 1
+    position: 130
+    translations:
+      - code: en
+        name: "Tracked Packet – USA (LVM)"
+  - processor: capost
+    carrier: capost
+    code: USA.XP
+    enabled: 1
+    position: 140
+    translations:
+      - code: en
+        name: "Xpresspost USA"
+  - processor: capost
+    carrier: capost
+    code: INT.XP
+    enabled: 1
+    position: 150
+    translations:
+      - code: en
+        name: "Xpresspost International"
+  - processor: capost
+    carrier: capost
+    code: INT.IP.AIR
+    enabled: 1
+    position: 160
+    translations:
+      - code: en
+        name: "International Parcel Air"
+  - processor: capost
+    carrier: capost
+    code: INT.IP.SURF
+    enabled: 1
+    position: 170
+    translations:
+      - code: en
+        name: "International Parcel Surface"
+  - processor: capost
+    carrier: capost
+    code: INT.PW.ENV
+    enabled: 1
+    position: 180
+    translations:
+      - code: en
+        name: "Priority Worldwide Envelope International"
+  - processor: capost
+    carrier: capost
+    code: INT.PW.PAK
+    enabled: 1
+    position: 190
+    translations:
+      - code: en
+        name: "Priority Worldwide pak International"
+  - processor: capost
+    carrier: capost
+    code: INT.PW.PARCEL
+    enabled: 1
+    position: 200
+    translations:
+      - code: en
+        name: "Priority Worldwide parcel International"
+  - processor: capost
+    carrier: capost
+    code: INT.SP.AIR
+    enabled: 1
+    position: 210
+    translations:
+      - code: en
+        name: "Small Packet International Air"
+  - processor: capost
+    carrier: capost
+    code: INT.SP.SURF
+    enabled: 1
+    position: 220
+    translations:
+      - code: en
+        name: "Small Packet International Surface"
+  - processor: capost
+    carrier: capost
+    code: INT.TP
+    enabled: 1
+    position: 230
+    translations:
+      - code: en
+        name: "Tracked Packet – International"
+
+XLite\Model\Notification:
+  - { templatesDirectory: modules/XC/CanadaPost/return_approved, availableForAdmin: false, availableForCustomer: true, enabledForAdmin: false, enabledForCustomer: true, translations: [{ code: en, name: Return request approved (Canada Post module), description: "This notification is sent to the customer if their request to return a product via Canada Post is approved by the administrator.", customerSubject: Your return request has been approved, customerText: "Your return request has been approved" },{ code: ru, name: Запрос на возврат товара одобрен (модуль Canada Post), description: "Данное сообщение отправляется покупателю в случае, если его запрос на возврат товара с пересылкой службой Canada Post получает одобрение администратора.", customerSubject: Ваш запрос на возврат товара одобрен, customerText: "Ваш запрос на возврат товара одобрен" }]}
+  - { templatesDirectory: modules/XC/CanadaPost/return_rejected, availableForAdmin: false, availableForCustomer: true, enabledForAdmin: false, enabledForCustomer: true, translations: [{ code: en, name: Return request rejected (Canada Post module), description: "This notification is sent to the customer if their request to return a product via Canada Post is rejected by the administrator.", customerSubject: Your return request has been rejected, customerText: "Your return request has been rejected" },{ code: ru, name: Запрос на возврат товара отклонен (модуль Canada Post), description: "Данное сообщение отправляется покупателю в случае, если его запрос на возврат товара с пересылкой службой Canada Post отклоняется администратором.", customerSubject: Ваш запрос на возврат товара отклонен, customerText: "Ваш запрос на возврат товара отклонен" }]}
+
+XLite\Model\LanguageLabel:
+  - { name: "Canada Post module allows to use online shipping rates calculation via Canada Post", translations: [{ code: en, label: '<b>Canada Post</b> module allows you to use online shipping rates calculation via <a href="https://www.canadapost.ca">Canada Post</a>.' }] }
+  - { name: "Products return X", translations: [{ code: en, label: "Products return {{return_number}}"}] }
+  - { name: 'To request a return please fill the form below', translations: [{ code: en, label: 'To request a return please complete the form below' }] }
+  - { name: 'Return quantity', translations: [{ code: en, label: 'Return quantity' }] }
+  - { name: 'Create return', translations: [{ code: en, label: 'Create return' }] }
+  - { name: 'Deliver to Post Office', translations: [{ code: en, label: 'Deliver to Post Office' }] }
+  - { name: "There's no post offices available", translations: [{ code: en, label: 'There are no post offices available' }] }
+  - { name: 'Tracking pins', translations: [{ code: en, label: 'Tracking pins' }] }
+  - { name: 'Delivery to Post Office', translations: [{ code: en, label: 'Delivery to Post Office' }] }
+  - { name: 'No events found', translations: [{ code: en, label: 'No events found' }] }
+  - { name: 'Attached files', translations: [{ code: en, label: 'Attached files' }] }
+  - { name: 'Created on', translations: [{ code: en, label: 'Created on' }] }
+  - { name: Documents, translations: [{ code: en, label: Documents }] }
+  - { name: 'Parcel options', translations: [{ code: en, label: 'Parcel options' }] }
+  - { name: 'In store currency (0 - do not use coverage)', translations: [{ code: en, label: 'In store currency (0 - do not use coverage)' }] }
+  - { name: Parcel, translations: [{ code: en, label: Parcel }] }
+  - { name: Warnings, translations: [{ code: en, label: Warnings }] }
+  - { name: 'Shipment info', translations: [{ code: en, label: 'Shipment info' }] }
+  - { name: 'Shipment ID', translations: [{ code: en, label: 'Shipment ID' }] }
+  - { name: 'Shipment status', translations: [{ code: en, label: 'Shipment status' }] }
+  - { name: 'Tracking pin', translations: [{ code: en, label: 'Tracking pin' }] }
+  - { name: 'Return tracking pin', translations: [{ code: en, label: 'Return tracking pin' }] }
+  - { name: 'PO Number', translations: [{ code: en, label: 'PO Number' }] }
+  - { name: Manifests, translations: [{ code: en, label: Manifests }] }
+  - { name: 'Manifest ID', translations: [{ code: en, label: 'Manifest ID' }] }
+  - { name: 'PO number', translations: [{ code: en, label: 'PO number' }] }
+  - { name: 'Parcel characteristics', translations: [{ code: en, label: 'Parcel characteristics' }] }
+  - { name: 'Total items weight', translations: [{ code: en, label: 'Total items weight' }] }
+  - { name: 'warning: parcel is overweight', translations: [{ code: en, label: 'warning: parcel is overweight' }] }
+  - { name: 'Box maximum weight', translations: [{ code: en, label: 'Box maximum weight' }] }
+  - { name: 'Dimensions (cm)', translations: [{ code: en, label: 'Dimensions (cm)' }] }
+  - { name: 'Parcel type', translations: [{ code: en, label: 'Parcel type' }] }
+  - { name: Document, translations: [{ code: en, label: Document }] }
+  - { name: Unpackaged, translations: [{ code: en, label: Unpackaged }] }
+  - { name: 'Mailing tube', translations: [{ code: en, label: 'Mailing tube' }] }
+  - { name: Oversized, translations: [{ code: en, label: Oversized }] }
+  - { name: 'On shipment', translations: [{ code: en, label: 'On shipment' }] }
+  - { name: 'On exception', translations: [{ code: en, label: 'On exception' }] }
+  - { name: 'On delivery', translations: [{ code: en, label: 'On delivery' }] }
+  - { name: 'Test Canada Post rates calculation', translations: [{ code: en, label: 'Test Canada Post rates calculation' }] }
+  - { name: 'Please note that rates are calculated for shipping from Canadian locations only.', translations: [{ code: en, label: 'Please note that rates are calculated for shipping from Canadian locations only.' }] }
+  - { name: 'Canada Post settings', translations: [{ code: en, label: 'Canada Post settings' }] }
+  - { name: 'Merchant registration wizard', translations: [{ code: en, label: 'Merchant registration wizard' }] }
+  - { name: 'To start registration process for Canada Post merchant account click on the "Register" button.', translations: [{ code: en, label: 'To start the registration process for a Canada Post merchant account click on the "Register" button.' }] }
+  - { name: 'If you want to enable merchant registration wizard once again, please click on the following link', translations: [{ code: en, label: 'If you want to enable merchant registration wizard once again, please click on the following link' }] }
+  - { name: 'enable merchant wizard', translations: [{ code: en, label: 'enable merchant wizard' }] }
+  - { name: 'Administrator notes', translations: [{ code: en, label: 'Administrator notes' }] }
+  - { name: 'Not specified', translations: [{ code: en, label: 'Not specified' }] }
+  - { name: '18 years', translations: [{ code: en, label: '18 years' }] }
+  - { name: '19 years', translations: [{ code: en, label: '19 years' }] }
+  - { name: 'shipments are picked up by Canada Post', translations: [{ code: en, label: 'shipments are picked up by Canada Post' }] }
+  - { name: 'deposit your items at a Post Office', translations: [{ code: en, label: 'deposit your items at a Post Office' }] }
+  - { name: 'Counter - will return the regular price paid by retail consumers', translations: [{ code: en, label: 'Counter - will return the regular price paid by retail consumers' }] }
+  - { name: 'Commercial - will return the contracted price between Canada Post and the contract holder', translations: [{ code: en, label: 'Commercial - will return the contracted price between Canada Post and the contract holder' }] }
+  - { name: 'Card (hold) for pick up', translations: [{ code: en, label: 'Card (hold) for pick up' }] }
+  - { name: 'Leave at door', translations: [{ code: en, label: 'Leave at door' }] }
+  - { name: 'Do not safe drop', translations: [{ code: en, label: 'Do not safe drop' }] }
+  - { name: 'Parcel is cannot be voided or transmitted - wrong quote type', translations: [{ code: en, label: 'Parcel cannot be voided or transmitted - wrong quote type' }] }
+  - { name: 'Parcel is cannot be transmitted - wrong quote type', translations: [{ code: en, label: 'Parcel cannot be transmitted - wrong quote type' }] }
+  - { name: 'Enter Return # or Order #', translations: [{ code: en, label: 'Enter Return # or Order #' }] }
+  - { name: 'Return products', translations: [{ code: en, label: 'Return products' }] }
+  - { name: 'Void shipment', translations: [{ code: en, label: 'Void shipment' }] }
+  - { name: 'Are you sure you want to void this shipment?', translations: [{ code: en, label: 'Are you sure you want to void this shipment?' }] }
+  - { name: 'Create shipment', translations: [{ code: en, label: 'Create shipment' }] }
+  - { name: 'Transmit shipment', translations: [{ code: en, label: 'Transmit shipment' }] }
+  - { name: 'Are you sure you want to transmit this shipment?', translations: [{ code: en, label: 'Are you sure you want to transmit this shipment?' }] }
+  - { name: 'Ordered qty', translations: [{ code: en, label: 'Ordered qty' }] }
+  - { name: 'Return qty', translations: [{ code: en, label: 'Return qty' }] }
+  - { name: 'Total weight', translations: [{ code: en, label: 'Total weight' }] }
+  - { name: 'Move item', translations: [{ code: en, label: 'Move item' }] }
+  - { name: 'New parcel', translations: [{ code: en, label: 'New parcel' }] }
+  - { name: 'Return #', translations: [{ code: en, label: 'Return #' }] }
+  - { name: 'CanadaPost settings', translations: [{ code: en, label: 'CanadaPost settings' }] }
+  - { name: 'Tracking details', translations: [{ code: en, label: 'Tracking details' }] }
+  - { name: 'Search for returns', translations: [{ code: en, label: 'Search for returns' }] }
+  - { name: 'Parcels have been successfully updated', translations: [{ code: en, label: 'The parcels have been successfully updated' }] }
+  - { name: 'Shipment has been created with errors', translations: [{ code: en, label: 'The shipment has been created with errors' }] }
+  - { name: 'Shipment has been created successfully', translations: [{ code: en, label: 'The shipment has been created successfully' }] }
+  - { name: 'Shipment cannot be created', translations: [{ code: en, label: 'The shipment cannot be created' }] }
+  - { name: 'Shipment has been voided with errors', translations: [{ code: en, label: 'The shipment has been voided with errors' }] }
+  - { name: 'Shipment has been voided successfully', translations: [{ code: en, label: 'The shipment has been voided successfully' }] }
+  - { name: 'Shipment cannot be voided', translations: [{ code: en, label: 'The shipment cannot be voided' }] }
+  - { name: 'Shipment has been tranmitted with errors', translations: [{ code: en, label: 'The shipment has been transmitted with errors' }] }
+  - { name: 'Shipment has been transmitted successfully', translations: [{ code: en, label: 'The shipment has been transmitted successfully' }] }
+  - { name: 'Shipment cannot be transmitted', translations: [{ code: en, label: 'The shipment cannot be transmitted' }] }
+  - { name: Shipments, translations: [{ code: en, label: Shipments }] }
+  - { name: Return, translations: [{ code: en, label: Return }] }
+  - { name: 'The products return has been registered.', translations: [{ code: en, label: 'The products return has been registered.' }] }
+  - { name: 'No items have been selected for return.', translations: [{ code: en, label: 'No items have been selected for return.' }] }

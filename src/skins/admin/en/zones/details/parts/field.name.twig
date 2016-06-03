@@ -1,0 +1,7 @@
+{##
+ # Zone: name field template
+ #
+ # @ListChild (list="zones.zone", weight="100")
+ #}
+
+{{ widget('\\XLite\\View\\FormField\\Input\\Text', fieldName='zone_name', label=t('Zone name'), value=this.zone.getZoneName(), required='true', wrapperClass='zone-name') }}

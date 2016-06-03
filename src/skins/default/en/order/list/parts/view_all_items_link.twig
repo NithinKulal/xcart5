@@ -1,0 +1,11 @@
+{##
+ # Orders list items block
+ #
+ # @ListChild (list="orders.children.view_all_items_link", weight="10")
+ #}
+
+{% if this.isMoreLinkVisible() %}
+  <div class="view-all-items-link">
+    <a href="{{ url('order', '', {'order_number': this.order.getOrderNumber()}) }}">{{ t('View all ordered items') }}</a>
+  </div>
+{% endif %}

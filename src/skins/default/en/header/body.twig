@@ -1,0 +1,7 @@
+{##
+ # Page head
+ #}
+
+<head{% for k, v in this.getHeadAttributes() %} {{ k }}="{{ v }}"{% endfor %}>
+  {{ widget_list('head') }}
+</head>

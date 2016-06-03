@@ -1,0 +1,13 @@
+{##
+ # Top menu container
+ #
+ # @ListChild (list="layout.main", weight="250")
+ #}
+
+{% if not this.isCheckoutLayout() %}
+<div class="navbar navbar-inverse mobile-hidden" role="navigation">
+    <div class="collapse navbar-collapse">
+        {{ widget_list('header.menu') }}
+    </div>
+</div>
+{% endif %}

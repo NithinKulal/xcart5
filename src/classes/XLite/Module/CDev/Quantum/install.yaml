@@ -1,0 +1,31 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Payment\Method:
+  - service_name: QuantumGateway
+    class: Module\CDev\Quantum\Model\Payment\Processor\Quantum
+    type: C
+    orderby: -10000
+    countries: [US]
+    translations:
+      - code: en
+        name: QuantumGateway
+    settings:
+      - name: login
+      - name: prefix
+        value: xcart
+      - name: hash
+      - name: include_response
+        value: N
+XLite\Model\LanguageLabel:
+  - { name: 'Invoice number prefix', translations: [{ code: en, label: 'Invoice number prefix' }] }
+  - { name: 'MD5 hash value', translations: [{ code: en, label: 'MD5 hash value' }] }
+  - { name: 'Use of Restriction key must be disabled in your Quantum Gateway merchant center account at all times.', translations: [{ code: en, label: 'Use of Restriction key must be disabled in your Quantum Gateway merchant center account at all times. Please log in to your account, go to the Processing Settings section and make sure the setting "Use restriction key" is disabled.' }] }
+  - { name: 'Include response in hash', translations: [{ code: en, label: 'Include response in hash' }] }
+  - { name: 'This value must be set in exactly the same way as it is set on the payment gateway end.', translations: [{ code: en, label: 'This value must be set in exactly the same way as it is set on the payment gateway end.' }] }
+
+

@@ -1,0 +1,20 @@
+{##
+ # Discount coupon subpanel
+ #
+ # @ListChild (list="cart.panel.totals.modifier")
+ # @ListChild (list="checkout.review.selected.items.modifier")
+ # @ListChild (list="invoice.base.totals.modifier.name")
+ #}
+
+{% if this.isDiscountCouponSubpanelVisible(this.surcharge) %}
+  <ul class="discount-coupons-panel">
+    {% for usedCoupon in this.getDiscountCoupons() %}
+      <li>
+        <span>{{ usedCoupon.getPublicName() }}</span>
+        {% if this.isDiscountCouponRemoveVisible() %}
+          <a href="{{ this.buildUrl('coupon', 'remove', {'id': usedCoupon.getId()}) }}">{{ t('Remove') }}</a>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}

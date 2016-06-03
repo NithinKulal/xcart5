@@ -1,0 +1,7 @@
+{##
+ # Remove button
+ #}
+<div class="remove-wrapper {{ this.getStyle }}">
+  <button type="button" class="{{ this.getStyle() }}" title="{{ t(this.getButtonLabel()) }}" tabindex="-1"><i class="fa fa-trash-o"></i></button>
+  <input type="checkbox" name="{{ this.getName() }}" value="{{ this.getValue() }}" tabindex="-1" />
+</div>

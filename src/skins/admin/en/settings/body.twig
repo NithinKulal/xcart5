@@ -1,0 +1,11 @@
+{##
+ # Model
+ #}
+<div class="settings general-settings settings-{{ this.page }} settings-">
+  {% if this.target == 'module' %}
+    {{ widget('\\XLite\\View\\Model\\ModuleSettings', useBodyTemplate='1') }}
+  {% endif %}
+  {% if this.target != 'module' %}
+    {{ widget('\\XLite\\View\\Model\\Settings', useBodyTemplate='1') }}
+  {% endif %}
+</div>

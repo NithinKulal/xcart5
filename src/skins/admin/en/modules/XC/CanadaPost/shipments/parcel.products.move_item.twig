@@ -1,0 +1,13 @@
+{##
+ # Parcel items list part: move item
+ #}
+
+<div class="move-parcel-item">
+  <input type="text" name="moveItems[{{ this.entity.getId() }}][amount]" size="3" maxlength="12" value="" />
+  <select name="moveItems[{{ this.entity.getId() }}][parcelId]">
+    <option value=""></option>
+    {% for k, v in this.getAllowedToMoveParcels(this.entity.parcel) %}
+      <option value="{{ k }}">{{ v }}</option>
+    {% endfor %}
+  </select>
+</div>

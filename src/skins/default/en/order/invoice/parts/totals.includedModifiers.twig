@@ -1,0 +1,13 @@
+{##
+ # Invoice totals : subtotal
+ #
+ # @ListChild (list="invoice.base.totals", weight="300")
+ #}
+{% if this.order.getItemsIncludeSurchargesTotals() %}  
+    {% for row in this.order.getItemsIncludeSurchargesTotals() %}
+      <li class='included-surcharge'>
+        <span class="name">{{ t('Including X', {'name': row.surcharge.getName()}) }}:</span>
+        <span class="value">{{ widget('XLite\\View\\Surcharge', surcharge=row.cost, currency=this.order.getCurrency()) }}
+      </li>
+    {% endfor %}
+{% endif %}

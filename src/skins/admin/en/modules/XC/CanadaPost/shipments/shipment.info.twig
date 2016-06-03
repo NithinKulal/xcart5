@@ -1,0 +1,110 @@
+{##
+ # Shipments info
+ #}
+
+<div class="shipment-info">
+  
+  <div class="shipment-info-part">
+
+    <h3>{{ t('Shipment info') }}</h3>
+
+    <table>
+      
+      <tr>
+        <td>{{ t('Shipment ID') }}:</td>
+        <td>{{ parcel.shipment.getShipmentId() }}</td>
+      </tr>
+      
+      {#
+      <tr IF="parcel.shipment.getShipmentStatus()">
+        <td>{t(#Shipment status#)}:</td>
+        <td>{parcel.shipment.getShipmentStatus()}</td>
+      </tr>
+      #}
+
+      {% if parcel.shipment.getTrackingPin() %}
+        <tr>
+          <td>{{ t('Tracking pin') }}:</td>
+          <td><a href="{{ url('capost_tracking', '', {'shipment_id': parcel.shipment.getId(), 'widget': 'XLite\\Module\\XC\\CanadaPost\\View\\TrackingDetails'}) }}" class="tracking-details-link">{{ parcel.shipment.getTrackingPin() }}</a></td>
+        </tr>
+      {% endif %}
+
+      {% if parcel.shipment.getReturnTrackingPin() %}
+        <tr>
+          <td>{{ t('Return tracking pin') }}:</td>
+          <td>{{ parcel.shipment.getReturnTrackingPin() }}</td>
+        </tr>
+      {% endif %}
+
+      {% if parcel.shipment.getPoNumber() %}
+        <tr>
+          <td>{{ t('PO Number') }}:</td>
+          <td>{{ parcel.shipment.getPoNumber() }}</td>
+        </tr>
+      {% endif %}
+
+      {% if parcel.shipment.getLinks() %}
+        <tr>
+          <td>{{ t('Documents') }}:</td>
+          <td>
+            <ul>
+              {% for link in parcel.shipment.getPDFLinks() %}
+                <li>
+                  <a href="{{ link.getURL() }}">{{ link.getLinkTitle() }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          </td>
+        </tr>
+      {% endif %}
+
+    </table>
+
+  </div>
+
+  {% if parcel.shipment.hasManifests() %}
+    <div class="shipment-info-part">
+      
+      <h3>{{ t('Manifests') }}</h3>
+  
+      {% for manifest in parcel.shipment.getManifests() %}
+        
+        <table>
+        
+          <tr>
+            <td>{{ t('Manifest ID') }}:</td>
+            <td>{{ manifest.getManifestId() }}</td>
+          </tr>
+  
+          <tr>
+            <td>{{ t('PO number') }}:</td>
+            <td>{{ manifest.getPoNumber() }}</td>
+          </tr>
+  
+          {% if manifest.getLinks() %}
+            <tr>
+              <td>{{ t('Documents') }}:</td>
+              <td>
+                <ul>
+                  {% for link in manifest.getLinks() %}
+                    {% if link.getStorage() %}
+                      <li>
+                        <a href="{{ link.storage.getGetterURL() }}">{{ link.getLinkTitle() }}</a>
+                      </li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              </td>
+            </tr>
+          {% endif %}
+  
+        </table>
+  
+      {% endfor %}
+  
+    </div>
+  {% endif %}
+
+  <div style="clear: both;"></div>
+
+</div>

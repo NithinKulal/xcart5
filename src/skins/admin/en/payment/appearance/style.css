@@ -1,0 +1,71 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Payment methods styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.no-payment-methods-appearance {
+  border: solid #EDEDED 1px;
+  width: 450px;
+  margin: 10px 0 0 0;
+}
+
+.no-payment-methods-appearance .box {
+  font-size: 16px;
+  color: #333;
+  letter-spacing: 0;
+  word-spacing: 1px;
+  padding: 27px 0 25px 33px;
+  border: solid 6px #F9F9F9;
+}
+
+.items-list.payment-methods td.cell.actions .cell .action {
+  margin-left: 4px;
+}
+
+.items-list.payment-methods td.cell.title {
+  width: 30%;
+}
+
+.items-list.payment-methods td.cell.description {
+  width: 70%;
+  vertical-align: bottom;
+}
+
+.items-list.payment-methods td.cell.description input[type="text"] {
+  width: 100%;
+}
+
+td.cell.description div.table-value span.input {
+  width: 100%;
+}
+
+td.cell.description div.inline-field.method-description {
+  width: 100%;
+}
+
+.items-list.payment-methods td.cell.title .plain-value {
+  display: block;
+  line-height: 18px;
+}
+
+.items-list.payment-methods td.cell.title .plain-value .status,
+.items-list.payment-methods td.cell.title .plain-value .value {
+  font-size: 10px;
+}
+
+.items-list.payment-methods td.cell.title .status {
+  color: #51b962;
+  margin-right: 4px;
+}
+
+.items-list.payment-methods tr.line.disabled-method td.cell.title .status {
+  color: #bec6d8;
+}
+
+.items-list.payment-methods tr.line.disabled-method {
+  opacity: 0.5;
+}

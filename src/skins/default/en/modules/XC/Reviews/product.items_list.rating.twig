@@ -1,0 +1,8 @@
+{##
+ # Rating value in product info
+ #
+ # @ListChild (list="itemsList.product.grid.customer.info", weight="35")
+ # @ListChild (list="itemsList.product.list.customer.info", weight="45")
+ #}
+
+{{ widget('XLite\\Module\\XC\\Reviews\\View\\Customer\\ProductInfo\\ItemsList\\AverageRating', productId=this.product.id, widgetMode=this.getDisplayMode()) }}

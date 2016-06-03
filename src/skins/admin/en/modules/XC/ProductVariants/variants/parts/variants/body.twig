@@ -1,0 +1,22 @@
+{##
+ # Variants
+ #}
+
+{% if this.isLimitWarningVisible() %}
+  <div class="alert alert-warning variants-limit">{{ this.getVariantsNumberWarning() }}</div>
+{% endif %}
+
+{% form 'XLite\\Module\\XC\\ProductVariants\\View\\Form\\Product\\Modify\\Variants' with {className: 'form-variants'} %}
+  <div class="{{ this.getBlockStyle() }}">
+    <div class="header clearfix">
+      <span class="title">{{ this.getTitle() }}</span>
+      {% if this.isAllowVaraintAdd() %}
+        {% include 'modules/XC/ProductVariants/variants/parts/create_variants.twig' %}
+      {% endif %}
+    </div>
+    <div class="content">
+      {{ widget('XLite\\Module\\XC\\ProductVariants\\View\\ItemsList\\Model\\ProductVariant') }}
+    </div>
+  </div>
+  {{ widget('XLite\\Module\\XC\\ProductVariants\\View\\StickyPanel\\ItemsList\\ProductVariant') }}
+{% endform %}

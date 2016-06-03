@@ -1,0 +1,85 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+ul.account-links .language-selector {
+  position: relative;
+  width: 70px;
+}
+
+ul.account-links .language-selector ul {
+  position: absolute;
+  z-index: 99;
+  border: 1px solid #cadce8;
+  width: 67px;
+  top: -18px;
+  right: 0;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+}
+
+ul.account-links .language-selector li {
+  display: block;
+  background-color: #eff8fe;
+  margin: 0;
+  text-align: left;
+  font-size: 12px;
+}
+
+ul.account-links .language-selector li.current span.lng {
+  background: url(../images/arrow_down.png) no-repeat 53px 10px;
+  color: #5194c5;
+  cursor: default;
+}
+
+ul.account-links .language-selector li.current {
+  height: 22px;
+  line-height: 20px;
+}
+
+
+
+ul.account-links .language-selector:hover li.current {
+  border-bottom: 1px solid #cadce8;
+  padding: 0;
+  padding-bottom: 1px;
+}
+
+ul.account-links .language-selector li.current span.lng span,
+ul.account-links .language-selector a span {
+  position: relative;
+  top: 1px;
+  left: 3px;
+}
+
+ul.account-links .language-selector li:hover {
+  background-color: #fff;
+}
+
+ul.account-links .language-selector ul li.not-current {
+  display: none;
+  padding: 3px 0;
+}
+
+ul.account-links .language-selector:hover ul li.not-current {
+  display: block;
+}
+
+ul.account-links .language-selector li.current span.lng,
+ul.account-links .language-selector a,
+ul.account-links .language-selector a:hover {
+  display: block;
+  text-decoration: none;
+}
+
+ul.account-links .language-selector img {
+  margin: 0 0 0 5px;
+  width: 20px;
+  height: 14px;
+}

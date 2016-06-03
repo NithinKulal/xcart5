@@ -1,0 +1,108 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Product items lsit styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.items-list.orders table.list thead th.total {
+  text-align: right;
+  padding-right: 13px;
+}
+
+.items-list.orders table.list tbody td.total {
+  text-align: right;
+}
+
+.items-list.orders table.list thead th.paymentStatus,
+.items-list.orders table.list thead th.shippingStatus,
+.items-list.orders table.list tbody tr.line td.paymentStatus,
+.items-list.orders table.list tbody tr.line td.shippingStatus
+{
+  padding-left: 9px;
+}
+
+.items-list.orders table.list tbody tr.completed td,
+.items-list.orders table.list tbody tr.completed td span,
+.items-list.orders table.list tbody tr.completed td div,
+.items-list.orders table.list tbody td span.time
+{
+  color: #8f8f8f;
+}
+
+.items-list.orders table.list tbody td div.order-status {
+  display: inline-block;
+}
+
+.items-list.orders table.list tbody td div.payment-actions {
+  display: inline-block;
+}
+
+.items-list-table table.list tbody.lines tr.line td.cell.profile {
+  line-height: 1.3em;
+}
+
+.items-list.orders table.list tbody td.profile .profile-email a {
+  color: #8f8f8f;
+  display: inline-block;
+  font-size: 12px;
+  text-decoration: none;
+  vertical-align: baseline;
+}
+
+.items-list.orders table.list td.main {
+  min-width: 0;
+}
+
+.items-list.orders th.profile {
+  padding-left: 41px;
+}
+
+.items-list.orders .profile .cell {
+  width: 280px;
+  max-width: 280px;
+}
+
+.items-list.orders .profile .cell .profile-box {
+  position: relative;
+  width: 95%;
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.items-list.orders .profile-box .profile-email {
+  display: block;
+  line-height: 13px;
+}
+
+.items-list.orders .profile .cell .profile-icon,
+.items-list.orders .profile .cell .profile-anonymous-icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 20px;
+  height: 20px;
+}
+
+.items-list.orders .profile .cell .profile-anonymous-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.items-list.orders img.anonym {
+  width: 15px;
+  height: 17px;
+  background: transparent url(../../../../images/anonym_icon.png) no-repeat left top;
+  margin-right: 5px;
+}
+
+.items-list.orders img.anonymous {
+  width: 18px;
+  margin-right: 5px;
+}
+
+.items-list.orders img.hidden {
+  background-image: none;
+}

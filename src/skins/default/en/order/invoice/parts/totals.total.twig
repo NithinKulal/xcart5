@@ -1,0 +1,9 @@
+{##
+ # Invoice totals : total
+ #
+ # @ListChild (list="invoice.base.totals", weight="300")
+ #}
+<li class="total">
+  <div class="title">{{ t('Grand total') }}:</div>
+  <div class="value">{{ this.getOrderTotal()|raw }}</div>
+</li>

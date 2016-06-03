@@ -1,0 +1,8 @@
+{##
+ # Wholesale prices table
+ #
+ # @ListChild (list="wholesale", weight="200")
+ # @ListChild (list="wholesale-quicklook", weight="200")
+ #}
+
+{{ widget('\\XLite\\Module\\CDev\\Wholesale\\View\\MinQuantity', product=this.getProduct()) }}

@@ -1,0 +1,10 @@
+{##
+ # Range template
+ #}
+<span class="range-wrapper {{ this.getWrapperClass() }}">
+  {{ this.getBeginWidget()|raw }}
+  {% if this.hasSeparator() %}
+    <span class="separator">{{ this.getSeparator() }}</span>
+  {% endif %}
+  {{ this.getEndWidget()|raw }}
+</span>

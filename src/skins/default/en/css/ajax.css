@@ -1,0 +1,76 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * AJAX-related styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+/* Modal wait screen */
+.wait-block
+{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  text-align: center;
+}
+
+.wait-progress .wait-block,
+.progress-bar .wait-progress
+{
+  width: 30%;
+  border: 1px solid #dddddd;
+  background: #fff none;
+  padding: 9px;
+  margin-top: -16px;
+  margin-left: -15%;
+}
+
+.progress-bar .wait-progress {
+  border: 0px none;
+  width: auto;
+  margin: 0px;
+}
+
+.wait-block div
+{
+  padding: 0;
+  margin: 0;
+}
+
+.wait-progress .wait-block div,
+.progress-bar .wait-progress div
+{
+  height: 11px;
+  background: transparent url(../images/progress.gif) repeat-x left top;
+  width: 100%;
+  animation: none;
+  -moz-animation: none;
+  -o-animation: none;
+  -webkit-animation: none;
+}
+
+.wait-block-overlay {
+  position: absolute;
+  cursor: wait;
+  margin: 0px;
+  padding: 0px;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.80);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff00, endColorstr=#ffffff00);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff00, endColorstr=#ffffff00)";
+  z-index: 10;
+}
+
+.shade-block-overlay {
+  position: absolute;
+  cursor: wait;
+  margin: 0px;
+  padding: 0px;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.80);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff00, endColorstr=#ffffff00);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff00, endColorstr=#ffffff00)";
+  z-index: 10;
+}

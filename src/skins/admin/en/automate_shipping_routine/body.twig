@@ -1,0 +1,75 @@
+{##
+ # Automate shipping routine landing page
+ #}
+
+{% if not this.getShippingModules() %}
+  {% include 'automate_shipping_routine/parts/no_modules.twig' %}
+{% else %}
+  <div class="automate-shipping-routine-wrapper">
+    <p class='description'>{{ t('Automate your shipping process with the services of our partners: print shipping labels, grab shipping orders info from eBay, ETSY, Amazon and other marketplaces; integrate with several shipping carriers in one spot and more.') }}</p>
+    <table class="shipping-list-table">
+      <thead>
+        <tr>
+          <th></th>
+          {% for module in this.getShippingModules() %}
+            <th>
+              <div class="logo-image-container">
+                <img class="logo-image" src="{{ this.getImageURL(module) }}" alt="{{ module.getModuleName() }}">
+              </div>
+            </th>
+          {% endfor %}
+        </tr>
+      </thead>
+      {% for type, propertyGroup in this.getShippingModuleProperties() %}
+        <tbody class="{{ type }}">
+          {% if this.getGroupLabel(type) %}
+            <tr class="group-label">
+              <th>
+                <div class="property-label">{{ this.getGroupLabel(type) }}</div>
+              </th>
+            </tr>
+          {% endif %}
+          {% for propertyKey, propertyName in propertyGroup %}
+            <tr>
+              <th>
+                <div class="property-label">{{ propertyName }}</div>
+              </th>
+              {% for module in this.getShippingModules() %}
+                <td>
+                  {{ widget(template=this.getPropertyTemplate(this.getShippingModulePropertyValue(module, type, propertyKey)), value=this.getShippingModulePropertyValue(module, type, propertyKey)) }}
+                </td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      {% endfor %}
+      <tbody class="buttons">
+        <tr>
+          <td></td>
+          {% for module in this.getShippingModules() %}
+            <td>
+              {% if module.isInstalled() and this.hasSetting(module.getModuleInstalled()) %}
+                {{ widget('XLite\\View\\Button\\Link', location=this.getSettingsForm(module), label=t('Settings'), style='regular-button') }}
+              {% endif %}
+              {% if not module.isInstalled() %}
+                {{ widget('XLite\\View\\Button\\Link', location=this.getMarketplaceURL(module), label=t('Install'), style='regular-main-button') }}
+              {% endif %}
+              {% if module.isInstalled() and not this.hasSetting(module.getModuleInstalled()) %}
+                <div class="installed-placeholder">
+                  <span>{{ t('Installed') }}</span>
+                </div>
+              {% endif %}
+            </td>
+          {% endfor %}
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="description bottom-description">
+    <p>{{ t('Haven\'t found what you\'re looking for? View more shipping modules', {'href': this.getShippingModulesLink()})|raw }}</p>
+  </div>
+{% endif %}
+<hr>
+<div class="bottom-actions">
+  <a href="{{ url('shipping_methods') }}">{{ t('Back to shipping methods') }}</a>
+</div>

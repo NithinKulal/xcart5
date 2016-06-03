@@ -1,0 +1,65 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Notifications styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.field .onoffswitch {
+  width: 100px;
+}
+.field .onoffswitch input[type=checkbox] + label {
+  margin: 0 22px;
+}
+.field .onoffswitch input[type=checkbox] + label .on-label {
+  color: #fff;
+}
+.field .onoffswitch input[type=checkbox]:checked + label .off-label {
+  color: #fff;
+}
+
+.items-list-table table.list thead th.enabledForAdmin,
+.items-list-table table.list thead th.enabledForCustomer {
+  text-align: center;
+}
+
+.items-list-table table.list thead th.enabledForAdmin,
+.items-list-table table.list thead th.enabledForCustomer,
+.items-list-table table.list tbody.lines tr.line td.enabledForAdmin,
+.items-list-table table.list tbody.lines tr.line td.enabledForCustomer {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+td.enabledForAdmin .cell {
+  text-align: right;
+}
+
+td.enabledForAdmin .separator {
+  display: inline-block;
+  position: relative;
+  top: 0;
+  width: 3px;
+  height: 22px;
+  background-image: url(../items_list/model/table/images/line-separator.png);
+  background-repeat: repeat-y;
+  background-position: top right;
+}
+
+.cell.name .description {
+  white-space: normal;
+  font-size: 14px;
+  line-height: 14px;
+  max-width: 600px;
+  margin-top: 4px;
+}
+
+.items-list-table table.list tbody td.name div.cell {
+  line-height: 16px;
+}
+.items-list-table table.list tbody td.name div.description {
+  color: #8f8f8f;
+  font-size: 12px;
+}

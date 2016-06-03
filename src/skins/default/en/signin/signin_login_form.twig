@@ -1,0 +1,10 @@
+{##
+ # Sign-in
+ #
+ # @ListChild (list="customer.checkout.signin", weight="10")
+ #}
+{% form '\\XLite\\View\\Form\\Login\\Customer\\Main' %}
+<table class="login-form">
+  {{ widget_list('checkout.signin.form') }}
+</table>
+{% endform %}

@@ -1,0 +1,10 @@
+{##
+ # Cache management page
+ #}
+
+{% if not this.isQuickDataNotFinished() %}
+  {% include 'settings/body.twig' %}
+{% endif %}
+{% if this.isQuickDataNotFinished() %}
+  {{ widget('\\XLite\\View\\QuickData\\Progress') }}
+{% endif %}

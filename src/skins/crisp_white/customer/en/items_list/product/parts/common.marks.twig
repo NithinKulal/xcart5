@@ -1,0 +1,10 @@
+{##
+ # Marks
+ #
+ # @ListChild (list="itemsList.product.grid.customer.info", weight="998")
+ # @ListChild (list="itemsList.product.list.customer.photo", weight="998")
+ # @ListChild (list="itemsList.product.table.customer.columns", weight="45")
+ #}
+<div class="product-marks">
+  {{ widget_list('marks', type='inherited', product=this.product) }}
+</div>

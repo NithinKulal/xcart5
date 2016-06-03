@@ -1,0 +1,10 @@
+{##
+ # Layout settings template
+ #
+ # @ListChild (list="layout_settings.settings", weight="40")
+ #}
+{% if this.showSettingsForm() %}
+  <div class="settings-form">
+    {{ widget('XLite\\View\\Button\\Link', location=this.getSettingsForm(), label=t('Edit custom options')) }}
+  </div>
+{% endif %}

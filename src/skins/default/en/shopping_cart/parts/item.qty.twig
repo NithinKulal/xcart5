@@ -1,0 +1,16 @@
+{##
+ # Shopping cart item : quantity
+ #
+ # @ListChild (list="cart.item", weight="50")
+ #}
+<td class="item-qty">
+  {% if this.item.canChangeAmount() %}
+    {% form '\\XLite\\View\\Form\\Cart\\Item\\Update' with {item: this.item, className: 'update-quantity', validationEngine: '1'} %}
+      <div>
+        {{ widget('\\XLite\\View\\Product\\QuantityBox', product=this.item.getProduct(), fieldValue=this.item.getAmount(), isCartPage='1', orderItem=this.item) }}
+      </div>
+    {% endform %}
+  {% else %}
+    <span class="non-valid-qty">{{ this.item.getAmount() }}</span>
+  {% endif %}
+</td>

@@ -1,0 +1,14 @@
+{##
+ # Orders list items block
+ #
+ # @ListChild (list="orders.children", weight="20")
+ #}
+{% if this.getPageData() %}
+  <ul class="list">
+    {% for order in this.getPageData() %}
+      <li class="order-{{ order.order_id }}">
+        {{ widget('\\XLite\\View\\OrderList\\OrderListItem', order=order) }}
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}

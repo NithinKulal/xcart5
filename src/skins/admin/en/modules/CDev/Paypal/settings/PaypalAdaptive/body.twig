@@ -1,0 +1,36 @@
+{##
+ # Settings template
+ #}
+
+{{ widget('\\XLite\\View\\Payment\\MethodStatus', method=this.getPaymentMethod()) }}
+
+<div class="payment-settings {{ this.paymentMethod.getServiceName() }}">
+
+  <div class="middle">
+
+    {{ widget('\\XLite\\Module\\CDev\\Paypal\\View\\Model\\PaypalAdaptive', paymentMethod=this.getPaymentMethod()) }}
+
+    <div class="help">
+      <div class="logo-ppa"></div>
+
+      <div class="help-title">Accept Payments Directly on Your Site</div>
+
+      <div class="help-text">Accept Visa, MasterCard&reg;, American Express, Discover, and PayPal payments.</div>
+      <div class="help-text">In the current implementation of PayPal Adaptive Payments for X-Cart, fees for using the service are charged by PayPal based on the "Primary Receiver Pays the Fee in a Chained Payment" model. This means that only the administrator, who is the primary receiver, pays the fee in a chained payment, whereas other receivers - vendors - pay no fees. The fees paid by the administrator, however, are based upon the total fees assigned to all receivers.</div>
+
+      <div class="links">
+        <div class="help-link">Don't have an account? <span class="external"><a href="{{ this.paymentMethod.getReferralPageURL() }}" target="_blank">Sign Up Now</a> <i class="icon fa fa-external-link"></i></span></div>
+        {% for link in this.paymentMethod.getKnowledgeBasePageURLs() %}
+          <div class="help-link">
+            <span class="external"><a href="{{ link.url }}" target="_blank">{{ link.name }}</a> <i class="icon fa fa-external-link"></i></span>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="help-text"><span class="external"><a href="{{ this.paymentMethod.getPartnerPageURL() }}" target="_blank">Get more information</a> <i class="icon fa fa-external-link"></i></span></div>
+
+    </div>
+
+  </div>
+
+</div>

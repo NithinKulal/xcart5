@@ -1,0 +1,11 @@
+{##
+ # Country part
+ #
+ # @ListChild (list="layout.header.bar.locale", weight="10")
+ #}
+
+{% if this.getCurrentCountry() %}
+<span class='country-indicator'>
+    {{ this.getCurrentCountry().getCountry() }}
+</span>
+{% endif %}

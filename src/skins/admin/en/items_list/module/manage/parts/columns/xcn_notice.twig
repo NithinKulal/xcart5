@@ -1,0 +1,14 @@
+{##
+ # X-Cart module notice
+ #
+ # @ListChild (list="itemsList.module.manage.columns.module-main-section", weight="200")
+ #}
+{% if this.showXCNModuleNotice(this.module) %}
+  <div class="note error xcn-module-notice">
+  <span>
+  {{ t('Module available editions 4', {'list': this.getEditions(this.module)})|raw }}
+    {{ widget('\\XLite\\View\\Button\\ActivateKey', label='Activate existing key') }}
+    {{ widget('\\XLite\\View\\Button\\Addon\\EnterLicenseKey', label='Activate existing key') }}
+  </span>
+  </div>
+{% endif %}

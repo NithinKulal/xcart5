@@ -1,0 +1,6 @@
+{##
+ # Order payment status
+ #
+ # @ListChild (list="order.status", weight="10")
+ #}
+<div class="payment order-status-{{ this.order.getPaymentStatusCode() }}">{{ widget('\\XLite\\View\\OrderStatus\\Payment', order=this.getOrder(), useWrapper='true') }}</div>

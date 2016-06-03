@@ -1,0 +1,36 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Social Login widget styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.signin-login-wrapper .social-login-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profile-form .button.social-login {
+  float: left;
+  margin-left: 30px;
+  line-height: 34px;
+}
+
+.profile-form ul.social-login {
+  margin: 0;
+}
+
+.profile-form .social-login-note,
+.profile-form .social-login-container {
+  display: inline-block;
+}
+
+.profile-form .social-login-container {
+  padding-top: 2px;
+}
+
+.profile-form .social-login-note {
+  margin-right: 10px;
+}

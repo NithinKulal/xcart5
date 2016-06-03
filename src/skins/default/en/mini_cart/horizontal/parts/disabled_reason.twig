@@ -1,0 +1,10 @@
+{##
+ # Horizontal minicart checkout button block
+ #
+ # @ListChild (list="minicart.horizontal.buttons", weight="20")
+ #}
+{% if not this.cart.checkCart() %}
+  <div class="reason-details">
+    {{ this.getDisabledReason()|raw }}
+  </div>
+{% endif %}

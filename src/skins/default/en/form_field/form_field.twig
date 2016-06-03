@@ -1,0 +1,35 @@
+{##
+ # ____file_title____
+ #}
+
+{% if not this.getParam('fieldOnly') %}
+  <div class="{{ this.getLabelContainerClass() }}">
+    <label for="{{ this.getFieldId() }}">
+      {{ this.getFormattedLabel() }}
+      {% if this.hasLabelHelp() %}
+        {{ widget('\\XLite\\View\\Tooltip', text=t(this.getParam('labelHelp')), helpWidget=this.getParam('labelHelpWidget'), isImageTag='true', className='help-icon') }}
+      {% endif %}
+    </label>
+  </div>
+  <div class="star">
+    {% if this.getParam('required') %}*{% else %}&nbsp;{% endif %}
+  </div>
+{% endif %}
+
+<div class="{{ this.getValueContainerClass() }}">
+  {% include this.getDir() ~ '/' ~ this.getFieldTemplate() %}
+  {% if this.hasHelp() %}
+    {{ widget('\\XLite\\View\\Tooltip', text=t(this.getParam('help')), helpWidget=this.getParam('helpWidget'), isImageTag='true', className='help-icon') }}
+  {% endif %}
+  {% if this.getParam('comment') %}
+    <div class="form-field-comment {{ this.getFieldId() }}-comment">{{ t(this.getParam('comment')) }}</div>
+  {% endif %}
+  {% if this.getFormFieldJSData() %}{{ this.displayCommentedData(this.getFormFieldJSData()) }}{% endif %}
+  {% if this.getInlineJSCode() %}
+    <script type="text/javascript">{{ this.getInlineJSCode() }}</script>
+  {% endif %}
+</div>
+
+{% if not this.getParam('fieldOnly') %}
+  <div class="clear"></div>
+{% endif %}

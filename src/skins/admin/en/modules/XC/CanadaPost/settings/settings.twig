@@ -1,0 +1,23 @@
+{##
+ # Canada Post settings widget
+ #}
+
+{{ t('Canada Post module allows to use online shipping rates calculation via Canada Post')|raw }}
+<br />
+{{ t('Please note that rates are calculated for shipping from Canadian locations only.') }}
+
+<br /><br />
+
+{% if this.isWizardEnabled() %}
+
+  {% include 'modules/XC/CanadaPost/settings/wizard.twig' %}
+
+{% else %}
+
+  {% include 'modules/XC/CanadaPost/settings/wizard.twig' %}
+
+  <br /><br />
+
+  {% include 'modules/XC/CanadaPost/settings/config.twig' %}
+
+{% endif %}

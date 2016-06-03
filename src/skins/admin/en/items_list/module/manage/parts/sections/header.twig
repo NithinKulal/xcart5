@@ -1,0 +1,33 @@
+{##
+ # ____file_title____
+ #
+ # @ListChild (list="modules-manage.top-controls", weight="100")
+ #}
+
+{% if not this.isRecentlyInstalledPage() %}
+
+<div class="installed-modules-header">
+
+  <div class="addons-filters">
+    <div class="addons-search-box">
+  
+      {% form '\\XLite\\View\\Form\\Module\\ManageSearch' with {formMethod: 'GET', className: 'search-form'} %}
+        <div class="substring">
+          {{ widget('\\XLite\\View\\FormField\\Input\\Text', fieldOnly='true', fieldName='substring', value=this.getSubstring(), defaultValue=t('Search for modules')) }}
+          {{ widget('\\XLite\\View\\Button\\Submit', label='') }}
+        </div>
+      {% endform %}
+  
+    </div>
+  </div>
+
+  <div class="actions">
+    {{ widget('XLite\\View\\Button\\Addon\\ActivateLicenseKey') }}
+    {{ widget('XLite\\View\\Button\\Addon\\EnterLicenseKey') }}
+    {{ widget('XLite\\View\\Button\\Addon\\Upload') }}
+    <span class="separator-or">{{ t('or') }}</span>
+    <a href="{{ url('addons_list_marketplace') }}">{{ t('View more addons in Marketplace') }}</a>
+  </div>
+
+</div>
+{% endif %}

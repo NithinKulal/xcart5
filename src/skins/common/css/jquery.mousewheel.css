@@ -1,0 +1,22 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * jQuery mouse wheel-related styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.wheel-mark-input {
+}
+
+span.wheel-mark {
+  margin: 0 10px 0 5px;
+  height: 16px;
+  width: 15px;
+  display: inline-block;
+}
+
+input.focused + span.wheel-mark {
+  background: url(../images/icon_mouse.gif) no-repeat;
+}

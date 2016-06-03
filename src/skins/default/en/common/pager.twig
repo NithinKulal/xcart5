@@ -1,0 +1,29 @@
+{##
+ # Common pager
+ #}
+ 
+{% if this.isPagerVisible() %}
+  <ul class="pagination">
+  
+    <li class="{{ this.getBorderLinkClassName('first') }}">
+      <a href="{{ this.buildURLByPageId(this.getPageIdByNotation('first')) }}" class="{{ this.getLinkClassName('first') }}"><img src="{{ asset('images/spacer.gif') }}" alt="First" /></a>
+    </li>
+    <li class="{{ this.getBorderLinkClassName('previous') }}">
+      <a href="{{ this.buildURLByPageId(this.getPageIdByNotation('previous')) }}" class="{{ this.getLinkClassName('previous') }}"><img src="{{ asset('images/spacer.gif') }}" alt="Previous" /></a>
+    </li>
+  
+    {% for num, pageURL in this.getPageURLs() %}
+      <li class="{{ this.getPageClassName(num) }}">
+        <a href="{{ pageURL }}" class="{{ this.getLinkClassName(num) }}">{{ this.inc(num) }}</a>
+      </li>
+    {% endfor %}
+  
+    <li class="{{ this.getBorderLinkClassName('next') }}">
+      <a href="{{ this.buildURLByPageId(this.getPageIdByNotation('next')) }}" class="{{ this.getLinkClassName('next') }}"><img src="{{ asset('images/spacer.gif') }}" alt="Next" /></a>
+    </li>
+    <li class="{{ this.getBorderLinkClassName('last') }}">
+      <a href="{{ this.buildURLByPageId(this.getPageIdByNotation('last')) }}" class="{{ this.getLinkClassName('last') }}"><img src="{{ asset('images/spacer.gif') }}" alt="Last" /></a>
+    </li>
+  
+  </ul>
+{% endif %}

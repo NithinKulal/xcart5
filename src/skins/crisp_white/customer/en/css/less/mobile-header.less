@@ -1,0 +1,102 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.mobile_header {
+  .nav {
+    min-width: 320px;
+    margin: 0;
+    display: flex;
+
+    .mobile_header-right_menu {
+      margin-left: auto;
+      #header {
+        position: relative;
+        right: 0;
+        z-index: 71;
+
+        .block {
+          border: none;
+
+          .content {
+            border: none;
+          }
+        }
+
+        & > * {
+          display: none;
+        }
+
+        .header_search {
+          display: inline-block;
+        }
+
+        .header_settings {
+          display: inline-block;
+        }
+
+        .lc-minicart {
+          display: inline-block;
+        }
+      }
+    }
+
+    .mobile_header-logo {
+      #logo {
+        width: auto;
+        img {
+          padding-top: @rhythmic-unit;
+          padding-bottom: @rhythmic-unit;
+          padding-right: @navbar-horizontal-gutter;
+          padding-left: @navbar-horizontal-gutter;
+          max-height: 60px;
+        }
+      }
+    }
+
+    @media(max-width: @screen-xs-max) {
+      .lc-minicart .items-list {
+        width: 420px;
+      }
+      .buttons-row > * {
+        width: 160px;
+      }
+    }
+
+    @media(max-width: @screen-xs-min) {
+      .header_settings {
+        display: none !important;
+      }
+
+      .dropdown-menu, .lc-minicart .items-list {
+        top: (@rhythmic-unit * 3 - 1);
+        position: fixed;
+        right: 0;
+      }
+
+      .lc-minicart .items-list {
+        padding: @rhythmic-unit;
+        width: 100%;
+
+        .item-image {
+          display: none;
+        }
+
+        .item-name {
+          padding-left: 0px;
+        }
+
+        .buttons-row > * {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+
+}

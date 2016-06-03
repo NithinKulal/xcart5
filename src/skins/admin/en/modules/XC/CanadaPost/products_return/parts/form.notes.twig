@@ -1,0 +1,15 @@
+{##
+ # Canada Post products return :: from :: customer notes
+ #
+ # @ListChild (list="capost_return.form", weight="400")
+ #}
+
+{% if this.isCustomerNotesVisible() %}
+  <div class="customer-notes">
+    
+    <h2>{{ t('Customer note') }}</h2>
+    
+    <div class="note">{{ this.productsReturn.getNotes() }}</div>
+  
+  </div>
+{% endif %}

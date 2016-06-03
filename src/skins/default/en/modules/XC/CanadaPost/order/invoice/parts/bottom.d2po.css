@@ -1,0 +1,20 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Styles for invoice page
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.invoice-box .addresses .capost-d2po {
+  padding-top: 21px;
+}
+
+ul.capost-d2po-section li {
+  font-size: 14px;
+  line-height: 20px;
+  background: none repeat scroll 0% 0% transparent;
+  padding: 0;
+  margin: 0;
+}

@@ -1,0 +1,21 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Category list styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.featured_products .fa-star {
+  margin-right: 4px;
+  color: #f9da49;
+  -webkit-text-stroke: 1px rgba(246, 160, 67, 1);
+  background: -webkit-linear-gradient(#faf3d1, #f9d244);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.featured_products .cell {
+  text-align: right;
+}

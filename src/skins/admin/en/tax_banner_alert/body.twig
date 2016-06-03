@@ -1,0 +1,11 @@
+{##
+ # Tax banner page template
+ #}
+
+<div class="tax-banner-alert alert module-banner alert-dismissable">
+	<button type="button" class="close close-banner" data-module-name="{{ this.getModuleName() }}"><span>&times;</span></button>
+  	<p class="semibold">{{ t('Avalara, a leader in US sales tax automation, provides a solution that can make your life easier by providing accurate and up-to-date tax rates for products you sell.')|raw }}</p>
+  	<br>
+  	<p>{{ t('New to Avalara?')|raw }}</p>
+  	<p>{{ t('Existing Avalara user?', {'moduleSettings': this.getModuleSettingsLink()})|raw }}</p>
+</div>

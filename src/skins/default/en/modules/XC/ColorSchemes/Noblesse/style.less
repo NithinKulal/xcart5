@@ -1,0 +1,307 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Noblesse variables
+ *
+ * Copyright (c) 2001-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+@body-bg: #333333 url("@{customer-skin}/modules/XC/ColorSchemes/Noblesse/images/store_bg.gif") left top repeat;
+
+@font-family-sans-serif: Arial, Helvetica, sans-serif;
+@headings-font-family: 'Oswald', sans-serif;
+
+@brand-primary: #9a000b;
+@link-hover-color: #333333;
+
+@border-radius-base: 4px;
+
+@base-border-color: #eeeeee;
+
+@button-gradient-start-color: #4b4b4b;
+@button-gradient-end-color: #0a0a0a;
+@btn-default-color: #ffffff;
+
+@button-main-gradient-start-color: #d20720;
+@button-main-gradient-end-color: #b7020b;
+
+@navbar-inverse-font-size: floor((@font-size-base * 1.15));
+@navbar-inverse-bg: #cccccc;
+@navbar-inverse-link-color: #383838;
+@navbar-inverse-link-hover-color: #bb8484;
+@navbar-inverse-link-hover-bg: transparent;
+@navbar-inverse-link-active-color: #383838;
+@navbar-inverse-link-active-bg: #999999;
+@navbar-border-radius: 4px;
+@navbar-margin-bottom: 0;
+
+@nav-tabs-link-hover-border-color: #c3c3c3;
+@nav-tabs-link-border-color: #c3c3c3;
+@nav-tabs-link-color: #ffffff;
+@nav-tabs-link-hover-color: @brand-primary;
+@nav-tabs-active-link-hover-bg: #ffffff;
+@nav-tabs-border-color: #c3c3c3;
+@nav-tabs-active-link-hover-color: @brand-primary;
+
+@display-modes-selected-bg: #333333;
+@display-modes-selected-color: @brand-primary;
+
+@display-sort-link-color: @display-modes-selected-bg;
+@display-sort-selected-link-bg: @display-modes-selected-bg;
+
+@price-color: #d0061e;
+@products-lists-price-color: @price-color;
+
+@pagination-border: #333333;
+@pagination-hover-border: #d0061e;
+@pagination-active-color: #ffffff;
+@pagination-active-bg: #333333;
+@pagination-active-border: #333333;
+
+@base-gradient-start-color: #383838;
+@base-gradient-end-color: #010101;
+
+@table-gradient-start-color: @base-gradient-start-color;
+@table-gradient-end-color: @base-gradient-end-color;
+
+@table-border-color: #dfdfdf;
+
+@navtab-bgcolor-normal: @base-gradient-end-color;
+@navtab-bgcolor-normal-hover: @base-gradient-start-color;
+
+@mobile-menu-bg: #f5f5f5;
+@mobile-menu-icons-color: #707070;
+@mobile-menu-minicart-color: #d80611;
+@slidebar-header-color: #707070;
+@slidebar-back-arrow-color: #707070;
+
+/* Noblesse styles */
+
+#main-wrapper {
+  .border-bottom-radius(10px);
+}
+
+#header-area {
+  .border-top-radius(10px);
+  margin: 0;
+}
+
+.lc-minicart {
+  .border-top-radius(0);
+  .border-bottom-radius(0);
+}
+
+h3,
+h4,
+h5,
+h6 {
+  font-family: @font-family-sans-serif;
+}
+
+#header-area .desktop-header a:not(.cart):not(.checkout) {
+  color: #8aa1b3;
+}
+
+.navbar-nav > li > a {
+  padding: 10px 20px;
+}
+
+.navbar-inverse {
+  border: none;
+  z-index: 100;
+  margin: 0 20px;
+  #gradient > .vertical (#383838, #010101);
+}
+
+.navbar-nav > li > a {
+  text-transform: uppercase;
+  padding: 15px 20px;
+}
+
+.nav-tabs {
+  > li {
+
+    > span,
+    > a {
+      #gradient > .vertical (#383838, #010101);
+      border: 1px solid @nav-tabs-border-color;
+      color: #ffffff;
+
+      &:hover {
+        border-color: @nav-tabs-border-color @nav-tabs-border-color @nav-tabs-border-color @nav-tabs-border-color;
+        #gradient > .vertical (#ffffff, #ffffff);
+        color: @nav-tabs-link-hover-color;
+      }
+    }
+
+    // Active state, and its :hover to override normal :hover
+    &.active > span,
+    &.active > a       {
+      &,
+      &:hover,
+        &:focus {
+        color: @nav-tabs-active-link-hover-color;
+        background: transparent none;
+        border: 1px solid @nav-tabs-border-color;
+        border-bottom-color: #ffffff;
+        cursor: default;
+        text-decoration: none !important;
+      }
+    }
+  }
+}
+
+
+.regular-button {
+  border: none;
+  &:active,
+    &.active {
+    background: @button-gradient-end-color;
+  }
+  &:hover,
+    &:focus {
+    border: none;
+  }
+
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    .opacity(0.5);
+    color: #fff;
+    background: @button-gradient-end-color;
+    &:active,
+      &.active{
+      background: @button-gradient-end-color;
+      color: #fff;
+    }
+  }
+
+  &:before{
+    display: none;
+  }
+}
+
+.regular-main-button {
+  &:active,
+    &.active {
+    opacity: 0.8;
+    #gradient > .vertical (@button-main-gradient-start-color, @button-main-gradient-end-color);
+  }
+}
+
+.pagination {
+  > li {
+    &:first-child {
+      > a,
+      > span {
+        background: url("@{customer-skin}/modules/XC/ColorSchemes/Noblesse/images/pager.png") 10px -29px no-repeat;
+      }
+    }
+    &:last-child {
+      > a,
+      > span {
+        background-image: url("@{customer-skin}/modules/XC/ColorSchemes/Noblesse/images/pager.png");
+      }
+    }
+  }
+}
+
+.mobile_header {
+  a {
+    color: @navbar-inverse-link-color;
+    &:hover{
+      color: @navbar-inverse-link-hover-color;
+    }
+  }
+
+  .simple-search-box{
+    box-shadow: none !important;
+  }
+}
+
+.lc-minicart {
+  color: #ffffff;
+}
+
+.lc-minicart .minicart-items-number {
+  color: @mobile-menu-minicart-color !important;
+}
+
+#header .block .content,
+#header .block .content:hover {
+  border: none;
+  background-color: transparent !important;
+  .border-top-radius(0);
+  .border-bottom-radius(0);
+}
+
+.ui-dialog{
+  border: none !important;
+  background-color: #333333 !important;
+}
+
+.navbar-inverse.mobile-hidden .navbar-nav > li > a {
+  color: #ffffff;
+
+  &:hover{
+    color: @navbar-inverse-link-hover-color;
+  }
+}
+
+
+.table {
+  > thead,
+  > tbody,
+  > tfoot {
+    > tr > th {
+      color: #ffffff !important;
+    }
+    > tr > th:before {
+      display: none;
+    }
+  }
+  > tbody + tbody {
+    border-top: 1px solid @table-border-color;
+  }
+}
+
+
+@media (min-width: @screen-md-min) {
+  .lc-minicart {
+    border-left: 1px solid #cccccc;
+    color: #333333;
+    margin: 19px 0 0;
+    background: #ffffff url("@{customer-skin}/modules/XC/ColorSchemes/Noblesse/images/shopping-bag.png") 10px 10px no-repeat;
+  }
+
+  .lc-minicart .minicart-items-number {
+    color: #6999c4 !important;
+    font-size: 24px;
+    padding-top: 11px;
+  }
+
+  #header .block .content {
+    height: 55px;
+  }
+
+}
+
+.checkout-block .steps .shipping-step .shipping-rates li span.value,
+.checkout-block .review-step .total span {
+  color: @price-color;
+}
+
+@media (max-width: @screen-sm-max) {
+  html, body {
+    background-image: none;
+  }
+
+  body #logo {
+    padding: 55px 0 0 0;
+    margin-bottom: 10px;
+    img {
+      margin: 0;
+    }
+  }
+}

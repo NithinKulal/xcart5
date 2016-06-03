@@ -1,0 +1,9 @@
+{##
+ # Head list children
+ #
+ # @ListChild (list="head", weight="1000")
+ #}
+
+{% if this.displayFavicon() %}
+  <link rel="shortcut icon" href="{{ this.getFavicon() }}" type="image/x-icon" />
+{% endif %}

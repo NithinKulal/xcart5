@@ -1,0 +1,13 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Data for upgrading X--Payments Connector module 5.2.5 -> 5.2.6
+#
+# @author    Qualiteam software Ltd <info@x-cart.com>
+# @copyright Copyright (c) 2011-2016 Qualiteam software Ltd <info@x-cart.com>. All rights reserved
+# @license   http://www.x-cart.com/license-agreement.html X-Cart 5 License Agreement
+# @link      http://www.x-cart.com/
+
+XLite\Model\Config:
+  - name: xpc_xpayments_url
+    category: 'CDev\XPaymentsConnector'
+    type: 'XLite\Module\CDev\XPaymentsConnector\View\FormField\Input\Text\URLipv6'

@@ -1,0 +1,34 @@
+{##
+ # Name item cell
+ #
+ # @ListChild (list="packing_slip.item", weight="20")
+ #}
+<td class="item">
+  {% if this.item.getURL() %}
+    <a href="{{ this.item.getURL() }}" class="item-name">{{ this.item.getName() }}</a>
+  {% endif %}
+  {% if not this.item.getURL() %}
+    <span class="item-name">{{ this.item.getName() }}</span>
+  {% endif %}
+  {% if not this.item.product.isPersistent() %}
+    <span class="deleted-product-note">({{ t('deleted') }})</span>
+  {% endif %}
+
+  <div class="item-options">
+    {% if this.isViewListVisible('packing_slip.item.name', {'item': this.item}) %}
+      <ul class="subitem additional simple-list">
+        {{ widget_list('packing_slip.item.name', item=this.item) }}
+      </ul>
+    {% endif %}
+    {% if this.isAttributesVisible(this.item) %}
+      <ul class="subitem attributes simple-list">
+        <li>{{ t('Options:') }}&nbsp;</li>
+        {% for av in this.item.getAttributeValues() %}
+          <li class="attribute">
+            {{ av.value }}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+</td>

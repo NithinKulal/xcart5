@@ -1,0 +1,11 @@
+{##
+ # Compare link
+ #}
+
+{% set disabled = this.getComparedCount() < 2 %}
+<li class="account-link-compare compare-indicator{% if disabled %} disabled {% endif %}">
+  <a {% if not disabled %}href="{{ this.getCompareURL() }}"{% endif %} data-target="{{ this.getCompareURL() }}">
+	<span>{{ t('Compare') }}</span>
+	<span class="counter">{{ this.getComparedCount() }}</span>
+  </a>
+</li>

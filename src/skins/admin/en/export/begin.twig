@@ -1,0 +1,21 @@
+{##
+ # Export begin section
+ #}
+
+<div class="export-box export-begin">
+
+  <div class="content">
+    {% form 'XLite\\View\\Form\\Export' %}
+      <div class="subcontent clearfix">
+        {{ widget_list('export.begin.content') }}
+      </div>
+      <div class="buttons">
+        {{ widget_list('export.begin.buttons') }}
+      </div>
+    {% endform %}
+  </div>
+
+</div>
+<div class="export-box export-download">
+  {{ widget('XLite\\View\\Export\\Download') }}
+</div>

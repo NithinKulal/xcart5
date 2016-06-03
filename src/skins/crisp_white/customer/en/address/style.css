@@ -1,0 +1,101 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * ____file_title____
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+/* Address modify dialog */
+
+.address-dialog input
+{
+  width: 300px;
+}
+
+div.address-box div.change-action {
+  float: left;
+}
+
+ul.address-text {
+  display: inline-block;
+}
+
+ul.address-entry li.address-text-cell:after {
+  content: "\00a0";
+  display: inline-block;
+}
+
+ul.address-entry li.address-text-cell,
+ul.address-text li {
+  float: left;
+}
+
+ul.address-entry li.address-text-street,
+ul.address-entry li.address-text-city,
+ul.address-entry li.address-text-country_code,
+ul.address-entry li.address-text-phone,
+ul.address-entry li.address-text-type,
+ul.address-entry li.additional-field
+{
+  clear: both;
+}
+
+li.additional-field ul.address-text li.address-text-comma,
+.address-text-comma-title,
+.address-text-comma-firstname,
+.address-text-comma-lastname,
+.address-text-comma-street,
+.address-text-comma-zipcode,
+.address-text-comma-country_code,
+.address-text-comma-phone,
+.address-text-comma-type,
+.address-text-comma-tax_number
+{
+  display: none;
+}
+
+.address-text-label-title,
+.address-text-label-firstname,
+.address-text-label-lastname,
+.address-text-label-street,
+.address-text-label-city,
+.address-text-label-state_id,
+.address-text-label-custom_state,
+.address-text-label-zipcode,
+.address-text-label-country_code
+{
+  display: none;
+}
+
+li.address-text-label:after {
+  content: "\00a0";
+  display: inline-block;
+}
+
+div.address-box {
+  position: relative;
+}
+
+div.address-box table,
+div.address-box table tbody,
+div.address-box table tr,
+div.address-box table th,
+div.address-box table td
+{
+  border: 0 none;
+  border-spacing: 0;
+  padding: 0;
+}
+
+img.address-type-icon
+{
+  display: inline-block;
+}
+
+.address-dialog ul.table.default-table li.address-phone {
+  clear: none;
+  float: right;
+}
+

@@ -1,0 +1,17 @@
+{##
+ # Wholesale prices table
+ #
+ # @ListChild (list="wholesale.price", weight="20")
+ #}
+
+<table class="wholesale-prices-product-block">
+
+  {% for wholesalePrice in this.getWholesalePrices() %}
+    <tr class="price-row">
+  
+      {{ widget_list('widgetlist', type='nested', wholesalePrice=wholesalePrice) }}
+  
+    </tr>
+  {% endfor %}
+
+</table>

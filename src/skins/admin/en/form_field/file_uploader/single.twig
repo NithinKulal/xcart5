@@ -1,0 +1,7 @@
+{##
+ # File upload template
+ #}
+
+<div{{ this.getDataCode()|raw }}>
+  {{ widget('XLite\\View\\FileUploader', object=this.getValue(), maxWidth=this.getMaxWidth(), maxHeight=this.getMaxHeight(), isImage=this.isImage(), fieldName=this.getName(), isViaUrlAllowed=this.isViaUrlAllowed()) }}
+</div>

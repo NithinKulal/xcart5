@@ -1,0 +1,13 @@
+{##
+ # Canada Post products return: return form
+ #
+ # @ListChild (list="capost_return", weight="200")
+ #}
+
+{% form '\\XLite\\Module\\XC\\CanadaPost\\View\\Form\\ProductsReturn\\Details' %}
+
+  {{ widget_list('capost_return.form') }}
+
+  {{ widget('\\XLite\\Module\\XC\\CanadaPost\\View\\StickyPanel\\ProductsReturn\\Admin\\Details') }}
+
+{% endform %}

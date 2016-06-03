@@ -1,0 +1,8 @@
+{##
+ # Breadcrumbs
+ #}
+<ul class="breadcrumb">
+  {% for index, node in this.getNodes() %}
+    {{ node.display() }}
+  {% endfor %}
+</ul>

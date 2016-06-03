@@ -1,0 +1,35 @@
+{##
+ # ____file_title____
+ #}
+
+<p align="justify">{{ t('This section displays 10 top-selling products for today, this week and this month') }}</p>
+
+<h2>{{ t('Top X products', {'count': this.getRowsCount()}) }}</h2>
+
+<table class="data-table top-sellers">
+  <tr class="TableHead">
+    <th class="title">{{ widget('XLite\\View\\Order\\Statistics\\CurrencySelector') }}</th>
+    {% for c in this.getStatsColumns() %}
+      <th>{{ t(this.getColumnTitle(c)) }}</th>
+    {% endfor %}
+  </tr>
+  {% for idx, row in this.getStats() %}
+    <tr class="dialog-box">
+      <td class="title">{{ this.inc(idx) }}.</td>
+      {% for idx1, val in row %}
+        <td>
+          {% if val %}
+            {% if val.product.product_id %}
+              <a href="{{ url('product', '', {'product_id': val.product.product_id}) }}">{{ val.name }}</a>
+            {% else %}
+              <span>{{ val.name }} ({{ t('deleted') }})</span>
+            {% endif %}
+          {% endif %}
+          {% if not val %}
+            <span>&mdash;</span>
+          {% endif %}
+        </td>
+      {% endfor %}
+    </tr>
+  {% endfor %}
+</table>

@@ -1,0 +1,18 @@
+{##
+ # Category page template
+ #}
+
+<ul class="menu-formatted-path">
+  <li class="root-category">
+    <a href="{{ url('menus', '', {'page': this.getType()}) }}">{{ t('Menus') }}</a>
+  </li>
+  {% for index, elem in this.getMenuPath() %}
+    <li>
+      {% if this.isCurrentMenu(elem) %}
+          <a>{{ elem.getName() }}</a>
+      {% else %}
+      	<a href="{{ url('menus', '', {'id': elem.getMenuId(), 'page': elem.getType()}) }}">{{ elem.getName() }}</a>
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>

@@ -1,0 +1,31 @@
+{##
+ # File explorer template
+ #}
+
+<table width="100%">
+
+  <tr>
+    {% for column, val in this.columns %}
+      <td width="50%" valign="top" style="font-size:10pt">
+  
+  {% for node in this.getColumnsData(column) %}
+  
+  {% if this.formSelectionName %}<input type="radio" name="{{ this.formSelectionName }}" value="{{ node.id }}" />{% endif %}
+  
+  {% if node.leaf %}<a href="{{ this.url|raw }}&mode=edit&file={{ node.path }}"><img src="{{ asset('images/doc.gif') }}" align="top" alt="" />
+  {% else %}<a href="{{ this.url|raw }}&node={{ node.path }}"><img src="{{ asset('images/folder.gif') }}" align="top" alt="" />
+  {% endif %}
+  {{ node.name }}</a>
+  
+  {% if node.comment %}&nbsp;&nbsp;-&nbsp;<span style="font-size:8pt">{{ node.comment }}</span><br />
+  {% else %}
+  <br />
+  {% endif %}
+  
+  {% endfor %}
+  
+      </td>
+    {% endfor %}
+  </tr>
+
+</table>

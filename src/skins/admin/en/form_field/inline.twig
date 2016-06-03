@@ -1,0 +1,12 @@
+{##
+ # Inline container
+ #}
+
+<div {{ this.printTagAttributes(this.getContainerAttributes())|raw }}>
+  {% if this.hasSeparateView() %}
+    <div {{ this.printTagAttributes(this.getViewContainerAttributes())|raw }}>{% include this.getViewTemplate() %}</div>
+  {% endif %}
+  {% if this.isEditable() %}
+    <div {{ this.printTagAttributes(this.getFieldContainerAttributes())|raw }}>{% include this.getFieldTemplate() %}</div>
+  {% endif %}
+</div>

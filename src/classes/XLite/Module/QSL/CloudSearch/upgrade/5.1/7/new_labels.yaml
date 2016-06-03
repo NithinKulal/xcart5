@@ -1,0 +1,18 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Upgrade data
+#
+# @author    Qualiteam software Ltd <info@x-cart.com>
+# @copyright Copyright (c) 2011-2014 Qualiteam software Ltd <info@x-cart.com>. All rights reserved
+# @license   http://www.x-cart.com/license-agreement.html X-Cart 5 License Agreement
+# @link      http://www.x-cart.com/
+
+XLite\Model\LanguageLabel:
+  - { name: "cs_showing_results_for", translations: [{ code: ru, label: "Показаны результаты для" }] }
+  - { name: "cs_see_details", translations: [{ code: ru, label: "Подробнее" }] }
+  - { name: "cs_see_more_results_for", translations: [{ code: ru, label: "Показать больше результатов для" }] }
+  - { name: "cs_suggestions", translations: [{ code: ru, label: "Предложения" }] }
+  - { name: "cs_products", translations: [{ code: ru, label: "Товары" }] }
+  - { name: "cs_categories", translations: [{ code: ru, label: "Категории" }] }
+  - { name: "cs_pages", translations: [{ code: ru, label: "Страницы" }] }
+  - { name: "cs_did_you_mean", translations: [{ code: ru, label: "Возможно, вы имели в виду" }] }

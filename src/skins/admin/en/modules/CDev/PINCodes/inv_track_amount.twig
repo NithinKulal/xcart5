@@ -1,0 +1,16 @@
+{##
+ # Quantity in stock input
+ #
+ # @ListChild (list="product.inventory.parts", weight="20")
+ #}
+
+{% if this.product.hasManualPinCodes() %}
+  <tr>
+    <td>{{ t('Quantity in stock') }}</td>
+    <td>{{ this.product.getRemainingPinCodesCount() }} ({{ t('Quantity in stock is determined by the amount of the remaining PIN codes') }})</td>
+  </tr>
+{% endif %}
+
+{% if not this.product.hasManualPinCodes() %}
+  {% include 'product/inventory/inv_track_amount.twig' %}
+{% endif %}

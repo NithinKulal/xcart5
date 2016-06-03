@@ -1,0 +1,99 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Order notes styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.inline-order-staff-note .field {
+  position: relative;
+}
+
+.inline-order-staff-note .field .table-value {
+  padding-top: 0;
+  padding-bottom: 0;
+  float: none;
+}
+
+.inline-order-staff-note .field strong {
+  display: block;
+}
+
+.inline-order-staff-note .field div.table-value textarea {
+  margin: 0;
+  margin-top: 1px;
+  margin-left: -2px;
+  width: 420px;
+  height: 110px;
+  font-size: 14px;
+  overflow-x: hidden;
+  resize: none;
+}
+
+.inline-order-staff-note .view {
+  overflow: hidden;
+  display: block;
+  min-height: 30px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  width: 400px;
+  max-height: 110px;
+}
+
+.inline-order-staff-note.expanded .view {
+  max-height: none;
+}
+
+.inline-order-staff-note.empty .view *,
+.inline-order-staff-note.empty .value {
+  color: #b4b4b4;
+}
+
+.inline-order-staff-note .view * {
+  font-size: 14px;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.inline-order-staff-note .view .truncated,
+.inline-order-staff-note.expanded .view .value {
+  display: inline;
+}
+
+.inline-order-staff-note.expanded .view .truncated,
+.inline-order-staff-note .view .value {
+  display: none;
+}
+
+.inline-order-staff-note.in-progress .view {
+  display: none;
+}
+
+.inline-order-staff-note .view .more-less-link {
+  text-decoration: none;
+  border-bottom: dashed 1px;
+  font-size: 14px;
+  line-height: 14px;
+}
+
+.inline-order-staff-note .view .more,
+.inline-order-staff-note .view .less {
+  display: none;
+}
+
+.inline-order-staff-note.expanded .view.has-more-link .more,
+.inline-order-staff-note .view.has-more-link .less {
+  display: none;
+}
+
+.inline-order-staff-note.expanded .view.has-more-link .less,
+.inline-order-staff-note .view.has-more-link .more {
+  display: inline-block;
+}
+
+.inline-order-staff-note.expand-focused:hover .view {
+  background: none;
+  border-color: #ffffff;
+}

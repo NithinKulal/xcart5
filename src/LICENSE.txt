@@ -1,0 +1,142 @@
+X-Cart 5 end-user license agreement
+
+Copyright © 2001-present Qualiteam software Ltd <info@x-cart.com> All rights reserved.
+
+PLEASE READ
+
+THIS AGREEMENT EXPRESSES THE TERMS AND CONDITIONS ON WHICH YOU MAY USE THE DOWNLOADABLE VERSION OF X-CART AND ASSOCIATED DOCUMENTATION THAT QUALITEAM SOFTWARE LTD (hereinafter referred to as "THE AUTHOR") OF REPUBLIC OF CYPRUS IS FURNISHING OR MAKING AVAILABLE TO YOU WITH THIS AGREEMENT (COLLECTIVELY, THE "SOFTWARE"). PLEASE REVIEW THE FOLLOWING TERMS AND CONDITIONS OF THIS LICENSE AGREEMENT CAREFULLY BEFORE INSTALLING OR USING THE SOFTWARE. BY INSTALLING, COPYING OR OTHERWISE USING THE SOFTWARE, YOU AND YOUR COMPANY (COLLECTIVELY, "YOU") ARE ACCEPTING AND AGREEING TO THE TERMS OF THIS LICENSE AGREEMENT. IF YOU ARE NOT WILLING TO BE BOUND BY THIS AGREEMENT, DO NOT INSTALL OR USE THE SOFTWARE. VARIOUS COPYRIGHTS AND OTHER INTELLECTUAL PROPERTY RIGHTS PROTECT THE SOFTWARE. THIS AGREEMENT IS A LICENSE AGREEMENT THAT GIVES YOU LIMITED RIGHTS TO USE THE SOFTWARE AND NOT AN AGREEMENT FOR SALE OR FOR TRANSFER OF TITLE. THE AUTHOR RETAINS ALL RIGHTS NOT EXPRESSLY GRANTED BY THIS AGREEMENT.
+
+Your agreement with Author will also include the Additional Terms (as defined below) by reference. The Additional Terms shall include, but are not limited to, the terms and policies set out in paragraph 9 below. In order to use the Software, You must accept the Additional Terms.
+
+The author forbids, under any circumstances, the unauthorized reproduction of the Software or use of illegally obtained software. Making illegal copies of the Software is prohibited. Individuals who violate copyright law and software licensing agreements may be subject to criminal or civil action by the owner of the copyright.
+
+The Software is provided in open-source code form, and this License agreement is applied to Free and Business editions of the Software.
+
+1. BUSINESS EDITION TRIAL LICENSE
+
+1.1 The Business edition trial license (the “Trial license”) permits You to utilize the Business edition of the Software at no cost, for a 30-day trial period (“Trial period”). Under the terms of Trial License you may:
+
+a) use the Software for evaluation or for production purposes on any number of web servers;
+b) copy the Software for a reasonable number of backup copies; To every copy of the Software (whether in whole or in part) made by You for the purposes set forth above, You shall retain the same copyright or other proprietary rights notice as was originally affixed to the Software when delivered by Author.
+c) copy and distribute the Software distribution pack in its original form including all files and documentation and without any modifications;
+
+1.2 Under the terms of Trial License you shall not:
+
+a) copy and distribute the Software in any modified form or any part thereof;
+b) remove, alter, disable or make hard to read any Trial Notice contained within the Software; Trial Notice must include the text set forth in Appendix A, attached hereto;
+c) remove, alter, disable or make hard to read any “Powered by” notice contained within the Software;
+
+1.3 Upon expiration of the Trial period the Business edition’s features shall become disabled and a Trial notice shall be displayed to You and to your users while using the Software.
+
+2. FREE AND BUSINESS EDITION LICENSE
+
+2.1 The Free edition license and the Business edition license (each a “Full license”) permits You to utilize one instance of the corresponding edition of the Software for purposes of running a single e-commerce store. The Business edition license can be obtained in consideration for the license fee paid to Author, while the Free edition license can be obtained at no cost. Under the terms of Full License you may:
+
+a) use one instance (a single installation) of the Software on one web server and one website only, for purposes of running a single e-commerce store; in the event You intend to use the Software or any part thereof on more than one website, the license for each such multiple use must be obtained (see Appendix B for the explanation);
+b) copy the Software for a reasonable number of backup copies; To every copy of the Software (whether in whole or in part) made by You for the purposes set forth above, You shall retain the same copyright or other proprietary rights notice as was originally affixed to the Software when delivered by Author.
+c) modify the Software and/or merge it into another program;
+d) remove or disable Trial Notice, contained within the Software;
+e) transfer the Software and license to another party if the other party agrees to accept the terms and conditions of this Agreement;
+f) transfer the Software to new location (URL) subject to terms set forth in this Agreement
+
+2.2 Under the terms of Full License you shall not:
+
+a) copy and install the Software for simultaneous use on multiple web servers or on multiple websites;
+b) copy and distribute the Software or any portion thereof;
+c) modify the Software or database to circumvent the one-license-one-store rule;
+
+2.3 Additionally under the terms of Free edition you shall not remove, alter, disable or make hard to read any “Powered by” notice contained within the Software;
+
+2.4 Except as expressly set forth above in this Agreement, you have no right to use, make, sublicense, rent, modify, transfer or distribute either the original or any copies of the Software or to permit anyone else to do so.
+
+2.5 To obtain a License Key you shall use the order form available at: http://www.x-cart.com/purchasing_shopping_cart_software.html. To validate License Key you shall use the validation form available at: http://www.x-cart.com/verify_license.html.
+
+2.6 In the case of transferring the Software to new location you must register the URL (Uniform Resource Locator), where the Software is going to be installed, in the license database using the "Licenses" section under your profile at https://secure.x-cart.com.
+
+2.7 In the case of transferring the Software to another party you must submit a transfer request to Author using the "Licenses" section under your profile at https://secure.x-cart.com.
+
+3. MODIFICATIONS
+
+3.1 Upgrade subscription. The Author will provide you with error corrections, bug fixes, patches or other updates (the "Upgrade Subscription") to the Software licensed under the terms of the Full license. The Upgrade Subscription shall be active during 1-year period (the "Upgrade Subscription Term") following the Full License Key purchase. All such updates shall be provided in open-source code form to the extent available in accordance with Author's release schedule until termination of this Agreement.
+
+3.2 Upgrade subscription renewal. Upon expiration of the Upgrade Subscription, the Author shall have no any obligation to provide you with any updates to the Software licensed hereunder. You may renew Upgrade Subscription for another 1-year period as set forth on Author's web site. Each subsequent Upgrade Subscription Term will start on the day following expiration of the previous Upgrade Subscription Term regardless of the actual Upgrade Subscription renewal date.
+
+3.3 Author shall have no any obligation to provide you with error corrections, bug fixes, patches or other updates to the Software licensed under the terms of Trial license.
+
+3.4 Other Modifications. You may, from time to time, request that the Author incorporate certain features, enhancements or modifications into the Software. The Author may, in its sole discretion, undertake to incorporate such changes and distribute the Software so modified to all or any of Author's customers.
+
+3.5 Title to Modifications. All such error corrections, bug fixes, patches, updates or other modifications shall be the sole property of the Author.
+
+4. PROPERTY RIGHTS
+
+4.1 Ownership. The Software and all modifications or enhancements to, or derivative works based on the Software, whether created by the Author or you, and all copyrights, patents, trade secrets, trademarks and other intellectual property rights protecting or pertaining to any aspect of the Software or any such modification, enhancement or derivative work are and shall remain the sole and exclusive property of the Author. This Agreement does not convey title or ownership to you but instead gives you only the limited rights set forth in this Agreement.
+
+4.2 Proprietary Notices. You may not remove, disable, modify, or tamper with any copyright, trademark or other proprietary notices and legends contained within the code of the Software.
+
+4.3 GNU and Other Third Party Licenses. The Software may include some software programs that are licensed (or sublicensed) to the user under the GNU General Public License (GPL) or other similar free software licenses which, among other rights, permit the user to copy, modify and redistribute certain programs, or portions thereof. If any Open Source Software licenses require that the Rightholder provide rights to use, copy or modify an Open Source Software program that are broader than the rights granted in this Agreement, then such rights shall take precedence over the rights and restrictions herein.
+
+5. WARRANTY
+
+5.1 This Software is provided "as is" and these warranties do not guarantee that the functions contained in the Software will meet your requirements, or that the Software will perform error-free or uninterrupted, or that all errors in the Software and documentation will be corrected. These warranties are exclusive and take the place of all other express or implied warranties or conditions including warranties or conditions of merchantability, satisfactory quality, and fitness for a particular purpose. If ordered, technical support can be provided based on the current policies for the applicable services ordered.
+
+5.2 This Agreement does not obligate the Author to perform the installation of any corrections, bug fixes, patches or other updates to the Software licensed hereunder that is installed on your server.
+
+5.3 Author makes no warranty under the terms of the Trial license.
+
+6. LIMITATION OF LIABILITY
+
+NEITHER PARTY SHALL BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, PUNITIVE, OR CONSEQUENTIAL DAMAGES, OR ANY LOSS OF PROFITS, REVENUE, DATA, OR DATA USE, AUTHOR'S MAXIMUM LIABILITY FOR ANY DAMAGES WHETHER IN CONTRACT OR TORT WILL NOT EXCEED THE FEES WHICH YOU HAVE PAID TO US OR ARE PAYABLE TO US FOR THIS ORDER, AND IF SUCH DAMAGES RESULT FROM YOUR USE OF THE SOFTWARE OR TECHNICAL SUPPORT, THE LIABILITY SHALL BE LIMITED TO THE FEES PAID OR PAYABLE FOR THE SOFTWARE OR TECHNICAL SUPPORT.
+
+7. ANTI-PIRACY AND LICENSE BREACH
+
+7.1 Author reserves the right to include mechanisms for the detection of the Software piracy and/or License breach. The Software may use your internal network and internet connection for the purpose of transmitting license-related data in order to protect the Author against unlicensed or illegal use of the Software and to improve customer support.
+
+7.2 Anyone violating the terms of this Agreement, may be contacted and requested to correct the breach or uninstall the Software immediately.
+
+7.3 For the purposes of installing and using additional extensions for the Software from the Author’s Marketplace, the Software may transmit to the Marketplace’s servers the following information: a list of installed modules with their names and versions, the Software’s core version, Your store URL, the License key.
+
+8. TERM
+
+8.1 The license is effective until terminated. You may terminate it at any other time by deleting the Software together with all copies, modifications and merged portions in any form.
+
+8.2 The license and your right to use the Software shall terminate automatically if you violate any part of this Agreement.
+
+8.3 The Author may terminate the license with or without cause at any time immediately and without notice if you materially breach any term of this Agreement or infringe any of Author's rights in the Software.
+
+8.4 Immediately upon termination of the license, you must stop using the Software and destroy all copies of the Software within your possession or control.
+
+9. ADDITIONAL TERMS
+
+9.1 In addition to this Agreement, You have to comply with the following Additional Terms when using the Software. We expect You to read these Additional Terms carefully, all of which are made part of this Agreement:
+
+a) Privacy policy: http://www.x-cart.com/privacy-policy.html
+b) Moneyback policy: http://www.x-cart.com/moneyback_policy.html
+c) Trademark policy: http://www.x-cart.com/trademark-policy.html
+d) Technical support terms of use: http://www.x-cart.com/support-terms-of-use.html
+e) Conditions of supply X-Cart customization services: http://www.x-cart.com/custom_development_agreement.html
+f) Module marketplace terms of use: http://www.x-cart.com/module-marketplace-terms-of-use.html
+g) CloudSearch terms of service: http://www.x-cart.com/cloud-terms-of-service.html
+
+9.2 If You are interested in doing anything which is not permitted under this Agreement or by one of the above Additional Terms, You will have to obtain Author’s prior written consent and explicitly agree upon any further terms.
+
+APPENDIX A. TRIAL NOTICE
+
+Your X-Cart 5 installation is licensed for evaluation purposes only.
+
+You must register your installation before you can use it for real sales. Registration can be accomplished by activating a free license with limited features or by purchasing a premium license.
+
+Purchase premium license or Activate free license
+
+Contact us if you have any questions
+
+Removal of this message is allowed only through activation of a free or premium license.
+
+APPENDIX B. EXAMPLES EXPLAINING THE ONE-LICENSE-ONE-STORE RULE
+
+1. If your store is accessible from multiple domains but the content is the same for each link, this is OK and does not require multiple licenses.
+
+2. If your store is accessible from multiple domains but each domain shows a different storefront skin style, this is OK and does not require multiple licenses.
+
+3. If your multiple stores are located at sub-domains or in sub-directories of the same domain, the license for each store is required.
+
+4. If your store is accessible from multiple domains and your store is customized to show/hide/alter certain part of content based on the domain, the license for each domain is required. In this situation the stores appear to have separate content thereby making them separate stores in the eyes of the license agreement. The content needs to be the same for each domain in order to qualify as a single store.

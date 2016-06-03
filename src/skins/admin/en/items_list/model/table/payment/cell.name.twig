@@ -1,0 +1,11 @@
+{##
+ # Payment methods appearance list: Payment method name cell template
+ #}
+
+<div class="plain-value">
+  <span class="status fa fa-check" title="{{ this.getMethodStatusTitle(this.entity) }}"></span>
+  <span class="value">{{ this.entity.name|raw }}</span>
+  {% if this.column.noWrap %}
+    <img src="{{ asset('images/spacer.gif') }}" class="right-fade" alt="" />
+  {% endif %}
+</div>

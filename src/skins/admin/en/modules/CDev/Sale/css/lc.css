@@ -1,0 +1,38 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Sale common styles. Admin area.
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.product-name-sale-label-disabled {
+  display: none;
+}
+
+.product-name-sale-label {
+  color: #E57C32;
+  font-style: italic;
+  font-size: 14px;
+  position: absolute;
+  right: 0;
+  background: #fff;
+  box-shadow: -5px 0px 17px 14px #FFF;
+}
+
+.set-price-dialog .sale-label {
+  color: #8f8f8f;
+  font-size: 14px;
+  padding: 10px;
+}
+
+.set-price-dialog button {
+  margin: 10px 0px 0px 100px;
+}
+
+.sale-price-value div.table-value .input-text-price input,
+  .sale-price-value div.table-value .input-text-symbol input
+{
+  width: 90px;
+}

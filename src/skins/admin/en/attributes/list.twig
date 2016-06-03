@@ -1,0 +1,10 @@
+{##
+ # Attributes list table template
+ #}
+
+{% form 'XLite\\View\\Form\\ItemsList\\Attribute\\Table' %}
+    {{ widget('XLite\\View\\ItemsList\\Model\\Attribute') }}
+    {% for group in this.getAttributeGroups() %}
+      {{ widget('XLite\\View\\ItemsList\\Model\\Attribute', group=group) }}
+    {% endfor %}
+{% endform %}

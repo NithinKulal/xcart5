@@ -1,0 +1,5 @@
+{##
+ # Returns list table "order_number" cell
+ #}
+
+<a href="{{ url('order', '', {'order_number': this.entity.order.getOrderNumber()}) }}">{{ this.getColumnValue(this.column, this.entity) }}</a>

@@ -1,0 +1,31 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * ____file_title____
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.delete-profile-message {
+  padding: 0px 0px 18px 0px;
+  width: 502px;
+  font-size: 16px;
+}
+
+.delete-user-buttons-list {
+  position: relative;
+  left: 134px;
+  width: 244px;
+}
+
+.delete-user-buttons-list .button-proceed {
+  width: 108px;
+}
+
+.delete-user-buttons-list .button-cancel {
+  position: relative;
+  left: 7px;
+  width: 108px;
+}
+

@@ -1,0 +1,28 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fast lane checkout settings
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: checkout_type
+    category: General
+    type: XLite\Module\XC\FastLaneCheckout\View\FormField\Select\CheckoutType
+    orderby: 200
+    value: 'fast-lane'
+    translations:
+      - code: en
+        option_name: 'Checkout type'
+
+XLite\Model\LanguageLabel:
+  - { name: 'Any special needs?', translations: [{ code: en, label: 'Any special needs?' }]}
+  - { name: 'Choose shipping', translations: [{ code: en, label: 'Choose shipping' }]}
+  - { name: 'Fast Lane checkout', translations: [{ code: en, label: 'Fast Lane checkout' }]}
+  - { name: 'Firstname', translations: [{ code: en, label: 'Firstname' }]}
+  - { name: 'Lastname', translations: [{ code: en, label: 'Lastname' }]}
+  - { name: 'One Page checkout', translations: [{ code: en, label: 'One Page checkout' }]}
+  - { name: 'Order note. Any special needs?', translations: [{ code: en, label: 'Order note. Any special needs?' }]}
+  - { name: 'Proceed to payment', translations: [{ code: en, label: 'Proceed to payment' }]}
+  - { name: 'Street address', translations: [{ code: en, label: 'Street address' }]}
+  - { name: 'Zipcode', translations: [{ code: en, label: 'Zipcode' }]}

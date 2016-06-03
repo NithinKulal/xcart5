@@ -1,0 +1,20 @@
+{##
+ # Export completed section : large
+ #
+ # @ListChild (list="export.completed.content", weight="200")
+ #}
+
+{% if this.getDownloadLargeFiles() %}
+  <div class="files large">
+    <p>{{ t('The following files are too large to be included in the archive') }}:</p>
+    <ul>
+      {% for path, file in this.getDownloadLargeFiles() %}
+        <li class="file">
+          <i class="icon-file-alt"></i>
+          <a href="{{ url('export', 'download', {'path': path}) }}">{{ file.getFilename() }}</a>
+          <span class="size">{{ this.formatSize(file.getSize()) }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}

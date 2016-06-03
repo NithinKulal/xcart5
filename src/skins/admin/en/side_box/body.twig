@@ -1,0 +1,16 @@
+{##
+ # Side bar box
+ #}
+
+<div class="{{ this.getContainerClass() }}">
+  {% if this.getHead() %}
+    <h2>{{ t(this.getHead()) }}</h2>
+  {% endif %}
+  <div class="content">
+    <ul>
+      {% for item in this.getItems() %}
+        <li class="{{ this.getItemClass(item) }}"><a href="{{ item.link }}">{{ item.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>

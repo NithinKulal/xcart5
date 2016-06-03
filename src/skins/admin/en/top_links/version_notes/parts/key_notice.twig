@@ -1,0 +1,9 @@
+{##
+ # License key notice button
+ #
+ # @ListChild (list="admin.main.page.header")
+ #}
+
+{% if this.isKeysNoticeAutoDisplay() %}
+  {{ widget('\\XLite\\View\\Button\\KeysNotice') }}
+{% endif %}

@@ -1,0 +1,20 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Module banner
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+
+.module-link .module-button a{
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.module-link .module-button .module-icon{
+  margin-right: 10px;
+  height: 22px;
+  vertical-align: middle;
+}

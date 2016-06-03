@@ -1,0 +1,8 @@
+{##
+ # ____file_title____
+ #}
+<SELECT name="delimiter">
+    <OPTION value="comma" {% if this.delimiter == 'comma' %} selected="selected" {% endif %}>{{ t('Comma') }}</option>
+    <OPTION value="semicolon" {% if this.delimiter == 'semicolon' %} selected="selected" {% endif %}>{{ t('Semicolon') }}</option>
+	<OPTION value="tab" {% if this.delimiter == 'tab' %} selected="selected" {% endif %}>{{ t('Tab') }}</option>
+</select>

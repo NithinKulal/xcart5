@@ -1,0 +1,21 @@
+{##
+ # Button 'Add review'
+ #
+ # @ListChild (list="reviews.general", weight="20")
+ #}
+<div id="product-reviews-button">
+    {% if this.isAllowedAddReview() %}
+      {{ widget('\\XLite\\Module\\XC\\Reviews\\View\\Button\\Customer\\AddReview', label=t('Add review'), style='regular-main-button', product=this.product) }}
+    {% endif %}
+    {% if not this.isAllowedAddReview() %}
+      <div class="add-review-button-disabled">
+          {% if this.isShouldBeALink() %}
+              <a href="{{ url('product_reviews', '', {'product_id': this.product.getProductId(), 'category_id': this.product.getCategoryId()}) }}">
+                  {{ this.getAddReviewMessage() }}
+              </a>
+          {% else %}
+              {{ this.getAddReviewMessage() }}
+          {% endif %}
+      </div>
+    {% endif %}
+</div>

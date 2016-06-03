@@ -1,0 +1,22 @@
+{##
+ # Products list display mode selector
+ #}
+
+{% if this.isDisplayModeSelectorVisible() %}
+<div class="display-mode-box">
+  <div>
+    <span class="display-mode-value"><i class="fa {{ this.getDisplayModeCSS(this.getParam('displayMode')) }}"></i></span>
+  </div>
+  <ul class="display-modes grid-list">
+    {% for key, name in this.displayModes %}
+      <li class="{{ this.getDisplayModeLinkClassName(key) }}">
+        <a href="{{ this.getActionURL({'displayMode': key}) }}" class="{{ key }}" title="{{ t(name) }}">
+          <i class="{{ this.getDisplayModeCSS(key) }}"></i>
+          <span class="text">{{ t(name) }}</span>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+
+</div>
+{% endif %}

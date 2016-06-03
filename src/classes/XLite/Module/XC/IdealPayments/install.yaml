@@ -1,0 +1,53 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Payment\Method:
+  - service_name: iDEAL Professional
+    class: Module\XC\IdealPayments\Model\Payment\Processor\IdealProfessional
+    type: C
+    orderby: -10100
+    countries: [NL, BE, BG, CZ, DK, DE, EE, IE, EL, ES, FR, HR, IT, CY, LV, LT, LU, HU, MT, AT, PL, PT, RO, SI, SK, FI, SE, GB]
+    translations:
+      - code: en
+        name: iDEAL Professional (Rabobank)
+    settings:
+      - name: merchant_id
+      - name: subid
+        value: '0'
+      - name: pub_cert
+        value: 'rabobank.cer'
+      - name: pub_key
+      - name: private_key
+      - name: private_key_pass
+      - name: currency
+        value: EUR
+      - name: test
+        value: Y
+      - name: prefix
+        value: xcart_
+      - name: debug_enabled
+        value: 0
+
+XLite\Model\LanguageLabel:
+  - { name: "iDEAL Merchant ID", translations: [{ code: en, label: "Merchant ID" }] }
+  - { name: "iDEAL SubID", translations: [{ code: en, label: "SubID" }] }
+  - { name: "iDEAL Public Certificate File", translations: [{ code: en, label: "Public Certificate File" }] }
+  - { name: "iDEAL Public Key", translations: [{ code: en, label: "Public Key" }] }
+  - { name: "iDEAL Private Key", translations: [{ code: en, label: "Private Key" }] }
+  - { name: "iDEAL Private Key Password", translations: [{ code: en, label: "Private Key Password" }] }
+  - { name: "iDEAL Currency", translations: [{ code: en, label: "Currency" }] }
+  - { name: "iDEAL Invoice number prefix", translations: [{ code: en, label: "Invoice number prefix" }] }
+  - { name: "iDEAL Enable logging of iDEAL transactions", translations: [{ code: en, label: "Enable logging of iDEAL transactions" }] }
+  - { name: "Something wrong in the iDEAL payment module settings. Please try later or use other payment option.", translations: [{ code: en, label: "Something is wrong with the iDEAL payment module settings. Please try later or use a different payment option." }] }
+  - { name: "Unexpected result was received from iDEAL (transaction status is not set)", translations: [{ code: en, label: "Unexpected result was received from iDEAL (transaction status is not set)" }] }
+  - { name: "Payment return page requested without expected parameters", translations: [{ code: en, label: "Payment return page requested without expected parameters" }] }
+  - { name: "Warning! This payment method requires OpenSSL extension. Please install and enable this extension in your PHP configuration.", translations: [{ code: en, label: "Warning! This payment method requires OpenSSL extension. Please install and enable this extension in your PHP configuration." }] }
+  - { name: "Warning! Please re-check public and private key values!", translations: [{ code: en, label: "Warning! Please re-check public and private key values and private key password!" }] }
+  - { name: 'Select issuer', translations: [{ code: en, label: 'Select issuer' }] }
+  - { name: 'Unknown payment transaction', translations: [{ code: en, label: 'Unknown payment transaction' }] }
+  - { name: 'File with certificate should be located in the directory {{certsDir}}', translations: [{ code: en, label: 'The file with the certificate needs to be located in the directory {{certsDir}}' }] }
+

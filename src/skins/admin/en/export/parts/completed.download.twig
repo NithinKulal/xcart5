@@ -1,0 +1,47 @@
+{##
+ # Export completed section : files
+ #
+ # @ListChild (list="export.completed.content", weight="100")
+ # @ListChild (list="export.popup.completed.content", weight="100")
+ #}
+
+<div class="files std">
+  <h3>{{ this.getBoxTitle() }}</h3>
+  {% if not this.isCompletedSection() %}
+    <div class="delete-all">
+      {% if not this.isPopupContext() %}
+        <a href="{{ url('export', 'deleteFiles') }}"><i class="icon-trash"></i> <span>{{ t('Delete all files') }}</span></a>
+      {% endif %}
+    </div>
+  {% endif %}
+  <ul>
+    {% for path, file in this.getDownloadFiles() %}
+      <li class="file">
+        <i class="icon-file-alt"></i>
+        <a href="{{ url('export', 'download', {'path': path}) }}" {% if this.isPopupContext() %}data-autodownload="true"{% endif %}>{{ file.getFilename() }}</a>
+        <span class="size">{{ this.formatSize(file.getSize()) }}</span>
+      </li>
+    {% endfor %}
+    {% if not this.isPopupContext() %}
+      <li class="sum">
+        {% if this.isBracketVisible() %}
+          <div class="bracket"></div>
+        {% endif %}
+        <div class="icon"></div>
+  
+        <div class="pack">
+          <h4>{{ t('Download all files in a single archive') }}</h4>
+          <p>({{ t('X, including images and file attachments', {'size': this.formatSize(this.getPackedSize())}) }})</p>
+          <ul>
+            {% for type in this.getAllowedPackTypes() %}
+              <li>
+                {{ widget('XLite\\View\\Button\\Link', location=url('export', 'pack', {'type': type}), label=type) }}
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+  
+      </li>
+    {% endif %}
+  </ul>
+</div>

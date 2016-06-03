@@ -1,0 +1,16 @@
+{##
+ # Body
+ #}
+
+{{ widget('XLite\\Module\\XC\\ProductFilter\\View\\Filter\\AttributeList') }}
+{% if this.getProductClasses() %}
+  {{ widget('XLite\\Module\\XC\\ProductFilter\\View\\Filter\\AttributeList', classes=this.getProductClasses()) }}
+{% endif %}
+{% for group in this.getGlobalGroups() %}
+  {{ widget('XLite\\Module\\XC\\ProductFilter\\View\\Filter\\AttributeList', group=group) }}
+{% endfor %}
+{% for productClass in this.getProductClasses() %}
+  {% for group in productClass.getAttributeGroups() %}
+    {{ widget('XLite\\Module\\XC\\ProductFilter\\View\\Filter\\AttributeList', group=group) }}
+  {% endfor %}
+{% endfor %}

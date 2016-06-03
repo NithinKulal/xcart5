@@ -1,0 +1,121 @@
+/**
+ * Top menu main block styling
+ */
+.navbar-inverse {
+  background-color: #44596f;
+  border-color: #44596f;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+  color: #ffffff;
+  background-color: #44596f;
+}
+
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus {
+  color: #ffffff;
+  background-color: #44596f;
+}
+
+/**
+ * Main blocks of the sidebar (Top categories, Sale, New arrivals Recently viewed and so on)
+ */
+.sidebar div.block {
+  padding: 0px;
+  border-color: #bdd5eb;
+  border-width: 2px;
+}
+
+/**
+ * Header of the main blocks in the sidebar
+ */
+.sidebar .block .head-h2 {
+  padding: 14px 20px 14px 20px;
+  margin: 0px;
+  border-color: #bdd5eb;
+  border-radius: 5px;
+  color: #5e6266;
+}
+
+/**
+ * Content of the main blocks in the sidebar
+ */
+.sidebar div.block div.content {
+  padding: 0px 20px 20px 20px;
+  border-radius: 5px;
+}
+
+/**
+ * Styles for the links inside the main blocks of the sidebar
+ */
+.sidebar ul.menu a {
+  border-top: 1px solid #daedfc;
+}
+
+/**
+ * Specific styles for the Top categories block in the side bar
+ */
+.sidebar div.block.block-product-filter div.content {
+  padding: 0px 10px 20px 10px;
+}
+
+/**
+ * Specific styles for the Top categories block in the side bar
+ */
+.sidebar .block.block-top-categories .head-h2 {
+  background: #f7fcff;
+}
+
+.sidebar div.block.block-top-categories div.content {
+  background: #f7fcff;
+}
+
+.sidebar div.block.block-top-categories div.content a {
+  color: #6f9cd9;
+}
+
+/**
+ * Header for specific side-bar box ("New arrivals" products)
+ */
+.sidebar .block.block-new-arrivals .head-h2 {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  background: #f7fcff;
+  background: -moz-linear-gradient(top, #f7fcff 0%, #d9edfc 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f7fcff), color-stop(100%,#d9edfc));
+  background: -webkit-linear-gradient(top, #f7fcff 0%,#d9edfc 100%);
+  background: -o-linear-gradient(top, #f7fcff 0%,#d9edfc 100%);
+  background: -ms-linear-gradient(top, #f7fcff 0%,#d9edfc 100%);
+  background: linear-gradient(to bottom, #f7fcff 0%,#d9edfc 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7fcff', endColorstr='#d9edfc',GradientType=0 );
+}
+
+/**
+ * Price info block in the "New arrivals" product list in the side-bar box
+ */
+.sidebar .block.block-new-arrivals div.product-price {
+  margin-top: 10px;
+}
+
+/**
+ * Price info text in the "New arrivals" product list in the side-bar box
+ */
+.sidebar .block.block-new-arrivals .products-sidebar-small-thumbnails span.product-price {
+  font-size: 26px;
+}
+
+/**
+ * The last product element block in the New arrivals list
+ */
+.sidebar .block.block-new-arrivals ul.products-sidebar li.last {
+  padding-bottom: 10px;
+}
+
+/**
+ * The last element block in the New arrivals list (There is a link "All new products")
+ */
+.sidebar .block.block-new-arrivals ul.products-sidebar li:last-child {
+  padding-bottom: 10px;
+}

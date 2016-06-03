@@ -1,0 +1,7 @@
+Options -Indexes
+
+Deny from all
+
+<Files ~ ".(?i:gif|jpe?g|png|bmp|css|js)$">
+  Allow from all
+</Files>

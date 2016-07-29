@@ -37,4 +37,25 @@ XLite\Model\LanguageLabel:
   - { name: 'Inventory tracking for product X will not be imported', translations: [{ code: en, label: 'Inventory tracking for product {{value}} will not be imported' }] }
 
 XLite\Model\Notification:
-  - { templatesDirectory: modules/CDev/PINCodes/acquire_pin_codes_failed, availableForAdmin: true, availableForCustomer: false, enabledForAdmin: true, enabledForCustomer: false, translations: [{ code: en, name: PIN code generation failure (PIN codes module), description: "This notification is sent to the administrator in the event of an error in the process of generating PIN codes for one or more items - as a result of which the PIN codes have not been generated.", adminSubject: PIN code generation failure for one or more ordered items, adminText: "Could not generate PIN codes for the following products:" },{ code: ru, name: Ошибка создания пин-кода (модуль PIN codes), description: "Данное сообщение отправляется администратору в случае, когда при создании PIN-кодов для одного или нескольких товаров произошла ошибка, в результате которой PIN-код(ы) не были созданы.", adminSubject: Ошибка создания PIN-кода для одного или нескольких заказанных продуктов, adminText: "Не удалось создать PIN-коды для следующих продуктов:" }]}
+  - templatesDirectory: modules/CDev/PINCodes/acquire_pin_codes_failed
+    availableForAdmin: true
+    availableForCustomer: false
+    enabledForAdmin: true
+    enabledForCustomer: false
+    adminHeaderEnabled: true
+    adminGreetingEnabled: false
+    adminSignatureEnabled: true
+    customerHeaderEnabled: true
+    customerGreetingEnabled: true
+    customerSignatureEnabled: true
+    translations:
+      - code: en
+        name: PIN code generation failure (PIN codes module)
+        description: "This notification is sent to the administrator in the event of an error in the process of generating PIN codes for one or more items - as a result of which the PIN codes have not been generated."
+        adminSubject: PIN code generation failure for one or more ordered items
+        adminText: "Could not generate PIN codes for the following products:"
+      - code: ru
+        name: Ошибка создания пин-кода (модуль PIN codes)
+        description: "Данное сообщение отправляется администратору в случае, когда при создании PIN-кодов для одного или нескольких товаров произошла ошибка, в результате которой PIN-код(ы) не были созданы."
+        adminSubject: Ошибка создания PIN-кода для одного или нескольких заказанных продуктов
+        adminText: "Не удалось создать PIN-коды для следующих продуктов:"

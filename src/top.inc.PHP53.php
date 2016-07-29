@@ -52,6 +52,7 @@ define('LC_DIR_CACHE_IMAGES',    LC_DIR_VAR . 'images' . LC_DS);
 define('LC_DIR_SERVICE',         LC_DIR_FILES . 'service' . LC_DS);
 
 define('LC_OS_WINDOWS', 'WIN' === strtoupper(substr(PHP_OS, 0, 3)));
+define('LC_IS_PHP_7', version_compare(PHP_VERSION, '7.0.0', '>='));
 
 // Disabled xdebug coverage for Selenium-based tests [DEVELOPMENT PURPOSE]
 if (isset($_COOKIE) && !empty($_COOKIE['no_xdebug_coverage']) && function_exists('xdebug_stop_code_coverage')) {

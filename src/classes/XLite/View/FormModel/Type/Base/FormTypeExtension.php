@@ -52,6 +52,7 @@ class FormTypeExtension extends AbstractTypeExtension
 
     /**
      * @param array  $dependency Dependency rules
+     * @param string $model      Model path
      * @param string $formName   Form name
      *
      * @return array
@@ -89,9 +90,6 @@ class FormTypeExtension extends AbstractTypeExtension
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        // @todo: check and remove
-        // parent::buildView($view, $form, $options);
-
         // @todo: $v.. move to separate method
         $vModel = str_replace(['[]', '[', ']'], ['', '.', ''], $view->vars['full_name']);
         $vValidatePath = explode('.', $vModel);
@@ -110,6 +108,11 @@ class FormTypeExtension extends AbstractTypeExtension
         }, array_slice($view->vars['block_prefixes'], 0, -1)));
 
         $rowClasses .= ' ' . str_replace('_', '-', $view->vars['id']);
+
+        $attr = [];
+        if ($options['enable_when']) {
+            $attr[':disabled'] = '!(' . (static::prepareDependency($options['enable_when'], $vModel, $validationRoot) ?: '""') . ')';
+        }
 
         $view->vars = array_replace($view->vars, [
             'show_label_block'  => $options['show_label_block'] === null || $options['show_label_block'],
@@ -133,6 +136,8 @@ class FormTypeExtension extends AbstractTypeExtension
             'v_show' => $options['show_when']
                 ? static::prepareDependency($options['show_when'], $vModel, $validationRoot)
                 : '',
+
+            'attr' => array_replace($view->vars['attr'], $attr),
         ]);
     }
 
@@ -160,7 +165,8 @@ class FormTypeExtension extends AbstractTypeExtension
             'data_object' => null,
             'view_object' => null,
 
-            'show_when' => [],
+            'show_when'   => [],
+            'enable_when' => [],
         ]);
     }
 

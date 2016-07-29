@@ -104,4 +104,16 @@ abstract class AUpgrade extends \XLite\View\Dialog
     {
         return \XLite\Core\Marketplace::getPurchaseURL();
     }
+
+    /**
+     * Returns unique value for 'id' attribute of module entry tag
+     *
+     * @param \XLite\Upgrade\Entry\AEntry $entry Upgrade entry
+     *
+     * @return string
+     */
+    protected function getEntryId($entry)
+    {
+        return $entry->getMarketplaceID();
+    }
 }

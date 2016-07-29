@@ -119,7 +119,7 @@ class Review extends \XLite\Model\AEntity
      *
      * @var integer
      *
-     * @Column (type="binary", nullable=true)
+     * @Column (type="string", nullable=true)
      */
     protected $ip = null;
 

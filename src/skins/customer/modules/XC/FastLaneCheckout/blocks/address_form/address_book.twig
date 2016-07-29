@@ -1,0 +1,12 @@
+{##
+ # Fastlane checkout address section
+ #
+ # @ListChild (list="checkout_fastlane.blocks.address.billing.prepend", weight="10")
+ # @ListChild (list="checkout_fastlane.blocks.address.shipping.prepend", weight="10")
+ #}
+
+{% set visibility = this.isDisplayAddressButton() ? '' : 'hidden' %}
+
+<div class="checkout_fastlane_block_address-book-button {{ visibility }}" v-show="visible">
+    {{ widget('XLite\\View\\Button\\AddressBook', addressType=this.getShortAddressType(), label=t('Address book')) }}
+</div>

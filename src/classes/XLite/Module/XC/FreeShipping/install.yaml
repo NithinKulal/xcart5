@@ -54,3 +54,4 @@ XLite\Model\LanguageLabel:
   - { name: 'Shipping freight + regular shipping rate', translations: [{ code: en, label: 'Shipping freight + regular shipping rate' }] }
   - { name: 'Shipping freight tooltip text', translations: [{ code: en, label: 'This shipping method becomes available on checkout, only if all the products in the cart have defined shipping freight and there are no other shipping methods available.' }] }
   - { name: 'Freight fixed fee', translations: [{ code: en, label: 'Freight fixed fee' }]}
+  - { name: 'Freight', translations: [{ code: en, label: 'Freight' }] }

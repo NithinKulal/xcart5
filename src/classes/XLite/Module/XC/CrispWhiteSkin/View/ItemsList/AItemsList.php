@@ -11,6 +11,21 @@ namespace XLite\Module\XC\CrispWhiteSkin\View\ItemsList;
 abstract class AItemsList extends \XLite\View\ItemsList\AItemsList implements \XLite\Base\IDecorator
 {
     /**
+     * Define and set widget attributes; initialize widget
+     *
+     * @param array $params Widget params OPTIONAL
+     *
+     * @return void
+     */
+    public function __construct(array $params = array())
+    {
+        $this->sortOrderModes[self::SORT_ORDER_ASC] = 'Low - High';
+        $this->sortOrderModes[self::SORT_ORDER_DESC] = 'High - Low';
+
+        parent::__construct($params);
+    }
+
+    /**
      * Get a list of JavaScript files
      *
      * @return array
@@ -29,14 +44,6 @@ abstract class AItemsList extends \XLite\View\ItemsList\AItemsList implements \X
      */
     protected function getSortByLabel()
     {
-        $paramSortBy = $this->getParam(static::PARAM_SORT_BY);
-
-        if (empty($paramSortBy)
-            || !in_array($paramSortBy, array_keys($this->sortByModes))
-        ) {
-            $paramSortBy = $this->getSortByModeDefault();
-        }
-
-        return $this->sortByModes[$paramSortBy];
+        return $this->sortByModes[$this->getSortBy()];
     }
 }

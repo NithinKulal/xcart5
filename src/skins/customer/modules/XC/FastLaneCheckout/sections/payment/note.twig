@@ -1,0 +1,11 @@
+{##
+ # Fastlane checkout address section
+ #
+ # @ListChild (list="checkout_fastlane.sections.payment.left", weight="20")
+ #}
+
+{% if not this.isShippingNeeded() %}
+<div class='checkout_fastlane_order_note'>
+	{{ widget('XLite\\Module\\XC\\FastLaneCheckout\\View\\Blocks\\OrderNotes') }}
+</div>
+{% endif %}

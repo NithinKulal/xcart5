@@ -52,8 +52,20 @@ abstract class Order extends \XLite\Model\Order implements \XLite\Base\IDecorato
     {
         parent::processSucceed();
 
-        foreach ($this->getItems() as $item) {
-            $item->createPrivateAttachments();
+        $this->initializeAttachments();
+    }
+
+    /**
+     * Initialize provate attachments
+     *
+     * @return void
+     */
+    protected function initializeAttachments()
+    {
+        if (!$this->getPrivateAttachments()) {
+            foreach ($this->getItems() as $item) {
+                $item->createPrivateAttachments();
+            }
         }
     }
 
@@ -64,6 +76,8 @@ abstract class Order extends \XLite\Model\Order implements \XLite\Base\IDecorato
      */
     protected function processProcess()
     {
+        $this->initializeAttachments();
+
         foreach ($this->getPrivateAttachments() as $attachment) {
            $attachment->renew();
         }

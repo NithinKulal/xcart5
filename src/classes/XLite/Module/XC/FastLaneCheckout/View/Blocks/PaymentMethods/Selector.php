@@ -46,4 +46,16 @@ class Selector extends \XLite\View\Checkout\PaymentMethodsList
     {
         return $this->getDir() . 'selector.twig';
     }
+
+    protected function defineWidgetData()
+    {
+        return array(
+            'required' => !$this->isPayedCart()
+        );
+    }
+
+    protected function getWidgetData()
+    {
+        return json_encode($this->defineWidgetData());
+    }
 }

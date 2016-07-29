@@ -1,0 +1,27 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Data
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - { name: default_search_sort_order, category: General, type: 'XLite\View\FormField\Select\DefaultProductSortOrder', orderby: 22501, value: 'default', translations: [{ code: en, option_name: 'Default order to sort products within a search result' }] }
+
+XLite\Model\Notification:
+  - { templatesDirectory: failed_admin_login, adminHeaderEnabled: true, adminGreetingEnabled: false, adminSignatureEnabled: true, customerHeaderEnabled: true, customerGreetingEnabled: true, customerSignatureEnabled: true }
+  - { templatesDirectory: low_limit_warning, adminHeaderEnabled: true, adminGreetingEnabled: false, adminSignatureEnabled: true, customerHeaderEnabled: true, customerGreetingEnabled: true, customerSignatureEnabled: true }
+  - { templatesDirectory: order_advanced_changed, adminHeaderEnabled: true, adminGreetingEnabled: false, adminSignatureEnabled: true, customerHeaderEnabled: true, customerGreetingEnabled: true, customerSignatureEnabled: true }
+  - { templatesDirectory: order_canceled, adminHeaderEnabled: true, adminGreetingEnabled: false, adminSignatureEnabled: true, customerHeaderEnabled: true, customerGreetingEnabled: true, customerSignatureEnabled: true }
+  - { templatesDirectory: order_changed, adminHeaderEnabled: true, adminGreetingEnabled: false, adminSignatureEnabled: true, customerHeaderEnabled: true, customerGreetingEnabled: true, customerSignatureEnabled: true }
+  - { templatesDirectory: order_created, adminHeaderEnabled: true, adminGreetingEnabled: false, adminSignatureEnabled: true, customerHeaderEnabled: true, customerGreetingEnabled: true, customerSignatureEnabled: true }
+  - { templatesDirectory: order_failed, adminHeaderEnabled: true, adminGreetingEnabled: false, adminSignatureEnabled: true, customerHeaderEnabled: true, customerGreetingEnabled: true, customerSignatureEnabled: true }
+  - { templatesDirectory: order_processed, adminHeaderEnabled: true, adminGreetingEnabled: false, adminSignatureEnabled: true, customerHeaderEnabled: true, customerGreetingEnabled: true, customerSignatureEnabled: true }
+  - { templatesDirectory: order_shipped, adminHeaderEnabled: true, adminGreetingEnabled: false, adminSignatureEnabled: true, customerHeaderEnabled: true, customerGreetingEnabled: true, customerSignatureEnabled: true }
+  - { templatesDirectory: order_tracking_information, adminHeaderEnabled: true, adminGreetingEnabled: false, adminSignatureEnabled: true, customerHeaderEnabled: true, customerGreetingEnabled: true, customerSignatureEnabled: true }
+  - { templatesDirectory: profile_created, adminHeaderEnabled: true, adminGreetingEnabled: false, adminSignatureEnabled: true, customerHeaderEnabled: true, customerGreetingEnabled: true, customerSignatureEnabled: true }
+  - { templatesDirectory: profile_deleted, adminHeaderEnabled: true, adminGreetingEnabled: false, adminSignatureEnabled: true, customerHeaderEnabled: true, customerGreetingEnabled: true, customerSignatureEnabled: true }
+  - { templatesDirectory: profile_modified, adminHeaderEnabled: true, adminGreetingEnabled: false, adminSignatureEnabled: true, customerHeaderEnabled: true, customerGreetingEnabled: true, customerSignatureEnabled: true }
+  - { templatesDirectory: recover_password_request, adminHeaderEnabled: true, adminGreetingEnabled: false, adminSignatureEnabled: true, customerHeaderEnabled: true, customerGreetingEnabled: true, customerSignatureEnabled: true }
+  - { templatesDirectory: register_anonymous, adminHeaderEnabled: true, adminGreetingEnabled: false, adminSignatureEnabled: true, customerHeaderEnabled: true, customerGreetingEnabled: true, customerSignatureEnabled: true }
+  - { templatesDirectory: failed_transaction, adminHeaderEnabled: true, adminGreetingEnabled: false, adminSignatureEnabled: true, customerHeaderEnabled: true, customerGreetingEnabled: true, customerSignatureEnabled: true }

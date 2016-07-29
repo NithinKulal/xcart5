@@ -14,13 +14,13 @@ namespace XLite\Controller\Admin;
 class CategoryProducts extends \XLite\Controller\Admin\ProductList
 {
     /**
-     * Check ACL permissions
-     *
-     * @return boolean
+     * @param array $params Handler params OPTIONAL
      */
-    public function checkACL()
+    public function __construct(array $params)
     {
-        return parent::checkACL() && $this->getCategoryId();
+        parent::__construct($params);
+
+        $this->params[] = 'id';
     }
 
     /**
@@ -30,9 +30,48 @@ class CategoryProducts extends \XLite\Controller\Admin\ProductList
      */
     public function getTitle()
     {
-        return $this->checkACL()
+        return $this->isVisible()
             ? static::t('Manage category (X)', array('category_name' => $this->getCategoryName()))
             : '';
+    }
+
+    /**
+     * Add part to the location nodes list
+     *
+     * @return void
+     */
+    protected function addBaseLocation()
+    {
+        if ($this->isVisible() && $this->getCategory()) {
+            $this->addLocationNode(
+                'Categories',
+                $this->buildURL('categories')
+            );
+
+            $categories = $this->getCategory()->getPath();
+            array_pop($categories);
+            foreach ($categories as $category) {
+                $this->addLocationNode(
+                    $category->getName(),
+                    $this->buildURL('categories', '', ['id' => $category->getCategoryId()])
+                );
+            }
+        }
+    }
+
+    /**
+     * Common method to determine current location
+     *
+     * @return string
+     */
+    protected function getLocation()
+    {
+        return !$this->isVisible()
+            ? static::t('No category defined')
+            : (($categoryName = $this->getCategoryName())
+                ? $categoryName
+                : static::t('Manage categories')
+            );
     }
 
     /**
@@ -69,5 +108,10 @@ class CategoryProducts extends \XLite\Controller\Admin\ProductList
         }
 
         return $this->category;
+    }
+
+    protected function isVisible()
+    {
+        return parent::isVisible() && $this->getCategoryId();
     }
 }

@@ -9,7 +9,7 @@
 namespace XLite\Module\XC\BulkEditing\View\StickyPanel\Product\Admin;
 
 /**
- * Products list sticky panel
+ * Product list sticky panel
  */
 abstract class AAdmin extends \XLite\View\StickyPanel\Product\Admin\AAdmin implements \XLite\Base\IDecorator
 {

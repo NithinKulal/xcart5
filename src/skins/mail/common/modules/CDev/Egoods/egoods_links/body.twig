@@ -1,0 +1,10 @@
+{##
+ # Egoods email body (to customer)
+ #}
+<p>
+  <ul>
+    {% for attachment in this.order.getDownloadAttachments() %}
+      <li><a href="{{ attachment.getURL() }}">{{ attachment.attachment.getPublicTitle() }}</a></li>
+    {% endfor %}
+  </ul>
+</p>

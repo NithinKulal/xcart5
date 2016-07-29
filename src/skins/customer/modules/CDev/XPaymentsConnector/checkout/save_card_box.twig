@@ -1,0 +1,16 @@
+{##
+ # Checkout : order review step : selected state : button
+ #
+ #}
+
+<br />
+
+<div class="xpc-box"{% if not this.checkCheckoutAction() %} style="display: none;"{% endif %}>
+  {{ widget('\\XLite\\Module\\CDev\\XPaymentsConnector\\View\\Checkout\\Iframe') }}
+  <div class="{{ this.getSaveCardBoxClass() }}" {% if not this.showSaveCardBox() %} style="display: none;"{% endif %}>
+    <label for="save-card">
+      <input type="checkbox" name="save_card" value="Y" id="save-card" />
+      {{ t('I want to use this credit card for my future orders in this shop.')|raw }}
+    </label>
+  </div>
+</div>

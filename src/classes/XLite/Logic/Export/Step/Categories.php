@@ -43,6 +43,7 @@ class Categories extends \XLite\Logic\Export\Step\Base\I18n
             'position'    => array(),
             'memberships' => array(),
             'image'       => array(),
+            'banner'       => array(),
             'cleanURL'    => array(),
         );
 
@@ -159,6 +160,20 @@ class Categories extends \XLite\Logic\Export\Step\Base\I18n
     }
 
     /**
+     * Get column value for 'banner' column
+     *
+     * @param array   $dataset Dataset
+     * @param string  $name    Column name
+     * @param integer $i       Subcolumn index
+     *
+     * @return string
+     */
+    protected function getBannerColumnValue(array $dataset, $name, $i)
+    {
+        return $dataset['model']->getBanner();
+    }
+
+    /**
      * Get column value for 'cleanUrl' column
      *
      * @param array   $dataset Dataset
@@ -182,8 +197,10 @@ class Categories extends \XLite\Logic\Export\Step\Base\I18n
      */
     protected function copyResource(\XLite\Model\Base\Storage $storage, $subdirectory)
     {
-        if ($storage instanceOf \XLite\Model\Base\Image) {
+        if ($storage instanceOf \XLite\Model\Image\Category\Image) {
             $subdirectory .= LC_DS . 'categories';
+        } elseif ($storage instanceOf \XLite\Model\Image\Category\Banner) {
+            $subdirectory .= LC_DS . 'banners';
         }
 
         return parent::copyResource($storage, $subdirectory);

@@ -28,7 +28,8 @@ class PilibabaCheckout extends \XLite\View\Button\Link
     {
         return parent::isVisible()
             && $this->getCart()
-            && Pilibaba\Main::getPaymentMethod()->isEnabled();
+            && Pilibaba\Main::getPaymentMethod()->isEnabled()
+            && $this->getCart()->checkCart();
     }
 
    /**

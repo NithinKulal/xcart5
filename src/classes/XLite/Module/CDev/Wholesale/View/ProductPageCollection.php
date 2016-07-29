@@ -67,14 +67,16 @@ class ProductPageCollection extends \XLite\View\ProductPageCollection implements
         $wholesale = null;
 
         if (!isset($this->productModifierTypes)) {
+            $variantsEnabled = false;
             if (\Includes\Utils\ModulesManager::isActiveModule('XC\ProductVariants')) {
+                $variantsEnabled = true;
                 // ProductVariants module detected
                 $additional = \XLite\Core\Database::getRepo('XLite\Module\XC\ProductVariants\Model\ProductVariant')
                     ->getModifierTypesByProduct($this->getProduct());
                 $additionalVariants = \XLite\Core\Database::getRepo('XLite\Module\CDev\Wholesale\Model\ProductVariantWholesalePrice')
                     ->getModifierTypesByProduct($this->getProduct());
             }
-            if ((!isset($additional) || empty($additional['price'])) && (!isset($additionalVariants) || empty($additionalVariants['price']))) {
+            if (empty($additional['price']) || empty($additionalVariants['price']) || empty($additionalVariants['wholesalePrice'])) {
                 // ProductVariants module is not detected or product has not variants
                 $wholesale = \XLite\Core\Database::getRepo('XLite\Module\CDev\Wholesale\Model\WholesalePrice')
                     ->getModifierTypesByProduct($this->getProduct());

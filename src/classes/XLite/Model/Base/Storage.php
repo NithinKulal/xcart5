@@ -857,7 +857,8 @@ abstract class Storage extends \XLite\Model\AEntity
     /**
      * Save path into entity
      *
-     * @param string $path Full path
+     * @param string  $path     Full path
+     * @param boolean $pathAsIs Accept $path as is (do not use assembleSavePath() method) OPTIONAL
      *
      * @return boolean
      */

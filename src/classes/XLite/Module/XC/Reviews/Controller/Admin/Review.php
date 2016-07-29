@@ -184,7 +184,7 @@ class Review extends \XLite\Controller\Admin\AAdmin
         $review = new \XLite\Module\XC\Reviews\Model\Review();
         $review->map($data);
         $review->setStatus(\XLite\Module\XC\Reviews\Model\Review::STATUS_APPROVED);
-        $review->setIp(inet_pton($_SERVER['REMOTE_ADDR']) ?: 0);
+        $review->setIp(utf8_encode(inet_pton($_SERVER['REMOTE_ADDR'])) ?: 0);
 
         if ($profile && intval($profile) > 0) {
             $this->updateProfile($review, intval($profile), $profileText);

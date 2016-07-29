@@ -493,7 +493,7 @@ class USPS extends \XLite\Model\Shipping\Processor\AProcessor
             'Girth' => sprintf('%.1f', $config->girth), // Units=inches, decimal, min=0.0, totalDigits=10. Required for size=LARGE and container=NONRECTANGULAR | VARIABLE/NULL
             'Value' => sprintf('%.2f', $data['packages'][$packKey]['subtotal']), // decimal, min=0.00, totalDigits=10
             'Machinable' => $config->machinable ? 'true' : 'false',
-            'AmountToCollect' => $data['packages'][$packKey]['subtotal'],
+            'AmountToCollect' => sprintf('%.2f', $data['packages'][$packKey]['subtotal']),
         );
 
         return $result;
@@ -600,6 +600,10 @@ OUT;
             $packages = $xml->getArrayByPath($xmlParsed, $this->getApiName() . 'Response/Package');
 
             if ($packages) {
+
+                $packageRates = array();
+                $packagesCount = count($packages);
+
                 foreach ($packages as $i => $package) {
                     $postage = $xml->getArrayByPath($package, '#/Postage');
 
@@ -639,12 +643,28 @@ OUT;
                                 }
                             }
 
-                            $result['postage'][] = $postageData;
+                            if (!isset($packageRates[$i])) {
+                                $packageRates[$i] = array();
+                            }
+
+                            $packageRates[$postageData['CLASSID']][] = $postageData;
                         }
 
                     } else {
                         $result = array();
                         break;
+                    }
+                }
+
+                if ($packageRates) {
+                    // Get intersection of postages
+                    foreach ($packageRates as $packageRatesData) {
+                        if (count($packageRatesData) < $packagesCount) {
+                            continue;
+                        }
+                        foreach ($packageRatesData as $v) {
+                            $result['postage'][] = $v;
+                        }
                     }
                 }
             }

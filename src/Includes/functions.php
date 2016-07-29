@@ -817,7 +817,7 @@ function func_htmlspecialchars($str) {
 function isLiteCommerceInstalled($dbURL = null, &$message)
 {
     // Check by template and config.php file
-    $checkResult = file_exists(LC_DIR_SKINS . 'admin/en/welcome.twig')
+    $checkResult = file_exists(LC_DIR_SKINS . 'admin/welcome.twig')
         && (file_exists(LC_DIR_CONFIG . 'config.php') || file_exists(LC_DIR_CONFIG . 'config.local.php'));
 
     if ($checkResult) {

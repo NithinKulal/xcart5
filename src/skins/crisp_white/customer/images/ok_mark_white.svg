@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="16.011003"
+   height="13.155569"
+   viewBox="0 0 16.011003 13.15557"
+   version="1.1"
+   id="svg4644"
+   inkscape:version="0.91 r"
+   sodipodi:docname="ok_mark_white.svg">
+  <metadata
+     id="metadata4657">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>added</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1600"
+     inkscape:window-height="841"
+     id="namedview4655"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="16.857143"
+     inkscape:cx="0.033951841"
+     inkscape:cy="7.6555024"
+     inkscape:window-x="0"
+     inkscape:window-y="30"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg4644" />
+  <!-- Generator: Sketch 3.7 (28169) - http://www.bohemiancoding.com/sketch -->
+  <title
+     id="title4646">added</title>
+  <desc
+     id="desc4648">Created with Sketch.</desc>
+  <defs
+     id="defs4650" />
+  <g
+     id="Symbols"
+     transform="matrix(0.94152286,0,0,0.99726725,0.52659569,-1.0019959)"
+     style="fill:none;fill-rule:evenodd;stroke:none;stroke-width:1">
+    <g
+       id="added_product"
+       transform="translate(1,1)"
+       style="stroke:#25c5df">
+      <path
+         style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;baseline-shift:baseline;text-anchor:start;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:2.06399584;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+         d="M 14.173521,1.1852637 C 13.893954,0.96793495 13.468587,1.010099 13.242246,1.2835445 l -6.2989985,7.560938 -0.00345,0.00333 c -0.010039,0.012519 -0.019157,0.027111 -0.029209,0.041645 L 5.3281198,10.805095 0.57380262,6.6140138 C 0.30665214,6.378795 -0.11746477,6.3985519 -0.36090959,6.6573236 l -0.001719,0 c -0.24278342,0.2590793 -0.22194559,0.6722735 0.0463918,0.9078459 l 4.88490169,4.3076855 0.00172,0 c 0.2126912,0.185398 0.4905403,0.291509 0.7766357,0.291508 0.027899,0 0.057142,-8.51e-4 0.089347,-0.0033 0.3170199,-0.02358 0.6122923,-0.177705 0.8127184,-0.416442 l 0.00172,-0.0016 1.7319667,-2.09554 0.00517,-0.00832 c 0.0019,-0.00253 0.00329,-0.00576 0.00517,-0.00833 l 0.00172,-0.00165 6.2783843,-7.5392887 C 14.500164,1.8172988 14.454884,1.406709 14.175247,1.1869682 l -0.216488,0.2598525 0.214777,-0.261526 z M 5.4552681,10.916704 c 8.367e-4,6.67e-4 0.00267,0.001 0.00345,0.0016 l 0,0.0016 -0.00345,-0.0033 z"
+         id="added"
+         inkscape:connector-curvature="0" />
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,13 @@
+{##
+ # Header bar search box
+ #
+ # @ListChild (list="layout.header.right", weight="10")
+ # @ListChild (list="layout.header.right.mobile", weight="10")
+ #}
+
+<div class="header_search" title="{{ t('Search') }}">
+  <a data-target=".header_search-panel" data-toggle="collapse" class="collapsed"></a>
+  <div class="header_search-panel collapse">
+    {{ widget('\\XLite\\View\\Form\\Product\\Search\\Customer\\Simple') }}
+  </div>
+</div>

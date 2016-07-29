@@ -75,3 +75,20 @@ XLite\Model\LanguageLabel:
   - { name: 'Unable to save edited content. Errors: ', translations: [{ code: en, label: 'Unable to save edited content. Errors: ' }]}
   - { name: 'Unknown temporary file', translations: [{ code: en, label: 'Unknown temporary file' }]}
   - { name: 'Show all', translations: [{ code: en, label: 'Show all' }]}
+
+  - { name: 'Flexy to twig converter', translations: [{ code: en, label: 'Flexy to twig converter' }]}
+  - { name: 'Flexy-template', translations: [{ code: en, label: 'Flexy template' }]}
+  - { name: 'Twig-template path', translations: [{ code: en, label: 'Twig template path' }]}
+  - { name: 'Template is converted', translations: [{ code: en, label: 'Converted' }]}
+  - { name: 'Search flexy-templates', translations: [{ code: en, label: 'Search flexy templates' }]}
+  - { name: 'Convert templates', translations: [{ code: en, label: 'Convert' }]}
+  - { name: 'Remove flexy-templates', translations: [{ code: en, label: 'Remove flexy templates' }]}
+  - { name: 'No flexy-templates found.', translations: [{ code: en, label: 'No flexy templates have been found.' }]}
+  - { name: 'Flexy templates have been removed', translations: [{ code: en, label: 'The flexy templates have been removed' }]}
+  - { name: 'Some flexy-templates cannot be removed. Please correct file permissions or remove them manually', translations: [{ code: en, label: 'Some flexy templates cannot be removed. Please correct the file permissions or remove the templates manually:<br />{{list}}' }]}
+  - { name: 'Check directory permissions', translations: [{ code: en, label: 'Check directory permissions' }]}
+  - { name: 'This action will remove all flexy-templates. Are you sure to proceed?', translations: [{ code: en, label: 'This action will remove all the flexy templates. Are you sure you want to proceed?' }]}
+  - { name: 'Cannot get flexy content', translations: [{ code: en, label: 'Cannot get flexy content' }]}
+  - { name: 'Failure to convert flexy-template. Check for syntax errors', translations: [{ code: en, label: 'Flexy template conversion failure. Check for syntax errors' }]}
+  - { name: 'Back to Webmaster mode', translations: [{ code: en, label: 'Back to Webmaster mode' }]}
+  - { name: 'Flexy-to-twig converter warning', translations: [{ code: en, label: 'Converted files may not always work correctly because not all the changes can be handled automatically by conversion. Be sure to check your converted files manually to ensure that all the required changes have been implemented properly. More info about Flexy and Twig key differences is available at <a href="http://xcart.github.io/flexy-to-twig/" target="_blank">http://xcart.github.io/flexy-to-twig</a>' }]}

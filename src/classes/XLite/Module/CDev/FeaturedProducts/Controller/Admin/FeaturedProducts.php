@@ -13,7 +13,6 @@ namespace XLite\Module\CDev\FeaturedProducts\Controller\Admin;
  */
 class FeaturedProducts extends \XLite\Controller\Admin\AAdmin
 {
-
     /**
      * params
      *
@@ -31,6 +30,55 @@ class FeaturedProducts extends \XLite\Controller\Admin\AAdmin
         return \XLite\Core\Request::getInstance()->id
             ? static::t('Manage category (X)', array('category_name' => $this->getCategoryName()))
             : static::t('Front page');
+    }
+
+    /**
+     * Add part to the location nodes list
+     *
+     * @return void
+     */
+    protected function addBaseLocation()
+    {
+        if ($this->isVisible() && $this->getCategory() && \XLite\Core\Request::getInstance()->id) {
+            $this->addLocationNode(
+                'Categories',
+                $this->buildURL('categories')
+            );
+
+            $categories = $this->getCategory()->getPath();
+            array_pop($categories);
+            foreach ($categories as $category) {
+                $this->addLocationNode(
+                    $category->getName(),
+                    $this->buildURL('categories', '', ['id' => $category->getCategoryId()])
+                );
+            }
+        }
+    }
+
+    /**
+     * Common method to determine current location
+     *
+     * @return string
+     */
+    protected function getLocation()
+    {
+        return !$this->isVisible()
+            ? static::t('No category defined')
+            : (\XLite\Core\Request::getInstance()->id
+                ? $this->getCategoryName()
+                : static::t('Front page')
+            );
+    }
+
+    /**
+     * @return \XLite\Model\Category
+     */
+    protected function getCategory()
+    {
+        $id = \XLite\Core\Request::getInstance()->id ?: $this->getRootCategoryId();
+
+        return \XLite\Core\Database::getRepo('XLite\Model\Category')->find($id);
     }
 
     /**

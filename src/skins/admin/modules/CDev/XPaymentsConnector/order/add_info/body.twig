@@ -1,0 +1,43 @@
+{##
+ # Additional info 
+ #
+ #}
+
+{% if this.getXpcTransactionsAddInfo() %}
+
+<table class="add-info">
+  <tr class="header">
+    <th>{{ t('Date, time') }}</th>
+    <th>{{ t('Type') }}</th>
+    <th>{{ t('Result payment status') }}</th>
+    <th>{{ t('Transaction result') }}</th>
+    <th>{{ t('Total') }}</th>
+  </tr>
+
+  <tr class="separator"><td colspan="5">&nbsp;</td></tr>
+
+  {% for tr in this.getXpcTransactionsAddInfo() %}
+
+    <tr class="top-line">
+      <td>{{ this.getTime(tr.date) }}</td>
+      <td><strong>{{ tr.action }}</strong></td>
+      <td>{{ tr.payment_status }}</td>
+      <td class="status-{{ tr.status|raw }}"><strong>{{ tr.status|raw }}</strong></td>
+      <td>{{ tr.total }}</td>
+    </tr>
+
+    <tr class="bottom-line">
+      <td colspan="5">
+        {% include this.getDir() ~ '/fields.twig' %}
+      </td>
+    </tr>
+
+    <tr class="separator"><td colspan="5">&nbsp;</td></tr>
+
+  {% endfor %}
+
+</table>
+
+{% else %}
+  <p class="error">{{ t('The related payment not found. Apparently it was deleted.') }}</p>
+{% endif %}

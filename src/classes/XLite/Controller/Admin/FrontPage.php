@@ -13,12 +13,16 @@ namespace XLite\Controller\Admin;
  */
 class FrontPage extends \XLite\Controller\Admin\Category
 {
+
     /**
-     * Controller parameters
-     *
-     * @var array
+     * @param array $params
      */
-    protected $params = array('target');
+    public function __construct(array $params)
+    {
+        parent::__construct($params);
+
+        $this->params = ['target'];
+    }
 
     /**
      * Return the category name for the title
@@ -41,6 +45,25 @@ class FrontPage extends \XLite\Controller\Admin\Category
     }
 
     /**
+     * Add part to the location nodes list
+     *
+     * @return void
+     */
+    protected function addBaseLocation()
+    {
+    }
+
+    /**
+     * Common method to determine current location
+     *
+     * @return string
+     */
+    protected function getLocation()
+    {
+        return $this->getTitle();
+    }
+
+    /**
      * Get model form class
      *
      * @return string
@@ -49,5 +72,4 @@ class FrontPage extends \XLite\Controller\Admin\Category
     {
         return 'XLite\View\Model\FrontPage';
     }
-
 }

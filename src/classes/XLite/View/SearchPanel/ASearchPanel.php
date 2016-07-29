@@ -441,6 +441,16 @@ abstract class ASearchPanel extends \XLite\View\AView
     }
 
     /**
+     * Return true if search panel can save filters
+     *
+     * @return boolean
+     */
+    protected function canSaveFilter()
+    {
+        return true;
+    }
+
+    /**
      * Get list of available filters for search panel
      *
      * @return array

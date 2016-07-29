@@ -9,8 +9,35 @@
 
 (function ($) {
 
+  // Tooltips in customer area
+  jQuery('.tooltip-main').each(
+    function () {
+      attachTooltip(
+        jQuery('i', this),
+        jQuery('.help-text', this).hide().html()
+      );
+    }
+  );
+
   var startTooltip = function (element) {
-    $(element).popover({container: element});
+    var helpId = $(element).data('help-id');
+    var params = {};
+
+    if ($(element).parents('.ui-widget-content:first').length) {
+      params.viewport = ('#' + $(element).parents('.ui-widget-content:first').attr('id'));
+    }
+
+    if (helpId) {
+      content = $('#' + helpId).html();
+      if (content) {
+        params.content = content;
+        $(element).popover(params);
+      }
+
+    } else {
+      params.container = element;
+      $(element).popover(params);
+    }
   };
 
   if (window.Vue) {

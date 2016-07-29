@@ -186,13 +186,7 @@ abstract class Products extends \XLite\Logic\Import\Processor\Products implement
      */
     protected function verifyVariantImage($value, array $column)
     {
-        if (!$this->verifyValueAsEmpty($value)) {
-            foreach ($value as $image) {
-                if (!$this->verifyValueAsEmpty($image) && !$this->verifyValueAsFile($image)) {
-                    $this->addWarning('VARIANT-IMAGE-FMT', array('column' => $column, 'value' => $image));
-                }
-            }
-        }
+        parent::verifyImages($value, $column);
     }
 
     // }}}
@@ -391,11 +385,19 @@ abstract class Products extends \XLite\Logic\Import\Processor\Products implement
      * @return void
      */
     protected function importVariantImageColumn(\XLite\Model\Product $model, $value, array $column)
-    {        
+    {
         foreach ($this->variants as $rowIndex => $variant) {
-            if (isset($value[$rowIndex])) {
+            if ($this->verifyValueAsNull($value[$rowIndex])) {
+                $image = $variant->getImage();
+                if ($image) {
+                    \XLite\Core\Database::getEM()->remove($image);
+                }
+                $variant->setImage(null);
+
+            } elseif (isset($value[$rowIndex]) && !$this->verifyValueAsEmpty($value[$rowIndex])) {
                 $path = $value[$rowIndex];
-                if ($this->verifyValueAsFile($path)) {
+                $file = $this->verifyValueAsLocalURL($path) ? $this->getLocalPathFromURL($path) : $path;
+                if ($this->verifyValueAsFile($file)) {
                     $image = $variant->getImage();
                     $isNew = false;
                     if (!$image) {
@@ -403,23 +405,30 @@ abstract class Products extends \XLite\Logic\Import\Processor\Products implement
                         $image = new \XLite\Module\XC\ProductVariants\Model\Image\ProductVariant\Image();
                     }
 
-                    if (1 < count(parse_url($path))) {
-                        $success = $image->loadFromURL($path, true);
+                    if ($this->verifyValueAsURL($file)) {
+                        $success = $image->loadFromURL($file, true);
 
                     } else {
-                        $dir = \Includes\Utils\FileManager::getRealPath(
-                            LC_DIR_VAR . $this->importer->getOptions()->dir
-                        );
-                        $success = $image->loadFromLocalFile($dir . LC_DS . $path);
+                        $success = $image->loadFromLocalFile(LC_DIR_ROOT . $file);
                     }
+
                     if (!$success) {
-                        $this->addError('PRODUCT-IMG-LOAD-FAILED', array('column' => $column, 'value' => $path));
+                        if ($image->getLoadError() === 'unwriteable') {
+                            $this->addError('PRODUCT-IMG-LOAD-FAILED', array('column' => $column, 'value' => $path));
+                        } elseif ($image->getLoadError()) {
+                            $this->addError('PRODUCT-IMG-URL-LOAD-FAILED', array('column' => $column, 'value' => $path));
+                        }
 
                     } elseif ($isNew) {
                         $image->setProductVariant($variant);
                         $variant->setImage($image);
                         \XLite\Core\Database::getEM()->persist($image);
                     }
+
+                } elseif(!$this->verifyValueAsFile($file) && $this->verifyValueAsURL($file)) {
+                    $this->addWarning('PRODUCT-IMG-URL-LOAD-FAILED', array('column' => $column, 'value' => $path));
+                } else {
+                    $this->addWarning('PRODUCT-IMG-NOT-VERIFIED', array('column' => $column, 'value' => $path));
                 }
             }
         }

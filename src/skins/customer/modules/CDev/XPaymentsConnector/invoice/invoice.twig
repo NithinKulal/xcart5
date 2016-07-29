@@ -1,0 +1,25 @@
+{##
+ # Credit cards on the invoice
+ #
+ #
+ # @ListChild (list="invoice.bottom.address.billing", weight="30")
+ #}
+  {% if this.order.getCCData() %}
+    <div class="xpc-card-box">
+  
+      <strong>{{ t('Used credit cards') }}</strong>
+      {% for cc in this.order.getCCData() %}
+        <div class="xpc-card">
+          <span class="card {{ cc.card_type_css }}">
+            <img src="skins/customer/images/spacer.gif" alt="{{ cc.card_type }}" />
+          </span> 
+          {{ cc.card_number }}
+          {% if cc.expire %}
+            <span>({{ cc.expire }})</span>
+          {% endif %}
+        </div>
+        <br />
+      {% endfor %}
+  
+  </div>
+  {% endif %}

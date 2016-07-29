@@ -33,7 +33,7 @@ class Layout extends \XLite\Controller\Admin\AAdmin
      */
     public function getTitle()
     {
-        return static::t('Layout');
+        return static::t('Look & Feel');
     }
 
     /**

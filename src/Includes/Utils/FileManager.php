@@ -254,8 +254,11 @@ abstract class FileManager extends \Includes\Utils\AUtils
      */
     public static function mkdirRecursive($dir, $mode = 0755)
     {
-        return static::isDir($dir) ?:
-            (static::mkdirRecursive(static::getDir($dir), $mode) && static::mkdir($dir, $mode));
+        return static::isDir($dir) ?: (
+            ($newDir = static::getDir($dir)) != $dir
+            && static::mkdirRecursive($newDir, $mode)
+            && static::mkdir($dir, $mode)
+        );
     }
 
     /**

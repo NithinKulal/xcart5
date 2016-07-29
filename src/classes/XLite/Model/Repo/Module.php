@@ -74,7 +74,20 @@ class Module extends \XLite\Model\Repo\ARepo
      */
     protected $currentSkinModule;
 
+    /**
+     * Run-time cache of module IDs list
+     *
+     * @var array
+     */
     protected $updateModulesCache;
+
+    /**
+     * Run-time cache of information about available hotfixes, updates and upgrades for modules
+     *
+     * @var array
+     */
+    protected $updateModulesInfoCache;
+
     protected $mutualModulesRegistry = array();
 
     /**
@@ -89,6 +102,30 @@ class Module extends \XLite\Model\Repo\ARepo
         $this->addGroupByCondition($queryBuilder);
 
         return $queryBuilder;
+    }
+
+    /**
+     * Prepare queryBuilder for searchResult() method
+     *
+     * @param \Doctrine\ORM\QueryBuilder $queryBuilder Query builder
+     *
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    protected function postprocessSearchResultQueryBuilder($queryBuilder)
+    {
+        return $queryBuilder;
+    }
+
+    /**
+     * Search count only routine
+     *
+     * @return integer
+     */
+    protected function searchCount()
+    {
+        $result = $this->searchResult();
+
+        return count($result);
     }
 
     /**
@@ -458,33 +495,54 @@ class Module extends \XLite\Model\Repo\ARepo
     {
         if (null === $this->updateModulesCache) {
             $modules = $this->createQueryBuilder()
-                ->select('m.moduleID as id, reverse.moduleID as reverseModule, updated.moduleID as updateModule, upgrade.moduleID as upgradeModule')
+                ->select('m.moduleID as id, m.installed, reverse.moduleID as reverseModule, hotfix.moduleID as hotfixModule, updated.moduleID as updateModule, upgrade.moduleID as upgradeModule')
                 ->leftJoin(
                     'XLite\Model\Module',
                     'reverse',
                     \Doctrine\ORM\Query\Expr\Join::WITH,
-                    'reverse.author = m.author AND reverse.name = m.name AND m.moduleID != reverse.moduleID'
+                    $this->getLinkCondition('reverse')
+                    . ' AND m.fromMarketplace != reverse.fromMarketplace'
+                )
+                ->leftJoin(
+                    'XLite\Model\Module',
+                    'hotfix',
+                    \Doctrine\ORM\Query\Expr\Join::WITH,
+                    $this->getLinkCondition('hotfix')
+                    . ' AND hotfix.majorVersion = m.majorVersion'
+                    . ' AND hotfix.minorVersion = m.minorVersion'
+                    . ' AND hotfix.build > m.build'
+                    . ' AND hotfix.fromMarketplace = :fromMarkeplace'
                 )
                 ->leftJoin(
                     'XLite\Model\Module',
                     'updated',
                     \Doctrine\ORM\Query\Expr\Join::WITH,
-                    'updated.majorVersion = m.majorVersion AND (updated.minorVersion > m.minorVersion OR (updated.minorVersion = m.minorVersion AND updated.build > m.build)) AND updated.author = m.author AND updated.name = m.name'
+                    $this->getLinkCondition('updated')
+                    . ' AND updated.majorVersion = m.majorVersion'
+                    . ' AND updated.minorVersion > m.minorVersion'
+                    . ' AND updated.fromMarketplace = :fromMarkeplace'
                 )
                 ->leftJoin(
                     'XLite\Model\Module',
                     'upgrade',
                     \Doctrine\ORM\Query\Expr\Join::WITH,
-                    'upgrade.majorVersion > m.majorVersion AND upgrade.author = m.author AND upgrade.name = m.name'
+                    $this->getLinkCondition('upgrade')
+                    . ' AND upgrade.majorVersion > m.majorVersion'
+                    . ' AND upgrade.fromMarketplace = :fromMarkeplace'
                 )
                 ->addGroupBy('id')
+                ->setParameter('fromMarkeplace', 1);
+
+            $modules = $modules
                 ->getQuery()
                 ->getResult();
 
             $this->updateModulesCache = array();
             foreach ($modules as $module) {
                 $this->updateModulesCache[$module['id']] = array(
+                    'installed' => $module['installed'],
                     'reverse'   => $module['reverseModule'],
+                    'hotfix'    => $module['hotfixModule'],
                     'update'    => $module['updateModule'],
                     'upgrade'   => $module['upgradeModule'],
                 );
@@ -495,7 +553,78 @@ class Module extends \XLite\Model\Repo\ARepo
     }
 
     /**
-     * Search for modules having an elder version
+     * Helper method to get main link condition for getModules() method
+     *
+     * @param string $alias Alias of linked entity
+     *
+     * @return string
+     */
+    protected function getLinkCondition($alias)
+    {
+        return $alias . '.author = m.author AND ' . $alias . '.name = m.name';
+    }
+
+    /**
+     * Search for modules having an older version
+     *
+     * @param \XLite\Model\Module $module Module to get info from
+     *
+     * @return \XLite\Model\Module
+     */
+    public function getModuleForHotfix(\XLite\Model\Module $module)
+    {
+        $modules = $this->getModules();
+
+        $hotfix = $modules[$module->getModuleID()]['hotfix'];
+
+        return $hotfix
+            ? $this->find($hotfix)
+            : null;
+    }
+
+    /**
+     * Get info about available modules hotfixes, updates and upgrades
+     * Return result as an array(
+     *   'hotfix' => true|false, 'update' => true|false, 'upgrade' => true|false
+     * )
+     *
+     * @return array
+     */
+    public function getUpgradeModulesInfoHash()
+    {
+        if (!isset($this->updateModulesInfoCache)) {
+
+            $fields = array('hotfix', 'update', 'upgrade');
+
+            $result = array_fill_keys($fields, false);
+
+            $modules = $this->getModules();
+
+            foreach ($modules as $id => $m) {
+
+                if ($m['installed']) {
+
+                    $stop = true;
+
+                    foreach ($fields as $field) {
+                        $result[$field] = $result[$field] || !empty($m[$field]);
+                        $stop = $stop && $result[$field];
+                    }
+
+                    if ($stop) {
+                        break;
+                    }
+                }
+            }
+
+            $this->updateModulesInfoCache = $result;
+        }
+
+        return $this->updateModulesInfoCache;
+    }
+
+    /**
+     * Search for modules having an older version
      *
      * @param \XLite\Model\Module $module Module to get info from
      *

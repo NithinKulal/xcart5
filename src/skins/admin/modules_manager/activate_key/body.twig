@@ -1,0 +1,53 @@
+{##
+ # Activate license key form
+ #}
+
+<div class="activate-key-form">
+
+  {% if not this.isModuleActivation() %}
+    <div class="enter-key-hint">{{ t('To activate your X-Cart license, enter your secret key into the field below and click Activate.') }}</div>
+  {% endif %}
+  {% if this.isModuleActivation() %}
+    <div class="enter-key-hint">
+      {{ t('Before installing a paid addon for this installation, you need to activate your X-Cart license.')|raw }}
+    </div>
+  {% endif %}
+
+  <div class="license-key-form{% if this.isModuleActivation() %} module-activation{% endif %}">
+
+    {% if this.isModuleActivation() %}
+      <div class="enter-key-hint">
+        {{ t('Use the form below to provide your license information.') }}
+      </div>
+    {% endif %}
+
+    {% form '\\XLite\\View\\Form\\Module\\ActivateKey' with {formAction: 'register_key', formName: 'getAddonForm'} %}
+
+    <div class="buttons model-form-buttons">
+      <div class="addon-key"><input type="text" name="key" value="" placeholder="{{ t('Enter your license key here') }}" class="form-control" /></div>
+
+      {{ widget('\\XLite\\View\\Button\\Submit', {'button-size': 'btn-default', label: t('Activate key')}) }}
+    </div>
+
+    <div class="clear"></div>
+
+  {% endform %}
+
+  <div class="title">{{ t('Need a license key?') }}</div>
+
+  <div class="bottom-buttons">
+
+    {{ widget('\\XLite\\View\\Button\\Regular', label='Purchase premium license', style='regular-main-button', jsCode='window.open(\'' ~ this.getPurchaseURL() ~ '\', \'_blank\');') }}
+
+    {% if not this.hasLicense() %}
+      <div class="text or">{{ t('or') }}</div>
+
+      {{ widget('\\XLite\\View\\Button\\Link', label='Activate free license', style='regular-button activate-free-license-button', location=this.getActivateFreeLicenseURL()) }}
+    {% endif %}
+
+    <div class="text">{{ t('Contact us trial notice', {'contactURL': this.getContactUsURL()})|raw }}</div>
+
+  </div>
+
+  </div>
+</div>

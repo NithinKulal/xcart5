@@ -21,7 +21,7 @@ class NotificationAttachments extends \XLite\Controller\Admin\Settings
      */
     public function getTitle()
     {
-        return static::t('Attachments');
+        return static::t('Email notifications');
     }
 
     /**

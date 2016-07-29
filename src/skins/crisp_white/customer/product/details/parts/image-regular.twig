@@ -1,0 +1,6 @@
+{##
+ # Product details image default box
+ #}
+<div class="product-photo">
+  {{ widget('\\XLite\\Module\\XC\\CrispWhiteSkin\\View\\CommonImage', image=this.product.getImage(), className='photo product-thumbnail', verticalAlign='top', id='product_image_' ~ this.product.product_id, maxWidth=this.getWidgetMaxWidth(), maxHeight=this.getWidgetMaxHeight(), alt=this.getAlt(this.product.getImage())) }}
+</div>

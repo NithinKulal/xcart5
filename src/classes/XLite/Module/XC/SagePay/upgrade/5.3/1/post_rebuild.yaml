@@ -1,0 +1,9 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\LanguageLabel:
+  - { name: "Don't have account yet? Sign up for SagePay now!", translations: [{ code: en, label: "Don't have an account yet? <a href=\"https://support.sagepay.com/apply/default.aspx?PartnerID=653E8C42-AD93-4654-BB91-C645678FA97B\">Sign up</a> for SagePay now!" }] }

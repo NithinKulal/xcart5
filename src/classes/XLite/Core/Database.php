@@ -214,6 +214,16 @@ class Database extends \XLite\Base\Singleton
     }
 
     /**
+     * Get cache driver
+     *
+     * @return \Doctrine\Common\Cache\CacheProvider
+     */
+    public static function getFreshCacheDriver()
+    {
+        return new \XLite\Core\Cache();
+    }
+
+    /**
      * Get last query length
      *
      * @return integer
@@ -702,20 +712,40 @@ class Database extends \XLite\Base\Singleton
     /**
      * Load fixtures from YAML file
      *
-     * @param string $path YAML file path
+     * @param string    $path       YAML file path
+     * @param array     $options    Options         OPTIONAL
      *
      * @return void
      */
-    public function loadFixturesFromYaml($path)
+    public function loadFixturesFromYaml($path, $options = null)
     {
+        $options = array_merge_recursive(
+            $options ?: array(),
+            [
+                'allowedModels'  => null,
+                'excludedModels' => null,
+            ]
+        );
         $data = \Symfony\Component\Yaml\Yaml::parse($path);
 
         if (is_array($data)) {
             foreach ($data as $entityName => $rows) {
+                if (($options['allowedModels'] && !in_array($entityName, $options['allowedModels']))
+                    || ($options['excludedModels'] && in_array($entityName, $options['excludedModels']))
+                ) {
+                    continue;
+                }
+
                 $repo = static::getRepo($entityName);
 
                 if ($repo) {
                     $rows = $this->detectDirectives($rows);
+
+                    \XLite\Core\Database::getInstance()->setFixturesLoadingOption(
+                        'moduleName',
+                        \Includes\Utils\ModulesManager::getFileModule($path)
+                    );
+
                     $repo->loadFixtures($rows);
 
                     static::$em->flush();
@@ -1203,11 +1233,10 @@ class Database extends \XLite\Base\Singleton
 
         if ('pdo_mysql' === $dsnList['driver']) {
             $dsnList['driverClass'] = '\XLite\Core\PDOMySqlDriver';
+            $dsnList['driverOptions'] = array(
+                \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES ' . static::DB_CONNECTION_CHARSET . ", sql_mode=(SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))"
+            );
         }
-
-        $dsnList['driverOptions'] = array(
-            1002 => 'SET NAMES ' . static::DB_CONNECTION_CHARSET
-        );
 
         return $dsnList;
     }

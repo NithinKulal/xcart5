@@ -34,6 +34,12 @@ abstract class ACustomer extends \XLite\Controller\AController
      */
     protected $locationPath;
 
+    /**
+     * Runtime cache
+     * @var array
+     */
+    protected $addressFields;
+
     // {{{ Breadcrumbs
 
     /**
@@ -652,21 +658,25 @@ abstract class ACustomer extends \XLite\Controller\AController
      */
     public function getAddressFields()
     {
-        $result = array();
+        if (!isset($this->addressFields)) {
+            $result = array();
 
-        foreach (\XLite\Core\Database::getRepo('XLite\Model\AddressField')->findAllEnabled() as $field) {
-            $result[$field->getServiceName()] = array(
-                \XLite\View\Model\Address\Address::SCHEMA_CLASS    => $field->getSchemaClass(),
-                \XLite\View\Model\Address\Address::SCHEMA_LABEL    => $field->getName(),
-                \XLite\View\Model\Address\Address::SCHEMA_REQUIRED => $field->getRequired(),
-                \XLite\View\Model\Address\Address::SCHEMA_MODEL_ATTRIBUTES => array(
-                    \XLite\View\FormField\Input\Base\StringInput::PARAM_MAX_LENGTH => 'length',
-                ),
-                \XLite\View\FormField\AFormField::PARAM_WRAPPER_CLASS => 'address-' . $field->getServiceName(),
-            );
+            foreach (\XLite\Core\Database::getRepo('XLite\Model\AddressField')->findAllEnabled() as $field) {
+                $result[$field->getServiceName()] = array(
+                    \XLite\View\Model\Address\Address::SCHEMA_CLASS    => $field->getSchemaClass(),
+                    \XLite\View\Model\Address\Address::SCHEMA_LABEL    => $field->getName(),
+                    \XLite\View\Model\Address\Address::SCHEMA_REQUIRED => $field->getRequired(),
+                    \XLite\View\Model\Address\Address::SCHEMA_MODEL_ATTRIBUTES => array(
+                        \XLite\View\FormField\Input\Base\StringInput::PARAM_MAX_LENGTH => 'length',
+                    ),
+                    \XLite\View\FormField\AFormField::PARAM_WRAPPER_CLASS => 'address-' . $field->getServiceName(),
+                );
+            }
+
+            $this->addressFields = $this->getFilteredSchemaFields($result);
         }
 
-        return $this->getFilteredSchemaFields($result);
+        return $this->addressFields;
     }
 
     /**

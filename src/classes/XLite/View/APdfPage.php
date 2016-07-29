@@ -110,7 +110,14 @@ abstract class APdfPage extends \XLite\View\AView
         $paths = array_map(
             function ($style) {
                 if ($style) {
-                    return \XLite\Core\Layout::getInstance()->getResourceFullPath($style, \XLite::PDF_INTERFACE);
+                    $path = \XLite\Core\Layout::getInstance()
+                        ->getResourceFullPath($style, \XLite::PDF_INTERFACE);
+
+                    if (!$path) {
+                        $path = \XLite\Core\Layout::getInstance()
+                            ->getResourceFullPath($style, \XLite::COMMON_INTERFACE);
+                    }
+                    return $path;
                 }
             },
             $styles
@@ -187,7 +194,30 @@ abstract class APdfPage extends \XLite\View\AView
         $stylesheet = '';
 
         foreach ($this->getStylesheetPaths() as $path) {
-            $text = \Includes\Utils\FileManager::read($path);
+            $pathinfo = pathinfo($path);
+
+            $text = '';
+            if (isset($pathinfo['extension'])
+                && $pathinfo['extension'] === 'less'
+            ) {
+                $lessRaw = \XLite\Core\LessParser::getInstance()
+                    ->makeCSS(
+                        array(
+                            array(
+                                'file'          => $path,
+                                'original'      => $path,
+                                'less'          => true,
+                                'media'         => 'all',
+                                'interface'     => 'pdf'
+                            )
+                        )
+                    );
+                if ($lessRaw && isset($lessRaw['file'])) {
+                    $text = \Includes\Utils\FileManager::read($lessRaw['file']);
+                }
+            } else {
+                $text = \Includes\Utils\FileManager::read($path);
+            }
             if ($text) {
                 $stylesheet .= $text . PHP_EOL;
             }

@@ -1,0 +1,155 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Top messages style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.status-messages-wrapper {
+  width: 100%;
+  @media (max-width: @screen-sm-min) {
+    width: 100%;
+    left: 0;
+    top: 0px;
+  }
+}
+
+#status-messages {
+  @media (max-width: @screen-xs-min) {
+    width: 100%;
+  }
+}
+
+@media (max-width: @screen-xs-min) {
+  #page #status-messages,
+  #page #status-messages ul,
+  #page #status-messages ul li:last-child
+  {
+    -moz-border-radius-bottomleft: 0;
+    -webkit-border-bottom-left-radius: 0;
+    border-bottom-left-radius: 0;
+    -moz-border-radius-bottomright: 0;
+    -webkit-border-bottom-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
+
+.status-messages-wrapper {
+  position: fixed;
+  z-index: 1300000;
+  display: table;
+  pointer-events: none;
+}
+
+.status-messages-wrapper2 {
+  display: table-cell;
+  text-align: center;
+}
+
+#status-messages
+{
+  top: 0;
+  margin: 0 auto;
+  font-size: 12px;
+  display: inline-block;
+  text-align: left;
+  vertical-align: top;
+  pointer-events: auto;
+  max-width: 480px;
+}
+
+#status-messages a.close
+{
+  position: relative;
+  top: @rhythmic-unit;
+  right: @rhythmic-unit;
+  width: @rhythmic-unit;
+  height: @rhythmic-unit;
+  border: none;
+  background: transparent;
+  margin: 0;
+  color: #000;
+
+  &:before,
+  &:after {
+    position: absolute;
+    left: 10px;
+    top: -4px;
+    content: ' ';
+    height: 29px;
+    width: 1px;
+    background-color: #5b5c59;
+  }
+  &:before {
+    transform: rotate(45deg);
+  }
+  &:after {
+    transform: rotate(-45deg);
+  }
+  &:hover {
+    opacity: .2;
+  }
+}
+
+#status-messages a.close img
+{
+  display: none;
+}
+
+#status-messages ul
+{
+  margin: 0;
+  padding: 0;
+}
+
+#status-messages li
+{
+  list-style: none;
+  background-image: none;
+  padding: 20px;
+  padding-right: 60px;
+  margin: 0;
+  min-width: 320px;
+}
+
+#status-messages .status
+{
+}
+
+#status-messages,
+#status-messages a
+{
+  background-color: #eeede8;
+  color: #1b5d8e;
+}
+
+#status-messages .info,
+#status-messages .info a
+{
+  background-color: #c9f8c3;
+  color: #161516;
+}
+
+#status-messages .warning,
+#status-messages .warning a
+{
+  background-color: #fff7cc;
+  color: #161516;
+}
+
+#status-messages .error,
+#status-messages .error a
+{
+  background-color: #ffcdcd;
+  color: #161516;
+}
+
+#status-messages .top-message.pp-button .pp-ec-button {
+  display: block;
+  padding: 0px;
+  margin: 0 auto;
+  margin-top: 20px;
+  padding-left: 40px;
+}

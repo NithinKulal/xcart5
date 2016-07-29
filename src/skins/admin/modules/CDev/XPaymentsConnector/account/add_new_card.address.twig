@@ -1,0 +1,41 @@
+{##
+ # Address for add credit card
+ #
+ #
+ # @ListChild (list="admin.account.add_new_card.address", weight="100")
+ #}
+
+{% if this.getAddressList() %}
+
+  {% form '\\XLite\\Module\\CDev\\XPaymentsConnector\\View\\Form\\ZeroAuthAddress' %}
+
+    <div class="zero-auth-address">
+
+      <strong>{{ t('Billing address') }}:</strong>
+
+      {% if this.isSingleAddress() %}
+        <div class="single">
+          {{ this.getSingleAddress() }}
+        </div>
+      {% else %}
+        <select name="address_id" value="{{ this.getAddressId() }}" onchange="javascript: shadeIframe(); this.form.submit();">
+          {% for addressId, address in this.getAddressList() %}
+            <option value="{{ addressId }}" {% if addressId == this.getAddressId() %}selected="selected"{% endif %}>{{ address }}</option>
+          {% endfor %}
+        </select>
+      {% endif %}
+
+      {{ widget('\\XLite\\Module\\CDev\\XPaymentsConnector\\View\\Button\\AddAddress', label='New address', profileId=this.getCustomerProfileId()) }}
+
+    </div>
+  {% endform %} 
+
+{% else %}
+
+  <div class="alert alert-danger add-new-card-error">
+    <strong class="important-label">{{ t('Important') }}!</strong>
+    {{ t('No addresses for the profile.') }}
+    {{ widget('\\XLite\\Module\\CDev\\XPaymentsConnector\\View\\Button\\AddAddress', label='Setup address', profileId=this.getCustomerProfileId()) }}
+  </div>
+
+{% endif %}

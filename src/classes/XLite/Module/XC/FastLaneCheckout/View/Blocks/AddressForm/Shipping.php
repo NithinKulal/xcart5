@@ -44,6 +44,14 @@ class Shipping extends FastLaneCheckout\View\Blocks\AddressForm
     }
 
     /**
+     * @return string
+     */
+    public function getShortAddressType()
+    {
+        return 's';
+    }
+
+    /**
      * Get JS files
      *
      * @return array

@@ -1,0 +1,463 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+#logo, .company-logo {
+  .make-md-column(3; 0);
+  display: block;
+  text-align: left;
+  position: relative;
+
+  img {
+    .fast-transitions;
+    padding: 0px;
+    max-height: (@rhythmic-unit * 2);
+  }
+
+  @media(min-width: @screen-md-min) {
+    .flex-display();
+    .align-items(center);
+    height: (@rhythmic-unit * 3);
+  }
+}
+
+.header-right-bar {
+  .flex-display();
+  .align-items(center);
+  float: right;
+  width: auto;
+  padding: 0;
+  height: (@rhythmic-unit * 3);
+
+  & > * {
+    margin-left: 20px;
+    display: inline-block;
+    vertical-align: middle;
+
+    &:not(.disabled) > a {
+      cursor: pointer;
+      color: @color-contrast;
+
+      &:hover {
+        color: @color-hover;
+      }
+    }
+
+    &.disabled > a {
+      cursor: default;
+      color: @color-light;
+    }
+  }
+
+  .header_settings {
+    display: none;
+  }
+
+  .header_search {
+    display: none;
+  }
+
+  .block {
+    height: 100%;
+    border: none;
+
+    &:before{
+      content: '';
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle;
+    }
+
+    .content{
+      vertical-align: middle;
+      display: inline-block;
+      background: none;
+      border: none;
+    }
+  }
+
+  .lc-minicart {
+    .icon-bag;
+    color: #000;
+
+    &:not(.empty):hover{
+      color: @link-hover-color;
+    }
+
+    &:before {
+      display: inline-block;
+    }
+
+    .minicart-items-number {
+      line-height: @rhythmic-unit;
+      color: inherit;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .minicart-items-text {
+      display: none;
+    }
+  }
+}
+
+#header-area {
+  .clearfix;
+  position: relative;
+  margin: 0;
+  z-index: 20000;
+  .desktop-header {
+    .transitions;
+    .hidden-xs;
+    .hidden-sm;
+    padding-top: @rhythmic-unit;
+    background: @header-bg-color;
+    position: fixed;
+    width: 100%;
+    left: 0%;
+    border-bottom: 1px solid @navbar-inverse-border;
+
+    .container {
+      padding: 0px;
+    }
+
+    .header-break {
+      .clearfix;
+    }
+
+    &.affix{
+      padding-top: 0;
+      border-bottom: 0px;
+      box-shadow: @header-shadow;
+
+      #header-bar {
+        display: none;
+      }
+
+      .header-break {
+        display: none;
+      }
+      #logo, .company-logo {
+        width: auto;
+        img {
+          padding-top: (@rhythmic-unit / 2);
+          padding-bottom: (@rhythmic-unit / 2);
+          padding-right: @navbar-horizontal-gutter;
+        }
+      }
+
+      .header-right-bar {
+        & > * {
+          display: none;
+        }
+
+        .header_search {
+          display: inline-block;
+        }
+
+        .header_settings {
+          display: inline-block;
+        }
+
+        .lc-minicart {
+          display: inline-block;
+        }
+      }
+
+      .navbar-nav {
+        margin-left: 0;
+      }
+    }
+  }
+
+  .mobile_header {
+      .hidden-md;
+      .hidden-lg;
+      .simple-search-product-form .simple-search-box > .table-value {
+        height: (@rhythmic-unit * 2.5);
+      }
+  }
+
+  &:after {
+    .clearfix;
+    margin-top: 140px;
+
+    @media(max-width: @screen-sm-max) {
+      margin-top: 80px;
+    }
+  }
+}
+
+body.target-checkout {
+  #header-area {
+    @media(min-width: @screen-md-min) {
+      .desktop-header:not(.affix) {
+        padding-bottom: @rhythmic-unit;
+      }
+    }
+
+    &:after {
+      margin-top: 100px;
+    }
+  }
+}
+
+// Search box
+
+.header_search {
+  width:16px;
+  position: relative;
+
+  & > a {
+    .icon-search;
+  }
+
+  .header_search-panel {
+    z-index: 1;
+    position: absolute;
+    bottom: -10px;
+    margin-left: -190px;
+    background-color: @header-bg-color;
+    box-shadow: -30px 0 11px -6px @header-bg-color;
+  }
+}
+
+@media(max-width: @screen-xs-min) {
+  .header_search .header_search-panel {
+    position: fixed;
+    left: 0;
+    margin-left: 0px;
+    top: 10px;
+    right: 0;
+    height: 40px;
+
+    .simple-search-box {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .simple-search-box .table-value {
+      width: 100%;
+      .input-field-wrapper {
+        width: 98%;
+        input {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+.simple-search-product-form {
+  position: relative;
+}
+
+.simple-search-box {
+  .flex-display();
+  border-bottom: 1px solid @color-light;
+  cursor: text;
+
+  &.focus {
+    border-bottom-color: @color-highlight;
+
+    & input[type="text"] {
+      color: @color-highlight;
+      text-shadow: 0 0 1px fade(@color-highlight, 10%);
+    }
+
+    button[type="submit"] {
+      color: @color-highlight;
+      text-shadow: 0 0 1px fade(@color-highlight, 10%);
+    }
+  }
+
+  & > .table-value {
+    .flex-order(1);
+    width: 190px;
+    padding-left: 10px;
+    height: (@rhythmic-unit * 2);
+    text-align: left;
+    &:before {
+      content: '';
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle;
+    }
+
+    .input-field-wrapper {
+      vertical-align: middle;
+      display: inline-block;
+      width: 95%;
+    }
+
+    input[type="text"] {
+      border: none;
+      outline: none;
+      line-height: normal;
+    }
+  }
+
+  & > button[type="submit"] {
+    .icon-search;
+    .flex-order(2);
+
+    border: none;
+    padding: 0px;
+    color: @color-light;
+    line-height: normal;
+    margin-right: .5em;
+
+    &:hover {
+      color: @btn-hover-color;
+    }
+
+    span {
+      display: none;
+    }
+  }
+}
+
+// header top right bar
+
+#header-bar {
+  .flex-display();
+  .align-items(center);
+  height: (@rhythmic-unit * 3);
+  float: right;
+  width: auto;
+
+  & > * + * {
+    margin-left: (@rhythmic-unit * 2);
+  }
+
+  & > .account-links {
+    .mobile-hidden;
+    display: inline-block;
+  }
+
+  & > #search {
+    height: (@rhythmic-unit * 2);
+    display: inline-block;
+  }
+
+  .header_bar-my_account {
+    height: (@rhythmic-unit * 2);
+    .flex-display();
+    .align-items(center);
+
+    & > a {
+      .icon-chevron-down--right;
+      cursor: pointer;
+    }
+
+    .account-links.dropdown-menu{
+      .xcart-dropdown;
+      height: auto;
+      left: auto;
+      right: 0;
+
+      li > a {
+        height: (@rhythmic-unit);
+        &:before {
+          margin-right: 10px;
+          color: @color-light;
+          display: inline-block;
+          text-align: center;
+          width: @rhythmic-unit;
+        }
+
+        &:hover:before {
+          color: @link-hover-color;
+        }
+      }
+    }
+  }
+
+  .header_bar-locale {
+    & > a {
+      .icon-chevron-down--right;
+      cursor: pointer;
+      span + span {
+        margin-left: 8px;
+      }
+      .country-indicator + span {
+        &:before {
+          color: @color-border;
+          content: '|';
+          margin-right: 8px;
+          display: inline-block;
+          vertical-align: text-bottom;
+        }
+      }
+
+      .language-indicator {
+        text-transform: uppercase;
+      }
+
+      .language-indicator + span {
+        &:before {
+          color: @color-border;
+          content: '\2013';
+          margin-right: 8px;
+          display: inline-block;
+          vertical-align: text-bottom;
+        }
+      }
+    }
+
+    .dropdown-menu {
+      .xcart-dropdown;
+      // padding: (@rhythmic-unit * 2);
+      left: auto;
+      right: 0;
+      text-align: left;
+
+      select {
+        height: (@rhythmic-unit * 2);
+      }
+    }
+  }
+
+  .header_bar-sign_in {
+    margin-left: (@rhythmic-unit * 2);
+  }
+}
+
+.locale_language-selector {
+  min-width: 220px;
+  .clear {
+    .clearfix;
+  }
+  .table-label, .star {
+    display: none;
+  }
+  .input-group + .input-group {
+    margin-top: (@rhythmic-unit / 2);
+  }
+
+  .input-group, .table-value, .input-field-wrapper {
+    width: 100%;
+  }
+
+  .group {
+    line-height: @rhythmic-unit;
+    .clearfix;
+
+    .heading {
+      margin-bottom: (@rhythmic-unit / 2);
+    }
+  }
+
+  .group + .group {
+    margin-top: @rhythmic-unit;
+  }
+
+  button {
+    width: 100%;
+  }
+}

@@ -1,0 +1,32 @@
+{##
+ # Modules actions list
+ #}
+
+{% if not this.module.isSkinModule() %}
+
+  {% if this.isDisabledHard() or this.isEnabledHard() %}
+
+<div class="switcher disabled">
+  {{ widget('\\XLite\\View\\Tooltip', isImageTag='true', className='help-icon', imageClass='warning fa fa-exclamation-circle', helpId='moduleMessages%d'|format(this.module.getModuleId()), delay=800) }}
+</div>
+
+  {% else %}
+
+    {{ widget(
+        'XLite\\View\\FormField\\Input\\Checkbox\\ModuleSwitcher',
+        fieldId='switch%d'|format(this.module.getModuleId()),
+        fieldName='switch[%d][new]'|format(this.module.getModuleId()),
+        fieldOnly=true,
+        value=this.module.getEnabled(),
+        moduleId=this.module.getModuleId(),
+        attributes=this.getFieldAttributes(this.module),
+        isReadOnly=this.isFieldDisabled(this.module),
+        helpId='moduleMessages%d'|format(this.module.getModuleId())
+      )
+    }}
+
+  {% endif %}
+
+<div class="separator"></div>
+
+{% endif %}

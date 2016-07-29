@@ -18,7 +18,8 @@ class Main extends \XLite\View\ModulesManager\Action\AAction
     /**
      * Widget parameters set
      */
-    const PARAM_CAN_ENABLE = 'canEnable';
+    const PARAM_CAN_ENABLE  = 'canEnable';
+    const PARAM_CAN_DISABLE = 'canDisable';
 
     /**
      * Defines the name of the action
@@ -49,9 +50,10 @@ class Main extends \XLite\View\ModulesManager\Action\AAction
     {
         parent::defineWidgetParams();
 
-        $this->widgetParams += array(
-            static::PARAM_CAN_ENABLE => new \XLite\Model\WidgetParam\TypeBool('Module can enable flag', false),
-        );
+        $this->widgetParams += [
+            static::PARAM_CAN_ENABLE  => new \XLite\Model\WidgetParam\TypeBool('Module can enable flag', false),
+            static::PARAM_CAN_DISABLE => new \XLite\Model\WidgetParam\TypeBool('Module can disable flag', false),
+        ];
     }
 
     /**
@@ -62,7 +64,18 @@ class Main extends \XLite\View\ModulesManager\Action\AAction
     protected function isDisabledHard()
     {
         return !$this->getModule()->getEnabled()
-            && !$this->getParam(static::PARAM_CAN_ENABLE);
+        && !$this->getParam(static::PARAM_CAN_ENABLE);
+    }
+
+    /**
+     * Return true if module can not be disabled and section with checkbox 'Enable' should not be displayed
+     *
+     * @return boolean
+     */
+    protected function isEnabledHard()
+    {
+        return $this->getModule()->getEnabled()
+        && !$this->getParam(static::PARAM_CAN_DISABLE);
     }
 
     /**
@@ -74,7 +87,7 @@ class Main extends \XLite\View\ModulesManager\Action\AAction
      */
     protected function getFieldAttributes($module)
     {
-        $result = array();
+        $result = [];
 
         if ($module->isSkinModule() || $this->isFieldDisabled($module)) {
             $result['disabled'] = 'disabled';
@@ -93,6 +106,7 @@ class Main extends \XLite\View\ModulesManager\Action\AAction
     protected function isFieldDisabled($module)
     {
         return ($module->getEnabled() && !$module->canDisable())
-            || (!$module->getEnabled() && !$this->getParam(static::PARAM_CAN_ENABLE));
+        || (!$module->getEnabled() && !$this->getParam(static::PARAM_CAN_ENABLE))
+        || ($module->getEnabled() && !$this->getParam(static::PARAM_CAN_DISABLE));
     }
 }

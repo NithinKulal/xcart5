@@ -41,8 +41,14 @@ class CheckoutApp extends \XLite\View\AView
     {
         return array(
             static::RESOURCE_JS => array(
-                'vue/vue.min.js',
-                'vue/vuex.js',
+                array(
+                    'file' => $this->isDeveloperMode() ? 'vue/vue.js' : 'vue/vue.min.js',
+                    'no_minify' => true
+                ),
+                array(
+                    'file' => $this->isDeveloperMode() ? 'vue/vuex.js' : 'vue/vuex.min.js',
+                    'no_minify' => true,
+                ),
                 'vue/vue.loadable.js',
             ),
         );
@@ -100,7 +106,14 @@ class CheckoutApp extends \XLite\View\AView
             'Order can not be placed because not all required fields are completed. Please check the form and try again.',
             'Field is required!',
             'Place order',
-            'same as shipping'
+            'same as shipping',
+            'Click to finish your order',
+            'Order cannot be placed because some steps are not completed',
+            'Click to proceed to the next step',
+            'Some of the required fields were not completed. Please check the form and try again',
+            'Next step',
+            'Shipping to',
+            'Billing to',
         );
 
         $data = array();
@@ -110,5 +123,4 @@ class CheckoutApp extends \XLite\View\AView
 
         return $data;
     }
-
 }

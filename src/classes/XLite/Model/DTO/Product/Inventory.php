@@ -13,36 +13,36 @@ use XLite\Model\DTO\Base\CommonCell;
 class Inventory extends \XLite\Model\DTO\Base\ADTO
 {
     /**
-     * @param mixed|\XLite\Model\Product $data
+     * @param mixed|\XLite\Model\Product $object
      */
-    protected function init($data)
+    protected function init($object)
     {
         $default = [
-            'identity' => $data->getProductId(),
+            'identity' => $object->getProductId(),
 
-            'inventory_tracking_status'         => $data->getInventoryEnabled(),
-            'quantity_in_stock'                 => $data->getAmount(),
-            'low_stock_warning_on_product_page' => $data->getLowLimitEnabledCustomer(),
-            'low_stock_admin_notification'      => $data->getLowLimitEnabled(),
-            'low_stock_limit'                   => $data->getLowLimitAmount(),
+            'inventory_tracking_status'         => $object->getInventoryEnabled(),
+            'quantity_in_stock'                 => $object->getAmount(),
+            'low_stock_warning_on_product_page' => $object->getLowLimitEnabledCustomer(),
+            'low_stock_admin_notification'      => $object->getLowLimitEnabled(),
+            'low_stock_limit'                   => $object->getLowLimitAmount(),
         ];
         $this->default = new CommonCell($default);
     }
 
     /**
-     * @param \XLite\Model\Product $dataObject
+     * @param \XLite\Model\Product $object
      * @param array|null           $rawData
      *
      * @return mixed
      */
-    public function populateTo($dataObject, $rawData = null)
+    public function populateTo($object, $rawData = null)
     {
         $default = $this->default;
 
-        $dataObject->setInventoryEnabled($default->inventory_tracking_status);
-        $dataObject->setAmount($default->quantity_in_stock);
-        $dataObject->setLowLimitEnabledCustomer($default->low_stock_warning_on_product_page);
-        $dataObject->setLowLimitEnabled($default->low_stock_admin_notification);
-        $dataObject->setLowLimitAmount($default->low_stock_limit);
+        $object->setInventoryEnabled($default->inventory_tracking_status);
+        $object->setAmount($default->quantity_in_stock);
+        $object->setLowLimitEnabledCustomer($default->low_stock_warning_on_product_page);
+        $object->setLowLimitEnabled($default->low_stock_admin_notification);
+        $object->setLowLimitAmount($default->low_stock_limit);
     }
 }

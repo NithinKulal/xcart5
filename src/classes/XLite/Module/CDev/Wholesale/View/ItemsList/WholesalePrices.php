@@ -169,7 +169,7 @@ class WholesalePrices extends \XLite\View\ItemsList\Model\Table
     {
         $entity = parent::createEntity();
 
-        $entity->product = $this->getProduct();
+        $entity->setProduct($this->getProduct());
 
         return $entity;
     }

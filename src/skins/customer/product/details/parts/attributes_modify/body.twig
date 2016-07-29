@@ -1,0 +1,10 @@
+{##
+ # Product attributes 
+ #}
+<ul class="attribute-values">
+  {% for attribute in this.getAttributes() %}
+    <li class="{{ this.getAttributeCSSClass(attribute) }}">
+      {{ widget(attribute.getWidgetClass(attribute.getType()), attribute=attribute, product=this.product) }}
+    </li>
+  {% endfor %}
+</ul>

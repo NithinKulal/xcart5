@@ -16,7 +16,8 @@ abstract class Rich extends \XLite\View\FormField\Select\Regular
     /**
      * Widget params set
      */
-    const PARAM_DISABLE_SEARCH = 'disableSearch';
+    const PARAM_DISABLE_SEARCH  = 'disableSearch';
+    const PARAM_MULTIPLE        = 'multiple';
 
     /**
      * Register JS files
@@ -58,8 +59,11 @@ abstract class Rich extends \XLite\View\FormField\Select\Regular
         parent::defineWidgetParams();
 
         $this->widgetParams += array(
-            static::PARAM_DISABLE_SEARCH => new \XLite\Model\WidgetParam\TypeBool(
+            static::PARAM_DISABLE_SEARCH    => new \XLite\Model\WidgetParam\TypeBool(
                 'Disable search flag', $this->getDefaultDisableSearch(), false
+            ),
+            static::PARAM_MULTIPLE          => new \XLite\Model\WidgetParam\TypeBool(
+                'Multiple select', false
             ),
         );
     }
@@ -99,12 +103,18 @@ abstract class Rich extends \XLite\View\FormField\Select\Regular
      */
     protected function setCommonAttributes(array $attrs)
     {
-        return parent::setCommonAttributes($attrs)
+        $result = parent::setCommonAttributes($attrs)
             + array(
                 'data-placeholder'    => static::t('Select options'),
                 'data-selected-text'  => static::t('# selected'),
                 'data-disable-search' => $this->getParam(static::PARAM_DISABLE_SEARCH),
             );
+
+        if ($this->getParam(static::PARAM_MULTIPLE)) {
+            $result = $result + array('multiple' => 'multiple');
+        }
+
+        return $result;
     }
 
     /**

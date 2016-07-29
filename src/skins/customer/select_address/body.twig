@@ -1,0 +1,28 @@
+{##
+ # Pick address from address book
+ #}
+{% form '\\XLite\\View\\Form\\SelectAddress' with {className: 'select-address'} %}
+
+  {% if this.hasAddresses() %}
+
+    <ul class="addresses">
+      {% for address in this.getAddresses() %}
+        <li class="{{ this.getItemClassName(address, loop.index) }}" data-address-id="{{ address.getAddressId() }}">
+          {{ widget(template='select_address/address.twig', address=address) }}
+          {% if address.getIsShipping() %}
+            <div class="shipping"></div>
+          {% endif %}
+          {% if address.getIsBilling() %}
+            <div class="billing"></div>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+
+  {% else %}
+
+    <p>{{ t('Addresses list is empty') }}</p>
+
+  {% endif %}
+
+{% endform %}

@@ -330,7 +330,10 @@ class Checkout extends \XLite\Controller\Customer\Checkout implements \XLite\Bas
         parent::doActionReturn();
 
         $order = \XLite\Model\Cart::getInstance(false);
-        if (Paypal\Core\Lock\OrderLocker::getInstance()->isLocked($order)) {
+
+        if ($order && $order->isPaypalMethod($order->getPaymentMethod())
+            && Paypal\Core\Lock\OrderLocker::getInstance()->isLocked($order)
+        ) {
             Paypal\Core\Lock\OrderLocker::getInstance()->unlock($order);
         }
     }

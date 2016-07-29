@@ -1,0 +1,315 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Invoice styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+@discounts-color: #6abd0a;
+@coupons-color: #808080;
+@screen-xs-invoice: 550px;
+@mobile-text-size: 14px;
+
+.invoice-box
+{
+  width: auto;
+  max-width: 1060px;
+  min-width: 700px;
+
+  .thank-you {
+    clear: both;
+  }
+
+  .customer-note .head-h3 {
+    font-weight: bold;
+    color: #000;
+    font-size: 17px;
+  }
+
+  .addresses li.address {
+    width: 48%;
+    padding: 0;
+    float: left;
+  }
+}
+
+@media screen and (max-width: @screen-xs-max) {
+  body .invoice-box {
+    min-width: auto;
+    max-width: @screen-xs-min;
+    * {
+      font-size: @mobile-text-size;
+    }
+    .header .address strong {
+      font-size: 16px;
+    }
+    .items th {
+      padding: 10px;
+    }
+    .items td {
+      padding: 10px;
+    }
+    .subhead span
+    {
+      float: none;
+      display: block;
+    }
+    .totals li {
+      margin: 0;
+    }
+    .addresses li.address {
+      display: block;
+      width: 100%;
+    }
+    .addresses li.address.payment {
+      margin-left: 0;
+    }
+    .header {
+      margin-bottom: 0px;
+      .logo {
+        display: none;
+      }
+    }
+    h2 {
+      font-size: 24px;
+      margin-bottom: 17px;
+      line-height: 24px;
+    }
+    .subhead > div {
+      line-height: 20px;
+    }
+    .subhead-wrapper {
+      margin-bottom: 0px;
+      .right-adresses-part {
+        text-align: left;
+        p {
+          font-size: @mobile-text-size;
+          line-height: 20px;
+          &:first-of-type {
+            margin: 0;
+          }
+        }
+        strong {
+          font-size: 14px;
+          font-weight: 600;
+          line-height: 30px;
+          color: inherit;
+        }
+      }
+    }
+    .left-adresses-part {
+      .addresses {
+        margin-bottom: 0px;
+        .bottom-padding {
+          display: none;
+        }
+      }
+      .addresses .address-section .address-field {
+        line-height: 19px;
+      }
+      .addresses .address-section .address-field span,
+      .addresses .address p,
+      .addresses .address div,
+      .email a {
+        font-size: @mobile-text-size;
+        line-height: 20px;
+      }
+      .email a {
+        vertical-align: text-bottom;
+      }
+
+      .addresses .title,
+      .addresses .method-title {
+        font-size: 14px;
+        font-weight: 600;
+        padding-bottom: 6px;
+        color: inherit;
+      }
+      .addresses .address.shipping .email {
+        display: none;
+      }
+    }
+    .customer-note {
+      padding-top: 0px;
+      h3 {
+        font-weight: 600;
+        color: inherit;
+        font-size: 14px;
+        margin-top: 28px;
+        margin-bottom: 6px;
+        line-height: 20px;
+      }
+      div {
+        font-size: @mobile-text-size;
+      }
+      h3, div {
+        display: block;
+      }
+    }
+    .items {
+      font-size: @mobile-text-size;
+      line-height: 20px;
+      margin-top: 14px;
+      td {
+        font-size: inherit;
+        line-height: inherit;
+        border: 0;
+        padding: 0;
+        padding-bottom: 10px;
+        vertical-align: middle;
+        &, & * {
+          color: inherit;
+        }
+      }
+      th.qty {
+        visibility: hidden;
+      }
+      td.qty {
+        text-align: center;
+      }
+      td.item {
+        padding: 0;
+        padding-bottom: 10px;
+      }
+      .item {
+        li.sku {
+          display: none;
+        }
+        .item-name {
+          font-size: inherit;
+          line-height: inherit;
+          font-weight: normal;
+          color: #3c476e;
+        }
+        .subitem *{
+          color: #848484
+        }
+      }
+      .price {
+        display: none;
+      }
+    }
+
+    .totals {
+      margin-top: 10px;
+      td.title {
+        text-align: left;
+      }
+      td.value {
+        text-align: right;
+      }
+      tr * {
+        color: inherit;
+      }
+      td {
+        font-size: 14px;
+        line-height: 20px;
+        padding-bottom: 10px;
+        font-weight: 600;
+      }
+      .discount-coupons-panel {
+        color: @coupons-color;
+        font-weight: normal;
+        font-size: @mobile-text-size;
+        li {
+          text-align: left;
+        }
+      }
+    }
+    .after-totals {
+      border-top: 1px solid #e2e2e2;
+      margin-top: 20px;
+      padding-top: 30px;
+      margin-bottom: 0px;
+      .total .title {
+        display: none;
+      }
+      .total .value {
+        font-size: 30px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: @screen-xs-invoice) {
+  body .invoice-box {
+    .subhead-wrapper {
+      display: block;
+      .subhead-line {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+      }
+      .left-adresses-part,
+      .right-adresses-part {
+        display: block;
+        width: 100%;
+      }
+      .left-adresses-part {
+        -webkit-box-ordinal-group: 3;
+            -ms-flex-order: 2;
+                order: 2;
+        .address {
+          display: block;
+          width: 100%;
+        }
+      }
+      .right-adresses-part {
+        -webkit-box-ordinal-group: 2;
+            -ms-flex-order: 1;
+                order: 1;
+        width: 100%;
+        p {
+          font-size: @mobile-text-size;
+          line-height: 20px;
+          &:first-of-type {
+            margin: 0;
+          }
+        }
+        strong {
+          font-size: 14px;
+          font-weight: 600;
+          line-height: 30px;
+          color: inherit;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: @screen-xs-max) and (min-width: @screen-xs-invoice - 1px) {
+  body .invoice-box {
+    min-width: auto;
+    max-width: @screen-xs-max;
+    .subhead-wrapper .right-adresses-part {
+      text-align: right;
+      padding-top: 19px;
+      font-size: 18px;
+      p {
+        font-size: @mobile-text-size;
+        line-height: 21px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: @screen-xs-invoice) {
+  body .invoice-box .subhead-wrapper .right-adresses-part {
+    display: block;
+    width: 100%;
+  }
+}
+
+body .skin-crisp_white-customer {
+  .DCOUPON-modifier,
+  .DISCOUNT-modifier {
+    color: @discounts-color;
+  }
+}

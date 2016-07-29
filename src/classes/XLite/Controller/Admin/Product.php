@@ -151,8 +151,15 @@ class Product extends \XLite\Controller\Admin\ACL\Catalog
         $result = $this->productCache
             ?: \XLite\Core\Database::getRepo('\XLite\Model\Product')->find($this->getProductId());
 
-        if (!isset($result)) {
+        if (null === $result) {
             $result = new \XLite\Model\Product();
+            
+            if (
+                \XLite\Core\Request::getInstance()->category_id > 1 && 
+                ($category = \XLite\Core\Database::getRepo('XLite\Model\Category')->find(\XLite\Core\Request::getInstance()->category_id))
+            ) {
+                $result->addCategory($category);
+            }
         }
 
         return $result;
@@ -211,10 +218,10 @@ class Product extends \XLite\Controller\Admin\ACL\Catalog
     {
         $result = $this->productCache
             ? $this->productCache->getProductId()
-            : intval(\XLite\Core\Request::getInstance()->product_id);
+            : (int) \XLite\Core\Request::getInstance()->product_id;
 
         if (0 >= $result) {
-            $result = intval(\XLite\Core\Request::getInstance()->id);
+            $result = (int) \XLite\Core\Request::getInstance()->id;
         }
 
         return $result;
@@ -245,9 +252,9 @@ class Product extends \XLite\Controller\Admin\ACL\Catalog
 
         $time = \XLite\Core\Converter::time();
 
-        if (!isset($field)) {
+        if (null === $field) {
             if (isset($value['arrivalDate'])) {
-                $value['arrivalDate'] = intval(strtotime($value['arrivalDate']))
+                $value['arrivalDate'] = ((int) strtotime($value['arrivalDate']))
                     ?: mktime(0, 0, 0, date('m', $time), date('j', $time), date('Y', $time));
             }
 
@@ -265,7 +272,7 @@ class Product extends \XLite\Controller\Admin\ACL\Catalog
             }
 
         } elseif ('arrivalDate' === $field) {
-            $value = intval(strtotime($value)) ?: mktime(0, 0, 0, date('m', $time), date('j', $time), date('Y', $time));
+            $value = ((int) strtotime($value)) ?: mktime(0, 0, 0, date('m', $time), date('j', $time), date('Y', $time));
 
         } elseif ('sku' === $field) {
             $value = null;
@@ -294,12 +301,11 @@ class Product extends \XLite\Controller\Admin\ACL\Catalog
 
         $form = $formModel->getForm();
         $data = \XLite\Core\Request::getInstance()->getData();
+        $rawData = \XLite\Core\Request::getInstance()->getNonFilteredData();
 
         $form->submit($data[$this->formName]);
 
         if ($form->isValid()) {
-            $rawData = \XLite\Core\Request::getInstance()->getNonFilteredData();
-
             $dto->populateTo($product, $rawData[$this->formName]);
             \XLite\Core\Database::getEM()->persist($product);
             \XLite\Core\Database::getEM()->flush();
@@ -310,7 +316,7 @@ class Product extends \XLite\Controller\Admin\ACL\Catalog
             }
 
         } else {
-            \XLite\Core\Session::getInstance()->{$this->formModelDataSessionCellName} = $data[$this->formName];
+            $this->saveFormModelTmpData($rawData[$this->formName]);
         }
 
         $productId = $product->getProductId() ?: $this->getProductId();

@@ -38,6 +38,14 @@ XLite\Model\Config:
     translations:
       - code: en
         option_name: Common options
+  - name: package_size
+    category: CDev\USPS
+    type: XLite\Module\CDev\USPS\View\FormField\Select\PackageSize
+    value: REGULAR
+    orderby: 205
+    translations:
+      - code: en
+        option_name: Package Size (length + girth, inches)
   - name: dimensions
     category: CDev\USPS
     type: serialized
@@ -63,6 +71,14 @@ XLite\Model\Config:
     translations:
       - code: en
         option_name: Maximum package weight
+  - name: machinable
+    category: CDev\USPS
+    type: XLite\View\FormField\Input\Checkbox\OnOffWithoutOffLabel
+    value: true
+    orderby: 235
+    translations:
+      - code: en
+        option_name: Machinable
   - name: currency_rate
     category: CDev\USPS
     type: XLite\View\FormField\Input\Text\FloatInput
@@ -88,14 +104,6 @@ XLite\Model\Config:
     translations:
       - code: en
         option_name: Container
-  - name: package_size
-    category: CDev\USPS
-    type: XLite\Module\CDev\USPS\View\FormField\Select\PackageSize
-    value: REGULAR
-    orderby: 320
-    translations:
-      - code: en
-        option_name: Package Size (length + girth, inches)
   - name: first_class_mail_type
     category: CDev\USPS
     type: XLite\Module\CDev\USPS\View\FormField\Select\FirstClassMailType
@@ -104,14 +112,6 @@ XLite\Model\Config:
     translations:
       - code: en
         option_name: First-Class mail type
-  - name: machinable
-    category: CDev\USPS
-    type: XLite\View\FormField\Input\Checkbox\OnOffWithoutOffLabel
-    value: true
-    orderby: 340
-    translations:
-      - code: en
-        option_name: Machinable
   - name: use_rate_type
     category: CDev\USPS
     type: XLite\Module\CDev\USPS\View\FormField\Select\UseRateType
@@ -248,3 +248,5 @@ XLite\Model\LanguageLabel:
   - { name: '"Cash on delivery" status', translations: [{ code: en, label: '"Cash on delivery" status' }] }
   - { name: 'usps.CODStatusOptionComment', translations: [{ code: en, label: 'Note: To enable/disable the "Cash on delivery" payment option, you should enable/disable the payment method "Cash on delivery (U.S.P.S.)" on the <a href="{{URL}}">Payment methods page</a>.' }] }
   - { name: 'Refresh list of available methods', translations: [{ code: en, label: 'Refresh list of available methods' }] }
+  - { name: 'Wrong container type selected: {{value}}. For large package size only the following types are allowed: RECTANGULAR, NONRECTANGULAR, VARIABLE', translations: [{ code: en, label: 'Wrong container type selected: {{value}}. For large package size only the following types are allowed: RECTANGULAR, NONRECTANGULAR, VARIABLE' }] }
+  - { name: '{{value}} is an invalid container type for a REGULAR package. Valid Container is: VARIABLE', translations: [{ code: en, label: '{{value}} is an invalid container type for a REGULAR package. Valid Container is: VARIABLE' }] }

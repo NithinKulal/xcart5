@@ -31,9 +31,14 @@ class Callback extends \XLite\Controller\Customer\Callback implements \XLite\Bas
 
         if (!$this->ignore) {
             parent::doActionCallback();
-            if ($this->transaction && $this->transaction->isByPayPal()) {
+            if ($this->transaction
+                && $this->transaction instanceof \XLite\Model\Payment\Transaction
+                && $this->transaction->isByPayPal()
+            ) {
                 Paypal\Core\Lock\OrderLocker::getInstance()->unlock($this->transaction->getOrder());
             }
+        } else {
+            $this->set('silent', true);
         }
     }
 
@@ -44,7 +49,7 @@ class Callback extends \XLite\Controller\Customer\Callback implements \XLite\Bas
      */
     protected function detectTransaction()
     {
-        if (null === $this->transaction) {
+        if (null === $this->transaction || !$this->transaction instanceof \XLite\Model\Payment\Transaction) {
             $this->transaction = parent::detectTransaction();
             if ($this->transaction && $this->transaction->isByPayPal()) {
                 $order = $this->transaction->getOrder();

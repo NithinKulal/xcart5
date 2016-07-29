@@ -48,4 +48,25 @@ XLite\Model\LanguageLabel:
   - { name: 'Ordered files', translations: [{ code: en, label: 'Ordered files' }] }
 
 XLite\Model\Notification:
-  - { templatesDirectory: modules/CDev/Egoods/egoods_links, availableForAdmin: false, availableForCustomer: true, enabledForAdmin: false, enabledForCustomer: true, translations: [{ code: en, name: E-goods download links (E-goods module), description: "This notification is sent to the customer when their order containing egoods gets the status Paid.", customerSubject: Your download links, customerText: "Your order has been processed. The files for the products you purchased can be downloaded at:" },{ code: ru, name: Ссылки для скачивания файлов (модуль E-goods), description: 'Данное сообщение отправляется покупателю, когда размещенный им заказ, содержащий электронные продукты, получает статус "Оплачен".', customerSubject: Ваши ссылки для скачивания файлов, customerText: "Благодарим Вас за своевременную оплату заказа. Файлы приобретенных Вами товаров могут быть загружены по следующим ссылкам:" }]}
+  - templatesDirectory: modules/CDev/Egoods/egoods_links
+    availableForAdmin: false
+    availableForCustomer: true
+    enabledForAdmin: false
+    enabledForCustomer: true
+    adminHeaderEnabled: true
+    adminGreetingEnabled: false
+    adminSignatureEnabled: true
+    customerHeaderEnabled: true
+    customerGreetingEnabled: true
+    customerSignatureEnabled: true
+    translations:
+      - code: en
+        name: E-goods download links (E-goods module)
+        description: "This notification is sent to the customer when their order containing egoods gets the status Paid."
+        customerSubject: Your download links
+        customerText: "Your order has been processed. The files for the products you purchased can be downloaded at:"
+      - code: ru
+        name: Ссылки для скачивания файлов (модуль E-goods)
+        description: 'Данное сообщение отправляется покупателю, когда размещенный им заказ, содержащий электронные продукты, получает статус "Оплачен".'
+        customerSubject: Ваши ссылки для скачивания файлов
+        customerText: "Благодарим Вас за своевременную оплату заказа. Файлы приобретенных Вами товаров могут быть загружены по следующим ссылкам:"

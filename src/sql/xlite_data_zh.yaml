@@ -1,0 +1,11 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Demo store (ZH)
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\SearchFilter:
+  directives: { addModel: 'XLite\Model\SearchFilterTranslation' }
+  - { id: 1, translations: [{ code: zh, name: 未付款 }] }
+  - { id: 2, translations: [{ code: zh, name: 已付款尚未寄出 }] }

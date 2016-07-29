@@ -27,7 +27,7 @@ class Images extends \XLite\Controller\Admin\AAdmin
      */
     public function getTitle()
     {
-        return static::t('Images');
+        return static::t('Look & Feel');
     }
 
     /**

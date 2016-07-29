@@ -124,15 +124,11 @@ abstract class Product extends \XLite\Model\Repo\Product implements \XLite\Base\
             ->innerJoin('class.attributes', 'attr')
             ->andWhere('attr.type IN (\'' . implode('\',\'', \XLite\Model\Attribute::getFilteredTypes()) . '\')')
             ->andWhere('p.productClass is not null')
-            ->addSelect('COUNT(DISTINCT p.product_id)')
             ->GroupBy('p.productClass')
-            ->getSingleResult();
+            ->getOnlyEntities();
 
-        if (
-            $data
-            && $data[1] == $this->search($cnd, static::SEARCH_MODE_COUNT)
-        ) {
-            $result[] = $data[0]->getProductClass();
+        foreach ($data as $product) {
+            $result[] = $product->getProductClass();
         }
 
         return $result;

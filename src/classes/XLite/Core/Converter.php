@@ -79,6 +79,14 @@ class Converter extends \XLite\Base\Singleton
     );
 
     /**
+     * Run-time cached list of locales
+     * array ( <lng_code> => <locale>, ...)
+     *
+     * @var array
+     */
+    protected static $localesCache;
+
+    /**
      * Convert a string like "test_foo_bar" into the camel case (like "TestFooBar")
      *
      * @param string $string String to convert
@@ -885,6 +893,196 @@ class Converter extends \XLite\Base\Singleton
         }
 
         return mktime(23, 59, 59, date('n', $time), date('j', $time), date('Y', $time));
+    }
+
+    // }}}
+
+    // {{{ Locale detection methods
+
+    /**
+     * Get locale value for specified language code (to use in setlocale() function)
+     *
+     * @param string $code Language code OPTIONAL
+     *
+     * @return string
+     */
+    public static function getLocaleByCode($code = null)
+    {
+        $result = 0;
+
+        if (is_null($code)) {
+            $code = \XLite\Core\Session::getInstance()->getLanguage()->getCode();
+        }
+
+        if ($code) {
+
+            if (!isset(static::$localesCache[$code])) {
+                static::$localesCache[$code] = static::detectLocaleByCode($code);
+            }
+
+            $result = static::$localesCache[$code];
+        }
+
+        return $result;
+    }
+
+    /**
+     * Detect and return correct locale value for specified language code
+     *
+     * @param string $code Language code
+     *
+     * @return string
+     */
+    public static function detectLocaleByCode($code)
+    {
+        $result = 0;
+
+        foreach (static::getDetectLocaleMethods() as $m) {
+            $method = 'detectLocaleBy' . static::convertToCamelCase($m);
+            if (method_exists('\XLite\Core\Converter', $method)) {
+                $locale = static::$method($code);
+                if ($locale) {
+                    $result = $locale;
+                    break;
+                }
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get locale by default detection method
+     *
+     * @param string $code Language code
+     *
+     * @return string
+     */
+    public static function detectLocaleByDefault($code)
+    {
+        $code2 = ('en' == $code ? 'US' : strtoupper($code));
+
+        return $code . '_' . $code2 . '.' . 'utf8';
+    }
+
+    /**
+     * Detect list of allowed locales via system commands and get closest locale
+     *
+     * @param string $code Language code
+     *
+     * @return string
+     */
+    public static function detectLocaleBySystem($code)
+    {
+        $locales = static::getSystemLocales();
+
+        return $locales ? static::searchClosestLocale($code, $locales) : null;
+    }
+
+    public static function getSystemLocales()
+    {
+        $cacheKey       = 'system_locales_for_detectLocaleBySystem';
+        $ttl            = 3600;
+        $cacheDriver    = \XLite\Core\Database::getCacheDriver();
+
+        $locales = $cacheDriver->fetch($cacheKey);
+        if (!$locales) {
+            $locales = array();
+
+            $cmd = 'locale -a';
+
+            if (function_exists('exec')) {
+                exec($cmd, $locales);
+
+            } elseif (function_exists('passthru')) {
+                ob_start();
+                passthru($cmd);
+                $res = ob_get_contents();
+                ob_end_clean();
+                if ($res) {
+                    $locales = array_filter(explode(PHP_EOL, $res));
+                }
+
+            } elseif (function_exists('system')) {
+                ob_start();
+                system($cmd);
+                $res = ob_get_contents();
+                ob_end_clean();
+                if ($res) {
+                    $locales = array_filter(explode(PHP_EOL, $res));
+                }
+            }
+
+            $cacheDriver->save($cacheKey, $locales, $ttl);
+        }
+
+        return $locales;
+    }
+
+    /**
+     * Detect closest locale by language code from the specified list of locales
+     *
+     * @param string $code    Language code
+     * @param array  $locales List of available locales
+     *
+     * @return string
+     */
+    public static function searchClosestLocale($code, $locales)
+    {
+        $result = null;
+        $result2 = null;
+
+        $code = strtolower($code);
+
+        // Get country code
+        $country = static::getCurrentCountry();
+
+        if ($country) {
+            $country = strtoupper($country);
+
+        } else {
+            $country = ('en' == $code ? 'US' : strtoupper($code));
+        }
+
+        foreach ($locales as $locale) {
+            if ($country) {
+                if (preg_match('/^' . preg_quote($code) . '_' . preg_quote($country) . '/', $locale)) {
+                    // Exact match
+                    $result = $locale;
+                    break;
+                }
+            }
+            if (!$result2 && preg_match('/^' . preg_quote($code) . '/', $locale)) {
+                // Closest match - we will get first match then break search
+                $result2 = $locale;
+                if (!$country) {
+                    // Just break if there are no country defined
+                    break;
+                }
+            }
+        }
+
+        return $result ?: $result2;
+    }
+
+    /**
+     * Get current country code
+     *
+     * @return string
+     */
+    public static function getCurrentCountry()
+    {
+        return null;
+    }
+
+    /**
+     * Get list of methods to detect locale
+     *
+     * @return array
+     */
+    protected static function getDetectLocaleMethods()
+    {
+        return array('system', 'default');
     }
 
     // }}}

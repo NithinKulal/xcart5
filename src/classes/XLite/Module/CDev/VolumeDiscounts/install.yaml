@@ -18,3 +18,5 @@ XLite\Model\LanguageLabel:
   - { name: "Get X off for order amount over Y", translations: [{ code: en, label: "Get {{X}} off for order amount over {{Y}}" }] }
   - { name: "Could not add the discount because another discount already exists for the specified subtotal range and membership level", translations: [{ code: en, label: "Could not add the discount because another discount already exists for the specified subtotal range and membership level" }] }
   - { name: "Could not update the discount because another discount already exists for the specified subtotal range and membership level", translations: [{ code: en, label: "Could not update the discount because another discount already exists for the specified subtotal range and membership level" }] }
+  - { name: "Percent discount value cannot exceed 100%", translations: [{ code: en, label: "Percent discount value cannot exceed 100%" }] }
+  - { name: "Too large value for absolute discount", translations: [{ code: en, label: "Too large value for absolute discount" }] }

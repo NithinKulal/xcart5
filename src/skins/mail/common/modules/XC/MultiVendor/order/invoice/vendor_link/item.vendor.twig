@@ -1,0 +1,10 @@
+{##
+ # Invoice
+ #
+ # @ListChild (list="invoice.item.name", weight="5")
+ #}
+ {% if this.item.getVendor() %}
+    <li class="vendor separated">
+      {{ t('sold by VendorName', {'vendorName': this.item.getVendor().getVendorCompanyName()}) }}
+    </li>
+ {% endif %}

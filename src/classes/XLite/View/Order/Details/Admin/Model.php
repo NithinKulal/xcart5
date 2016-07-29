@@ -249,17 +249,32 @@ class Model extends \XLite\View\Order\Details\Base\AModel
         }
 
         $widgets = array();
-        foreach ($transactions as $transaction) {
-            $widgets[] = $this->getWidget(
-                array(
-                    \XLite\View\FormField\Inline\AInline::PARAM_ENTITY          => $transaction,
-                    \XLite\View\FormField\Inline\AInline::PARAM_FIELD_NAME      => 'paymentMethod',
-                    \XLite\View\FormField\Inline\AInline::FIELD_NAME            => 'paymentMethods',
-                    \XLite\View\FormField\Inline\AInline::PARAM_FIELD_NAMESPACE => 'paymentMethods',
-                    \XLite\View\FormField\Inline\AInline::PARAM_VIEW_ONLY       => !$this->isPaymentMethodEditable($transaction),
-                ),
-                'XLite\View\FormField\Inline\Select\PaymentMethod'
-            );
+        if (count($transactions) > 1) {
+            foreach ($transactions as $transaction) {
+                $widgets[] = $this->getWidget(
+                    array(
+                        \XLite\View\FormField\Inline\AInline::PARAM_ENTITY          => $transaction,
+                        \XLite\View\FormField\Inline\AInline::PARAM_FIELD_NAME      => 'paymentMethod',
+                        \XLite\View\FormField\Inline\AInline::FIELD_NAME            => 'paymentMethods',
+                        \XLite\View\FormField\Inline\AInline::PARAM_FIELD_NAMESPACE => 'paymentMethods',
+                        \XLite\View\FormField\Inline\AInline::PARAM_VIEW_ONLY       => !$this->isPaymentMethodEditable($transaction),
+                    ),
+                    'XLite\View\FormField\Inline\Select\PaymentMethod'
+                );
+            }
+        } else {
+            foreach ($transactions as $transaction) {
+                $widgets[] = $this->getWidget(
+                    array(
+                        \XLite\View\FormField\Inline\AInline::PARAM_ENTITY          => $transaction,
+                        \XLite\View\FormField\Inline\AInline::PARAM_FIELD_NAME      => 'paymentMethod',
+                        \XLite\View\FormField\Inline\AInline::FIELD_NAME            => 'paymentMethod',
+                        \XLite\View\FormField\Inline\AInline::PARAM_FIELD_NAMESPACE => 'paymentMethod',
+                        \XLite\View\FormField\Inline\AInline::PARAM_VIEW_ONLY       => !$this->isPaymentMethodEditable($transaction),
+                    ),
+                    'XLite\View\FormField\Inline\Select\PaymentMethod'
+                );
+            }
         }
 
         return $widgets;

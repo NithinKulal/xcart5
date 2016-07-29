@@ -175,6 +175,7 @@ abstract class Handler extends \XLite\Base
 
             if ($class
                 && $class::needFormId()
+                && $paramAction
                 && !in_array($paramAction, $class::defineFreeFormIdActions(), true)
             ) {
                 $params[\XLite::FORM_ID] = \XLite::getFormId(empty($params['static_form_id']));

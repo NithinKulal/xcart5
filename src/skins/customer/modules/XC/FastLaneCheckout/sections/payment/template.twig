@@ -1,0 +1,13 @@
+{##
+ # Fastlane checkout payment section
+ #}
+
+<div is='payment-section' inline-template class="checkout_fastlane_section checkout_fastlane_section--payment" next-label="{{ this.getPlaceOrderLabel() }}">
+	{{ this.displayCommentedData(this.getCommentedData()) }}
+	<h1 class="checkout_fastlane_section_heading">{{ t('Payment method') }}</h1>
+	<div class="checkout_fastlane_section-left">
+		{{ widget_list('checkout_fastlane.sections.payment.left') }}
+	</div>
+	<div class="clearfix"></div>
+	{{ widget_list('checkout_fastlane.sections.payment.after') }}
+</div>

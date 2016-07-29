@@ -2,29 +2,8 @@
 // vim: set ts=4 sw=4 sts=4 et:
 
 /**
- * X-Cart
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the software license agreement
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://www.x-cart.com/license-agreement.html
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to licensing@x-cart.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not modify this file if you wish to upgrade X-Cart to newer versions
- * in the future. If you wish to customize X-Cart for your needs please
- * refer to http://www.x-cart.com/ for more information.
- *
- * @category  X-Cart 5
- * @author    Qualiteam software Ltd <info@x-cart.com>
- * @copyright Copyright (c) 2011-2013 Qualiteam software Ltd <info@x-cart.com>. All rights reserved
- * @license   http://www.x-cart.com/license-agreement.html X-Cart 5 License Agreement
- * @link      http://www.x-cart.com/
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
  */
 
 namespace XLite\Module\QSL\CloudSearch\Core;
@@ -63,9 +42,9 @@ class ServiceApiClient extends \XLite\Base\Singleton
 
         $request = new Request($requestUrl);
         $request->body = array(
-            'shopUrl' => $shopUrl,
-            'shopType' => 'xc5',
-            'format' => 'php',
+            'shopUrl'   => $shopUrl,
+            'shopType'  => 'xc5',
+            'format'    => 'php',
         );
 
         $response = $request->sendRequest();
@@ -126,7 +105,11 @@ class ServiceApiClient extends \XLite\Base\Singleton
     {
         $result = json_decode($response->body, true);
 
-        if ($result && $result['products'] && count($result['products']) > 0) {
+        if (
+            $result
+            && $result['products']
+            && count($result['products']) > 0
+        ) {
             $result = array_map(function ($elem) {
                 return intval($elem['id']);
             }, $result['products']);
@@ -169,7 +152,8 @@ class ServiceApiClient extends \XLite\Base\Singleton
      */
     protected function getCachedSearch($query)
     {
-        return \XLite\Core\Database::getRepo('XLite\Module\QSL\CloudSearch\Model\SearchCache')->getCachedSearch($query);
+        return \XLite\Core\Database::getRepo('XLite\Module\QSL\CloudSearch\Model\SearchCache')
+            ->getCachedSearch($query);
     }
 
     /**
@@ -182,7 +166,8 @@ class ServiceApiClient extends \XLite\Base\Singleton
      */
     protected function storeCachedSearch($query, $result)
     {
-        \XLite\Core\Database::getRepo('XLite\Module\QSL\CloudSearch\Model\SearchCache')->storeCachedSearch($query, $result);
+        \XLite\Core\Database::getRepo('XLite\Module\QSL\CloudSearch\Model\SearchCache')
+            ->storeCachedSearch($query, $result);
     }
 
     /**
@@ -194,7 +179,8 @@ class ServiceApiClient extends \XLite\Base\Singleton
     {
         $apiKey = Config::getInstance()->QSL->CloudSearch->api_key;
 
-        $requestUrl = 'http://' . static::CLOUD_SEARCH_DOMAIN
+        $requestUrl = 'http://'
+            . static::CLOUD_SEARCH_DOMAIN
             . static::CLOUD_SEARCH_REQUEST_SECRET_KEY_URL;
 
         $request = new Request($requestUrl);
@@ -214,8 +200,10 @@ class ServiceApiClient extends \XLite\Base\Singleton
      */
     public function getDashboardIframeUrl($secretKey)
     {
-        return 'https://' . static::CLOUD_SEARCH_DOMAIN
-        . static::CLOUD_SEARCH_REMOTE_IFRAME_URL . $secretKey;
+        return 'https://'
+            . static::CLOUD_SEARCH_DOMAIN
+            . static::CLOUD_SEARCH_REMOTE_IFRAME_URL
+            . $secretKey;
     }
 
     /**
@@ -225,11 +213,11 @@ class ServiceApiClient extends \XLite\Base\Singleton
      */
     protected function getShopUrl()
     {
-        $shopUrl = URLManager::getShopURL(Converter::buildURL());
-
-        $shopUrl = preg_replace('/[^\/]*.php$/', '', $shopUrl);
-
-        return $shopUrl;
+        return preg_replace(
+            '/[^\/]*.php$/',
+            '',
+            URLManager::getShopURL(Converter::buildURL())
+        );
     }
 
     /**
@@ -244,8 +232,8 @@ class ServiceApiClient extends \XLite\Base\Singleton
         $repo = Database::getRepo('XLite\Model\Config');
 
         $secretKeySetting = $repo->findOneBy(array(
-            'name' => 'api_key',
-            'category' => 'QSL\CloudSearch'
+            'name'      => 'api_key',
+            'category'  => 'QSL\CloudSearch'
         ));
 
         $secretKeySetting->setValue($key);

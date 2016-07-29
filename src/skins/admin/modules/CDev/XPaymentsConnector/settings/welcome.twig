@@ -1,0 +1,41 @@
+{##
+ # Welcome section. Used if connector is not configured. 
+ #
+ #}
+
+<div class="welcome-container">
+
+  {% include this.getDir() ~ '/welcome/scary_note.twig' %}  
+
+  {% if this.isDisplaySteps() %}
+
+    <div class="connect-caption">
+      {{ t('Connect to X-Payments. Do 3 easy steps.') }}
+    </div>
+
+    <div class="steps">
+
+      {% include this.getDir() ~ '/welcome/steps.top.twig' %}
+
+      {% include this.getDir() ~ '/welcome/steps.middle.twig' %}
+
+      {% include this.getDir() ~ '/welcome/steps.bottom.twig' %}
+
+    </div>
+
+    {% include this.getDir() ~ '/welcome/video.twig' %}
+
+  {% else %}
+
+    <br /><br />
+
+    <div style="text-align: center"> 
+ 
+    <a href="{{ this.getAddPaymentConfLink() }}" target="_blank" class="btn regular-button regular-main-button">{{ t('Open X-Payments dashboard to configure') }}</a>
+
+    </div>
+
+  {% endif %}
+
+</div>
+

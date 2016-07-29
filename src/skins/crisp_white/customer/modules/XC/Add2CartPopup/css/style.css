@@ -1,0 +1,157 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+button.add2cart-popup {
+  display: none;
+}
+
+.add2cart-popup .minicart-box .cart-tray {
+  position: static;
+}
+
+.add2cart-popup .minicart-box .cart-tray .tray-area {
+  background-position: center bottom;
+}
+
+.add2cart-popup .minicart-box .cart-tray .tray-area .centered-tray-box {
+  padding-top: 155px;
+}
+
+.add2cart-popup .minicart-box .cart-tray .tray-status .minicart-items-number,
+.add2cart-popup .minicart-box .cart-tray .tray-status .minicart-items-text {
+  display: inline;
+  color: #53769d;
+}
+
+.add2cart-popup {
+  width: 100%;
+  position: relative;
+}
+
+.add2cart-popup .item-box .item-thumbnail {
+  float: left;
+  margin-right: 40px;
+}
+
+.add2cart-popup .item-box .item-buttons .reason-details {
+  display: block;
+  margin-left: 0px;
+  margin-top: 20px;
+}
+
+.add2cart-popup .minicart-box {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: none;
+}
+
+.add2cart-popup .item-box .added-item-message {
+  display: none;
+}
+
+.add2cart-popup .item-box .added-item-message .icon-ok-mark,
+.add2cart-popup .item-box .added-item-message > div {
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.add2cart-popup .item-box .added-item-message .icon-ok-mark {
+  line-height: 16px;
+}
+
+.add2cart-popup .item-box .added-item-message .icon-ok-mark:before {
+  font-size: 12px;
+}
+
+.add2cart-popup .item-box .added-item-message .fa.fa-check-square {
+  padding-right: 12px;
+  vertical-align: top;
+  margin-top: 3px;
+}
+
+.add2cart-popup .item-box .added-item-message div {
+  display: inline-block;
+}
+
+.add2cart-popup .item-box .item-buttons button span {
+  font-size: 16px;
+}
+
+.add2cart-popup .products-list-box .items-list .items-list-title {
+  margin-bottom: 0px;
+  font-size: 20px;
+  margin-top: 0;
+}
+
+.add2cart-popup .products-list-box .products table.products-grid {
+  margin: 0px;
+  border-spacing: 10px;
+  width: 700px;
+}
+
+.add2cart-popup .products-list-box .products table.products-grid,
+.add2cart-popup .products-list-box .products table.products-grid tr,
+.add2cart-popup .products-list-box .products table.products-grid th {
+  border-style: none;
+}
+
+.add2cart-popup .products-list-box .cart-tray {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.add2cart-popup .products-list-box .cart-tray.droppable .tray-area {
+  background-color: #eff8fe;
+}
+
+.add2cart-popup .products-list-box .cart-tray.droppable,
+.add2cart-popup .products-list-box .products table.products-grid tr td.product-cell div.product.ui-draggable.ui-draggable-dragging {
+  border-color: #f46d00;
+}
+
+.add2cart-popup .products-list-box .cart-tray.droppable .tray-area {
+  background-position: center bottom;
+}
+
+.add2cart-popup .products-list-box .cart-tray.droppable .drop-here.tray-status {
+  color: #f46d00;
+}
+
+.cart-tray .product-added.tray-status {
+  display: none !important;
+}
+
+.cart-tray.cart-tray-added .dropped-here.tray-status {
+  display: block !important;
+}
+
+.ui-dialog .add2cartpopup .wait-overlay {
+  z-index: 200;
+}
+
+.add2cart-popup .item-box .item-attribute-values .selected-attribute-values li {
+  background: none;
+  padding-left: 0px;
+  display: inline;
+  font-size: 12px;
+}
+
+.add2cart-popup .item-box .item-attribute-values .selected-attribute-values li span {
+  display: inline;
+}
+
+.add2cart-popup .item-box .item-attribute-values .item-change-attribute-values {
+  display: none;
+}
+
+.add2cart-popup .products-list-box div.product.compare div.add-to-compare.products {
+  display: none;
+}

@@ -146,7 +146,7 @@ class Order extends \XLite\Model\Repo\ARepo
         $result = parent::createQueryBuilder($alias, $indexBy);
 
         if ($placedOnly) {
-            $result->andWhere('o INSTANCE OF XLite\Model\Order');
+            $result->andWhere($result->getMainAlias() . ' INSTANCE OF XLite\Model\Order');
         }
 
         return $result;

@@ -1,0 +1,29 @@
+{##
+ # Pincodes item cell
+ #
+ # @ListChild (list="invoice.item.name", weight="10")
+ #}
+
+{% if this.item.isCustomerInterface() %}
+  {% if this.item.getSoldPinCodes() %}
+  <li class="pin-codes separated">
+    {{ t('PIN') }}:<br />
+    {% for pin in this.item.getSoldPinCodes() %}
+      <div class="code">
+        {{ pin.code }}
+      </div>
+    {% endfor %}
+  </li>
+  {% endif %}
+{% else %}
+  {% if this.item.countPinCodes() %}
+  <li class="pin-codes separated">
+    {{ t('PIN') }}:<br />
+    {% for pin in this.item.getPinCodes() %}
+      <div class="code">
+        {{ pin.code }}
+      </div>
+    {% endfor %}
+  </li>
+  {% endif %}
+{% endif %}

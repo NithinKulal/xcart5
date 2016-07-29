@@ -1,0 +1,17 @@
+{##
+ # ComingSoon button
+ #}
+
+<button {{ this.printTagAttributes(this.getAttributes())|raw }}>
+{{ this.displayCommentedData(this.getCommentedData()) }}
+{% if this.getParam('icon-style') %}
+  <i class="button-icon {{ this.getParam('icon-style') }}"></i>
+{% endif %}
+  <span>{{ t(this.getButtonLabel()) }}</span>
+
+  {% if this.getParam('tooltip') %}
+  <span class="coming-soon-label">
+    {{ widget('\\XLite\\View\\Tooltip', text=this.getParam('tooltip'), caption=t('label.coming_soon'), isImageTag='false', className='coming-soon-caption') }}
+  </span>
+  {% endif %}
+</button>

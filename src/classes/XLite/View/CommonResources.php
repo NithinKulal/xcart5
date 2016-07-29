@@ -113,6 +113,7 @@ class CommonResources extends \XLite\View\AView
                     'file'      => 'js/fallback.min.js',
                     'no_minify' => true,
                 ),
+                'js/core/amd.js'
             ),
             static::RESOURCE_CSS => array(
                 'css/normalize.css',
@@ -161,6 +162,9 @@ class CommonResources extends \XLite\View\AView
                     'css/theme.css',
                     'css/style.css',
                     'css/ajax.css',
+                ),
+                static::RESOURCE_JS => array(
+                    'js/sticky_footer.js',
                 ),
             );
     }

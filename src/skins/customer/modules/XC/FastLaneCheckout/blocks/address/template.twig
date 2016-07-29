@@ -1,0 +1,25 @@
+{##
+ # Checkout : order review step : selected state : items
+ #}
+<address inline-template >
+  <div class="address-box" v-data='{ "type": "{{ this.getAddressType() }}" }' v-cloak>
+    <div class="address-header">
+      {% verbatim %}
+        {{ title }}: {{ person }}
+      {% endverbatim %}
+    </div>
+
+    <div v-if="!same_address">
+      {% for fieldName, fieldData in this.getAddressFields() %}
+        <span class="address-field address-field_{{ fieldName }}" v-text="{{'fields.' ~ fieldName }}">{{ fieldData.value }}</span>
+
+      {% endfor %}
+    </div>
+  </div>
+  {% if this.getAddressType() == 'billing' %}
+    <script type="application/javascript">
+      window.countryNames = {{ this.buildCountryNamesObject() | raw }};
+      window.stateNames = {{ this.buildStateNamesObject() | raw }};
+    </script>
+  {% endif %}
+</address>

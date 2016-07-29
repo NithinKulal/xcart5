@@ -1,0 +1,13 @@
+{##
+ # Invoice : header : address box
+ #
+ # @ListChild (list="invoice.base", weight="20")
+ #}
+
+<table class="subhead-wrapper">
+    <tr class="subhead-line">
+        {% for w in this.getViewList('invoice.subhead', {'order': this.order}) %}
+            {{ w.display() }}
+        {% endfor %}
+    </tr>
+</table>

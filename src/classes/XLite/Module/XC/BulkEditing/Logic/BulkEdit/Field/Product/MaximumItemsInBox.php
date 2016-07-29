@@ -38,25 +38,31 @@ class MaximumItemsInBox extends \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Fiel
     }
 
     /**
-     * @param string               $name
-     * @param \XLite\Model\Product $object
-     * @param array                $options
+     * @param string $name
+     * @param array  $options
      *
      * @return array
      */
-    public static function getViewData($name, $object, $options)
+    public static function getViewColumns($name, $options)
     {
-        $requiresShipping = $object->getShippable();
-        $separateBox = $object->getUseSeparateBox();
+        return [
+            $name => [
+                'name'    => static::t('Maximum items in box'),
+                'orderBy' => isset($options['position']) ? $options['position'] : 0,
+            ],
+        ];
+    }
 
-        return $requiresShipping && $separateBox
-            ? [
-                $name => [
-                    'label'    => static::t('Maximum items in box'),
-                    'value'    => $object->getItemsPerBox(),
-                    'position' => isset($options['position']) ? $options['position'] : 0,
-                ],
-            ]
-            : [];
+    /**
+     * @param $name
+     * @param $object
+     *
+     * @return array
+     */
+    public static function getViewValue($name, $object)
+    {
+        return $object->getShippable() && $object->getUseSeparateBox()
+            ? $object->getItemsPerBox()
+            : '';
     }
 }

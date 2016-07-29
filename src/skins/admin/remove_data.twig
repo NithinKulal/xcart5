@@ -1,0 +1,10 @@
+{##
+ # Cache management page
+ #}
+
+{% if not this.isRemoveDataNotFinished() %}
+  {{ widget('\\XLite\\View\\ItemsList\\Model\\RemoveData') }}
+{% endif %}
+{% if this.isRemoveDataNotFinished() %}
+  {{ widget('\\XLite\\View\\RemoveData\\Progress') }}
+{% endif %}

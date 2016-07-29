@@ -13,6 +13,8 @@ namespace XLite\Module\XC\ProductVariants\Model\Repo;
  */
 abstract class Product extends \XLite\Model\Repo\Product implements \XLite\Base\IDecorator
 {
+    const VARIANT_SKU_FIELD = 'pv.sku';
+
     /**
      * Add inventory condition to search in-stock products
      *
@@ -39,5 +41,35 @@ abstract class Product extends \XLite\Model\Repo\Product implements \XLite\Base\
         $queryBuilder->andWhere($orCnd)
             ->setParameter('disabled', false)
             ->setParameter('zero', 0);
+    }
+
+    /**
+     * Prepare certain search condition
+     *
+     * @param \Doctrine\ORM\QueryBuilder $queryBuilder Query builder to prepare
+     * @param string                     $value        Condition data
+     *
+     * @return void
+     */
+    protected function prepareCndSubstring(\Doctrine\ORM\QueryBuilder $queryBuilder, $value)
+    {
+        parent::prepareCndSubstring($queryBuilder, $value);
+
+        $queryBuilder->linkLeft('p.variants', 'pv');
+    }
+
+    /**
+     * Return fields set for SKU search
+     *
+     * @return array
+     */
+    protected function getSubstringSearchFieldsBySKU()
+    {
+        return array_merge(
+            parent::getSubstringSearchFieldsBySKU(),
+            array(
+                static::VARIANT_SKU_FIELD,
+            )
+        );
     }
 }

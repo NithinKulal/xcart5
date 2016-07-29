@@ -1,0 +1,14 @@
+{##
+ # Info message
+ #
+ # @ListChild (list="upgrade.step.prepare.incompatible_entries_update.sections", weight="100")
+ #}
+
+<div class="incompatible-module-list-description">
+  {{ t('Please contact the module developers to make sure that these modules are compatible with the upcoming upgrade') }}
+</div>
+{% if this.hasDisabledEntries() %}
+  <div class="incompatible-module-list-description">
+    {{ t('Please note that some of these modules are definitely incompatible with the upcoming upgrade and will be disabled in order to prevent the system crash') }}.
+  </div>
+{% endif %}

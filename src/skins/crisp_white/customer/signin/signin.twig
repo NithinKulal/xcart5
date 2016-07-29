@@ -1,0 +1,34 @@
+{##
+ # Sign-in
+ #
+ # @ListChild (list="signin.main", weight="10")
+ #}
+<div class="signin-header">
+  <h1>{{ this.getSigninTitle() }}</h1>
+</div>
+<div class="{{ this.getWrapperStyleClass() }}">
+
+  <div class="signin-login-wrapper">
+    {% if not this.isRegisterMode() %}
+    <div class="login-box">
+      {{ widget('XLite\\Module\\XC\\CrispWhiteSkin\\View\\CheckoutAuthorization') }}
+    </div>
+    {% else %}
+    <div class="register-box">
+      {{ widget('\\XLite\\View\\Model\\Profile\\Main', useBodyTemplate='1') }}
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="or-line">
+    <div class="line"></div>
+    <div class="or-box">
+      <div class="or">{{ t('or') }}</div>
+    </div>
+  </div>
+
+  <div class="signin-anonymous-wrapper">
+    <div class="signin-anonymous-box">{{ widget_list('signin-anonymous-title') }}</div>
+  </div>
+
+</div>

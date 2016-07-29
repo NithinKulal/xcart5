@@ -49,7 +49,13 @@ class Pinterest extends \XLite\View\AView
     {
         $query = array();
         foreach ($this->getButtonURLQuery() as $name => $value) {
-            $query[] = $name . '=' . urlencode($value);
+            if ($name == 'description') {
+                $value = urlencode(htmlspecialchars_decode($value));
+                $value = preg_replace('/\+/', '%20', $value);
+                $query[] = $name . '=' . $value;
+            } else {
+                $query[] = $name . '=' . urlencode($value);
+            }
         }
 
         return static::BUTTON_URL . implode('&amp;', $query);

@@ -1,0 +1,22 @@
+{##
+ # Cart coupons
+ #}
+
+<div class="coupons clearfix">
+  {% if this.isCouponPanelVisible() %}
+    {% if not this.getCoupons() %}
+      <div class="new more"><a href="#"><span>{{ t('Have a discount coupon?') }}</span></a></div>
+    {% endif %}
+    {% if this.getCoupons() %}
+      <div class="new add"><a href="#"><span>{{ t('Have more coupons?') }}</span></a></div>
+    {% endif %}
+
+    <div class="add-coupon clearfix" style="display: none;">
+      {% form '\\XLite\\Module\\CDev\\Coupons\\View\\Form\\Customer\\AddCoupon' %}
+        {{ widget('XLite\\View\\FormField\\Input\\Text', fieldName='code', required='true', placeholder=t('Enter code'), maxlength='16', fieldOnly=this.isFieldOnly(), label=t('Coupon code')) }}
+        {{ widget('XLite\\Module\\CDev\\Coupons\\View\\Button\\AddCoupon') }}
+      {% endform %}
+    </div>
+
+  {% endif %}
+</div>

@@ -16,7 +16,7 @@ class Uploaded extends \XLite\Upgrade\Entry\Module\AModule
     /**
      * Default URL for module icon
      */
-    const DEFAULT_ICON_URL = 'skins/admin/en/images/addon_default.png';
+    const DEFAULT_ICON_URL = 'skins/admin/images/addon_default.png';
 
     /**
      * Module metadata

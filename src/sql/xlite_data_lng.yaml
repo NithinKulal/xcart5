@@ -1266,7 +1266,7 @@ XLite\Model\LanguageLabel:
   - { name: "These links were already provided to you after this store was installed and will be emailed to you again after you start the upgrade process", translations: [{ code: en, label: "These links were already provided to you after this store was installed and will be emailed to you again after you start the upgrade process" }] }
 
 
-  - { name: "These modules may be incompatible with the upcoming upgrade. No guarantee that the store will operate correctly if the modules remain enabled. Please consider disabling the modules before proceeding to the next step", translations: [{ code: en, label: "These modules may be incompatible with the upcoming upgrade. We do not guarantee that the store will operate correctly if the modules remain enabled. Please consider disabling the modules before you proceed to the next step" }] }
+  - { name: "Please contact the module developers to make sure that these modules are compatible with the upcoming upgrade", translations: [{ code: en, label: "Please contact the module developers to make sure that these modules are compatible with the upcoming upgrade. We do not guarantee that the store will operate correctly if the modules remain enabled. Consider disabling the modules before you proceed to the next step." }] }
   - { name: "This address was used as a billing address during the recent purchase", translations: [{ code: en, label: "This address was used as a billing address during a recent purchase" }] }
   - { name: "This address was used as a shipping address during the recent purchase", translations: [{ code: en, label: "This address was used as a shipping address during a recent purchase" }] }
   - { name: "This component is automatically calculated by shipping add-on module and cannot be edited", translations: [{ code: en, label: "This component is automatically calculated by a shipping add-on module and cannot be edited" }] }
@@ -1545,6 +1545,7 @@ XLite\Model\LanguageLabel:
   - { name: "Attribute group", translations: [{ code: en, label: "Attribute group" }] }
   - { name: "Attribute", translations: [{ code: en, label: "Attribute" }] }
   - { name: "No group", translations: [{ code: en, label: "No group" }] }
+  - { name: "No attributes", translations: [{ code: en, label: "No attributes" }] }
   - { name: "No attributes assigned", translations: [{ code: en, label: "No attributes assigned" }] }
   - { name: "Including subcategories", translations: [{ code: en, label: "Including subcategories" }] }
   - { name: "The provided file contains the following language labels:", translations: [{ code: en, label: "The provided file contains the following language labels:" }] }
@@ -1591,7 +1592,7 @@ XLite\Model\LanguageLabel:
   - { name: "Export completed", translations: [{ code: en, label: "Export completed" }] }
   - { name: "Exporting data...", translations: [{ code: en, label: "Exporting data..." }] }
   - { name: "The process of export may take much time. You may close the page, the operation will be in progress as background. If the operation takes long enough, we will send you a notification when it is complete.", translations: [{ code: en, label: "The export process may take a while to complete. You may close the page, the process will continue in the background. If the process takes long enough, we will send you a notification when it is completed." }] }
-  - { name: "The process of export may take much time. Please do not close this page until the export is complete", translations: [{ code: en, label: "The export process may take a while to complete. Please do not close this page until the process is fully completed. If you have closed the page, please re-open it to complete the export process as it is in progress only when the page is open. If the process takes long enough, we will send you a notification when it is completed." }] }
+  - { name: "The process of export may take much time. Please do not close this page until the export is complete", translations: [{ code: en, label: "The export process may take a while to complete. Please do not close this page until the process is fully completed. If you have closed the page, please re-open it to complete the export process as it is in progress only when the page is open." }] }
   - { name: "Export failed", translations: [{ code: en, label: "Export failed" }] }
   - { name: "Export not started", translations: [{ code: en, label: "Export was not started" }] }
   - { name: "Export cannot be started because it is disabled or there is another running export process", translations: [{ code: en, label: "Export cannot be started because it is disabled or there is another running export process. Try again later." }] }
@@ -2177,7 +2178,7 @@ XLite\Model\LanguageLabel:
   - { name: 'Two columns with left sidebar', translations: [{ code: en, label: 'Two columns with left sidebar' }] }
   - { name: 'Three columns', translations: [{ code: en, label: 'Three columns' }] }
   - { name: 'One column', translations: [{ code: en, label: 'One column' }] }
-  - { name: 'The product with "{{value}}" SKU does not exist', translations: [{ code: en, label: 'The product with SKU "{{value}}" does not exist. The "NAME" attribute will be imported as global' }] }
+  - { name: 'The product with "{{value}}" SKU does not exist', translations: [{ code: en, label: 'The product with SKU "{{value}}" does not exist. The "{{name}}" attribute will be imported as global' }] }
   - { name: 'The "{{value}}" membership does not exist', translations: [{ code: en, label: 'The "{{value}}" membership does not exist' }] }
   - { name: 'The "{{value}}" product class does not exist', translations: [{ code: en, label: 'The "{{value}}" product class does not exist' }] }
   - { name: 'The "{{value}}" tax class does not exist', translations: [{ code: en, label: 'The "{{value}}" tax class does not exist' }] }
@@ -2270,12 +2271,13 @@ XLite\Model\LanguageLabel:
   - { name: 'paymentStatus.Inactive', translations: [{ code: en, label: 'Inactive' }] }
   - { name: 'Learn More', translations: [{ code: en, label: 'Learn More' }] }
   - { name: 'Sign Up', translations: [{ code: en, label: 'Sign Up' }] }
-  - { name: 'emailNotificationCustomerHeader', translations: [{ code: en, label: '<!--[if (gte mso 9)|(IE)]><table align="center" border="0" cellspacing="0" cellpadding="0" dir="ltr" width="640">  <tr>    <td align="center" valign="top" width="440"><![endif]--><table align="left" border="0" cellpadding="10" cellspacing="0" width="100%" id="emailPreview">  <tr>    <td align="center" valign="top" id="logoContent">      <h1 id="logo" style="max-width:300px;">%logo%</h1>    </td>  </tr></table><!--[if (gte mso 9)|(IE)]>    </td>    <td align="center" valign="top" width="200"><![endif]--><table align="right" border="0" cellpadding="10" cellspacing="0" width="100%" id="emailLogo">  <tr>    <td align="left" valign="top" id="previewContent">      <div class="company-info" style="font-size: 14px; font-weight: lighter; color: #787e81; text-align: right;" align="right">%company_name%<br /> Phone: %company_phone%<br /> Fax: %company_fax%</div>    </td>  </tr></table><!--[if (gte mso 9)|(IE)]>     </td>    </tr>  </table><![endif]-->' }] }
+  - { name: 'emailNotificationCustomerHeader', translations: [{ code: en, label: '<!--[if (gte mso 9)|(IE)]><table align="center" border="0" cellspacing="0" cellpadding="0" dir="ltr" width="640">  <tr>    <td align="center" valign="top" width="440"><![endif]--><table align="left" border="0" cellpadding="10" cellspacing="0" style="height: 80px;" width="350" id="emailPreview">  <tr>    <td align="center" valign="top" id="logoContent">      <h1 id="logo" style="max-width:300px;">%logo%</h1>    </td>  </tr></table><!--[if (gte mso 9)|(IE)]>    </td>    <td align="center" valign="top" width="200"><![endif]--><table align="right" border="0" cellpadding="10" cellspacing="0" style="height: 80px;" width="350" id="emailLogo">  <tr>    <td align="left" valign="top" id="previewContent">      <div class="company-info" style="font-size: 14px; font-weight: lighter; color: #787e81; text-align: right;" align="right">%company_name%<br /> Phone: %company_phone%<br /> Fax: %company_fax%</div>    </td>  </tr></table><!--[if (gte mso 9)|(IE)]>     </td>    </tr>  </table><![endif]-->' }] }
+  - { name: 'emailNotificationGreeting', translations: [{ code: en, label: 'Dear %recipient_name%!' }] }
   - { name: 'emailNotificationCustomerSignature', translations: [{ code: en, label: '<p>Thank you for using our services<br/>%company_link%</p>' }] }
-  - { name: 'emailNotificationAdminHeader', translations: [{ code: en, label: '<!--[if (gte mso 9)|(IE)]><table align="center" border="0" cellspacing="0" cellpadding="0" dir="ltr" width="640">  <tr>    <td align="center" valign="top" width="440"><![endif]--><table align="left" border="0" cellpadding="10" cellspacing="0" width="100%" id="emailPreview">  <tr>    <td align="center" valign="top" id="logoContent">      <h1 id="logo" style="max-width:300px;">%logo%</h1>    </td>  </tr></table><!--[if (gte mso 9)|(IE)]>    </td>    <td align="center" valign="top" width="200"><![endif]--><table align="right" border="0" cellpadding="10" cellspacing="0" width="100%" id="emailLogo">  <tr>    <td align="left" valign="top" id="previewContent">      <div class="company-info" style="font-size: 14px; font-weight: lighter; color: #787e81; text-align: right;" align="right">%company_name%<br /> Phone: %company_phone%<br /> Fax: %company_fax%</div>    </td>  </tr></table><!--[if (gte mso 9)|(IE)]>     </td>    </tr>  </table><![endif]-->' }] }
+  - { name: 'emailNotificationAdminHeader', translations: [{ code: en, label: '<!--[if (gte mso 9)|(IE)]><table align="center" border="0" cellspacing="0" cellpadding="0" dir="ltr" width="640">  <tr>    <td align="center" valign="top" width="440"><![endif]--><table align="left" border="0" cellpadding="10" cellspacing="0" style="height: 80px;" width="350" id="emailPreview">  <tr>    <td align="center" valign="top" id="logoContent">      <h1 id="logo" style="max-width:300px;">%logo%</h1>    </td>  </tr></table><!--[if (gte mso 9)|(IE)]>    </td>    <td align="center" valign="top" width="200"><![endif]--><table align="right" border="0" cellpadding="10" cellspacing="0" style="height: 80px;" width="350" id="emailLogo">  <tr>    <td align="left" valign="top" id="previewContent">      <div class="company-info" style="font-size: 14px; font-weight: lighter; color: #787e81; text-align: right;" align="right">%company_name%<br /> Phone: %company_phone%<br /> Fax: %company_fax%</div>    </td>  </tr></table><!--[if (gte mso 9)|(IE)]>     </td>    </tr>  </table><![endif]-->' }] }
   - { name: 'emailNotificationAdminSignature', translations: [{ code: en, label: '<p>Thank you for using our services<br/>%company_link%</p>' }] }
   - { name: 'Email notifications', translations: [{ code: en, label: 'Email notifications' }] }
-  - { name: 'Headers & signatures', translations: [{ code: en, label: 'Headers & signatures' }] }
+  - { name: 'The body template may include other templates to generate the email notification. To customize it, please, copy appropriate templates to "skins/theme_tweaker/mail/"', translations: [{ code: en, label: 'The body template may include other templates to generate the email notification. To customize it, please, copy appropriate templates to "skins/theme_tweaker/mail/" (or "skins/custom_skin/mail/" if you use CustomSkin module) directory within the same folder structure and then change it to your needs.' }] }
   - { name: 'Enabled for administrator', translations: [{ code: en, label: 'Enabled for administrator' }] }
   - { name: 'Enabled for customer', translations: [{ code: en, label: 'Enabled for customer' }] }
   - { name: 'Customer header', translations: [{ code: en, label: 'Customer header' }] }
@@ -2287,7 +2289,6 @@ XLite\Model\LanguageLabel:
   - { name: 'Administrator subject', translations: [{ code: en, label: 'Administrator subject' }] }
   - { name: 'Administrator text', translations: [{ code: en, label: 'Administrator text' }] }
   - { name: 'This page allows you to adjust the types of email notifications your store sends to users', translations: [{ code: en, label: 'This page allows you to adjust the types of email notifications your store sends to users. Use the On/Off widget to enable/disable specific notifications. Click on the name of a notification to edit the notification text.' }] }
-  - { name: 'On this page you can edit the header and signature used by all the email notifications sent by your store (separately for admin and customer users)', translations: [{ code: en, label: 'On this page you can edit the header and signature used by all the email notifications sent by your store (separately for admin and customer users).' }] }
   - { name: 'Notification', translations: [{ code: en, label: 'Notification' }] }
   - { name: 'Back to notifications list', translations: [{ code: en, label: 'Back to notifications list' }] }
   - { name: 'checkbox.onoff.on', translations: [{ code: en, label: 'On' }] }
@@ -2323,11 +2324,13 @@ XLite\Model\LanguageLabel:
   - { name: 'Generate resized images help text', translations: [{ code: en, label: 'Clicking the "Generate resized images" button launches the image resizing routine to generate copies of existing images in all the sizes needed to display the images in your store''s customer area. Having a separate image file in each of the sizes provides a way to speed up your site''s performance by reducing page load times for pages containing graphics.' }] }
   - { name: 'The generation of resized images has been completed successfully.', translations: [{ code: en, label: 'The generation of resized images has been completed successfully.' }] }
   - { name: 'The generation of resized images has been stopped.', translations: [{ code: en, label: 'The generation of resized images has been stopped.' }] }
-  - { name: 'The image resizing process may take a while to complete. Please do not close this page until the process is fully completed.', translations: [{ code: en, label: 'The image resizing process may take a while to complete. Please do not close this page until the process is fully completed. If the page has been closed, please re-open it to complete the process (The image resizing routine is executed only while the page stays open). If the process takes long enough, we will send you a notification when it is completed.' }] }
+  - { name: 'The image resizing process may take a while to complete. Please do not close this page until the process is fully completed.', translations: [{ code: en, label: 'The image resizing process may take a while to complete. Please do not close this page until the process is fully completed. If the page has been closed, please re-open it to complete the process (The image resizing routine is executed only while the page stays open).' }] }
   - { name: 'Notification headers and signatures can be set using variables. A list of supported variables and their respective values is provided in the table below', translations: [{ code: en, label: 'Notification headers and signatures can be set using variables. A list of supported variables and their respective values is provided in the table below' }] }
   - { name: 'Developers docs', translations: [{ code: en, label: 'Developers docs' }] }
   - { name: 'The following selected modules cannot be disabled or uninstalled as they have dependent modules', translations: [{ code: en, label: 'The following selected modules cannot be disabled or uninstalled as they have dependent modules: {{list}}' }] }
   - { name: 'The following selected modules cannot be enabled as they depend on disabled modules which cannot be enabled', translations: [{ code: en, label: 'The following selected modules cannot be enabled as they depend on disabled modules which cannot be enabled: {{list}}' }] }
+  - { name: 'The module may not be disabled due to the limitations of the module architecture.', translations: [{ code: en, label: 'The module may not be disabled due to the limitations of the module architecture.' }] }
+  - { name: 'The following selected modules cannot be disabled due to architecture limitations', translations: [{ code: en, label: 'The following selected modules cannot be disabled due to architecture limitations: {{list}}' }] }
   - { name: 'Please note that the following modules will also be enabled', translations: [{ code: en, label: 'Please note that the following modules will also be enabled:' }] }
   - { name: "New account", translations: [{ code: en, label: "New account" }] }
   - { name: "Products processed: {{count}}", translations: [{ code: en, label: "Products processed: {{count}}" }] }
@@ -2388,6 +2391,7 @@ XLite\Model\LanguageLabel:
   - { name: 'X-Cart license key has been successfully verified and activated. But this key has expired and do not allow upgrade store.', translations: [{ code: en, label: 'X-Cart license key has been activated. However, this key is expired and does not allow getting upgrade packs from the Marketplace.' }] }
   - { name: 'License key has been successfully verified and activated for "{{name}}" module by "{{author}}" author. But this key has expired and do not allow upgrade store.', translations: [{ code: en, label: 'The license key for the module "name" by "author" has been successfully verified and activated. However, this key is expired and does not allow getting module upgrade packs from the Marketplace.' }] }
   - { name: 'There are expired license keys', translations: [{ code: en, label: 'Expired license keys have been found. Download and installation of updates requiring these license keys will be unavailable.' }] }
+  - { name: 'There are expired license keys activated in store', translations: [{ code: en, label: 'Expired license keys have been found. Please prolongate them to receive new features and improvements with periodic updates.' }] }
   - { name: 'License key', translations: [{ code: en, label: 'License key' }] }
   - { name: 'Exp. date', translations: [{ code: en, label: 'Exp. date' }] }
   - { name: 'Buy prolongation', translations: [{ code: en, label: 'Prolongate license' }] }
@@ -2428,7 +2432,7 @@ XLite\Model\LanguageLabel:
   - { name: 'Calculate quick data help text', translations: [{ code: en, label: 'Use this button to launch quick data calculation. Calculated quick data enhances your store''s performance by allowing quick product sorting. The process of quick data calculation may take a while to complete. Please do not close this page until the process is fully completed. If the page has been closed, please re-open it to complete the process (The calculation is performed only while the page stays open).' }] }
   - { name: 'About X remaining', translations: [{ code: en, label: 'About {{time}} remaining' }] }
   - { name: 'Calculating quick data...', translations: [{ code: en, label: 'Calculating quick data...' }] }
-  - { name: 'The process of quick data calculation may take a while to complete. Please do not close this page until the process is fully completed.', translations: [{ code: en, label: 'The process of quick data calculation may take a while to complete. Please do not close this page until the process is fully completed. If the page has been closed, please re-open it to complete the process (The calculation is performed only while the page stays open). If the process takes long enough, we will send you a notification when it is completed.' }] }
+  - { name: 'The process of quick data calculation may take a while to complete. Please do not close this page until the process is fully completed.', translations: [{ code: en, label: 'The process of quick data calculation may take a while to complete. Please do not close this page until the process is fully completed. If the page has been closed, please re-open it to complete the process (The calculation is performed only while the page stays open).' }] }
   - { name: 'The calculation of quick data has been completed successfully.', translations: [{ code: en, label: 'The calculation of quick data has been completed successfully.' }] }
   - { name: 'The calculation of quick data has been stopped.', translations: [{ code: en, label: 'The calculation of quick data has been stopped.' }] }
   - { name: 'Find transactions by ID', translations: [{ code: en, label: 'Find transactions <b>by ID</b>' }] }
@@ -2654,7 +2658,7 @@ XLite\Model\LanguageLabel:
 
   - { name: 'The calculation failed', translations: [{ code: en, label: 'The calculation failed' }] }
   - { name: 'The calculation completed', translations: [{ code: en, label: 'The calculation completed' }] }
-  - { name: 'The process of sales calculation may take a while to complete. Please do not close this page until the process is fully completed.' }] }
+  - { name: 'The process of sales calculation may take a while to complete. Please do not close this page until the process is fully completed.', translations: [{ code: en, label: 'The process of sales calculation may take a while to complete. Please do not close this page until the process is fully completed.' }] }
   - { name: 'Sales calculation', translations: [{ code: en, label: 'Sales calculation' }] }
 
   - { name: 'This method is displayed because you are logged in as admin and operating as another user', translations: [{ code: en, label: 'This method is displayed because you are logged in as admin and operating as another user' }] }
@@ -2678,6 +2682,7 @@ XLite\Model\LanguageLabel:
   - { name: 'na_customer', translations: [{ code: en, label: 'Customer' }] }
 
   - { name: "Couldn't download the image {{value}} from URL", translations: [{ code: en, label: "Couldn't download the image \"{{value}}\"" }] }
+  - { name: "Error of image verification ({{value}}). Make sure you have specified the correct image file or URL.", translations: [{ code: en, label: "Error of image verification ({{value}}). Make sure you have specified the correct image file or URL." }] }
 
   - { name: 'Show low stock warning on product page', translations: [{ code: en, label: 'Show low stock warning on product page' }] }
   - { name: 'Notify administrator if the stock quantity of this product goes below a certain limit', translations: [{ code: en, label: 'Notify administrator if the stock quantity of this product goes below a certain limit' }] }
@@ -2757,7 +2762,6 @@ XLite\Model\LanguageLabel:
   - { name: 'Login is locked out', translations: [{ code: en, label: 'Login is locked out' }]}
   - { name: 'Manage zones', translations: [{ code: en, label: 'Manage zones' }]}
   - { name: 'Marketing', translations: [{ code: en, label: 'Marketing' }]}
-  - { name: 'Maximum items in box', translations: [{ code: en, label: 'Maximum items in box' }]}
   - { name: 'Minimum value is X', translations: [{ code: en, label: 'Minimum value is X' }]}
   - { name: 'Modules', translations: [{ code: en, label: 'Modules' }]}
   - { name: 'Options', translations: [{ code: en, label: 'Options' }]}
@@ -2794,8 +2798,6 @@ XLite\Model\LanguageLabel:
   - { name: 'or use the form below', translations: [{ code: en, label: 'or use the form below' }]}
   - { name: 'the same as billing', translations: [{ code: en, label: 'the same as billing' }]}
 
-  - { name: 'Replace with', translations: [{ code: en, label: 'Replace with' }]}
-
   - { name: 'Add product', translations: [{ code: en, label: 'Add product' }]}
   - { name: 'Are you sure you want to enable https anyway?', translations: [{ code: en, label: 'Are you sure you want to enable https anyway?' }]}
   - { name: 'Check for updates', translations: [{ code: en, label: 'Check for updates' }]}
@@ -2803,3 +2805,47 @@ XLite\Model\LanguageLabel:
   - { name: 'Update modules', translations: [{ code: en, label: 'Update modules' }]}
 
   - { name: 'The "{{file}}" file is not allowed and was not uploaded. Allowed extensions are: {{extensions}}', translations: [{ code: en, label: 'The "{{file}}" file is not allowed and was not uploaded. Allowed extensions are: {{extensions}}' }]}
+
+  - { name: "Couldn't download the banner {{value}} from URL", translations: [{ code: en, label: "Couldn't download the banner \"{{value}}\"" }] }
+  - { name: 'Error of banner loading. Make sure the "images" directory has write permissions.', translations: [{ code: en, label: 'Error of banner loading. Make sure the "images" directory has write permissions.' }] }
+
+  - { name: 'Searching...', translations: [{ code: en, label: 'Searching...' }] }
+  - { name: 'No results found.', translations: [{ code: en, label: 'No results found.' }] }
+  - { name: 'Enter a keyword to search.', translations: [{ code: en, label: 'Enter a keyword to search.' }] }
+
+  - { name: Item list, translations: [{ code: en, label: Item list }] }
+
+  - { name: 'Hotfixes mode', translations: [{ code: en, label: 'Bug-fixes only' }] }
+  - { name: 'Updates mode', translations: [{ code: en, label: 'Bug-fixes and new features' }] }
+
+  - { name: 'X items selected', translations: [{ code: en, label: '{{count}} items selected' }] }
+  - { name: 'Maximum items in box', translations: [{ code: en, label: 'Maximum items in box' }] }
+  - { name: 'Upgrade not allowed', translations: [{ code: en, label: 'Upgrade not allowed' }] }
+  - { name: 'X-Cart v5.3 requires PHP version 5.4 or better. Please update the PHP version installed on your server before you proceed.', translations: [{ code: en, label: 'X-Cart v5.3 requires PHP version 5.4 or better. Please update the PHP version installed on your server before you proceed.' }] }
+
+  - { name: 'Header, greeting & signature', translations: [{ code: en, label: 'Header, greeting & signature' }] }
+  - { name: 'On this page you can edit the header, greeting and signature used by all the email notifications sent by your store (separately for admin and customer users).', translations: [{ code: en, label: 'On this page you can edit the header, greeting and signature used by all the email notifications sent by your store (separately for admin and customer users).' }] }
+  - { name: 'Greeting', translations: [{ code: en, label: 'Greeting' }] }
+  - { name: 'The settings in this section determine the content of email notifications sent to customer.', translations: [{ code: en, label: 'The settings in this section determine the content of email notifications sent to customer.' }] }
+  - { name: 'Header', translations: [{ code: en, label: 'Header' }] }
+  - { name: 'Signature', translations: [{ code: en, label: 'Signature' }] }
+  - { name: 'The settings in this section determine the content of email notifications sent to admin.', translations: [{ code: en, label: 'The settings in this section determine the content of email notifications sent to admin.' }] }
+  - { name: 'Notification state', translations: [{ code: en, label: 'State' }] }
+  - { name: 'Scheme', translations: [{ code: en, label: 'Scheme' }] }
+  - { name: 'Body', translations: [{ code: en, label: 'Body' }] }
+  - { name: 'notification.section.customer', translations: [{ code: en, label: 'Customer' }] }
+  - { name: 'notification.section.administrator', translations: [{ code: en, label: 'Administrator' }] }
+
+  - { name: 'Add countries', translations: [{ code: en, label: 'Add countries' }] }
+
+  - { name: "Subscribe", translations: [{ code: en, label: "Subscribe" }] }
+  - { name: "Sign in / sign up", translations: [{ code: en, label: "Sign in / sign up" }] }
+  - { name: "Quick view", translations: [{ code: en, label: "Quick view" }] }
+  - { name: "Billing", translations: [{ code: en, label: "Billing" }] }
+  - { name: "Enable this if you would like us to use your shipping address as your billing address", translations: [{ code: en, label: "Enable this if you would like us to use your shipping address as your billing address" }] }
+  - { name: "Proceed to payment", translations: [{ code: en, label: "Proceed to payment" }] }
+  - { name: "Shipping to", translations: [{ code: en, label: "Shipping tog" }] }
+  - { name: "Billing to", translations: [{ code: en, label: "Billing to" }] }
+  - { name: "same as shipping", translations: [{ code: en, label: "same as shipping" }] }
+  - { name: 'Choose shipping', translations: [{ code: en, label: 'Choose shipping' }] }
+  - { name: 'Payment', translations: [{ code: en, label: 'Payment' }] }

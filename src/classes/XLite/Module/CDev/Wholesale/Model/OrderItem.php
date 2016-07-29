@@ -32,15 +32,33 @@ class OrderItem extends \XLite\Model\OrderItem implements \XLite\Base\IDecorator
      */
     public function hasWrongAmount()
     {
-        $minQuantity = \XLite\Core\Database::getRepo('XLite\Module\CDev\Wholesale\Model\MinQuantity')
-            ->getMinQuantity(
-                $this->getProduct(),
-                $this->getOrder()->getProfile() ? $this->getOrder()->getProfile()->getMembership() : null
-            );
+        return parent::hasWrongAmount() || $this->hasWrongMinQuantity();
+    }
 
-        $minimumQuantity = $minQuantity ? $minQuantity->getQuantity() : 1;
+    /**
+     * Check if item has an amount less than allowed min quantity
+     *
+     * @return boolean
+     */
+    public function hasWrongMinQuantity()
+    {
+        return $this->getMinQuantity() > $this->getAmount();
+    }
 
-        return parent::hasWrongAmount() || ($minimumQuantity > $this->getAmount());
+    /**
+     * Get product minimum quantity
+     *
+     * @param \XLite\Model\Membership $membership Customer's membership OPTIONAL
+     *
+     * @return integer
+     */
+    public function getMinQuantity($membership = null)
+    {
+        if (is_null($membership) && $this->getOrder()->getProfile()) {
+            $membership = $this->getOrder()->getProfile()->getMembership();
+        }
+
+        return $this->getProduct()->getMinQuantity($membership);
     }
 
     /**

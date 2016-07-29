@@ -9,7 +9,7 @@
 namespace XLite\Module\XC\BulkEditing\View\Button;
 
 /**
- * ItemsExport button
+ * Scenario button
  */
 class Scenario extends \XLite\View\Button\Regular
 {

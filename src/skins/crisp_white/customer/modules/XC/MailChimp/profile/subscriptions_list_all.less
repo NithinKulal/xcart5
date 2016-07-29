@@ -1,0 +1,109 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Powered by widget style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+table.subscriptions-list {
+  td {
+    padding-bottom: 0;
+    padding-left: 4px;
+    padding-right: 8px;
+
+    &:first-of-type {
+      padding-top: 11px;
+    }
+  }
+
+  td ~ td {
+    padding: 12px 0;
+    padding-bottom: 0;
+  }
+}
+
+.cart-items div.subscriptions-list-container {
+  display: none;
+}
+
+div.subscriptions-list-container {
+  padding-left: 0;
+
+  table {
+    margin-top: 7px;
+    margin-bottom: 25px;
+  }
+}
+
+.checkout_fastlane_container,
+.checkout-block {
+  div.subscriptions-list-container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    table.subscriptions-list {
+      margin: 0;
+      td {
+        text-align: left;
+        padding-right: 0;
+        padding-top: 0;
+        margin: 0;
+
+        font-family: 'Open Sans', Arial, sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #808080;
+
+        &:first-of-type {
+          padding-left: 0;
+          vertical-align: baseline;
+          padding-top: 0;
+
+          span {
+            margin: 0;
+          }
+
+          .checkbox {
+            margin-left: 0;
+            padding-left: 0;
+            margin-right: 10px;
+
+            input[type="checkbox"] {
+              margin-left: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.checkout_fastlane_container {
+  div.subscriptions-list-container {
+    margin-top: 0;
+    table.subscriptions-list {
+      td {
+        text-align: left;
+      }
+    }
+  }
+}
+
+.checkout-block {
+  div.subscriptions-list-container {
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .checkout_fastlane_container form.place div.subscriptions-list-container {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .checkout_fastlane_cart div.subscriptions-list-container {
+    display: none;
+  }
+}

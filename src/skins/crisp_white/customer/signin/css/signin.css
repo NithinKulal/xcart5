@@ -1,0 +1,74 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Checkout styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.or-line {
+  position: relative;
+  padding-top: 35px;
+  padding-bottom: 14px;
+}
+
+.signin-wrapper.social-login .or-line .line {
+  border-right: 1px solid #e2e2e2;
+  width: 50%;
+  height: 238px;
+}
+
+.signin-wrapper:not(.social-login) .or-line .line {
+  border-bottom: 1px solid #e2e2e2;
+  width: 300px;
+  margin: 0 auto;
+  height: 0 !important;
+}
+
+.signin-wrapper.social-login .or-line .or-box {
+  display: none;
+}
+
+.or-line .or-box {
+  position: relative;
+  top: -11px !important;
+}
+
+.or-line .or {
+  margin: 0 auto;
+  width: 30px;
+  background: white;
+  text-align: center;
+}
+
+#page-title {
+  display: none;
+}
+
+.signin-anonymous-box {
+    margin: 0 auto 20px;
+}
+
+.signin-wrapper table.login-form {
+  width: 100%;
+}
+
+.signin-wrapper .login-form div.table-value {
+  width: 100%;
+}
+
+.signin-anonymous-title-description {
+  font-size: 16px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  display: none;
+}
+
+.signin-wrapper {
+  position: relative;
+  border-radius: 5px;
+  width: 100%;
+  float: left;
+}

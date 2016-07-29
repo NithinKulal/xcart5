@@ -1,0 +1,65 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Specific styles for "Digital" color scheme
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.flyout-menu li {
+  border-color: #2d2d2d;
+  border-width: 1px;
+  border-style: solid none none none;
+}
+
+.flyout-menu li ul.sublevel li.first {
+  border-top: none;
+}
+
+.flyout-menu.catalog-categories > li > ul.sublevel {
+  top:-1px;
+}
+
+.sidebar .flyout-menu li ul {
+  background: #222222 url(sideblock_bg.gif) 0 0 repeat-x;
+  border: 0 none;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+
+.flyout-menu li a:active,
+.flyout-menu li a:link,
+.flyout-menu li a:visited,
+.flyout-menu li ul.sublevel li a:active,
+.flyout-menu li ul.sublevel li a:link,
+.flyout-menu li ul.sublevel li a:visited{
+  color: #fff;
+  border-top: none;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+
+.sidebar .flyout-menu li.hover,
+.sidebar .flyout-menu li:hover {
+  background-color: #363636;
+}
+
+.flyout-menu li:hover > a,
+.flyout-menu li ul.sublevel li:hover > a {
+  color: #aaaaaa;
+}
+
+.flyout-menu .category-icon {
+  top: 9px;
+}
+
+.flyout-menu .icon-triangle:before {
+  color: #eeeeee;
+}
+
+.flyout-menu li:hover > .icon-triangle:before {
+  color: #aaaaaa;
+}

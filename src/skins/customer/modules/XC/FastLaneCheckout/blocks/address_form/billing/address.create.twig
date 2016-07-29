@@ -1,0 +1,9 @@
+{##
+ # Shipping address : create profile checkbox
+ #
+ # @ListChild (list="checkout_fastlane.blocks.address.billing.email", weight="100")
+ #}
+
+{% if this.isCreateVisible() %}
+  {% include 'modules/XC/FastLaneCheckout/blocks/address_form/address.create.twig' %}
+{% endif %}

@@ -1,0 +1,9 @@
+{##
+ # Invoice totals : subtotal
+ #
+ # @ListChild (list="invoice.base.totals", weight="100")
+ #}
+<tr>
+    <td class="title">{{ t('Subtotal') }}:</td>
+    <td class="value">{{ this.getOrderSubtotal()|raw }}</td>
+</tr>

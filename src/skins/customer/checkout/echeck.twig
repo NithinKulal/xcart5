@@ -1,0 +1,32 @@
+{##
+ # E-check input form
+ #}
+<ul class="form clearfix">
+
+  <li class="clearfix">
+    {{ widget('XLite\\View\\FormField\\Input\\Text', fieldName='payment[check_routing_number]', label=t('ABA routing number'), required='true', attributes={'v-model': 'payment.check_routing_number', 'lazy': 'lazy'}) }}
+  </li>
+
+  <li class="clearfix">
+    {{ widget('XLite\\View\\FormField\\Input\\Text', fieldName='payment[check_acct_number]', label=t('Bank Account Number'), required='true', attributes={'v-model': 'payment.check_acct_number', 'lazy': 'lazy'}) }}
+  </li>
+
+  <li class="clearfix">
+    {{ widget('XLite\\View\\FormField\\Select\\EcheckType', fieldName='payment[check_type]', label=t('Type of Account'), required='true', value=this.cart.details.ch_type, attributes={'v-model': 'payment.check_type', 'lazy': 'lazy'}) }}
+  </li>
+
+  <li class="clearfix">
+    {{ widget('XLite\\View\\FormField\\Input\\Text', fieldName='payment[check_bank_name]', label=t('Name of bank at which account is maintained'), required='true', attributes={'v-model': 'payment.check_bank_name', 'lazy': 'lazy'}) }}
+  </li>
+
+  <li class="clearfix">
+    {{ widget('XLite\\View\\FormField\\Input\\Text', fieldName='payment[check_acct_name]', label=t('Name under which the account is maintained at the bank'), required='true', attributes={'v-model': 'payment.check_acct_name', 'lazy': 'lazy'}) }}
+  </li>
+
+  {% if this.processor.isDisplayNumber() %}
+    <li class="clearfix">
+      {{ widget('XLite\\View\\FormField\\Input\\Text', fieldName='payment[check_number]', label=t('Check number'), required='true', attributes={'v-model': 'payment.check_number', 'lazy': 'lazy'}) }}
+    </li>
+  {% endif %}
+
+</ul>

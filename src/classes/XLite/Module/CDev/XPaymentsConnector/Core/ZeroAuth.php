@@ -2,29 +2,8 @@
 // vim: set ts=4 sw=4 sts=4 et:
 
 /**
- * X-Cart
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the software license agreement
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://www.x-cart.com/license-agreement.html
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to licensing@x-cart.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not modify this file if you wish to upgrade X-Cart to newer versions
- * in the future. If you wish to customize X-Cart for your needs please
- * refer to http://www.x-cart.com/ for more information.
- *
- * @category  X-Cart 5
- * @author    Qualiteam software Ltd <info@x-cart.com>
- * @copyright Copyright (c) 2011-2016 Qualiteam software Ltd <info@x-cart.com>. All rights reserved
- * @license   http://www.x-cart.com/license-agreement.html X-Cart 5 License Agreement
- * @link      http://www.x-cart.com/
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
  */
 
 namespace XLite\Module\CDev\XPaymentsConnector\Core;
@@ -194,6 +173,10 @@ class ZeroAuth extends \XLite\Base\Singleton
                     $item = $item->$method();
                 }
 
+                if ('country' == $field) {
+                    $item = $item->getCountry();
+                }
+
                 $result = $result . ' ' . $item;
         }
 
@@ -235,7 +218,7 @@ class ZeroAuth extends \XLite\Base\Singleton
     }
 
     /**
-     * Get string linne for the single address 
+     * Get string line for the single address 
      *
      * @param \XLite\Model\Profile $profile Customer's profile
      *
@@ -369,7 +352,7 @@ class ZeroAuth extends \XLite\Base\Singleton
      *
      * @return string 
      */
-    protected function getRediectCode(\XLite\Model\Profile $profile)
+    protected function getRedirectCode(\XLite\Model\Profile $profile)
     {
         $url = \XLite::getInstance()->getShopUrl(
                 \XLite\Core\Converter::buildUrl(
@@ -414,6 +397,9 @@ class ZeroAuth extends \XLite\Base\Singleton
         if (!$interface) {
             $interface = \XLite::getCustomerScript();
         }
+
+        // Cleanup fake carts from session
+        self::cleanupFakeCartsForProfile($profile);
 
         // Prepare cart
         $cart = $this->createCart($profile);
@@ -515,6 +501,14 @@ class ZeroAuth extends \XLite\Base\Singleton
 
                 \XLite\Core\TopMessage::addInfo('Card saved');
 
+                // Fake cart doesn't get converted to order, this is WA
+                $this->processSucceedFakeCart($profile);
+
+                // If default card is not set then set it to new one
+                if (!$profile->getDefaultCardId()) {
+                    $profile->setDefaultCardId($transaction->getXpcData()->getId());
+                }
+
             } else {
 
                 \XLite\Core\TopMessage::addError('Card was not saved due to payment processor error');
@@ -522,7 +516,7 @@ class ZeroAuth extends \XLite\Base\Singleton
 
             \XLite\Core\Database::getEM()->flush();
 
-            echo $this->getRediectCode($profile);
+            echo $this->getRedirectCode($profile);
 
             // Cleanup pending zero-auth data
             $this->cleanupZeroAuthPendingData($profile);
@@ -565,6 +559,39 @@ class ZeroAuth extends \XLite\Base\Singleton
     }
 
     /**
+     * Mark fake cart as order
+     *
+     * @param \XLite\Model\Profile $profile Customer's profile
+     *
+     * @return void
+     */
+    public function processSucceedFakeCart(\XLite\Model\Profile $profile)
+    {
+        $carts = \XLite\Core\Database::getRepo('XLite\Model\Cart')->findByProfile($profile);
+
+        if ($carts) {
+            foreach ($carts as $cart) {
+
+                // Fake cart contains only one item, but there is no first() method
+                $item = $cart->getItems()->last();
+
+                if (
+                    $item
+                    && $item->isXpcFakeItem()
+                ) {
+                    if ($cart->getPaymentStatus()) {
+                        // Reset profile in cart to avoid removing it on cascade
+                        $cart->setProfileCopy($profile);
+                        $cart->processSucceed();
+                    }
+                }
+
+            }
+
+            \XLite\Core\Database::getEM()->flush();    
+        }
+    }
+    /**
      * Cleanup fake carts from session
      *
      * @param \XLite\Model\Profile $profile Customer's profile
@@ -592,6 +619,11 @@ class ZeroAuth extends \XLite\Base\Singleton
     {
         foreach ($carts as $cart) {
 
+            // Do not remove paid cart
+            if ($cart->getPaymentStatus()) {
+                continue;
+            }
+
             // Fake cart contains only one item, but there is no first() method
             $item = $cart->getItems()->last();
 
@@ -599,6 +631,8 @@ class ZeroAuth extends \XLite\Base\Singleton
                 $item
                 && $item->isXpcFakeItem()
             ) {
+                // Reset profile in cart to avoid removing it on cascade
+                $cart->setProfile(null);
                 \XLite\Core\Database::getEM()->remove($cart);
             }
 

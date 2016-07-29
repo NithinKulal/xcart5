@@ -33,6 +33,12 @@ class Shipping extends \XLite\Logic\Order\Modifier\AShipping
     protected $selectedRate;
 
     /**
+     * Runtime cache
+     * @var array
+     */
+    protected $rates;
+
+    /**
      * Check - can apply this modifier or not
      *
      * @return boolean
@@ -105,9 +111,13 @@ class Shipping extends \XLite\Logic\Order\Modifier\AShipping
      */
     public function getRates()
     {
-        return $this->isCart()
-            ? $this->calculateRates()
-            : $this->restoreRates();
+        if (!isset($this->rates) || \XLite\Core\Request::getInstance()->isAJAX()) {
+            $this->rates = $this->isCart()
+                ? $this->calculateRates()
+                : $this->restoreRates();
+        }
+
+        return $this->rates;
     }
 
     /**

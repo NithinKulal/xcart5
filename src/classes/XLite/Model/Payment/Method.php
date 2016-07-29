@@ -305,6 +305,7 @@ class Method extends \XLite\Model\Base\I18n
                     $setting->setName($name);
                     $setting->setValue(strval($value));
                     $setting->setPaymentMethod($this);
+                    $this->addSettings($setting);
 
                     \XLite\Core\Database::getEM()->persist($setting);
                 }

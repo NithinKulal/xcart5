@@ -9,6 +9,7 @@
 namespace XLite\Module;
 
 use Interop\Container\ContainerInterface;
+use Interop\Container\Exception\ContainerException;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -275,7 +276,7 @@ abstract class AModule
      */
     public static function getBuildVersion()
     {
-        '0';
+        return '0';
     }
 
     /**
@@ -312,12 +313,22 @@ abstract class AModule
 
     /**
      * Check - module required disabled+redeploy+uninstall (true) or deploy+uninstall (false)
-     * 
+     *
      * @return boolean
      */
     public static function isSeparateUninstall()
     {
         return false;
+    }
+
+    /**
+     * Check if module can be disabled
+     *
+     * @return boolean
+     */
+    public static function canDisable()
+    {
+        return true;
     }
 
     /**
@@ -718,6 +729,7 @@ abstract class AModule
      * Returns an EventDispatcherInterface implementation to use in AModule::init to register event listeners/subscribers.
      *
      * @return EventDispatcherInterface
+     * @throws ContainerException
      */
     protected static function getEventDispatcher()
     {

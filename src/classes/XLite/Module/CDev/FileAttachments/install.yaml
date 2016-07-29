@@ -10,4 +10,5 @@ XLite\Model\LanguageLabel:
   - { name: "The attachment has been successfully re-upload", translations: [{ code: en, label: "The attachment has been successfully re-uploaded" }] }
   - { name: "Failed to re-upload attachment", translations: [{ code: en, label: "Failed to re-upload attachment" }] }
   - { name: "Attachment has been deleted successfully", translations: [{ code: en, label: "Attachment has been deleted successfully" }] }
+  - { name: "Attachments", translations: [{ code: en, label: "Attachments" }] }
 

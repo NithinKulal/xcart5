@@ -1,0 +1,9 @@
+{##
+ # iframe 
+ #
+ #}
+{% if this.isDefaultCard(this.entity) %}
+  <input checked type="radio" name="default_card_id" value="{{ this.entity.getId() }}" />
+{% else %}
+  <input type="radio" name="default_card_id" value="{{ this.entity.getId() }}" />
+{% endif %}

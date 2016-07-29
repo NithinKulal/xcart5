@@ -1,0 +1,176 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * List item group
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.list-items-group {
+  -webkit-transition: min-height 0.25s ease-in-out;
+  transition: min-height 0.25s ease-in-out;
+  min-height: 0px;
+}
+
+.list-items-group__on-move {
+  min-height: 50px;
+}
+
+/* List items and action buttons */
+
+.list-item-action {
+  padding: 3px 6px;
+  background: #eee;
+  font-size: 16px;
+  color: #333;
+}
+
+.list-item-action:hover {
+  color: #333;
+  background: #dedede;
+}
+
+.list-item {
+  position: relative;
+  -webkit-transition: max-height 0.4s ease, height 0.4s ease, opacity 0.3s ease;
+  transition: height 0.4s ease, height 0.4s ease, opacity 0.3s ease;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.list-item:hover .list-item-content {
+  min-height: 50px;
+}
+
+.list-container.disabled .list-item {
+  pointer-events: none;
+}
+
+.list-container.disabled .list-item-content > * {
+  pointer-events: auto;
+}
+
+.list-item:not(.list-item__temporary) .list-item-action__unhide {
+  display: none;
+}
+
+.list-item-actions {
+  position: absolute;
+  z-index: 99998;
+  top: 10px;
+  right: 10px;
+}
+
+.list-item-actions .tooltip-inner {
+  white-space: nowrap;
+}
+
+.list-item:not(.list-item__temporary) .list-item-actions{
+  display: none;
+}
+
+.list-container:not(.disabled) .list-item:hover .list-item-actions {
+  display: block;
+}
+
+.list-item__hidden .list-item-content {
+  overflow: hidden;
+}
+
+.list-item__hidden {
+  overflow: hidden;
+  opacity: 0;
+  max-height: 0px;
+}
+
+.list-item__hiding {
+  -webkit-animation: list-item-hide 0.5s;
+          animation: list-item-hide 0.5s;
+}
+
+.list-item__showing {
+  -webkit-animation: list-item-hide 0.5s;
+          animation: list-item-hide 0.5s;
+  -webkit-animation-direction: reverse;
+          animation-direction: reverse;
+  -webkit-animation-timing-function: ease;
+          animation-timing-function: ease;
+}
+
+.list-item__temporary .list-item-content {
+  opacity: 0.3;
+  outline: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.list-item__temporary .list-item-action__hide {
+  display: none;
+}
+
+/* Drag-n-drop effects */
+
+.list-container:not(.disabled) .list-item:not(.list-item__not-hoverable):hover:after, .sortable-chosen:after{
+  content: '';
+  display: block;
+  position: absolute;
+  z-index: 9999;
+  top: -0px;
+  bottom: -0px;
+  left: -0px;
+  right: -0px;
+  border-radius: 3px;
+  border: 1px solid rgba(60, 145, 206, 0.75);
+}
+
+.sortable-chosen.sortable-ghost {
+  border: none;
+  background: rgba(209, 228, 239, 0.15);
+  outline: 1px dashed rgba(60, 145, 206, 0.5);
+}
+
+.sortable-chosen.sortable-ghost:after{
+  border: none;
+}
+
+.sortable-ghost .list-item-content,
+.sortable-ghost .list-item-actions {
+  opacity: 0;
+}
+
+/* Hide/show animation */
+
+@-webkit-keyframes list-item-hide {
+  0% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  30% {
+    opacity: 0.3;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(0.9);
+            transform: scale(0.9);
+  }
+}
+
+@keyframes list-item-hide {
+  0% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  30% {
+    opacity: 0.3;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(0.9);
+            transform: scale(0.9);
+  }
+}

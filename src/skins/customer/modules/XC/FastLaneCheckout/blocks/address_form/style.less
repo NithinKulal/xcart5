@@ -1,0 +1,82 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * style.less
+ *
+ * Copyright (c) 2001-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+.checkout_fastlane_address_form {
+    clear: both;
+
+	.form-group > .table-value {
+	    float: right;
+	    width: 70%;
+
+	    & > .input-field-wrapper {
+	    	display: block;
+	    }
+	}
+
+    &.create-profile-warning .form-field-comment,
+    &.create-profile-note .form-field-comment,
+    .create-warning,
+    .create-note,
+    .create {
+      display: none;
+    }
+}
+
+.checkout_fastlane_address_form_wrapper .checkout_fastlane_block_heading {
+    float: left;
+}
+
+@media (max-width: @screen-xs-max) {
+  .checkout_fastlane_address_form_wrapper:first-of-type .checkout_fastlane_block_heading {
+    .h1;
+  }
+  .checkout_fastlane_section--address .checkout_fastlane_section_heading {
+    display: none;
+  }
+}
+
+.checkout_fastlane_block_address-book-button {
+    float: right;
+    padding-top: 30px;
+}
+
+form.select-address {
+    .address-text-label,
+    .address-text-comma
+    {
+      display: none;
+    }
+
+    ul.address-box > li {
+      padding: 0px 0px 2px 2px;
+      float: left;
+      clear: left;
+    }
+
+    ul.address-box li ul li {
+      float: left;
+      clear: none;
+    }
+
+    ul.address-box li.address-text-lastname,
+      ul.address-box li.address-text-firstname,
+      ul.address-box li.address-text-state_id,
+      ul.address-box li.address-text-zipcode
+    {
+      clear: none;
+    }
+
+    ul.address-box li.address-text-city .address-text-comma,
+      ul.address-box li.address-text-state_id .address-text-comma,
+      ul.address-box li.address-text-country_code .address-text-comma,
+      ul.address-box li.address-text-type .address-text-label,
+      ul.address-box li.address-text-phone .address-text-label
+    {
+      display: inherit;
+    }
+}

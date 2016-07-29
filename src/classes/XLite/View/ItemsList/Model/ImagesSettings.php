@@ -74,7 +74,7 @@ class ImagesSettings extends \XLite\View\ItemsList\Model\Table
     protected function getData(\XLite\Core\CommonCell $cnd, $countOnly = false)
     {
         $options = $this->prepareOptions(
-            \XLite\Core\Database::getRepo('XLite\Model\ImageSettings')->findAll()
+            \XLite\Core\Layout::getInstance()->getCurrentImagesSettings()
         );
 
         return $countOnly ? count($options) : $options;
@@ -126,6 +126,13 @@ class ImagesSettings extends \XLite\View\ItemsList\Model\Table
                 }
             }
 
+            $currentSkinModule = \XLite\Core\Database::getRepo('XLite\Model\Module')
+                ->getCurrentSkinModule();
+
+            $skinModuleName = $currentSkinModule && $currentSkinModule->getActualName() !== "XC\ColorSchemes"
+                ? $currentSkinModule->getActualName()
+                : 'default';
+
             // Search for image sizes which should be added to the database
             foreach ($tmp as $k => $v) {
                 if (!isset($existingSizes[$k])) {
@@ -133,6 +140,7 @@ class ImagesSettings extends \XLite\View\ItemsList\Model\Table
                     $entity = new \XLite\Model\ImageSettings();
                     $entity->setModel($v['model']);
                     $entity->setCode($v['code']);
+                    $entity->setModuleName($skinModuleName);
                     $entity->setWidth($v['size'][0]);
                     $entity->setHeight($v['size'][1]);
 

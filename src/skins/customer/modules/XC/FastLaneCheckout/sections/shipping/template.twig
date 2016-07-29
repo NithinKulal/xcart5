@@ -1,0 +1,12 @@
+{##
+ # Fastlane checkout shipping section
+ #}
+
+<div is='shipping-section' inline-template class="checkout_fastlane_section checkout_fastlane_section--shipping" next-label="{{ this.getNextButtonLabel() }}">
+	<h1 class="checkout_fastlane_section_heading">{{ t('Shipping method') }}</h1>
+	<div class="checkout_fastlane_section-left">
+		{{ widget_list('checkout_fastlane.sections.shipping.left') }}
+	</div>
+	<div class="clearfix"></div>
+	{{ widget_list('checkout_fastlane.sections.shipping.after') }}
+</div>

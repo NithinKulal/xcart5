@@ -51,7 +51,7 @@ abstract class Main extends \XLite\Module\AModuleSkin
      */
     public static function getMinorVersion()
     {
-        return '0';
+        return '1';
     }
 
     /**
@@ -124,7 +124,7 @@ abstract class Main extends \XLite\Module\AModuleSkin
                     ['layout.header', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
                 static::TO_ADD    => [
-                    ['header.menu', 100, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
+                    ['header.menu.after', 100, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
             'layout/header/header.bar.search.twig'                                      => [
@@ -150,7 +150,7 @@ abstract class Main extends \XLite\Module\AModuleSkin
                     ['layout.header.mobile.menu', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'layout/header/mobile_header_parts/slidebar.twig'                           => [
+            'layout/header/mobile_header_parts/slidebar_menu.twig'                      => [
                 static::TO_DELETE => [
                     ['layout.header.mobile.menu', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
@@ -296,7 +296,7 @@ abstract class Main extends \XLite\Module\AModuleSkin
                     ['product.details.page.info', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
                 static::TO_ADD    => [
-                    ['product.details.page.info', 11, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
+                    ['product.details.page.info', 18, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
             'product/details/parts/common.stock.twig'                                   => [
@@ -407,32 +407,16 @@ abstract class Main extends \XLite\Module\AModuleSkin
                     ['product.details.quicklook.info.buttons-added', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
                 static::TO_ADD    => [
-                    ['product.details.page.image', 5, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
+                    ['product.details.page.image', 10, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ['product.details.quicklook.image', 5, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'modules/XC/FastLaneCheckout/sections/address/next.twig'      => [
+            'modules/XC/FastLaneCheckout/sections/section_change_button.twig'      => [
                 static::TO_DELETE => [
-                    ['checkout_fastlane.sections.address.left', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
+                    ['checkout_fastlane.sections_block.after', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
                 static::TO_ADD    => [
-                    ['checkout_fastlane.sections.address.details', 20, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
-                ],
-            ],
-            'modules/XC/FastLaneCheckout/sections/shipping/next.twig'      => [
-                static::TO_DELETE => [
-                    ['checkout_fastlane.sections.shipping.left', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
-                ],
-                static::TO_ADD    => [
-                    ['checkout_fastlane.sections.shipping.details', 20, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
-                ],
-            ],
-            'modules/XC/FastLaneCheckout/sections/payment/place_order.twig'      => [
-                static::TO_DELETE => [
-                    ['checkout_fastlane.sections.payment.left', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
-                ],
-                static::TO_ADD    => [
-                    ['checkout_fastlane.sections.payment.details', 20, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
+                    ['checkout_fastlane.sections.details', 20, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
             'modules/XC/FastLaneCheckout/checkout_fastlane/header/back_button.twig'      => [
@@ -458,6 +442,19 @@ abstract class Main extends \XLite\Module\AModuleSkin
             ];
         }
 
+        if (static::isModuleEnabled('XC\MultiVendor')) {
+            $templates['modules/XC/MultiVendor/product/details/parts/vendor.twig'] = [
+                static::TO_DELETE => [
+                    ['product.details.page', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
+                    ['product.details.quicklook', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
+                ],
+                static::TO_ADD    => [
+                    ['product.details.page.info', 11, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
+                    ['product.details.quicklook.info', 11, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
+                ],
+            ];
+        }
+
         return $templates;
     }
 
@@ -470,6 +467,10 @@ abstract class Main extends \XLite\Module\AModuleSkin
             'XLite\View\MinicartAttributeValues' => [
                 ['minicart.horizontal.item', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ['minicart.horizontal.item.name', 10, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
+            ],
+            'XLite\View\Product\Details\Customer\PhotoBox' => [
+                ['product.details.page.image', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
+                ['product.details.page.image', 5, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
             ],
 
             'XLite\View\LanguageSelector\Customer'                                                  => [
@@ -526,7 +527,12 @@ abstract class Main extends \XLite\Module\AModuleSkin
 
         if (static::isModuleEnabled('XC\MultiCurrency')) {
             $classes_list['XLite\Module\XC\MultiCurrency\View\LanguageSelector\CustomerMobile'] = [
-                ['layout.header.mobile.menu', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
+                static::TO_DELETE => [
+                    ['layout.header.mobile.menu', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
+                ],
+                static::TO_ADD    => [
+                    ['slidebar.settings', 0, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
+                ],
             ];
         }
 
@@ -563,12 +569,13 @@ abstract class Main extends \XLite\Module\AModuleSkin
             $classes_list['XLite\Module\XC\ProductComparison\View\AddToCompare\ProductCompareIndicator'] = [
                 static::TO_ADD => [
                     ['layout.header.right', 50, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
+                    ['layout.header.right.mobile', 50, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ];
 
             $classes_list['XLite\Module\XC\ProductComparison\View\AddToCompare\ProductCompareLink'] = [
                 static::TO_ADD => [
-                    ['layout.header.right.settings.links', 20, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
+                    ['slidebar.additional-menu.links', 20, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ];
 

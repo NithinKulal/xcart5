@@ -14,21 +14,21 @@ namespace XLite\Module\CDev\Sale\Model\DTO\Product;
 class Info extends \XLite\Model\DTO\Product\Info implements \XLite\Base\IDecorator
 {
     /**
-     * @param mixed|\XLite\Model\Product $data
+     * @param mixed|\XLite\Model\Product $object
      */
-    protected function init($data)
+    protected function init($object)
     {
-        parent::init($data);
+        parent::init($object);
 
         static::compose(
             $this,
             [
                 'prices_and_inventory' => [
                     'price' => [
-                        'participate_sale' => $data->getParticipateSale(),
+                        'participate_sale' => $object->getParticipateSale(),
                         'sale_price'      => [
-                            'type'  => $data->getDiscountType(),
-                            'value' => $data->getSalePriceValue(),
+                            'type'  => $object->getDiscountType(),
+                            'value' => $object->getSalePriceValue(),
                         ],
                     ],
                 ],
@@ -37,20 +37,20 @@ class Info extends \XLite\Model\DTO\Product\Info implements \XLite\Base\IDecorat
     }
 
     /**
-     * @param \XLite\Model\Product $dataObject
+     * @param \XLite\Model\Product $object
      * @param array|null           $rawData
      *
      * @return mixed
      */
-    public function populateTo($dataObject, $rawData = null)
+    public function populateTo($object, $rawData = null)
     {
         $participateSale = static::deCompose($this, 'prices_and_inventory', 'price', 'participate_sale');
-        $dataObject->setParticipateSale($participateSale);
+        $object->setParticipateSale($participateSale);
 
         $salePrice = static::deCompose($this, 'prices_and_inventory', 'price', 'sale_price');
-        $dataObject->setDiscountType($salePrice['type']);
-        $dataObject->setSalePriceValue($salePrice['value']);
+        $object->setDiscountType($salePrice['type']);
+        $object->setSalePriceValue($salePrice['value']);
 
-        parent::populateTo($dataObject, $rawData);
+        parent::populateTo($object, $rawData);
     }
 }

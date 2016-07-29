@@ -1,0 +1,7 @@
+{##
+ # Body
+ #}
+<div class="add-to-compare products compare-checkbox">
+    <input id="{{ this.getCheckboxId(this.product.product_id) }}" type="checkbox" data-id="{{ this.product.product_id }}"{% if this.isChecked(this.product.product_id) %} checked="checked"{% endif %} />
+    <label for="{{ this.getCheckboxId(this.product.product_id) }}" title="{{ t('Add to compare') }}"></label>
+</div>

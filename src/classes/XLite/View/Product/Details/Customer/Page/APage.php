@@ -96,7 +96,9 @@ abstract class APage extends \XLite\View\Product\Details\Customer\ACustomer
                 $list[$k] = array(
                     'index'  => $i,
                     'id'     => 'product-details-tab-' . $id,
-                    'name'   => is_array($data) && !empty($data['name']) ? $data['name'] : $k,
+                    'name'   => is_array($data) && !empty($data['name'])
+                        ? $data['name']
+                        : static::t($k),
                     'weight' => isset($data['weight']) ? $data['weight'] : $i,
                 );
 

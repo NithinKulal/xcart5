@@ -50,7 +50,7 @@ class CountryState extends \XLite\Core\Validator\Pair\APair
         $countryCodeValidator->validate($data);
 
         // Check state
-        if (isset($data[static::FIELD_STATE])) {
+        if (!empty($data[static::FIELD_STATE])) {
             $stateValidator = new \XLite\Core\Validator\Pair\Simple;
             $stateValidator->setName(static::FIELD_STATE);
             $stateValidator->setValidator(

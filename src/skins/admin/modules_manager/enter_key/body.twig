@@ -1,0 +1,19 @@
+{##
+ # Modules enter key form
+ #}
+
+<div class="enter-addon-key-form">
+
+  {% form '\\XLite\\View\\Form\\Module\\ModuleKey' with {formAction: 'register_key'} %}
+
+    <div class="enter-key-hint">{{ t('To activate your X-Cart or commercial module license, enter your license key into the field below and click Activate.') }}</div>
+
+    <div class="addon-key"><input type="text" name="key" value="" placeholder="{{ t('Enter license key') }}" class="form-control" /></div>
+
+    {{ widget('\\XLite\\View\\Button\\Submit', style='regular-main-button', label=t('Activate')) }}
+
+    <div class="clear"></div>
+
+  {% endform %}
+
+</div>

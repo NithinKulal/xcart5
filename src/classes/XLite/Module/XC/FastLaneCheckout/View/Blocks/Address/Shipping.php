@@ -36,6 +36,15 @@ class Shipping extends FastLaneCheckout\View\Blocks\Address
     }
 
     /**
+     * @return boolean
+     */
+    protected function isVisible()
+    {
+        return parent::isVisible()
+            && $this->isShippingNeeded();
+    }
+
+    /**
      * Get address info model
      *
      * @return \XLite\Model\Address

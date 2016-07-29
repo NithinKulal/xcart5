@@ -14,6 +14,7 @@ namespace XLite\View;
  * @ListChild (list="invoice.item.name", weight="50")
  * @ListChild (list="invoice.item.name", weight="20", zone="admin")
  * @ListChild (list="invoice.item.name", weight="50", zone="mail")
+ * @ListChild (list="invoice.item.name", weight="20", zone="pdf")
  * @ListChild (list="order.items.item.name", weight="20", zone="admin")
  */
 class InvoiceAttributeValues extends \XLite\View\AView

@@ -111,7 +111,7 @@ class AddonsListInstalled extends \XLite\Controller\Admin\Base\AddonsList
      *
      * @param array $data Modules data
      *
-     * @return array
+     * @return \XLite\Model\Module[]
      */
     protected function getModules($data)
     {
@@ -334,6 +334,7 @@ class AddonsListInstalled extends \XLite\Controller\Admin\Base\AddonsList
 
         $excludedModules = array();
         $excludedEnableModules = array();
+        $excludedDisableModules = array();
 
         $restorePoint = \Includes\Utils\ModulesManager::getEmptyRestorePoint();
 
@@ -361,7 +362,12 @@ class AddonsListInstalled extends \XLite\Controller\Admin\Base\AddonsList
                 $toEnable  = ($new && $old != $new);
             }
 
-            if ($toDelete || $toDisable) {
+            if ($toDisable && !$module->callModuleMethod('canDisable')) {
+                $excludedDisableModules[] = $module->getModuleName();
+                unset($data[$module->getModuleId()], $switchModules[$key]);
+
+            } elseif ($toDelete || $toDisable) {
+
                 $dependentModules = $module->getDependentModules();
                 if ($dependentModules) {
 
@@ -379,8 +385,7 @@ class AddonsListInstalled extends \XLite\Controller\Admin\Base\AddonsList
                             ) {
                                 // Remove current module from the actions list if it has active dependent modules
                                 $excludedModules[] = $module->getModuleName();
-                                unset($data[$module->getModuleId()]);
-                                unset($switchModules[$key]);
+                                unset($data[$module->getModuleId()], $switchModules[$key]);
                                 break;
                             }
                         }
@@ -430,6 +435,16 @@ class AddonsListInstalled extends \XLite\Controller\Admin\Base\AddonsList
             \XLite\Core\TopMessage::addWarning(
                 'The following selected modules cannot be enabled as they depend on disabled modules which cannot be enabled',
                 array('list' => implode(', ', $excludedEnableModules))
+            );
+
+            // Selection has excluded modules - this is a critical case, break an entire operation
+            return;
+        }
+
+        if ($excludedDisableModules) {
+            \XLite\Core\TopMessage::addWarning(
+                'The following selected modules cannot be disabled due to architecture limitations',
+                array('list' => implode(', ', $excludedDisableModules))
             );
 
             // Selection has excluded modules - this is a critical case, break an entire operation

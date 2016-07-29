@@ -1,0 +1,26 @@
+{##
+ # Modules main section list
+ #
+ # @ListChild (list="itemsList.module.manage.columns.module-main-section.messages", weight="30")
+ #}
+
+{% if not this.module.canDisable() %}
+  {% set dependentModules = this.module.getDependentModules() %}
+  <div class="note dependencies">
+
+    {% if dependentModules is not empty %}
+      {{ t('Can\'t be disabled. The module is required by:') }}
+
+      <ul>
+        {% for depend in this.module.getDependentModules() %}
+          <li>
+            <a href="#{{ depend.getName() }}">{{ depend.getModuleName() }} ({{ t('by') }} {{ depend.getAuthorName() }})</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      {{ t('The module may not be disabled due to the limitations of the module architecture.') }}
+    {% endif %}
+  
+  </div>
+{% endif %}

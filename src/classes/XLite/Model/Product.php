@@ -2133,6 +2133,18 @@ class Product extends \XLite\Model\Base\Catalog implements \XLite\Model\Base\IOr
     }
 
     /**
+     * @param \XLite\Model\Category $category
+     */
+    public function addCategory($category)
+    {
+        $categoryProduct = new \XLite\Model\CategoryProducts();
+        $categoryProduct->setProduct($this);
+        $categoryProduct->setCategory($category);
+
+        $this->addCategoryProducts($categoryProduct);
+    }
+
+    /**
      * @param \XLite\Model\Category[] $categories
      */
     public function removeCategoryProductsLinksByCategories($categories)

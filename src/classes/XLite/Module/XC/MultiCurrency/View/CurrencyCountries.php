@@ -30,6 +30,34 @@ class CurrencyCountries extends \XLite\View\AView
     }
 
     /**
+     * Get JS files
+     *
+     * @return array
+     */
+    public function getJSFiles()
+    {
+        $return = parent::getJSFiles();
+
+        $return[] = $this->getDir() . LC_DS . 'script.js';
+
+        return $return;
+    }
+
+    /**
+     * Get CSS files
+     *
+     * @return array
+     */
+    public function getCSSFiles()
+    {
+        $return = parent::getCSSFiles();
+
+        $return[] = $this->getDir() . LC_DS . 'style.less';
+
+        return $return;
+    }
+
+    /**
      * Get directory
      *
      * @return string

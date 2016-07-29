@@ -14,6 +14,13 @@ namespace XLite\Logic\Import\Processor;
 class Attributes extends \XLite\Logic\Import\Processor\AProcessor
 {
     /**
+     * Current attribute name
+     *
+     * @var string
+     */
+    protected $currentAttrName = '';
+
+    /**
      * Get title
      *
      * @return string
@@ -66,13 +73,13 @@ class Attributes extends \XLite\Logic\Import\Processor\AProcessor
     {
         return array(
             'position'        => array(),
-            'product'         => array(
-                static::COLUMN_IS_KEY          => true,
-            ),
             'name'            => array(
                 static::COLUMN_IS_KEY          => true,
                 static::COLUMN_IS_MULTILINGUAL => true,
                 static::COLUMN_LENGTH          => 255,
+            ),
+            'product'         => array(
+                static::COLUMN_IS_KEY          => true,
             ),
             'class'    => array(
                 static::COLUMN_IS_KEY          => true,
@@ -192,6 +199,7 @@ class Attributes extends \XLite\Logic\Import\Processor\AProcessor
         if ($this->verifyValueAsEmpty($value)) {
             $this->addError('ATTR-NAME-FMT', array('column' => $column, 'value' => $value));
         }
+        $this->currentAttrName = $value;
     }
 
     /**
@@ -221,7 +229,7 @@ class Attributes extends \XLite\Logic\Import\Processor\AProcessor
     protected function verifyProduct($value, array $column)
     {
         if (!$this->verifyValueAsEmpty($value) && !$this->verifyValueAsProduct($value)) {
-            $this->addWarning('ATTR-PRODUCT-FMT', array('column' => $column, 'value' => $value));
+            $this->addWarning('ATTR-PRODUCT-FMT', array('column' => $column, 'value' => $value, 'name' => $this->currentAttrName));
         }
     }
 

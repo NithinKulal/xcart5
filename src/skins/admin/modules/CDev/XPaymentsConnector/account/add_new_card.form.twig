@@ -1,0 +1,19 @@
+{##
+ # Customer's saved credit cards header
+ #
+ #
+ # @ListChild (list="admin.account.add_new_card.form", weight="100")
+ #}
+
+<div id="add_new_card_iframe_container">
+
+
+  <iframe src="{{ this.buildUrl('add_new_card', 'xpc_iframe', {'profile_id': this.getCustomerProfileId()}) }}" width="300" height="100%" border="0" style="border: 0px" id="add_new_card_iframe"></iframe>
+
+  <div class="clearfix"></div>
+
+  <button id="submit-button" class="btn regular-main-button" />{{ t('Save credit card') }}</button>
+
+  <a href="{{ url('saved_cards', '', {'profile_id': this.getCustomerProfileId()}) }}" class="back-to-cards" >{{ t('Back to credit cards') }}</a>
+
+</div>

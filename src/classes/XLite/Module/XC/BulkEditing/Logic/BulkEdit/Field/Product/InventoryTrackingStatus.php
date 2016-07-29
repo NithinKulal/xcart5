@@ -32,22 +32,4 @@ class InventoryTrackingStatus extends \XLite\Module\XC\BulkEditing\Logic\BulkEdi
     {
         $object->setInventoryEnabled($data->{$name});
     }
-
-    /**
-     * @param string               $name
-     * @param \XLite\Model\Product $object
-     * @param array                $options
-     *
-     * @return array
-     */
-    public static function getViewData($name, $object, $options)
-    {
-        return [
-            $name => [
-                'label'    => static::t('Inventory tracking for this product is'),
-                'value'    => $object->getInventoryEnabled() ? static::t('Enabled') : static::t('Disabled'),
-                'position' => isset($options['position']) ? $options['position'] : 0,
-            ],
-        ];
-    }
 }

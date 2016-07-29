@@ -43,19 +43,20 @@ class Info extends \XLite\View\FormModel\AFormModel
      */
     protected function defineSections()
     {
-        return [
-            self::SECTION_DEFAULT,
+        return array_replace(parent::defineSections(), [
             'prices_and_inventory' => [
-                'label' => static::t('Prices & Inventory'),
+                'label'    => static::t('Prices & Inventory'),
+                'position' => 100,
             ],
             'shipping'             => [
-                'label' => static::t('Shipping'),
+                'label'    => static::t('Shipping'),
+                'position' => 200,
             ],
             'marketing'            => [
-                'label' => static::t('Marketing'),
+                'label'    => static::t('Marketing'),
+                'position' => 300,
             ],
-
-        ];
+        ]);
     }
 
     /**
@@ -64,6 +65,7 @@ class Info extends \XLite\View\FormModel\AFormModel
     protected function defineFields()
     {
         $skuMaxLength = \XLite\Core\Database::getRepo('XLite\Model\Product')->getFieldInfo('sku', 'length');
+        $nameMaxLength = \XLite\Core\Database::getRepo('XLite\Model\ProductTranslation')->getFieldInfo('name', 'length');
 
         $memberships = [];
         foreach (\XLite\Core\Database::getRepo('XLite\Model\Membership')->findActiveMemberships() as $membership) {
@@ -124,22 +126,27 @@ class Info extends \XLite\View\FormModel\AFormModel
                         'Symfony\Component\Validator\Constraints\NotBlank' => [
                             'message' => static::t('This field is required'),
                         ],
+                        'XLite\Core\Validator\Constraints\MaxLength'       => [
+                            'length'  => $nameMaxLength,
+                            'message' =>
+                                static::t('Name length must be less then {{length}}', ['length' => $nameMaxLength]),
+                        ],
                     ],
                     'position'    => 100,
                 ],
                 'sku'                => [
                     'label'       => static::t('SKU'),
                     'constraints' => [
-                        'Symfony\Component\Validator\Constraints\Length' => [
-                            'max'        => $skuMaxLength,
-                            'maxMessage' =>
+                        'XLite\Core\Validator\Constraints\MaxLength' => [
+                            'length'  => $skuMaxLength,
+                            'message' =>
                                 static::t('SKU length must be less then {{length}}', ['length' => $skuMaxLength]),
                         ],
                     ],
                     'position'    => 200,
                 ],
                 'images'             => [
-                    'label'        => 'Images',
+                    'label'        => static::t('Images'),
                     'type'         => 'XLite\View\FormModel\Type\OldType',
                     'oldType'      => 'XLite\View\FormField\FileUploader\Image',
                     'fieldOptions' => ['value' => $images, 'multiple' => true],
@@ -153,12 +160,12 @@ class Info extends \XLite\View\FormModel\AFormModel
                 ],
                 'description'        => [
                     'label'    => static::t('Description'),
-                    'type'     => 'Symfony\Component\Form\Extension\Core\Type\TextareaType',
+                    'type'     => 'XLite\View\FormModel\Type\TextareaAdvancedType',
                     'position' => 500,
                 ],
                 'full_description'   => [
                     'label'    => static::t('Full description'),
-                    'type'     => 'Symfony\Component\Form\Extension\Core\Type\TextareaType',
+                    'type'     => 'XLite\View\FormModel\Type\TextareaAdvancedType',
                     'position' => 600,
                 ],
                 'available_for_sale' => [
@@ -179,7 +186,6 @@ class Info extends \XLite\View\FormModel\AFormModel
                     'multiple'          => true,
                     'choices'           => array_flip($memberships),
                     'choices_as_values' => true,
-                    // 'input_grid'        => 'col-sm-8',
                     'position'          => 100,
                 ],
                 'tax_class'          => $taxClassSchema,
@@ -201,17 +207,15 @@ class Info extends \XLite\View\FormModel\AFormModel
                             'message' => static::t('Minimum value is X', ['value' => 0]),
                         ],
                     ],
-                    // 'input_grid'  => 'col-sm-2',
                     'position'    => 300,
                 ],
                 'inventory_tracking' => [
-                    'label'       => static::t('Inventory tracking is'),
+                    'label'       => static::t('Inventory tracking for this product is'),
                     'description' => $inventoryTrackingDescription,
                     'type'        => 'XLite\View\FormModel\Type\Base\CompositeType',
                     'fields'      => [
                         'inventory_tracking' => [
                             'type'     => 'XLite\View\FormModel\Type\SwitcherType',
-                            // 'input_grid' => 'col-sm-1',
                             'position' => 100,
                         ],
                         'quantity'           => [
@@ -221,7 +225,6 @@ class Info extends \XLite\View\FormModel\AFormModel
                                 'alias'      => 'integer',
                                 'rightAlign' => false,
                             ],
-                            // 'input_grid' => 'col-sm-2',
                             'show_when' => [
                                 'prices_and_inventory' => [
                                     'inventory_tracking' => [
@@ -248,7 +251,6 @@ class Info extends \XLite\View\FormModel\AFormModel
                         'radixPoint'     => $weightFormatDelimiters[1],
                         'digits'         => 4,
                     ],
-                    // 'input_grid' => 'col-sm-2',
                     'position' => 100,
                 ],
                 'requires_shipping' => [
@@ -339,9 +341,13 @@ class Info extends \XLite\View\FormModel\AFormModel
                     'position'    => 400,
                 ],
                 'clean_url'             => [
-                    'label'    => static::t('Clean URL'),
-                    'type'     => 'XLite\View\FormModel\Type\CleanURLType',
-                    'position' => 500,
+                    'label'           => static::t('Clean URL'),
+                    'type'            => 'XLite\View\FormModel\Type\CleanURLType',
+                    'extension'       => '.html',
+                    'objectClassName' => 'XLite\Model\Product',
+                    'objectId'        => $this->getDataObject()->default->identity,
+                    'objectIdName'    => 'product_id',
+                    'position'        => 500,
                 ],
             ],
         ];

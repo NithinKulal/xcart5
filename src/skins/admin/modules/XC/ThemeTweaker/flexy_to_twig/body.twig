@@ -1,0 +1,30 @@
+{##
+ # Flexy-to-twig converter template
+ #}
+
+{% if this.hasFlexyTemplates() %}
+
+<div class="alert alert-warning flexy-to-twig-notice">
+  {{ t('Flexy-to-twig converter warning')|raw }}
+</div>
+
+<div class="top-actions">
+  <ul>
+    <li id="display-all" class="hidden">{{ t('Display all templates') }}</li>
+    <li id="display-non-converted">{{ t('Hide converted templates') }}</li>
+  </ul>
+</div>
+
+{% endif %}
+
+{% form 'XLite\\Module\\XC\\ThemeTweaker\\View\\Form\\ItemsList\\FlexyToTwig' %}
+
+  {% if this.hasOrphans() %}
+  <div class="form-notes orphan">
+    <span>{{ this.t('Marked templates which has no templates for substitution') }}</span>
+  </div>
+  {% endif %}
+
+  {{ widget('XLite\\Module\\XC\\ThemeTweaker\\View\\ItemsList\\Model\\FlexyToTwig') }}
+
+{% endform %}

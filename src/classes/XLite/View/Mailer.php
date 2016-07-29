@@ -136,6 +136,20 @@ class Mailer extends \XLite\View\AView
     protected $stringAttachments = array();
 
     /**
+     * Get a list of CSS files required to display the widget properly
+     *
+     * @return array
+     */
+    public function getCSSFiles()
+    {
+        $list = parent::getCSSFiles();
+
+        $list[] = 'common/style.less';
+
+        return $list;
+    }
+
+    /**
      * Check - is compose procedure run or not
      * todo: rename to 'isComposing'
      *
@@ -313,8 +327,9 @@ class Mailer extends \XLite\View\AView
         $subject = \XLite\Core\Mailer::getInstance()->populateVariables($subject);
 
         $this->set('subject', $subject);
-        $this->set('body', $this->compile($this->get('layoutTemplate'), $interface));
-        $body = $this->get('body');
+
+        $body = $this->compile($this->get('layoutTemplate'), $interface, true);
+        $this->set('body', $body);
 
         $body = \XLite\Core\Mailer::getInstance()->populateVariables($body);
 
@@ -593,7 +608,7 @@ class Mailer extends \XLite\View\AView
      *
      * @return string
      */
-    protected function compile($template, $interface = \XLite::CUSTOMER_INTERFACE)
+    protected function compile($template, $interface = \XLite::CUSTOMER_INTERFACE, $inline = false)
     {
         // replace layout with mailer skinned
         /** @var \XLite\Core\Layout $layout */
@@ -605,7 +620,12 @@ class Mailer extends \XLite\View\AView
         $this->widgetParams[static::PARAM_TEMPLATE]->setValue($template);
         $this->template = $template;
         $this->init();
+
         $text = $this->getContent();
+
+        if ($inline) {
+            $text = $this->convertToInline($text);
+        }
 
         // restore old skin
         switch ($commonInterface) {
@@ -630,6 +650,127 @@ class Mailer extends \XLite\View\AView
         $layout->setSkin($commonSkin);
 
         return $text;
+    }
+
+    /**
+     * Convert html to inline
+     *
+     * @param  string   $html   Initial HTML
+     * @return string
+     */
+    protected function convertToInline($html)
+    {
+        if (!$html) {
+            return $html;
+        }
+
+        $styleFiles = \XLite\Core\Layout::getInstance()
+            ->getRegisteredResourcesByType(\XLite\View\AView::RESOURCE_CSS);
+        array_unshift($styleFiles, 'reset.css');
+
+        $cssToInlineStyles = new \TijsVerkoyen\CssToInlineStyles\CssToInlineStyles();
+
+        return $cssToInlineStyles->convert(
+            $html,
+            $this->getStylesAsCSSString($styleFiles)
+        );
+    }
+
+    /**
+     * Get CSS string from passed array of files
+     *
+     * @param  array $styles Style files
+     * @return string
+     */
+    protected function getStylesAsCSSString($styles, $interface = null)
+    {
+        if (!$interface) {
+            $interface = \XLite\Core\Layout::getInstance()->getInterface();
+        }
+        $result = '';
+
+        foreach ($styles as $file) {
+            $path = $this->getStyleFilePath($file, $interface);
+
+            if (!$path) {
+                continue;
+            }
+
+            $fileInterface = isset($file['interface'])
+                ? $file['interface']
+                : \XLite\Core\Layout::getInstance()->getInterface();
+
+            $result .= $this->getStyleFileContent($path, $fileInterface);
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get style file path
+     *
+     * @param string    $path   Path to style file
+     * @return string
+     */
+    protected function getStyleFilePath($fileNode, $interface)
+    {
+        $relativePath = $fileNode;
+
+        if (is_array($fileNode)) {
+            if (isset($fileNode['original'])) {
+                $relativePath = $fileNode['original'];
+            } elseif (isset($fileNode['file'])) {
+                $relativePath = isset($fileNode['file']);
+            } else {
+                $relativePath = null;
+            }
+        }
+
+        $path = \XLite\Core\Layout::getInstance()
+            ->getResourceFullPath($relativePath, $interface);
+
+        if (!$path) {
+            $path = \XLite\Core\Layout::getInstance()
+                ->getResourceFullPath($relativePath, \XLite::COMMON_INTERFACE);
+        }
+
+        return $path;
+    }
+
+    /**
+     * Get style file content
+     *
+     * @param string    $path   Path to style file
+     * @return string
+     */
+    protected function getStyleFileContent($path, $interface)
+    {
+        $pathinfo = pathinfo($path);
+
+        $result = '';
+        if (isset($pathinfo['extension'])
+            && $pathinfo['extension'] === 'less'
+        ) {
+            $lessRaw = \XLite\Core\LessParser::getInstance()
+                ->makeCSS(
+                    array(
+                        array(
+                            'file'          => $path,
+                            'original'      => $path,
+                            'less'          => true,
+                            'media'         => 'all',
+                            'interface'     => $interface
+                        )
+                    )
+                );
+            if ($lessRaw && isset($lessRaw['file'])) {
+                $result = \Includes\Utils\FileManager::read($lessRaw['file']);
+            }
+        } else {
+            $result = \Includes\Utils\FileManager::read($path);
+        }
+
+        return $result;
     }
 
     /**
@@ -727,6 +868,29 @@ class Mailer extends \XLite\View\AView
     }
 
     /**
+     * @return boolean
+     */
+    protected function isNotificationHeaderEnabled()
+    {
+        $result = true;
+
+        switch (\XLite\Core\Layout::getInstance()->getMailInterface()) {
+            case \XLite::CUSTOMER_INTERFACE:
+                $result = null === $this->getNotification() || $this->getNotification()->getCustomerHeaderEnabled();
+                break;
+
+            case \XLite::ADMIN_INTERFACE:
+                $result = null === $this->getNotification() || $this->getNotification()->getAdminHeaderEnabled();
+                break;
+
+            default:
+                break;
+        }
+
+        return $result;
+    }
+
+    /**
      * Returns header for current notification
      *
      * @return string
@@ -742,6 +906,60 @@ class Mailer extends \XLite\View\AView
 
             case \XLite::ADMIN_INTERFACE:
                 $result = static::t('emailNotificationAdminHeader');
+                break;
+
+            default:
+                break;
+        }
+
+        return $result;
+    }
+
+    /**
+     * @return boolean
+     */
+    protected function isNotificationGreetingEnabled()
+    {
+        $result = true;
+
+        switch (\XLite\Core\Layout::getInstance()->getMailInterface()) {
+            case \XLite::CUSTOMER_INTERFACE:
+                $result = null === $this->getNotification() || $this->getNotification()->getCustomerGreetingEnabled();
+                break;
+
+            case \XLite::ADMIN_INTERFACE:
+                $result = null === $this->getNotification() || $this->getNotification()->getAdminGreetingEnabled();
+                break;
+
+            default:
+                break;
+        }
+
+        return $result;
+    }
+
+    /**
+     * @return boolean
+     */
+    protected function getNotificationGreeting()
+    {
+        return static::t('emailNotificationGreeting');
+    }
+
+    /**
+     * @return boolean
+     */
+    protected function isNotificationSignatureEnabled()
+    {
+        $result = true;
+
+        switch (\XLite\Core\Layout::getInstance()->getMailInterface()) {
+            case \XLite::CUSTOMER_INTERFACE:
+                $result = null === $this->getNotification() || $this->getNotification()->getCustomerSignatureEnabled();
+                break;
+
+            case \XLite::ADMIN_INTERFACE:
+                $result = null === $this->getNotification() || $this->getNotification()->getAdminSignatureEnabled();
                 break;
 
             default:

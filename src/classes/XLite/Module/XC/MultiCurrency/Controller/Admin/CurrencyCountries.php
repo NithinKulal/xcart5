@@ -14,36 +14,66 @@ namespace XLite\Module\XC\MultiCurrency\Controller\Admin;
 class CurrencyCountries extends \XLite\Controller\Admin\AAdmin
 {
     /**
+     * Do action 'add_currency'
+     *
+     * @return void
+     */
+    public function doActionAddCurrencyCountries()
+    {
+        $data = \XLite\Core\Request::getInstance()->getData();
+
+        if (isset($data['currency_country_id'])
+            && !empty($data['currency_country_id'])
+        ) {
+            $repo = \XLite\Core\Database::getRepo('XLite\Module\XC\MultiCurrency\Model\ActiveCurrency');
+            if (is_array($data['currency_country_id'])) {
+                $repo->updateCountriesByCode(
+                    \XLite\Core\Request::getInstance()->active_currency_id,
+                    array(
+                        'add'       => $data['currency_country_id'],
+                        'remove'    => []
+                    )
+                );
+            } else {
+                $repo->addCountryByCode(
+                    \XLite\Core\Request::getInstance()->active_currency_id,
+                    $data['currency_country_id']
+                );
+            }
+        }
+    }
+
+    /**
      * Do action 'update'
      *
      * @return void
      */
-    public function doActionUpdate()
+    public function doActionUpdateItemsList()
     {
-        $addCountries = array();
         $removeCountries = array();
 
-        if (
-            is_array(\XLite\Core\Request::getInstance()->data)
-            && !empty(\XLite\Core\Request::getInstance()->data)
-        ) {
-            foreach (\XLite\Core\Request::getInstance()->data as $code => $value) {
-                if ($value['enabled']) {
-                    $addCountries[] = $code;
-                } else {
-                    $removeCountries[] = $code;
+        $data = \XLite\Core\Request::getInstance()->getData();
+
+        if ($data) {
+            $prefix = 'delete';
+
+            if (isset($data[$prefix]) && is_array($data[$prefix]) && $data[$prefix]) {
+                foreach ($data[$prefix] as $id => $allow) {
+                    if ($allow) {
+                        $removeCountries[] = $id;
+                    }
                 }
             }
-        }
 
-        \XLite\Core\Database::getRepo('XLite\Module\XC\MultiCurrency\Model\ActiveCurrency')
-            ->updateCountriesByCode(
-                \XLite\Core\Request::getInstance()->active_currency_id,
-                array(
-                    'add'       => $addCountries,
-                    'remove'    => $removeCountries
-                )
-            );
+            \XLite\Core\Database::getRepo('XLite\Module\XC\MultiCurrency\Model\ActiveCurrency')
+                ->updateCountriesByCode(
+                    \XLite\Core\Request::getInstance()->active_currency_id,
+                    array(
+                        'add'       => [],
+                        'remove'    => $removeCountries
+                    )
+                );
+        }
     }
 
     /**

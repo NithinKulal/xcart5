@@ -1,0 +1,35 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Notification help
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.popover {
+  min-width: 400px;
+}
+
+.notification-help > span {
+  padding-bottom: 10px;
+  display: inline-block;
+}
+
+.notification-help td {
+  vertical-align: top;
+  padding: 3px;
+}
+
+.notification-help .variable-value {
+  padding-left: 10px;
+  color: #999;
+}
+
+.notification-help tr td {
+  border-bottom: 1px solid #e9e9e9;
+}
+
+.notification-help tr:last-child td {
+  border-bottom: none;
+}

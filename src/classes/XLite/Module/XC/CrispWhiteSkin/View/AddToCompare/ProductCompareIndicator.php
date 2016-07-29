@@ -59,4 +59,36 @@ class ProductCompareIndicator extends \XLite\Module\XC\ProductComparison\View\Ad
     {
         return $this->buildURL('compare');
     }
+
+    protected function isDisabled()
+    {
+        return $this->getComparedCount() < 2;
+    }
+
+    protected function getLinkHelpMessage()
+    {
+        return $this->isDisabled()
+            ? static::t('Please add another product to comparison')
+            : static::t('Go to comparison table');
+    }
+
+    /**
+     * Get preloaded labels
+     *
+     * @return array
+     */
+    protected function getPreloadedLabels()
+    {
+        $list = array(
+            'Please add another product to comparison',
+            'Go to comparison table',
+        );
+
+        $data = array();
+        foreach ($list as $name) {
+            $data[$name] = static::t($name);
+        }
+
+        return $data;
+    }
 }

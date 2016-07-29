@@ -39,18 +39,6 @@ abstract class ItemsExport extends \XLite\View\Button\AButton
         return $list;
     }
 
-    /**
-     * Get attributes
-     *
-     * @return array
-     */
-    protected function getAttributes()
-    {
-        $list = parent::getAttributes();
-
-        return $list;
-    }
-
     abstract protected function getAdditionalButtons();
 
     /**
@@ -70,8 +58,7 @@ abstract class ItemsExport extends \XLite\View\Button\AButton
      */
     protected function getFirstProviderLabel()
     {
-        $buttons = $this->getAdditionalButtons();
-        return key($buttons);
+        return key($this->getAdditionalButtons());
     }
 
     /**
@@ -102,5 +89,18 @@ abstract class ItemsExport extends \XLite\View\Button\AButton
     protected function getClass()
     {
         return parent::getClass() . ' items-export';
+    }
+
+    /**
+     * Get commented data
+     *
+     * @return array
+     */
+    protected function getCommentedData()
+    {
+        return [
+            'Export all'      => static::t('Export all'),
+            'Export selected' => static::t('Export selected'),
+        ];
     }
 }

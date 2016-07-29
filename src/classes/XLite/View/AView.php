@@ -221,6 +221,20 @@ abstract class AView extends \XLite\Core\Handler
     }
 
     /**
+     * Return unique-guaranteed string to be used as id attr.
+     * Returns given string in case of the first call with such argument.
+     * Any subsequent calls return as <string>_<prefix>
+     *
+     * @param string $id Given id string
+     *
+     * @return object
+     */
+    protected function getUniqueId($id)
+    {
+        return \XLite\Core\Layout::getInstance()->getUniqueIdFor($id);
+    }
+
+    /**
      * Check visibility, initialize and display widget or fetch it from cache.
      *
      * TODO: remove the ability to override template, use twig's {{ include }} instead.
@@ -1566,7 +1580,7 @@ abstract class AView extends \XLite\Core\Handler
 
         $result = array();
         foreach ($this->viewLists[$list] as $widget) {
-            if ($widget->checkVisibility()) {
+            if ($widget->checkVisibility() || $widget instanceof DynamicWidgetInterface) {
                 $result[] = $widget;
             }
         }

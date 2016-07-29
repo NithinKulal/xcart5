@@ -58,7 +58,6 @@ XLite\Model\Category:
     translations:
       - code: ru
         name: iGoods-Фильтр товаров
-        description: '<p><img src="{{WEB_LC_ROOT}}public/banners/banner_igoods_ru.jpg" alt="iGoods-Фильтр товаров" /></p>'
   - category_id: 3
     translations:
       - code: ru
@@ -67,12 +66,10 @@ XLite\Model\Category:
     translations:
       - code: ru
         name: Одежда
-        description: '<p><img src="{{WEB_LC_ROOT}}public/banners/banner_apparel_ru.jpg" alt="Одежда" /></p>'
   - category_id: 5
     translations:
       - code: ru
         name: Игрушки
-        description: '<p><img src="{{WEB_LC_ROOT}}public/banners/banner_toys_ru.jpg" alt="Игрушки"/></p>'
   - category_id: 6
     translations:
       - code: ru

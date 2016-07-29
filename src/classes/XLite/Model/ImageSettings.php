@@ -14,7 +14,7 @@ namespace XLite\Model;
  * @Entity
  * @Table  (name="images_settings",
  *      uniqueConstraints={
- *          @UniqueConstraint (name="code_model", columns={"code", "model"})
+ *          @UniqueConstraint (name="code_model_module", columns={"code", "model", "moduleName"})
  *      })
  */
 class ImageSettings extends \XLite\Model\AEntity
@@ -47,6 +47,15 @@ class ImageSettings extends \XLite\Model\AEntity
      * @Column (type="string", length=200)
      */
     protected $model;
+
+    /**
+     * Skin module name - owner of image sizes
+     *
+     * @var string
+     *
+     * @Column (type="string", length=200)
+     */
+    protected $moduleName;
 
     /**
      * Image max width
@@ -197,5 +206,27 @@ class ImageSettings extends \XLite\Model\AEntity
     public function getHeight()
     {
         return $this->height;
+    }
+
+    /**
+     * Set module name
+     *
+     * @param string $moduleName
+     * @return ImageSettings
+     */
+    public function setModuleName($moduleName)
+    {
+        $this->moduleName = $moduleName;
+        return $this;
+    }
+
+    /**
+     * Get module name
+     *
+     * @return string
+     */
+    public function getModuleName()
+    {
+        return $this->moduleName;
     }
 }

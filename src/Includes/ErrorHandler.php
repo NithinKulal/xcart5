@@ -166,7 +166,7 @@ abstract class ErrorHandler
         }
 
         $args = isset($backtraceLine['args']) && $backtraceLine['args']
-            ? var_export($backtraceLine['args'], true)
+            ? var_export(\Doctrine\Common\Util\Debug::export($backtraceLine['args'], 2), true)
             : '';
 
         if ($args) {

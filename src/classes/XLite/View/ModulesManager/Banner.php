@@ -122,7 +122,7 @@ class Banner extends \XLite\View\ModulesManager\AModulesManager
      */
     protected function getBannerImg($banner)
     {
-        return $banner['banner_img'];
+        return preg_replace('/^https?:/', '', $banner['banner_img']);
     }
 
     /**

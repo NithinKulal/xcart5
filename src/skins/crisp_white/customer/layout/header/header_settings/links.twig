@@ -1,0 +1,14 @@
+{##
+ # Quick links
+ #
+ # @ListChild (list="slidebar.additional-menu", weight="100")
+ # @ListChild (list="layout.header.right.settings", weight="100")
+ #}
+
+{% if this.getViewList('slidebar.additional-menu.links') %}
+    {% spaceless %}
+    <ul class='quick-links'>
+    	{{ widget_list('slidebar.additional-menu.links') }}
+    </ul>
+    {% endspaceless %}
+{% endif %}

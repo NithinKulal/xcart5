@@ -253,7 +253,7 @@ if (isset($params['force_current']) && (isset($_POST['go_back']) && $_POST['go_b
 	unset($params['force_current']);
 }
 
-$skinsDir = 'skins/admin/en/';
+$skinsDir = 'skins/admin/';
 
 // start html output
 
@@ -506,7 +506,7 @@ foreach ($rows as $row) {
   </div>
 
   <div class="install-help-box">
-    <img src="skins/admin/en/images/icon-install-help.svg" />
+    <img src="skins/admin/images/icon-install-help.svg" />
     <div>
       <?php echo xtr('Having trouble installing X-Cart? Check out our installation guide'); ?>
     </div>

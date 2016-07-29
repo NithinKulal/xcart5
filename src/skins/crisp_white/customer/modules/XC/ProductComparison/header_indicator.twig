@@ -1,0 +1,8 @@
+{% set disabled = this.getComparedCount() < 2 %}
+<div class="header_product-comparison compare-indicator{% if disabled %} disabled {% endif %}">
+	<a {% if not disabled %}href="{{ this.getCompareURL() }}" {% endif %} data-target="{{ this.getCompareURL() }}" title="{{ this.getLinkHelpMessage() }}">
+		<span class="counter">{{ this.getComparedCount() }}</span>
+	</a>
+
+    {{ this.displayCommentedData(this.getPreloadedLabels()) }}
+</div>

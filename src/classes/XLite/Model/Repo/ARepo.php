@@ -334,6 +334,7 @@ abstract class ARepo extends \Doctrine\ORM\EntityRepository
                 }
 
             }
+            $queryBuilder->addOrderBy($alias . '.' . $this->getPrimaryKeyField(), 'ASC');
         }
 
         return $queryBuilder;
@@ -768,6 +769,57 @@ abstract class ARepo extends \Doctrine\ORM\EntityRepository
     public function iterateAll()
     {
         return $this->createPureQueryBuilder()->iterate();
+    }
+    
+    /**
+     * Define items iterator
+     *
+     * @param integer $position Position OPTIONAL
+     *
+     * @return \Doctrine\ORM\Internal\Hydration\IterableResult
+     */
+    public function getRemoveDataIterator($position = 0)
+    {
+        return $this->defineRemoveDataQueryBuilder($position)
+            ->setMaxResults(\XLite\Core\EventListener\RemoveData::CHUNK_LENGTH)
+            ->iterate();
+    }
+
+    /**
+     * Define remove data iterator query builder
+     *
+     * @param integer $position Position
+     *
+     * @return \XLite\Model\QueryBuilder\AQueryBuilder
+     */
+    protected function defineRemoveDataQueryBuilder($position)
+    {
+        return $this->createPureQueryBuilder();
+    }
+
+    /**
+     * Count items for remove data
+     *
+     * @return integer
+     */
+    public function countForRemoveData()
+    {
+        return (int) $this->defineCountForRemoveDataQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * Define query builder for COUNT query
+     *
+     * @return \XLite\Model\QueryBuilder\AQueryBuilder
+     */
+    protected function defineCountForRemoveDataQuery()
+    {
+        $qb = $this->defineRemoveDataQueryBuilder(0)
+            ->setMaxResults(1000000000);
+
+        return $qb->select(
+            'COUNT(DISTINCT ' . $qb->getMainAlias() . '.' . $this->getPrimaryKeyField() . ')'
+        );
     }
 
     /**
@@ -2293,17 +2345,11 @@ abstract class ARepo extends \Doctrine\ORM\EntityRepository
     /**
      * Search count only routine.
      *
-     * @return \Doctrine\ORM\PersistentCollection|integer
+     * @return integer
      */
     protected function searchCount()
     {
-        $queryBuilder = $this->searchState['queryBuilder'];
-        $key = $this->getMainAlias($queryBuilder) . '.' . $this->getPrimaryKeyField();
-
-        $queryBuilder = $queryBuilder
-            ->select('COUNT(DISTINCT ' . $key . ')')
-            ->resetDQLPart('groupBy')
-            ->resetDQLPart('orderBy');
+        $queryBuilder = $this->postprocessSearchCountQueryBuilder($this->searchState['queryBuilder']);
 
         return (int)($queryBuilder->getSingleScalarResult());
     }
@@ -2311,16 +2357,59 @@ abstract class ARepo extends \Doctrine\ORM\EntityRepository
     /**
      * Search result routine.
      *
-     * @return \Doctrine\ORM\PersistentCollection|integer
+     * @return \Doctrine\ORM\PersistentCollection
      */
     protected function searchResult()
     {
-        $queryBuilder = $this->searchState['queryBuilder'];
-        $key = $this->getMainAlias($queryBuilder) . '.' . $this->getPrimaryKeyField();
+        $queryBuilder = $this->postprocessSearchResultQueryBuilder($this->searchState['queryBuilder']);
 
-        return $queryBuilder
-            ->groupBy($key)
-            ->getOnlyEntities();
+        return $queryBuilder->getOnlyEntities();
+    }
+
+    /**
+     * Prepare queryBuilder for searchCount() method
+     *
+     * @param \Doctrine\ORM\QueryBuilder $queryBuilder Query builder
+     *
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    protected function postprocessSearchCountQueryBuilder($queryBuilder)
+    {
+        $key = $this->getSearchPrimaryFields($queryBuilder);
+
+        $queryBuilder->select('COUNT(DISTINCT ' . $key . ')')
+            ->resetDQLPart('groupBy')
+            ->resetDQLPart('orderBy');
+
+        return $queryBuilder;
+    }
+
+    /**
+     * Prepare queryBuilder for searchResult() method
+     *
+     * @param \Doctrine\ORM\QueryBuilder $queryBuilder Query builder
+     *
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    protected function postprocessSearchResultQueryBuilder($queryBuilder)
+    {
+        $key = $this->getSearchPrimaryFields($queryBuilder);
+
+        $queryBuilder->groupBy($key);
+
+        return $queryBuilder;
+    }
+
+    /**
+     * Get primary fields list for searchResult() and searchCount() methods
+     *
+     * @param \Doctrine\ORM\QueryBuilder $queryBuilder Query builder
+     *
+     * @return string
+     */
+    protected function getSearchPrimaryFields($queryBuilder)
+    {
+        return $this->getMainAlias($queryBuilder) . '.' . $this->getPrimaryKeyField();
     }
 
     /**

@@ -1,0 +1,46 @@
+{##
+ # Product details information block
+ #
+ # @ListChild (list="product.details.page", weight="40")
+ #}
+
+{% if this.getTabs() %}
+  <div class="product-details-tabs">
+  
+    <div class="tabs">
+      <ul class="tabs primary">
+        {% for index, tab in this.getTabs() %}
+          <li class="{{ this.getTabClass(tab) }}">
+            <a data-id="{{ tab.id|raw }}" href="#{{ tab.id|raw }}" data-toggle="tab">{{ tab.name }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  
+    <div class="tabs-container">
+      {% for tab in this.getTabs() %}
+        <div id="{{ tab.id|raw }}" class="tab-container hacky-container">
+          <a name="{{ tab.id|raw }}"></a>
+          {% if tab.template %}
+            {% include tab.template %}
+    
+          {% else %}
+            {% if tab.widget %}
+              {{ widget(tab.widget, product=this.product) }}
+    
+            {% else %}
+              {% if tab.list %}
+                {{ widget_list(tab.list, product=this.product) }}
+              {% else %}
+                {% if tab.widgetObject %}
+                  {{ tab.widgetObject.display()|raw }}
+                {% endif %}
+              {% endif %}
+            {% endif %}
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  
+  </div>
+{% endif %}

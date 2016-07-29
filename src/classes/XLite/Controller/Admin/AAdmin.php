@@ -33,6 +33,13 @@ abstract class AAdmin extends \XLite\Controller\AController
     protected $recentAdmins;
 
     /**
+     * Breadcrumbs
+     *
+     * @var \XLite\View\Location\Node[]
+     */
+    protected $locationPath;
+
+    /**
      * Check if current page is accessible
      *
      * @return boolean
@@ -136,7 +143,7 @@ abstract class AAdmin extends \XLite\Controller\AController
 
             $this->redirect($this->buildURL('login'));
 
-        } elseif($this->isForceChangePassword()
+        } elseif ($this->isForceChangePassword()
             && $this->getTarget() !== 'force_change_password'
         ) {
             $this->redirect($this->buildURL('force_change_password'));
@@ -656,8 +663,7 @@ OUT;
         if ($filter) {
             $result = $filter->getParameters();
 
-            if (
-                $filter->getId()
+            if ($filter->getId()
                 && (
                     empty($result[static::PARAM_SEARCH_FILTER_ID])
                     || $filter->getId() != $result[static::PARAM_SEARCH_FILTER_ID]
@@ -717,6 +723,77 @@ OUT;
         }
 
         return $result;
+    }
+
+    // }}}
+
+    // {{{ Location, Breadcrumbs
+
+    /**
+     * Return current location path
+     *
+     * @return \XLite\View\Location
+     */
+    public function getLocationPath()
+    {
+        if (null === $this->locationPath) {
+            $this->defineLocationPath();
+        }
+
+        return $this->locationPath;
+    }
+
+    /**
+     * Method to create the location line
+     *
+     * @return void
+     */
+    protected function defineLocationPath()
+    {
+        $this->locationPath = array();
+
+        // Ability to add part to the line
+        $this->addBaseLocation();
+
+        // Ability to define last element in path via short function
+        $location = $this->getLocation();
+
+        if ($location) {
+            $this->addLocationNode($location);
+        }
+    }
+
+    /**
+     * Common method to determine current location
+     *
+     * @return string
+     */
+    protected function getLocation()
+    {
+        return $this->getTitle();
+    }
+
+    /**
+     * Add part to the location nodes list
+     *
+     * @return void
+     */
+    protected function addBaseLocation()
+    {
+    }
+
+    /**
+     * Add node to the location line
+     *
+     * @param string $name     Node title
+     * @param string $link     Node link OPTIONAL
+     * @param array  $subnodes Node subnodes OPTIONAL
+     *
+     * @return void
+     */
+    protected function addLocationNode($name, $link = null, array $subnodes = null)
+    {
+        $this->locationPath[] = \XLite\View\Location\Node::create($name, $link, $subnodes);
     }
 
     // }}}

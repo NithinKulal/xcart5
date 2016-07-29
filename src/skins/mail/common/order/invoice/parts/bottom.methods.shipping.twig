@@ -1,0 +1,15 @@
+{##
+ # Invoice shipping methods
+ #
+ # @ListChild (list="invoice.bottom.method.shipping", weight="20")
+ #}
+<div class="method-box">
+  <strong class="method-title">{{ t('Shipping method') }}</strong>
+  {% if this.getShippingModifier() and this.shippingModifier.getMethod() %}
+    {{ this.shippingModifier.method.getName()|raw }}
+  {% elseif this.order.getShippingMethodName() %}
+    {{ t(this.order.getShippingMethodName())|raw }}
+  {% else %}
+    {{ t('n/a') }}
+  {% endif %}
+</div>

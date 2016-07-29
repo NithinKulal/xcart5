@@ -233,7 +233,7 @@ class AttributeList extends \XLite\Module\XC\ProductFilter\View\Filter\AFilter
      */
     protected function getSortingOrder()
     {
-        return 'A' === \XLite\Core\Config::getInstance()->XC->ProductFilter->attributes_soting_type
+        return 'A' === \XLite\Core\Config::getInstance()->XC->ProductFilter->attributes_sorting_type
             ? array('translations.name', 'asc')
             : array('productClass.position', 'asc');
     }

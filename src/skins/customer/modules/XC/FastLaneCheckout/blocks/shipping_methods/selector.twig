@@ -1,0 +1,49 @@
+{##
+ # Shipping methods list
+ #}
+
+{% set selector = this.isDisplaySelector() ? 'true' : 'false' %}
+
+<div id="{{ this.getUniqueId('shipping-methods-list') }}" data-deferred="{{ this.shouldReload() ? 'true' : 'false' }}" v-bind:class="classes" v-data='{ "selector": {{selector}} }'>
+  {% if this.isDisplaySelector() %}
+    <div class="selector-view">
+      {{ widget('XLite\\View\\FormField\\Select\\ShippingMethod', disableSearch='true', fieldName=this.getFieldName(), options=this.getMethodsAsList(), value=this.selectedMethod.methodId, fieldOnly='true', label=t('Shipping rates'), attributes={'v-el:richselect':'', 'v-model': this.getFieldName()}) }}
+      <ul class="shipping-rates-data hidden">
+          {% for rate in this.getRates() %}
+            <li id="shippingMethod{{ this.getMethodId(rate) }}" v-if='{{this.getFieldName()}} == {{this.getMethodId(rate)}}'>
+              <span class="shipping-rate-value">
+                {{ t('Price') }}:
+                <span>{{ widget('XLite\\View\\Surcharge', surcharge=this.getTotalRate(rate), currency=this.cart.getCurrency()) }}</span>
+              </span>
+              {% if this.getMethodDeliveryTime(rate) %}
+                <span class="shipping-rate-delivery">
+                  {{ t('Delivery time') }}:
+                  <span>{{ this.getMethodDeliveryTime(rate) }}</span>
+                </span>
+              {% endif %}
+            </li>
+          {% endfor %}
+      </ul>
+      <div class="clearfix"></div>
+    </div>
+  {% else %}
+    <div class="radiolist-view">
+        <ul class="shipping-rates">
+          {% for rate in this.getRates() %}
+            <li class="shipping-rate">
+              <div class="radio">
+                <label title="{{ this.getMethodName(rate) }}">
+                  <input type="radio" id="method{{ this.getMethodId(rate) }}" name="{{ this.getFieldName() }}" value="{{ this.getMethodId(rate) }}" {% if this.isRateSelected(rate) %} checked="checked" {% endif %} v-model="{{ this.getFieldName() }}" />
+                  <span class="value">{{ widget('XLite\\View\\Surcharge', surcharge=this.getTotalRate(rate), currency=this.cart.getCurrency()) }}</span>
+                  <span class="rate-title">{{ this.getMethodName(rate)|raw }}</span>
+                  {% if this.getMethodDeliveryTime(rate) %}
+                    <div class="rate-description">{{ this.getMethodDeliveryTime(rate) }}</div>
+                  {% endif %}
+                </label>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+    </div>
+  {% endif %}
+</div>

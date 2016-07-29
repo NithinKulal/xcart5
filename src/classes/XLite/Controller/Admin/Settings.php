@@ -77,7 +77,8 @@ class Settings extends \XLite\Controller\Admin\AAdmin
 
         $list = $this->getPages();
         if (isset($list[$this->page])) {
-            $classes[] = 'settings-' . $list[$this->page];
+            $classes[] = 'settings-'
+                . str_replace('_', '-', \XLite\Core\Converter::convertFromCamelCase(preg_replace('/\W/', '', $list[$this->page])));
         }
 
         return $classes;
@@ -479,10 +480,10 @@ class Settings extends \XLite\Controller\Admin\AAdmin
             'var/backup',
             'var/tmp',
             'images',
-            'skins/default/en/modules',
-            'skins/admin/en/modules',
-            'skins/mail/en/modules',
-            'skins/mail/en/images'
+            'skins/customer/modules',
+            'skins/admin/modules',
+            'skins/mail/modules',
+            'skins/mail/images'
         );
 
         foreach ($dirs as $dir) {

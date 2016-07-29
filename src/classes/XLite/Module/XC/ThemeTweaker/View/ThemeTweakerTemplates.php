@@ -32,4 +32,14 @@ class ThemeTweakerTemplates extends \XLite\View\AView
     {
         return 0 < \XLite\Core\Database::getRepo('XLite\Module\XC\ThemeTweaker\Model\Template')->count();
     }
+
+    /**
+     * Return true if flexy-templates have been found
+     *
+     * @return boolean
+     */
+    protected function hasFlexyTemplates()
+    {
+        return (bool) \XLite\Module\XC\ThemeTweaker\Core\Flexy::getInstance()->getTemplatesList();
+    }
 }

@@ -84,6 +84,7 @@ class EventListener extends \XLite\Base\Singleton
             'import'      => array('XLite\Core\EventListener\Import'),
             'imageResize' => array('XLite\Core\EventListener\ImageResize'),
             'quickData'   => array('XLite\Core\EventListener\QuickData'),
+            'removeData'  => array('XLite\Core\EventListener\RemoveData'),
             'sales'       => array('XLite\Core\EventListener\Sales'),
         );
     }

@@ -17,6 +17,7 @@ abstract class ASelect extends \XLite\View\FormField\AFormField
      * Widget param names
      */
     const PARAM_OPTIONS = 'options';
+    const PARAM_DISABLED = 'disabled';
 
     /**
      * Return default options list
@@ -44,7 +45,7 @@ abstract class ASelect extends \XLite\View\FormField\AFormField
      */
     public function setValue($value)
     {
-        if (is_object($value) && $value instanceOf \XLite\Model\AEntity) {
+        if (is_object($value) && $value instanceof \XLite\Model\AEntity) {
             $value = $value->getUniqueIdentifier();
         }
 
@@ -106,7 +107,54 @@ abstract class ASelect extends \XLite\View\FormField\AFormField
             self::PARAM_OPTIONS => new \XLite\Model\WidgetParam\TypeCollection(
                 'Options', $this->getDefaultOptions(), false
             ),
+            static::PARAM_DISABLED => new \XLite\Model\WidgetParam\TypeBool('Disabled', $this->getDefaultDisableState()),
         );
+    }
+
+    /**
+     * getDefaultDisableState
+     *
+     * @return boolean
+     */
+    protected function getDefaultDisableState()
+    {
+        return false;
+    }
+
+    /**
+     * isDisabled
+     *
+     * @return boolean
+     */
+    protected function isDisabled()
+    {
+        return $this->getParam(static::PARAM_DISABLED);
+    }
+
+    /**
+     * Get select specific attributes
+     *
+     * @return array
+     */
+    protected function getSelectAttributes()
+    {
+        $list = array();
+
+        if ($this->isDisabled()) {
+            $list['disabled'] = 'disabled';
+        }
+
+        return $list;
+    }
+
+    /**
+     * getAttributes
+     *
+     * @return array
+     */
+    protected function getAttributes()
+    {
+        return array_merge(parent::getAttributes(), $this->getSelectAttributes());
     }
 
     /**
@@ -118,7 +166,7 @@ abstract class ASelect extends \XLite\View\FormField\AFormField
     {
         $value = parent::getDefaultValue();
 
-        if (is_object($value) && $value instanceOf \XLite\Model\AEntity) {
+        if (is_object($value) && $value instanceof \XLite\Model\AEntity) {
             $value = $value->getUniqueIdentifier();
         }
 

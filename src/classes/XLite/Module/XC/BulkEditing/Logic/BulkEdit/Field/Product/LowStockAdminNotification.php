@@ -34,24 +34,31 @@ class LowStockAdminNotification extends \XLite\Module\XC\BulkEditing\Logic\BulkE
     }
 
     /**
-     * @param string               $name
-     * @param \XLite\Model\Product $object
-     * @param array                $options
+     * @param string $name
+     * @param array  $options
      *
      * @return array
      */
-    public static function getViewData($name, $object, $options)
+    public static function getViewColumns($name, $options)
     {
-        $inventorTrackingStatus = $object->getInventoryEnabled();
+        return [
+            $name => [
+                'name'    => static::t('Low stock notification to admin'),
+                'orderBy' => isset($options['position']) ? $options['position'] : 0,
+            ],
+        ];
+    }
 
-        return $inventorTrackingStatus
-            ? [
-                $name => [
-                    'label'    => static::t('Notify administrator if the stock quantity of this product goes below a certain limit'),
-                    'value'    => $object->getLowLimitEnabled() ? static::t('Yes') : static::t('No'),
-                    'position' => isset($options['position']) ? $options['position'] : 0,
-                ],
-            ]
-            : [];
+    /**
+     * @param $name
+     * @param $object
+     *
+     * @return array
+     */
+    public static function getViewValue($name, $object)
+    {
+        return $object->getInventoryEnabled()
+            ? ($object->getLowLimitEnabled() ? static::t('Yes') : static::t('No'))
+            : '';
     }
 }

@@ -158,3 +158,5 @@ XLite\Model\LanguageLabel:
   - { name: '"Cash on delivery" status', translations: [{ code: ru, label: 'Состояние варианта оплаты "Наложенный платеж"' }] }
   - { name: 'usps.CODStatusOptionComment', translations: [{ code: ru, label: 'Важно: Чтобы включить/отключить вариант оплаты "Наложенный платеж", необходимо включить/отключить способ оплаты "Наложеный платеж (U.S.P.S.)" на <a href="{{URL}}">странице Способов оплаты</a>.' }] }
   - { name: 'Refresh list of available methods', translations: [{ code: ru, label: 'Обновить список доступных методов' }] }
+  - { name: 'Wrong container type selected: {{value}}. For large package size only the following types are allowed: RECTANGULAR, NONRECTANGULAR, VARIABLE', translations: [{ code: ru, label: 'Выбран неправильный тип контейнера: {{value}}. Для указанного размера LARGE допустимы следующие значения для типа контейнера: RECTANGULAR, NONRECTANGULAR, VARIABLE' }] }
+  - { name: '{{value}} is an invalid container type for a REGULAR package. Valid Container is: VARIABLE', translations: [{ code: ru, label: '{{value}} - неправильное значение для размера REGULAR. Допустимое значение: VARIABLE' }] }

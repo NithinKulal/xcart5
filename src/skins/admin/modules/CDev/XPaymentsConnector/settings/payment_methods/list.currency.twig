@@ -1,0 +1,13 @@
+{##
+ # Payment method currency 
+ #
+ #}
+
+{% if this.isCurrencySupported(this.entity) %}
+  <div class="xpc-currency table-label">{{ this.getCurrencyTitle(this.getPaymentMethodCurrency(this.entity)) }}</div>
+{% else %}
+  <div class="xpc-currency table-label text-danger">
+    {{ this.getCurrencyTitle(this.getPaymentMethodCurrency(this.entity)) }}    
+    {{ widget('\\XLite\\View\\Tooltip', text=this.getCurrencyTooltipContent(this.entity), isImageTag='true', imageClass='fa fa-exclamation-triangle text-danger', placement='top', className='warning') }}
+  </div>
+{% endif %}

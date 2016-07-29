@@ -65,16 +65,6 @@ class Product extends \XLite\View\AView
     }
 
     /**
-     * Returns scenario current data view
-     *
-     * @return string
-     */
-    protected function getScenarioView()
-    {
-        return Scenario::getScenarioView($this->getCurrentScenario()) ?: '';
-    }
-
-    /**
      * Check scenario progress
      *
      * @return mixed

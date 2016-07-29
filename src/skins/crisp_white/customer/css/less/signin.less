@@ -1,0 +1,298 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.target-checkout {
+  button.signin {
+      display: none;
+  }
+}
+
+.target-recover-password, .target-login, .unauthorized.target-profile {
+  #content #page-title {
+    text-align: center;
+  }
+
+  .profile-form {
+    margin: 0 auto;
+  }
+
+  .tab-content {
+    padding-top: 0px;
+  }
+}
+
+.target-login {
+  .login-form {
+    max-width: 366px;
+  }
+}
+
+.widget-accountdialog {
+  max-width: 366px;
+  margin: 0 auto;
+}
+
+.widget-authorization, .widget-accountdialog, .widget-recoverpassword {
+  // min-width: 840px;
+
+  @media(min-width: @screen-sm-min) {
+    min-width: 366px;
+  }
+
+  .form-error {
+    margin-bottom: @rhythmic-unit;
+    text-align: center;
+  }
+}
+
+form.login-form, form.recovery-form {
+  max-width: 366px;
+  margin: 0 auto;
+}
+
+.login-box, .signin-anonymous-box, .register-box {
+  max-width: 366px;
+  margin: 0 auto;
+}
+
+.force-change-password-section {
+  .profile-form {
+    margin: 0 auto;
+  }
+
+  .header-text {
+    text-align: center;
+  }
+
+  h3 {
+    text-align: center;
+  }
+}
+
+.profile-form {
+  max-width: 366px;
+  div.table-value {
+    float: none;
+  }
+
+  .table {
+    width: 100%;
+    margin: 0 auto;
+    li.input:not(.input-label):not(.checkbox-label) {
+      .floating-label;
+    }
+
+    li.input-checkbox {
+      display: list-item;
+      padding-left: 0;
+
+      .table-label {
+        float: none;
+        display: inline-block;
+      }
+
+      .table-value {
+        float: left;
+      }
+    }
+
+    li.input-label .table-value {
+      display: none;
+    }
+
+  }
+  .model-form-buttons {
+    width: 100%;
+    margin-left: 0;
+    text-align: center;
+
+    & > * {
+      display: inline-block;
+      width: 50%;
+      text-align: center;
+
+      a {
+        line-height: @rhythmic-unit;
+        display: inline-block;
+      }
+    }
+
+    .button.delete_profile:empty {
+      display: none;
+    }
+
+    & > .button.delete_profile {
+      float: none;
+      margin-top: @rhythmic-unit;
+
+      a {
+        margin: 0 !important;
+      }
+    }
+
+    & > .button.signin {
+      margin-top: @rhythmic-unit;
+      width: 100%;
+    }
+
+    & > .submit {
+      clear: both;
+      float: none;
+      width: 100%;
+    }
+
+    button.submit {
+      .btn-lg;
+      width: 100%;
+    }
+  }
+}
+
+.recover-password-message {
+  text-align: center;
+}
+
+.recover-password-message:last-of-type {
+  margin-bottom: 60px;
+}
+
+table.login-form, table.recover-password-form {
+  width: 100%;
+  margin: 0 auto;
+  td, li.input {
+    border: 0;
+    padding: 0;
+
+    &.field {
+      .floating-label;
+    }
+  }
+
+  tr + tr {
+    td {
+      padding-top: @rhythmic-unit;
+
+      &.buttons {
+        padding-top: 0;
+      }
+    }
+  }
+
+  .table-value, .input-field-wrapper {
+    width: 100%;
+  }
+
+  a.forgot {
+    float: right;
+    font-size: @font-size-base;
+  }
+
+  .form-error {
+    float: left;
+  }
+
+  button.submit {
+    .btn-lg;
+    .main-button-style;
+    font-size: @font-size-large;
+    width: 100%;
+    margin-top: (2 * @rhythmic-unit);
+  }
+
+  .create-account-link, .popup-login {
+    display: inline-block;
+    font-size: @font-size-base;
+  }
+}
+
+table.recover-password-form {
+  .sign-in {
+    display: block;
+    text-align: center;
+    width: 100%;
+    margin-top: @rhythmic-unit;
+    font-size: @font-size-base;
+  }
+}
+
+button.force-notice {
+  display: none;
+}
+
+.signin-header {
+  text-align: center;
+}
+
+.signin-login-wrapper {
+  padding-top: (@rhythmic-unit);
+
+  form {
+    padding-top: 0px !important;
+  }
+
+  .social-login-note, .social-login-container, .or-separator {
+    display: none;
+  }
+}
+
+/**
+ * Social login
+ */
+
+.social-login-note {
+  display: none;
+}
+
+.or-separator {
+  display: block;
+  width: 80%;
+  border-bottom: 1px solid @color-border;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: (2 * @rhythmic-unit - 1);
+  margin-top: (2 * @rhythmic-unit);
+  text-align: center;
+  position: relative;
+
+  .or-separator-text {
+    position: absolute;
+    background: @color-background;
+    top: -10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+}
+
+.social-login-container {
+  max-width: 366px;
+  margin: 0 auto;
+  .social-login {
+    .social-net-element {
+
+      &:hover {
+        opacity: .8;
+      }
+    }
+  }
+}
+
+.signin-anonymous-wrapper {
+  padding-top: (@rhythmic-unit);
+
+  .anonymous-continue-button {
+    .btn-lg;
+    width: 100%;
+
+    @media(max-width: @screen-sm-max) {
+      margin-top: @rhythmic-unit;
+    }
+  }
+}

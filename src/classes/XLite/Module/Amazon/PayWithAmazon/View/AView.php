@@ -185,6 +185,10 @@ abstract class AView extends \XLite\View\AView implements \XLite\Base\IDecorator
             return false;
         }
 
+        if ($this->getCart() && !$this->getCart()->checkCart()) {
+            return false;
+        }
+
         return true;
     }
 

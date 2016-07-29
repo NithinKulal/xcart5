@@ -36,7 +36,7 @@ class ProductVariantWholesalePrices extends \XLite\Module\CDev\Wholesale\View\It
     {
         $entity = parent::createEntity();
         if ('product_variant' == $this->getTarget()) {
-            $entity->productVariant = $this->getProductVariant();
+            $entity->setProductVariant($this->getProductVariant());
         }
 
         return $entity;

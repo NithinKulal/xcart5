@@ -58,7 +58,7 @@ class Core extends \XLite\Upgrade\Entry\AEntry
      */
     public function getIconURL()
     {
-        return 'skins/admin/en/images/core_image.png';
+        return 'skins/admin/images/core_image.png';
     }
 
     /**
@@ -194,8 +194,10 @@ class Core extends \XLite\Upgrade\Entry\AEntry
      *
      * @return void
      */
-    public function __construct($majorVersion, $minorVersion, $revisionDate, $size)
+    public function __construct($majorVersion, $fullVersion, $revisionDate, $size)
     {
+        $minorVersion = str_replace($majorVersion . '.', '', $fullVersion);
+
         if (!$this->checkMajorVersion($majorVersion) || !$this->checkMinorVersion($majorVersion, $minorVersion)) {
             $version = \Includes\Utils\Converter::composeVersion($majorVersion, $minorVersion);
             \Includes\ErrorHandler::fireError('Unallowed core version for upgrade: ' . $version);

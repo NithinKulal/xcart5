@@ -1,0 +1,8 @@
+{##
+ # Profile modified email body (to customer)
+ #}
+{% if this.password %}
+  <p>
+    {{ t('Your account password is X.', {'password': this.password}) }}
+  </p>
+{% endif %}

@@ -73,7 +73,7 @@ class Settings extends \XLite\View\Model\Settings implements \XLite\Base\IDecora
                 );
                 break;
 
-            case 'attributes_soting_type':
+            case 'attributes_sorting_type':
                 $cell[static::SCHEMA_DEPENDENCY] = array(
                     static::DEPENDENCY_SHOW => array(
                         'enable_attributes_filter' => array(true),

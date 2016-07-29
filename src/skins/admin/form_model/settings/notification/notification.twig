@@ -1,0 +1,16 @@
+
+{% block _form_scheme_body_widget %}
+    <div class="scheme-body">{{ value }}</div>
+{% endblock %}
+
+{% block _form_scheme_header_link_widget %}
+    <div class="scheme-header-link"><a href="{{ value | raw }}">{{ t('Header, greeting & signature') }}</a></div>
+{% endblock %}
+
+{% block _form_scheme_greeting_link_widget %}
+    <div class="scheme-header-link"><a href="{{ value | raw }}">{{ t('Header, greeting & signature') }}</a></div>
+{% endblock %}
+
+{% block _form_scheme_signature_link_widget %}
+    <div class="scheme-header-link"><a href="{{ value | raw }}">{{ t('Header, greeting & signature') }}</a></div>
+{% endblock %}

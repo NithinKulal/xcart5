@@ -101,6 +101,11 @@ class ExpressCheckoutMerchantAPI extends \XLite\Module\CDev\Paypal\Model\Payment
                 'Status'
             );
 
+            $transaction = \XLite\Model\Cart::getInstance()->getFirstOpenPaymentTransaction();
+            if ($transaction) {
+                $this->processFailTryPayment($transaction);
+            }
+
             $this->errorMessage = isset($responseData['L_LONGMESSAGE0']) ? $responseData['L_LONGMESSAGE0'] : null;
         }
 
@@ -570,7 +575,7 @@ class ExpressCheckoutMerchantAPI extends \XLite\Module\CDev\Paypal\Model\Payment
                 'name' => (string) \Includes\Utils\ArrayManager::getIndex($paypalData, 'SHIPTONAME'),
                 'street' => $street,
                 'country' => $country ?: '',
-                'state' => $state ? $state : (string) \Includes\Utils\ArrayManager::getIndex($paypalData, 'SHIPTOSTATE'),
+                'state' => $state ?: (string) $stateCode,
                 'city' => (string) \Includes\Utils\ArrayManager::getIndex($paypalData, 'SHIPTOCITY'),
                 'zipcode' => (string) \Includes\Utils\ArrayManager::getIndex($paypalData, 'SHIPTOZIP'),
                 'phone' => (string) \Includes\Utils\ArrayManager::getIndex($paypalData, 'PHONENUM'),

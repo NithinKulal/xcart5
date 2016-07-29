@@ -1,0 +1,16 @@
+{##
+ # Change attribute values
+ #}
+
+{% if this.hasErrorMessage() %}
+  <div id="status-messages-popup">{{ this.getErrorMessage() }}</div>
+{% endif %}
+<h3 class="product-title">{{ this.getProductTitle() }}</h3>
+{% form '\\XLite\\View\\Form\\ChangeAttributeValues' with {className: 'change-attribute-values'} %}
+  {{ widget('\\XLite\\View\\Product\\AttributeValues') }}
+
+  <div class="buttons">
+    {{ widget('\\XLite\\View\\Button\\Submit', label='Change') }}
+  </div>
+
+{% endform %}

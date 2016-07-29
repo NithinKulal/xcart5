@@ -1,0 +1,9 @@
+{##
+ # Display horizontal minicart item name
+ #
+ # @ListChild (list="minicart.horizontal.item", weight="10")
+ #}
+<div class="item-name">
+	<a href="{{ this.item.getURL() }}">{{ this.item.getName() }}</a>
+	{{ widget_list('minicart.horizontal.item.name', item=this.item) }}
+</div>

@@ -23,8 +23,37 @@ class ViewList extends \XLite\Model\Repo\ViewList implements \XLite\Base\IDecora
      */
     public function retrieveClassList($list, $zone)
     {
-        $data = parent::retrieveClassList($list, $zone);
+        return $this->processClassList(
+            $list,
+            parent::retrieveClassList($list, $zone)
+        );
+    }
 
+    /**
+     * Perform Class list query
+     *
+     * @param string $list List name
+     * @param string $zone Current interface name
+     *
+     * @return array
+     */
+    public function retrieveClassListWithFallback($list, $zone)
+    {
+        return $this->processClassList(
+            $list,
+            parent::retrieveClassListWithFallback($list, $zone)
+        );
+    }
+
+    /**
+     * Process class list overrides
+     *
+     * @param  string   $list   List name
+     * @param  array    $data   View lists
+     * @return array
+     */
+    protected function processClassList($list, $data)
+    {
         usort(
             $data,
             function ($a, $b) {
@@ -93,6 +122,24 @@ class ViewList extends \XLite\Model\Repo\ViewList implements \XLite\Base\IDecora
             ->where('(v.list = :list OR v.list_override = :list) AND v.zone IN (:zone, :empty) AND v.version IS NULL')
             ->setParameter('empty', '')
             ->setParameter('list', $list)
+            ->setParameter('zone', $zone);
+    }
+
+    /**
+     * Define query builder for findClassList()
+     *
+     * @param string $list Class list name
+     * @param string $zone Current interface name
+     *
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    protected function defineClassListWithFallbackQuery($list, $zone)
+    {
+        return $this->createQueryBuilder()
+            ->where('(v.list = :list OR v.list_override = :list) AND v.zone IN (:zone, :fallback, :empty) AND v.version IS NULL')
+            ->setParameter('empty', '')
+            ->setParameter('list', $list)
+            ->setParameter('fallback', \XLite::COMMON_INTERFACE)
             ->setParameter('zone', $zone);
     }
 

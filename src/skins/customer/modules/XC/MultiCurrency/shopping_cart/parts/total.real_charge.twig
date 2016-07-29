@@ -1,0 +1,16 @@
+{##
+ # Shopping cart subtotal
+ #
+ # @ListChild (list="cart.panel.totals", weight="28")
+ #}
+{% if not this.isDefaultMultiCurrencySelected() %}
+  <li class="subtotal real-charge real-charge-value">
+    <strong>{{ t('Total charge') }}:</strong>
+    {{ widget('XLite\\View\\Surcharge', surcharge=this.cart.getTotal(), currency=this.cart.getCurrency(), noConversion='true') }}
+  </li>
+{% endif %}
+{% if not this.isDefaultMultiCurrencySelected() %}
+  <li class="subtotal real-charge real-charge-note">
+    {{ widget('XLite\\Module\\XC\\MultiCurrency\\View\\RealChargeWarning', order=this.cart) }}
+  </li>
+{% endif %}

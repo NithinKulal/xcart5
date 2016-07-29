@@ -1,0 +1,99 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Flexy-to-twig converter CSS styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.target-flexy-to-twig .dialog-content {
+  margin-top: 20px;
+}
+
+.items-list-table.flexy-to-twig .no-items .empty-list {
+  min-height: 0;
+  margin-bottom: 20px;
+}
+
+.items-list-table.flexy-to-twig tr.line td.cell {
+  height: 37px;
+}
+
+.items-list-table.flexy-to-twig tr.line td.cell div.cell .plain-value {
+  padding: 3px 0;
+}
+
+.items-list-table.flexy-to-twig tr.line td.cell.flexyTemplate,
+.items-list-table.flexy-to-twig tr.line td.cell.twigTemplate {
+  width: 45%;
+  max-width: 490px;
+}
+
+.items-list-table.flexy-to-twig tr.line td.cell.converted {
+  text-align: center;
+}
+
+.items-list-table.flexy-to-twig tr.line td.cell.converted * {
+  cursor: default;
+}
+
+.items-list-table.flexy-to-twig tr.line td.cell.converted .converted {
+  text-align: center;
+  color: #1ab394;
+}
+
+.items-list-table.flexy-to-twig tr.line td.cell.converted .processing {
+  background: url(../../../../images/awaiting.gif) no-repeat;
+  background-size: 20px 20px;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+}
+
+.items-list-table.flexy-to-twig tr.line td.cell.converted .failed {
+  color: #e72831;
+}
+
+.top-actions ul {
+  text-align: right;
+}
+
+.top-actions ul li {
+  display: inline;
+  margin-left: 10px;
+  color: #1a509a;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.top-actions ul li:hover {
+  color: #2a6496;
+  text-decoration: none;
+}
+
+.items-list-table.flexy-to-twig table.list tbody.lines td .plain-value span {
+  font-size: 13px;
+}
+
+.items-list-table.flexy-to-twig .no-items .back {
+  margin-left: 20px;
+}
+
+.items-list-table.flexy-to-twig tr.line.orphan td.cell.twigTemplate span.value,
+.form-notes.orphan {
+  color: #d91a1a;
+}
+
+.items-list-table.flexy-to-twig tr.line.orphan td.cell.twigTemplate span.value:before,
+.form-notes.orphan:before {
+  content: '*';
+  font-size: 11px;
+  position: relative;
+  margin-right: 3px;
+  top: -1px;
+}
+
+.form-notes.orphan {
+  font-size: 13px;
+}

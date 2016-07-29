@@ -1,0 +1,18 @@
+{##
+ # Minicart row with item attribute-values
+ #}
+
+<a class="item-attribute-values underline-emulation" id="item-attribute{{ this.item.getItemId() }}" data-rel="div.item-attribute-values.item-{{ this.item.getItemId() }}"><span>{{ t('attributes') }}</span></a>
+<br />
+<div class="internal-popup item-attribute-values item-{{ this.item.getItemId() }}" style="display: none;">
+  <ul class="item-attribute-values">
+    {% for av in this.item.getSortedAttributeValues(this.getMaxAttributesCount()) %}
+      <li>{{ av.getActualName() }}: {{ av.getActualValue() }}</li>
+    {% endfor %}
+  </ul>
+  {% if this.needMoreAttributesLink(this.item) %}
+    <div class="more-attributes">
+        <a href="{{ url('cart') }}">{{ t('More attributes') }}</a>
+    </div>
+  {% endif %}
+</div>

@@ -210,7 +210,7 @@ abstract class AProcessor extends \XLite\Base implements \SeekableIterator, \Cou
         }
 
         if (!$result) {
-            $result = \XLite\Core\Database::getRepo('XLite\Model\Category')->findOneByPath($path);
+            $result = \XLite\Core\Database::getRepo('XLite\Model\Category')->findOneByPath($path, false);
 
             if ($useCache) {
                 $this->categoriesCache[implode('/', $path)] = $result;
@@ -2029,7 +2029,16 @@ abstract class AProcessor extends \XLite\Base implements \SeekableIterator, \Cou
      */
     protected function verifyValueAsProduct($value)
     {
-        return null !== \XLite\Core\Database::getRepo('XLite\Model\Product')->findOneBySku($value);
+        // Search product in database
+        $result = (bool)\XLite\Core\Database::getRepo('XLite\Model\Product')->findOneBySku($value);
+
+        if (!$result) {
+            // Search in the list of products scheduled to be created/updated
+            $skus = \XLite\Core\Session::getInstance()->importedProductSkus;
+            $result = is_array($skus) && false !== array_search($value, $skus);
+        }
+
+        return $result;
     }
 
     /**
@@ -2061,7 +2070,8 @@ abstract class AProcessor extends \XLite\Base implements \SeekableIterator, \Cou
                 $result = ($response && 200 == $response->code);
 
             } else {
-                $result = \Includes\Utils\FileManager::isReadable(LC_DIR_ROOT . $value);
+                $result = \Includes\Utils\FileManager::isReadable(LC_DIR_ROOT . $value)
+                    && 0 === strpos(realpath(LC_DIR_ROOT . $value), LC_DIR_ROOT);
             }
 
         } else {

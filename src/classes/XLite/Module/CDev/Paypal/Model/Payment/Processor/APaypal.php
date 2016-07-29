@@ -533,6 +533,23 @@ abstract class APaypal extends \XLite\Model\Payment\Base\Iframe
     }
 
     /**
+     * Process failed try of payment
+     *
+     * @return void
+     */
+    protected function processFailTryPayment(\XLite\Model\Payment\Transaction $transaction)
+    {
+        $status = \XLite\Model\Payment\Transaction::STATUS_FAILED;
+        $transaction->setStatus($status);
+        $this->updateInitialBackendTransaction($transaction, $status);
+        \XLite\Core\Database::getEM()->flush();
+
+        \XLite\Model\Cart::getInstance()->setPaymentStatusByTransaction($transaction);
+
+        $transaction->registerTransactionInOrderHistory();
+    }
+
+    /**
      * Process callback
      *
      * @param \XLite\Model\Payment\Transaction $transaction Callback-owner transaction
@@ -625,11 +642,26 @@ abstract class APaypal extends \XLite\Model\Payment\Base\Iframe
         $responseData = $this->doRequest('CreateSecureToken');
 
         if (!empty($responseData)) {
+
             if ($responseData['SECURETOKENID'] !== $this->api->getSecureTokenId()) {
                 // It seems, a hack attempt detected, log this
 
             } elseif (!empty($responseData['SECURETOKEN'])) {
                 $token = $responseData['SECURETOKEN'];
+
+            } else {
+                $this->setDetail(
+                    'status',
+                    isset($responseData['RESPMSG']) ? $responseData['RESPMSG'] : 'Unknown',
+                    'Status'
+                );
+
+                $transaction = \XLite\Model\Cart::getInstance()->getFirstOpenPaymentTransaction();
+                if ($transaction) {
+                    $this->processFailTryPayment($transaction);
+                }
+
+                $this->errorMessage = isset($responseData['RESPMSG']) ? $responseData['RESPMSG'] : null;
             }
         }
 

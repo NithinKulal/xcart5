@@ -206,7 +206,7 @@ class Main extends \Includes\Decorator\Plugin\Templates\Plugin\APlugin
             foreach ($skins as $interface => $paths) {
                 foreach ($paths as $path) {
                     if (0 === strpos($cell['tpl'], $path . LC_DS)) {
-                        $length = strlen($path) + ('common' == $path ? 1 : 4);
+                        $length = strlen($path) + 1;
                         $list[$i]['tpl'] = substr($cell['tpl'], $length);
                         $list[$i]['zone'] = $interface;
                     }
@@ -228,7 +228,7 @@ class Main extends \Includes\Decorator\Plugin\Templates\Plugin\APlugin
                     $patterns[$interface][] = preg_quote($skin, '/');
                 }
 
-                $patterns[$interface] = '/^(' . implode('|', $patterns[$interface]) . ')' . preg_quote(LC_DS, '/') . '\w{2}' . preg_quote(LC_DS, '/') . '(.+)$/US';
+                $patterns[$interface] = '/^(' . implode('|', $patterns[$interface]) . ')' . preg_quote(LC_DS, '/') . '(.+)$/US';
             }
 
             foreach ($list as $index => $item) {

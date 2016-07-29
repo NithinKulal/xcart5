@@ -1,0 +1,77 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Printable page style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+/* This prevent last blank page on the print invoice page */
+html, body {
+  height: auto;
+}
+
+.sidebar,
+.section .tabs,
+#toolbar,
+#main-menu,
+.lc-minicart,
+#search,
+#social-links,
+#header-bar,
+#header,
+#breadcrumb,
+.order-success-box .buttons-row,
+#footer-area,
+#header-area,
+.order-success-panel,
+.target-order #main .section h1.title,
+.order-box .order-statuses,
+.order-box .links,
+.order-box .tiny,
+#slidebar,
+.carousel-indicators,
+.mobile_header,
+.mobile-hidden,
+.desktop-hidden
+{
+  display: none !important;
+}
+
+.product-details .product-photo .mousetrap {
+  display: none !important;
+}
+
+div.product-details .product-details-info {
+  max-width: 620px;
+}
+
+.carousel-inner {
+  height: auto;
+}
+
+.carousel-inner a {
+  display: none;
+}
+
+.carousel-inner a:first-child {
+  display: block;
+}
+
+.carousel-inner img {
+  max-width: 100%;
+}
+
+#content {
+  width: 960px !important;
+  float: none;
+}
+
+a[href]:after {
+  content: none !important;
+}
+
+.page-break {
+  page-break-after: always;
+}

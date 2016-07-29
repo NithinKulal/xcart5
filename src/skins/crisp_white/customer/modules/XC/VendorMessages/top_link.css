@@ -1,0 +1,47 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Button style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+ul.account-links li.messages-count {
+  position: relative;
+  vertical-align: top;
+  text-align: left;
+}
+
+ul.account-links li.messages-count a {
+  text-decoration: none;
+  border: none 0;
+}
+
+ul.account-links li.messages-count a:hover {
+  border-bottom: 0 none;
+}
+
+ul.account-links li.messages-count a:hover svg path {
+  fill: #0ba2e8;
+}
+
+ul.account-links li.messages-count a:hover span {
+  color: #0ba2e8;
+}
+
+ul.account-links li.messages-count svg {
+  display: inline-block;
+  width: 20px;
+  height: 16px;
+  margin-right: 14px;
+  vertical-align: middle !important;
+}
+
+ul.account-links li.messages-count svg path {
+  fill: #b9b9b9;
+}
+
+ul.account-links li.messages-count span {
+  color: #3c476e;
+}

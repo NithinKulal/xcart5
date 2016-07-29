@@ -1212,7 +1212,10 @@ abstract class ModulesManager extends \Includes\Utils\AUtils
                                 }
                             }
 
-                        } elseif (\XLite\Core\Database::getRepo($class)->canDisableTable()) {
+                        } elseif (
+                            \XLite\Core\Database::getRepo($class)
+                            && \XLite\Core\Database::getRepo($class)->canDisableTable()
+                        ) {
                             $tableName = substr(
                                 \XLite\Core\Database::getEM()->getClassMetadata($class)->getTableName(),
                                 $len
@@ -1410,26 +1413,38 @@ abstract class ModulesManager extends \Includes\Utils\AUtils
         \Includes\Utils\Database::execute($query, array(0, 0, $author, $name));
 
         // Search for module
-        $fields = array('moduleID');
+        $fields = array('moduleID', 'majorVersion', 'minorVersion', 'build');
         $condition .= ' AND fromMarketplace = ?';
 
         if (!$isModulesFileExists) {
             $fields[] = 'yamlLoaded';
         }
 
-        $query = 'SELECT ' . implode(', ', $fields) . ' FROM ' . $table . $condition . ' AND majorVersion = ? AND minorVersion = ? AND build = ?';
+        $query = 'SELECT ' . implode(', ', $fields) . ' FROM ' . $table . $condition;
 
         $moduleRows = \Includes\Utils\Database::fetchAll(
             $query,
-            array($author, $name, 0, $majorVersion, $minorVersion, $build)
+            array($author, $name, 0)
         );
 
         $needToLoadYaml = false;
 
+        $delQueries = array();
+
         // If found in DB
         if ($moduleRows) {
-            $moduleID = (int) $moduleRows[0]['moduleID'];
-            $yamlLoaded = (int) $moduleRows[0]['yamlLoaded'];
+
+            // Choose for update first row or first row with yamlLoaded=1
+            $mid = 0;
+            for ($i = 0; $i < count($moduleRows); $i++) {
+                if ($moduleRows[$i]['yamlLoaded']) {
+                    $mid = $i;
+                    break;
+                }
+            }
+
+            $moduleID = (int) $moduleRows[$mid]['moduleID'];
+            $yamlLoaded = (int) $moduleRows[$mid]['yamlLoaded'];
             $moduleName   = static::callModuleMethod($module, 'getModuleName');
             $moduleDesc   = static::callModuleMethod($module, 'getDescription');
 
@@ -1437,18 +1452,42 @@ abstract class ModulesManager extends \Includes\Utils\AUtils
                 'enabled = ?',
                 'installed = ?',
                 'moduleName = ?',
-                'description = ?'
+                'description = ?',
+                'majorVersion = ?',
+                'minorVersion = ?',
+                'build = ?',
             );
 
-            $data  = array((int) static::isActiveModule($module), 1, $moduleName, $moduleDesc, $moduleID,);
+            $data  = array(
+                (int) static::isActiveModule($module), // enabled
+                1,                                     // installed
+                $moduleName,                           // moduleName
+                $moduleDesc,                           // description
+                $majorVersion,                         // majorVersion
+                $minorVersion,                         // minorVersion
+                $build,                                // build
+            );
 
             if (!$yamlLoaded && static::isActiveModule($module)) {
                 $params[] = 'yamlLoaded = ?';
-                $data  = array((int) static::isActiveModule($module), 1, $moduleName, $moduleDesc, 1, $moduleID);
+                $data[] = 1;
                 $needToLoadYaml = true;
             }
 
+            $data[] = $moduleID;
+
             $query = 'UPDATE ' . $table . ' SET ' . implode(', ', $params) . ' WHERE moduleID = ?';
+
+            // Remove updated row from list
+            unset($moduleRows[$mid]);
+
+            // Prepare queries to delete the rest rows
+            foreach ($moduleRows as $mdata) {
+                $delQueries[] = array(
+                    'sql' => 'DELETE FROM ' . $table . ' WHERE moduleID = ?',
+                    'params' => array($mdata['moduleID']),
+                );
+            }
 
         } else {
             $data  = static::getModuleDataFromClass($author, $name);
@@ -1463,6 +1502,11 @@ abstract class ModulesManager extends \Includes\Utils\AUtils
 
         if (static::isActiveModule($module) && $needToLoadYaml && !$isModulesFileExists) {
             static::addModuleYamlFile($author, $name);
+        }
+
+        // Delete redundant rows from DB
+        foreach ($delQueries as $qData) {
+           \Includes\Utils\Database::execute($qData['sql'], $qData['params']);
         }
 
         // Save changes in DB
@@ -1529,7 +1573,7 @@ abstract class ModulesManager extends \Includes\Utils\AUtils
     public static function getPathPatternForTemplates()
     {
         return static::getPathPattern(
-            preg_quote(LC_DIR_SKINS, '/') . '\w+' . LC_DS_QUOTED . '\w+',
+            preg_quote(LC_DIR_SKINS, '/') . '\w+',
             'modules',
             'twig'
         );

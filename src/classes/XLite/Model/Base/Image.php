@@ -232,7 +232,10 @@ abstract class Image extends \XLite\Model\Base\Storage
             $result = $this->doResize($width, $height, false);
 
         } else {
-            $name = pathinfo($this->getPath(), \PATHINFO_FILENAME) . '.' . $this->getExtension();
+            $name = $this->isURL()
+                ? pathinfo($this->getPath(), \PATHINFO_FILENAME) . '.' . $this->getExtension()
+                : $this->getPath();
+
             $size = ($width ?: 'x') . '.' . ($height ?: 'x');
             $path = $this->getResizedPath($size, $name);
 
@@ -296,7 +299,10 @@ abstract class Image extends \XLite\Model\Base\Storage
      */
     public function doResize($width = null, $height = null, $doRewrite = false)
     {
-        $name = pathinfo($this->getPath(), \PATHINFO_FILENAME) . '.' . $this->getExtension();
+        $name = $this->isURL()
+            ? pathinfo($this->getPath(), \PATHINFO_FILENAME) . '.' . $this->getExtension()
+            : $this->getPath();
+
         $size = ($width ?: 'x') . '.' . ($height ?: 'x');
         $path = $this->getResizedPath($size, $name);
 
@@ -347,8 +353,10 @@ abstract class Image extends \XLite\Model\Base\Storage
      */
     protected function getResizedPublicURL($size, $name)
     {
+        $name = implode(LC_DS, array_map('rawurlencode', explode(LC_DS, $name)));
+
         return \XLite::getInstance()->getShopURL(
-            $this->getRepository()->getWebCacheRoot($size) . '/' . rawurlencode($name),
+            $this->getRepository()->getWebCacheRoot($size) . '/' . $name,
             \XLite\Core\Request::getInstance()->isHTTPS()
         );
     }

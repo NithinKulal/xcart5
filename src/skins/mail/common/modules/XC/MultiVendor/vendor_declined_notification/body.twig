@@ -1,0 +1,9 @@
+{##
+ # Vendor account declined notification to the user: body
+ #}
+<p>{{ t('Your vendor account at company was declined', {'company': this.config.Company.company_name}) }}</p>
+
+{% if this.profile.statusComment %}
+  <p>{{ t('Reason:') }}</p>
+  <p>{{ this.statusComment }}</p>
+{% endif %}

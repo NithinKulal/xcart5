@@ -1,0 +1,567 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Table-based model list
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+/**
+ * Items list : common table
+ */
+.items-list-table {
+}
+
+.items-list-table table.list {
+  width: 100%;
+  clear: both;
+}
+
+.items-list-table table.list,
+  .search-conditions-box,
+  .table-pager,
+  .items-list-table .list-footer
+{
+  max-width: 1180px;
+  /*min-width: 800px;*/
+}
+
+.dialog-block .items-list-table table.list,
+  .dialog-block .search-conditions-box,
+  .dialog-block .table-pager
+{
+  max-width: 962px;
+}
+
+.ui-dialog .items-list-table table.list {
+  max-width: 600px;
+}
+
+.items-list-table table.list thead {
+  background: #f8f8f8;
+  border-right: 1px solid #f8f8f8;
+}
+
+.items-list-table table.list tbody.no-items td,
+.items-list-table table.list thead th {
+  color: #8f8f8f;
+  font-weight: normal;
+  text-align: left;
+  font-size: 16px;
+}
+
+.items-list-table table.list tbody.no-items td {
+  padding: 10px;
+}
+
+.items-list-table table.list thead th {
+  padding: 16px 18px;
+  font-size: 14px;
+  color: #546377;
+  white-space: nowrap;
+}
+
+.items-list-table table.list thead th.actions.left {
+  padding-left: 7px;
+}
+
+.items-list-table table.list thead th.actions.left .head-position {
+  font-size: 14px;
+  color: #6b7a8d;
+  white-space: nowrap;
+  width: 40px;
+  padding: 0px 0px 0px 10px;
+  display: inline-block;
+}
+
+.items-list-table table.list thead th.actions.left .head-position.no-position {
+  width: 27px;
+}
+
+.items-list-table table.list thead th.actions.right button.remove {
+  padding-left: 12px;
+}
+
+.items-list-table table.list thead th.actions.left .selectAll {
+  margin-left: 6px;
+}
+
+.items-list-table table.list thead th div.subheader {
+  margin-top: 4px;
+  color: #999;
+}
+
+.items-list-table table.list .lines tr > :first-child {
+  border-left: 1px solid #e9e9e9;
+}
+
+.items-list-table table.list .lines tr > :last-child {
+  border-right: 1px solid #e9e9e9;
+}
+
+.items-list-table table.list.list-no-items {
+  border: none;
+}
+
+.items-list-table table.list.list-no-items thead {
+  display: none;
+}
+
+.items-list-table table.list tbody.create tr.line td,
+.items-list-table table.list tbody.lines tr.line td,
+.items-list-table table.list tbody.lines tr.sortable-placeholder td
+{
+  border-top: 1px solid #e9e9e9;
+  border-bottom: 1px solid #e9e9e9;
+}
+
+.items-list-table table.list tbody.create tr.line td,
+.items-list-table table.list tbody.lines tr.line td
+{
+  padding: 7px 12px 7px 18px;
+  white-space: nowrap;
+  background-color: #ffffff;
+}
+
+.items-list-table table.list tbody.lines tr.line.last td {
+  border-bottom: 1px solid #e9e9e9;
+}
+
+.items-list-table table.list tbody.lines td,
+.items-list-table table.list tbody.lines td .view,
+.items-list-table table.list tbody.lines td .view *
+{
+  font-size: 14px;
+}
+/*
+.items-list-table table.list tbody.lines td .view{
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+          align-items: center;
+}*/
+
+.items-list-table table.list td
+{
+  vertical-align: middle;
+}
+
+.items-list-table table.list td .baseline
+{
+  vertical-align: baseline;
+}
+
+.items-list-table table.list tbody.create td.actions.right .separator,
+.items-list-table table.list tbody.lines td.actions .separator
+{
+  display: inline-block;
+  position: relative;
+  top: 0;
+  width: 3px;
+  height: 22px;
+  background-image: url(images/line-separator.png);
+  background-repeat: repeat-y;
+  background-position: top right;
+  margin-right: 10px;
+}
+
+.items-list-table table.list tbody.lines td.actions.left div.cell {
+  text-align: right;
+  display: table-cell;
+  float: right;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+          align-items: center;
+}
+
+.items-list-table table.list tbody.lines td.actions.left {
+  padding-right: 3px;
+  padding-left: 1px;
+}
+
+.items-list-table table.list thead th.actions.right {
+  padding: 0;
+}
+
+.items-list-table table.list tbody.create td.actions.right,
+.items-list-table table.list tbody.lines td.actions.right {
+  padding-left: 0;
+  padding-right: 7px;
+  min-width: 34px;
+}
+
+.items-list-table table.list tbody.create td.actions.right .cell,
+.items-list-table table.list tbody.lines td.actions.right .cell{
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+          align-items: center;
+}
+
+.items-list-table table.list tbody.lines td.actions.right .separator,
+.items-list-table table.list tbody.create td.actions.right .separator {
+  margin-right: 7px;
+}
+
+.items-list-table table.list tbody.create td.actions .remove-wrapper,
+.items-list-table table.list tbody.lines td.actions .action {
+  display: inline-block;
+}
+
+.items-list-table table.list tbody.lines td.actions .action {
+  vertical-align: top;
+}
+
+.items-list-table table.list tbody.lines td.actions.left .action {
+  vertical-align: middle;
+  line-height: 1;
+}
+
+.items-list-table table.list tbody.lines td.actions .action.next {
+  background: transparent url(../../../images/actions_separator.png) no-repeat left center;
+  line-height: 1;
+}
+
+.items-list-table table.list tbody.lines td.actions div.default-value-checkbox {
+  width: 20px;
+  height: 20px;
+  margin: 0 5px 0 8px;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  padding-top: 3px;
+  padding-left: 3px;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.items-list-table table.list tbody.lines td.actions div.default-value-checkbox input {
+  margin: 0;
+}
+
+.items-list-table table.list tbody.lines td.actions div.default-value-checkbox:hover input {
+  cursor: pointer;
+}
+
+.items-list-table table.list tbody.lines td.actions div.selector:hover,
+.items-list-table table.list tbody.lines td.actions div.default-value-checkbox:hover {
+  background-color: #f2f2f2;
+  border-color: #e9e9e9;
+}
+
+.items-list-table table.list tbody.lines td.actions div.default-value-checkbox.checked:hover,
+.items-list-table table.list tbody.lines td.actions div.default-value-checkbox.checked {
+  background-color: #cce8f5;
+  border-color: #cce1ea;
+}
+
+.items-list-table table.list tbody.lines td.actions div.selector {
+  width: 30px;
+  height: 30px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  vertical-align: middle;
+  margin-right: 5px;
+  margin-left: 4px;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+}
+
+.items-list-table table.list tbody.lines td.actions div.selector.checked {
+  background-color: #d2f2cc;
+  border-color: #d2e9cc;
+}
+
+.items-list-table table.list tbody.lines td.actions div.selector input {
+  margin: 0;
+  vertical-align: middle;
+}
+
+.items-list-table table.list tbody.create .inline-field,
+.items-list-table table.list tbody.lines .inline-field {
+  display: inline-block;
+}
+
+.items-list-table table.list tbody.lines .line .cell .entity-edit-link {
+  display: none;
+}
+
+.items-list-table table.list tbody.create .inline-field.editable,
+.items-list-table table.list tbody.lines .inline-field.editable {
+  vertical-align: middle;
+}
+
+.items-list-table table.list tbody.lines .line .cell.edit-link .entity-edit-link,
+.items-list-table table.list tbody.lines .line.edit-mark .cell .entity-edit-link {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 10px;
+}
+
+.items-list-table table.list tbody.lines td.actions .inline-field .view {
+  padding-top: 4px;
+}
+
+.items-list-table table.list tbody.lines td.actions .inline-switcher {
+  width: 31px;
+  padding-left: 7px;
+  margin-right: 3px;
+  line-height: 1;
+}
+
+.items-list-table table.list tbody.lines td.actions .inline-move {
+  width: 27px;
+}
+
+.items-list-table table.list tbody.lines td.actions .inline-switcher .field {
+  text-align: center;
+}
+
+.items-list-table table.list tbody.lines td.attention,
+.items-list-table table.list tbody.lines td.attention .view,
+.items-list-table table.list tbody.lines td.attention .view *
+{
+  color: #d91a1a;
+}
+
+.items-list-table table.list tbody tr.line.remove-mark * {
+  filter: alpha(opacity=80);
+  opacity: .9;
+}
+
+.items-list-table table.list tbody.lines tr.line.remove-mark {
+  opacity: .6;
+}
+
+.items-list-table table.list .inline-field {
+  line-height: 18px;
+}
+
+.items-list-table table.list .inline-field input,
+.items-list-table table.list .inline-field select,
+.items-list-table table.list .inline-field textarea,
+.items-list-table table.list .inline-field span.text
+{
+  font-size: 14px;
+}
+
+.items-list-table table.list .inline-field input,
+.items-list-table table.list .inline-field span.text
+{
+  line-height: 30px;
+}
+
+.items-list-table table.list .inline-field input[type="text"],
+.items-list-table table.list .inline-field input[type="password"],
+.items-list-table table.list .inline-field select
+{
+  line-height: 18px;
+}
+
+.items-list-table table.list .inline-field input[type="text"],
+.items-list-table table.list .inline-field input[type="password"]
+{
+  height: 32px;
+  padding-top: 5px;
+  padding-bottom: 4px;
+  font-size: 14px;
+}
+
+.items-list-table table.list .inline-field select {
+  width: auto;
+}
+
+.items-list-table table.list tbody.lines .inline-field .table-value {
+  float: none;
+}
+
+.items-list-table table.list .field .subfield,
+.items-list-table table.list .field .subfield .table-value
+{
+  display: inline-block;
+  position: relative;
+}
+
+.items-list-table table.list .field .subfield.full-width,
+.items-list-table table.list .field .subfield.full-width .table-value
+{
+  display: block;
+}
+
+.items-list-table a.block-link {
+  display: inline-block;
+  width: 30px;
+  height: 26px;
+  text-indent: -5000px;
+  background: transparent url(images/link-icon.png) no-repeat left top;
+}
+
+/* Head sort */
+.items-list-table table.list thead th span.dir {
+  font-size: 14px;
+}
+
+/* Head search */
+.items-list-table table.list tbody.head-search td {
+  padding: 6px;
+  line-height: 22px;
+}
+
+.items-list-table table.list tbody.head-search td div.table-value {
+  float: none;
+}
+
+.items-list-table table.list tbody.head-search td input,
+.items-list-table table.list tbody.head-search td select
+{
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+.items-list-table table.list tbody td.main {
+  width: 100%;
+}
+
+.items-list-table table.list tbody td.main div span.value,
+.items-list-table table.list tbody td.main div
+{
+  color: #333333;
+}
+
+.items-list-table table.list tbody td.main div span.value .removed {
+  color: #8f8f8f;
+  vertical-align: initial;
+}
+
+.items-list-table table.list tbody.lines td .plain-value {
+  font-size: 14px;
+  display: inline-block;
+}
+
+.items-list-table table.list tbody.lines td .plain-value span {
+  font-size: 14px;
+}
+
+.items-list table.list tbody.lines tr.line td.no-wrap div.cell {
+  overflow: hidden;
+  position: relative;
+}
+
+.items-list-table table.list tbody td.cell .inline-file-uploader {
+  min-width: 19px;
+}
+
+.items-list-table table.list tbody.lines .inline-file-uploader .field .subfield .table-value {
+  display: inline-block;
+}
+
+.items-list-table table.list tbody td.cell.no-wrap {
+  white-space: nowrap;
+}
+
+.items-list-table table.list tbody.create td {
+  padding-left: 11px;
+}
+
+.items-list-table table.list tbody.create td.actions.right .separator {
+  position: relative;
+  top: 0;
+}
+
+.items-list-table table.list tbody.create td.actions.right {
+  padding-left: 0;
+}
+
+.items-list-table table.list td.main {
+  min-width: 300px;
+}
+
+.items-list-table table.list a {
+  text-decoration: underline;
+  font-size: 14px;
+}
+
+.items-list-table table.list .tooltip a {
+  font-size: 12px;
+}
+
+.ajax-container-loadable .model-properties div.table-value .defaultvalue-value {
+  padding: 0 6px;
+  margin: 0;
+}
+
+.items-list-table table.list thead th .column-header-help {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.items-list-table table.list thead th .column-header-help .tooltip-main {
+  padding-top: 0px;
+}
+
+.items-list-table .fa {
+  font-size: 18px;
+}
+
+.items-list-table table.list tbody.lines tr.line td.cell.total {
+  line-height: 20px;
+}
+
+.items-list-table table.list tbody.lines tr.line td span.quantity {
+  color: #8f8f8f;
+  display: block;
+  line-height: 14px;
+  vertical-align: baseline;
+}
+
+.items-list-table .input-text-symbol .symbol.text {
+  top: 1px;
+}
+
+.items-list-table td.has-edit-link .view {
+  width: 254px;
+}
+
+.items-list-table td.price .view {
+  width: 90px;
+  margin: 0;
+}

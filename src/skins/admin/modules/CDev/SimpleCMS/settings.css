@@ -1,0 +1,31 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Page view model styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.target-logo-favicon #page-wrapper #main .tabber.tabbed-content-wrapper,
+.target-css-js-performance #page-wrapper #main .tabber.tabbed-content-wrapper {
+  display: none;
+}
+
+.general-settings .model-properties ul.table .table-label.logo-label,
+.general-settings .model-properties ul.table .table-label.favicon-label
+{
+  width: 15%;
+}
+
+.general-settings .model-properties ul.table .table-value.logo-value,
+.general-settings .model-properties ul.table .table-value.favicon-value
+{
+  width: 85%;
+}
+
+.general-settings .model-properties ul.table input[type="file"] {
+  height: auto;
+  line-height: inherit;
+  width: auto;
+}

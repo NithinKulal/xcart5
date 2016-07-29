@@ -8,6 +8,15 @@
 
 return function()
 {
+    // Loading data to the database from yaml file
+    $yamlFile = __DIR__ . LC_DS . 'post_rebuild.yaml';
+
+    if (\Includes\Utils\FileManager::isFileReadable($yamlFile)) {
+        \XLite\Core\Database::getInstance()->loadFixturesFromYaml($yamlFile);
+    }
+
+    \XLite\Core\Database::getEM()->flush();
+
     $tablePrefix = \XLite\Core\Database::getInstance()->getTablePrefix();
 
     // Update 'orderby' value of core options to increase difference between values (BUG-1412)

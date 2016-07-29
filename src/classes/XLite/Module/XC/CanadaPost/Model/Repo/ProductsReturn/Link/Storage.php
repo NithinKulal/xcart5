@@ -34,19 +34,6 @@ class Storage extends \XLite\Model\Repo\Base\Storage
     }
 
     /**
-     * Get allowed file system root list
-     *
-     * @return array
-     */
-    public function getAllowedFileSystemRoots()
-    {
-        $list = parent::getAllowedFileSystemRoots();
-        $list[] = $this->getFileSystemRoot();
-
-        return $list;
-    }
-
-    /**
      * Get web images storage root path
      *
      * @return string

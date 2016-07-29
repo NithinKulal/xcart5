@@ -46,4 +46,24 @@ class SectionsNavigation extends Sections
     {
         return FastLaneCheckout\Main::getSkinDir() . 'sections_navigation/template.twig';
     }
+
+    /**
+     * Defines the additional data array
+     *
+     * @return array
+     */
+    protected function defineWidgetData()
+    {
+        return array();
+    }
+
+    /**
+     * Outputs the additional data as json text
+     *
+     * @return string
+     */
+    protected function getWidgetData()
+    {
+        return json_encode($this->defineWidgetData());
+    }
 }

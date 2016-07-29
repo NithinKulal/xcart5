@@ -119,7 +119,7 @@ suppress_log_errors = Off
 ; Skin details
 ;
 [skin_details]
-skin = default
+skin = customer
 locale = en
 
 ;

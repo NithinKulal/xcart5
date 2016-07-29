@@ -242,6 +242,19 @@ class Profile extends \XLite\Model\Repo\ARepo
     }
 
     /**
+     * Define remove data iterator query builder
+     *
+     * @param integer $position Position
+     *
+     * @return \XLite\Model\QueryBuilder\AQueryBuilder
+     */
+    public function defineRemoveDataQueryBuilder($position)
+    {
+        return $this->defineIterateByCustomersQuery()
+            ->setMaxResults(1000000000);
+    }
+
+    /**
      * Generate password
      *
      * @return string

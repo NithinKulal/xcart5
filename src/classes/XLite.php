@@ -22,7 +22,7 @@ class XLite extends \XLite\Base
     /**
      * Core version
      */
-    const XC_VERSION = '5.3.0';
+    const XC_VERSION = '5.3.1';
 
     /**
      * Endpoints
@@ -874,6 +874,7 @@ class XLite extends \XLite\Base
             );
             $this->parsedVersion['minorFull'] = $this->parsedVersion['minor']
                 . ($this->parsedVersion['build'] ? '.' . $this->parsedVersion['build'] : '');
+            $this->parsedVersion['hotfix'] = $this->parsedVersion['major'] . '.' . $this->parsedVersion['minor'];
         }
 
         return !is_null($partName) ? $this->parsedVersion[$partName] : $this->parsedVersion;
@@ -927,6 +928,16 @@ class XLite extends \XLite\Base
     final public function getMinorOnlyVersion()
     {
         return $this->getParsedVersion('minor');
+    }
+
+    /**
+     * Get application hot-fixes branch version (X.X.X.x)
+     *
+     * @return string
+     */
+    final public function getHotfixBranchVersion()
+    {
+        return $this->getParsedVersion('hotfix');
     }
 
     /**

@@ -1,0 +1,4 @@
+{##
+ # Order processed email subject (to vendor)
+ #}
+{{ t('Order X', {'id': this.order.getOrderNumber()}) }}. {{ this.getNotificationSubject() }}

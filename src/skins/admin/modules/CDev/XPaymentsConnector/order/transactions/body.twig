@@ -1,0 +1,14 @@
+{##
+ # List of X-Payments payments. Here are called as transactions. 
+ #
+ #
+ # @ListChild (list="order.operations", weight="290")
+ #}
+
+{% if this.getXpcTransactions() %}
+  <div class="xpc-transactions line-3">
+    {{ widget('XLite\\Module\\CDev\\XPaymentsConnector\\View\\ItemsList\\Model\\Order\\Transactions') }}
+  </div>
+{% endif %}
+
+<br/>

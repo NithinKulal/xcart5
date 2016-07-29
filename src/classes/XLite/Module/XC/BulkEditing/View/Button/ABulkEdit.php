@@ -64,12 +64,16 @@ abstract class ABulkEdit extends \XLite\View\Button\AButton
     {
         if (null === $this->additionalButtonsWidgets) {
             $this->additionalButtonsWidgets = [];
+            $url = \XLite::getController()->getURL();
             foreach ($this->getAdditionalButtons() as $button) {
                 $class = isset($button['class'])
                     ? $button['class']
                     : 'XLite\Module\XC\BulkEditing\View\Button\Scenario';
                 unset($button['class']);
 
+                if (isset($button['formParams'])) {
+                    $button['formParams'] = array_replace($button['formParams'], ['returnURL' => $url]);
+                }
                 $this->additionalButtonsWidgets[] = $this->getWidget($button, $class);
             }
         }
@@ -108,7 +112,7 @@ abstract class ABulkEdit extends \XLite\View\Button\AButton
      */
     protected function getDefaultLabel()
     {
-        return static::t('Edit all');
+        return static::t('Bulk edit all');
     }
 
     /**
@@ -129,5 +133,18 @@ abstract class ABulkEdit extends \XLite\View\Button\AButton
     protected function getClass()
     {
         return parent::getClass() . ' bulk-edit';
+    }
+
+    /**
+     * Get commented data
+     *
+     * @return array
+     */
+    protected function getCommentedData()
+    {
+        return [
+            'Bulk edit all'      => static::t('Bulk edit all'),
+            'Bulk edit selected' => static::t('Bulk edit selected'),
+        ];
     }
 }

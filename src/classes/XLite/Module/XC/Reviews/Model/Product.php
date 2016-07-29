@@ -179,7 +179,7 @@ class Product extends \XLite\Model\Product implements \XLite\Base\IDecorator
             // other customers cannot add reviews
             if (!$this->reviewAddedByUser) {
                 $this->reviewAddedByUser = $this->findReviewByIp(
-                    inet_pton($_SERVER['REMOTE_ADDR'])
+                    utf8_encode(inet_pton($_SERVER['REMOTE_ADDR']))
                 );
             }
         }

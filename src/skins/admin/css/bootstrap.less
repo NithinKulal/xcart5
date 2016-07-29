@@ -1,0 +1,38 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+@import "initialize.less";
+@import "less/breadcrumbs.less";
+@import "less/grid.less";
+@import "less/forms.less";
+
+/* Forms */
+/** @todo: move to separate file */
+
+.ui-widget {
+  font-family: @font-family-base;
+  font-size: 12px;
+}
+
+i.tooltip-caption {
+  color: #6ac3f9;
+  font-size: 18px;
+}
+
+.popover {
+  min-width: @popover-max-width;
+  color: @text-color;
+
+  .popover-content {
+    font-family: @font-family-sans-serif;
+    font-size: @font-size-base;
+    font-weight: normal;
+    line-height: @line-height-base;
+  }
+}

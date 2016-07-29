@@ -1,0 +1,8 @@
+{##
+ # Links for XPC payment transaction 
+ #
+ #}
+<div class="links-container {% if this.isFraudStatus(this.entity) %}pull-right{% endif %}">
+  <a class="dotted" href="javascript: void(0);" onclick="javascript: showAddInfo({{ this.getOrderNumber() }}, {{ this.getTransactionId(this.entity) }});">{{ t('View payment information') }}</a>
+  <a href="{{ this.getPaymentURL(this.entity) }}" target="blank">{{ t('Go to payment details page') }}</a>
+</div>

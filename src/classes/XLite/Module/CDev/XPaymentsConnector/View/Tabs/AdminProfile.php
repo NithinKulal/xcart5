@@ -2,29 +2,8 @@
 // vim: set ts=4 sw=4 sts=4 et:
 
 /**
- * X-Cart
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the software license agreement
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://www.x-cart.com/license-agreement.html
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to licensing@x-cart.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not modify this file if you wish to upgrade X-Cart to newer versions
- * in the future. If you wish to customize X-Cart for your needs please
- * refer to http://www.x-cart.com/ for more information.
- *
- * @category  X-Cart 5
- * @author    Qualiteam software Ltd <info@x-cart.com>
- * @copyright Copyright (c) 2011-2016 Qualiteam software Ltd <info@x-cart.com>. All rights reserved
- * @license   http://www.x-cart.com/license-agreement.html X-Cart 5 License Agreement
- * @link      http://www.x-cart.com/
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
  */
  
  namespace XLite\Module\CDev\XPaymentsConnector\View\Tabs;
@@ -34,15 +13,28 @@
  */
 class AdminProfile extends \XLite\View\Tabs\AdminProfile implements \XLite\Base\IDecorator
 {
+
     /**
-     * Define and set handler attributes; initialize handler
+     * Returns the list of targets where this widget is available
      *
-     * @param array $params Handler params OPTIONAL
-     *
-     * @return void
+     * @return string[]
      */
-    public function __construct(array $params = array())
+    public static function getAllowedTargets()
     {
+        $list = parent::getAllowedTargets();
+        $list[] = 'saved_cards';
+
+        return $list;
+    }
+
+    /**
+     * @return array
+     */
+    protected function defineTabs()
+    {
+
+        $tabs = parent::defineTabs();
+
         $cnd = new \XLite\Core\CommonCell();
         $cnd->class = 'Module\CDev\XPaymentsConnector\Model\Payment\Processor\SavedCard';
 
@@ -58,13 +50,15 @@ class AdminProfile extends \XLite\View\Tabs\AdminProfile implements \XLite\Base\
             }
 
             if ($found) {
-                $this->tabs['saved_cards'] = array(
-                    'title'    => 'Saved credit cards',
-                    'template' => 'modules/CDev/XPaymentsConnector/account/saved_cards.tpl',
+                $tabs['saved_cards'] = array(
+                    'weight'   => 1000,
+                    'title'    => static::t('Saved credit cards'),
+                    'template' => 'modules/CDev/XPaymentsConnector/account/saved_cards.twig',
                 );
             }
         }
 
-        parent::__construct();
+        return $tabs;
+
     }
 }

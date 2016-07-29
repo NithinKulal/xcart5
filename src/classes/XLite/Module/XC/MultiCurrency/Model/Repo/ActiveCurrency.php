@@ -204,6 +204,27 @@ class ActiveCurrency extends \XLite\Model\Repo\Base\I18n
     }
 
     /**
+     * Add country by country code
+     *
+     * @param integer $activeCurrencyId Active currency ID
+     * @param array   $code             Country code
+     *
+     * @return void
+     */
+    public function addCountryByCode($activeCurrencyId, $code)
+    {
+        $country = \XLite\Core\Database::getRepo('XLite\Model\Country')
+            ->findOneByCode($code);
+
+        $activeCurrency = $this->find($activeCurrencyId);
+
+        if ($country && $activeCurrency) {
+            $country->setActiveCurrency($activeCurrency);
+            $country->update();
+        }
+    }
+
+    /**
      * Add countries by country code
      *
      * @param integer $activeCurrencyId Active currency ID
@@ -260,6 +281,7 @@ class ActiveCurrency extends \XLite\Model\Repo\Base\I18n
     {
         $activeCurrencies = $this->createPureQueryBuilder('ac')
             ->andWhere('ac.enabled = :enabled')
+            ->orderBy('ac.position', 'ASC')
             ->setParameter('enabled', true)
             ->getResult();
 

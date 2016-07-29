@@ -71,12 +71,12 @@ class Notification extends \XLite\View\ItemsList\Model\Table
                 static::COLUMN_ORDERBY => 100,
             ),
             'enabledForAdmin' => array(
-                static::COLUMN_NAME    => static::t('Administrator'),
+                static::COLUMN_NAME    => static::t('notification.section.administrator'),
                 static::COLUMN_CLASS   => 'XLite\View\FormField\Inline\Input\Checkbox\Switcher\NotificationStatus',
                 static::COLUMN_ORDERBY => 200,
             ),
             'enabledForCustomer' => array(
-                static::COLUMN_NAME    => static::t('Customer'),
+                static::COLUMN_NAME    => static::t('notification.section.customer'),
                 static::COLUMN_CLASS   => 'XLite\View\FormField\Inline\Input\Checkbox\Switcher\NotificationStatus',
                 static::COLUMN_ORDERBY => 300,
             ),

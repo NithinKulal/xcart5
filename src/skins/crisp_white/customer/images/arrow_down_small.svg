@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="20"
+   height="10"
+   viewBox="0 0 20 10"
+   version="1.1"
+   id="svg4201"
+   inkscape:version="0.91 r"
+   sodipodi:docname="arrow_down_small.svg">
+  <metadata
+     id="metadata4214">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Rectangle 209 Copy 3</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1600"
+     inkscape:window-height="841"
+     id="namedview4212"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="33.212121"
+     inkscape:cx="16.500058"
+     inkscape:cy="8.078888"
+     inkscape:window-x="0"
+     inkscape:window-y="30"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg4201" />
+  <!-- Generator: Sketch 3.7 (28169) - http://www.bohemiancoding.com/sketch -->
+  <title
+     id="title4203">Rectangle 209 Copy 3</title>
+  <desc
+     id="desc4205">Created with Sketch.</desc>
+  <defs
+     id="defs4207" />
+  <g
+     id="Symbols"
+     style="fill:none;fill-rule:evenodd;stroke:none;stroke-width:1"
+     transform="matrix(0.61255637,0,0,0.58551828,3.5627964e-5,-1.0140098e-6)">
+    <g
+       id="Arrows_PD_page"
+       transform="translate(-2,-424)"
+       style="fill:#3c476e">
+      <path
+         d="m 9.8112731,432.53945 c -0.073693,-0.31371 0.012067,-0.65713 0.2631949,-0.90826 l 15.130163,-15.13016 c 0.380113,-0.38012 0.992613,-0.3839 1.373954,-0.003 0.378701,0.3787 0.385103,0.98629 -0.0026,1.37395 l -14.667022,14.66703 14.667022,14.66702 c 0.387661,0.38766 0.381259,0.99525 0.0026,1.37395 -0.381341,0.38134 -0.993841,0.37756 -1.373954,-0.003 L 10.074468,433.4477 c -0.2511284,-0.25113 -0.3368878,-0.59455 -0.2631949,-0.90825 z"
+         id="Rectangle-209-Copy-3"
+         transform="matrix(0,-1,1,0,-414.2142,450.86469)"
+         inkscape:connector-curvature="0" />
+    </g>
+  </g>
+</svg>

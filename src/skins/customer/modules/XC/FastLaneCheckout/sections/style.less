@@ -1,0 +1,170 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.checkout_fastlane_sections {
+  .checkout_fastlane_section_wrapper {
+    .make-sm-column(12; 0);
+    .make-md-column(8; @grid-gutter-width);
+
+    @media(max-width: @screen-sm-max) {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    @media(min-width: @screen-md-min) {
+      padding-left: 0px !important;
+    }
+  }
+
+  .checkout_fastlane_details_wrapper {
+    .make-sm-column(12; 0);
+    .make-md-column(4; @grid-gutter-width);
+
+    @media(max-width: @screen-sm-max) {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    @media(min-width: @screen-md-min) {
+      padding-right: 0px !important;
+    }
+    .checkout_fastlane_details_box {
+      border-radius: 2px;
+      background: @body-bg;
+
+      padding: 20px;
+      position: relative;
+
+      .detail-header {
+        font-weight: 600;
+      }
+
+      .checkout_fastlane_address {
+        margin-bottom: 20px;
+      }
+    }
+  }
+}
+
+.checkout_fastlane_sections {
+  .checkout_fastlane_details_box.loading { visibility: hidden; }
+  &.section-address {
+    .checkout_fastlane_details_box {
+      margin-top: 60px;
+      .checkout_fastlane_address {display: none;}
+      .checkout_fastlane_shipping-details {display: none;}
+    }
+  }
+  &.section-shipping {
+    .checkout_fastlane_details_box {
+      .checkout_fastlane_shipping-details {display: none;}
+    }
+  }
+  &.section-payment {
+    .mobile_panel-details {
+      display: none;
+    }
+  }
+}
+
+.terms-notice {
+  margin-top: 10px;
+}
+
+.checkout_fastlane_section-buttons {
+  margin-bottom: 20px;
+  margin-top: 20px;
+  &.loading .place-button{
+    display: none;
+  }
+
+  .mobile_panel-details {
+    display: none;
+  }
+}
+
+.checkout_fastlane_section_heading {
+  .h2;
+}
+
+@media(max-width: @screen-sm-min) {
+  .checkout_fastlane_section-buttons {
+    @media(min-width: @screen-sm-min) {
+      display: none;
+    }
+
+    .mobile_panel-details {
+      display: block;
+    }
+
+    border-top: 1px solid #e2e2e2;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: 80px;
+    padding: 20px;
+    margin: 0px;
+    background: @body-bg;
+    .flex-display();
+    .align-items(center);
+    .justify-content(space-between);
+
+    .place-button {
+      width: 100%;
+      form.place {
+        .flex-display();
+        .align-items(center);
+        .justify-content(space-between);
+        .checkout_fastlane_section-place_order {
+          min-width: 220px;
+          width: auto;
+        }
+        .terms-notice {
+          margin: 0;
+          max-width: 300px;
+        }
+      }
+    }
+
+    .mobile_panel-details {
+      max-width: 100px;
+      .title, .value {
+        display: block;
+      }
+      .title {
+        font-size: 12px;
+        line-height: 20px;
+      }
+      .value {
+        font-size: 18px;
+        line-height: 30px;
+        font-weight: 600;
+        text-align: left;
+      }
+    }
+
+    @media(max-width: 500px) {
+      .checkout_fastlane_section-place_order {
+        width: 100% !important;
+      }
+
+      .terms-notice {
+        display: none !important;
+      }
+    }
+  }
+}
+
+&.section-payment {
+  .checkout_fastlane_section-buttons .mobile_panel-details {
+    display: none;
+  }
+}

@@ -7,8 +7,23 @@
 
 XLite\Model\LanguageLabel:
   - { name: 'Bulk edit', translations: [{ code: en, label: 'Bulk edit' }]}
-  - { name: 'Bulk edit...', translations: [{ code: en, label: 'Bulk edit...' }]}
-  - { name: 'Click to apply value to selected products', translations: [{ code: en, label: 'Click to apply value to selected products' }]}
-  - { name: 'Edit all', translations: [{ code: en, label: 'Edit all' }]}
+  - { name: 'Click to specify', translations: [{ code: en, label: 'Click to specify' }]}
+  - { name: 'Bulk edit all', translations: [{ code: en, label: 'Bulk edit all' }]}
   - { name: 'Inventory', translations: [{ code: en, label: 'Inventory' }]}
-  - { name: 'Price ans membership', translations: [{ code: en, label: 'Price ans membership' }]}
+  - { name: 'Price and membership', translations: [{ code: en, label: 'Price and membership' }]}
+  - { name: 'Shipping info', translations: [{ code: en, label: 'Shipping info' }]}
+  - { name: 'Bulk edit has been processed successfully.', translations: [{ code: en, label: 'Bulk edit has been processed successfully.' }] }
+  - { name: 'Bulk edit processing has been interrupted.', translations: [{ code: en, label: 'Bulk edit processing has been interrupted.' }] }
+  - { name: 'Bulk edit processing may take a while to complete. Please do not close this page until the process is fully completed.', translations: [{ code: en, label: 'Bulk edit processing may take a while to complete. Please do not close this page until the process is fully completed. If the page has been closed, please re-open it to complete the process (The Bulk edit processing routine is executed only while the page stays open).' }] }
+  - { name: 'Bulk Edit processing in progress...', translations: [{ code: en, label: 'Bulk Edit processing in progress...' }] }
+  - { name: 'Replace with', translations: [{ code: en, label: 'Replace with' }]}
+  - { name: 'Back to products', translations: [{ code: en, label: 'Back to products' }]}
+  - { name: 'X items selected', translations: [{ code: en, label: '{{count}} items selected' }] }
+  - { name: 'Bulk edit selected', translations: [{ code: en, label: 'Bulk edit selected' }] }
+  - { name: 'Product list', translations: [{ code: en, label: 'Product list' }] }
+  - { name: 'Move to', translations: [{ code: en, label: 'Move to' }] }
+  - { name: 'Not set', translations: [{ code: en, label: 'Not set' }] }
+  - { name: 'Low stock warning on product page', translations: [{ code: en, label: 'Low stock warning on product page' }] }
+  - { name: 'Low stock notification to admin', translations: [{ code: en, label: 'Low stock notification to admin' }] }
+  - { name: 'label.coming_soon', translations: [{ code: en, label: 'Coming Soon' }] }
+  - { name: 'This feature is not yet available. You will be redirected to the feature request page where you can vote to have this feature implemented in one of the upcoming versions.', translations: [{ code: en, label: 'This feature is not yet available. You will be redirected to the feature request page where you can vote to have this feature implemented in one of the upcoming versions.' }] }

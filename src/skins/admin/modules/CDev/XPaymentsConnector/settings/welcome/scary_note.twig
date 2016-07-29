@@ -1,0 +1,26 @@
+{##
+ # Welcome section. Scary note. 
+ #
+ #}
+
+<div class="scary-note">
+
+  
+  {% if this.getPaymentMethod() %}
+    <div class="xp-icon-circle">
+    </div>
+  {% endif %}
+
+  <div class="logo {% if this.getPaymentMethod() %}xp{% endif %}">
+    <img src="skins/admin/{{ this.getLogoUrl() }}" />
+  </div>
+
+  <div class="scary-text">
+    {{ this.getScaryText()|raw }}
+  </div>
+
+  <div class="pci-logo">
+  </div>
+
+</div>
+

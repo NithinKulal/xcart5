@@ -1,8 +1,0 @@
-{##
- # Greating template
- #}
-{% if this.recipientName %}
-{{ t('Dear X', {'name': this.recipientName})|raw }}
-{% else %}
-{{ t('Dear customer')|raw }}
-{% endif %}

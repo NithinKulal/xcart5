@@ -24,6 +24,7 @@ class ExportAttrs extends \XLite\View\FormField\Select\Regular
             'global'           => static::t('Global attributes'),
             'global_n_classes' => static::t('Global & Classes attributes'),
             'all'              => static::t('All attributes'),
+            'none'             => static::t('No attributes'),
         );
     }
 }

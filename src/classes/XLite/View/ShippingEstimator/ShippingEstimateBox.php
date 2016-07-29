@@ -156,8 +156,13 @@ class ShippingEstimateBox extends \XLite\View\AView
         if (is_array($address)) {
             $country = \XLite\Core\Database::getRepo('XLite\Model\Country')->find($address['country']);
 
-            if ($address['state']) {
-                $state = \XLite\Core\Database::getRepo('XLite\Model\State')->find($address['state']);
+            if (!empty($address['state'])) {
+                if (is_integer($address['state'])) {
+                    $state = \XLite\Core\Database::getRepo('XLite\Model\State')->find($address['state']);
+
+                } elseif (!empty($address['country'])) {
+                    $state = \XLite\Core\Database::getRepo('XLite\Model\State')->findOneByCountryAndCode($address['country'], $address['state']);
+                }
 
             } elseif ($this->getCart()->getProfile() && $this->getCart()->getProfile()->getShippingAddress()) {
                 $state = $this->getCart()->getProfile()->getShippingAddress()->getState();

@@ -66,9 +66,14 @@ class FormGenerator
                 $result['label'] = (string) $section['label'];
             }
 
+            if (isset($section['help'])) {
+                $result['help'] = (string) $section['help'];
+            }
+
             if (isset($section['description'])) {
                 $result['description'] = (string) $section['description'];
             }
+
 
             if (array_key_exists('collapse', $section)) {
                 $result['collapse'] = (bool) $section['collapse'];
@@ -119,12 +124,12 @@ class FormGenerator
                         $constraints[] = new $constraint($constraintOptions);
                     }
 
-                    if ($constraint = 'Symfony\Component\Validator\Constraints\Length'
-                        && isset($constraintOptions['max'])
+                    if ($constraint = 'XLite\Core\Validator\Constraints\MaxLength'
+                        && isset($constraintOptions['length'])
                     ) {
                         $options['attr'] = array_replace(
                             isset($options['attr']) ? $options['attr'] : [],
-                            ['max' => $constraintOptions['max']]
+                            ['maxlength' => $constraintOptions['length']]
                         );
                     }
                 }
@@ -167,8 +172,8 @@ class FormGenerator
     {
         $formName = 'form';
 
-        $options['data_object'] = $dataObject ? json_encode($dataObject->toArray()) : '';
-        $options['view_object'] = $viewObject ? json_encode($viewObject->toArray()) : '';
+        $options['data_object'] = $dataObject ? json_encode($dataObject->toScheme()) : '';
+        $options['view_object'] = $viewObject ? json_encode($viewObject->toScheme()) : '';
 
         $this->createBuilder($formName, $dataObject, $options);
 

@@ -16,16 +16,40 @@ class WidgetCache
     /**
      * Widget cache prefix
      */
-    const CACHE_PREFIX = 'viewCache.';
+    const CACHE_PREFIX      = 'viewCache.';
+
+    /**
+     * Widget cache namespace
+     */
+    const CACHE_NAMESPACE   = 'viewCacheNamespace';
 
     /**
      * @var WidgetCacheRegistryInterface
      */
     private $cacheRegistry;
 
-    public function __construct(WidgetCacheRegistryInterface $cacheRegistry)
+    /**
+     * Cache driver instance
+     *
+     * @var \Doctrine\Common\Cache\CacheProvider
+     */
+    protected $cacheDriver;
+
+    /**
+     * Protected constructor.
+     * It's not possible to instantiate a derived class (using the "new" operator)
+     * until that child class is not implemented public constructor
+     *
+     * @return void
+     */
+    protected function getCacheDriver()
     {
-        $this->cacheRegistry = $cacheRegistry;
+        if (!$this->cacheDriver) {
+            $this->cacheDriver = \XLite\Core\Database::getFreshCacheDriver();
+            $this->cacheDriver->setNamespace(static::CACHE_NAMESPACE);
+        }
+
+        return $this->cacheDriver;
     }
 
     /**
@@ -37,14 +61,18 @@ class WidgetCache
      */
     public function delete(array $parameters)
     {
-        $registry = $this->cacheRegistry->fetchRegistry();
+        $key = $this->getCacheKey($parameters);
+        $this->getCacheDriver()->delete($key);
+    }
 
-        foreach ($this->cacheRegistry->getRegistryKey($parameters) as $key) {
-            Database::getCacheDriver()->delete($key);
-            unset($registry[$key]);
-        }
-
-        $this->cacheRegistry->saveRegistry($registry);
+    /**
+     * Delete all
+     *
+     * @return boolean
+     */
+    public function deleteAll()
+    {
+        return $this->getCacheDriver()->deleteAll();
     }
 
     /**
@@ -56,7 +84,7 @@ class WidgetCache
      */
     public function has(array $parameters)
     {
-        return Database::getCacheDriver()->contains($this->getCacheKey($parameters));
+        return $this->getCacheDriver()->contains($this->getCacheKey($parameters));
     }
 
     /**
@@ -68,7 +96,7 @@ class WidgetCache
      */
     public function get(array $parameters)
     {
-        $content = Database::getCacheDriver()->fetch($this->getCacheKey($parameters));
+        $content = $this->getCacheDriver()->fetch($this->getCacheKey($parameters));
 
         return $content !== false ? unserialize($content) : null;
     }
@@ -87,9 +115,7 @@ class WidgetCache
         $key = $this->getCacheKey($parameters);
         $ttl = $ttl ?: \XLite\Model\Repo\ARepo::CACHE_DEFAULT_TTL;
 
-        $this->cacheRegistry->setRegistry($key, $parameters);
-
-        \XLite\Core\Database::getCacheDriver()->save($key, serialize($content), $ttl);
+        $this->getCacheDriver()->save($key, serialize($content), $ttl);
     }
 
     /**
@@ -102,9 +128,7 @@ class WidgetCache
     public function remove(array $parameters)
     {
         $key = $this->getCacheKey($parameters);
-
-        Database::getCacheDriver()->delete($key);
-        $this->cacheRegistry->unsetRegistry($key);
+        $this->getCacheDriver()->delete($key);
     }
 
     /**

@@ -23,6 +23,13 @@ abstract class AddressForm extends \XLite\View\Checkout\AAddressBlock
     abstract public function getClassName();
 
     /**
+     * Returns block short class name
+     *
+     * @return boolean
+     */
+    abstract public function getShortAddressType();
+
+    /**
      * Get JS files
      *
      * @return array
@@ -110,12 +117,33 @@ abstract class AddressForm extends \XLite\View\Checkout\AAddressBlock
         $attrs['class'] = trim($attrs['class'] . ' ' . implode(' ', $classes));
 
         // Vue.js attributes
-        $attrs['v-model'] = "value";
-        $attrs['v-el:input'] = "v-el:input";
-        $attrs['debounce'] = '500';
+        $attrs['v-model'] = 'fields.' . $fieldName;
+        $attrs['debounce'] = '200';
         $attrs['lazy'] = 'lazy';
+        $attrs['data-shortname'] = $fieldName;
 
         return $attrs;
+    }
+
+    /**
+     * @return string
+     */
+    public function defineFormSchema()
+    {
+        $schema = array();
+        foreach ($this->getAddressSchemaFields() as $field => $data) {
+            $schema[$field] = (string) $this->getFieldValue($field);
+        }
+
+        return $schema;
+    }
+
+    /**
+     * @return string
+     */
+    public function serializeFormSchema()
+    {
+        return json_encode($this->defineFormSchema());
     }
 
     /**

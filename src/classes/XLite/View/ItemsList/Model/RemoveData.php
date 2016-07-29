@@ -10,8 +10,6 @@ namespace XLite\View\ItemsList\Model;
 
 /**
  * Remove data items list
- *
- * @ListChild (list="admin.center", zone="admin")
  */
 class RemoveData extends \XLite\View\ItemsList\Model\Table
 {
@@ -43,11 +41,36 @@ class RemoveData extends \XLite\View\ItemsList\Model\Table
     }
 
     /**
+     * Return wrapper form options
+     *
+     * @return string
+     */
+    protected function getFormOptions()
+    {
+        return array_merge(
+            parent::getFormOptions(),
+            array(
+                'action'    => $this->getFormAction(),
+            )
+        );
+    }
+
+    /**
      * Get wrapper form target
      *
      * @return array
      */
     protected function getFormTarget()
+    {
+        return 'remove_data';
+    }
+
+    /**
+     * Get wrapper form action
+     *
+     * @return array
+     */
+    protected function getFormAction()
     {
         return 'remove_data';
     }
@@ -367,11 +390,13 @@ class RemoveData extends \XLite\View\ItemsList\Model\Table
 
             if ($count >= static::LIMIT) {
                 \XLite\Core\Database::getEM()->flush();
+                \XLite\Core\Database::getEM()->clear();
                 $count = 0;
             }
         }
 
         \XLite\Core\Database::getEM()->flush();
+        \XLite\Core\Database::getEM()->clear();
 
         return $i;
     }

@@ -1,0 +1,12 @@
+{##
+ # Vendor image
+ #
+ # @ListChild (list="product.vendor_info", weight="10")
+ # @ListChild (list="sidebar.first.vendor_info", weight="10")
+ #}
+
+<div class="vendor-image">
+  <a href="{{ this.getVendorPageURL() }}">
+    {{ widget('\\XLite\\Module\\XC\\CrispWhiteSkin\\View\\CommonImage', image=this.getVendorImage(), maxWidth=this.getVendorImageWidth(), maxHeight=this.getVendorImageHeight(), alt=this.vendor.vendorCompanyName, verticalAlign='top') }}
+  </a>
+</div>

@@ -1,0 +1,200 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Reviews list styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+ul.reviews-list .title {
+  background: #f2f2f2;
+  padding: 20px;
+}
+
+ul.reviews-list {
+  margin-bottom: 20px;
+}
+
+div.reviews ul {
+  list-style: none;
+}
+
+div.reviews ul li {
+  list-style: none;
+  background: none;
+  padding-left: 0px;
+}
+
+div.reviews div.rating {
+  padding: 10px 0px;
+}
+
+div.reviews div.text {
+  padding-bottom: 10px;
+}
+
+div.reviews div.title {
+  font-size: 14px;
+}
+
+div.reviews div.title div.info {
+  width: 20%;
+  display: inline-table;
+}
+
+div.reviews div.title div.right-actions {
+  text-align: right;
+  display: inline-table;
+  float: right;
+}
+
+div.reviews div.title .reviewer-name {
+  font-size: 16px;
+}
+
+div.reviews div.title .date {
+  font-size: 12px;
+  color: #808080;
+}
+
+div.reviews div.right-actions div.separator {
+  width: 5px;
+}
+
+div.reviews div.separator {
+  display: inline-block;
+  background-image: url(../images/line-separator.png);
+  height: 20px;
+  margin-top: 8px;
+  vertical-align: middle;
+  background-repeat: repeat-y;
+  background-position: center left;
+}
+
+div.reviews div.approved-separator {
+  width: 14%;
+  display: inline-block;
+}
+
+div.reviews li.pending .title {
+  background-color: #f2f2f2;
+}
+
+div.reviews li.pending div.vote-bar span {
+  opacity: 0.5;
+}
+
+div.reviews div.moderation {
+  float: left;
+  background-color: #dcdcdc;
+  padding-right: 10px;
+  color: #FFFFFF;
+  -moz-border-radius: 15px;
+  border-radius: 2px;
+  padding-left: 10px;
+  padding-top: 2px;
+  padding-right: 10px;
+  padding-bottom: 2px;
+  margin-top: 7px; 
+  margin-right: 15px;
+}
+
+div.reviews div.right-actions div.buttons {
+  float: right;
+  margin: 8px 0px 0px 10px;
+}
+
+div.header {
+  position: relative;
+}
+
+div.header div.left .head-h2 {
+  margin: 0px;
+  padding-top: 5px;
+}
+
+div.header div.line {
+  padding-top: 5px;
+  margin-bottom: 15px;
+}
+
+div.product-details-tabs div.header div.line {
+  padding-top: 5px;
+  margin-bottom: 2px;
+}
+
+div.header div.right {
+  position: absolute;
+  bottom: 20px;
+  right: 0px;
+}
+
+@media (max-width: 991px) {
+  div.header div.right {
+    position: relative;
+  }
+}
+
+div.product-details-tabs div.product-reviews div.list-pager {
+  margin-bottom: 0px;
+  height: 20px;
+}
+
+div.header div.average-rating {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+div.header table.rating {
+  border-width: 0px;
+  border-style: none;
+  margin: 0px;
+}
+
+div.header table.rating tr {
+  border-width: 0px;
+  border-style: none;
+}
+
+div.header table.rating td {
+  border-width: 0px;
+  border-style: none;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 5px;
+  vertical-align: middle;
+}
+div.header div.title {
+  font-size: 28px;
+  color: #579ED2;
+}
+
+div.line {
+  padding-top: 30px;
+  border-bottom: 1px solid #f2f2f2;
+  margin-bottom: 25px;
+}
+
+div.empty-reviews-list {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+button.edit-review {
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: none;
+}
+
+button.edit-review:before {
+	width: 100%;
+	height: 100%;
+	background: transparent;
+	position: relative;
+	top: auto;
+	left: auto;
+	margin: 0;
+}

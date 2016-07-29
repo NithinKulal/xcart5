@@ -34,16 +34,7 @@ class AddressField extends \XLite\Model\Repo\Base\I18n
      */
     public function findAllEnabled()
     {
-        return $this->search(
-            new \XLite\Core\CommonCell(
-                array(
-                    'enabled' => true,
-                    'orderBy'  => array(
-                        array('a.id')
-                    )
-                )
-            )
-        );
+        return $this->defineFindAllQuery(true)->getResult();
     }
 
     /**
@@ -85,12 +76,10 @@ class AddressField extends \XLite\Model\Repo\Base\I18n
      */
     public function findRequiredFields()
     {
-        return array_map(array($this, 'getServiceName'), $this->search(
-            new \XLite\Core\CommonCell(array(
-                'enabled' => true,
-                'required' => true,
-            )
-        )));
+        return array_map(
+            array($this, 'getServiceName'),
+            $this->defineFindAllQuery(true, true)->getResult()
+        );
     }
 
     /**
@@ -102,9 +91,7 @@ class AddressField extends \XLite\Model\Repo\Base\I18n
     {
         return array_map(
             array($this, 'getServiceName'),
-            $this->search(
-                new \XLite\Core\CommonCell(array('enabled' => true,))
-            )
+            $this->defineFindAllQuery(true)->getResult()
         );
     }
 
@@ -126,6 +113,31 @@ class AddressField extends \XLite\Model\Repo\Base\I18n
         }
 
         return $result;
+    }
+
+    /**
+     * Defined query builder
+     *
+     * @param boolean $enabled Enabled status
+     * @param boolean $required Required status
+     *
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    protected function defineFindAllQuery($enabled = null, $required = null)
+    {
+        $qb = $this->createQueryBuilder('a');
+
+        if (isset($enabled)) {
+            $this->prepareCndEnabled($qb, $enabled, false);
+        }
+
+        if (isset($required)) {
+            $this->prepareCndRequired($qb, $required, false);
+        }
+
+        $qb->orderBy('a.id', 'ASC');
+
+        return $qb;
     }
 
     /**
@@ -177,5 +189,4 @@ class AddressField extends \XLite\Model\Repo\Base\I18n
                 ->setParameter('cstate', 'custom_state');
         }
     }
-
 }

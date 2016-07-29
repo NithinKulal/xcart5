@@ -831,6 +831,8 @@ class Order extends \XLite\Controller\Admin\AAdmin
 
         $this->getOrder()->setIsNotificationSent($oldSentFlagValue);
 
+        $this->updatePaymentMethods();
+
         // Process change order statuses
         $this->updateOrderStatus();
 
@@ -993,6 +995,40 @@ class Order extends \XLite\Controller\Admin\AAdmin
                 ->registerOrderChangeCustomerNotes($this->getOrder()->getOrderId(), $changes);
 
             $this->getOrder()->setNotes($notes);
+
+            \XLite\Core\Database::getEM()->flush();
+        }
+    }
+
+    /**
+     * Update payment methods
+     *
+     * @return void
+     */
+    protected function updatePaymentMethods()
+    {
+        if ($this->isOrderEditable()) {
+            $methods = \XLite\Core\Request::getInstance()->paymentMethods ?: array();
+
+            foreach ($methods as $transactionId => $methodId) {
+                $transaction = \XLite\Core\Database::getRepo('XLite\Model\Payment\Transaction')->find($transactionId);
+                $method = \XLite\Core\Database::getRepo('XLite\Model\Payment\Method')->find($methodId);
+                $oldMethod = $transaction->getPaymentMethod();
+                if ($method && $transaction && (!$oldMethod || $methodId != $oldMethod->getMethodId())) {
+                    $transaction->setPaymentMethod($method);
+                    \XLite\Core\OrderHistory::getInstance()
+                        ->registerGlobalOrderChanges($this->getOrder()->getOrderId(), [
+                            $this->getFieldHumanReadableName('paymentMethod') => [
+                                'old'   => $oldMethod ? $oldMethod->getName() : null,
+                                'new'   => $method->getName()
+                            ]
+                        ]);
+                }
+            }
+
+            if ($method = $this->getOrder()->getPaymentMethod()) {
+                $this->getOrder()->setPaymentMethod($method);
+            }
 
             \XLite\Core\Database::getEM()->flush();
         }

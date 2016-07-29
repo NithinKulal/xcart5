@@ -13,12 +13,17 @@ namespace XLite\Controller\Admin;
  */
 class Notification extends \XLite\Controller\Admin\AAdmin
 {
+    use \XLite\Controller\Features\FormModelControllerTrait;
+
     /**
-     * Controller parameters
-     *
-     * @var array
+     * @param array $params Handler params OPTIONAL
      */
-    protected $params = array('templatesDirectory');
+    public function __construct(array $params)
+    {
+        parent::__construct($params);
+
+        $this->params = array_merge($this->params, ['page', 'templatesDirectory']);
+    }
 
     /**
      * Return the current page title (for the content area)
@@ -32,6 +37,42 @@ class Notification extends \XLite\Controller\Admin\AAdmin
         return $notification
             ? $notification->getName()
             : '';
+    }
+
+    /**
+     * Get pages sections
+     *
+     * @return array
+     */
+    public function getPages()
+    {
+        $list = parent::getPages();
+
+        $notification = $this->getNotification();
+
+        if ($notification->getAvailableForCustomer() || $notification->getEnabledForCustomer()) {
+            $list['customer'] = static::t('notification.section.customer');
+        }
+
+        if ($notification->getAvailableForAdmin() || $notification->getEnabledForAdmin()) {
+            $list['admin'] = static::t('notification.section.administrator');
+        }
+
+        return $list;
+    }
+
+    /**
+     * Get pages templates
+     *
+     * @return array
+     */
+    protected function getPageTemplates()
+    {
+        $list = parent::getPageTemplates();
+        $list['customer'] = 'notification/body.twig';
+        $list['admin'] = 'notification/body.twig';
+
+        return $list;
     }
 
     /**
@@ -49,25 +90,52 @@ class Notification extends \XLite\Controller\Admin\AAdmin
     }
 
     /**
+     * Returns object to get initial data and populate submitted data to
+     *
+     * @return \XLite\Model\DTO\Base\ADTO
+     */
+    public function getFormModelObject()
+    {
+        $class = $this->getFormModelObjectClass();
+
+        return new $class($this->getNotification());
+    }
+
+    /**
+     * @return \XLite\Model\DTO\Base\ADTO
+     */
+    protected function getFormModelObjectClass()
+    {
+        return 'admin' === $this->getPage()
+            ? 'XLite\Model\DTO\Settings\Notification\Admin'
+            : 'XLite\Model\DTO\Settings\Notification\Customer';
+    }
+
+    /**
      * Update model
      *
      * @return void
      */
     protected function doActionUpdate()
     {
-        if ($this->getNotification()) {
-            $this->getModelForm()->performAction('modify');
-        }
-    }
+        $dto = $this->getFormModelObject();
+        $formModel = new \XLite\View\FormModel\Settings\Notification\Notification(['object' => $dto]);
 
-    /**
-     * Get model form class
-     *
-     * @return string
-     */
-    protected function getModelFormClass()
-    {
-        return 'XLite\View\Model\Notification';
+        $form = $formModel->getForm();
+        $data = \XLite\Core\Request::getInstance()->getData();
+        $rawData = \XLite\Core\Request::getInstance()->getNonFilteredData();
+
+        $form->submit($data[$this->formName]);
+
+        if ($form->isValid()) {
+            $dto->populateTo($this->getNotification(), $rawData[$this->formName]);
+            \XLite\Core\Database::getEM()->flush();
+
+            \XLite\Core\TopMessage::addInfo('The notification has been updated');
+
+        } else {
+            $this->saveFormModelTmpData($rawData[$this->formName]);
+        }
     }
 
     /**

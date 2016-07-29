@@ -8,6 +8,8 @@
 
 namespace XLite\Module\XC\BulkEditing\View\FormModel\Product;
 
+use XLite\Module\XC\BulkEditing\Logic\BulkEdit\Scenario;
+
 abstract class AProduct extends \XLite\View\FormModel\AFormModel
 {
     protected $scenario = '';
@@ -19,6 +21,17 @@ abstract class AProduct extends \XLite\View\FormModel\AFormModel
     {
         $list = parent::getJSFiles();
         $list[] = 'modules/XC/BulkEditing/form_model/controller.js';
+
+        return $list;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCSSFiles()
+    {
+        $list = parent::getCSSFiles();
+        $list[] = 'modules/XC/BulkEditing/form_model/product.css';
 
         return $list;
     }
@@ -54,9 +67,9 @@ abstract class AProduct extends \XLite\View\FormModel\AFormModel
      */
     protected function defineSections()
     {
-        $sections = \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Scenario::getScenarioSections($this->scenario);
+        $sections = Scenario::getScenarioSections($this->scenario);
 
-        return array_replace([self::SECTION_DEFAULT => []], $sections ?: []);
+        return array_replace(parent::defineSections(), $sections ?: []);
     }
 
     /**
@@ -66,7 +79,7 @@ abstract class AProduct extends \XLite\View\FormModel\AFormModel
     {
         $schema = [];
 
-        $fields = \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Scenario::getScenarioFields($this->scenario);
+        $fields = Scenario::getScenarioFields($this->scenario);
 
         foreach ($fields as $section => $sectionFields) {
             $sectionSchema = [];
@@ -83,25 +96,6 @@ abstract class AProduct extends \XLite\View\FormModel\AFormModel
     }
 
     /**
-     * Return list of the "Button" widgets
-     *
-     * @return array
-     */
-    protected function getFormButtons()
-    {
-        $list = parent::getFormButtons();
-        $list['product_list'] = new \XLite\View\Button\SimpleLink(
-            array(
-                \XLite\View\Button\AButton::PARAM_LABEL => static::t('Back to products'),
-                \XLite\View\Button\AButton::PARAM_STYLE => 'action product-list-back-button',
-                \XLite\View\Button\Link::PARAM_LOCATION => $this->buildURL('product_list'),
-            )
-        );
-
-        return $list;
-    }
-
-    /**
      * Return form theme files. Used in template.
      *
      * @return array
@@ -112,5 +106,25 @@ abstract class AProduct extends \XLite\View\FormModel\AFormModel
         $list[] = 'modules/XC/BulkEditing/form_model/bulk_edit_theme.twig';
 
         return $list;
+    }
+
+    /**
+     * Returns scenario current data view
+     *
+     * @return string
+     */
+    protected function getScenarioView()
+    {
+        return Scenario::getScenarioView($this->getCurrentScenario()) ?: '';
+    }
+
+    /**
+     * Return internal list name
+     *
+     * @return string
+     */
+    protected function getListName()
+    {
+        return 'form_model.xc.bulkediting.product';
     }
 }

@@ -1,0 +1,13 @@
+{##
+ # Upgrade entry name
+ #
+ # @ListChild (list="upgrade.step.prepare.entries_list_upgrade.sections.table.info", weight="100")
+ #}
+{% if this.isModule(this.entry) %}
+  <li class="name">
+    <a href="{{ this.getInstalledModuleURL(this.entry) }}" title="{{ this.entry.getName() }}">{{ this.getEntryName(this.entry) }}</a>
+  </li>
+{% endif %}
+{% if not this.isModule(this.entry) %}
+  <li class="name core">{{ this.entry.getName() }}</li>
+{% endif %}

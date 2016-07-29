@@ -1,0 +1,50 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * CSS classes
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+body.target-amazon-checkout #breadcrumb, body.target-amazon-checkout #header-area #header, body.target-amazon-checkout #header-area #search {
+  display: none;
+}
+
+body.target-amazon-checkout #header-area {
+  padding-bottom: 10px;
+}
+
+table.amazon-checkout-tbl, table.amazon-checkout-tbl td, table.amazon-checkout-tbl tr {
+  border: none;
+}
+
+table.amazon-checkout-tbl {
+  width: 85%;
+}
+
+body.target-amazon-checkout .checkout-block .steps .step {
+  width: 100%;
+  float: none;
+}
+
+body.target-amazon-checkout .checkout-block .steps h3 {
+  float: none;
+}
+
+body.target-amazon-checkout .checkout-block ul.shipping-rates li {
+  padding-left: 20px;
+}
+
+body.target-amazon-checkout .checkout-block .review-step .cart-items {
+  text-align: left;
+}
+
+body > .wait-block-overlay {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+  z-index: 1010;
+}

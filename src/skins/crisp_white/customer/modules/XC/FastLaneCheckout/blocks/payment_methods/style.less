@@ -1,0 +1,123 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.checkout_fastlane_payment_methods {
+  margin-bottom: (@rhythmic-unit * 2);
+
+  .payments-radiolist li + li {
+    margin-top: @rhythmic-unit;
+  }
+
+  label {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+
+    img {
+      max-width: 220px;
+    }
+  }
+
+  input:checked ~ .payment-title {
+    color: @color-highlight;
+  }
+
+  .payment-title {
+    color: @color-text-dark;
+    display: block;
+    #rhythmless > .rhythm(@font-size-base);
+  }
+
+  .payment-description {
+    color: @color-text-default;
+    display: inline-block;
+    white-space: normal;
+    #rhythmless > .rhythm(@font-size-small);
+  }
+
+  .payment-test-mode {
+    text-transform: uppercase;
+    display: inline-block;
+    background: #efb142;
+    color: #fff;
+    border-radius: 4px;
+    padding: 1px 4px 0;
+    font-size: 9px;
+    font-weight: bold;
+    margin-right: 10px;
+    line-height: @rhythmic-unit;
+  }
+
+  sup {
+    display: inline;
+  }
+
+  span.value {
+    color: @color-text-dark;
+    float: right;
+    #rhythmless > .rhythm(@font-size-base);
+    line-height: 20px;
+  }
+
+  .payment-tpl .cc-form {
+    @media(max-width: @screen-xs-min) {
+      margin-left: (-@grid-gutter-width / 2);
+      width: 100vw;
+      min-width: 320px;
+      max-width: @screen-xs-min;
+    }
+  }
+
+  .payment-tpl .form {
+    background: #fafafa;
+    padding: 13px 20px;
+    border-radius: 2px;
+
+    & > li {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .table-label {
+      display: inline-block;
+      width: 50%;
+
+      label {
+          display: block;
+        float: left;
+        width: 90%;
+      }
+
+      label:after {
+        content: '*';
+        color: #ec554e;
+      }
+
+      @media (max-width: @screen-xs-max) {
+        width: 100%;
+      }
+    }
+
+    .star {
+      display: none;
+    }
+
+    .table-value {
+      display: inline-block;
+      width: 50%;
+      .input-field-wrapper {
+        display: block;
+      }
+
+      @media (max-width: @screen-xs-max) {
+        width: 100%;
+      }
+    }
+  }
+}

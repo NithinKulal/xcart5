@@ -521,6 +521,10 @@ class Module extends \XLite\Model\AEntity
             if (!$this->imageURLCached[$image]) {
                 $this->imageURLCached[$image] = $this->getPublicImageURL($image);
             }
+
+            if ($this->imageURLCached[$image]) {
+                $this->imageURLCached[$image] = preg_replace('/^https?:/', '', $this->imageURLCached[$image]);
+            }
         }
 
         return $this->imageURLCached[$image];
@@ -636,18 +640,69 @@ class Module extends \XLite\Model\AEntity
     /**
      * Check if the module can be disabled
      *
-     * @param \XLite\Model\Module $module Module
+     * @param boolean $safeCheck True - check if dependent modules can be disabled
      *
      * @return boolean
      */
-    public function canDisable()
+    public function canDisable($safeCheck = false)
     {
-        return !(bool)$this->getDependentModules();
+        return !$this->isHardEnabled() && ($safeCheck || !$this->hasEnabledDependentModules());
+    }
+
+    /**
+     * Return true if module enabled and cannot be disabled at all
+     *
+     * @return boolean
+     */
+    public function isHardEnabled()
+    {
+        $result = $this->getEnabled() && !$this->callModuleMethod('canDisable');
+
+        if (!$result) {
+
+            // Get list of installed modules which are depends on this module
+            $dependent = $this->getDependentModules();
+
+            if ($dependent) {
+                foreach ($dependent as $dep) {
+                    if ($dep->isHardEnabled()) {
+                        $result = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Check if all dependent modules are enabled
+     *
+     * @return boolean
+     */
+    public function hasEnabledDependentModules()
+    {
+        $result = false;
+
+        // Get list of installed modules which are depends on this module
+        $dependent = $this->getDependentModules();
+
+        if ($dependent) {
+            foreach ($dependent as $dep) {
+                if ($dep->getEnabled()) {
+                    $result = true;
+                    break;
+                }
+            }
+        }
+
+        return $result;
     }
 
     /**
      * Check - module can uninstall or not
-     * 
+     *
      * @return boolean
      */
     public function canUninstall()

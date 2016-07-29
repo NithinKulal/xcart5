@@ -1,0 +1,32 @@
+{##
+ # Center column
+ #
+ # @ListChild (list="admin.main.page.content.center", weight="10")
+ #}
+{% include 'noscript.twig' %}
+
+{% if this.isTitleVisible() and this.getTitle() %}
+  <h1 class="title" id="page-title">
+    <div id="breadcrumb">
+      {{ widget_list('layout.main.breadcrumb') }}
+    </div>
+  </h1>
+{% endif %}
+
+{{ widget_list('admin.center') }}
+
+{% if this.target == 'access_denied' %}
+  {% include 'access_denied.twig' %}
+{% endif %}
+
+{% if this.target == 'license_restriction' %}
+  {% include 'license_message.twig' %}
+{% endif %}
+
+{### TODO: will be moved to the dashboard side bar
+<widget template="common/dialog.tpl" head="Customer zone warning" body="customer_zone_warning.tpl" IF="{getCustomerZoneWarning()}" />
+###}
+
+{% if this.target == 'profile' and this.mode == 'delete' %}
+  {{ widget(template='common/dialog.twig', head='Delete profile - Confirmation', body='profile/confirm_delete.twig') }}
+{% endif %}

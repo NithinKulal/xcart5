@@ -24,6 +24,20 @@ class Image extends \XLite\Model\Repo\Base\Image
     }
 
     /**
+     * Add prodct variant image to the list of storage-based repositories classes list
+     *
+     * @return array
+     */
+    protected function defineStorageRepositories()
+    {
+        $result = parent::defineStorageRepositories();
+
+        $result[] = 'XLite\Module\XC\ProductVariants\Model\Image\ProductVariant\Image';
+
+        return $result;
+    }
+
+    /**
      * Count by product
      *
      * @param \XLite\Model\Product $product Product

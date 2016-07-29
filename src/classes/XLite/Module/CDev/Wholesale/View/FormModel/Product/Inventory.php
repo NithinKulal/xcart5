@@ -16,7 +16,10 @@ class Inventory extends \XLite\View\FormModel\Product\Inventory implements \XLit
     protected function defineSections()
     {
         $sections = parent::defineSections();
-        $sections['minimum_purchase_quantity'] = static::t('Minimum purchase quantity');
+        $sections['minimum_purchase_quantity'] = [
+            'label'    => static::t('Minimum purchase quantity'),
+            'position' => 100,
+        ];
 
         return $sections;
     }
@@ -31,9 +34,9 @@ class Inventory extends \XLite\View\FormModel\Product\Inventory implements \XLit
         $position = 100;
         $minimumPurchaseQuantity = [
             'membership_0' => [
-                'label' => static::t('All customers'),
-                'type'    => 'XLite\View\FormModel\Type\PatternType',
-                'pattern' => [
+                'label'    => static::t('All customers'),
+                'type'     => 'XLite\View\FormModel\Type\PatternType',
+                'pattern'  => [
                     'alias'      => 'integer',
                     'rightAlign' => false,
                 ],
@@ -44,9 +47,9 @@ class Inventory extends \XLite\View\FormModel\Product\Inventory implements \XLit
         foreach (\XLite\Core\Database::getRepo('XLite\Model\Membership')->findAll() as $membership) {
             $position += 100;
             $minimumPurchaseQuantity['membership_' . $membership->getMembershipId()] = [
-                'label' => $membership->getName(),
-                'type'    => 'XLite\View\FormModel\Type\PatternType',
-                'pattern' => [
+                'label'    => $membership->getName(),
+                'type'     => 'XLite\View\FormModel\Type\PatternType',
+                'pattern'  => [
                     'alias'      => 'integer',
                     'rightAlign' => false,
                 ],

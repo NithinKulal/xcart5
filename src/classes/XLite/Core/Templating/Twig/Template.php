@@ -68,6 +68,23 @@ abstract class Template extends \Twig_Template
     }
 
     /**
+     * Closure::bind doen't work with internal classes
+     *
+     * @param  mixed    $object Object to check
+     * @return boolean
+     */
+    protected function isObjectBindable($object)
+    {
+        $class = get_class($object);
+        if (!isset(static::$cache[$class]['isUserDefined'])) {
+            $reflection = new ReflectionClass($object);
+            static::$cache[$class]['isUserDefined'] = $reflection->isUserDefined();
+        }
+
+        return static::$cache[$class]['isUserDefined'];
+    }
+
+    /**
      * {@inheritdoc}
      */
     protected function getAttribute(
@@ -75,6 +92,15 @@ abstract class Template extends \Twig_Template
         $ignoreStrictCheck = false
     ) {
         if ($type == self::METHOD_CALL) {
+            if (LC_IS_PHP_7) {
+                // Since PHP 7.0.0 we can't bind closure to InternalClass,
+                // see http://php.net/manual/en/closure.bind.php
+                // The only way to check if class is internal is reflection
+                if(!$this->isObjectBindable($object)) {
+                   return call_user_func_array(array($object, $item), $arguments);
+                }
+            }
+
             $closure = Closure::bind(function () use ($object, $item, $arguments) {
                 return call_user_func_array(array($object, $item), $arguments);
             }, null, $object);

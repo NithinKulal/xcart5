@@ -21,14 +21,6 @@ XLite\Model\Config:
     translations:
       - code: en
         option_name: 'Enable "New arrivals" feature in catalog'
-  - name: sep_product_advisor_na_1
-    category: CDev\ProductAdvisor
-    type: separator
-    orderby: 25
-    translations:
-      - code: en
-        option_name: ""
-
   - name: na_max_days
     category: CDev\ProductAdvisor
     type: XLite\View\FormField\Input\Text\Integer
@@ -58,14 +50,6 @@ XLite\Model\Config:
       - code: en
         option_name: 'Mark new products in catalog'
         option_comment: 'Marks new products on all products lists (except "New arrivals" lists) with the "New!" label.'
-  - name: sep_product_advisor_na_2
-    category: CDev\ProductAdvisor
-    type: separator
-    orderby: 60
-    translations:
-      - code: en
-        option_name: ""
-
   - name: na_max_count_in_block
     category: CDev\ProductAdvisor
     type: XLite\View\FormField\Input\Text\Integer
@@ -101,14 +85,6 @@ XLite\Model\Config:
     translations:
       - code: en
         option_name: 'Enable "Coming soon" feature in catalog'
-  - name: sep_product_advisor_cs_1
-    category: CDev\ProductAdvisor
-    type: separator
-    orderby: 1015
-    translations:
-      - code: en
-        option_name: ""
-
   - name: cs_mark_with_label
     category: CDev\ProductAdvisor
     type: checkbox
@@ -135,14 +111,6 @@ XLite\Model\Config:
       - code: en
         option_name: 'Show "coming soon" products only from category being viewed by customer'
         option_comment: 'Drupal block settings can override this option (when the DrupalConnector module is enabled).'
-  - name: sep_product_advisor_cs_2
-    category: CDev\ProductAdvisor
-    type: separator
-    orderby: 1060
-    translations:
-      - code: en
-        option_name: ""
-
   - name: cs_max_count_in_block
     category: CDev\ProductAdvisor
     type: XLite\View\FormField\Input\Text\Integer

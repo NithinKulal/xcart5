@@ -1,0 +1,15 @@
+{##
+ # Profile create email body
+ #}
+<p>
+  {{ t('Your account email is X.', {'email': this.profile.getLogin()}) }}<br/>
+  {% if this.password or this.byCheckout %}
+    {% if this.password %}
+      {{ t('Your account password is X.', {'password': this.password}) }}
+    {% else %}
+      {{ t('The password is the one you specified during checkout.') }}
+    {% endif %}
+  {% else %}
+    {{ t('The password is the one you specified.') }}
+  {% endif %}
+</p>

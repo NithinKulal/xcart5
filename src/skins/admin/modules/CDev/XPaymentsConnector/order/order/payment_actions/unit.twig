@@ -1,0 +1,20 @@
+{##
+ # Payment actions unit
+ #
+ #}
+
+{% if this.isXpc(1) %}
+  {% if this.is_transaction %}
+
+  <div class="payment-action-unit">
+	  {% if this.isDisplayAmountField() %}
+     <input type="text" id="{{ this.getAmountFieldId() }}" class="amount-field" value="{{ this.getAmountFieldValue() }}"/>
+   {% endif %}
+	  {{ widget('\\XLite\\View\\Button\\Regular', label=this.getUnitName(), jsCode=this.getJsCode(), style=this.getCSSClass()) }}
+  </div>
+
+  <div class="payment-action-unit-border"></div>
+  {% endif %}
+{% else %}
+  {% include 'order/order/payment_actions/unit.twig' %}
+{% endif %}

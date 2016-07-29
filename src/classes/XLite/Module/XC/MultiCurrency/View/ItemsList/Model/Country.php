@@ -14,6 +14,81 @@ namespace XLite\Module\XC\MultiCurrency\View\ItemsList\Model;
 class Country extends \XLite\View\ItemsList\Model\Country
 {
     /**
+     * Should itemsList be wrapped with form
+     *
+     * @return boolean
+     */
+    protected function wrapWithFormByDefault()
+    {
+        return true;
+    }
+
+    /**
+     * Get wrapper form target
+     *
+     * @return array
+     */
+    protected function getFormTarget()
+    {
+        return 'currency_countries';
+    }
+
+    /**
+     * Get search panel widget class
+     *
+     * @return string
+     */
+    protected function getSearchPanelClass()
+    {
+        return null;
+    }
+
+    /**
+     * Check - table header is visible or not
+     *
+     * @return boolean
+     */
+    protected function isHeaderVisible()
+    {
+        return true;
+    }
+
+    /**
+     * Mark list as switchable (enable / disable)
+     *
+     * @return boolean
+     */
+    protected function isSwitchable()
+    {
+        return false;
+    }
+
+    /**
+     * Mark list as removable
+     *
+     * @return boolean
+     */
+    protected function isRemoved()
+    {
+        return true;
+    }
+
+    /**
+     * Get wrapper form params
+     *
+     * @return array
+     */
+    protected function getFormParams()
+    {
+        return array_merge(
+            parent::getFormParams(),
+            array(
+                'active_currency_id'   => \XLite\Core\Request::getInstance()->active_currency_id
+            )
+        );
+    }
+
+    /**
      * Define columns structure
      *
      * @return array
@@ -27,20 +102,6 @@ class Country extends \XLite\View\ItemsList\Model\Country
         $return['country'][static::COLUMN_CLASS] = '\XLite\View\FormField\Inline\Label';
 
         return $return;
-    }
-
-    /**
-     * Get switcher field
-     *
-     * @return array
-     */
-    protected function getSwitcherField()
-    {
-        return array(
-            'class' => 'XLite\Module\XC\MultiCurrency\View\FormField\Inline\Input\Checkbox\Switcher\CurrencyCountry',
-            'name' => 'enabled',
-            'params' => array(),
-        );
     }
 
     /**

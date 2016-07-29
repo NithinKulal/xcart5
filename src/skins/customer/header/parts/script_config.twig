@@ -1,0 +1,16 @@
+{##
+ # Head list children
+ #
+ # @ListChild (list="head", weight="1300")
+ #}
+
+<script type="text/javascript">
+var xliteConfig = {
+  script:   '{{ this.getScript()|raw }}',
+  target:   '{{ this.getTarget()|raw }}',
+  language: '{{ this.currentLanguage.getCode() }}',
+  form_id: '{{ this.xlite.formId }}',
+  form_id_name: '{{ constant('XLite::FORM_ID') }}',
+  developer_mode: {{ this.isDeveloperMode() ? 'true' : 'false' }},
+};
+</script>

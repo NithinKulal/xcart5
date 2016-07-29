@@ -194,25 +194,14 @@ class Reviews extends \XLite\Logic\Export\Step\AStep
      */
     protected function getIpColumnValue(array $dataset, $name, $i)
     {
-        $ip = $dataset['model']->getIp();
+        $result = $dataset['model']->getIp();
 
-        if (is_resource($ip)) {
-
-            $result = stream_get_contents($ip);
-
-            if (!$result) {
-                $result = null;
-
-            } elseif ((string)((int)$result) === $result) {
-                // To support old style IP values (integer)
-                $result = long2ip($result);
-
-            } else {
-                $result = $result ? inet_ntop($result) : null;
-            }
+        if ((string)((int)$result) === $result) {
+            // To support old style IP values (integer)
+            $result = $result ? long2ip($result) : null;
 
         } else {
-            $result = null;
+            $result = $result ? inet_ntop(utf8_decode($result)) : null;
         }
 
         return $result;

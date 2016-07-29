@@ -24,4 +24,14 @@ class Checkout extends \XLite\Controller\Customer\Checkout implements \XLite\Bas
     {
         return !FastLaneCheckout\Main::isFastlaneEnabled();
     }
+
+    /**
+     * Get 'Terms and conditions' page URL
+     *
+     * @return string
+     */
+    public function getTermsURL()
+    {
+        return \XLite\Core\Config::getInstance()->General->terms_url;
+    }
 }

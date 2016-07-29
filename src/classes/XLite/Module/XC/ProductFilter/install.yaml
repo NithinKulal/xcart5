@@ -48,7 +48,7 @@ XLite\Model\Config:
       - code: en
         option_name: 'Cache reset mode'
         option_comment: 'Cache is first generated when a category page is opened. When attribute, tag or product data is changed, the generated cache is removed. It is then generated again when any category is opened.'
-  - name: attributes_soting_type
+  - name: attributes_sorting_type
     category: 'XC\ProductFilter'
     type: 'XLite\Module\XC\ProductFilter\View\FormField\Select\AttributesSortingType'
     orderby: 600

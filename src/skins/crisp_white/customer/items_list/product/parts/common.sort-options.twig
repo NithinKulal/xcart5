@@ -1,0 +1,25 @@
+{##
+ # Products list sorting control
+ #
+ # @ListChild (list="itemsList.product.grid.customer.header")
+ # @ListChild (list="itemsList.product.list.customer.header")
+ # @ListChild (list="itemsList.product.table.customer.header")
+ #}
+{% if this.isSortBySelectorVisible() %}
+  <div class="sort-box">
+    <div>
+      <span class="sort-by-label">{{ t('Sort by:') }}</span>
+      <span class="sort-by-value">{{ t(this.getSortByLabel()) }} {{ t(this.getSortOrderLabel()) }}</span>
+    </div>
+    <ul class="display-sort sort-crit grid-list" id="{{ this.getSortWidgetId(this.true) }}">
+    {% for key, name in this.sortByModes %}
+    <li class="list-type-grid {% if this.isSortByModeSelected(key) %} selected{% endif %}">
+      <a data-sort-by="{{ key }}" data-sort-order="{{ this.getSortOrderToChange(key) }}" href="{{ this.getActionURL({'sortBy': key, 'sortOrder': this.getSortOrderToChange()}) }}">
+        {{ t(name) }} {{ t(this.getSortOrderLabel(key)) }}<i class="sort-arrow {{ this.getSortArrowClassCSS(key) }}"></i>
+      </a>
+    </li>
+    {% endfor %}
+    </ul>
+  
+  </div>
+{% endif %}

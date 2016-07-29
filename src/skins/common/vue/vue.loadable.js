@@ -1,6 +1,8 @@
 (function () {
   var initialCompiled = false;
 
+  var cache = {};
+
   var VueLoadableMixin = {
     created: function () {
       Vue.util.defineReactive(this, '$reloading', false);
@@ -17,7 +19,17 @@
         var loader = this.$options.loadable.loader;
         if (loader) {
           this.$reloading = true;
-          var promise = loader.call(this, arguments);
+          var promise = null;
+
+          if (this.$options.loadable.cacheSimultaneous) {
+            if (!_.has(cache, this.$options.name)) {
+              cache[this.$options.name] = loader.call(this, arguments);
+            }
+            promise = cache[this.$options.name];
+          } else {
+            promise = loader.call(this, arguments);
+          }
+
           if (promise && typeof promise.then === 'function') {
             promise.then(this._resolve, this._reject);
           }
@@ -37,6 +49,8 @@
               }
               this.$reloading = false;
               this.$options.loadable.resolve.apply(this, [data]);
+
+              delete cache[this.$options.name];
             }
           },
           this)
@@ -47,6 +61,8 @@
       _reject: function (data) {
         this.$reloading = false;
         this.$options.loadable.reject.apply(this, [data]);
+
+        delete cache[this.$options.name];
       },
       _updateComponent: function(html) {
         var element = this._parseTemplate(html);

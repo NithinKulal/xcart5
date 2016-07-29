@@ -1432,7 +1432,7 @@ class Profile extends \XLite\Model\AEntity
     /**
      * Set searchFakeField
      *
-     * @param text $searchFakeField
+     * @param string $searchFakeField
      * @return Profile
      */
     public function setSearchFakeField($searchFakeField)
@@ -1444,7 +1444,7 @@ class Profile extends \XLite\Model\AEntity
     /**
      * Get searchFakeField
      *
-     * @return text 
+     * @return string 
      */
     public function getSearchFakeField()
     {

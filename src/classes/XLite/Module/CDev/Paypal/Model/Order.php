@@ -211,7 +211,7 @@ class Order extends \XLite\Model\Order implements \XLite\Base\IDecorator
      *
      * @return boolean
      */
-    protected function isPaypalMethod($method)
+    public function isPaypalMethod($method)
     {
         return null !== $method
             && in_array(

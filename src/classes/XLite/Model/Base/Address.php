@@ -194,13 +194,21 @@ abstract class Address extends \XLite\Model\AEntity
     /**
      * Get state Id
      *
+     * @param boolean $strict Flag: true - do not use default value if current value is not set
+     *
      * @return integer
      */
-    public function getStateId()
+    public function getStateId($strict = false)
     {
-        return $this->getState()
-            ? ($this->getState()->getStateId() ?: static::getDefaultFieldPlainValue('state_id'))
-            : static::getDefaultFieldPlainValue('state_id');
+        $state = $this->getState();
+
+        if ($state) {
+            $result = $state->getStateId();
+        }
+
+        return isset($result)
+            ? $result
+            : (!$strict ? static::getDefaultFieldPlainValue('state_id') : null);
     }
 
     /**

@@ -186,6 +186,7 @@ class SelectAddress extends \XLite\Controller\Customer\Cart
                         'type'      => $atype,
                         'addressId' => $address->getAddressId(),
                         'same'      => $this->getCart()->getProfile()->isSameAddress(),
+                        'fields'    => $address->serialize()
                     )
                 );
 

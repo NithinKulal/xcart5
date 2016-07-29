@@ -1,0 +1,52 @@
+{##
+ # Kount results 
+ #
+ #
+ # @ListChild (list="order", weight="1000")
+ #}
+
+{% if this.getKountData() %}
+  <div class="kount-result">
+  
+    <a name="fraud-info-kount"></a>
+  
+    <h2>{{ t('KOUNT Antifraud screening result') }}</h2>
+  
+    {% if this.getKountErrors() %}
+      {% for error in this.getKountErrors() %}
+        <div class="alert alert-danger">
+          <strong>{{ t('Error') }}!</strong>
+            {{ error|raw }}
+        </div>
+      {% endfor %}
+    {% endif %}
+  
+    {% if this.getKountMessage() %}
+      <p class="lead">
+        {{ this.getKountMessage()|raw }}. {{ t('Score') }}:
+        <span class="lead {{ this.getKountScoreClass() }}">
+          {{ this.getKountScore() }}
+        </span>
+      </p>
+    {% endif %}
+  
+    {% if this.getKountTransactionId() %}
+      <p>{{ t('Transaction ID') }}: {{ this.getKountTransactionId() }}</p>
+    {% endif %}
+  
+    {% if this.getKountRules() %}
+  
+      <h3>{{ t('Rules triggered') }}:</h3>
+  
+      <ul class="kount-result-lines">
+        {% for title, value in this.getKountRules() %}
+          <li>{{ value|raw }}</li>
+        {% endfor %}
+      </ul>
+  
+    {% endif %}
+  
+  </div>
+{% endif %}
+
+<br/>

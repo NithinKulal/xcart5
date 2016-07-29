@@ -1,0 +1,595 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Invoice common styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+// Color variables (appears count calculates by raw css)
+@color0: #000000; // Appears 5 times
+@color1: #333333; // Appears 3 times
+@color2: #f9f9f9; // Appears 3 times
+@color3: #5a5a5a; // Appears 3 times
+
+// Width variables (appears count calculates by raw css)
+@width2: 100%; // Appears 4 times
+@width4: 50%; // Appears 2 times
+
+// Height variables (appears count calculates by raw css)
+@height1: 1px; // Appears 3 times
+
+@subhead-padding: 26px;
+
+body * {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.invoice-box {
+  color: #5a5a5a;
+  table {
+    border-collapse: collapse;
+    border: 0 none;
+    width: @width2;
+  }
+  .totals {
+    margin-bottom: 0px;
+    text-align: right;
+    white-space: nowrap;
+    width: 100%;
+    text-align: right;
+    th, td {
+      border: none;
+    }
+    tr {
+      color: @color3;
+      * {
+        color: @color3;
+      }
+    }
+    td {
+      width: 100%;
+      padding: 0px;
+      font-size: 17px;
+      line-height: 20px;
+      padding-bottom: 20px;
+      &.value {
+        padding-left: 14px;
+      }
+    }
+  }
+  .after-totals {
+    &:before {
+      content: '';
+      height: 1px;
+      background: #cdcdcd;
+      width: 350px;
+      margin-left: auto;
+      margin-bottom: 20px;
+      display: block;
+      text-align: right;
+    }
+    text-align: right;
+    margin-bottom: 35px;
+    .total {
+      .title,
+      .value {
+        display: inline;
+        color: @color0;
+        font-size: 24px;
+        font-weight: bold;
+        line-height: 40px;
+      }
+    }
+  }
+  .header {
+    border: 0 none;
+    vertical-align: top;
+    margin-bottom: 22px;
+    td {
+      border: 0 none;
+      border: 1px none;
+      vertical-align: top;
+      padding: 0;
+    }
+    .address {
+      color: @color1;
+      font-size: 15px;
+      padding: 0;
+      width: 99%;
+      strong {
+        font-size: 20px;
+        font-weight: normal;
+      }
+      p {
+        line-height: 18px;
+        margin-bottom: 0;
+        padding-left: 2px;
+        padding-top: 9px;
+      }
+      p.url {
+        padding-top: 6px;
+      }
+      a {
+        font-weight: normal;
+      }
+    }
+    .logo {
+      vertical-align: middle;
+      text-align: right;
+    }
+    img.logo {
+      max-height: 180px;
+      max-width: 330px;
+    }
+  }
+  th {
+    font-size: 15px;
+  }
+  thead {
+    th {
+      font-size: 12px;
+    }
+  }
+  h2 {
+    font-size: 38px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #000;
+  }
+  .subhead {
+    color: @color1;
+    font-size: 19px;
+    & > div {
+      line-height: 28px;
+    }
+  }
+  table.totals {
+    width: @width2;
+  }
+  .subhead-wrapper {
+    .left-adresses-part,
+    .right-adresses-part{
+      padding: 0;
+      border: none;
+      vertical-align: top;
+    }
+    .left-adresses-part .addresses {
+      border-collapse: separate;
+    }
+    .left-adresses-part .addresses .bottom-padding {
+      height: 15px;
+    }
+    .right-adresses-part {
+      text-align: right;
+      width: 31%;
+      padding-top: @subhead-padding;
+      font-size: 17px;
+      p:first-of-type {
+        margin-top: 16px;
+      }
+      p {
+        margin-top: 0px;
+        margin-bottom: 3px;
+        line-height: 22px;
+        font-size: 15px;
+      }
+    }
+  }
+  .customer-note {
+    padding-top: 40px;
+    padding-bottom: 5px;
+    h3,
+    & > div {
+      font-size: 17px;
+      display: inline;
+    }
+    h3 {
+      color: #000;
+      font-weight: bold;
+    }
+  }
+  .addresses {
+    border: 0 none;
+    margin-bottom: 15px;
+    min-height: @height1;
+    padding: 0;
+    td {
+      border: 0 none;
+      font-size: 15px;
+      padding: 0;
+      vertical-align: top;
+      width: @width4;
+      p,
+      div {
+        font-size: 15px;
+      }
+    }
+    strong {
+      color: @color0;
+      display: block;
+      font-size: 17px;
+      padding-bottom: 12px;
+    }
+    p {
+      line-height: 18px;
+      margin-bottom: 0;
+      padding-top: 2px;
+    }
+    .wrapper {
+      border-radius: 6px;
+      height: auto;
+      padding: @subhead-padding - 2px;
+      padding-bottom: 4px;
+      padding-left: 0px;
+      position: relative;
+      .method-box {
+        position: initial;
+        .sub-data {
+          margin-top: 10px;
+          * {
+            display: block;
+            word-wrap: break-word;
+          }
+        }
+      }
+    }
+    .wrapper.tracking-info-section-included {
+      height: auto;
+      .method-box {
+        position: static;
+      }
+    }
+    strong.title {
+      font-size: 17px;
+      font-weight: bold;
+      padding-bottom: 3px;
+    }
+    .tracking-number-box {
+      margin-top: 10px;
+    }
+    .address {
+      margin: 0;
+      min-height: @height1;
+      vertical-align: top;
+      p,
+      div {
+        font-size: 15px;
+      }
+    }
+    .address.payment {
+      margin-right: 4%;
+    }
+    p.email {
+      white-space: nowrap;
+    }
+    .address.shipping {
+      .email {
+        visibility: hidden;
+      }
+    }
+  }
+  .deleted-product-note {
+    color: #999999;
+    font-size: 12px;
+    font-style: italic;
+  }
+  .thank-you {
+    color: @color1;
+    font-size: 18px;
+    margin-bottom: 50px;
+    min-height: @height1;
+    padding-bottom: 36px;
+    padding-top: 26px;
+    text-align: center;
+    width: @width2;
+    display: none;
+  }
+}
+.invoice-box .items td,
+.invoice-box .items th  {
+  border-style: solid;
+  border-width: 1px;
+}
+.invoice-box .items,
+.invoice-box .items td,
+.invoice-box .items th {
+  border-color: #C4C4C4;
+}
+.invoice-box .items td,
+.invoice-box .items td * {
+  color: @color0;
+}
+
+.invoice-box .items td .subitem > li {
+  margin: 5px 0;
+}
+
+.invoice-box {
+  .items {
+    background: none;
+    border: 0 none;
+    border: none;
+    font-size: 10px;
+    margin-bottom: 40px;
+    margin-top: 24px;
+    th,
+    td {
+      padding: 12px 22px;
+    }
+    th {
+      background-clip: padding-box;
+      background: none;
+      background-image: none !important;
+      border: none;
+      color: #5a5a5a;
+      font-size: 14px;
+      font-weight: bold;
+      text-align: right;
+      white-space: nowrap;
+    }
+    th.item {
+      padding: 7px 20px 7px 0;
+      text-align: left;
+    }
+    th.total {
+      padding-right: 0;
+      text-align: right;
+    }
+    .item-name {
+      font-size: 18px;
+      font-weight: bold;
+    }
+    td {
+      border-color: #cdcdcd;
+      border-left: none;
+      border-right: none;
+      font-size: 18px;
+      vertical-align: baseline;
+      .subitem {
+        * {
+          color: #5a5a5a;
+          display: inline;
+        }
+        .separated {
+          display: list-item;
+        }
+        .common-title {
+          display: none;
+        }
+      }
+    }
+    .subitem {
+      margin: 0;
+      padding-top: 2px;
+	}
+    td.price,
+    td.qty,
+    td.total {
+      text-align: right;
+    }
+    td.total {
+      padding-right: 0;
+    }
+    .item-name {
+      text-decoration: none;
+      font-size: 20px;
+    }
+    td.item {
+      padding: 14px 20px 14px 0;
+      ul.subitem {
+        font-size: 14px;
+      }
+    }
+  }
+}
+.addresses {
+  .address-section {
+    margin-bottom: 0;
+    padding-top: 4px;
+    li {
+      background: none;
+      margin: 0;
+      padding: 0;
+    }
+    .address-field {
+      padding-right: 3px;
+      line-height: 1.6em;
+      span {
+        font-size: 15px;
+      }
+    }
+    .address-field.address-custom_state {
+      display: none;
+    }
+  }
+}
+.address-section {
+  .address-field {
+    .address-title,
+    .address-comma {
+      display: none;
+    }
+  }
+
+  .address-field.address-phone,
+  .address-field.address-vat_number,
+  .address-field.address-type,
+  .address-field.field-additional {
+    .address-title {
+      display: inline;
+    }
+  }
+
+  .address-field.address-title,
+  .address-field.address-firstname,
+  .address-field.address-city,
+  .address-field.address-state_id {
+    float: left;
+  }
+}
+.address-section.billing-address-section {
+  .address-field.address-type {
+    display: none;
+  }
+}
+
+.invoice-box .discount-coupons-panel {
+  margin: 0;
+}
+
+@media only print {
+  .invoice-box .header img.logo {
+    max-width: 300px !important;
+  }
+
+  .invoice-box {
+    max-width: 100%;
+    width: auto;
+  }
+
+  .invoice-box h1,
+  .invoice-box h2,
+  .invoice-box h3,
+  .invoice-box p,
+  .invoice-box div,
+  .invoice-box th,
+  .invoice-box td,
+  .invoice-box span {
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  .invoice-box .thank-you {
+    display: block;
+  }
+
+  .invoice-box {
+    * {
+      font-size: 12px;
+    }
+    h2 {
+      margin-top: 0px;
+      margin-bottom: 10px;
+    }
+    .customer-note {
+      padding-top: 40px;
+      padding-bottom: 5px;
+    }
+    .items {
+      td.item {
+        padding: 11px 20px 11px 0;
+      }
+      .item-name {
+        font-size: 20px;
+      }
+      td {
+        font-size: 16px;
+      }
+      .subhead-wrapper .right-adresses-part p {
+        font-size: 16px;
+      }
+    }
+  }
+    .invoice-box .header img.logo {
+    max-width: 300px !important;
+  }
+
+  .invoice-box {
+    max-width: 100%;
+    width: auto;
+  }
+
+  .invoice-box h2.invoice {
+    font-size: 25px;
+  }
+
+  .invoice-box .subhead {
+    font-size: 11px;
+  }
+
+  .invoice-box .subhead span {
+    display: none;
+  }
+
+  .invoice-box p,
+  .invoice-box div,
+  .invoice-box th,
+  .invoice-box td,
+  .invoice-box span {
+    font-size: 12px;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  .invoice-box .totals div {
+    font-size: 12px;
+  }
+  .invoice-box .subhead > div {
+    line-height: 1.5em;
+  }
+  .invoice-box .subhead div,
+  .invoice-box .totals .total div {
+    font-size: 14px;
+  }
+  .invoice-box .subhead-wrapper .right-adresses-part {
+    padding-top: 10px;
+  }
+  .invoice-box .subhead-wrapper .right-adresses-part p,
+  .invoice-box .addresses strong.title,
+  .invoice-box .addresses strong.method-title {
+    font-size: 12px;
+    line-height: 1.5em;
+  }
+  .invoice-box .addresses li.address p,
+  .invoice-box .addresses li.address div {
+    font-size: 11px;
+  }
+
+  .invoice-box .header .address strong {
+    font-size: 16px;
+  }
+
+  .invoice-box .header .address p {
+    font-size: 9px;
+    line-height: initial;
+  }
+
+  .invoice-box .addresses .address .method-box,
+  .invoice-box .addresses .address-section li.address-field * {
+    font-size: 10px;
+    line-height: initial;
+  }
+  .invoice-box .addresses {
+    margin-bottom: 0px;
+  }
+  .invoice-box .addresses .wrapper {
+    padding: 15px;
+  }
+
+  .invoice-box .addresses tr:first-of-type .wrapper {
+    padding-bottom: 0;
+  }
+
+  .invoice-box .customer-note h3,
+  .invoice-box .customer-note > div {
+    font-size: 14px;
+  }
+  .invoice-box .items .item-name,
+  .invoice-box .after-totals .total {
+    font-size: 14px;
+  }
+  .invoice-box .items td .subitem * {
+	font-size: 12px;
+  }
+  .invoice-box .after-totals .total > div {
+    font-size: 18px;
+  }
+  .invoice-box .subhead-wrapper .right-adresses-part p:first-of-type {
+    margin-top: 10px;
+  }
+
+  .invoice-box .items th {
+    font-size: 12px;
+  }
+}

@@ -243,6 +243,7 @@ class Minicart extends \XLite\View\SideBarBox
                 'lc-minicart-' . $this->getParam(static::PARAM_DISPLAY_MODE),
                 'collapsed'
             ),
+            'title' => $this->t('Your cart')
         );
 
         if ($this->getCart()->isEmpty()) {

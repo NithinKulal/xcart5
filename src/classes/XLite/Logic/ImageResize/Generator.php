@@ -186,7 +186,7 @@ class Generator extends \XLite\Base implements \SeekableIterator, \Countable
     {
         $result = array();
 
-        $sizes = \XLite\Core\Database::getRepo('XLite\Model\ImageSettings')->findAll();
+        $sizes = \XLite\Core\Layout::getInstance()->getCurrentImagesSettings();
 
         if ($sizes) {
             foreach ($sizes as $size) {

@@ -6,14 +6,14 @@
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
 
-namespace XLite\Module\CDev\ProductAdvisor\Module\XC\ThemeTweaker\View;
+namespace XLite\Module\CDev\Bestsellers\Module\XC\ThemeTweaker\View;
 
 use XLite\Module\XC\ThemeTweaker;
 
 /**
  * @Decorator\Depend ("XC\ThemeTweaker")
  */
-abstract class Bestsellers extends \XLite\Module\CDev\ProductAdvisor\View\Bestsellers implements ThemeTweaker\View\LayoutBlockInterface, \XLite\Base\IDecorator
+abstract class Bestsellers extends \XLite\Module\CDev\Bestsellers\View\Bestsellers implements ThemeTweaker\View\LayoutBlockInterface, \XLite\Base\IDecorator
 {
     use ThemeTweaker\View\LayoutBlockTrait;
 

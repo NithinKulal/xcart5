@@ -14,17 +14,19 @@ namespace XLite\Module\CDev\AustraliaPost\View\Model;
 class Settings extends \XLite\View\Model\AShippingSettings
 {
     /**
-     * Get schema fields
+     * Define form field classes and values
      *
-     * @return array
+     * @return void
      */
-    public function getSchemaFields()
+    protected function defineFormFields()
     {
         $config = \XLite\Core\Config::getInstance()->CDev->AustraliaPost;
+        if ($config->optionValues) {
+            parent::defineFormFields();
 
-        return $config->optionValues
-            ? parent::getSchemaFields()
-            : array();
+        } else {
+            $this->formFields = array();
+        }
     }
 
     /**

@@ -119,6 +119,27 @@ class ViewList extends \XLite\Model\AEntity
     protected $version;
 
     /**
+     * Get in zone hash
+     *
+     * @return string
+     */
+    public function getHashWithoutZone()
+    {
+        $prefix = \XLite::COMMON_INTERFACE . '/';
+        $pattern = '/^' . preg_quote($prefix, '/') . '/uS';
+
+        $hashValues = [
+            $this->getClass(),
+            $this->getList(),
+            $this->getChild(),
+            $this->getWeight(),
+            preg_replace($pattern, '', $this->getTpl()),
+        ];
+
+        return md5(serialize($hashValues));
+    }
+
+    /**
      * Set version key 
      * 
      * @param string $key Key

@@ -1,9 +1,0 @@
-{##
- # Shopping cart subtotal
- #
- # @ListChild (list="cart.panel.totals", weight="30")
- #}
-<li class="separator"></li>
-<li class="total">
-  {{ widget('XLite\\View\\Surcharge', surcharge=this.cart.getTotal(), currency=this.cart.getCurrency()) }}
-</li>

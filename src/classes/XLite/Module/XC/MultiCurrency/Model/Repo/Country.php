@@ -90,6 +90,27 @@ class Country extends \XLite\Model\Repo\Country implements \XLite\Base\IDecorato
     }
 
     /**
+     * Get available countries ids for active currency
+     *
+     * @param integer $activeCurrencyId Active currency id
+     *
+     * @return array
+     */
+    public function getActiveCurrencyAvailableCountries($activeCurrencyId)
+    {
+        $qb = $this->createQueryBuilder();
+
+        $countryInactive = $qb->expr()->orX(
+            ':active_currency <> c.active_currency',
+            'c.active_currency is NULL'
+        );
+
+        return $qb->andWhere($countryInactive)
+            ->setParameter('active_currency', $activeCurrencyId)
+            ->getResult();
+    }
+
+    /**
      *  Prepare certain search condition
      *
      * @param \Doctrine\ORM\QueryBuilder $queryBuilder Query builder
@@ -99,12 +120,8 @@ class Country extends \XLite\Model\Repo\Country implements \XLite\Base\IDecorato
      */
     protected function prepareCndActiveCurrency(\Doctrine\ORM\QueryBuilder $queryBuilder, $value)
     {
-        $or = new \Doctrine\ORM\Query\Expr\Orx();
-
-        $or->add('c.active_currency IS NULL')
-            ->add('c.active_currency = :active_currency_id');
-
-        $queryBuilder->andWhere($or)
+        $queryBuilder
+            ->andWhere('c.active_currency = :active_currency_id')
             ->setParameter('active_currency_id', $value);
     }
 

@@ -1,0 +1,9 @@
+{##
+ # Empty flexy templates
+ #}
+
+<div class="empty-list">{{ t('No flexy-templates found.') }}</div>
+
+{{ widget('\\XLite\\View\\Button\\Link', label='Search', location=this.buildURL('flexy_to_twig', 'search_flexy')) }}
+
+{{ widget('\\XLite\\View\\Button\\SimpleLink', label='Back to Webmaster mode', location=this.buildURL('theme_tweaker_templates'), style='back') }}

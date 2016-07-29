@@ -65,6 +65,11 @@ class TwigEngineFactory
     {
         $skins = $this->layout->getSkinPaths();
 
+        $skins = array_merge(
+            $skins,
+            $this->layout->getSkinPaths('common')
+        );
+
         $paths = array_map(function ($skin) {
             return $skin['fs'];
         }, $skins);

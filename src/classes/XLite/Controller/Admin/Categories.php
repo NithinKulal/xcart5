@@ -39,6 +39,45 @@ class Categories extends \XLite\Controller\Admin\ACL\Catalog
     }
 
     /**
+     * Add part to the location nodes list
+     *
+     * @return void
+     */
+    protected function addBaseLocation()
+    {
+        if ($this->isVisible() && $this->getCategory()) {
+            $this->addLocationNode(
+                'Categories',
+                $this->buildURL('categories')
+            );
+
+            $categories = $this->getCategory()->getPath();
+            array_pop($categories);
+            foreach ($categories as $category) {
+                $this->addLocationNode(
+                    $category->getName(),
+                    $this->buildURL('categories', '', ['id' => $category->getCategoryId()])
+                );
+            }
+        }
+    }
+
+    /**
+     * Common method to determine current location
+     *
+     * @return string
+     */
+    protected function getLocation()
+    {
+        return !$this->isVisible()
+            ? static::t('No category defined')
+            : (($categoryName = $this->getCategoryName())
+                ? $categoryName
+                : static::t('Manage categories')
+            );
+    }
+
+    /**
      * Check controller visibility
      *
      * @return boolean
@@ -92,12 +131,6 @@ class Categories extends \XLite\Controller\Admin\ACL\Catalog
      */
     public function doActionSelectorData()
     {
-        /**
-         * @todo:
-         *      For empty term return recent categories
-         *      For non empty term return category with path
-         */
-
         $request = \XLite\Core\Request::getInstance();
         $term = $request->term;
         $page = $request->page ?: 0;
@@ -113,7 +146,7 @@ class Categories extends \XLite\Controller\Admin\ACL\Catalog
             $cnd = new \XLite\Core\CommonCell(
                 [
                     'term' => $term,
-                    'orderBy' => [['c.depth', 'asc'], ['translations.name', 'asc']]
+                    'orderBy' => [['termLocate', 'asc'], ['c.depth', 'asc'], ['translations.name', 'asc']]
                 ]
             );
             $count = $repo->search($cnd, \XLite\Model\Repo\ARepo::SEARCH_MODE_COUNT);

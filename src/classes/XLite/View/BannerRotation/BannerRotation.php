@@ -124,6 +124,7 @@ class BannerRotation extends \XLite\View\AView
     protected function isVisible()
     {
         return parent::isVisible()
+               && !$this->isForceChangePassword()
                && \XLite\Core\Config::getInstance()->BannerRotation->enabled
                && $this->getImageCount() > 0;
     }

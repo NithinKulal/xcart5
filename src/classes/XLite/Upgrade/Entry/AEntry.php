@@ -83,6 +83,13 @@ abstract class AEntry
     protected $postUpgradeActionsCalled = false;
 
     /**
+     * List of all available changelog versions
+     *
+     * @var array
+     */
+    protected $allChangelogVersions;
+
+    /**
      * Return entry readable name
      *
      * @return string
@@ -246,6 +253,58 @@ abstract class AEntry
     public function getVersionNew()
     {
         return \Includes\Utils\Converter::composeVersion($this->getMajorVersionNew(), $this->getMinorVersionNew());
+    }
+
+    /**
+     * Return true if current entry is an update within hotfix branch version (first 3 digits are same: X.X.X.y)
+     *
+     * @return boolean
+     */
+    public function isHotfixUpdate()
+    {
+        return version_compare(
+            $this->getHotfixBranchVersionOld(),
+            $this->getHotfixBranchVersionNew(),
+            '='
+        );
+    }
+
+    /**
+     * Get hotfix branch version of installed entry
+     *
+     * @return string
+     */
+    public function getHotfixBranchVersionOld()
+    {
+        return $this->getHotfixBranchVersion($this->getVersionOld());
+    }
+
+    /**
+     * Get hotfix branch version of updated entry
+     *
+     * @return string
+     */
+    public function getHotfixBranchVersionNew()
+    {
+        return $this->getHotfixBranchVersion($this->getVersionNew());
+    }
+
+    /**
+     * Get hotfix branch (remove 4th digit from full version number)
+     *
+     * @param string $version Full version number
+     *
+     * @return string
+     */
+    public function getHotfixBranchVersion($version)
+    {
+        $digits = explode('.', $version);
+
+        if (isset($digits[3])) {
+            unset($digits[3]);
+        }
+
+        return implode('.', $digits);
     }
 
     /**
@@ -957,6 +1016,7 @@ abstract class AEntry
     {
         return array(
             '/skins/common/images/flags_svg/',
+            '/changelog/',
         );
     }
 
@@ -1254,7 +1314,7 @@ abstract class AEntry
     }
 
     /**
-     * Wrapper for the abstract method
+     * Get upgrade helpers directory
      *
      * @param mixed $getFullPath Flag OPTIONAL
      *
@@ -1287,7 +1347,7 @@ abstract class AEntry
 
         if ($path) {
             $files = glob($path . $majorVersion . LC_DS . $minorVersion . LC_DS . $type . '*.php');
-            sort($files, \SORT_NATURAL);
+            natsort($files);
 
             $upgradeHelpersDir = $this->getUpgradeHelpersDir(false);
             foreach ($files as $file) {
@@ -1413,6 +1473,240 @@ abstract class AEntry
         }
 
         return $result;
+    }
+
+    // }}}
+
+    // {{{ Changelogs
+
+    /**
+     * Returns upgrade changelogs
+     *
+     * @return array
+     */
+    public function getUpgradeChangelogs()
+    {
+        $files = $this->getUpgradeChangelogFiles();
+        $logs = array();
+
+        if ($files) {
+            foreach ($files as $file) {
+                $data = $this->getFileSource($file);
+
+                $logs[] = $this->prepareUpgradeChangelog($data);
+            }
+
+            krsort($logs);
+        }
+
+        return $logs;
+    }
+
+    /**
+     * Get file with an upgrade changelog
+     *
+     * @param string $majorVersion Major version to upgrade to
+     * @param string $minorVersion Minor version to upgrade to
+     * @param string $languageCode Language code OPTIONAL
+     *
+     * @return string
+     */
+    protected function getUpgradeChangelogFile($majorVersion, $minorVersion, $languageCode = null)
+    {
+        $file = null;
+        $path = $this->getUpgradeChangelogsDir();
+
+        if (false !== strpos($minorVersion, '.')) {
+            list($minorVersion, $build) = explode('.', $minorVersion);
+        }
+
+        if (empty($build)) {
+            $build = '0';
+        }
+
+        if ($path) {
+            $language = (isset($languageCode) ? ('.' . $languageCode) : '');
+            $file = $majorVersion . LC_DS . $minorVersion . LC_DS . $build . $language . '.log';
+
+            if (\Includes\Utils\FileManager::isFile($path . $file)) {
+                $file = $this->getUpgradeChangelogsDir(false) . $file;
+
+            } else {
+                $file = null;
+            }
+        }
+
+        return $file;
+    }
+
+    /**
+     * Get upgrade changelogs directory
+     *
+     * @param mixed $getFullPath Flag OPTIONAL
+     *
+     * @return string
+     */
+    protected function getUpgradeChangelogsDir($getFullPath = true)
+    {
+        $path = \Includes\Utils\FileManager::getCanonicalDir($this->getRepositoryPath());
+
+        if (!empty($path)) {
+            $dir = $this->getUpgradeHelperPath() . 'changelog' . LC_DS;
+        }
+
+        return \Includes\Utils\FileManager::isDir($path . $dir) ? ($getFullPath ? $path : '') . $dir : null;
+    }
+
+    /**
+     * Prepare upgrade changelog text
+     *
+     * @param string $log Upgrade changelog
+     *
+     * @return string
+     */
+    protected function prepareUpgradeChangelog($log)
+    {
+        $log = htmlspecialchars($log);
+
+        return nl2br($log);
+    }
+
+    /**
+     * Get upgrade changelog files list
+     *
+     * @return array
+     */
+    protected function getUpgradeChangelogFiles()
+    {
+        $changelogs = array();
+        $language = \Xlite::getController()->getCurrentLanguage();
+
+        foreach ($this->getUpgradeChangelogMajorVersions() as $majorVersion) {
+            foreach ($this->getUpgradeChangelogMinorVersions($majorVersion) as $minorVersion) {
+                $file = $this->getUpgradeChangelogFile($majorVersion, $minorVersion, $language);
+                if (empty($file)) {
+                    $file = $this->getUpgradeChangelogFile($majorVersion, $minorVersion);
+                }
+
+                if ($file) {
+                    $changelogs[] = $file;
+                }
+            }
+
+        }
+
+        return $changelogs;
+    }
+
+    /**
+     * Get list of available major versions for the changelogs
+     *
+     * @return array
+     */
+    protected function getUpgradeChangelogMajorVersions()
+    {
+        $result = array();
+
+        $allVersions = $this->getUpgradeChangelogVersions();
+
+        if (!empty($allVersions)) {
+            $old = $this->getMajorVersionOld();
+            $new = $this->getMajorVersionNew();
+
+            foreach (array_keys($allVersions) as $var) {
+                if (version_compare($old, $var, '<=') && version_compare($new, $var, '>=')) {
+                    $result[] = $var;
+                }
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get list of available minor versions for the changelogs
+     *
+     * @param string $majorVersion Current major version
+     *
+     * @return array
+     */
+    protected function getUpgradeChangelogMinorVersions($majorVersion)
+    {
+        $result = array();
+
+        $allVersions = $this->getUpgradeChangelogVersions();
+
+        if (!empty($allVersions[$majorVersion])) {
+
+            $new = \Includes\Utils\Converter::composeVersion($this->getMajorVersionNew(), $this->getMinorVersionNew());
+
+            $oldMajorVersion = $this->getMajorVersionOld();
+            $oldMinorVersion = $this->getMinorVersionOld();
+
+            $old = (strlen($oldMajorVersion) && strlen($oldMinorVersion))
+                ? \Includes\Utils\Converter::composeVersion($oldMajorVersion, $oldMinorVersion)
+                : $new;
+
+            foreach ($allVersions[$majorVersion] as $var) {
+                $version = \Includes\Utils\Converter::composeVersion($majorVersion, preg_replace('/\.0$/', '', $var));
+                if (version_compare($old, $version, '<') && version_compare($new, $version, '>=')) {
+                    $result[] = $var;
+                }
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get list of available versions for the helpers
+     *
+     * @param string $path Path to scan OPTIONAL
+     *
+     * @return array
+     */
+    protected function getUpgradeChangelogVersions($path = null)
+    {
+        if (!isset($this->allChangelogVersions)) {
+
+            $dir = $this->getUpgradeChangelogsDir();
+
+            $list = array();
+
+            $lastMinorVersion = null;
+
+            if (!empty($dir)) {
+
+                $filter = new \Includes\Utils\FileFilter($dir . $path, '/\d+\.log$/i', \RecursiveIteratorIterator::CHILD_FIRST);
+
+                foreach ($filter->getIterator() as $file) {
+                    list($major, $minor, $build) = explode(LC_DS, str_replace($dir . $path, '', $file->getPathname()));
+                    $list[$major][] = $minor . '.' . preg_replace('/\.log$/', '', $build);
+                    if (version_compare($lastMinorVersion, $major . '.' . $minor, '<')) {
+                        $lastMinorVersion = $major . '.' . $minor;
+                    }
+                }
+
+                $lastMinorVersion .= '.0';
+
+                foreach ($list as $k => $v) {
+                    // Remove all intermediate build versions
+                    $list[$k] = array_filter(
+                        $v,
+                        function ($var) use ($k, $lastMinorVersion) {
+                            $version = $k . '.' . $var;
+                            return preg_match('/\.0$/', $var) || version_compare($lastMinorVersion, $version, '<=');
+                        }
+                    );
+
+                    usort($list[$k], 'version_compare');
+                }
+            }
+
+            $this->allChangelogVersions = $list;
+        }
+
+        return $this->allChangelogVersions;
     }
 
     // }}}

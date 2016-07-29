@@ -26,18 +26,23 @@ class Main extends \XLite\View\Model\Profile\Main implements \XLite\Base\IDecora
 
         unset($result['social-login']);
 
-        if ($this->getTarget() == 'checkout') {
-            $result['signin'] = new \XLite\View\Button\SimpleLink(
-                array(
-                    \XLite\View\Button\AButton::PARAM_LABEL => static::t('Sign in'),
-                    \XLite\View\Button\AButton::PARAM_STYLE => '',
-                    \XLite\View\Button\Link::PARAM_LOCATION => $this->buildURL('checkout')
-                )
-            );
-        } else {
-            $result['signin'] = new \XLite\View\Button\PopupLoginLink(
-                array()
-            );
+        if (!\XLite\Core\Auth::getInstance()->isLogged()) {
+            if ($this->getTarget() == 'checkout') {
+                $result['signin'] = new \XLite\View\Button\SimpleLink(
+                    [
+                        \XLite\View\Button\AButton::PARAM_LABEL => static::t('Sign in'),
+                        \XLite\View\Button\AButton::PARAM_STYLE => '',
+                        \XLite\View\Button\Link::PARAM_LOCATION => $this->buildURL('checkout'),
+                        \XLite\View\AView::PARAM_TEMPLATE       => 'button/simple_login_link.twig',
+                    ]
+                );
+            } else {
+                $result['signin'] = new \XLite\View\Button\PopupLoginLink(
+                    [
+                        \XLite\View\AView::PARAM_TEMPLATE => 'button/popup_login_link.twig',
+                    ]
+                );
+            }
         }
 
         return $result;

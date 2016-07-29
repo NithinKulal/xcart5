@@ -1,0 +1,14 @@
+{##
+ # Log in link
+ #
+ # @ListChild (list="slidebar.additional-menu", weight="400")
+ # @ListChild (list="layout.header.right.settings", weight="400")
+ #}
+
+{% if this.isAccountLinksVisible() %}
+<ul class="sign-in_block">
+	<li class="account-link-sign_in">
+	    {{ widget('XLite\\View\\Button\\PopupLogin', label='Sign in / sign up') }}
+	</li>
+</ul>
+{% endif %}

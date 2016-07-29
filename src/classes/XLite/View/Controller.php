@@ -112,7 +112,8 @@ class Controller extends \XLite\View\AView
 
         $classes[] = (
             \XLite\Core\Auth::getInstance()->isLogged()
-            && \XLite\Core\Auth::getInstance()->getProfile()->isAdmin() == \XLite::isAdminZone()
+            && (\XLite\Core\Auth::getInstance()->getProfile()->isAdmin() == \XLite::isAdminZone()
+                || !\XLite::isAdminZone())
         )
             ? 'authorized'
             : 'unauthorized';

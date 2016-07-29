@@ -34,7 +34,6 @@ class DomPdf extends \XLite\Core\Pdf\Handler
     {
         if (!$this->dompdfInstance) {
             require_once (LC_DIR_LIB . 'dompdf' . LC_DS . 'autoload.inc.php');
-
             $this->dompdfInstance = new \Dompdf\Dompdf();
         }
 

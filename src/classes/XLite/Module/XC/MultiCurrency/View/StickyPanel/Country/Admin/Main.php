@@ -28,6 +28,28 @@ class Main extends \XLite\View\StickyPanel\Country\Admin\Main
     }
 
     /**
+     * Define additional buttons
+     *
+     * @return array
+     */
+    protected function defineAdditionalButtons()
+    {
+        $list = \XLite\View\StickyPanel\ItemsListForm::defineAdditionalButtons();
+
+        $list[] = $this->getWidget(
+            array(
+                'disabled'   => true,
+                'label'      => 'Delete',
+                'style'      => 'more-action link list-action',
+                'icon-style' => 'fa fa-trash-o',
+            ),
+            'XLite\View\Button\DeleteSelected'
+        );
+
+        return $list;
+    }
+
+    /**
      * Get approve button
      *
      * @return \XLite\View\Button\Regular

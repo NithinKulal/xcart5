@@ -24,20 +24,6 @@ class TemporaryFile extends \XLite\Model\Repo\Base\Image
     }
 
     /**
-     * Get allowed file system root list
-     *
-     * @return array
-     */
-    public function getAllowedFileSystemRoots()
-    {
-        $list = parent::getAllowedFileSystemRoots();
-
-        $list[] = $this->getFileSystemRoot();
-
-        return $list;
-    }
-
-    /**
      * Get file system images storage root path
      *
      * @return string

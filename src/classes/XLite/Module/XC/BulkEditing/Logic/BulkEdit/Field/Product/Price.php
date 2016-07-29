@@ -34,7 +34,6 @@ class Price extends \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Field\AField
                         'message' => static::t('Minimum value is X', ['value' => 0]),
                     ],
                 ],
-                // 'input_grid'  => 'col-sm-2',
                 'position'    => isset($options['position']) ? $options['position'] : 0,
             ],
         ];
@@ -53,20 +52,29 @@ class Price extends \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Field\AField
     }
 
     /**
-     * @param string               $name
-     * @param \XLite\Model\Product $object
-     * @param array                $options
+     * @param string $name
+     * @param array  $options
      *
      * @return array
      */
-    public static function getViewData($name, $object, $options)
+    public static function getViewColumns($name, $options)
     {
         return [
             $name => [
-                'label'    => static::t('Price'),
-                'value'    => \XLite\View\AView::formatPrice($object->getPrice()),
-                'position' => isset($options['position']) ? $options['position'] : 0,
+                'name'    => static::t('Price'),
+                'orderBy' => isset($options['position']) ? $options['position'] : 0,
             ],
         ];
+    }
+
+    /**
+     * @param $name
+     * @param $object
+     *
+     * @return array
+     */
+    public static function getViewValue($name, $object)
+    {
+        return \XLite\View\AView::formatPrice($object->getPrice());
     }
 }

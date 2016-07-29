@@ -1,0 +1,7 @@
+{##
+ # Switcher
+ #}
+
+{% if not this.isSearchVisible() and this.hasFlexyTemplates() %}
+  {{ widget('XLite\\View\\Button\\SimpleLink', label='Flexy to twig converter', location=this.buildURL('flexy_to_twig')) }}
+{% endif %}

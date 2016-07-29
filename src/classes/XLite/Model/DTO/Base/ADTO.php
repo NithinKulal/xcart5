@@ -9,19 +9,17 @@
 namespace XLite\Model\DTO\Base;
 
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use XLite\Core\Translation;
 
 /**
  * Class TestDTO
  */
 abstract class ADTO extends CommonCell
 {
-    /**hasCategoryProductsLinkByCategory
-     *
-     * @param static                    $object
+    /**
+     * @param static                    $dto
      * @param ExecutionContextInterface $context
      */
-    public static function validate($object, ExecutionContextInterface $context)
+    public static function validate($dto, ExecutionContextInterface $context)
     {
     }
 
@@ -74,6 +72,8 @@ abstract class ADTO extends CommonCell
      * @param string $sectionName
      * @param string $fieldName
      * @param string $subFieldName
+     *
+     * @return mixed
      */
     protected static function deCompose($dto, $sectionName, $fieldName, $subFieldName)
     {
@@ -104,17 +104,17 @@ abstract class ADTO extends CommonCell
     }
 
     /**
-     * @param mixed      $dataObject
+     * @param mixed      $object
      * @param array|null $rawData
      *
      * @return mixed
      */
-    abstract public function populateTo($dataObject, $rawData = null);
+    abstract public function populateTo($object, $rawData = null);
 
     /**
-     * @param mixed $data
+     * @param mixed $object
      */
-    abstract protected function init($data);
+    abstract protected function init($object);
 
     /**
      * @param mixed $data
@@ -134,5 +134,19 @@ abstract class ADTO extends CommonCell
     public function toJSON()
     {
         return json_encode($this->toArray());
+    }
+
+    /**
+     * @return array
+     */
+    public function toScheme()
+    {
+        $result = $this->toArray();
+
+        array_walk_recursive($result, function (&$item) {
+            $item = '';
+        });
+
+        return $result;
     }
 }

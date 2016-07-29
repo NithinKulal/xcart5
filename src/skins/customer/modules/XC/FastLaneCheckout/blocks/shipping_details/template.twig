@@ -1,0 +1,13 @@
+{##
+ # template.twig
+ #}
+<shipping-details inline-template>
+    <div class="shipping-detail shipping-details_order-notes" v-if="order_notes">
+        <p class="detail-header">{{ t('Order notes:') }}</p>
+        <p class="detail-content" v-text="order_notes">{{ this.getOrderNotes() }}</p>
+    </div>
+    <div class="shipping-detail shipping-details_selected-method">
+        <p class="detail-header">{{ t('Shipping method') }}:</p>
+        <p class="detail-content" v-html="shipping_method">{{ this.getShippingMethod()|raw }}</p>
+    </div>
+</shipping-details>

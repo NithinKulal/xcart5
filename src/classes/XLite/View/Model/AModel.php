@@ -1354,6 +1354,30 @@ abstract class AModel extends \XLite\View\Dialog
     }
 
     /**
+     * Validate form field.
+     * This method is called from FormField object to perform additional validation on the form side.
+     *
+     * @param \XLite\View\FormField\AFormField $field Form field object
+     *
+     * @return array
+     */
+    public function validateFormField($field)
+    {
+        $result = array(true, null);
+
+        $name = $field->getName();
+
+        if (in_array($name, $this->getFormFields(true))) {
+            $method = 'validateFormField' . \XLite\Core\Converter::convertToCamelCase($name) . 'Value';
+            if (method_exists($this, $method)) {
+                $result = $this->$method($field, $this->getFormFields());
+            }
+        }
+
+        return $result;
+    }
+
+    /**
      * Return list of form error messages
      *
      * @return array
@@ -1723,6 +1747,8 @@ abstract class AModel extends \XLite\View\Dialog
     }
 
     /**
+     * Return true if specific section is collapsible
+     *
      * @param string $section
      *
      * @return boolean
@@ -1733,6 +1759,8 @@ abstract class AModel extends \XLite\View\Dialog
     }
 
     /**
+     * Return true if specific section is collapsed
+     *
      * @param string $section
      *
      * @return boolean

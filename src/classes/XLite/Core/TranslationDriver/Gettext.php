@@ -20,7 +20,6 @@ class Gettext extends \XLite\Core\TranslationDriver\ATranslationDriver
 {
     const DOMAIN        = 'xlite';
     const CHARSET       = 'UTF-8';
-    const SHORT_CHARSET = 'utf8';
     const CATEGORY      = 'LC_MESSAGES';
 
 
@@ -166,7 +165,7 @@ class Gettext extends \XLite\Core\TranslationDriver\ATranslationDriver
      */
     protected function getLocaleByCode($code)
     {
-        return $code . '_' . strtoupper($code) . '.' . self::SHORT_CHARSET;
+        return \XLite\Core\Converter::getLocaleByCode($code);
     }
 
     /**
@@ -329,11 +328,18 @@ class Gettext extends \XLite\Core\TranslationDriver\ATranslationDriver
                 . "\n"
             );
 
+            $pattern = array("\r", "\n");
+            $replace = array('\r', '\n');
+
             foreach ($list as $k => $v) {
+
+                $msgId = str_replace($pattern, $replace, addcslashes($k, '"\\'));
+                $msgStr = str_replace($pattern, $replace, addcslashes($v, '"\\'));
+
                 fwrite(
                     $fp,
-                    'msgid "' . addcslashes(str_replace("\n", '\n', $k), '"\\') . '"' . "\n"
-                    . 'msgstr "' . addcslashes(str_replace("\n", '\n', $v), '"\\') . '"' . "\n\n"
+                    'msgid "' . $msgId . '"' . "\n"
+                    . 'msgstr "' . $msgStr . '"' . "\n\n"
                 );
             }
 

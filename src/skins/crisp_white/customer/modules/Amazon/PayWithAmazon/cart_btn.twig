@@ -1,0 +1,12 @@
+{##
+ # Template
+ #
+ # @ListChild (list="cart.panel.totals", weight="1000")
+ #}
+{% if this.isPayWithAmazonActive() %}
+<li class="button" style="width: 100%">
+  <div id="payWithAmazonDiv_cart_btn">
+	  <img src="{{ this.getAmazonButtonURL() }}" style="cursor: pointer;" />
+  </div>
+</li>
+{% endif %}

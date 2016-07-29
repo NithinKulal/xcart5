@@ -1,0 +1,86 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+.subscription-block {
+  padding: (@rhythmic-unit * 2) 0;
+  background-color: @color-contrast;
+  .flex-display();
+  .align-items(center);
+  .justify-content(center);
+  color: @color-background;
+
+  button {
+    .regular-inverted-button;
+    @media(min-width: @screen-sm-min) {
+      .btn-lg;
+    }
+    display: inline-block;
+  }
+
+  .subscription-form-label {
+    .h4;
+    display: block;
+    margin-right: 0px;
+    margin-bottom: @rhythmic-unit;
+    color: @color-background;
+    text-align: center;
+  }
+
+  form {
+    .floating-label;
+
+    label {
+      color: @color-background;
+    }
+
+    label:after {
+      display: none;
+    }
+
+    .table-value {
+      display: inline-block;
+      margin-top: 1px;
+      margin-right: @rhythmic-unit;
+    }
+
+    .form-control {
+      .form-control-inverted;
+    }
+
+    .clear {
+      display: none;
+    }
+  }
+
+  @media (min-width: @screen-sm-min) {
+    .input-field-wrapper {
+      max-width: 180px;
+    }
+
+    button[type="submit"] {
+      float: right;
+    }
+
+    .input-text-email {
+      width: 340px;
+      max-width: 340px;
+    }
+  }
+
+  @media (max-width: @screen-xs-max) {
+    padding: @rhythmic-unit;
+
+    .table-value, .input-field-wrapper, button[type="submit"] {
+      width: 100%;
+    }
+
+    .table-value {
+      margin-bottom: @rhythmic-unit;
+    }
+  }
+}

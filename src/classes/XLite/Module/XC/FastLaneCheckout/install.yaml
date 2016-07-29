@@ -26,3 +26,7 @@ XLite\Model\LanguageLabel:
   - { name: 'Proceed to payment', translations: [{ code: en, label: 'Proceed to payment' }]}
   - { name: 'Street address', translations: [{ code: en, label: 'Street address' }]}
   - { name: 'Zipcode', translations: [{ code: en, label: 'Zipcode' }]}
+  - { name: 'Click to finish your order', translations: [{ code: en, label: 'Click to finish your order' }]}
+  - { name: 'Order cannot be placed because some steps are not completed', translations: [{ code: en, label: 'Order cannot be placed because some steps are not completed' }]}
+  - { name: 'Click to proceed to the next step', translations: [{ code: en, label: 'Click to proceed to the next step' }]}
+  - { name: 'Some of the required fields were not completed. Please check the form and try again', translations: [{ code: en, label: 'Some of the required fields were not completed. Please check the form and try again' }]}

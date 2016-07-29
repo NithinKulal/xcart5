@@ -2,29 +2,8 @@
 // vim: set ts=4 sw=4 sts=4 et:
 
 /**
- * X-Cart
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the software license agreement
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://www.x-cart.com/license-agreement.html
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to licensing@x-cart.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not modify this file if you wish to upgrade X-Cart to newer versions
- * in the future. If you wish to customize X-Cart for your needs please
- * refer to http://www.x-cart.com/ for more information.
- *
- * @category  X-Cart 5
- * @author    Qualiteam software Ltd <info@x-cart.com>
- * @copyright Copyright (c) 2011-2016 Qualiteam software Ltd <info@x-cart.com>. All rights reserved
- * @license   http://www.x-cart.com/license-agreement.html X-Cart 5 License Agreement
- * @link      http://www.x-cart.com/
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
  */
 
 namespace XLite\Module\CDev\XPaymentsConnector\Model\Payment;
@@ -111,4 +90,146 @@ class XpcTransactionData extends \XLite\Model\AEntity
      */
     protected $transaction;
 
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set card_number
+     *
+     * @param string $cardNumber
+     * @return XpcTransactionData
+     */
+    public function setCardNumber($cardNumber)
+    {
+        $this->card_number = $cardNumber;
+        return $this;
+    }
+
+    /**
+     * Get card_number
+     *
+     * @return string 
+     */
+    public function getCardNumber()
+    {
+        return $this->card_number;
+    }
+
+    /**
+     * Set card_type
+     *
+     * @param string $cardType
+     * @return XpcTransactionData
+     */
+    public function setCardType($cardType)
+    {
+        $this->card_type = $cardType;
+        return $this;
+    }
+
+    /**
+     * Get card_type
+     *
+     * @return string 
+     */
+    public function getCardType()
+    {
+        return $this->card_type;
+    }
+
+    /**
+     * Set card_expire
+     *
+     * @param string $cardExpire
+     * @return XpcTransactionData
+     */
+    public function setCardExpire($cardExpire)
+    {
+        $this->card_expire = $cardExpire;
+        return $this;
+    }
+
+    /**
+     * Get card_expire
+     *
+     * @return string 
+     */
+    public function getCardExpire()
+    {
+        return $this->card_expire;
+    }
+
+    /**
+     * Set use_for_recharges
+     *
+     * @param string $useForRecharges
+     * @return XpcTransactionData
+     */
+    public function setUseForRecharges($useForRecharges)
+    {
+        $this->use_for_recharges = $useForRecharges;
+        return $this;
+    }
+
+    /**
+     * Get use_for_recharges
+     *
+     * @return string 
+     */
+    public function getUseForRecharges()
+    {
+        return $this->use_for_recharges;
+    }
+
+    /**
+     * Set billingAddress
+     *
+     * @param \XLite\Model\Address $billingAddress
+     * @return XpcTransactionData
+     */
+    public function setBillingAddress(\XLite\Model\Address $billingAddress = null)
+    {
+        $this->billingAddress = $billingAddress;
+        return $this;
+    }
+
+    /**
+     * Get billingAddress
+     *
+     * @return \XLite\Model\Address 
+     */
+    public function getBillingAddress()
+    {
+        return $this->billingAddress;
+    }
+
+    /**
+     * Set transaction
+     *
+     * @param \XLite\Model\Payment\Transaction $transaction
+     * @return XpcTransactionData
+     */
+    public function setTransaction(\XLite\Model\Payment\Transaction $transaction = null)
+    {
+        $this->transaction = $transaction;
+        return $this;
+    }
+
+    /**
+     * Get transaction
+     *
+     * @return \XLite\Model\Payment\Transaction 
+     */
+    public function getTransaction()
+    {
+        return $this->transaction;
+    }
 }

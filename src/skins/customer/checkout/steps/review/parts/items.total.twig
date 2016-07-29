@@ -1,0 +1,10 @@
+{##
+ # Checkout : order review step : items : total
+ #
+ # @ListChild (list="checkout.review.selected.items", weight="40")
+ # @ListChild (list="checkout.review.inactive.items", weight="40")
+ #}
+<div class="total clearfix">
+  <span class="name">{{ t('Total') }}:</span>
+  <span class="value">{{ widget('XLite\\View\\Surcharge', surcharge=this.cart.getTotal(), currency=this.cart.getCurrency()) }}</span>
+</div>

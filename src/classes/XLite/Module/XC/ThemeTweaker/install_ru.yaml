@@ -38,3 +38,20 @@ XLite\Model\LanguageLabel:
   - { name: 'Layout editor is disabled', translations: [{ code: ru, label: 'Режим разметки отключен' }] }
   - { name: 'Layout editor allows you to change the position of the blocks in drag-n-drop fashion', translations: [{ code: ru, label: 'Режим редактирования разметки позволяет менять положение и порядок блоков путем перетаскивания' }] }
   - { name: 'There are some custom CSS styles in your store. These styles may affect the look of the installed template. Review the custom styles and disable them if necessary.', translations: [{ code: ru, label: 'Для сайта заданы пользовательские CSS стили. Эти стили могут оказывать влияние на внешний вид интерфейса покупателя. <a href="{{url}}">Просмотрите пользовательские стили</a> и выключите их в случае необходимости.' }] }
+
+  - { name: 'Flexy to twig converter', translations: [{ code: ru, label: 'Flexy to twig конвертор' }]}
+  - { name: 'Flexy-template', translations: [{ code: ru, label: 'Flexy-шаблон' }]}
+  - { name: 'Twig-template path', translations: [{ code: ru, label: 'Путь к Twig-шаблону' }]}
+  - { name: 'Template is converted', translations: [{ code: ru, label: 'Сконвертирован' }]}
+  - { name: 'Search flexy-templates', translations: [{ code: ru, label: 'Найти flexy-шаблоны' }]}
+  - { name: 'Convert templates', translations: [{ code: ru, label: 'Конвертировать' }]}
+  - { name: 'Remove flexy-templates', translations: [{ code: ru, label: 'Удалить flexy-шаблоны' }]}
+  - { name: 'No flexy-templates found.', translations: [{ code: ru, label: 'Flexy-шаблоны не найдены.' }]}
+  - { name: 'Flexy templates have been removed', translations: [{ code: ru, label: 'Flexy-шаблоны были удалены' }]}
+  - { name: 'Some flexy-templates cannot be removed. Please correct file permissions or remove them manually', translations: [{ code: ru, label: 'Некоторые flexy-шаблоны не могут быть удалены. Скорректируйте права на файлы или удалите их самостоятельно:<br />{{list}}' }]}
+  - { name: 'Check directory permissions', translations: [{ code: ru, label: 'Проверьте права на директорию' }]}
+  - { name: 'This action will remove all flexy-templates. Are you sure to proceed?', translations: [{ code: ru, label: 'Это действие удалит все Flexy-шаблоны. Вы уверены, что хотите продолжить?' }]}
+  - { name: 'Cannot get flexy content', translations: [{ code: ru, label: 'Не удалось получить содержимое Flexy-шаблона' }]}
+  - { name: 'Failure to convert flexy-template. Check for syntax errors', translations: [{ code: ru, label: 'Не удалось сконвертировать Flexy-шаблон. Проверьте его содержание на предмет синтаксических ошибок' }]}
+  - { name: 'Back to Webmaster mode', translations: [{ code: ru, label: 'Вернуться на страницу "Режим веб-мастера"' }]}
+  - { name: 'Flexy-to-twig converter warning', translations: [{ code: ru, label: 'Сконвертированные файлы не всегда могут работать корректно поскольку не все изменения могут быть правильно выполнены при автоматической конвертации. Проверьте ваши сконвертированные файлы вручную, чтобы убедиться, что все изменения перенесены верно. Больше информации о Flexy-to-Twig конверторе доступно здесь: <a href="http://xcart.github.io/flexy-to-twig/" target="_blank">http://xcart.github.io/flexy-to-twig</a>' }]}

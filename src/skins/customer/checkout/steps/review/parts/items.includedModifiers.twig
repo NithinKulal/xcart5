@@ -1,0 +1,16 @@
+{##
+ # Checkout : order review step : items : subtotal
+ #
+ # @ListChild (list="checkout.review.selected.items", weight="45")
+ #}
+
+<ul class="modifiers included-modifiers">
+  {% if this.cart.getItemsIncludeSurchargesTotals() %}  
+    {% for row in this.cart.getItemsIncludeSurchargesTotals() %}
+      <li class='included-surcharge type-{{ row.surcharge.getType() }}-surcharge code-{{row.surcharge.getCode()}}-surcharge'>
+        <span class="name">{{ t('Including X', {'name': row.surcharge.getName()}) }}:</span>
+        <span class="value">{{ widget('XLite\\View\\Surcharge', surcharge=row.cost, currency=this.cart.getCurrency()) }}
+      </li>
+    {% endfor %}
+  {% endif %}
+</ul>

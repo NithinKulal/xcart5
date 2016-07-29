@@ -31,10 +31,12 @@ class SwitcherType extends AType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $view->vars = array_replace($view->vars, array(
-            'value' => $options['value'],
-            'checked' => null !== $form->getViewData(),
-        ));
+        $view->vars = array_replace($view->vars, [
+            'value'       => $options['value'],
+            'checked'     => null !== $form->getViewData(),
+            'on_caption'  => $options['on_caption'],
+            'off_caption' => $options['off_caption'],
+        ]);
     }
 
     /**
@@ -46,10 +48,12 @@ class SwitcherType extends AType
             return $viewData;
         };
 
-        $resolver->setDefaults(array(
-            'value' => '1',
-            'empty_data' => $emptyData,
-            'compound' => false,
-        ));
+        $resolver->setDefaults([
+            'value'       => '1',
+            'empty_data'  => $emptyData,
+            'compound'    => false,
+            'on_caption'  => 'YES',
+            'off_caption' => 'NO',
+        ]);
     }
 }

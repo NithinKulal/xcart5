@@ -1,0 +1,17 @@
+{##
+ # Checkout : order review step : items : total
+ #
+ # @ListChild (list="checkout.review.selected.items", weight="38")
+ # @ListChild (list="checkout.review.inactive.items", weight="38")
+ #}
+{% if not this.isDefaultMultiCurrencySelected() %}
+  <ul class="modifiers">
+    <li class="subtotal real-charge real-charge-value">
+      {{ t('Total charge') }}:
+      <span class="value">{{ widget('XLite\\View\\Surcharge', surcharge=this.cart.getTotal(), currency=this.cart.getCurrency(), noConversion='true') }}</span>
+    </li>
+    <li class="subtotal real-charge real-charge-note">
+      {{ widget('XLite\\Module\\XC\\MultiCurrency\\View\\RealChargeWarning', order=this.cart, noConversion='true') }}
+    </li>
+  </ul>
+{% endif %}

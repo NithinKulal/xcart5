@@ -83,4 +83,21 @@ class EntriesList extends \XLite\View\Upgrade\Step\Prepare\APrepare
     {
         return $this->isModule($entry) ? 'module-entry' : 'core-entry';
     }
+
+
+    /**
+     * Get entry name
+     *
+     * @param \XLite\Upgrade\Entry\AEntry $entry Entry object
+     */
+    protected function getEntryName(\XLite\Upgrade\Entry\AEntry $entry)
+    {
+        $name = $entry->getName();
+
+        if (35 < strlen($name)) {
+            $name = substr($name, 0, 35) . '...';
+        }
+
+        return $name;
+    }
 }

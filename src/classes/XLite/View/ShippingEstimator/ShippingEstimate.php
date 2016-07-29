@@ -144,8 +144,13 @@ class ShippingEstimate extends \XLite\View\AView
         $state = null;
 
         // From getDestinationAddress()
-        if ($address && isset($address['state']) && $address['state']) {
-            $state = \XLite\Core\Database::getRepo('XLite\Model\State')->find($address['state']);
+        if ($address && !empty($address['state'])) {
+            if (is_integer($address['state'])) {
+                $state = \XLite\Core\Database::getRepo('XLite\Model\State')->find($address['state']);
+
+            } elseif (!empty($address['country'])) {
+                $state = \XLite\Core\Database::getRepo('XLite\Model\State')->findOneByCountryAndCode($address['country'], $address['state']);
+            }
 
         } elseif ($this->getCart()->getProfile()
             && $this->getCart()->getProfile()->getShippingAddress()

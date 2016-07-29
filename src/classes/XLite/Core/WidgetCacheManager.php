@@ -8,6 +8,8 @@
 
 namespace XLite\Core;
 
+use XLite\Core\DependencyInjection\ContainerAwareTrait;
+
 /**
  * Widget cache manager serves as a factory of WidgetCache and also as an implementation of WidgetCacheRegistryInterface.
  *
@@ -15,7 +17,7 @@ namespace XLite\Core;
  */
 class WidgetCacheManager implements WidgetCacheRegistryInterface
 {
-    const REGISTRY_CELL = 'viewCacheRegistry';
+    use ContainerAwareTrait;
 
     /**
      * Delete all
@@ -24,113 +26,7 @@ class WidgetCacheManager implements WidgetCacheRegistryInterface
      */
     public function deleteAll()
     {
-        $result = true;
-        foreach (array_keys($this->fetchRegistry()) as $key) {
-            $result = $result && Database::getCacheDriver()->delete($key);
-        }
-
-        $this->saveRegistry(array());
-
-        return $result;
-    }
-
-    /**
-     * Set registry
-     *
-     * @param string $key        String-key
-     * @param array  $parameters Cache cell keys
-     *
-     * @return void
-     */
-    public function setRegistry($key, array $parameters)
-    {
-        $registry = $this->fetchRegistry();
-
-        $registry[$key] = $parameters;
-
-        $this->saveRegistry($registry);
-    }
-
-    /**
-     * Remove registry cell
-     *
-     * @param string $key Key
-     *
-     * @return void
-     */
-    public function unsetRegistry($key)
-    {
-        $registry = $this->fetchRegistry();
-
-        if (isset($registry[$key])) {
-            unset($registry[$key]);
-        }
-
-        $this->saveRegistry($registry);
-    }
-
-    /**
-     * Get registry key
-     *
-     * @param array $parameters Cache cell keys (partial)
-     *
-     * @return array
-     */
-    public function getRegistryKey(array $parameters)
-    {
-        $registry = $this->fetchRegistry();
-
-        $result = array();
-
-        $keys = array();
-        foreach ($keys as $k => $v) {
-            if (is_null($v)) {
-                unset($keys[$k]);
-            }
-        }
-
-        foreach ($registry as $key => $parameters) {
-            $found = true;
-            foreach ($keys as $i => $value) {
-                if (!isset($parameters[$i]) || $parameters[$i] != $value) {
-                    $found = false;
-                    break;
-                }
-            }
-
-            if ($found) {
-                $result[] = $key;
-            }
-        }
-
-        return $result;
-    }
-
-    /**
-     * Fetch registry
-     *
-     * @return array
-     */
-    public function fetchRegistry()
-    {
-        $registry = @unserialize(Database::getCacheDriver()->fetch(static::REGISTRY_CELL));
-        if (!is_array($registry)) {
-            $registry = array();
-        }
-
-        return is_array($registry) ? $registry : array();
-    }
-
-    /**
-     * Save registry
-     *
-     * @param array $registry Registry
-     *
-     * @return void
-     */
-    public function saveRegistry(array $registry)
-    {
-        Database::getCacheDriver()->save(static::REGISTRY_CELL, serialize($registry));
+        return $this->getContainer()->get('widget_cache')->deleteAll();
     }
 
     /**
@@ -148,7 +44,7 @@ class WidgetCacheManager implements WidgetCacheRegistryInterface
             'XLite\Model\ConfigTranslation',
         ];
 
-        $entityTypes = Database::getRepo('XLite\Model\EntityTypeVersion')->getBumpedEntityTypes();
+        $entityTypes = \XLite\Core\Database::getRepo('XLite\Model\EntityTypeVersion')->getBumpedEntityTypes();
 
         if (array_diff($entityTypes, $notAffectingEntities)) {
             $this->deleteAll();

@@ -1,0 +1,63 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Specific styles for "Nobless" color scheme
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.flyout-menu {
+  z-index: 99;
+}
+
+.flyout-menu li {
+  border-color: #404040;
+  border-width: 1px;
+  border-style: solid none none none;
+}
+
+.flyout-menu li ul.sublevel li.first {
+  border-top: none;
+}
+
+.flyout-menu.catalog-categories > li > ul.sublevel {
+  top:-1px;
+}
+
+.sidebar .flyout-menu li ul {
+  background-color: #222;
+  border-color: #858585;
+}
+
+.flyout-menu li a:active,
+.flyout-menu li a:link,
+.flyout-menu li a:visited,
+.flyout-menu li ul.sublevel li a:active,
+.flyout-menu li ul.sublevel li a:link,
+.flyout-menu li ul.sublevel li a:visited{
+  color: #fff;
+  border-top: none;
+}
+
+.sidebar .flyout-menu li.hover,
+.sidebar .flyout-menu li:hover {
+  background-color: #404040;
+}
+
+.flyout-menu li:hover > a,
+.flyout-menu li ul.sublevel li:hover > a{
+  color: #FF9CA3;
+}
+
+.flyout-menu .category-icon {
+  top: 9px;
+}
+
+.flyout-menu .icon-triangle:before {
+  color: #858585;
+}
+
+.flyout-menu li:hover > .icon-triangle:before {
+  color: #FF9CA3;
+}

@@ -2,29 +2,8 @@
 // vim: set ts=4 sw=4 sts=4 et:
 
 /**
- * X-Cart
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the software license agreement
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://www.x-cart.com/license-agreement.html
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to licensing@x-cart.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not modify this file if you wish to upgrade X-Cart to newer versions
- * in the future. If you wish to customize X-Cart for your needs please
- * refer to http://www.x-cart.com/ for more information.
- *
- * @category  X-Cart 5
- * @author    Qualiteam software Ltd <info@x-cart.com>
- * @copyright Copyright (c) 2011-2016 Qualiteam software Ltd <info@x-cart.com>. All rights reserved
- * @license   http://www.x-cart.com/license-agreement.html X-Cart 5 License Agreement
- * @link      http://www.x-cart.com/
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
  */
 
 namespace XLite\Module\CDev\XPaymentsConnector\Model;
@@ -109,7 +88,7 @@ class Profile extends \XLite\Model\Profile implements \XLite\Base\IDecorator
             $cards = \XLite\Core\Database::getRepo('XLite\Module\CDev\XPaymentsConnector\Model\Payment\XpcTransactionData')
                 ->search($cnd);
 
-            if ($cards[0]) {
+            if ($cards && $cards[0]) {
                 $this->default_card_id = $cards[0]->getId();
             }
 
@@ -262,4 +241,104 @@ class Profile extends \XLite\Model\Profile implements \XLite\Base\IDecorator
         
     }
 
+
+    /**
+     * Set default_card_id
+     *
+     * @param integer $defaultCardId
+     * @return Profile
+     */
+    public function setDefaultCardId($defaultCardId)
+    {
+        $this->default_card_id = $defaultCardId;
+        return $this;
+    }
+
+    /**
+     * Set pending_zero_auth
+     *
+     * @param string $pendingZeroAuth
+     * @return Profile
+     */
+    public function setPendingZeroAuth($pendingZeroAuth)
+    {
+        $this->pending_zero_auth = $pendingZeroAuth;
+        return $this;
+    }
+
+    /**
+     * Get pending_zero_auth
+     *
+     * @return string 
+     */
+    public function getPendingZeroAuth()
+    {
+        return $this->pending_zero_auth;
+    }
+
+    /**
+     * Set pending_zero_auth_txn_id
+     *
+     * @param string $pendingZeroAuthTxnId
+     * @return Profile
+     */
+    public function setPendingZeroAuthTxnId($pendingZeroAuthTxnId)
+    {
+        $this->pending_zero_auth_txn_id = $pendingZeroAuthTxnId;
+        return $this;
+    }
+
+    /**
+     * Get pending_zero_auth_txn_id
+     *
+     * @return string 
+     */
+    public function getPendingZeroAuthTxnId()
+    {
+        return $this->pending_zero_auth_txn_id;
+    }
+
+    /**
+     * Set pending_zero_auth_status
+     *
+     * @param string $pendingZeroAuthStatus
+     * @return Profile
+     */
+    public function setPendingZeroAuthStatus($pendingZeroAuthStatus)
+    {
+        $this->pending_zero_auth_status = $pendingZeroAuthStatus;
+        return $this;
+    }
+
+    /**
+     * Get pending_zero_auth_status
+     *
+     * @return string 
+     */
+    public function getPendingZeroAuthStatus()
+    {
+        return $this->pending_zero_auth_status;
+    }
+
+    /**
+     * Set pending_zero_auth_interface
+     *
+     * @param string $pendingZeroAuthInterface
+     * @return Profile
+     */
+    public function setPendingZeroAuthInterface($pendingZeroAuthInterface)
+    {
+        $this->pending_zero_auth_interface = $pendingZeroAuthInterface;
+        return $this;
+    }
+
+    /**
+     * Get pending_zero_auth_interface
+     *
+     * @return string 
+     */
+    public function getPendingZeroAuthInterface()
+    {
+        return $this->pending_zero_auth_interface;
+    }
 }

@@ -108,28 +108,28 @@ abstract class AFormModel extends \XLite\View\AView
      * @param $field
      *
      * @return array
-     *
      */
     protected static function correctSchemaDependency($schema, $section, $field)
     {
         foreach ($schema as $sectionName => $sectionDefinition) {
             foreach ($sectionDefinition as $fieldName => $fieldDefinition) {
-                if (!isset($fieldDefinition['type'])
-                    || $fieldDefinition['type'] !== 'XLite\View\FormModel\Type\Base\CompositeType'
-                ) {
-                    $schema[$sectionName][$fieldName]
-                        = static::correctFieldDependency($fieldDefinition, $section, $field);
+                $fieldDefinition
+                    = static::correctFieldDependency($fieldDefinition, 'show_when', $section, $field);
+                $fieldDefinition
+                    = static::correctFieldDependency($fieldDefinition, 'enable_when', $section, $field);
 
-                } elseif (isset($fieldDefinition['type'], $fieldDefinition['fields'])
+                $schema[$sectionName][$fieldName] = $fieldDefinition;
+
+                if (isset($fieldDefinition['type'], $fieldDefinition['fields'])
                     && $fieldDefinition['type'] === 'XLite\View\FormModel\Type\Base\CompositeType'
                 ) {
-                    $schema[$sectionName][$fieldName]
-                        = static::correctFieldDependency($fieldDefinition, $section, $field);
-
                     foreach ($fieldDefinition['fields'] as $subFieldName => $subFieldDefinition) {
-                        $schema[$sectionName][$fieldName]['fields'][$subFieldName]
-                            = static::correctFieldDependency($subFieldDefinition, $section, $field);
+                        $subFieldDefinition
+                            = static::correctFieldDependency($subFieldDefinition, 'show_when', $section, $field);
+                        $subFieldDefinition
+                            = static::correctFieldDependency($subFieldDefinition, 'enable_when', $section, $field);
 
+                        $schema[$sectionName][$fieldName]['fields'][$subFieldName] = $subFieldDefinition;
                     }
                 }
             }
@@ -139,57 +139,177 @@ abstract class AFormModel extends \XLite\View\AView
     }
 
     /**
-     * @param $fieldDefinition
-     * @param $section
-     * @param $field
+     * @param array  $fieldDefinition
+     * @param string $dependencyType
+     * @param string $section
+     * @param string $field
      *
      * @return array
      */
-    protected static function correctFieldDependency($fieldDefinition, $section, $field)
+    protected static function correctFieldDependency($fieldDefinition, $dependencyType, $section, $field)
     {
-        if (isset($fieldDefinition['show_when'])) {
-            $dependency = $fieldDefinition['show_when'];
+        /**
+         * $dependencyRule must be scalar or int indexed array
+         *
+         * @param array $dependencyRule
+         *
+         * @return boolean
+         */
+        $isEndRule = function ($dependencyRule) {
+            return !is_array($dependencyRule)
+            || !array_filter(
+                array_map(
+                    function ($item) {
+                        return !is_int($item);
+                    },
+                    array_keys($dependencyRule)
+                )
+            );
+        };
+
+        if (isset($fieldDefinition[$dependencyType])) {
+            $dependency = $fieldDefinition[$dependencyType];
             if (isset($dependency[$section][$field])) {
                 $dependencyRule = $dependency[$section][$field];
 
-                $isEndRule = !is_array($dependencyRule)
-                    || !array_filter(
-                        array_map(
-                            function ($item) {
-                                return !is_int($item);
-                            },
-                            array_keys($dependencyRule)
-                        )
-                    );
-
-                if ($isEndRule) {
-                    $fieldDefinition['show_when'][$section][$field] = [$field => $dependencyRule];
-                }
-            }
-        }
-
-        if (isset($fieldDefinition['hide_when'])) {
-            $dependency = $fieldDefinition['hide_when'];
-            if (isset($dependency[$section][$field])) {
-                $dependencyRule = $dependency[$section][$field];
-
-                $isEndRule = !is_array($dependencyRule)
-                    || !array_filter(
-                        array_map(
-                            function ($item) {
-                                return !is_int($item);
-                            },
-                            array_keys($dependencyRule)
-                        )
-                    );
-
-                if ($isEndRule) {
-                    $fieldDefinition['hide_when'][$section][$field] = [$field => $dependencyRule];
+                if ($isEndRule($dependencyRule)) {
+                    $fieldDefinition[$dependencyType][$section][$field] = [$field => $dependencyRule];
                 }
             }
         }
 
         return $fieldDefinition;
+    }
+
+    /**
+     * @param $schema
+     *
+     * @return array
+     */
+    protected static function filterUnresolvedDependencies($schema)
+    {
+        foreach ($schema as $sectionName => $sectionDefinition) {
+            foreach ($sectionDefinition as $fieldName => $fieldDefinition) {
+                $fieldDefinition
+                    = static::filterUnresolvedDependency($schema, $fieldDefinition, 'show_when', $sectionName);
+                $fieldDefinition
+                    = static::filterUnresolvedDependency($schema, $fieldDefinition, 'enable_when', $sectionName);
+
+                $schema[$sectionName][$fieldName] = $fieldDefinition;
+
+                if (isset($fieldDefinition['type'], $fieldDefinition['fields'])
+                    && $fieldDefinition['type'] === 'XLite\View\FormModel\Type\Base\CompositeType'
+                ) {
+                    foreach ($fieldDefinition['fields'] as $subFieldName => $subFieldDefinition) {
+                        $subFieldDefinition
+                            = static::filterUnresolvedDependency($schema, $subFieldDefinition, 'show_when', $sectionName, $fieldName);
+                        $subFieldDefinition
+                            = static::filterUnresolvedDependency($schema, $subFieldDefinition, 'enable_when', $sectionName, $fieldName);
+
+                        $schema[$sectionName][$fieldName]['fields'][$subFieldName] = $subFieldDefinition;
+                    }
+                }
+            }
+        }
+
+        return $schema;
+    }
+
+    protected static function filterUnresolvedDependency($schema, $fieldDefinition, $dependencyType, $section, $field = null)
+    {
+        /**
+         * $dependencyRule must be scalar or int indexed array
+         *
+         * @param array $dependencyRule
+         *
+         * @return boolean
+         */
+        $isEndRule = function ($dependencyRule) {
+            return !is_array($dependencyRule)
+            || !array_filter(
+                array_map(
+                    function ($item) {
+                        return !is_int($item);
+                    },
+                    array_keys($dependencyRule)
+                )
+            );
+        };
+
+        if (isset($fieldDefinition[$dependencyType])) {
+            $dependency = $fieldDefinition[$dependencyType];
+            $correctDependency = [];
+
+            foreach ($dependency as $sectionName => $sectionDependencies) {
+                if ($sectionName === '..') {
+                    foreach ($sectionDependencies as $fieldName => $fieldDependencies) {
+                        if ($field) {
+                            if (isset($schema[$section][$field]['fields'][$fieldName])) {
+                                $correctDependency[$sectionName][$fieldName] = $fieldDependencies;
+                            }
+                        } else {
+                            if (isset($schema[$section][$field])) {
+                                $correctDependency[$sectionName][$fieldName] = $fieldDependencies;
+                            }
+                        }
+                    }
+
+                    continue;
+                }
+
+                foreach ($sectionDependencies as $fieldName => $fieldDependencies) {
+                    if ($isEndRule($fieldDependencies)) {
+                        if (isset($schema[$sectionName][$fieldName])) {
+                            $correctDependency[$sectionName][$fieldName] = $fieldDependencies;
+                        }
+                    } elseif (isset($schema[$sectionName][$fieldName]['fields'])) {
+                        foreach ($fieldDependencies as $subFieldName => $subFieldDependencies) {
+                            if (isset($schema[$sectionName][$fieldName]['fields'][$subFieldName])) {
+                                $correctDependency[$sectionName][$fieldName][$subFieldName] = $subFieldDependencies;
+                            }
+                        }
+                    }
+                }
+            }
+
+            $fieldDefinition[$dependencyType] = $correctDependency;
+        }
+
+        return $fieldDefinition;
+
+    }
+
+    /**
+     * @param array $schema
+     * @param array $dependencies
+     *
+     * @return boolean
+     */
+    protected static function isDependencyResolved($schema, $dependencies)
+    {
+        foreach ($dependencies as $section => $sectionDependency) {
+            foreach ($sectionDependency as $field => $fieldDependency) {
+                if (is_array($fieldDependency)
+                    && count($fieldDependency)
+                    && !isset($fieldDependency[0])
+                ) {
+                    foreach ($fieldDependency as $subField => $dependency) {
+                        if (isset($schema[$section][$field]['fields'][$subField])) {
+
+                            return true;
+                        }
+                    }
+
+                } else {
+                    if (isset($schema[$section][$field])) {
+
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -283,6 +403,9 @@ abstract class AFormModel extends \XLite\View\AView
         }
         $list[static::RESOURCE_JS][] = 'js/object_hash.js';
 
+        $list[static::RESOURCE_JS][] = 'js/vue/vue.js';
+        $list[static::RESOURCE_JS][] = 'js/vue/component.js';
+
         $this->getSchema();
         $subResources = $this->commonFiles
             ? call_user_func_array('array_merge_recursive', $this->commonFiles)
@@ -300,7 +423,7 @@ abstract class AFormModel extends \XLite\View\AView
     }
 
     /**
-     * Do not render form_start and form_end if null returned
+     * Value of target form submit url
      * @todo: to widget params
      *
      * @return string|null
@@ -311,6 +434,7 @@ abstract class AFormModel extends \XLite\View\AView
     }
 
     /**
+     * Value of action form submit url
      * @todo: to widget params
      *
      * @return string
@@ -321,6 +445,8 @@ abstract class AFormModel extends \XLite\View\AView
     }
 
     /**
+     * Additional query params form submit url
+     *
      * @return array
      */
     protected function getActionParams()
@@ -329,6 +455,8 @@ abstract class AFormModel extends \XLite\View\AView
     }
 
     /**
+     * Additional query params return url
+     *
      * @return array
      */
     protected function getReturnURLParams()
@@ -437,7 +565,11 @@ abstract class AFormModel extends \XLite\View\AView
      */
     protected function defineSections()
     {
-        return self::SECTION_DEFAULT;
+        return [
+            self::SECTION_DEFAULT => [
+                'position' => 0
+            ],
+        ];
     }
 
     /**
@@ -503,7 +635,7 @@ abstract class AFormModel extends \XLite\View\AView
             $result[$name] = $this->prepareSectionFields($fields);
         }
 
-        return $result;
+        return static::filterUnresolvedDependencies($result);
     }
 
     /**
@@ -673,7 +805,7 @@ abstract class AFormModel extends \XLite\View\AView
      */
     protected function useButtonPanel()
     {
-        return !is_null($this->getButtonPanelClass());
+        return null !== $this->getButtonPanelClass();
     }
 
     /**
@@ -751,5 +883,21 @@ abstract class AFormModel extends \XLite\View\AView
             ['form_model/theme.twig'],
             array_filter(array_unique($this->theme))
         ));
+    }
+
+    /**
+     * Return internal list name
+     *
+     * @return string
+     */
+    protected function getListName()
+    {
+        $class = preg_replace('/^.+\\\View\\\FormModel\\\/Ss', '', get_called_class());
+        $class = str_replace('\\', '.', $class);
+        if (preg_match('/\\\Module\\\([a-z0-9]+)\\\([a-z0-9]+)\\\View\\\FormModel\\\/Si', get_called_class(), $match)) {
+            $class = $match[1] . '.' . $match[2] . '.' . $class;
+        }
+
+        return 'form_model.' . strtolower($class);
     }
 }

@@ -1,0 +1,263 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.filters-mobile {
+  .visible-xs;
+
+  & > a {
+    .icon-filters;
+  }
+
+  .filters-zone {
+    position: absolute;
+    left: (-@grid-gutter-width / 2);
+    width: 100vw;
+    min-width: 320px;
+    z-index: 100;
+    background: @color-background;
+    border-top: 1px solid @color-border;
+    box-shadow: @dropdown-shadow;
+    top: (3 * @rhythmic-unit);
+    padding-top: @rhythmic-unit;
+    padding-bottom: @rhythmic-unit;
+    padding-left: (@grid-gutter-width / 2);
+    padding-right: (@grid-gutter-width / 2);
+
+    .block-product-filter {
+      display: block;
+    }
+  }
+}
+
+.block-product-filter {
+  @media(max-width: @screen-xs-max) {
+    display: none;
+  }
+
+  margin-top: -@rhythmic-unit;
+  & > h4 {
+    display: none;
+  }
+
+  input[type="radio"], input[type="checkbox"] {
+    margin: 0;
+    line-height: @rhythmic-unit;
+    height: @rhythmic-unit;
+    width: @rhythmic-unit;
+    vertical-align: top;
+  }
+
+  .fade-up, .fade-down {
+    display: none;
+  }
+
+  .value-range {
+    height: 100px;
+  }
+
+  div.filter {
+    .clearfix;
+
+    padding-top: @rhythmic-unit;
+
+    &:not(.collapsed) {
+      padding-bottom: @rhythmic-unit;
+    }
+
+    .table-label ~ .star {
+      display: none;
+    }
+
+    .table-label {
+      margin-bottom: @rhythmic-unit;
+      padding: 0;
+      label {
+        .h4;
+      }
+
+      &.collapsible {
+        .icon-minus--after;
+        background: none;
+        padding-left: 0;
+
+        &:hover {
+          cursor: pointer;
+          color: @color-hover;
+
+          label {
+            cursor: pointer;
+            color: @color-hover;
+          }
+        }
+
+        &:after {
+          float: right;
+        }
+
+        &.collapsed {
+          .icon-plus--after;
+        }
+      }
+    }
+
+    .table-value.collapsible {
+      .fast-transitions;
+    }
+
+    .table-value.collapsible.collapsed {
+      height: 0px;
+      overflow: hidden;
+    }
+
+    &:not(.type-c) {
+      .table-label, .table-value {
+        float: none;
+      }
+    }
+
+    &.type-c {
+      padding-top: 0px;
+      padding-bottom: 0px;
+      display: flex;
+      align-items: center;
+      .table-label {
+        margin-left: @rhythmic-unit;
+        order: 2;
+        margin-bottom: 0px;
+
+        label {
+          #rhythmless > .rhythm(@font-size-base);
+        }
+      }
+
+      .table-value {
+        .input-field-wrapper {
+          display: inline;
+          vertical-align: middle;
+        }
+        order: 1;
+      }
+    }
+  }
+
+  .filter.group {
+    .head-h4 {
+      .h4;
+    }
+
+    .attributes {
+
+      li:not(.type-c) > .table-label label {
+        margin-top: @rhythmic-unit;
+          #rhythmless > .rhythm(@font-size-base);
+          font-weight: 600;
+      }
+    }
+  }
+
+  // .filter:not(.group) > .attributes {
+  //   & > li ~ li {
+  //     margin-top: (@rhythmic-unit * 2);
+  //   }
+  // }
+
+  .filter > .attributes {
+    input ~ label {
+      margin: 0;
+      line-height: @rhythmic-unit;
+      margin-left: @rhythmic-unit - 2px;
+      color: @color-text-dark;
+      #rhythmless > .rhythm(@font-size-base);
+    }
+    & > li:first-child {
+      margin-top: @rhythmic-unit;
+    }
+    & > li:not(.collapsed) + li {
+      margin-top: (2 * @rhythmic-unit);
+    }
+
+    .type-c {
+      margin-top: @rhythmic-unit;
+      display: flex;
+      align-items: center;
+      .table-label {
+        margin-left: @rhythmic-unit;
+        order: 2;
+        margin-bottom: 0px;
+
+        label {
+          #rhythmless > .rhythm(@font-size-base);
+        }
+      }
+
+      .table-value {
+        .input-field-wrapper {
+          display: inline;
+          vertical-align: middle;
+        }
+        order: 1;
+      }
+    }
+
+    .checkbox-list {
+      li {
+        input ~ label {
+            width: 75%;
+        }
+        position: relative;
+      }
+
+      li ~ li {
+        margin-top: @rhythmic-unit;
+
+        &:before {
+          content: '';
+          display: block;
+          position: absolute;
+          width: 100%;
+          margin-top: (-@rhythmic-unit / 2);
+          border-top: 1px solid fade(@color-border, 20%);
+        }
+      }
+    }
+  }
+
+  .buttons {
+    text-align: center;
+      margin-top: @rhythmic-unit;
+    margin-bottom: @rhythmic-unit;
+    .filter.submit {
+      width: 100%;
+        margin-bottom: @rhythmic-unit;
+    }
+    .reset-filter {
+      line-height: @rhythmic-unit;
+    }
+
+    .popup
+    {
+      position: absolute;
+      left: (@rhythmic-unit * 3);
+      border: 1px solid @color-border;
+      -moz-border-radius: 2px;
+      -webkit-border-radius: 2px;
+      border-radius: 2px;
+      background: #fff;
+      box-shadow: @dropdown-shadow;
+      z-index: 99999;
+      white-space: nowrap;
+      display: none;
+      padding: @rhythmic-unit;
+
+      .arrow {
+        display: none;
+      }
+    }
+  }
+}

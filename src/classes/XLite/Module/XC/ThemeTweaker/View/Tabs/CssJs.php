@@ -37,7 +37,7 @@ abstract class CssJs extends \XLite\View\Tabs\CssJs implements \XLite\Base\IDeco
         $list['theme_tweaker_templates'] = [
             'weight'   => 200,
             'title'    => static::t('Webmaster mode'),
-            'template' => 'modules/XC/ThemeTweaker/theme_tweaker_templates/body.twig',
+            'widget'   => '\XLite\Module\XC\ThemeTweaker\View\ThemeTweakerTemplates',
         ];
         $list['custom_css'] = [
             'weight'   => 300,

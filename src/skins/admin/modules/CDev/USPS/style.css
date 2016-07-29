@@ -1,0 +1,50 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * USPS module settings page styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.refresh-link {
+  display: block;
+  position: absolute;
+  right: 25px;
+  top: 124px;
+}
+
+.refresh-link span {
+  font-size: 14px;
+  color: inherit;
+}
+
+.target-usps .model-properties div.table-label,
+.target-usps .model-properties div.table-value {
+  vertical-align: middle;
+}
+
+.target-usps .model-properties div.table-label.dimensions-label {
+  vertical-align: bottom;
+  padding-bottom: 16px;
+}
+
+.target-usps .model-properties div.table-label.cod-status-label {
+  vertical-align: top;
+}
+
+.target-usps .model-properties div.table-value input[type="text"] {
+  width: 100px;
+}
+
+.target-usps .model-properties div.table-value.userid-value input[type="text"] {
+  width: 250px;
+}
+
+.target-usps .model-properties div.table-value.server-url-value input[type="text"] {
+  width: 400px;
+}
+
+.target-usps .model-properties .popover-content {
+  font-size: 13px;
+}

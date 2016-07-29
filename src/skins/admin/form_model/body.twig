@@ -1,0 +1,17 @@
+
+{% set form = this.getFormView() %}
+{% form_theme form with this.getFormThemeFiles() %}
+
+{{ form_start(form, {'attr': {'novalidate': 'novalidate', 'v-on:submit': 'onSubmit'}}) }}
+
+{{ widget_list('before', type='inherited') }}
+
+{{ form_widget(form) }}
+
+{{ widget_list('after', type='inherited') }}
+
+{{ this.buttonPanel.display() }}
+
+{{ widget_list('footer', type='inherited') }}
+
+{{ form_end(form) }}

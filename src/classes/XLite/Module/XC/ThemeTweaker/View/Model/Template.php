@@ -159,10 +159,14 @@ class Template extends \XLite\View\Model\AModel
 
                 if ($localPath) {
                     $model = $this->getModelObject();
-                    $fullPath = $this->getFullPathByLocalPath(
-                        $localPath,
-                        $model->getId() ? 'theme_tweaker/default' : null
-                    );
+
+                    $fullPath = \XLite::isAdminZone()
+                        ? LC_DIR_SKINS . $localPath
+                        : $this->getFullPathByLocalPath(
+                            $localPath,
+                            $model->getId() ? 'theme_tweaker/customer' : null
+                        );
+
                     $value = \Includes\Utils\FileManager::read($fullPath);
                 }
                 break;
@@ -208,7 +212,7 @@ class Template extends \XLite\View\Model\AModel
         }
 
         if ($localPath) {
-            $fullPath = $this->getFullPathByLocalPath($localPath, 'theme_tweaker/default');
+            $fullPath = $this->getFullPathByLocalPath($localPath, 'theme_tweaker/customer');
             \Includes\Utils\FileManager::write($fullPath, $body);
 
             $data['template'] = substr($fullPath, strlen(LC_DIR_SKINS));
@@ -242,17 +246,17 @@ class Template extends \XLite\View\Model\AModel
 
                 $locale = substr(
                     $localPath,
-                    strpos($localPath, LC_DS, strlen($pathSkin)) + strlen(LC_DS),
-                    strpos($localPath, LC_DS, strlen($pathSkin . LC_DS)) - strlen($pathSkin . LC_DS)
-                );
+                    strlen($pathSkin),
+                    strpos($localPath, LC_DS, strlen($pathSkin)) - strlen($pathSkin)
+                ) ?: null;
 
-                $shortPath = substr($localPath, strpos($localPath, LC_DS, strlen($pathSkin . LC_DS)) + strlen(LC_DS));
+                $shortPath = substr($localPath, strpos($localPath, LC_DS, strlen($pathSkin)) + strlen(LC_DS));
 
                 break;
             }
         }
 
-        return ($shortPath && $pathSkin && $locale)
+        return ($shortPath && $pathSkin)
             ? $this->getFullPathByShortPath($shortPath, ($skin) ?: $pathSkin, $locale)
             : '';
     }
@@ -266,7 +270,7 @@ class Template extends \XLite\View\Model\AModel
      *
      * @return string
      */
-    protected function getFullPathByShortPath($shortPath, $skin = 'theme_tweaker/default', $locale = null)
+    protected function getFullPathByShortPath($shortPath, $skin = 'theme_tweaker/customer', $locale = null)
     {
         $result = '';
 

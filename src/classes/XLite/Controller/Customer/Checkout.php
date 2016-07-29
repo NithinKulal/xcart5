@@ -38,6 +38,13 @@ class Checkout extends \XLite\Controller\Customer\Cart
     protected $paymentWidgetData = array();
 
     /**
+     * Modifier (cache)
+     *
+     * @var \XLite\Model\Order\Modifier
+     */
+    protected $shippingModifier;
+
+    /**
      * Set if the form id is needed to make an actions
      * Form class uses this method to check if the form id should be added
      *
@@ -229,6 +236,19 @@ class Checkout extends \XLite\Controller\Customer\Cart
         return $this->paymentWidgetData;
     }
 
+    /**
+     * Get modifier
+     *
+     * @return \XLite\Model\Order\Modifier
+     */
+    protected function getShippingModifier()
+    {
+        if (!isset($this->shippingModifier)) {
+            $this->shippingModifier = $this->getCart()->getModifier(\XLite\Model\Base\Surcharge::TYPE_SHIPPING, 'SHIPPING');
+        }
+
+        return $this->shippingModifier;
+    }
 
     /**
      * Checkout
@@ -766,6 +786,16 @@ class Checkout extends \XLite\Controller\Customer\Cart
     }
 
     /**
+     * Check - is order shippable or not
+     *
+     * @return boolean
+     */
+    public function isShippingNeeded()
+    {
+        return $this->getShippingModifier() && $this->getShippingModifier()->canApply();
+    }
+
+    /**
      * Check if we are ready to select payment method
      *
      * @return boolean
@@ -946,11 +976,14 @@ class Checkout extends \XLite\Controller\Customer\Cart
         $profile = $this->getCartProfile();
 
         $address = $profile->getShippingAddress();
+
         if ($address) {
             \XLite\Core\Database::getEM()->refresh($address);
         }
 
-        if (is_array($data)) {
+        if (is_array($data) || !$this->getAddressFields()) {
+            $data = is_array($data) ? $data : array();
+
             $noAddress = null === $address;
 
             $andAsBilling = false;

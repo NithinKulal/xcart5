@@ -129,7 +129,7 @@ class Category extends \XLite\Model\Category implements \XLite\Base\IDecorator
                     ->createQueryBuilder('av')
                     ->linkInner('av.product')
                     ->linkInner('product.categoryProducts')
-                    ->andWhere('categoryProducts.category = :category AND av.attribute = :attribute')
+                    ->andWhere('categoryProducts.category = :category AND av.attribute = :attribute AND product.enabled = true')
                     ->setParameter('category', $this)
                     ->setParameter('attribute', $attribute)
                     ->groupBy('av.attribute_option')

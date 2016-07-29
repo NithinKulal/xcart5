@@ -1,0 +1,50 @@
+{##
+ # Welcome section. Middle steps line. 
+ #
+ #}
+
+<div class="middle-line">
+
+  <div class="step1">
+
+    <span class="step-text">
+      <strong>1.</strong>
+      {{ t('Open your X-Payments dashboard') }}
+      <br />
+      {{ t('or') }}
+    </span>
+
+  </div>
+
+  <div class="step2">
+
+    <span class="step-text">
+      <strong>2.</strong>
+
+      {% if this.getPaymentMethod() %}
+        {{ t('Configure') }}
+        <strong>{{ this.getPaymentMethodName() }}</strong>
+        <span class="nowrap">{{ t('in') }} <strong>{{ t('X-Payments') }}</strong></span>
+      {% else %}
+        {{ t('Configure your gateway') }}
+        <span class="nowrap">{{ t('in') }} <strong>{{ t('X-Payments') }}</strong></span>
+      {% endif %}
+    </span>
+
+  </div>
+
+  <div class="step3">
+
+    <span class="step-text">
+      <strong>3.</strong>
+      {{ t('Connect') }}
+      <br />
+      <strong class="nowrap">{{ t('X-Payments') }}</strong> {{ t('with') }} <strong class="nowrap">{{ t('X-Cart') }}</strong>
+    </span>
+
+  </div>
+
+</div>
+
+<div class="clearfix"></div>
+

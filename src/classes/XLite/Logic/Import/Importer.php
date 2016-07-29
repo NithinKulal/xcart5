@@ -234,6 +234,8 @@ class Importer extends \XLite\Base
         $record['options'] = $this->getOptions()->getArrayCopy();
         $record['options']['initialized'] = true;
         \XLite\Core\Database::getRepo('XLite\Model\TmpVar')->setEventState('import', $record);
+
+        \XLite\Core\Session::getInstance()->importedProductSkus = array();
     }
 
     /**
@@ -607,13 +609,13 @@ class Importer extends \XLite\Base
     public static function getProcessorList()
     {
         return array(
-            'XLite\Logic\Import\Processor\Attributes',
             'XLite\Logic\Import\Processor\Categories',
             'XLite\Logic\Import\Processor\Products',
-            'XLite\Logic\Import\Processor\Customers',
+            'XLite\Logic\Import\Processor\Attributes',
             'XLite\Logic\Import\Processor\AttributeValues\AttributeValueCheckbox',
             'XLite\Logic\Import\Processor\AttributeValues\AttributeValueSelect',
             'XLite\Logic\Import\Processor\AttributeValues\AttributeValueText',
+            'XLite\Logic\Import\Processor\Customers',
         );
     }
 

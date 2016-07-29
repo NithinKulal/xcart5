@@ -21,6 +21,19 @@ class EntriesList extends \XLite\View\Upgrade\Step\ReadyToInstall\AReadyToInstal
     protected $wrongPermissions;
 
     /**
+     * Register JS files
+     *
+     * @return array
+     */
+    public function getJSFiles()
+    {
+        $list = parent::getJSFiles();
+        $list[] = self::getDir() . '/controller.js';
+
+        return $list;
+    }
+
+    /**
      * Get directory where template is located (body.twig)
      *
      * @return string
@@ -69,10 +82,10 @@ class EntriesList extends \XLite\View\Upgrade\Step\ReadyToInstall\AReadyToInstal
                 foreach ($entry->getWrongPermissions() as $path) {
                     foreach ($common as $folder => $processed) {
                         if (false !== strpos($path, $folder)) {
-                            if (\Includes\Utils\FileManager::isDir($path) && !$processed['dirs']) {
+                            if (\Includes\Utils\FileManager::isDir($path) && empty($processed['dirs'])) {
                                 $this->wrongPermissions[] = 'find ' . $folder . ' -type d -execdir chmod 777 "{}" \\;;';
                                 $common[$folder]['dirs'] = true;
-                            } elseif (\Includes\Utils\FileManager::isFile($path) && !$processed['files']) {
+                            } elseif (\Includes\Utils\FileManager::isFile($path) && empty($processed['files'])) {
                                 $this->wrongPermissions[] = 'find ' . $folder . ' -type f -execdir chmod 666 "{}" \\;;';
                                 $common[$folder]['files'] = true;
                             }

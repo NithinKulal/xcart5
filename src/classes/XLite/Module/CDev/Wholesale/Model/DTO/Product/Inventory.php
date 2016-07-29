@@ -13,32 +13,32 @@ use XLite\Model\DTO\Base\CommonCell;
 class Inventory extends \XLite\Model\DTO\Product\Inventory implements \XLite\Base\IDecorator
 {
     /**
-     * @param mixed|\XLite\Model\Product $data
+     * @param mixed|\XLite\Model\Product $object
      */
-    protected function init($data)
+    protected function init($object)
     {
-        parent::init($data);
+        parent::init($object);
 
         $minimumPurchaseQuantity = [
-            'membership_0' => $data->getMinQuantity(),
+            'membership_0' => $object->getMinQuantity(),
         ];
 
         foreach (\XLite\Core\Database::getRepo('XLite\Model\Membership')->findAll() as $membership) {
-            $minimumPurchaseQuantity['membership_' . $membership->getMembershipId()] = $data->getMinQuantity($membership);
+            $minimumPurchaseQuantity['membership_' . $membership->getMembershipId()] = $object->getMinQuantity($membership);
         }
 
         $this->minimum_purchase_quantity = new CommonCell($minimumPurchaseQuantity);
     }
 
     /**
-     * @param \XLite\Model\Product $dataObject
+     * @param \XLite\Model\Product $object
      * @param array|null           $rawData
      *
      * @return mixed
      */
-    public function populateTo($dataObject, $rawData = null)
+    public function populateTo($object, $rawData = null)
     {
-        parent::populateTo($dataObject, $rawData);
+        parent::populateTo($object, $rawData);
 
         $repo = \XLite\Core\Database::getRepo('XLite\Module\CDev\Wholesale\Model\MinQuantity');
         $membershipRepo = \XLite\Core\Database::getRepo('XLite\Model\Membership');
@@ -48,7 +48,7 @@ class Inventory extends \XLite\Model\DTO\Product\Inventory implements \XLite\Bas
         foreach ($this->minimum_purchase_quantity as $id => $data) {
             $rate = array(
                 'quantity' => max(1, (int) $data),
-                'product'  => $dataObject,
+                'product'  => $object,
             );
 
             $membership = $membershipRepo->findOneBy(array('membership_id' => str_replace('membership_', '', $id)));
@@ -59,7 +59,7 @@ class Inventory extends \XLite\Model\DTO\Product\Inventory implements \XLite\Bas
             $minimumPurchaseQuantity[] = $rate;
         }
 
-        $repo->deleteByProduct($dataObject);
+        $repo->deleteByProduct($object);
         $repo->insertInBatch($minimumPurchaseQuantity);
     }
 }

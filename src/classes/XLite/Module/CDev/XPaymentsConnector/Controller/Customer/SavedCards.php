@@ -2,29 +2,8 @@
 // vim: set ts=4 sw=4 sts=4 et:
 
 /**
- * X-Cart
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the software license agreement
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://www.x-cart.com/license-agreement.html
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to licensing@x-cart.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not modify this file if you wish to upgrade X-Cart to newer versions
- * in the future. If you wish to customize X-Cart for your needs please
- * refer to http://www.x-cart.com/ for more information.
- *
- * @category  X-Cart 5
- * @author    Qualiteam software Ltd <info@x-cart.com>
- * @copyright Copyright (c) 2011-2016 Qualiteam software Ltd <info@x-cart.com>. All rights reserved
- * @license   http://www.x-cart.com/license-agreement.html X-Cart 5 License Agreement
- * @link      http://www.x-cart.com/
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
  */
  namespace XLite\Module\CDev\XPaymentsConnector\Controller\Customer;
 
@@ -93,7 +72,7 @@ class SavedCards extends \XLite\Controller\Customer\ACustomer
     {
         parent::addBaseLocation();
 
-        $this->addLocationNode('My account');
+        $this->addLocationNode(static::t('My account'));
     }
 
     /**
@@ -115,7 +94,7 @@ class SavedCards extends \XLite\Controller\Customer\ACustomer
      */
     public function getRemoveTemplate($cardId)
     {
-        return 'modules/CDev/XPaymentsConnector/account/saved_cards.table.remove.tpl';
+        return 'modules/CDev/XPaymentsConnector/account/saved_cards.table.remove.twig';
     }
 
     /**
@@ -131,23 +110,19 @@ class SavedCards extends \XLite\Controller\Customer\ACustomer
     /**
      * Get list of addresses
      *
-     * @param \XLite\Model\Profile $profile Customer's profile
-     *
      * @return bool
      */
     public function isSingleAddress()
     {
-        return \XLite\Module\CDev\XPaymentsConnector\Core\ZeroAuth::getInstance()->isSingleAddress($this->getProfile());;
+        return \XLite\Module\CDev\XPaymentsConnector\Core\ZeroAuth::getInstance()->isSingleAddress($this->getProfile());
     }
 
     /**
-     * Get string linne for the single address
-     *
-     * @param \XLite\Model\Profile $profile Customer's profile
+     * Get string line for the single address
      *
      * @return string
      */
-    public function getSingleAddress(\XLite\Model\Profile $profile)
+    public function getSingleAddress()
     {
         return \XLite\Module\CDev\XPaymentsConnector\Core\ZeroAuth::getInstance()->getSingleAddress($this->getProfile());
     }

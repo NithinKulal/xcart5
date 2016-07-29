@@ -113,7 +113,13 @@ class PaymentMethod extends \XLite\View\FormField\Inline\Base\Single
      */
     protected function getNameParts(array $field)
     {
-        return array($field[static::FIELD_NAME]);
+        $parts = array($field[static::FIELD_NAME]);
+
+        if ($this->getParam(static::PARAM_FIELD_NAMESPACE) == 'paymentMethods') {
+            $parts[] = $this->getEntityUniqueIdentifier();
+        }
+
+        return $parts;
     }
 
     /**

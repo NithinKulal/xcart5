@@ -2568,7 +2568,7 @@ function x_display_hosting_icon()
 ?>
 
 <div class="svg-icon hosting">
-    <img src="skins/admin/en/images/icon-hosting.svg" />
+    <img src="skins/admin/images/icon-hosting.svg" />
 </div>
 
 <?php

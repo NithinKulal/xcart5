@@ -18,19 +18,20 @@ class RealChargeWarning extends \XLite\View\AView
     const PARAM_ORDER = 'order';
 
     /**
-     * Get CSS files
+     * Register files from common repository
      *
      * @return array
      */
-    public function getCSSFiles()
+    public function getCommonFiles()
     {
-        $return = parent::getCSSFiles();
+        $list = parent::getCommonFiles();
 
-        $return[] = $this->getDir() . LC_DS . 'real_charge_style.css';
+        $list['css'][] = [
+            'file'      => $this->getDir() . LC_DS . 'real_charge_style.css'
+        ];
 
-        return $return;
+        return $list;
     }
-
     /**
      * Get order
      *

@@ -1,0 +1,45 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Wholesale prices
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.items-list-table table.list tbody.lines tr.line td.cell.wholesalePrices .tooltip-main,
+.items-list-table table.list tbody.lines tr.line td.cell.wholesalePrices {
+  padding: 0;
+}
+
+.items-list-table table.list tbody.lines tr.line td.cell.wholesalePrices .cell {
+  padding-left: 6px; 
+}
+
+.wp-tooltip {
+  background: url('../wp2.svg');
+  background-size: 23px 20px;
+  display: block;
+  width: 23px;
+  height: 20px;
+}
+
+.wp-link-tooltip {
+  background: url('../wp.svg');
+  background-size: 23px 20px;
+  display: block;
+  width: 23px;
+  height: 20px;
+}
+
+.items-list-table table.list tbody.lines tr.line td.cell.wholesalePrices .popover .popover-content {
+  font-size: 12px;
+}
+
+.items-list-table table.list tbody.lines tr.line td.cell.wholesalePrices .popover .popover-content ul {
+  margin-left: 20px;
+}
+
+.items-list-table table.list tbody.lines tr.line td.cell.wholesalePrices .popover .popover-content ul li {
+  list-style: disc;
+}

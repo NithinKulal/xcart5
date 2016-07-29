@@ -52,7 +52,7 @@ abstract class AAddressBlock extends \XLite\View\Checkout\AAddressBlock implemen
             );
         }
 
-        return  array_merge($result, \XLite::getController()->getAddressFields());
+        return  array_merge($result, parent::getAddressFields());
     }
 
     /**

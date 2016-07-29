@@ -209,22 +209,11 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
                 'PRODUCT-CLEAN-URL-FMT'         => 'Wrong format of Clean URL value (allowed alpha-numeric, "_" and "-" chars)',
                 'PRODUCT-IMG-LOAD-FAILED'       => 'Error of image loading. Make sure the "images" directory has write permissions.',
                 'PRODUCT-IMG-URL-LOAD-FAILED'   => "Couldn't download the image {{value}} from URL",
-                'PRODUCT-IMG-NOT-VERIFIED'      => 'Error of verifying image. Make sure you have specified the right file.',
+                'PRODUCT-IMG-NOT-VERIFIED'      => 'Error of image verification ({{value}}). Make sure you have specified the correct image file or URL.',
                 'PRODUCT-IN-CAT-POSITION-CNT'   => 'The count of categories specified for a product and the count of orderBy position numbers describing the position of the product within these categories must be the same.',
                 'PRODUCT-CATEGORY-PATH-EMPTY'   => 'Category name should not be empty',
                 'PRODUCT-IN-CAT-POSITION-FMT'   => 'OrderBy position number must be specified as a non-negative integer.',
             );
-    }
-
-    /**
-     * Initialize processor
-     *
-     * @return void
-     */
-    protected function initialize()
-    {
-        \XLite\Core\Session::getInstance()->importedProductSkus = array();
-        parent::initialize();
     }
 
     /**
@@ -368,9 +357,9 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
     {
         if (!$this->verifyValueAsEmpty($value) && !$this->verifyValueAsNull($value)) {
             foreach ($value as $image) {
-                if (!$this->verifyValueAsEmpty($value) && $this->verifyValueAsURL($value) && !$this->verifyValueAsFile($value)) {
-                    $this->addWarning('CATEGORY-IMG-URL-LOAD-FAILED', array('column' => $column, 'value' => $value));
-                } elseif (!$this->verifyValueAsEmpty($image) && !$this->verifyValueAsFile($image)) {
+                if (!$this->verifyValueAsEmpty($image) && $this->verifyValueAsURL($image) && !$this->verifyValueAsFile($image)) {
+                    $this->addWarning('PRODUCT-IMG-URL-LOAD-FAILED', array('column' => $column, 'value' => $value));
+                } elseif (!$this->verifyValueAsEmpty($image) && !$this->verifyValueAsNull($image) && !$this->verifyValueAsFile($image)) {
                     $this->addWarning('GLOBAL-IMAGE-FMT', array('column' => $column, 'value' => $image));
                 }
             }

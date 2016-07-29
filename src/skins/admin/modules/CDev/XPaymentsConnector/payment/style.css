@@ -1,0 +1,12 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * CSS classes for methods configuration page
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.title-row.module-name-CDev_XPaymentsConnector {
+  background: transparent url("../xp_logo_horizontal.png") no-repeat 555px center;
+}

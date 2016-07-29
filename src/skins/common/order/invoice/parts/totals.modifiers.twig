@@ -1,0 +1,30 @@
+{##
+ # Invoice totals : modifiers
+ #
+ # @ListChild (list="invoice.base.totals", weight="200")
+ #}
+
+{% for sType, surcharge in this.getSurchargeTotals() %}
+  <tr class="{{ this.getSurchargeClassName(sType, surcharge) }}">
+    {% if surcharge.count == '1' %}
+      <td class="title">
+        {{ surcharge.lastName }}:
+        {{ widget_list('invoice.base.totals.modifier.name', surcharge=surcharge, sType=sType, order=this.order) }}
+      </td>
+    {% else %}
+      <td class="title list-owner">
+        {{ surcharge.name }}:
+        {{ widget_list('invoice.base.totals.modifier.name', surcharge=surcharge, sType=sType, order=this.order) }}
+      </td>
+    {% endif %}
+
+    <td class="value">
+      {% if surcharge.available %}
+        {{ this.formatSurcharge(surcharge) }}
+      {% else %}
+        {{ t('n/a') }}
+      {% endif %}
+      {{ widget_list('invoice.base.totals.modifier.value', surcharge=surcharge, sType=sType, order=this.order) }}
+    </td>
+  </tr>
+{% endfor %}

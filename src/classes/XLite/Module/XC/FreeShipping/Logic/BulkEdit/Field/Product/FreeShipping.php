@@ -37,24 +37,31 @@ class FreeShipping extends \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Field\AFi
     }
 
     /**
-     * @param string               $name
-     * @param \XLite\Model\Product $object
-     * @param array                $options
+     * @param string $name
+     * @param array  $options
      *
      * @return array
      */
-    public static function getViewData($name, $object, $options)
+    public static function getViewColumns($name, $options)
     {
-        $requiresShipping = $object->getShippable();
+        return [
+            $name => [
+                'name'    => static::t('Free shipping'),
+                'orderBy' => isset($options['position']) ? $options['position'] : 0,
+            ],
+        ];
+    }
 
-        return $requiresShipping
-            ? [
-                $name => [
-                    'label'    => static::t('Free shipping'),
-                    'value'    => $object->getFreeShip() ? static::t('Yes') : static::t('No'),
-                    'position' => isset($options['position']) ? $options['position'] : 0,
-                ],
-            ]
-            : [];
+    /**
+     * @param $name
+     * @param $object
+     *
+     * @return array
+     */
+    public static function getViewValue($name, $object)
+    {
+        return $object->getShippable()
+            ? ($object->getFreeShip() ? static::t('Yes') : static::t('No'))
+            : '';
     }
 }

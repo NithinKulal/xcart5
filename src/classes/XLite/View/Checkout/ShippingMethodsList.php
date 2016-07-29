@@ -61,6 +61,16 @@ class ShippingMethodsList extends \XLite\View\AView
     }
 
     /**
+     * Check - is order shippable or not
+     *
+     * @return boolean
+     */
+    public function isShippingNeeded()
+    {
+        return $this->getModifier() && $this->getModifier()->canApply();
+    }
+
+    /**
      * No shippings methods available notification
      *
      * @return string

@@ -1,0 +1,49 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Notification styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.form-scheme-header-link,
+.form-scheme-greeting-link,
+.form-scheme-signature-link,
+.form-scheme-body {
+  & > .input-widget {
+    line-height: 34px;
+    height: 34px;
+  }
+}
+
+.form-scheme-header-link,
+.form-scheme-greeting-link,
+.form-scheme-signature-link {
+  & > .input-widget {
+    margin-left: -70px;
+    white-space: nowrap;
+  }
+}
+
+.form-system-settings-description,
+.form-scheme-text {
+  .input-widget {
+    .make-sm-column(6);
+
+    textarea {
+      height: 100px;
+    }
+  }
+}
+
+.form-scheme-body {
+  .input-widget {
+    .flex-wrap(nowrap);
+
+    .help-wrapper {
+      padding-top: 0;
+      padding-left: 10px;
+    }
+  }
+}

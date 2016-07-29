@@ -14,6 +14,11 @@ namespace XLite\Module\CDev\VolumeDiscounts\View\ItemsList;
 class VolumeDiscounts extends \XLite\View\ItemsList\Model\Table
 {
     /**
+     * Maximum numeric value for absolute discount
+     */
+    const MAX_NUMERIC_VALUE = 9999999999;
+
+    /**
      * Discount keys
      *
      * @var   array
@@ -162,8 +167,11 @@ class VolumeDiscounts extends \XLite\View\ItemsList\Model\Table
             $this->errorMessages[] = static::t('Could not add the discount because another discount already exists for the specified subtotal range and membership level');
             $result = false;
 
-        } else {
+        } elseif ($this->prevalidateVolumeDiscount($entity)) {
             $this->discountKeys[] = $entity->getFingerprint();
+
+        } else {
+            $result = false;
         }
 
         return $result;
@@ -195,8 +203,39 @@ class VolumeDiscounts extends \XLite\View\ItemsList\Model\Table
     protected function prevalidateEntity(\XLite\Model\AEntity $entity)
     {
         $result = parent::prevalidateEntity($entity);
-        if ($result) {
+
+        if ($result && $this->prevalidateVolumeDiscount($entity)) {
             $this->discountKeys[] = $entity->getFingerprint();
+
+        } else {
+            $result = false;
+        }
+
+        return $result;
+    }
+
+    /**
+     * Pre-validate entity
+     *
+     * @param \XLite\Model\AEntity $entity Entity
+     *
+     * @return boolean
+     */
+    protected function prevalidateVolumeDiscount(\XLite\Model\AEntity $entity)
+    {
+        $result = true;
+
+        if (\XLite\Module\CDev\VolumeDiscounts\Model\VolumeDiscount::TYPE_PERCENT == $entity->getType()) {
+            if (100 < $entity->getValue()) {
+                $this->errorMessages[] = static::t('Percent discount value cannot exceed 100%');
+                $result = false;
+            }
+
+        } elseif (\XLite\Module\CDev\VolumeDiscounts\Model\VolumeDiscount::TYPE_ABSOLUTE == $entity->getType()) {
+            if (static::MAX_NUMERIC_VALUE < $entity->getValue()) {
+                $this->errorMessages[] = static::t('Too large value for absolute discount');
+                $result = false;
+            }
         }
 
         return $result;

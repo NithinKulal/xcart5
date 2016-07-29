@@ -1,0 +1,14 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Data
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\LanguageLabel:
+  - { name: 'The process of export may take much time. Please do not close this page until the export is complete', translations: [{ code: en, label: 'The export process may take a while to complete. Please do not close this page until the process is fully completed. If you have closed the page, please re-open it to complete the export process as it is in progress only when the page is open.' }] }
+  - { name: 'The image resizing process may take a while to complete. Please do not close this page until the process is fully completed.', translations: [{ code: en, label: 'The image resizing process may take a while to complete. Please do not close this page until the process is fully completed. If the page has been closed, please re-open it to complete the process (The image resizing routine is executed only while the page stays open).' }] }
+  - { name: 'The process of quick data calculation may take a while to complete. Please do not close this page until the process is fully completed.', translations: [{ code: en, label: 'The process of quick data calculation may take a while to complete. Please do not close this page until the process is fully completed. If the page has been closed, please re-open it to complete the process (The calculation is performed only while the page stays open).' }] }
+
+XLite\Model\Config:
+  - { name: attach_pdf_invoices, category: NotificationAttachments, type: XLite\View\FormField\Input\Checkbox\OnOff, orderby: 10000, value: 0, translations: [{ code: en, option_name: 'Send the PDF version of invoices in the attachments' }] }

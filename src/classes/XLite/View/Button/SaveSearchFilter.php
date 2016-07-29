@@ -74,7 +74,7 @@ class SaveSearchFilter extends \XLite\View\Button\SimpleLink
      *
      * @return string
      */
-    protected function  getClass()
+    protected function getClass()
     {
         return trim(parent::getClass() . ' save-search-filter');
     }

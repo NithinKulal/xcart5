@@ -1,0 +1,82 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Minicart styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.lc-minicart.collapsed .items-list,
+.lc-minicart .items-list.empty-cart
+{
+    display: none;
+}
+
+.lc-minicart .cart-items
+{
+  position: relative;
+  z-index: 9999;
+}
+
+.lc-minicart svg {
+  fill: #fff;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  margin-top: -12px;
+}
+
+.lc-minicart {
+  padding-left: 30px;
+}
+
+.lc-minicart .items-list .item-name
+{
+  display: block;
+}
+
+.lc-minicart .items-list
+{
+  position: absolute;
+}
+
+ul.item-attribute-values {
+  margin: 8px 0px 8px 0px;
+}
+
+.lc-minicart a.item-attribute-values {
+  cursor: help;
+  padding-top: 2px;
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+.lc-minicart a.item-attribute-values span {
+  border: 0 none;
+  border-bottom: 1px;
+  border-style: dashed;
+}
+
+.lc-minicart ul.item-attribute-values {
+  border: 0px none;
+  padding: 10px;
+  margin: 0px;
+  list-style: none;
+}
+
+.lc-minicart ul.item-attribute-values li {
+  font-size: 12px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  white-space: nowrap;
+  background: transparent none;
+}
+
+.lc-minicart .more-attributes {
+  text-align: center;
+  margin-top: 3px;
+}

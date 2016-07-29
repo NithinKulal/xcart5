@@ -1,0 +1,18 @@
+{##
+ # iframe 
+ #
+ #}
+
+<div class="saved-card">
+  <div class="card-icon-container">
+    <span class="card"><img src="{{ asset('images/spacer.gif') }}" alt="{{ this.entity.getCardType() }}"/></span>
+  </div>
+  <div class="card-number">
+    {{ this.entity.getCardNumber() }}
+  </div>
+  {% if this.entity.getCardExpire() %}
+    <div class="card-expire">
+      {{ this.entity.getCardExpire() }}
+    </div>
+  {% endif %}
+</div>

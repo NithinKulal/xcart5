@@ -34,6 +34,13 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
      */
     protected $hasBlockedExpiredKeys = false;
 
+    /**
+     * Errors of requirements validation
+     *
+     * @var array
+     */
+    protected $requirementErrors;
+
     // {{{ Common methods
 
     /**
@@ -48,6 +55,9 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
 
         // Clear all selection if you visit the "Available updates" page
         if ($this->isUpdate()) {
+            if (!$this->isUpdateModeSelectorAvailable()) {
+                \XLite\Core\Session::getInstance()->upgradeHotfixMode = null;
+            }
             \XLite\Core\Session::getInstance()->selectedEntries = null;
             \XLite\Upgrade\Cell::getInstance()->clear();
         }
@@ -111,6 +121,16 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
         parent::run();
     }
 
+    /**
+     * Return true if selector 'bug-fixes only / new features and bug-fixes' is available
+     *
+     * @return boolean
+     */
+    public function isUpdateModeSelectorAvailable()
+    {
+        return $this->isUpdate() && \XLite\Upgrade\Cell::getInstance()->isUpgradeHotfixModeSelectorAvailable();
+    }
+
     // }}}
 
     // {{{ Methods for viewers
@@ -168,9 +188,28 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
      */
     public function isNextStepAvailable()
     {
-        return \XLite\Upgrade\Cell::getInstance()->isValid()
-            && (!\XLite\Upgrade\Cell::getInstance()->hasCoreUpdate() || $this->isValidXCNLicense())
-            && !$this->hasBlockedExpiredKeys;
+        $result = \XLite\Upgrade\Cell::getInstance()->isValid()
+            && $this->isValidRequirements();
+
+        if ($result) {
+
+            $isHotfixUpdate = \XLite\Upgrade\Cell::getInstance()->isHotfixUpdate();
+
+            if (\XLite\Upgrade\Cell::getInstance()->hasCoreUpdate()) {
+                // Has core update: the core license key must be activated in store
+                // (for hot fixes updates status of key is ignored)
+                $result = $this->isValidXCNLicense(!$isHotfixUpdate);
+            }
+
+            // Allow updates if there are no blocked (expired) keys found or update contains only hot fix entries
+            $result = $result
+                && (
+                    $isHotfixUpdate
+                    || !$this->hasBlockedExpiredKeys
+                );
+        }
+
+        return $result;
     }
 
     /**
@@ -184,13 +223,48 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
     }
 
     /**
+     * Return true if requirements for the upgrade are satisfied
+     *
+     * @return boolean
+     */
+    public function isValidRequirements()
+    {
+        if (!isset($this->requirementErrors)) {
+
+            $this->requirementErrors = array();
+
+            if (
+                version_compare(\XLite::getInstance()->getMajorVersion(), '5.2', '=')
+                && version_compare(\XLite\Upgrade\Cell::getInstance()->getCoreMajorVersion(), '5.3', '>=')
+                && version_compare(PHP_VERSION, '5.4', '<')
+            ) { 
+                // Upgrade 5.2 -> 5.3: PHP v5.4+ is required
+                $this->requirementErrors['php_version'] = static::t('X-Cart v5.3 requires PHP version 5.4 or better. Please update the PHP version installed on your server before you proceed.');
+            }
+        }
+
+        return empty($this->requirementErrors);
+    }
+
+    /**
+     * Return list of requirements validation errors
+     *
+     * @return array
+     */
+    public function getRequirementErrors()
+    {
+        return $this->requirementErrors;
+    }
+
+    /**
      * Check if the trial notice must be displayed
      *
      * @return boolean
      */
     public function displayTrialNotice()
     {
-        return \XLite\Upgrade\Cell::getInstance()->hasCoreUpdate() && !\XLite::getXCNLicense();
+        return \XLite\Upgrade\Cell::getInstance()->hasCoreUpdate()
+            && !\XLite::getXCNLicense();
     }
 
     /**
@@ -215,7 +289,7 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
     {
         return array_merge(
             parent::defineFreeFormIdActions(),
-            array('view_log_file', 'view', 'start_upgrade', 'request_for_upgrade', 'validate_keys')
+            array('view_log_file', 'view', 'start_upgrade', 'request_for_upgrade', 'validate_keys', 'toggleHotfixMode')
         );
     }
 
@@ -244,20 +318,22 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
     /**
      * Return true if XCN license exists and is valid
      *
+     * @param boolean $checkExpDate Flag: true - check license key exp date
+     *
      * @return boolean
      */
-    protected function isValidXCNLicense()
+    protected function isValidXCNLicense($checkExpDate = true)
     {
-        $result = false;
-
         $license = \XLite::getXCNLicense();
 
-        if ($license) {
+        if ($license && $checkExpDate) {
             $keyData = $license->getKeyData();
-            $result = empty($keyData['message']);
+            if (!empty($keyData['message'])) {
+                $license = null;
+            }
         }
 
-        return $result;
+        return (bool) $license;
     }
 
     // }}}
@@ -871,6 +947,18 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
         $this->setReturnURL($this->buildURL('upgrade'));
     }
 
+    /**
+     * Action 'Toggle hotfix mode'
+     *
+     * @return void
+     */
+    protected function doActionToggleHotfixMode()
+    {
+        \XLite\Core\Session::getInstance()->upgradeHotfixMode = !(bool)\XLite\Core\Session::getInstance()->upgradeHotfixMode;
+
+        $this->setReturnURL($this->buildURL('upgrade', null, array('mode' => 'install_updates')));
+    }
+
     // }}}
 
     // {{{ Some auxiliary methods
@@ -1013,6 +1101,18 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
     public function hasExpiredKeys()
     {
         return (bool) $this->getExpiredKeys();
+    }
+
+    /**
+     * Get header message for block of expired keys
+     *
+     * @return string
+     */
+    public function getExpiredKeysMessage()
+    {
+        return \XLite\Upgrade\Cell::getInstance()->isHotfixUpdate()
+            ? static::t('There are expired license keys activated in store')
+            : static::t('There are expired license keys');
     }
 
     /**

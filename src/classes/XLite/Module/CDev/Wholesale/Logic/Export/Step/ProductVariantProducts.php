@@ -24,7 +24,9 @@ abstract class ProductVariantProducts extends \XLite\Logic\Export\Step\Products 
     {
         $columns = parent::defineColumns();
 
-        $columns[static::VARIANT_PREFIX . 'WholesalePrices'] = array(static::COLUMN_MULTIPLE => true);
+        if ('none' !== $this->generator->getOptions()->attrs) {
+            $columns[static::VARIANT_PREFIX . 'WholesalePrices'] = array(static::COLUMN_MULTIPLE => true);
+        }
 
         return $columns;
     }

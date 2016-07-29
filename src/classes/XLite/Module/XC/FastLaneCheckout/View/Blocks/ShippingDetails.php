@@ -46,7 +46,6 @@ class ShippingDetails extends \XLite\View\AView
             'file'  => $this->getDir() . 'style.less',
             'media' => 'screen',
             'merge' => 'bootstrap/css/bootstrap.less',
-            'merge' => 'less/variables.less',
         );
 
         return $list;

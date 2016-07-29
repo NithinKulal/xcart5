@@ -1,0 +1,14 @@
+{##
+ # Invoice items
+ #
+ # @ListChild (list="invoice.base", weight="50")
+ #}
+<table cellspacing="0" class="items">
+  <tr>{{ widget_list('invoice.items.head') }}</tr>
+  {% for index, item in this.getOrderItems() %}
+  <tr>{{ widget_list('invoice.item', item=item) }}</tr>
+  {% endfor %}
+  {% for w in this.getViewList('invoice.items') %}
+    <tr>{{ w.display() }}</tr>
+  {% endfor %}
+</table>

@@ -14,18 +14,21 @@ namespace XLite\Controller\Admin;
 class Category extends \XLite\Controller\Admin\ACL\Catalog
 {
     /**
-     * Controller parameters
-     *
-     * @var array
-     */
-    protected $params = array('target', 'id', 'parent');
-
-    /**
      * Category cache
      *
      * @var \XLite\Model\Category|null
      */
-    protected $categoryObject = null;
+    protected $categoryObject;
+
+    /**
+     * @param array $params
+     */
+    public function __construct(array $params)
+    {
+        parent::__construct($params);
+
+        $this->params = array_merge($this->params, ['id', 'parent']);
+    }
 
     /**
      * Return the current page title (for the content area)
@@ -35,8 +38,47 @@ class Category extends \XLite\Controller\Admin\ACL\Catalog
     public function getTitle()
     {
         return ($categoryName = $this->getCategoryName())
-            ? static::t('Manage category (X)', array('category_name' => $categoryName))
+            ? static::t('Manage category (X)', ['category_name' => $categoryName])
             : static::t('No category defined');
+    }
+
+    /**
+     * Add part to the location nodes list
+     *
+     * @return void
+     */
+    protected function addBaseLocation()
+    {
+        if ($this->isVisible() && $this->getCategory()) {
+            $this->addLocationNode(
+                'Categories',
+                $this->buildURL('categories')
+            );
+
+            $categories = $this->getCategory()->getPath();
+            array_pop($categories);
+            foreach ($categories as $category) {
+                $this->addLocationNode(
+                    $category->getName(),
+                    $this->buildURL('categories', '', ['id' => $category->getCategoryId()])
+                );
+            }
+        }
+    }
+
+    /**
+     * Common method to determine current location
+     *
+     * @return string
+     */
+    protected function getLocation()
+    {
+        return !$this->isVisible()
+            ? static::t('No category defined')
+            : (($categoryName = $this->getCategoryName())
+                ? $categoryName
+                : static::t('Manage categories')
+            );
     }
 
     /**
@@ -68,7 +110,7 @@ class Category extends \XLite\Controller\Admin\ACL\Catalog
     {
         if (is_null($this->category)) {
             $this->category = \XLite\Core\Database::getRepo('XLite\Model\Category')
-            ->find($this->getCategoryId());
+                ->find($this->getCategoryId());
         }
 
         return $this->category;
@@ -105,5 +147,4 @@ class Category extends \XLite\Controller\Admin\ACL\Catalog
     {
         return 'XLite\View\Model\Category';
     }
-
 }

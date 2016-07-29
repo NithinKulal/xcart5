@@ -159,7 +159,7 @@ class ActivateFreeLicense extends \XLite\View\Dialog
     protected function getAOMEntry()
     {
         return array(
-            'iconURL'     => $this->getShopURL() . '/skins/admin/en/images/icon_aom.png',
+            'iconURL'     => $this->getShopURL() . '/skins/admin/images/icon_aom.png',
             'moduleName'  => static::t('Advanced Order Management'),
             'authorName'  => 'X-Cart team',
             'isInstalled' => true,
@@ -176,7 +176,7 @@ class ActivateFreeLicense extends \XLite\View\Dialog
     protected function getPTEntry()
     {
         return array(
-            'iconURL'     => $this->getShopURL() . '/skins/admin/en/images/icon_pt.png',
+            'iconURL'     => $this->getShopURL() . '/skins/admin/images/icon_pt.png',
             'moduleName'  => static::t('Payment transactions'),
             'authorName'  => 'X-Cart team',
             'isInstalled' => true,

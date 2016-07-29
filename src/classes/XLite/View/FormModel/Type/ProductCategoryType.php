@@ -28,7 +28,7 @@ class ProductCategoryType extends AType
     {
         return [
             AView::RESOURCE_JS  => ['select2/dist/js/select2.min.js'],
-            AView::RESOURCE_CSS => ['select2/dist/css/select2.min.css']
+            AView::RESOURCE_CSS => ['select2/dist/css/select2.min.css'],
         ];
     }
 
@@ -65,7 +65,7 @@ class ProductCategoryType extends AType
                      * When $loader::getValueLabel() called $loader::loadValuesForChoices() already invoked
                      */
                     return $loader->getValueLabel($value);
-                }
+                },
             ]
         );
     }
@@ -78,10 +78,15 @@ class ProductCategoryType extends AType
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $view->vars = array_replace($view->vars, [
-            'attr'  => array_replace(
+            'attr' => array_replace(
                 $view->vars['attr'],
-                ['v-xlite-product-category' => $view->vars['v_model']]
-            )
+                [
+                    'v-xlite-product-category' => $view->vars['v_model'],
+                    'searching-lbl'            => static::t('Searching...'),
+                    'no-results-lbl'           => static::t('No results found.'),
+                    'enter-term-lbl'           => static::t('Enter a keyword to search.'),
+                ]
+            ),
         ]);
     }
 }

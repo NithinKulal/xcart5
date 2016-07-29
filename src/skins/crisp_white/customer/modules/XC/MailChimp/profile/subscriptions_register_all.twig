@@ -1,0 +1,13 @@
+{##
+ # Register form template
+ #}
+<div class="subscriptions-list-container subscribe-to-all">
+  <table class="data-table subscriptions-list">
+    <tr>
+      <td>
+        {{ widget('\\XLite\\Module\\XC\\CrispWhiteSkin\\View\\FormField\\Input\\Checkbox', value='1', fieldOnly='1', fieldName=this.getSubscribeToAllFieldName(), fieldId=this.getSubscribeToAllFieldName(), isChecked=this.isSubscribeToAllChecked()) }}
+      </td>
+      <td>{{ t('Subscribe to our news list and be in touch with our latest offers.') }}</td>
+    </tr>
+  </table>
+</div>

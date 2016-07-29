@@ -34,20 +34,29 @@ class RequiresShipping extends \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Field
     }
 
     /**
-     * @param string               $name
-     * @param \XLite\Model\Product $object
-     * @param array                $options
+     * @param string $name
+     * @param array  $options
      *
      * @return array
      */
-    public static function getViewData($name, $object, $options)
+    public static function getViewColumns($name, $options)
     {
         return [
             $name => [
-                'label'    => static::t('Requires shipping'),
-                'value'    => $object->getShippable() ? static::t('Yes') : static::t('No'),
-                'position' => isset($options['position']) ? $options['position'] : 0,
+                'name'    => static::t('Requires shipping'),
+                'orderBy' => isset($options['position']) ? $options['position'] : 0,
             ],
         ];
+    }
+
+    /**
+     * @param $name
+     * @param $object
+     *
+     * @return array
+     */
+    public static function getViewValue($name, $object)
+    {
+        return $object->getShippable() ? static::t('Yes') : static::t('No');
     }
 }

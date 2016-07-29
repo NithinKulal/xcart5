@@ -22,7 +22,7 @@ class Usps extends \XLite\Controller\Admin\ShippingSettings
     {
         $list = array();
 
-        $CODRelatedOptions = array('use_cod_price', 'cod_price');
+        $CODRelatedOptions = array('first_class_mail_type', 'use_cod_price', 'cod_price');
         foreach (parent::getOptions() as $option) {
             if (!in_array($option->getName(), $CODRelatedOptions, true)
                 || $this->isUSPSCODPaymentEnabled()

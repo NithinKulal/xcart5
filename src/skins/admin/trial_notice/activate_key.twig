@@ -1,0 +1,15 @@
+{##
+ # Activate key part of trial notice dialog
+ #}
+
+<div class="activate-key-form">
+
+  {% form '\\XLite\\View\\Form\\Module\\ActivateKey' with {formAction: 'register_key'} %}
+    <div class="addon-key"><input type="text" name="key" value="" placeholder="{{ t('Enter license key') }}" class="form-control" /></div>
+    <div class="buttons model-form-buttons">
+      {{ widget('\\XLite\\View\\Button\\Submit', {'button-size': 'btn-default', label: t('Activate key')}) }}
+    </div>
+    <div class="clear"></div>
+  {% endform %}
+
+</div>

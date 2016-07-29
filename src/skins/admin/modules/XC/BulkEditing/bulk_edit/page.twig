@@ -1,0 +1,5 @@
+{% if this.isBulkEditNotFinished() %}
+    {{ widget('XLite\\Module\\XC\\BulkEditing\\View\\Progress') }}
+{% else %}
+    {{ widget(this.getScenarioFormModel()) }}
+{% endif %}

@@ -41,7 +41,7 @@ class Info extends \XLite\View\FormModel\Product\Info implements \XLite\Base\IDe
                 'shipping' => [
                     'requires_shipping' => [
                         'free_shipping'          => [
-                            'label'            => static::t('FREE shipping'),
+                            'label'            => static::t('Free shipping'),
                             'show_label_block' => false,
                             'type'             => 'Symfony\Component\Form\Extension\Core\Type\CheckboxType',
                             'show_when'        => [

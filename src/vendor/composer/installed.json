@@ -594,7 +594,7 @@
         "version_normalized": "dev-2.5.4-xcart",
         "source": {
             "type": "git",
-            "url": "git@bitbucket.org:xcart/doctrine-dbal.git",
+            "url": "https://bitbucket.org/xcart/doctrine-dbal.git",
             "reference": "0d62d0f7ca0fd7ceb724727ca252439e672a1bff"
         },
         "archive": {
@@ -671,7 +671,7 @@
         "version_normalized": "dev-2.5.4-xcart",
         "source": {
             "type": "git",
-            "url": "git@bitbucket.org:xcart/doctrine-orm.git",
+            "url": "https://bitbucket.org/xcart/doctrine-orm.git",
             "reference": "ed368ecbed2d4ac6cb55b68928e263c55bf8f152"
         },
         "archive": {
@@ -1985,5 +1985,101 @@
         ],
         "description": "Symfony Yaml Component",
         "homepage": "http://symfony.com"
+    },
+    {
+        "name": "symfony/css-selector",
+        "version": "v2.8.8",
+        "version_normalized": "2.8.8.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/css-selector.git",
+            "reference": "9da4c615ba303850986e0480cc472bf704cfdb64"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/css-selector/zipball/9da4c615ba303850986e0480cc472bf704cfdb64",
+            "reference": "9da4c615ba303850986e0480cc472bf704cfdb64",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.9"
+        },
+        "time": "2016-06-29 05:31:50",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.8-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Component\\CssSelector\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Jean-François Simon",
+                "email": "jeanfrancois.simon@sensiolabs.com"
+            },
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony CssSelector Component",
+        "homepage": "https://symfony.com"
+    },
+    {
+        "name": "tijsverkoyen/css-to-inline-styles",
+        "version": "dev-savehtml",
+        "version_normalized": "dev-savehtml",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/MichaelTheLi/CssToInlineStyles",
+            "reference": "85b823751a024605391c3cdf08795a740e6b4e8e"
+        },
+        "require": {
+            "symfony/css-selector": "~2.8.8"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "~4.8|5.1.*"
+        },
+        "time": "2016-07-19 11:10:20",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.0.x-dev"
+            }
+        },
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "TijsVerkoyen\\CssToInlineStyles\\": "src"
+            }
+        },
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Tijs Verkoyen",
+                "email": "css_to_inline_styles@verkoyen.eu",
+                "role": "Developer"
+            }
+        ],
+        "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
+        "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles"
     }
 ]

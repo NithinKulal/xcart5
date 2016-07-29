@@ -433,8 +433,7 @@ abstract class Table extends \XLite\View\ItemsList\Model\AModel
 
         $method = 'get' . \XLite\Core\Converter::convertToCamelCase($name);
 
-        if (
-            method_exists($entity, $method)
+        if (method_exists($entity, $method)
             || ($entity instanceof MagicMethodsIntrospectionInterface && $entity->hasMagicMethod($method))
         ) {
             // $method assembled frm 'get' + field name
@@ -704,7 +703,7 @@ abstract class Table extends \XLite\View\ItemsList\Model\AModel
     public function getIdentifierClass()
     {
         return strtolower(
-            join('-', $this->getViewClassKeys())
+            implode('-', $this->getViewClassKeys())
         );
     }
 
@@ -1288,7 +1287,7 @@ abstract class Table extends \XLite\View\ItemsList\Model\AModel
     }
 
     /**
-     * Prepare field params for 
+     * Prepare field params for
      *
      * @param array                $column
      * @param \XLite\Model\AEntity $entity

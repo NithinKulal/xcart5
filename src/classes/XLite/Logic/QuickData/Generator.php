@@ -14,7 +14,7 @@ namespace XLite\Logic\QuickData;
 class Generator extends \XLite\Base implements \SeekableIterator, \Countable
 {
     /**
-     * Default export process tick duration
+     * Default process tick duration
      */
     const DEFAULT_TICK_DURATION = 0.5;
 
@@ -137,7 +137,7 @@ class Generator extends \XLite\Base implements \SeekableIterator, \Countable
     }
 
     /**
-     * Get export process tick duration
+     * Get process tick duration
      *
      * @return float
      */
@@ -189,7 +189,7 @@ class Generator extends \XLite\Base implements \SeekableIterator, \Countable
      *
      * @param boolean $reset Reset flag OPTIONAL
      *
-     * @return \XLite\Logic\Export\Step\AStep
+     * @return \XLite\Logic\QuickData\Step\AStep
      */
     public function getStep($reset = false)
     {
@@ -289,7 +289,7 @@ class Generator extends \XLite\Base implements \SeekableIterator, \Countable
     /**
      * \SeekableIterator::current
      *
-     * @return \XLite\Logic\Export\Step\AStep
+     * @return \XLite\Logic\QuickData\Step\AStep
      */
     public function current()
     {
@@ -421,7 +421,7 @@ class Generator extends \XLite\Base implements \SeekableIterator, \Countable
     }
 
     /**
-     * Get export event name
+     * Get event name
      *
      * @return string
      */

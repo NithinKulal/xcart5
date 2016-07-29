@@ -1,0 +1,14 @@
+{##
+ # Name item cell
+ #
+ # @ListChild (list="invoice.item", weight="10")
+ #}
+<td class="item">
+  <strong class="item-name">{{ this.item.getName() }}</strong>
+
+  {% if this.isViewListVisible('invoice.item.name', {'item': this.item}) %}
+    <ul class="subitem additional simple-list">
+    {{ widget_list('invoice.item.name', item=this.item) }}
+    </ul>
+  {% endif %}
+</td>

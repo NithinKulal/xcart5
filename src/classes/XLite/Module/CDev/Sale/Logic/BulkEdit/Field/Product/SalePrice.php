@@ -42,26 +42,35 @@ class SalePrice extends \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Field\AField
     }
 
     /**
-     * @param string               $name
-     * @param \XLite\Model\Product $object
-     * @param array                $options
+     * @param string $name
+     * @param array  $options
      *
      * @return array
      */
-    public static function getViewData($name, $object, $options)
+    public static function getViewColumns($name, $options)
     {
-        $participateSale = $object->getParticipateSale();
+        return [
+            $name => [
+                'name'    => static::t('Sale'),
+                'orderBy' => isset($options['position']) ? $options['position'] : 0,
+            ],
+        ];
+    }
 
-        return $participateSale
-            ? [
-                $name => [
-                    'label'    => static::t('Sale'),
-                    'value'    => $object->getDiscountType() === \XLite\Model\Product::SALE_DISCOUNT_TYPE_PRICE
-                        ? \XLite\View\AView::formatPrice($object->getSalePriceValue())
-                        : $object->getSalePriceValue() . '%',
-                    'position' => isset($options['position']) ? $options['position'] : 0,
-                ],
-            ]
-            : [];
+    /**
+     * @param $name
+     * @param $object
+     *
+     * @return array
+     */
+    public static function getViewValue($name, $object)
+    {
+        return $object->getParticipateSale()
+            ? (
+                $object->getDiscountType() === \XLite\Model\Product::SALE_DISCOUNT_TYPE_PRICE
+                    ? \XLite\View\AView::formatPrice($object->getSalePriceValue())
+                    : $object->getSalePriceValue() . '%'
+            )
+            : '';
     }
 }

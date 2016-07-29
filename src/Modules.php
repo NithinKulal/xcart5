@@ -119,4 +119,13 @@ require_once (__DIR__ . '/classes/XLite/Module/XC/Webmoney/Main.php');
 require_once (__DIR__ . '/classes/XLite/Module/XC/WorldpayHPP/Main.php');
 require_once (__DIR__ . '/classes/XLite/Module/XC/YandexMoney/Main.php');
 require_once (__DIR__ . '/classes/XLite/Module/XC/ZhTranslation/Main.php');
+require_once (__DIR__ . '/classes/XLite/Module/XCExample/AddQuantity/Main.php');
+require_once (__DIR__ . '/classes/XLite/Module/XCExample/Discount/Main.php');
+require_once (__DIR__ . '/classes/XLite/Module/XCExample/FreeItem/Main.php');
+require_once (__DIR__ . '/classes/XLite/Module/XCExample/ModelEditing/Main.php');
+require_once (__DIR__ . '/classes/XLite/Module/XCExample/ModelEditingAdvanced/Main.php');
+require_once (__DIR__ . '/classes/XLite/Module/XCExample/Payment/Main.php');
+require_once (__DIR__ . '/classes/XLite/Module/XCExample/PaymentShippingDependency/Main.php');
+require_once (__DIR__ . '/classes/XLite/Module/XCExample/ProductDiscount/Main.php');
+require_once (__DIR__ . '/classes/XLite/Module/XCExample/RESTAPI/Main.php');
 ?>

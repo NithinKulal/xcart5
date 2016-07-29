@@ -1,0 +1,21 @@
+{##
+ # Message about zero-auth (card setup) amount 
+ #
+ #
+ # @ListChild (list="customer.account.add_new_card.before", weight="200")
+ #}
+
+{% if this.getAmount() %}
+  <div class="alert alert-warning add-new-card-header" role="alert">
+    <strong class="important-label">{{ t('Important!') }}</strong>
+    {{ t('We will authorize') }}
+    <strong class="highlight-label">{{ widget('XLite\\View\\Surcharge', surcharge=this.getAmount()) }}</strong>
+    {{ t('on your credit card in order to attach this credit card to your account. The amount will be released back to your card after a while.') }}
+    {% if this.getDescription() %}
+      <span>
+        {{ t('The transaction will be marked as') }}
+        <strong class="highlight-label">&ldquo;{{ this.getDescription() }}&rdquo;</strong>.
+      </span>
+    {% endif %}
+  </div>
+{% endif %}

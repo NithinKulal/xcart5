@@ -1,3 +1,23 @@
+<a name="2.1.4"></a>
+## [2.1.4](https://github.com/vuejs/vue-validator/compare/v2.1.3...v2.1.4) (2016-07-19)
+
+
+### :bug: Bug Fixes
+
+* **validator:** fix dynamic custom validator error ([b5d5487](https://github.com/vuejs/vue-validator/commit/b5d5487)), closes [#274](https://github.com/vuejs/vue-validator/issues/274)
+
+
+
+<a name="2.1.3"></a>
+## [2.1.3](https://github.com/vuejs/vue-validator/compare/v2.1.2...v2.1.3) (2016-05-29)
+
+
+### :bug: Bug Fixes
+
+* **validate:** fix multi element fragment bug ([312a000](https://github.com/vuejs/vue-validator/commit/312a000)), closes [#243](https://github.com/vuejs/vue-validator/issues/243)
+
+
+
 <a name="2.1.2"></a>
 ## [2.1.2](https://github.com/vuejs/vue-validator/compare/v2.1.1...v2.1.2) (2016-05-21)
 

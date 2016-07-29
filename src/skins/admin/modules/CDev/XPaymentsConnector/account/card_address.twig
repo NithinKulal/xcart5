@@ -1,0 +1,22 @@
+{##
+ # Address selector for the saved card 
+ #
+ #}
+
+{% if this.getAddressList() %}
+
+  {% if this.isSingleAddress() %}
+    <div class="single">
+      {{ this.getSingleAddress() }}
+    </div>    
+  {% else %}
+    <select name="address_id[{{ this.entity.getId() }}]" value="{{ this.getCardAddressId(this.entity) }}">
+      {% if not this.getCardAddressId(this.entity) %}
+        <option value="0" selected="selected"></option>
+      {% endif %}
+      {% for addressId, address in this.getAddressList() %}
+        <option value="{{ addressId }}" {% if addressId == this.getCardAddressId(this.entity) %}selected="selected"{% endif %}>{{ address }}</option>
+      {% endfor %}
+    </select>
+  {% endif %}
+{% endif %}

@@ -43,8 +43,8 @@ class Notifications extends \XLite\View\Tabs\ATabs
             ],
             'notification_common' => [
                 'weight'   => 200,
-                'title'    => static::t('Headers & signatures'),
-                'template' => 'notifications/headers_and_signatures.twig',
+                'title'    => static::t('Header, greeting & signature'),
+                'template' => 'notifications/common.twig',
             ],
             'notification_attachments' => [
                 'weight'   => 300,

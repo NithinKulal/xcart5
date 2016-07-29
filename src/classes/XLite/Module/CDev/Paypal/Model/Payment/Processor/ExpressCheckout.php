@@ -455,6 +455,11 @@ HTML;
                 'Status'
             );
 
+            $transaction = \XLite\Model\Cart::getInstance()->getFirstOpenPaymentTransaction();
+            if ($transaction) {
+                $this->processFailTryPayment($transaction);
+            }
+
             $this->errorMessage = isset($responseData['RESPMSG']) ? $responseData['RESPMSG'] : null;
         }
 

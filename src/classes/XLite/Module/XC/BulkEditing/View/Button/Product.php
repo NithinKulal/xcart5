@@ -13,24 +13,63 @@ namespace XLite\Module\XC\BulkEditing\View\Button;
  */
 class Product extends ABulkEdit
 {
+    /**
+     * @return array
+     */
+    protected function getScenarios()
+    {
+        return [
+            'product_categories'           => [
+                'position' => 100,
+            ],
+            'product_inventory'            => [
+                'position' => 200,
+            ],
+            'product_price_and_membership' => [
+                'position' => 300,
+            ],
+            'product_shipping_info'        => [
+                'position' => 400,
+            ],
+            // 'product_global_attributes'    => [
+            //     'position' => 500,
+            // ],
+        ];
+    }
+
     protected function defineAdditionalButtons()
     {
         $result = [];
         $scenarios = \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Scenario::getScenarios();
-        $position = 100;
+        $availableScenarios = $this->getScenarios();
 
-        foreach ($scenarios as $name => $data) {
-            $result[$name] = [
-                'label'      => $data['title'],
-                'action'     => 'start',
-                'formParams' => ['target' => 'bulk_edit', 'scenario' => $name],
-                'style'      => 'always-enabled action link list-action',
-                'position'   => $position,
-            ];
+        foreach ($availableScenarios as $name => $options) {
+            $data = isset($scenarios[$name]) ? $scenarios[$name] : [];
+            if (!$data) {
+                continue;
+            }
 
-            $position += 100;
+            if (isset($data['url'])) {
+                $result[$name] = [
+                    'class'    => 'XLite\Module\XC\BulkEditing\View\Button\ComingSoon',
+                    'label'    => $data['title'],
+                    'location' => $data['url'],
+                    'blank'    => true,
+                    'style'    => 'always-enabled action link list-action',
+                    'position' => $options['position'],
+                ];
+
+            } else {
+                $result[$name] = [
+                    'label'      => $data['title'],
+                    'action'     => 'start',
+                    'formParams' => ['target' => 'bulk_edit', 'scenario' => $name],
+                    'style'      => 'always-enabled action link list-action',
+                    'position'   => $options['position'],
+                ];
+            }
         }
-        
+
         return $result;
     }
 }

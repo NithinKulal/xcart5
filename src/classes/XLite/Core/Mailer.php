@@ -1298,8 +1298,8 @@ class Mailer extends \XLite\Base\Singleton
         $variables = is_array($name) ? $name : array($name => $value);
         $mailer = static::getMailer();
 
-        foreach ($variables as $name => $value) {
-            $mailer->set($name, null === $value ? false : $value);
+        foreach ($variables as $k => $v) {
+            $mailer->set($k, null === $v ? false : $v);
         }
     }
 
@@ -1673,6 +1673,7 @@ class Mailer extends \XLite\Base\Singleton
             'company_city',
             'company_zipcode',
             'company_phone',
+            'recipient_name',
         );
     }
 
@@ -1767,6 +1768,23 @@ class Mailer extends \XLite\Base\Singleton
         }
 
         return $value;
+    }
+
+    /**
+     * Returns logo URI
+     *
+     * @param string $name Variable name
+     *
+     * @return string
+     */
+    protected function getVariableValueRecipientName($name)
+    {
+        $result = static::getMailer()->get('recipientName');
+
+        return $result
+            ?: (\Xlite\Core\Layout::getInstance()->getInnerInterface() === \XLite::CUSTOMER_INTERFACE
+                ? static::t('na_customer')
+                : static::t('na_admin'));
     }
 
     // }}}

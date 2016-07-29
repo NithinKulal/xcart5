@@ -1,0 +1,20 @@
+{##
+ # Select state
+ #}
+
+<select id="{{ this.getFieldId() }}" name="{{ this.getName() }}"{{ this.getAttributesCode()|raw }} data-value="{{ this.getValue() }}">
+    {% if this.getParam('selectOne') %}
+    <option value="" selected="{{ this.isStateOptionSelected(null) }}">{{ this.getParam('selectOneLabel') }}</option>
+    {% endif %}
+    {% for index, state in this.getOptions() %}
+        {% if this.isGroup(state) %}
+            <optgroup {{ this.getOptionGroupAttributesCode(index, state)|raw }} data-id='{{ index }}'>
+                {% for state2 in state.options %}
+                    <option value="{{ state2.getStateId() }}" {% if this.isStateOptionSelected(state2) %} selected="selected" {% endif %}>{{ state2.getState()|raw }}</option>
+                {% endfor %}
+            </optgroup>
+        {% else %}
+            <option value="{{ state.getStateId() }}" {% if this.isStateOptionSelected(state) %} selected="selected" {% endif %}>{{ state.getState()|raw }}</option>
+        {% endif %}
+    {% endfor %}
+</select>

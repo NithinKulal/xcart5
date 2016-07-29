@@ -1,0 +1,30 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# BulkEditing
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\LanguageLabel:
+  - { name: 'Click to specify', translations: [{ code: ru, label: 'Щелкните, чтобы указать значение' }]}
+  - { name: 'Inventory', translations: [{ code: ru, label: 'Информация по наличию на складе' }]}
+  - { name: 'Price and membership', translations: [{ code: ru, label: 'Цена и доступность для групп' }]}
+  - { name: 'Shipping info', translations: [{ code: ru, label: 'Информация по доставке' }]}
+  - { name: 'Bulk edit has been processed successfully.', translations: [{ code: ru, label: 'Групповое редактирование завершено успешно.' }] }
+  - { name: 'Bulk edit processing has been interrupted.', translations: [{ code: ru, label: 'Групповое редактирование было прервано.' }] }
+  - { name: 'Bulk edit processing may take a while to complete. Please do not close this page until the process is fully completed.', translations: [{ code: ru, label: 'Процесс группового редактирования может занять продолжительное время. Пожалуйста, не закрывайте эту страницу до полного завершения процесса. Если страница оказалась закрыта, откройте ее снова, чтобы завершить процесс (Процедура группового редактирования выполняется только пока страница остается открытой).' }] }
+  - { name: 'Bulk Edit processing in progress...', translations: [{ code: ru, label: 'Идет групповое редактирование...' }] }
+  - { name: 'Back to products', translations: [{ code: ru, label: 'Назад к списку продуктов' }]}
+  - { name: 'X items selected', translations: [{ code: ru, label: 'Выбрано {{count}} продуктов' }] }
+  - { name: 'Bulk edit all', translations: [{ code: ru, label: 'Редактировать все' }] }
+  - { name: 'Bulk edit selected', translations: [{ code: ru, label: 'Редактировать выбранные' }] }
+  - { name: 'Product list', translations: [{ code: ru, label: 'К списку продуктов' }] }
+  - { name: 'Bulk edit', translations: [{ code: ru, label: 'Групповое редактирование' }] }
+  - { name: 'Move to', translations: [{ code: ru, label: 'Переместить в' }] }
+  - { name: 'Replace with', translations: [{ code: ru, label: 'Заменить на' }] }
+  - { name: 'Not set', translations: [{ code: ru, label: 'Не заданы' }] }
+  - { name: 'Low stock warning on product page', translations: [{ code: ru, label: 'Предупреждение о низком остатке на странице товара' }] }
+  - { name: 'Low stock notification to admin', translations: [{ code: ru, label: 'Уведомление администратору о низком остатке' }] }
+  - { name: 'Low stock notification to admin', translations: [{ code: ru, label: 'Уведомление администратору о низком остатке' }] }
+  - { name: 'label.coming_soon', translations: [{ code: ru, label: 'Скоро' }] }
+  - { name: 'This feature is not yet available. You will be redirected to the feature request page where you can vote to have this feature implemented in one of the upcoming versions.', translations: [{ code: ru, label: 'Данный пункт пока не доступен. Вы будете перенаправлены на страницу голосования за его реализацию в одной из ближайших версий X-Cart.' }] }

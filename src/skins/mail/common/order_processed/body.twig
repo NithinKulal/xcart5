@@ -1,0 +1,10 @@
+{##
+ # Order processed email body (to customer)
+ #}
+<p>
+  {{ widget('XLite\\View\\Invoice', order=this.order) }}
+
+  {% if not this.order.trackingNumbers.isEmpty() %}
+    {{ widget_list('tracking.info', order=this.order, trackingNumbers=this.order.trackingNumbers) }}
+  {% endif %}
+<p>

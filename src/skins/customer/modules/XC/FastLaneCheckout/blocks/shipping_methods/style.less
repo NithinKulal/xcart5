@@ -1,0 +1,44 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * style.less
+ *
+ * Copyright (c) 2001-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+.checkout_fastlane_shipping_methods {
+	.table-value {
+	  float: none;
+
+	  select {
+	  	max-width: 400px;
+	  }
+	}
+
+	.shipping-rates {
+		width: 100%;
+	}
+
+	.shipping-rate {
+		min-height: 38px;
+
+		.rate-title {
+			font-size: 15px;
+		}
+
+		.rate-description {
+			margin-top: 3px;
+			font-size: 14px;
+	    	color: #999;
+		}
+	}
+
+	.shipping-rates-data {
+	  .shipping-rate-value, .shipping-rate-delivery {
+	    margin-right: 5px;
+	    & > span {
+	      font-weight: bold;
+	    }
+	  }
+	}
+}

@@ -1,0 +1,9 @@
+{##
+ # Invoice totals : total
+ #
+ # @ListChild (list="invoice.base.totals.after", weight="10")
+ #}
+<div class="total">
+  <span class="title">{{ t('Grand total') }}:</span>
+  <span class="value">{{ this.getOrderTotal()|raw }}</span>
+</div>

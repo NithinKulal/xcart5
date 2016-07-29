@@ -1,0 +1,49 @@
+{##
+ # XPC transaction details 
+ #
+ #}
+
+<div class="card-container">
+
+  <div class="card-icon">
+    <span class="card"><img src="{{ asset('images/spacer.gif') }}" alt="{{ this.entity.getCardType() }}"/></span>
+  </div>
+
+  <div class="card-number">
+      {{ this.getCardNumber(this.entity) }}
+    <span class="card-expire">{{ this.entity.getCardExpire() }}</span>
+
+  </div>
+
+</div>
+
+<div class="actions-container">
+
+  {% for id, unit in this.getTransactionUnits(this.entity) %}
+    <div class="unit">
+      {{ widget('\\XLite\\View\\Order\\Details\\Admin\\PaymentActionsUnit', transaction=this.getTransaction(this.entity), unit=unit, is_transaction='1') }}
+    </div>
+  {% endfor %}
+
+</div>
+
+<div style="clear: both"></div>
+
+{% if this.isFraudStatus(this.entity) %}
+  <div class="warning-container">
+
+    <p class="alert alert-warning">
+      <strong>{{ t('Warning') }}!</strong>
+      {{ t('X-Payments considers this transaction as potentially fraudulent.') }}
+    </p>
+
+    <a class="btn regular-button" href="{{ url('order', 'accept', {'order_number': this.order.getOrderNumber(), 'trn_id': this.getTransactionId(this.entity)}) }}">{{ t('Accept') }}</a>
+
+    <a class="btn regular-button" href="{{ url('order', 'decline', {'order_number': this.order.getOrderNumber(), 'trn_id': this.getTransactionId(this.entity)}) }}">{{ t('Decline') }}</a>
+
+    {% include 'modules/CDev/XPaymentsConnector/order/transactions/links.twig' %}
+
+  </div>
+{% else %}
+  {% include 'modules/CDev/XPaymentsConnector/order/transactions/links.twig' %}
+{% endif %}

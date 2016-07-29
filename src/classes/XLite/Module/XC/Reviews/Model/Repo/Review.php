@@ -264,7 +264,7 @@ class Review extends \XLite\Model\Repo\ARepo
     {
         if ($value) {
             $queryBuilder->andWhere('r.ip = :ip')
-                ->setParameter('ip', inet_pton($value));
+                ->setParameter('ip', utf8_encode(inet_pton($value)));
         }
     }
 

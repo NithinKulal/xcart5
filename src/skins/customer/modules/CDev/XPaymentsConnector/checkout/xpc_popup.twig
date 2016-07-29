@@ -1,0 +1,39 @@
+{##
+ # iframe 
+ #
+ #}
+
+<div class="xpc-popup" >
+
+  <div class="message">
+
+    {% if this.isUnacceptedTemplateError(this.getMessage()) %}
+      <p>{{ t('Trying to use unaccepted template change.') }}</p>
+
+      {% if this.isAdminUser() %}
+        <p>{{ t('You should accept the changes at the') }} <a href="{{ this.getDashboardLink() }}" target="_blank">{{ t('X-Payments Dashboard') }}</a></p>
+      {% endif %}
+
+      <p>{{ t('Refer to on-line manual') }}: <a href="{{ this.getManualLink(505) }}" target="_blank">{{ this.getManualTitle(505) }}</a></p>
+
+    {% else %}
+
+      <p>{{ t(this.getMessage()) }}</p>
+
+      <p>{{ t('If the problem still persists after refreshing the page please') }}
+        <a href="{{ this.getContactUsLink() }}" target="_blank">contact us</a>
+        {{ t('on the matter.') }}
+      </p>
+
+    {% endif %}
+
+  </div>
+
+  <br />
+
+  <div class="buttons">
+    <button type="button" class="btn  regular-button" onclick="javascript: {{ this.getButtonAction() }};">{{ t('Ok') }}</button>
+  </div>
+
+<br/>
+

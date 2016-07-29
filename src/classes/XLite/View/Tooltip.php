@@ -21,6 +21,7 @@ class Tooltip extends \XLite\View\AView
     const PARAM_WIDGET       = 'helpWidget';
     const PARAM_PLACEMENT    = 'placement';
     const PARAM_DELAY        = 'delay';
+    const PARAM_DELAY_SHOW   = 'delayShow';
     const PARAM_CLASS        = 'className';
     const PARAM_CAPTION      = 'caption';
     const PARAM_IS_IMAGE_TAG = 'isImageTag';
@@ -69,8 +70,9 @@ class Tooltip extends \XLite\View\AView
         $this->widgetParams += array(
             static::PARAM_TEXT         => new \XLite\Model\WidgetParam\TypeString('Text to show in tooltip', ''),
             static::PARAM_WIDGET       => new \XLite\Model\WidgetParam\TypeString('Widget to show in tooltip', ''),
-            static::PARAM_PLACEMENT    => new \XLite\Model\WidgetParam\TypeString('Tooltip placement', 'auto right'),
-            static::PARAM_DELAY        => new \XLite\Model\WidgetParam\TypeInt('Tooltip delay', 500),
+            static::PARAM_PLACEMENT    => new \XLite\Model\WidgetParam\TypeString('Tooltip placement', 'top auto'),
+            static::PARAM_DELAY        => new \XLite\Model\WidgetParam\TypeInt('Tooltip hide delay', 0),
+            static::PARAM_DELAY_SHOW   => new \XLite\Model\WidgetParam\TypeInt('Tooltip show delay', 0),
             static::PARAM_ID           => new \XLite\Model\WidgetParam\TypeString('ID of element', ''),
             static::PARAM_CLASS        => new \XLite\Model\WidgetParam\TypeString('CSS class for caption', ''),
             static::PARAM_CAPTION      => new \XLite\Model\WidgetParam\TypeString('Caption', ''),
@@ -159,5 +161,25 @@ class Tooltip extends \XLite\View\AView
     protected function getHelpId()
     {
         return $this->getParam(static::PARAM_HELP_ID);
+    }
+
+    /**
+     * Get ID of element containing help text
+     *
+     * @return string
+     */
+    protected function getDelay()
+    {
+        $delayShow = (int) $this->getParam(static::PARAM_DELAY_SHOW);
+        $delayHide = (int) $this->getParam(static::PARAM_DELAY);
+
+        if ($delayShow == $delayHide) {
+            $result = $delayShow;
+
+        } else {
+            $result = json_encode(array('show' => $delayShow, 'hide' => $delayHide));
+        }
+
+        return $result;
     }
 }

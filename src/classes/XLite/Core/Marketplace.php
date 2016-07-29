@@ -43,6 +43,7 @@ class Marketplace extends \XLite\Base\Singleton
      * Request/response fields
      */
     const FIELD_VERSION_CORE_CURRENT  = 'currentCoreVersion';
+    const FIELD_MODULE_VERSION        = 'currentModuleVersion';
     const FIELD_VERSION               = 'version';
     const FIELD_VERSION_MAJOR         = 'major';
     const FIELD_VERSION_MINOR         = 'minor';
@@ -627,24 +628,10 @@ class Marketplace extends \XLite\Base\Singleton
     {
         $data = array();
 
-        $modules = \XLite\Core\Database::getCacheDriver()->fetch('InstalledModules');
-
-        if (!$modules) {
-             $modules = \XLite\Core\Database::getRepo('XLite\Model\Module')->search($this->getCheckForUpdatesDataCnd());
-             \XLite\Core\Database::getCacheDriver()->save('InstalledModules', $modules);
-        }
+        $modules = $this->getInstalledModulesList();
 
         if ($modules) {
-            $data[static::FIELD_MODULES] = array();
-            foreach ($modules as $module) {
-                $data[static::FIELD_MODULES][] = array(
-                    static::FIELD_NAME   => $module->getName(),
-                    static::FIELD_AUTHOR => $module->getAuthor(),
-                    static::FIELD_VERSION_MAJOR  => $module->getMajorVersion(),
-                    static::FIELD_VERSION_MINOR  => $module->getFullMinorVersion(),
-                    static::FIELD_MODULE_ENABLED => $module->getEnabled() ? 1 : 0,
-                );
-            }
+            $data[static::FIELD_MODULES] = serialize($modules);
         }
 
         $keys = $this->getModuleLicenseKeys();
@@ -679,6 +666,55 @@ class Marketplace extends \XLite\Base\Singleton
         }
 
         return $data;
+    }
+
+    /**
+     * Get list of installed modules for API request
+     *
+     * @return array
+     */
+    protected function getInstalledModulesList()
+    {
+        $result = array();
+
+        $modules = \XLite\Core\Database::getCacheDriver()
+            ? \XLite\Core\Database::getCacheDriver()->fetch('InstalledModules')
+            : null;
+
+        if (!$modules) {
+             $modules = \XLite\Core\Database::getRepo('XLite\Model\Module')->search($this->getCheckForUpdatesDataCnd());
+             \XLite\Core\Database::getCacheDriver()->save('InstalledModules', $modules);
+        }
+
+        if ($modules) {
+            foreach ($modules as $module) {
+                $result[] = array(
+                    static::FIELD_NAME   => $module->getName(),
+                    static::FIELD_AUTHOR => $module->getAuthor(),
+                    static::FIELD_VERSION_MAJOR  => $module->getMajorVersion(),
+                    static::FIELD_VERSION_MINOR  => $module->getFullMinorVersion(),
+                    static::FIELD_MODULE_ENABLED => $module->getEnabled() ? 1 : 0,
+                );
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Return data about installed module version for get_addon_pack and get_addon_hash requests
+     *
+     * @param array $installedModule Installed module identity data
+     *
+     * @return array
+     */
+    protected function getInstalledModuleVersion($installedModule)
+    {
+        return array(
+            static::FIELD_VERSION_MAJOR => $installedModule['majorVersion'],
+            static::FIELD_VERSION_MINOR => $installedModule['minorVersion'],
+            static::FIELD_VERSION_BUILD => !empty($installedModule['build']) ? $installedModule['build'] : 0,
+        );
     }
 
     /**
@@ -841,28 +877,25 @@ class Marketplace extends \XLite\Base\Singleton
     {
         $result = array();
 
+        $hotfixBranch = \XLite::getInstance()->getHotfixBranchVersion();
+
         foreach ($data as $core) {
-            $coreVersion = $core[static::FIELD_VERSION];
-            $coreVersionMajor = $coreVersion[static::FIELD_VERSION_MAJOR];
-            $coreVersionMinor = $coreVersion[static::FIELD_VERSION_MINOR];
-            $coreVersionBuild = !empty($coreVersion[static::FIELD_VERSION_BUILD])
-                ? $coreVersion[static::FIELD_VERSION_BUILD]
+            $version = $core[static::FIELD_VERSION];
+            $major = $version[static::FIELD_VERSION_MAJOR];
+            $minor = $version[static::FIELD_VERSION_MINOR];
+            $build = !empty($version[static::FIELD_VERSION_BUILD])
+                ? $version[static::FIELD_VERSION_BUILD]
                 : 0;
 
-            $fullCoreVersionMinor = $coreVersionMinor . ($coreVersionBuild ? '.' . $coreVersionBuild : '');
+            $key = ($hotfixBranch === ($major . '.' . $minor) ? $hotfixBranch : $major);
 
-            if (isset($result[$coreVersionMajor])) {
-                $currentVersion = $result[$coreVersionMajor][static::FIELD_VERSION];
-                $currentVersionMinor = $currentVersion[static::FIELD_VERSION_MINOR];
-            }
+            $fullCoreVersion = $major . '.' . $minor . ($build ? '.' . $build : '');
 
-            if (!isset($currentVersionMinor) || version_compare($currentVersionMinor, $fullCoreVersionMinor, '<')) {
-                $result[$coreVersionMajor] = array(
-                    $fullCoreVersionMinor,
-                    $core[static::FIELD_REVISION_DATE],
-                    $core[static::FIELD_LENGTH]
-                );
-            }
+            $result[$key] = array(
+                $fullCoreVersion,
+                $core[static::FIELD_REVISION_DATE],
+                $core[static::FIELD_LENGTH]
+            );
         }
 
         return $result;
@@ -1287,7 +1320,15 @@ class Marketplace extends \XLite\Base\Singleton
      */
     public function getAddonsList($ttl = null)
     {
-        $result = $this->performActionWithTTL($ttl, static::ACTION_GET_ADDONS_LIST, array(), false);
+        $data = array();
+
+        $modules = $this->getInstalledModulesList();
+
+        if ($modules) {
+            $data[static::FIELD_MODULES] = serialize($modules);
+        }
+
+        $result = $this->performActionWithTTL($ttl, static::ACTION_GET_ADDONS_LIST, $data, false);
 
         if (static::TTL_NOT_EXPIRED !== $result) {
             $this->saveAddonsList($result);
@@ -1368,7 +1409,7 @@ class Marketplace extends \XLite\Base\Singleton
             $build = $this->getField($version, static::FIELD_VERSION_BUILD) ?: 0;
 
             // Short names
-            $key = $author . '_' . $name . '_' . $majorVersion;
+            $key = $author . '_' . $name . '_' . $majorVersion . '.' . $minorVersion;
 
             // To make modules list unique
             if (
@@ -1443,21 +1484,27 @@ class Marketplace extends \XLite\Base\Singleton
     /**
      * The certain request handler
      *
-     * @param string $moduleID External module identifier
-     * @param string $key      Module license key OPTIONAL
+     * @param string $moduleID        External module identifier
+     * @param string $key             Module license key OPTIONAL
+     * @param array  $installedModule Installed module identity data
      *
      * @return string
      */
-    public function getAddonPack($moduleID, $key = null)
+    public function getAddonPack($moduleID, $key = null, $installedModule = null)
     {
+        $data = array(
+            static::FIELD_MODULE_ID => $moduleID,
+            static::FIELD_KEY       => $key,
+            static::FIELD_GZIPPED   => $this->canCompress(),
+        );
+
+        if (is_array($installedModule)) {
+            $data[static::FIELD_MODULE_VERSION] = $this->getInstalledModuleVersion($installedModule);
+        }
+
         return $this->sendRequestToMarketplace(
             static::ACTION_GET_ADDON_PACK,
-            array(
-                static::FIELD_MODULE_ID => $moduleID,
-                static::FIELD_KEY       => $key,
-                static::FIELD_GZIPPED   => $this->canCompress(),
-
-            )
+            $data
         );
     }
 
@@ -1634,19 +1681,26 @@ class Marketplace extends \XLite\Base\Singleton
     /**
      * The certain request handler
      *
-     * @param string $moduleID External module identifier
-     * @param string $key      Module license key OPTIONAL
+     * @param string $moduleID        External module identifier
+     * @param string $key             Module license key OPTIONAL
+     * @param array  $installedModule Installed module identity data
      *
      * @return array
      */
-    public function getAddonHash($moduleID, $key = null)
+    public function getAddonHash($moduleID, $key = null, $installedModule = null)
     {
+        $data = array(
+            static::FIELD_MODULE_ID => $moduleID,
+            static::FIELD_KEY       => $key,
+        );
+
+        if (is_array($installedModule)) {
+            $data[static::FIELD_MODULE_VERSION] = $this->getInstalledModuleVersion($installedModule);
+        }
+
         return $this->sendRequestToMarketplace(
             static::ACTION_GET_ADDON_HASH,
-            array(
-                static::FIELD_MODULE_ID => $moduleID,
-                static::FIELD_KEY       => $key,
-            )
+            $data
         );
     }
 

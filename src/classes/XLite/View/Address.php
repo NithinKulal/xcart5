@@ -140,19 +140,21 @@ class Address extends \XLite\View\Dialog
         if ($result && false !== $processValue) {
             switch ($fieldName) {
                 case 'state_id':
-                    $result = $address->getCountry()->hasStates()
+                    $result = $address->getCountry() && $address->getCountry()->hasStates()
                         ? $address->getState()->getState()
                         : null;
                     break;
 
                 case 'custom_state':
-                    $result = $address->getCountry()->hasStates()
+                    $result = $address->getCountry() && $address->getCountry()->hasStates()
                         ? null
                         : $result;
                     break;
 
                 case 'country_code':
-                    $result = $address->getCountry()->getCountry();
+                    $result = $address->getCountry()
+                        ? $address->getCountry()->getCountry()
+                        : null;
                     break;
 
                 case 'type':

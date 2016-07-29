@@ -364,7 +364,7 @@ class Settings extends \XLite\View\Model\AModel
                     \XLite\View\Button\AButton::PARAM_LABEL => 'Re-deploy the store',
                     \XLite\View\Button\AButton::PARAM_STYLE => 'action always-enabled',
                     \XLite\View\Button\Tooltip::PARAM_SEPARATE_TOOLTIP => static::t('Re-deploy the store help text'),
-                    \XLite\View\Button\Regular::PARAM_JS_CODE => sprintf('if (confirm(core.t("Are you sure?"))) self.location="%s";', $url),
+                    \XLite\View\Button\Regular::PARAM_JS_CODE => sprintf('if (confirm("' . static::t("Are you sure?") .'")) self.location="%s";', $url),
                 )
             );
 
@@ -411,6 +411,31 @@ class Settings extends \XLite\View\Model\AModel
         }
 
         return $value;
+    }
+
+    /**
+     * Allow any content in config options
+     *
+     * @param string $name Option name
+     *
+     * @return boolean
+     */
+    protected function isParamTrusted($name)
+    {
+        $result = parent::isParamTrusted($name);
+
+        if (!$result) {
+            $options = $this->getEditableOptions();
+
+            foreach ($options as $option) {
+                if ($option->getName() == $name && $option->getCategory() == 'Company') {
+                    $result = true;
+                    break;
+                }
+            }
+        }
+
+        return $result;
     }
 
     /**

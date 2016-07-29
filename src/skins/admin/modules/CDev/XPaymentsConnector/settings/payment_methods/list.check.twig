@@ -1,0 +1,11 @@
+{##
+ # Test module 
+ #
+ #}
+
+{% if this.isSaveCards(this.entity) %}
+  <input type="checkbox" checked value="Y" name="save_cards[{{ this.entity.method_id }}]">
+{% else %}
+  <input type="checkbox" value="Y" name="save_cards[{{ this.entity.method_id }}]">
+{% endif %}
+

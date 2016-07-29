@@ -1,0 +1,62 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Top 'Continue shopping' button style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+div.real-charge-note {
+  color: #808080 !important;
+  font-size: 12px;
+  text-align: right;
+  white-space: normal;
+  font-weight: normal;
+}
+
+.total-change-value td {
+  padding-bottom: 0px !important;
+}
+
+.real-charge,
+#cart-right .totals > li.real-charge {
+  text-align: right;
+  font-size: 14px;
+  font-weight: 600;
+}
+#cart-right .totals li.real-charge strong {
+  float: none;
+  display: inline-block;
+  color: #333;
+  font-weight: bold;
+}
+.real-charge-value .surcharge{
+  float: none;
+  margin-left: 4px;
+}
+
+.checkout_fastlane_cart .cart-items-wrapper .modifiers .real-charge,
+.checkout_fastlane_cart .cart-items-wrapper .surcharge .real-charge{
+  font-weight: 600;
+  color: inherit;
+}
+
+#cart-right .totals .real-charge-note,
+.checkout-block .review-step .step-box .cart-items .modifiers .real-charge-note,
+.checkout_fastlane_cart .cart-items-wrapper .modifiers .real-charge-note {
+  margin-top: 0px;
+}
+
+#cart-right .totals > li.subtotal.real-charge-value,
+#cart-right .totals > li.subtotal.real-charge-note {
+  margin-bottom: 0px;
+}
+
+.checkout-block .review-step .modifiers .real-charge,
+.modifiers .real-charge {
+  padding: 0;
+}
+
+.real-charge-note {
+  padding-bottom: 7px;
+}

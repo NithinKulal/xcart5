@@ -1,0 +1,17 @@
+{##
+ # Fastlane checkout address section
+ #
+ # @ListChild (list="checkout_fastlane.blocks.address.billing.before", weight="10")
+ #}
+
+{% set visibility = this.isSameAddressVisible() ? '' : 'hidden' %}
+
+<div class="checkout_fastlane_block_same_address {{ visibility }}">
+  <div class="checkbox">
+      <label>
+        <input id="same_address" type="checkbox" name="same_address" value="1" v-model="same_address" v-bind:true-value="1" v-bind:false-value="0" {% if this.isSameAddress() %} checked="checked" {% endif %} />
+        {{ t('The same as shipping') }}
+      </label>
+  </div>
+  <p class="help-text">{{ t('Enable this if you would like us to use your shipping address as your billing address') }}</p>
+</div>

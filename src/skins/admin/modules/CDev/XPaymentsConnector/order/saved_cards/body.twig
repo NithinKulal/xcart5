@@ -1,0 +1,33 @@
+{##
+ # Saved cards 
+ #
+ #}
+
+{% form '\\XLite\\Module\\CDev\\XPaymentsConnector\\View\\Form\\PopupSavedCards' %}
+
+  <p>{{ t('Use one of the following cards to') }} <span id="init-action-name"></span> <strong>{{ this.getAmount() }}</strong> {{ t('for this order') }}:</p>
+
+  <br />
+
+  <select name="trn_id" class="cards-list" onchange="javascript: updateActionForSavedCard($('.cards-list').val());">
+  {% for card in this.getCards() %}
+    <option value="{{ card.transaction_id }}">
+      {{ this.getCardName(card) }}
+    </option>
+  {% endfor %}
+  </select>
+
+  <br /><br />
+
+  {{ widget('\\XLite\\View\\Button\\Submit', id='init-action-button', style='main') }}
+
+{% endform %}
+
+<script type="text/javascript">
+  var saved_card_actions = [];
+  {% for card in this.getCards() %}
+    saved_card_actions[{{ card.transaction_id }}] = '{{ card.init_action }}';
+  {% endfor %}
+
+  updateActionForSavedCard($('.cards-list').val());
+</script>

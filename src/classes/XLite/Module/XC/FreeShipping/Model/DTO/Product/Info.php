@@ -14,19 +14,19 @@ namespace XLite\Module\XC\FreeShipping\Model\DTO\Product;
 class Info extends \XLite\Model\DTO\Product\Info implements \XLite\Base\IDecorator
 {
     /**
-     * @param mixed|\XLite\Model\Product $data
+     * @param mixed|\XLite\Model\Product $object
      */
-    protected function init($data)
+    protected function init($object)
     {
-        parent::init($data);
+        parent::init($object);
 
         static::compose(
             $this,
             [
                 'shipping' => [
                     'requires_shipping' => [
-                        'free_shipping'          => $data->getFreeShip(),
-                        'fixed_shipping_freight' => $data->getFreightFixedFee(),
+                        'free_shipping'          => $object->getFreeShip(),
+                        'fixed_shipping_freight' => $object->getFreightFixedFee(),
                     ],
                 ],
             ]
@@ -34,19 +34,19 @@ class Info extends \XLite\Model\DTO\Product\Info implements \XLite\Base\IDecorat
     }
 
     /**
-     * @param \XLite\Model\Product $dataObject
+     * @param \XLite\Model\Product $object
      * @param array|null           $rawData
      *
      * @return mixed
      */
-    public function populateTo($dataObject, $rawData = null)
+    public function populateTo($object, $rawData = null)
     {
         $freeShipping = static::deCompose($this, 'shipping', 'requires_shipping', 'free_shipping');
-        $dataObject->setFreeShip($freeShipping);
+        $object->setFreeShip($freeShipping);
 
         $fixedShippingFreight = static::deCompose($this, 'shipping', 'requires_shipping', 'fixed_shipping_freight');
-        $dataObject->setFreightFixedFee($fixedShippingFreight);
+        $object->setFreightFixedFee($fixedShippingFreight);
 
-        parent::populateTo($dataObject, $rawData);
+        parent::populateTo($object, $rawData);
     }
 }

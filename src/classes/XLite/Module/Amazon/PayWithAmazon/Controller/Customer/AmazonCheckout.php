@@ -338,6 +338,7 @@ class AmazonCheckout extends \XLite\Controller\Customer\ACustomer
             }
         }
 
+
         // $this->updateCart(); // old way produce fingerprint warning in logs
         $this->getCart()->updateOrder();
         \XLite\Core\Database::getRepo('XLite\Model\Cart')->update($this->getCart());

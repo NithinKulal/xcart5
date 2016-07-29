@@ -1,0 +1,27 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Print invoice page CSS styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+button.print-invoice div span img {
+  background: url(../../images/icon_printer.png) 0 0 no-repeat transparent;
+  width: 24px;
+  height: 15px;
+  margin-top: -3px;
+  vertical-align: middle;
+}
+
+button.print-invoice.suspended div span img {
+  background: url(../../../progress_indicator.gif) 0 0 no-repeat transparent;
+  height: 18px;
+}
+
+button.print-invoice .iframe-placeholder,
+.iframe-placeholder {
+  height: 0;
+  width: 0;
+  border: 0;
+}

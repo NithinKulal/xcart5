@@ -588,6 +588,20 @@ CommonForm.prototype.isChanged = function(onlyVisible)
   ).length;
 };
 
+// Check - form was filled or not
+CommonForm.prototype.wasFilledOnce = function()
+{
+  var fields = this.getElements().filter(
+    function() {
+      return this.commonController ? this.commonController.isRequired() : false;
+    }
+  );
+
+  return  _.every(fields, function(item) {
+    return item.commonController.wasFilledOnce() || !item.commonController.isVisible()
+  });
+};
+
 CommonForm.prototype.handleElementBlur = function(elm)
 {
   this.elementBlurTO = setTimeout(
@@ -626,7 +640,7 @@ CommonForm.prototype.checkDependencyState = function()
     var input, element;
     for (depField in deps) if (deps.hasOwnProperty(depField)) {
       input = jQuery('[name="' + depField + '"]', jQuery(this.form)).not('[type="hidden"]').get(0);
-      if (!input.commonController) {
+      if (!input || !input.commonController) {
         continue;
       }
       depValue = deps[depField];
@@ -884,7 +898,7 @@ CommonElement.prototype.getLabel = function()
 // Check - element visible or not
 CommonElement.prototype.isVisible = function()
 {
-  if (this.element.style.display == 'none') {
+  if (this.$element.css('display') == 'none') {
     return false;
   }
 
@@ -892,7 +906,7 @@ CommonElement.prototype.isVisible = function()
     .parents()
     .filter(
       function() {
-        return this.style.display == 'none';
+        return $(this).css('display') == 'none';
       }
     )
     .length;
@@ -908,6 +922,10 @@ CommonElement.prototype.buildMethodName = function(str)
 CommonElement.prototype.validate = function(silent, noFocus)
 {
   var result = true;
+
+  if (!this.isVisible()) {
+    return result;
+  }
 
   if (
     this.$element.is(':input')
@@ -933,10 +951,6 @@ CommonElement.prototype.validate = function(silent, noFocus)
 
     this.$element.data('validation-silent', !!silent);
 
-    if (!silent && this.$element.hasClass('validation-error')) {
-      this.unmarkAsInvalid();
-    }
-
     var validators = this.getValidators();
 
     if (0 < validators.length && this.isVisible()) {
@@ -953,6 +967,10 @@ CommonElement.prototype.validate = function(silent, noFocus)
             this.markAsInvalid(res.message, validators[i].key);
           }
         }
+      }
+
+      if (!result && !silent && this.$element.hasClass('validation-error')) {
+        this.unmarkAsInvalid();
       }
     }
 
@@ -1386,9 +1404,29 @@ CommonElement.prototype.isChanged = function(onlyVisible)
 };
 
 // Check - element is significant or not
+CommonElement.prototype.wasFilledOnce = function ()
+{
+  if (!this.wasFilled) {
+    if (isElement(this.element, 'input') && -1 != jQuery.inArray(this.element.type, ['text', 'password', 'hidden', 'file'])) {
+      this.wasFilled = !_.isEmpty(this.element.value) || this.isChanged(true);
+    } else {
+      this.wasFilled = true;
+    }
+  }
+
+  return this.wasFilled;
+};
+
+// Check - element is significant or not
 CommonElement.prototype.isSignificantInput = function ()
 {
   return !this.$element.hasClass('not-significant');
+};
+
+// Check - element is significant or not
+CommonElement.prototype.isRequired = function ()
+{
+  return this.element.className.indexOf('required') != -1;
 };
 
 // Check element old value and new valies - equal or not
@@ -1682,6 +1720,8 @@ CommonElement.prototype.handleValidationEngineResult = function(event, field, er
         prompText.replace(/^\* /g, '').replace(/<br.>.*$/g, '')
       );
     }
+  } else {
+    field.get(0).commonController.unmarkAsInvalid();
   }
 
   field.data('validation-error', errorFound);

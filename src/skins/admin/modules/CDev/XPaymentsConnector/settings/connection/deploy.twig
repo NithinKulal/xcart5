@@ -1,0 +1,38 @@
+{##
+ # Deploy configuration 
+ #
+ #}
+
+<br/>
+
+{% if this.isConfigured() %}
+  {% include 'modules/CDev/XPaymentsConnector/settings/connection/status.twig' %}
+{% endif %}
+
+<h3>{{ t('Use X-Payments configuration bundle') }}</h3>
+
+{% form '\\XLite\\Module\\CDev\\XPaymentsConnector\\View\\Form\\DeployConfiguration' %}
+
+  <p>{{ t('Copy the value of the Configuration field from X-Payments Online Store Details page, paste the string here and click Deploy. All the connection settings will be specified automatically.')|raw }}</p>
+
+  <br/>
+
+  <table class="settings-table">
+
+    <tr>
+      <td>{{ widget('\\XLite\\View\\FormField\\Input\\Text', fieldName='deploy_configuration', fieldOnly='true', maxlength='false') }}</td>
+      <td>&nbsp;&nbsp;&nbsp;</td>
+      <td>{{ widget('\\XLite\\View\\Button\\Submit', label=t('Deploy'), style='main') }}</td>
+    </tr>
+
+  </table>
+
+{% endform %}
+
+<br/><br/>
+
+<h3>{{ t('Or fill in the settings manually') }}</h3>
+
+<p>{{ t('Specify the URL of your X-Payments installation. Copy and paste Store ID, Public key, Private key and Private key password from X-Payments Online Store Details page.')|raw }}</p>
+
+<br/>

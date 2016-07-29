@@ -76,7 +76,7 @@ class LocationSelect extends \XLite\Controller\Customer\ACustomer
         $countryCode = \XLite\Core\Request::getInstance()->address_country;
 
         $country = (!$countryCode && !$this->hasField('country_code'))
-            ? XLite\Model\Address::getDefaultFieldValue('country')
+            ? \XLite\Model\Address::getDefaultFieldValue('country')
             : $country = \XLite\Core\Database::getRepo('XLite\Model\Country')->find($countryCode);
 
         $state = null;

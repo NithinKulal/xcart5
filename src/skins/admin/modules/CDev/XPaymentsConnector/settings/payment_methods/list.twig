@@ -1,0 +1,16 @@
+{##
+ # Payment methods 
+ #
+ #}
+
+<br />
+
+<div>
+
+  {% form '\\XLite\\Module\\CDev\\XPaymentsConnector\\View\\Form\\PaymentMethods' %}
+
+    {{ widget('XLite\\Module\\CDev\\XPaymentsConnector\\View\\ItemsList\\Model\\PaymentMethods') }}
+
+  {% endform %}
+
+</div>

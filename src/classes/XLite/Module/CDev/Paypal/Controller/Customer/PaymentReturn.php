@@ -68,7 +68,7 @@ class PaymentReturn extends \XLite\Controller\Customer\PaymentReturn implements 
      */
     protected function detectTransaction()
     {
-        if (null === $this->transaction) {
+        if (null === $this->transaction || !$this->transaction instanceof \XLite\Model\Payment\Transaction) {
             $this->transaction = parent::detectTransaction();
             if ($this->transaction && $this->transaction->isByPayPal()) {
                 $order = $this->transaction->getOrder();

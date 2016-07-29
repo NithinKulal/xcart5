@@ -211,6 +211,19 @@ abstract class AModule extends \XLite\View\ItemsList\AItemsList
     }
 
     /**
+     * Check if the module can be disabled
+     *
+     * @param \XLite\Model\Module $module Module
+     * @param boolean             $safeCheck True - check if dependent modules can be disabled, false - dependent modules must be active
+     *
+     * @return boolean
+     */
+    protected function canDisable(\XLite\Model\Module $module, $safeCheck = false)
+    {
+        return $module->canDisable($safeCheck);
+    }
+
+    /**
      * Check if the module is enabled
      *
      * @param \XLite\Model\Module $module Module

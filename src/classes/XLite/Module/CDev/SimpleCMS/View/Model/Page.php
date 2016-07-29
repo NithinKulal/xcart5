@@ -82,6 +82,21 @@ class Page extends \XLite\View\Model\AModel
     );
 
     /**
+     * Rollback model if data validation failed
+     *
+     * @return void
+     */
+    protected function rollbackModel()
+    {
+        parent::rollbackModel();
+
+        $urls = $this->getModelObject()->getCleanURLs();
+        foreach ($urls as $url) {
+            \XLite\Core\Database::getEM()->detach($url);
+        }
+    }
+
+    /**
      * Return current model ID
      *
      * @return integer

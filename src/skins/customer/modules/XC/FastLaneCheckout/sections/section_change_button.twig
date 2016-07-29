@@ -1,0 +1,50 @@
+{##
+ # Fastlane checkout payment right section
+ #
+ # @ListChild (list="checkout_fastlane.sections_block.after", weight="20")
+ #}
+
+<section-change-button inline-template>
+  <div class="checkout_fastlane_section-buttons loading">
+    <a href="#" class="mobile_panel-details" v-on:click.prevent="scrollToDetails">
+      <span class="title">Order total:</span>
+      <span v-text="total_text" class="value"></span>
+    </a>
+    <div v-show="showPlaceOrder" class="place-button">
+      {% form '\\XLite\\View\\Form\\Checkout\\Place' with {className: 'place'} %}
+      {{ widget_list('checkout_fastlane.sections.place-order.before') }}
+        <place-order inline-template>
+          {{ widget(
+          'XLite\\View\\Button\\Simple',
+          label='Place order',
+          style='regular-main-button checkout_fastlane_section-place_order',
+          attributes={
+            'v-bind:class':   'classes',
+            'v-on:click':     'placeOrder',
+            'v-bind:title':   'btnTitle',
+            'v-text':         'label'
+          }) }}
+
+          <p class="terms-notice">
+            {{ t('Clicking the Place order button you accept: Terms and Conditions', {'URL': this.getTermsURL()})|raw }}
+          </p>
+        </place-order>
+      {{ widget_list('checkout_fastlane.sections.place-order.after') }}
+      {% endform %}
+    </div>
+    <div v-show="!showPlaceOrder" class="next-button">
+      <next-button inline-template v-bind:enabled="complete" v-bind:index="index">
+        {{ widget(
+          'XLite\\View\\Button\\Simple',
+          label='Next step',
+          style='regular-main-button checkout_fastlane_section-next',
+          attributes={
+            'v-on:click':     'requestNext',
+            'v-bind:class':   'classes',
+            'v-bind:title':   'btnTitle',
+            'v-text':         'nextLabel'
+          }) }}
+      </next-button>
+    </div>
+  </div>
+</section-change-button>

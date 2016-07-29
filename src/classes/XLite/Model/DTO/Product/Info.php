@@ -15,29 +15,38 @@ use XLite\Model\DTO\Base\CommonCell;
 class Info extends \XLite\Model\DTO\Base\ADTO
 {
     /**
-     * @param Info                      $object
+     * @param Info                      $dto
      * @param ExecutionContextInterface $context
      */
-    public static function validate($object, ExecutionContextInterface $context)
+    public static function validate($dto, ExecutionContextInterface $context)
     {
-        if (!empty($object->default->sku) && !static::isSKUValid($object)) {
+        if (!empty($dto->default->sku) && !static::isSKUValid($dto)) {
             static::addViolation($context, 'default.sku', Translation::lbl('SKU must be unique'));
         }
 
-        if ($object->marketing->meta_description_type === 'C' && '' === trim($object->marketing->meta_description)) {
+        if ($dto->marketing->meta_description_type === 'C' && '' === trim($dto->marketing->meta_description)) {
             static::addViolation($context, 'marketing.meta_description', Translation::lbl('This field is required'));
+        }
+
+        if (!$dto->marketing->clean_url->autogenerate && !$dto->marketing->clean_url->force) {
+            $repo = \XLite\Core\Database::getRepo('XLite\Model\CleanURL');
+            $value = $dto->marketing->clean_url->clean_url . '.html';
+
+            if (!$repo->isURLUnique($value, 'XLite\Model\Product', $dto->default->identity)) {
+                static::addViolation($context, 'marketing.clean_url.clean_url', Translation::lbl('The Clean URL entered is already in use.'));
+            }
         }
     }
 
     /**
-     * @param Info $object
+     * @param Info $dto
      *
      * @return boolean
      */
-    protected static function isSKUValid($object)
+    protected static function isSKUValid($dto)
     {
-        $sku = $object->default->sku;
-        $identity = $object->default->identity;
+        $sku = $dto->default->sku;
+        $identity = $dto->default->identity;
 
         $entity = \XLite\Core\Database::getRepo('XLite\Model\Product')->findOneBySku($sku);
 
@@ -45,16 +54,16 @@ class Info extends \XLite\Model\DTO\Base\ADTO
     }
 
     /**
-     * @param mixed|\XLite\Model\Product $data
+     * @param mixed|\XLite\Model\Product $object
      */
-    protected function init($data)
+    protected function init($object)
     {
         $categories = [];
-        foreach ($data->getCategories() as $category) {
+        foreach ($object->getCategories() as $category) {
             $categories[] = $category->getCategoryId();
         }
 
-        $objectImages = $data->getImages();
+        $objectImages = $object->getImages();
         $images = [0 => [
             'delete'   => false,
             'position' => '',
@@ -71,152 +80,180 @@ class Info extends \XLite\Model\DTO\Base\ADTO
         }
 
         $default = [
-            'identity' => $data->getProductId(),
+            'identity' => $object->getProductId(),
 
-            'name'               => $data->getName(),
-            'sku'                => $data->getSku(),
+            'name'               => $object->getName(),
+            'sku'                => $object->getSku(),
             'images'             => $images,
             'category'           => $categories,
-            'description'        => $data->getBriefDescription(),
-            'full_description'   => $data->getDescription(),
-            'available_for_sale' => $data->getEnabled(),
-            'arrival_date'       => $data->getArrivalDate() ?: time(),
+            'description'        => $object->getBriefDescription(),
+            'full_description'   => $object->getDescription(),
+            'available_for_sale' => $object->getEnabled(),
+            'arrival_date'       => $object->getArrivalDate() ?: time(),
         ];
         $this->default = new CommonCell($default);
 
         $memberships = [];
-        foreach ($data->getMemberships() as $membership) {
+        foreach ($object->getMemberships() as $membership) {
             $memberships[] = $membership->getMembershipId();
         }
 
-        $taxClass = $data->getTaxClass();
+        $taxClass = $object->getTaxClass();
         $inventoryTracking = new CommonCell([
-            'inventory_tracking' => $data->getInventoryEnabled(),
-            'quantity'           => $data->getAmount(),
+            'inventory_tracking' => $object->getInventoryEnabled(),
+            'quantity'           => $object->getAmount(),
         ]);
         $pricesAndInventory = [
             'memberships'        => $memberships,
             'tax_class'          => $taxClass ? $taxClass->getId() : null,
-            'price'              => $data->getPrice(),
+            'price'              => $object->getPrice(),
             'inventory_tracking' => $inventoryTracking,
         ];
         $this->prices_and_inventory = new CommonCell($pricesAndInventory);
 
         $shippingBox = new CommonCell([
-            'separate_box' => $data->getUseSeparateBox(),
+            'separate_box' => $object->getUseSeparateBox(),
             'dimensions'   => [
-                'length' => $data->getBoxLength(),
-                'width'  => $data->getBoxWidth(),
-                'height' => $data->getBoxHeight(),
+                'length' => $object->getBoxLength(),
+                'width'  => $object->getBoxWidth(),
+                'height' => $object->getBoxHeight(),
             ],
         ]);
         $itemsInBox = new CommonCell([
-            'items_in_box' => $data->getItemsPerBox(),
+            'items_in_box' => $object->getItemsPerBox(),
         ]);
         $shipping = [
-            'weight'            => $data->getWeight(),
-            'requires_shipping' => $data->getShippable(),
+            'weight'            => $object->getWeight(),
+            'requires_shipping' => $object->getShippable(),
             'shipping_box'      => $shippingBox,
             'items_in_box'      => $itemsInBox,
         ];
         $this->shipping = new CommonCell($shipping);
 
         $cleanURL = new CommonCell([
-            'autogenerate' => empty($data->getCleanURL()),
-            'clean_url'    => rtrim($data->getCleanURL(), '.html'),
+            'autogenerate' => !(boolean) $object->getCleanURL(),
+            'clean_url'    => rtrim($object->getCleanURL(), '.html'),
+            'force'        => false,
         ]);
 
         $marketing = [
-            'meta_description_type' => $data->getMetaDescType(),
-            'meta_description'      => $data->getMetaDesc(),
-            'meta_keywords'         => $data->getMetaTags(),
-            'product_page_title'    => $data->getMetaTitle(),
+            'meta_description_type' => $object->getMetaDescType(),
+            'meta_description'      => $object->getMetaDesc(),
+            'meta_keywords'         => $object->getMetaTags(),
+            'product_page_title'    => $object->getMetaTitle(),
             'clean_url'             => $cleanURL,
         ];
         $this->marketing = new CommonCell($marketing);
     }
 
     /**
-     * @param \XLite\Model\Product $dataObject
+     * @param \XLite\Model\Product $object
      * @param array|null           $rawData
      *
      * @return mixed
      */
-    public function populateTo($dataObject, $rawData = null)
+    public function populateTo($object, $rawData = null)
     {
         $default = $this->default;
 
-        $dataObject->setName((string) $default->name);
+        $object->setName((string) $default->name);
 
         $sku = trim($default->sku);
-        $dataObject->setSku((string) $sku);
+        $object->setSku((string) $sku);
 
-        $dataObject->processFiles('images', $default->images);
+        $object->processFiles('images', $default->images);
 
         $categories = \XLite\Core\Database::getRepo('XLite\Model\Category')->findByIds($default->category);
-        $dataObject->replaceCategoryProductsLinksByCategories($categories);
+        $object->replaceCategoryProductsLinksByCategories($categories);
 
-        $dataObject->setBriefDescription((string) $default->description);
-        $dataObject->setDescription((string) $default->full_description);
+        $object->setBriefDescription((string) $default->description);
+        $object->setDescription((string) $default->full_description);
 
-        $dataObject->setEnabled((boolean) $default->available_for_sale);
-        $dataObject->setArrivalDate((int) $default->arrival_date);
+        $object->setEnabled((boolean) $default->available_for_sale);
+        $object->setArrivalDate((int) $default->arrival_date);
 
         $priceAndInventory = $this->prices_and_inventory;
         $memberships = \XLite\Core\Database::getRepo('XLite\Model\Membership')->findByIds($priceAndInventory->memberships);
-        $dataObject->replaceMembershipsByMemberships($memberships);
+        $object->replaceMembershipsByMemberships($memberships);
 
         $taxClass = \XLite\Core\Database::getRepo('XLite\Model\TaxClass')->find($priceAndInventory->tax_class);
-        $dataObject->setTaxClass($taxClass);
+        $object->setTaxClass($taxClass);
 
-        $dataObject->setPrice($priceAndInventory->price);
+        $object->setPrice($priceAndInventory->price);
 
-        $dataObject->setInventoryEnabled((boolean) $priceAndInventory->inventory_tracking->inventory_tracking);
-        $dataObject->setAmount($priceAndInventory->inventory_tracking->quantity);
+        $object->setInventoryEnabled((boolean) $priceAndInventory->inventory_tracking->inventory_tracking);
+        $object->setAmount($priceAndInventory->inventory_tracking->quantity);
 
         $shipping = $this->shipping;
-        $dataObject->setWeight($shipping->weight);
-        $dataObject->setShippable((boolean) $shipping->requires_shipping);
+        $object->setWeight($shipping->weight);
+        $object->setShippable((boolean) $shipping->requires_shipping);
 
         $shippingBox = $shipping->shipping_box;
-        $dataObject->setUseSeparateBox((boolean) $shippingBox->separate_box);
+        $object->setUseSeparateBox((boolean) $shippingBox->separate_box);
 
-        $dataObject->setBoxLength($shippingBox->dimensions['length']);
-        $dataObject->setBoxWidth($shippingBox->dimensions['width']);
-        $dataObject->setBoxHeight($shippingBox->dimensions['height']);
+        $object->setBoxLength($shippingBox->dimensions['length']);
+        $object->setBoxWidth($shippingBox->dimensions['width']);
+        $object->setBoxHeight($shippingBox->dimensions['height']);
 
-        $dataObject->setItemsPerBox($shipping->items_in_box->items_in_box);
+        $object->setItemsPerBox($shipping->items_in_box->items_in_box);
 
         $marketing = $this->marketing;
-        $dataObject->setMetaDescType($marketing->meta_description_type);
-        $dataObject->setMetaDesc((string) $marketing->meta_description);
-        $dataObject->setMetaTags((string) $marketing->meta_keywords);
-        $dataObject->setMetaTitle((string) $marketing->product_page_title);
+        $object->setMetaDescType($marketing->meta_description_type);
+        $object->setMetaDesc((string) $marketing->meta_description);
+        $object->setMetaTags((string) $marketing->meta_keywords);
+        $object->setMetaTitle((string) $marketing->product_page_title);
 
-        if (
-            $marketing->clean_url->autogenerate
+        if ($marketing->clean_url->autogenerate
             || empty($marketing->clean_url->clean_url)
         ) {
-            $dataObject->setCleanURL(\XLite\Core\Database::getRepo('XLite\Model\CleanURL')->generateCleanURL($dataObject));
+            $object->setCleanURL(\XLite\Core\Database::getRepo('XLite\Model\CleanURL')->generateCleanURL($object));
 
         } else {
-            $dataObject->setCleanURL((string) $marketing->clean_url->clean_url . '.html');
+            $value = $marketing->clean_url->clean_url . '.html';
+            if ($marketing->clean_url->force) {
+                $repo = \XLite\Core\Database::getRepo('XLite\Model\CleanURL');
+                $conflictEntity = $repo->getConflict(
+                    $value,
+                    $object,
+                    $object->getProductId()
+                );
+
+                if ($conflictEntity && $value !== $conflictEntity->getCleanURL()) {
+                    /** @var \Doctrine\Common\Collections\Collection $cleanURLs */
+                    $cleanURLs = $conflictEntity->getCleanURLs();
+                    /** @var \XLite\Model\CleanURL $cleanURL */
+                    foreach ($cleanURLs as $cleanURL) {
+                        if ($value === $cleanURL->getCleanURL()) {
+                            $cleanURLs->removeElement($cleanURL);
+                            \XLite\Core\Database::getEM()->remove($cleanURL);
+
+                            break;
+                        }
+                    }
+                }
+
+                $object->setCleanURL((string) $value, true);
+
+            } else {
+                $object->setCleanURL((string) $value);
+            }
+
         }
     }
 
     /**
-     * @param \XLite\Model\Product $dataObject
+     * @param \XLite\Model\Product $object
      * @param array|null           $rawData
      *
      * @return mixed
      */
-    public function afterCreate($dataObject, $rawData = null)
+    public function afterCreate($object, $rawData = null)
     {
-        \XLite\Core\Database::getRepo('XLite\Model\Attribute')->generateAttributeValues($dataObject);
+        \XLite\Core\Database::getRepo('XLite\Model\Attribute')->generateAttributeValues($object);
 
-        if (!$dataObject->getSku()) {
-            $sku = \XLite\Core\Database::getRepo('XLite\Model\Product')->generateSKU($dataObject);
-            $dataObject->setSku((string) $sku);
+        if (!$object->getSku()) {
+            $sku = \XLite\Core\Database::getRepo('XLite\Model\Product')->generateSKU($object);
+            $object->setSku((string) $sku);
         }
     }
 }

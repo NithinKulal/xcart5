@@ -1,0 +1,16 @@
+{##
+ # Payment actions unit
+ #
+ #
+ # @ListChild (list="order.actions.paymentActionsRow", weight="19000") 
+ #}
+
+{% if this.isAllowRecharge() %}
+  <div class="recharge-button-container">
+  
+  <button type="button" class="btn regular-button create-inline" onclick="javascript: {{ this.getRechargeJsCode() }};">
+    {{ t('Authorize/charge the difference') }}
+  </button>
+  
+  </div>
+{% endif %}

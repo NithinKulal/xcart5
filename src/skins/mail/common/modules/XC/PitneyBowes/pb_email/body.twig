@@ -1,0 +1,23 @@
+{##
+ # Egoods email body (to customer)
+ #}
+<p>
+    <h2>{{ t('Credentials request') }}</h2>
+</p>
+<p>
+  <ul>
+    {% for dataField in this.data %}
+      <li>
+          <span>{{ dataField.humanName }}</span> - <span>{{ dataField.value }}</span>
+      </li>
+    {% endfor %}
+  </ul>
+</p>
+<style>
+    h1.greeting{
+        display: none !important;
+    }
+    #emailFooter{
+        display: none !important;
+    }
+</style>

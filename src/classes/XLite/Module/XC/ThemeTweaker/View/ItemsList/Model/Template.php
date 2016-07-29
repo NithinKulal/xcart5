@@ -116,7 +116,7 @@ class Template extends \XLite\View\ItemsList\Model\Table
      *
      * @return string
      */
-    protected function getFullPathByShortPath($shortPath, $skin = 'theme_tweaker/default')
+    protected function getFullPathByShortPath($shortPath, $skin = 'theme_tweaker/customer')
     {
         $result = '';
 
@@ -153,10 +153,10 @@ class Template extends \XLite\View\ItemsList\Model\Table
      */
     protected function removeEntity(\XLite\Model\AEntity $entity)
     {
-        $pathSkin = 'theme_tweaker/default';
+        $pathSkin = 'theme_tweaker/customer';
         $localPath = $entity->getTemplate();
 
-        $shortPath = substr($localPath, strpos($localPath, LC_DS, strlen($pathSkin . LC_DS)) + strlen(LC_DS));
+        $shortPath = substr($localPath, strpos($localPath, LC_DS, strlen($pathSkin)));
         $fullPath = $this->getFullPathByShortPath($shortPath);
 
         \Includes\Utils\FileManager::deleteFile($fullPath);
@@ -190,5 +190,15 @@ class Template extends \XLite\View\ItemsList\Model\Table
     protected function isEmptyListTemplateVisible()
     {
         return false;
+    }
+
+    /**
+     * Get panel class
+     *
+     * @return \XLite\View\Base\FormStickyPanel
+     */
+    protected function getPanelClass()
+    {
+        return 'XLite\Module\XC\ThemeTweaker\View\StickyPanel\TemplatesForm';
     }
 }

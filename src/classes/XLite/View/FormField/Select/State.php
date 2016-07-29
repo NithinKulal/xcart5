@@ -16,7 +16,9 @@ class State extends \XLite\View\FormField\Select\Regular
     /**
      * Widget param names
      */
-    const PARAM_COUNTRY = 'country';
+    const PARAM_COUNTRY          = 'country';
+    const PARAM_SELECT_ONE       = 'selectOne';
+    const PARAM_SELECT_ONE_LABEL = 'selectOneLabel';
 
     /**
      * Define widget params
@@ -28,8 +30,20 @@ class State extends \XLite\View\FormField\Select\Regular
         parent::defineWidgetParams();
 
         $this->widgetParams += array(
-            self::PARAM_COUNTRY => new \XLite\Model\WidgetParam\TypeString('Country', ''),
+            static::PARAM_COUNTRY          => new \XLite\Model\WidgetParam\TypeString('Country', ''),
+            static::PARAM_SELECT_ONE       => new \XLite\Model\WidgetParam\TypeBool('Display Select one option', false),
+            static::PARAM_SELECT_ONE_LABEL => new \XLite\Model\WidgetParam\TypeString('Select one label', $this->getDefaultSelectOneLabel()),
         );
+    }
+
+    /**
+     * Default 'Select one' label
+     *
+     * @return string
+     */
+    protected function getDefaultSelectOneLabel()
+    {
+        return static::t('Select one');
     }
 
     /**
@@ -52,11 +66,13 @@ class State extends \XLite\View\FormField\Select\Regular
         $result = $this->getParam(static::PARAM_OPTIONS);
 
         if (!$result) {
+
             if ($this->getParam(static::PARAM_COUNTRY)) {
                 $result = \XLite\Core\Database::getRepo('\XLite\Model\State')->findByCountryCodeGroupedByRegion(
                     $this->getParam(static::PARAM_COUNTRY)
                 );
-            }else{
+
+            } else {
                 $result = \XLite\Core\Database::getRepo('\XLite\Model\State')->findAllStatesGrouped();
             }
         }
@@ -72,5 +88,31 @@ class State extends \XLite\View\FormField\Select\Regular
     protected function getDefaultOptions()
     {
         return array();
+    }
+
+    /**
+     * Check - current value is selected or not
+     *
+     * @param mixed $value Value
+     *
+     * @return boolean
+     */
+    protected function isStateOptionSelected($state)
+    {
+        $result = false;
+
+        $fieldValue = $this->getValue();
+
+        $stateId = null;
+
+        if ($fieldValue && $state) {
+            $stateId = $state->getStateId();
+            $result = $this->isOptionSelected($stateId);
+
+        } else {
+            $result = empty($state);
+        }
+
+        return $result;
     }
 }

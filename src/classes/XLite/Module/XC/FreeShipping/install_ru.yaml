@@ -38,3 +38,4 @@ XLite\Model\LanguageLabel:
   - { name: 'Shipping freight only', translations: [{ code: ru, label: 'указанному значению фиксированной стоимости доставки' }] }
   - { name: 'Shipping freight + regular shipping rate', translations: [{ code: ru, label: 'сумме фиксированной стоимости доставки и стоимости доставки, рассчитанной стандартным способом' }] }
   - { name: 'Shipping freight tooltip text', translations: [{ code: ru, label: 'Этот способ доставки становится доступным на чекауте, если у всех продуктов в корзине задана фиксированная стоимость доставки, и нет других доступных методов доставки.' }] }
+  - { name: 'Freight', translations: [{ code: ru, label: 'Фиксированная стоимость доставки' }] }

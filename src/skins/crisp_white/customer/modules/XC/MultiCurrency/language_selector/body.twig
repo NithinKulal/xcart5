@@ -1,0 +1,45 @@
+{##
+ # Language selector
+ #}
+
+<script type="text/javascript">
+  var currenciesByCountry = [];
+{% for countryCode, currencyCode in this.getCountriesByCurrency() %}
+  currenciesByCountry['{{ countryCode }}'] = '{{ currencyCode }}';
+{% endfor %}
+</script>
+
+{% form '\\XLite\\Module\\XC\\MultiCurrency\\View\\Form\\Currency\\CustomerCurrency' %}
+    {% if this.hasAvailableCountries() or this.hasMultipleCurrencies() %}
+    <div class="group">
+      {% if this.hasAvailableCountries() and this.hasMultipleCurrencies() %}
+        <p class="heading">{{ t('Location & Currency') }}</p>
+      {% elseif this.hasAvailableCountries() %}
+        <p class="heading">{{ t('Location') }}</p>
+      {% else %}
+        <p class="heading">{{ t('Currency') }}</p>
+      {% endif %}
+        <div class="input-group">
+          {{ widget('XLite\\Module\\XC\\MultiCurrency\\View\\FormField\\Select\\Currency\\CustomerCountry', fieldName='country_code', style='country-code-selector', fieldId=this.getUniqueId('country_code')) }}
+        </div>
+        {% if this.hasMultipleCurrencies() %}
+          <div class="input-group">
+            {{ widget('XLite\\Module\\XC\\MultiCurrency\\View\\FormField\\Select\\Currency\\CustomerCurrency', fieldName='currency_code', style='currency-code-selector', fieldId=this.getUniqueId('currency_code')) }}
+          </div>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    {% if this.hasMultipleLanguages() %}
+    <div class="group">
+      <p class="heading">{{ t('Language') }}</p>
+        <div class="input-group">
+          {{ widget('XLite\\Module\\XC\\MultiCurrency\\View\\FormField\\Select\\Currency\\CustomerLanguage', fieldName='language', style='language-selector', fieldId=this.getUniqueId('language')) }}
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="group">
+      {{ widget('XLite\\View\\Button\\Submit', label=t('Save'), style='regular-main-button submit') }}
+    </div>
+{% endform %}

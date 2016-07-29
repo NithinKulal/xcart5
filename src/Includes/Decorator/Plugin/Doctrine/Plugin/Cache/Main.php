@@ -8,12 +8,16 @@
 
 namespace Includes\Decorator\Plugin\Doctrine\Plugin\Cache;
 
+use XLite\Core\DependencyInjection\ContainerAwareTrait;
+
 /**
  * Routines for Doctrine library
  *
  */
 class Main extends \Includes\Decorator\Plugin\Doctrine\Plugin\APlugin
 {
+    use ContainerAwareTrait;
+
     // {{{ Hook handlers
 
     /**
@@ -23,8 +27,10 @@ class Main extends \Includes\Decorator\Plugin\Doctrine\Plugin\APlugin
      */
     public function executeHookHandler()
     {
-        $driver = new \XLite\Core\Cache();
+        $driver = \XLite\Core\Database::getInstance()->getCacheDriver();
         $driver->deleteAll();
+
+        $this->getContainer()->get('widget_cache_manager')->deleteAll();
     }
 
     // }}}

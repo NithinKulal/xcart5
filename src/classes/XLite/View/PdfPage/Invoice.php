@@ -84,7 +84,8 @@ class Invoice extends \XLite\View\APdfPage
         return array_merge(
             parent::getPdfStylesheets(),
             array(
-                'order/invoice/style.css',
+                'order/invoice/common.less',
+                'order/invoice/style.less',
                 'order/invoice/print.css',
             )
         );

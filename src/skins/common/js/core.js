@@ -241,6 +241,14 @@ window.core = {
     );
   },
 
+  // Performs browser redirect on setTimeout
+  redirectTo: function(url)
+  {
+    _.defer(function() {
+      window.location.href = url;
+    });
+  },
+
   // Trigger common message
   trigger: function(name, params)
   {
@@ -319,7 +327,7 @@ window.core = {
             var callCallback = core.preprocessResponse(XMLHttpRequest, options, callback);
             data = core.processResponse(XMLHttpRequest);
 
-            return (callCallback && callback) ? callback(XMLHttpRequest, textStatus, data) : true;
+            return (callCallback && callback) ? callback(XMLHttpRequest, textStatus, data, this) : true;
           },
         contentType: 'text/html',
         global:      false,
@@ -955,6 +963,8 @@ jQuery(document).ready(
     core.savedEvents = [];
   }
 );
+
+core.isDeveloperMode = xliteConfig.developer_mode;
 
 /**
  * Common functions

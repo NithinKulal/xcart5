@@ -1,0 +1,10 @@
+{##
+ # Order advanced changed email body (to vendor)
+ #}
+<p>
+  {{ widget('XLite\\View\\Invoice', order=this.order, displayForVendor=this.displayForVendor) }}
+
+  {% if not this.order.trackingNumbers.isEmpty() %}
+    {{ widget_list('tracking.info', order=this.order, trackingNumbers=this.order.trackingNumbers) }}
+  {% endif %}
+<p>

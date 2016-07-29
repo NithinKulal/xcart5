@@ -377,6 +377,25 @@ class Address extends \XLite\Model\Base\PersonalAddress
     }
 
     /**
+     * Returns array of address fields serviceName/value pairs
+     *
+     * @return array
+     */
+    public function serialize()
+    {
+        $fields = $this->getAddressFields();
+
+        $self = $this;
+
+        $result = array_reduce($fields->toArray(), function ($acc, $item) use ($self) {
+            $acc[$item->getAddressField()->getServiceName()] = $item->getValue();
+            return $acc;
+        }, array());
+
+        return $result;
+    }
+
+    /**
      * Clone
      *
      * @return \XLite\Model\AEntity

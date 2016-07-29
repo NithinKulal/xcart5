@@ -643,7 +643,7 @@ class Order extends \XLite\Model\Base\SurchargeOwner
             && (!$profile || $this->getProfile()->getProfileId() != $profile->getProfileId())
         ) {
             $this->getProfile()->setOrder(null);
-            if ($this->getProfile()->getAnonymous() && !$profile->getAnonymous()) {
+            if ($this->getProfile()->getAnonymous() && $profile && !$profile->getAnonymous()) {
                 \XLite\Core\Database::getEM()->remove($this->getProfile());
             }
         }
@@ -703,6 +703,12 @@ class Order extends \XLite\Model\Base\SurchargeOwner
         // Clone order
         $newOrder = parent::cloneEntity();
 
+        if ($this->getOrderNumber()) {
+            $newOrder->setOrderNumber(
+                \XLite\Core\Database::getRepo('XLite\Model\Order')->findNextOrderNumber(false)
+            );
+        }
+        
         // Clone profile
         $newOrder->setOrigProfile($this->getOrigProfile());
 
@@ -2230,7 +2236,7 @@ class Order extends \XLite\Model\Base\SurchargeOwner
 
         $this->finalizeItemsCalculation();
 
-        $this->setTotal($this->getSurchargesTotal());
+        $this->setTotal(max($this->getSurchargesTotal(), 0));
     }
 
     /**
@@ -2512,7 +2518,7 @@ class Order extends \XLite\Model\Base\SurchargeOwner
         $origProfile = $this->getOrigProfile();
 
         if ($profile && (!$origProfile || $profile->getProfileId() != $origProfile->getProfileId())) {
-            \XLite\Core\Database::getRepo('XLite\Model\Profile')->delete($profile);
+            \XLite\Core\Database::getRepo('XLite\Model\Profile')->delete($profile, false);
         }
     }
 
@@ -3085,7 +3091,9 @@ class Order extends \XLite\Model\Base\SurchargeOwner
             );
 
             foreach ($transactions as $t) {
-                \XLite\Core\Database::getEM()->refresh($t);
+                if ($t->isPersistent()) {
+                    \XLite\Core\Database::getEM()->refresh($t);
+                }
                 $backendTransactions = $t->getBackendTransactions();
 
                 $authorized = 0;
@@ -3723,7 +3731,7 @@ class Order extends \XLite\Model\Base\SurchargeOwner
     /**
      * Get orderNumber
      *
-     * @return text 
+     * @return string
      */
     public function getOrderNumber()
     {

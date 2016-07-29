@@ -21,7 +21,6 @@ class Length extends \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Field\AField
                     'alias'      => 'decimal',
                     'rightAlign' => false,
                 ],
-                // 'input_grid' => 'col-sm-2',
                 'position' => isset($options['position']) ? $options['position'] : 0,
             ],
         ];
@@ -40,25 +39,31 @@ class Length extends \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Field\AField
     }
 
     /**
-     * @param string               $name
-     * @param \XLite\Model\Product $object
-     * @param array                $options
+     * @param string $name
+     * @param array  $options
      *
      * @return array
      */
-    public static function getViewData($name, $object, $options)
+    public static function getViewColumns($name, $options)
     {
-        $requiresShipping = $object->getShippable();
-        $separateBox = $object->getUseSeparateBox();
+        return [
+            $name => [
+                'name'    => static::t('Length'),
+                'orderBy' => isset($options['position']) ? $options['position'] : 0,
+            ],
+        ];
+    }
 
-        return $requiresShipping && $separateBox
-            ? [
-                $name => [
-                    'label'    => static::t('Length'),
-                    'value'    => $object->getBoxLength(),
-                    'position' => isset($options['position']) ? $options['position'] : 0,
-                ],
-            ]
-            : [];
+    /**
+     * @param $name
+     * @param $object
+     *
+     * @return array
+     */
+    public static function getViewValue($name, $object)
+    {
+        return $object->getShippable() && $object->getUseSeparateBox()
+            ? $object->getBoxLength()
+            : '';
     }
 }

@@ -23,6 +23,22 @@ abstract class ATextarea extends \XLite\View\FormField\Input\AInput
      */
     const PARAM_COLS = 'cols';
 
+    const PARAM_MAX_LENGTH = 'maxlength';
+
+    /**
+     * Prepare request data (typecasting)
+     *
+     * @param mixed $value Value
+     *
+     * @return mixed
+     */
+    public function prepareRequestData($value)
+    {
+        $value = parent::prepareRequestData($value);
+        $length = $this->getParam(static::PARAM_MAX_LENGTH);
+
+        return $length ? mb_substr($value, 0, $this->getParam(static::PARAM_MAX_LENGTH)) : $value;
+    }
 
     /**
      * Return field type
@@ -90,6 +106,11 @@ abstract class ATextarea extends \XLite\View\FormField\Input\AInput
             unset($attributes['type']);
         }
 
+        $maxLength = $this->getParam(self::PARAM_MAX_LENGTH);
+        if ($maxLength) {
+            $attributes['maxlength'] = $maxLength;
+        }
+
         return $attributes;
     }
 
@@ -103,8 +124,9 @@ abstract class ATextarea extends \XLite\View\FormField\Input\AInput
         parent::defineWidgetParams();
 
         $this->widgetParams += array(
-            static::PARAM_ROWS => new \XLite\Model\WidgetParam\TypeInt('Rows', $this->getDefaultRows()),
-            static::PARAM_COLS => new \XLite\Model\WidgetParam\TypeInt('Cols', $this->getDefaultCols()),
+            static::PARAM_ROWS       => new \XLite\Model\WidgetParam\TypeInt('Rows', $this->getDefaultRows()),
+            static::PARAM_COLS       => new \XLite\Model\WidgetParam\TypeInt('Cols', $this->getDefaultCols()),
+            static::PARAM_MAX_LENGTH => new \XLite\Model\WidgetParam\TypeInt('Maximum length', 0),
         );
     }
 }

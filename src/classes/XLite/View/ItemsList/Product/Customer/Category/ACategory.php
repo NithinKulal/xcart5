@@ -14,6 +14,8 @@ namespace XLite\View\ItemsList\Product\Customer\Category;
  */
 abstract class ACategory extends \XLite\View\ItemsList\Product\Customer\ACustomer
 {
+    use \XLite\View\ItemsList\Product\Customer\DefaultSortByTrait;
+
     /**
      * Widget parameter names
      */
@@ -28,6 +30,20 @@ abstract class ACategory extends \XLite\View\ItemsList\Product\Customer\ACustome
      * Widget target
      */
     const WIDGET_TARGET = 'category';
+
+    /**
+     * Define and set widget attributes; initialize widget
+     *
+     * @param array $params Widget params OPTIONAL
+     *
+     * @return void
+     */
+    public function __construct(array $params = array())
+    {
+        parent::__construct($params);
+
+        $this->processAdditionalSortByModes();
+    }
 
     /**
      * Category
@@ -50,28 +66,6 @@ abstract class ACategory extends \XLite\View\ItemsList\Product\Customer\ACustome
     }
 
     /**
-     * Defines the CSS class for sorting order arrow
-     *
-     * @param string $sortBy
-     *
-     * @return string
-     */
-    protected function getSortArrowClassCSS($sortBy)
-    {
-        return static::SORT_BY_MODE_DEFAULT === $this->getSortBy() ? '' : parent::getSortArrowClassCSS($sortBy);
-    }
-
-    /**
-     * getSortOrder
-     *
-     * @return string
-     */
-    protected function getSortOrder()
-    {
-        return static::SORT_BY_MODE_DEFAULT === $this->getSortBy() ? static::SORT_ORDER_ASC : parent::getSortOrder();
-    }
-
-    /**
      * Return target to retrive this widget from AJAX
      *
      * @return string
@@ -79,36 +73,6 @@ abstract class ACategory extends \XLite\View\ItemsList\Product\Customer\ACustome
     protected static function getWidgetTarget()
     {
         return static::WIDGET_TARGET;
-    }
-
-    /**
-     * Define and set widget attributes; initialize widget
-     *
-     * @param array $params Widget params OPTIONAL
-     *
-     * @return void
-     */
-    public function __construct(array $params = array())
-    {
-        parent::__construct($params);
-
-        if ('default' == \XLite\Core\Config::getInstance()->General->default_products_sort_order) {
-           $this->sortByModes = array(
-                static::SORT_BY_MODE_DEFAULT => 'Default-sort-option',
-            ) + $this->sortByModes;
-        }
-    }
-
-    /**
-     * Get products 'sort by' fields
-     *
-     * @return array
-     */
-    protected function getSortByFields()
-    {
-        return array(
-            'default' => static::SORT_BY_MODE_DEFAULT,
-        ) + parent::getSortByFields();
     }
 
     /**
@@ -181,59 +145,6 @@ abstract class ACategory extends \XLite\View\ItemsList\Product\Customer\ACustome
         parent::defineRequestParams();
 
         $this->requestParams[] = static::PARAM_CATEGORY_ID;
-    }
-
-    /**
-     * getSortByModeDefault
-     *
-     * @return string
-     */
-    protected function getSortByModeDefault()
-    {
-        list($sortField, $sortMode) = $this->getDefaultSortOrderFromOption();
-
-        return $sortField ?: parent::getSortByModeDefault();
-    }
-
-    /**
-     * getSortOrderDefault
-     *
-     * @return string
-     */
-    protected function getSortOrderModeDefault()
-    {
-        list($sortField, $sortMode) = $this->getDefaultSortOrderFromOption();
-
-        return $sortMode ?: parent::getSortOrderModeDefault();
-    }
-
-    /**
-     * Get default sort order values from option
-     * Returned an array(<sortField>, <asc|desc|null>)
-     *
-     * @return array
-     */
-    protected function getDefaultSortOrderFromOption()
-    {
-        // Parse option value
-        preg_match(
-            '/^(\w+)(Asc|Desc)?$/SsU',
-            \XLite\Core\Config::getInstance()->General->default_products_sort_order,
-            $match
-        );
-
-        // Get list of available sort fields
-        $sortFields = $this->getSortByFields();
-
-        $option =(!empty($match[1]) && !empty($sortFields[$match[1]]))
-            ? $sortFields[$match[1]]
-            : null;
-
-        $sortMode = $option && !empty($match[2])
-            ? strtolower($match[2])
-            : null;
-
-        return array($option, $sortMode);
     }
 
     /**

@@ -21,12 +21,12 @@ abstract class APrepare extends \XLite\View\Upgrade\Step\AStep
     public function getCSSFiles()
     {
         $list = parent::getCSSFiles();
+
+        $list[] = self::getDir() . '/css/style.css';
+
         // Must be called from this class
         if ($this->isUpgrade()) {
             $list[] = self::getDir() . '/css/upgrade.css';
-
-        } else {
-            $list[] = self::getDir() . '/css/style.css';
         }
 
         return $list;

@@ -253,7 +253,7 @@ class AWholesalePrice extends \XLite\Model\Repo\ARepo
         if (
             1 == count($prices)
             && isset($prices[0])
-            && 1 == $prices[0]->getQuantityRangeBegin()
+            && $minQty >= $prices[0]->getQuantityRangeBegin()
         ) {
             $prices = array();
         }

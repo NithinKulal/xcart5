@@ -1,0 +1,21 @@
+{##
+ # Marketplace banner
+ #}
+
+<h2>{{ t('Available countries for') }}:&nbsp;{{ this.getCurrencyName() }}</h2>
+
+<p>{{ t('Here you can set countries associated with particular currency.') }}</p>
+
+{% form '\\XLite\\View\\Form\\SimpleForm' with {formAction: 'add_currency_countries'} %}
+    <input type="hidden" name="active_currency_id" value="{{ this.active_currency_id }}">
+    <div class="new-currency-country-container">
+      <div class="new-currency-country-select">
+        {{ widget('\\XLite\\Module\\XC\\MultiCurrency\\View\\FormField\\Select\\CurrencyCountryRich', {'data-filter': '1', multiple: true, fieldName: 'currency_country_id[]', fieldId: 'currency-country-id', fieldOnly: '1'}) }}
+      </div>
+      <div class="new-currency-add-button">
+        {{ widget('XLite\\View\\Button\\Submit', buttonName='currency-add', label=t('Add countries')) }}
+      </div>
+    </div>
+{% endform %}
+
+{{ widget('\\XLite\\Module\\XC\\MultiCurrency\\View\\ItemsList\\Model\\Country') }}

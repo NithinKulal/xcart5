@@ -1,0 +1,13 @@
+{##
+ # Vendor company name
+ #}
+
+<div class="vendor-company-name">
+    <a href="{{ this.getVendorPageURL() }}" class="">
+        {% if this.vendor.getVendorCompanyName() %}
+            <span>{{ this.vendor.getVendorCompanyName() }}</span>
+        {% else %}
+            <span>{{ this.getVendorCompanyNameStub() }}</span>
+        {% endif %}
+    </a>
+</div>

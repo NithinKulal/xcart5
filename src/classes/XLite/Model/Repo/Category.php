@@ -293,23 +293,49 @@ class Category extends \XLite\Model\Repo\Base\I18n
     /**
      * Find one by path
      *
-     * @param array $path Path
+     * @param array   $path   Category path
+     * @param boolean $strict Flag: true - use strict match categories by name, false - suggest &amp; and & as the same string
      *
      * @return \XLite\Model\Category
      */
-    public function findOneByPath(array $path)
+    public function findOneByPath(array $path, $strict = true)
     {
         $result = $this->getRootCategory();
 
         if (!empty($path)) {
             do {
                 $name = array_shift($path);
-                $result = $this->createQueryBuilder()
+
+                $qb = $this->createQueryBuilder()
                     ->andWhere('c.parent = :parent')
-                    ->andWhere('translations.name = :name')
-                    ->setParameter('parent', $result)
-                    ->setParameter('name', $name)
-                    ->getSingleResult();
+                    ->setParameter('parent', $result);
+
+                $names = array();
+
+                if (!$strict) {
+                    $names[] = $name;
+                    $names[] = html_entity_decode($name);
+                    $names[] = htmlspecialchars($name);
+                    $names = array_unique($names);
+                }
+
+                if (1 < count($names)) {
+
+                    $orCnd = new \Doctrine\ORM\Query\Expr\Orx();
+
+                    foreach ($names as $k => $v) {
+                        $orCnd->add('translations.name = :name' . $k);
+                        $qb->setParameter('name' . $k, $v);
+                    }
+
+                    $qb->andWhere($orCnd);
+
+                } else {
+                    $qb->andWhere('translations.name = :name')
+                        ->setParameter('name', $name);
+                }
+
+                $result = $qb->getSingleResult();
 
             } while ($result && $path);
         }
@@ -1227,8 +1253,31 @@ class Category extends \XLite\Model\Repo\Base\I18n
             /** @var \XLite\Model\QueryBuilder\AQueryBuilder $qb */
             $qb = $this->searchState['queryBuilder'];
 
-            $qb->andWhere($qb->expr()->like('translations.name', ':term'))
-                ->setParameter('term', ((string) $value) . '%');
+            if ($this->getTranslationCode() != \XLite::getDefaultLanguage()) {
+                // Add additional join to translations with default language code
+                $this->addDefaultTranslationJoins(
+                    $qb,
+                    $this->getMainAlias($qb),
+                    'defaults',
+                    \XLite::getDefaultLanguage()
+                );
+
+                $qb->andWhere(
+                    $qb->expr()->orX(
+                        'translations.name LIKE :searchTerm',
+                        'translations.name IS NULL AND defaults.name LIKE :searchTerm'
+                    )
+                )
+                    ->setParameter('searchTerm', '%' . (string) $value . '%');
+
+                $qb->addSelect('if(locate(\'' . $value . '\', translations.name)=1,0,1) termLocate');
+
+            } else {
+                $qb->andWhere($qb->expr()->like('translations.name', ':searchTerm'))
+                    ->setParameter('searchTerm', '%' . (string) $value . '%');
+
+                $qb->addSelect('if(locate(\'' . $value . '\', translations.name)=1,0,1) termLocate');
+            }
         }
     }
 
@@ -1270,5 +1319,19 @@ class Category extends \XLite\Model\Repo\Base\I18n
         return is_string($result)
             ? $result
             : '';
+    }
+
+    /**
+     * Define remove data iterator query builder
+     *
+     * @param integer $position Position
+     *
+     * @return \XLite\Model\QueryBuilder\AQueryBuilder
+     */
+    protected function defineRemoveDataQueryBuilder($position)
+    {
+        $qb = $this->createPureQueryBuilder();
+        $qb->andWhere($this->getMainAlias($qb) . '.depth = 0');
+        return $qb;
     }
 }

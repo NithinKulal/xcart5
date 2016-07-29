@@ -1,0 +1,13 @@
+{##
+ # HTTPS Warning 
+ #
+ #}
+
+{% if not this.isEnabledHTTPS() %}
+  <br/>
+
+  <div class="alert alert-danger connection-status">
+    <strong>{{ t('Secure protocol is disabled!') }}</strong>
+    {{ t('Check') }} <a href="{{ this.buildUrl('https_settings') }}" title="{{ t('HTTPS settings') }}">{{ t('HTTPS settings') }}</a>
+  </div>
+{% endif %}

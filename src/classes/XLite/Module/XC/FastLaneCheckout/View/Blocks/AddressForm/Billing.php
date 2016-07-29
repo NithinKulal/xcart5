@@ -24,6 +24,14 @@ class Billing extends FastLaneCheckout\View\Blocks\AddressForm
     }
 
     /**
+     * @return string
+     */
+    public function getShortAddressType()
+    {
+        return 'b';
+    }
+
+    /**
      * Modifier (cache)
      *
      * @var \XLite\Model\Order\Modifier
@@ -93,8 +101,8 @@ class Billing extends FastLaneCheckout\View\Blocks\AddressForm
     protected function isSameAddress()
     {
         return is_null(\XLite\Core\Session::getInstance()->same_address)
-            ? !$this->getCart()->getProfile() || $this->getCart()->getProfile()->isEqualAddress()
-            : \XLite\Core\Session::getInstance()->same_address;
+            ? $this->isSameAddressVisible() && (!$this->getCart()->getProfile() || $this->getCart()->getProfile()->isEqualAddress())
+            : \XLite\Core\Session::getInstance()->same_address && $this->getCart()->isShippingSectionVisible();
     }
 
     /**

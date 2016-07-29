@@ -38,7 +38,7 @@ class Cart extends \XLite\Controller\Customer\ACustomer
     {
         parent::init();
 
-        if (\XLite\Core\Request::getInstance()->isGet()) {
+        if (\XLite\Core\Request::getInstance()->isGet() && !$this->isAJAX()) {
             $this->checkItemsAmount();
         }
     }

@@ -1,0 +1,15 @@
+{##
+ # Recover password : form : button
+ #
+ # @ListChild (list="recover.password.fields", weight="300")
+ #}
+
+<tr>
+  <td class="buttons">
+    {{ widget('\\XLite\\View\\Button\\Submit', label=t('submit_restore_pass')) }}
+    {% if this.getTarget != 'checkout' %}
+      {{ widget('XLite\\View\\Button\\PopupLoginLink', {template: 'button/popup_login_link.twig'}) }}
+    {% endif %}
+  </td>
+</tr>
+

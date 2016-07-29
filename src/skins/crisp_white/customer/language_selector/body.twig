@@ -1,0 +1,13 @@
+{##
+ # Language selector
+ #}
+
+<div class="group">
+    <label class="heading">{{ t('Language') }}</label>
+    <select class="form-control" onChange="core.redirectTo(this.value)">
+      <option selected>{{ this.currentLanguage.name }}</option>
+      {% for language in this.getActiveLanguages() %}
+        <option value="{{ this.getChangeLanguageLink(language) }}">{{ language.name }}</option>
+      {% endfor %}
+    </select>
+</div>

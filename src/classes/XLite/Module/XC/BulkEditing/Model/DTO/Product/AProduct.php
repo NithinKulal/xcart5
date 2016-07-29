@@ -26,34 +26,34 @@ abstract class AProduct extends \XLite\Model\DTO\Base\ADTO
     }
 
     /**
-     * @param \XLite\Model\Product $dataObject
+     * @param \XLite\Model\Product $object
      * @param array|null           $rawData
      *
      * @return mixed
      */
-    public function populateTo($dataObject, $rawData = null)
+    public function populateTo($object, $rawData = null)
     {
         $fields = \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Scenario::getScenarioFields($this->scenario);
         foreach ($fields as $section => $sectionFields) {
             foreach ($sectionFields as $name => $field) {
                 if ($this->isEdited($section . '.' . $name)) {
-                    call_user_func([$field['class'], 'populateData'], $name, $dataObject, $this->{$section});
+                    call_user_func([$field['class'], 'populateData'], $name, $object, $this->{$section});
                 }
             }
         }
     }
 
     /**
-     * @param mixed|\XLite\Model\Product $data
+     * @param mixed|\XLite\Model\Product $object
      */
-    protected function init($data)
+    protected function init($object)
     {
         $fields = \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Scenario::getScenarioFields($this->scenario);
 
         foreach ($fields as $section => $sectionFields) {
             $sectionData = [];
             foreach ($sectionFields as $name => $field) {
-                $sectionData = array_merge($sectionData, call_user_func([$field['class'], 'getData'], $name, $data));
+                $sectionData = array_merge($sectionData, call_user_func([$field['class'], 'getData'], $name, $object));
             }
             $this->{$section} = new CommonCell($sectionData);
         }

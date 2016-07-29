@@ -22,3 +22,10 @@ XLite\Model\ImageSettings:
     code: Default
     width: 366
     height: 440
+
+XLite\Model\LanguageLabel:
+ - { name: 'You just added', translations: [{ code: en, label: 'You have just added' }, { code: ru, label: 'Вы добавили в корзину' }] }
+ - { name: 'Go to comparison table', translations: [{ code: en, label: 'Open comparison table' }, { code: ru, label: 'Открыть таблицу сравнения' }] }
+ - { name: 'Please add another product to comparison', translations: [{ code: en, label: 'Please add another product to comparison' }, { code: ru, label: 'Выберите еще один продукт для сравнения' }] }
+ - { name: 'High - Low', translations: [{ code: en, label: 'high to low' }, { code: ru, label: 'по убыванию' }] }
+ - { name: 'Low - High', translations: [{ code: en, label: 'low to high' }, { code: ru, label: 'по возрастанию' }] }

@@ -501,6 +501,26 @@ abstract class AFormField extends \XLite\View\AView
     }
 
     /**
+     * Validate field on form side
+     *
+     * @return array
+     */
+    protected function validateFormField()
+    {
+        $isValid = true;
+        $errorMessage = null;
+
+        if (null !== $this->name) {
+            $result = $this->callFormMethod('validateFormField', array($this));
+            if (is_array($result)) {
+                list($isValid, $errorMessage) = $result;
+            }
+        }
+
+        return array($isValid, $errorMessage);
+    }
+
+    /**
      * getDefaultLabel
      *
      * @return string
@@ -608,6 +628,9 @@ abstract class AFormField extends \XLite\View\AView
         if ($this->isRequired() && !$this->checkFieldValue()) {
             $this->errorMessage = $this->getRequiredFieldErrorMessage();
             $result = false;
+
+        } else {
+            list($result, $this->errorMessage) = $this->validateFormField();
         }
 
         return $result;
@@ -649,7 +672,7 @@ abstract class AFormField extends \XLite\View\AView
 
             $form = \XLite\View\Model\AModel::getCurrentForm();
 
-            $result = $form
+            $result = $form && method_exists($form, $method)
                 ? call_user_func_array(array($form, $method), $args)
                 : null;
         }

@@ -159,10 +159,12 @@ abstract class Surcharge extends \XLite\Model\AEntity
     {
         $found = null;
 
-        foreach ($this->getOrder()->getModifiers() as $modifier) {
-            if ($modifier->isSurchargeOwner($this)) {
-                $found = $modifier;
-                break;
+        if ($this->getOrder()) {
+            foreach ($this->getOrder()->getModifiers() as $modifier) {
+                if ($modifier->isSurchargeOwner($this)) {
+                    $found = $modifier;
+                    break;
+                }
             }
         }
 

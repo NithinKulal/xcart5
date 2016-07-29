@@ -1,0 +1,91 @@
+{##
+ # iframe 
+ #
+ #
+ # @ListChild (list="customer.account.saved_cards.table", weight="100")
+ #}
+
+
+{% if this.profile.getSavedCards() %}
+<div>
+
+  {% form '\\XLite\\Module\\CDev\\XPaymentsConnector\\View\\Form\\SavedCards' %}
+
+  <table class="saved-cards">
+    <tr>
+      <th>{{ t('Order') }}</th>
+      <th>{{ t('Credit card') }}</th>
+      <th>{{ t('Billing Address') }}</th>
+      <th>{{ t('Default') }}</th>
+      <th></th>
+    </tr>
+    {% for cc in this.profile.getSavedCards() %}
+      <tr>
+        <td class="orderid"><a href="{{ url('order', '', {'order_number': cc.invoice_id}) }}">#{{ cc.invoice_id }}</a></td>
+        <td>
+
+          <div class="saved-card">
+            <div class="card-icon-container">
+              <span class="card {{ cc.card_type_css }}"><img src="{{ asset('images/spacer.gif') }}" alt="{{ cc.card_type }}"/></span>
+            </div>
+            <div class="card-number">
+              {{ cc.card_number }}
+            </div>
+            {% if cc.expire %}
+              <div class="card-expire">
+                {{ cc.expire }}
+              </div>
+            {% endif %}
+          </div>
+
+        </td>
+        <td class="address">
+          {% if this.getAddressList() %}
+
+            {% if this.isSingleAddress() %}
+              <div class="single">
+                {{ this.getSingleAddress() }}
+              </div>
+            {% else %}
+              <select name="address_id[{{ cc.card_id }}]" value="{{ cc.address_id }}">
+                {% if not cc.address_id %}
+                  <option value="0" selected="selected"></option>
+                {% endif %}
+                {% for addressId, address in this.getAddressList() %}
+                  <option value="{{ addressId }}" {% if addressId == cc.address_id %}selected="selected"{% endif %}>{{ address }}</option>
+                {% endfor %}
+              </select>
+            {% endif %}
+          {% endif %}
+        </td>
+        <td class="default-column">
+          {% if cc.is_default %}
+            <input checked type="radio" name="default_card_id" value="{{ cc.card_id }}" />
+          {% else %}
+            <input type="radio" name="default_card_id" value="{{ cc.card_id }}" />
+          {% endif %}
+        </td>
+        <td class="remove-column">
+          {% include this.getRemoveTemplate(cc.card_id) %}
+        </td>
+      </tr>  
+    {% endfor %}
+  </table>
+
+  {{ widget('\\XLite\\View\\Button\\Submit', label=t('Update saved credit cards'), style='main') }}
+
+  {% if this.allowZeroAuth() %}
+    &nbsp;&nbsp;<a href="{{ url('add_new_card') }}">{{ t('Add new credit card') }}</a>
+  {% endif %}
+
+  {% endform %}
+
+</div>
+{% else %}
+
+  {% if this.allowZeroAuth() %}
+    <br/>
+    &nbsp;&nbsp;<a href="{{ url('add_new_card') }}">{{ t('Add new credit card') }}</a>
+  {% endif %}
+
+{% endif %}

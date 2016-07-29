@@ -805,7 +805,7 @@ a.final-link:hover {
 }
 
 .report-layer {
-  background: url(<?php echo $skinsDir; ?>../../default/en/images/popup_overlay.png) repeat scroll 50% 50% transparent;
+  background: url(<?php echo $skinsDir; ?>../../customer/images/popup_overlay.png) repeat scroll 50% 50% transparent;
   left: 0;
   position: absolute;
   top: 0;
@@ -848,7 +848,7 @@ a.report-close {
   -moz-border-radius: 0 11px 11px 0;
   border-radius: 0 11px 11px 0;
   -webkit-border-radius: 0 11px 11px 0;
-  background: url(<?php echo $skinsDir; ?>../../admin/en/images/icon_window_close.png) no-repeat scroll 10px 10px #7A7A7A;
+  background: url(<?php echo $skinsDir; ?>../../admin/images/icon_window_close.png) no-repeat scroll 10px 10px #7A7A7A;
   display: block;
   height: 41px;
   margin-left: 780px;

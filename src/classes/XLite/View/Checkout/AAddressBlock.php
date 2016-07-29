@@ -14,6 +14,13 @@ namespace XLite\View\Checkout;
 abstract class AAddressBlock extends \XLite\View\AView
 {
     /**
+     * RuntimeCache
+     *
+     * @var array
+     */
+    protected $addressSchemaFields;
+
+    /**
      * Get address info model
      *
      * @return \XLite\Model\Address
@@ -73,7 +80,7 @@ abstract class AAddressBlock extends \XLite\View\AView
             $methodName = 'get' . \XLite\Core\Converter::getInstance()->convertToCamelCase($fieldName);
 
             // $methodName assembled from 'get' + camelized $fieldName
-            $result = $address->$methodName();
+            $result = $address->$methodName(true);
 
             if ($result && false !== $processValue) {
 
@@ -162,16 +169,18 @@ abstract class AAddressBlock extends \XLite\View\AView
      */
     protected function getAddressSchemaFields()
     {
-        $schema = $this->getAddressFields();
+        if (!isset($this->addressSchemaFields)) {
+            $this->addressSchemaFields = $this->getAddressFields();
 
-        foreach ($schema as $name => $data) {
-            $field = $this->getFieldBySchema($name, $data);
-            if ($field) {
-                $schema[$name]['widget'] = $field;
+            foreach ($this->addressSchemaFields as $name => $data) {
+                $field = $this->getFieldBySchema($name, $data);
+                if ($field) {
+                    $this->addressSchemaFields[$name]['widget'] = $field;
+                }
             }
         }
 
-        return $schema;
+        return $this->addressSchemaFields;
     }
 
     /**
@@ -199,6 +208,20 @@ abstract class AAddressBlock extends \XLite\View\AView
         }
 
         return $result;
+    }
+
+    /**
+     * Enable 'Select one' option for state_id selector
+     *
+     * @param array $data Array of field data
+     *
+     * @return array
+     */
+    protected function prepareFieldParamsStateId($data)
+    {
+        $data[\XLite\View\FormField\Select\State::PARAM_SELECT_ONE] = true;
+
+        return $data;
     }
 
     /**

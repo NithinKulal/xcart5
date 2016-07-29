@@ -1,0 +1,16 @@
+{##
+ # Fastlane checkout heading bar
+ #
+ # @ListChild (list="checkout_fastlane", weight="20")
+ #}
+
+<sections inline-template>
+    <div class="checkout_fastlane_sections" v-bind:class="classes">
+        <div class="checkout_fastlane_section_wrapper">
+            {{ widget('XLite\\Module\\XC\\FastLaneCheckout\\View\\Sections') }}
+            {{ widget_list('checkout_fastlane.sections_block.after') }}
+        </div>
+    	{{ widget_list('checkout_fastlane.sections.after') }}
+    </div>
+    <div class="clearfix"></div>
+</sections>

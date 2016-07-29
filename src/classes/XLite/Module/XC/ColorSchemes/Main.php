@@ -52,7 +52,7 @@ abstract class Main extends \XLite\Module\AModuleSkin
      */
     public static function getMinorVersion()
     {
-        return '0';
+        return '1';
     }
 
     /**
@@ -78,16 +78,16 @@ abstract class Main extends \XLite\Module\AModuleSkin
     /**
      * The following pathes are defined as substitutional skins:
      *
-     * admin interface:     skins/custom_skin/admin/en/
-     * customer interface:  skins/custom_skin/default/en/
-     * mail interface:      skins/custom_skin/mail/en
+     * admin interface:     skins/custom_skin/admin/
+     * customer interface:  skins/custom_skin/customer/
+     * mail interface:      skins/custom_skin/mail/
      *
      * @return array
      */
     public static function getSkins()
     {
         return array(
-            \XLite::CUSTOMER_INTERFACE  => array('XC_ColorSchemes/default'),
+            \XLite::CUSTOMER_INTERFACE  => array('XC_ColorSchemes/customer'),
         );
     }
 

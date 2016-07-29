@@ -154,5 +154,16 @@ class AttributeValues extends \XLite\View\AView
             ? 'order_items'
             : 'new';
     }
-
+    
+    /**
+     * Return specific CSS class for attribute wrapper(default <li>)
+     *
+     * @param $attribute \XLite\Model\Attribute
+     * 
+     * @return string
+     */
+    protected function getAttributeCSSClass($attribute)
+    {
+        return '';
+    }
 }

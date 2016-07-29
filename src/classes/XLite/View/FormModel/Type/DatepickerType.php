@@ -84,5 +84,4 @@ class DatepickerType extends AType
             )
         ]);
     }
-
 }

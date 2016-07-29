@@ -28,7 +28,9 @@ class Layout extends \XLite\Core\Layout implements \XLite\Base\IDecorator
                 'order_list',
                 'address_book',
                 'profile',
-                'messages'
+                'messages',
+                'login',
+                'recover_password',
             ]
         );
     }
@@ -48,7 +50,9 @@ class Layout extends \XLite\Core\Layout implements \XLite\Base\IDecorator
                 'order_list',
                 'address_book',
                 'profile',
-                'messages'
+                'messages',
+                'login',
+                'recover_password',
             ]
         );
     }

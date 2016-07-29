@@ -125,12 +125,12 @@ class Scenario
             'product_categories'           => [
                 'title'     => \XLite\Core\Translation::getInstance()->translate('Categories'),
                 'formModel' => 'XLite\Module\XC\BulkEditing\View\FormModel\Product\Categories',
-                'view'      => 'XLite\Module\XC\BulkEditing\View\ItemsList\BulkEditing\Product\Category',
+                'view'      => 'XLite\Module\XC\BulkEditing\View\ItemsList\BulkEdit\Product\Category',
                 'DTO'       => 'XLite\Module\XC\BulkEditing\Model\DTO\Product\Categories',
                 'step'      => 'XLite\Module\XC\BulkEditing\Logic\BulkEdit\Step\Product',
                 'fields'    => [
                     'default' => [
-                        'category' => [
+                        'categories' => [
                             'class'   => 'XLite\Module\XC\BulkEditing\Logic\BulkEdit\Field\Product\Category',
                             'options' => [
                                 'position' => 100,
@@ -142,7 +142,7 @@ class Scenario
             'product_inventory'            => [
                 'title'     => \XLite\Core\Translation::getInstance()->translate('Inventory'),
                 'formModel' => 'XLite\Module\XC\BulkEditing\View\FormModel\Product\Inventory',
-                'view'      => 'XLite\Module\XC\BulkEditing\View\ItemsList\BulkEditing\Product\Inventory',
+                'view'      => 'XLite\Module\XC\BulkEditing\View\ItemsList\BulkEdit\Product\Inventory',
                 'DTO'       => 'XLite\Module\XC\BulkEditing\Model\DTO\Product\Inventory',
                 'step'      => 'XLite\Module\XC\BulkEditing\Logic\BulkEdit\Step\Product',
                 'fields'    => [
@@ -183,18 +183,18 @@ class Scenario
             'product_price_and_membership' => [
                 'title'     => \XLite\Core\Translation::getInstance()->translate('Price and membership'),
                 'formModel' => 'XLite\Module\XC\BulkEditing\View\FormModel\Product\PriceAndMembership',
-                'view'      => 'XLite\Module\XC\BulkEditing\View\ItemsList\BulkEditing\Product\PriceAndMembership',
+                'view'      => 'XLite\Module\XC\BulkEditing\View\ItemsList\BulkEdit\Product\PriceAndMembership',
                 'DTO'       => 'XLite\Module\XC\BulkEditing\Model\DTO\Product\PriceAndMembership',
                 'step'      => 'XLite\Module\XC\BulkEditing\Logic\BulkEdit\Step\Product',
                 'fields'    => [
                     'default' => [
-                        'price'      => [
+                        'price'       => [
                             'class'   => 'XLite\Module\XC\BulkEditing\Logic\BulkEdit\Field\Product\Price',
                             'options' => [
                                 'position' => 100,
                             ],
                         ],
-                        'membership' => [
+                        'memberships' => [
                             'class'   => 'XLite\Module\XC\BulkEditing\Logic\BulkEdit\Field\Product\Membership',
                             'options' => [
                                 'position' => 200,
@@ -206,7 +206,7 @@ class Scenario
             'product_shipping_info'        => [
                 'title'     => \XLite\Core\Translation::getInstance()->translate('Shipping info'),
                 'formModel' => 'XLite\Module\XC\BulkEditing\View\FormModel\Product\ShippingInfo',
-                'view'      => 'XLite\Module\XC\BulkEditing\View\ItemsList\BulkEditing\Product\ShippingInfo',
+                'view'      => 'XLite\Module\XC\BulkEditing\View\ItemsList\BulkEdit\Product\ShippingInfo',
                 'DTO'       => 'XLite\Module\XC\BulkEditing\Model\DTO\Product\ShippingInfo',
                 'step'      => 'XLite\Module\XC\BulkEditing\Logic\BulkEdit\Step\Product',
                 'fields'    => [
@@ -255,6 +255,10 @@ class Scenario
                         ],
                     ],
                 ],
+            ],
+            'product_global_attributes'    => [
+                'title'   => \XLite\Core\Translation::getInstance()->translate('Global attributes'),
+                'url'     => 'http://ideas.x-cart.com/forums/229428-x-cart-5-x/suggestions/15147627-bulk-products-editing-global-attributes',
             ],
         ];
     }

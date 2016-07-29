@@ -1,0 +1,15 @@
+{##
+ # Header right box
+ #
+ # @ListChild (list="header.menu", weight="1000")
+ #}
+{% if this.isSlidebar %}
+    <li class="Divider"></li>
+    <li class="additional-menu-wrapper">
+        <ul class="Inset additional-menu">
+            {% for w in this.getViewList('slidebar.additional-menu') %}
+                <li>{{ w.display() }}</li>
+            {% endfor %}
+        </ul>
+    </li>
+{% endif %}

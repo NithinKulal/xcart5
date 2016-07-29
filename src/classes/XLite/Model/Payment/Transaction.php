@@ -220,6 +220,13 @@ class Transaction extends \XLite\Model\AEntity
     );
 
     /**
+     * Run-time cache of registered transaction data
+     *
+     * @var array
+     */
+    protected $registeredCache;
+
+    /**
      * Get statuses
      *
      * @return array
@@ -865,20 +872,43 @@ class Transaction extends \XLite\Model\AEntity
     {
         $descrSuffix = !empty($suffix) ? ' [' . static::t($suffix) . ']' : '';
 
-        \XLite\Core\OrderHistory::getInstance()->registerTransaction(
-            $this->getOrder()->getOrderId(),
-            static::t($this->getHistoryEventDescription(), $this->getHistoryEventDescriptionData()) . $descrSuffix,
-            $this->getEventData()
-        );
+        // Prepare event description
+        $description = static::t($this->getHistoryEventDescription(), $this->getHistoryEventDescriptionData()) . $descrSuffix;
 
-        if ($this->getStatus() == static::STATUS_FAILED) {
+        if ($this->getStatus() == static::STATUS_FAILED && !$this->getDataCell('cart_items')) {
+            // Failed transaction: Register info about cart items
             $this->setDataCell(
                 'cart_items',
                 serialize($this->getCartItems()),
                 'Cart items'
             );
+
             \XLite\Core\Database::getEM()->flush($this);
-            \XLite\Core\Mailer::sendFailedTransactionAdmin($this);
+        }
+
+        // Run-time cache key
+        $key = md5(
+            $this->getOrder()->getOrderId() . '.'
+            . $description . '.'
+            . serialize($this->getEventData())
+        );
+
+        if (!isset($this->registeredCache[$key])) {
+
+            // Register transaction in order history
+
+            $this->registeredCache[$key] = true;
+
+            \XLite\Core\OrderHistory::getInstance()->registerTransaction(
+                $this->getOrder()->getOrderId(),
+                $description,
+                $this->getEventData()
+            );
+
+            if ($this->getStatus() == static::STATUS_FAILED) {
+                // Send notification 'Failed transaction' to the Orders department
+                \XLite\Core\Mailer::sendFailedTransactionAdmin($this);
+            }
         }
     }
 

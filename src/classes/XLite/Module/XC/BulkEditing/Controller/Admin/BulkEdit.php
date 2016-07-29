@@ -14,16 +14,25 @@ class BulkEdit extends \XLite\Controller\Admin\AAdmin
 {
     use \XLite\Controller\Features\FormModelControllerTrait;
 
+    /**
+     * @var string Current scenario
+     */
     protected $scenario;
 
+    /**
+     * @var \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Generator
+     */
     protected $generator;
 
     /**
-     * params
-     *
-     * @var string
+     * @param array $params
      */
-    protected $params = ['target', 'scenario'];
+    public function __construct(array $params)
+    {
+        parent::__construct($params);
+
+        $this->params = array_merge($this->params, ['scenario']);
+    }
 
     /**
      * Returns object to get initial data and populate submitted data to
@@ -47,21 +56,83 @@ class BulkEdit extends \XLite\Controller\Admin\AAdmin
         $this->scenario = \XLite\Core\Request::getInstance()->scenario;
     }
 
+    /**
+     * @return string
+     */
     public function getCurrentScenario()
     {
         return $this->scenario;
     }
 
     /**
-     * Return the current page title (for the content area)
-     *
      * @return string
      */
     public function getTitle()
     {
         $scenario = \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Scenario::getScenarioData($this->scenario);
 
-        return $scenario['title'];
+        return static::t('Bulk edit') . ' ' . mb_strtolower($scenario['title']);
+    }
+
+    /**
+     * Add part to the location nodes list
+     *
+     * @return void
+     */
+    protected function addBaseLocation()
+    {
+        $sessionCellName = \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Scenario::$searchCndSessionCell;
+        $sessionCell = \XLite\Core\Session::getInstance()->{$sessionCellName};
+
+        $this->addLocationNode(static::t('Product list'), $sessionCell['returnURL'] ?: $this->buildURL('product_list'));
+    }
+
+    /**
+     * @return boolean
+     */
+    public function checkAccess()
+    {
+        $sessionCellName = \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Scenario::$searchCndSessionCell;
+        $filter = \XLite\Core\Session::getInstance()->{$sessionCellName};
+
+        return parent::checkAccess() && ($filter || $this->getAction() === 'start');
+    }
+
+    /**
+     * @return \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Generator
+     */
+    public function getGenerator()
+    {
+        if (null === $this->generator) {
+            $eventName = \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Generator::getEventName();
+            $state = \XLite\Core\Database::getRepo('XLite\Model\TmpVar')->getEventState($eventName);
+            $this->generator = ($state && isset($state['options']))
+                ? new \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Generator($state['options'])
+                : false;
+        }
+
+        return $this->generator;
+    }
+
+    /**
+     * Check - export process is not-finished or not
+     *
+     * @return boolean
+     */
+    public function isBulkEditNotFinished()
+    {
+        $eventName = \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Generator::getEventName();
+        $state = \XLite\Core\Database::getRepo('XLite\Model\TmpVar')->getEventState($eventName);
+
+        return $state
+        && in_array(
+            $state['state'],
+            [\XLite\Core\EventTask::STATE_STANDBY, \XLite\Core\EventTask::STATE_IN_PROGRESS],
+            true
+        )
+        && !\XLite\Core\Database::getRepo('XLite\Model\TmpVar')->getVar(
+            \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Generator::getBulkEditCancelFlagVarName()
+        );
     }
 
     /**
@@ -72,11 +143,11 @@ class BulkEdit extends \XLite\Controller\Admin\AAdmin
     protected function doNoAction()
     {
         if (\XLite\Core\Request::getInstance()->completed) {
-            \XLite\Core\TopMessage::addInfo('BulkEdit success');
+            \XLite\Core\TopMessage::addInfo('Bulk edit has been processed successfully.');
             $this->setReturnURL($this->buildURL('bulk_edit', '', ['scenario' => $this->scenario]));
 
         } elseif (\XLite\Core\Request::getInstance()->failed) {
-            \XLite\Core\TopMessage::addError('BulkEdit error');
+            \XLite\Core\TopMessage::addError('Bulk edit processing has been interrupted.');
             $this->setReturnURL($this->buildURL('bulk_edit', '', ['scenario' => $this->scenario]));
         }
     }
@@ -101,6 +172,7 @@ class BulkEdit extends \XLite\Controller\Admin\AAdmin
         \XLite\Core\Session::getInstance()->{$sessionCellName} = [
             'selected'      => $selected,
             'conditionCell' => $conditionCell,
+            'returnURL'     => \XLite\Core\Request::getInstance()->returnURL,
         ];
 
         $this->setReturnURL($this->buildURL('bulk_edit', '', ['scenario' => $this->scenario]));
@@ -144,47 +216,20 @@ class BulkEdit extends \XLite\Controller\Admin\AAdmin
     }
 
     /**
+     * Cancel
+     *
+     * @return void
+     */
+    protected function doActionCancel()
+    {
+        \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Generator::cancel();
+    }
+
+    /**
      * @return boolean
      */
     protected function isVisible()
     {
         return parent::isVisible() && \XLite\Core\Request::getInstance()->scenario;
-    }
-
-    /**
-     * @return \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Generator
-     */
-    public function getGenerator()
-    {
-        if (!isset($this->generator)) {
-            $eventName = \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Generator::getEventName();
-            $state = \XLite\Core\Database::getRepo('XLite\Model\TmpVar')->getEventState($eventName);
-            $this->generator = ($state && isset($state['options']))
-                ? new \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Generator($state['options'])
-                : false;
-        }
-
-        return $this->generator;
-    }
-
-    /**
-     * Check - export process is not-finished or not
-     *
-     * @return boolean
-     */
-    public function isBulkEditNotFinished()
-    {
-        $eventName = \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Generator::getEventName();
-        $state = \XLite\Core\Database::getRepo('XLite\Model\TmpVar')->getEventState($eventName);
-
-        return $state
-        && in_array(
-            $state['state'],
-            [\XLite\Core\EventTask::STATE_STANDBY, \XLite\Core\EventTask::STATE_IN_PROGRESS],
-            true
-        )
-        && !\XLite\Core\Database::getRepo('XLite\Model\TmpVar')->getVar(
-            \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Generator::getBulkEditCancelFlagVarName()
-        );
     }
 }

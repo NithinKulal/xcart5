@@ -59,6 +59,20 @@ abstract class ACustomer extends \XLite\View\ItemsList\Product\Customer\ACustome
     }
 
     /**
+     * @return string
+     */
+    protected function getSortOrderLabel($key = null)
+    {
+        if (!$key || $key === $this->getSortBy()) {
+            return $this->getSortArrowClassCSS($this->getSortBy()) != ''
+                ? $this->sortOrderModes[$this->getSortOrder()]
+                : '';
+        }
+
+        return '';
+    }
+
+    /**
      * Initialize widget (set attributes)
      *
      * @param array $params Widget params

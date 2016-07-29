@@ -15,6 +15,8 @@ namespace XLite\View;
  */
 class Invoice extends \XLite\View\AView
 {
+    use \XLite\View\Base\ViewListsFallbackTrait;
+
     /**
      * Widget parameter names
      */
@@ -45,7 +47,25 @@ class Invoice extends \XLite\View\AView
     public function getCSSFiles()
     {
         $list = parent::getCSSFiles();
-        $list[] = 'order/invoice/style.css';
+
+        $list[] = 'order/invoice/style.less';
+
+        return $list;
+    }
+
+    /**
+     * Register files from common repository
+     *
+     * @return array
+     */
+    public function getCommonFiles()
+    {
+        $list = parent::getCommonFiles();
+
+        $list['css'][] = [
+            'file'      => 'order/invoice/common.less',
+            'media'     => 'force_all'
+        ];
 
         return $list;
     }
@@ -269,6 +289,9 @@ class Invoice extends \XLite\View\AView
         );
 
         foreach ($data as $serviceName => $field) {
+            $field['title_visible'] = $this->isAddressFieldTitleVisible(
+                $serviceName
+            );
             switch ($serviceName) {
                 case 'title':
                 case 'firstname':
@@ -284,6 +307,30 @@ class Invoice extends \XLite\View\AView
         }
 
         return $result;
+    }
+
+    /**
+     * Check if address field's title should be visible
+     *
+     * @param  string  $name Address field service name
+     * @return boolean
+     */
+    protected function isAddressFieldTitleVisible($name)
+    {
+        return in_array(
+            $name,
+            $this->getAddressFieldTitleHiddenList()
+        );
+    }
+
+    /**
+     * List of hidden title address fields
+     *
+     * @return array
+     */
+    protected function getAddressFieldTitleHiddenList()
+    {
+        return array('phone');
     }
 
     /**

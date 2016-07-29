@@ -47,6 +47,12 @@ XLite\Model\Notification:
     availableForCustomer: false
     enabledForAdmin: true
     enabledForCustomer: false
+    adminHeaderEnabled: true
+    adminGreetingEnabled: false
+    adminSignatureEnabled: true
+    customerHeaderEnabled: true
+    customerGreetingEnabled: true
+    customerSignatureEnabled: true
     translations:
       - code: en
         name: Variant low limit warning

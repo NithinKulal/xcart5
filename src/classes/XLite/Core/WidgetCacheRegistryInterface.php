@@ -14,14 +14,4 @@ namespace XLite\Core;
 interface WidgetCacheRegistryInterface
 {
     public function deleteAll();
-
-    public function setRegistry($key, array $parameters);
-
-    public function unsetRegistry($key);
-
-    public function getRegistryKey(array $parameters);
-
-    public function fetchRegistry();
-
-    public function saveRegistry(array $registry);
 }

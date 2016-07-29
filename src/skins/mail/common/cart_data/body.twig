@@ -1,0 +1,14 @@
+{##
+ # Order invoice
+ #}
+<div class="invoice-box">
+    <table class="subhead-wrapper">
+        <tr class="subhead-line">
+            {% include 'cart_data/parts/bottom.twig' %}
+            {% include 'order/invoice/parts/head.address.twig' %}
+        </tr>
+    </table>
+    {% include 'order/invoice/parts/note.twig' %}
+    {% include 'order/invoice/parts/items/items.twig' %}
+    {% include 'order/invoice/parts/totals.twig' %}
+</div>

@@ -20,7 +20,7 @@ class FreightFixedFee extends \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Field\
 
         return [
             $name => [
-                'label'       => static::t('Freight fixed fee'),
+                'label'       => static::t('Shipping freight'),
                 'type'        => 'XLite\View\FormModel\Type\SymbolType',
                 'symbol'      => $currencySymbol,
                 'pattern'     => [
@@ -37,7 +37,6 @@ class FreightFixedFee extends \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Field\
                         'message' => static::t('Minimum value is X', ['value' => 0]),
                     ],
                 ],
-                // 'input_grid'  => 'col-sm-2',
                 'position'    => isset($options['position']) ? $options['position'] : 0,
             ],
         ];
@@ -56,25 +55,31 @@ class FreightFixedFee extends \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Field\
     }
 
     /**
-     * @param string               $name
-     * @param \XLite\Model\Product $object
-     * @param array                $options
+     * @param string $name
+     * @param array  $options
      *
      * @return array
      */
-    public static function getViewData($name, $object, $options)
+    public static function getViewColumns($name, $options)
     {
-        $requiresShipping = $object->getShippable();
-        $freeShipping = $object->getFreeShip();
+        return [
+            $name => [
+                'name'    => static::t('Shipping freight'),
+                'orderBy' => isset($options['position']) ? $options['position'] : 0,
+            ],
+        ];
+    }
 
-        return $requiresShipping && !$freeShipping
-            ? [
-                $name => [
-                    'label'    => static::t('Freight fixed fee'),
-                    'value'    => \XLite\View\AView::formatPrice($object->getFreightFixedFee()),
-                    'position' => isset($options['position']) ? $options['position'] : 0,
-                ],
-            ]
-            : [];
+    /**
+     * @param $name
+     * @param $object
+     *
+     * @return array
+     */
+    public static function getViewValue($name, $object)
+    {
+        return $object->getShippable() && !$object->getFreeShip()
+            ? \XLite\View\AView::formatPrice($object->getFreightFixedFee())
+            : '';
     }
 }

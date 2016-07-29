@@ -10,23 +10,57 @@ namespace XLite\Module\XC\BulkEditing\Logic\BulkEdit\Field;
 
 abstract class AField
 {
+    /**
+     * @param $name
+     * @param $options
+     *
+     * @return array
+     */
     public static function getSchema($name, $options)
     {
         return [];
     }
 
+    /**
+     * @param $name
+     * @param $object
+     *
+     * @return array
+     */
     public static function getData($name, $object)
     {
         return [];
     }
 
+    /**
+     * @param $name
+     * @param $object
+     * @param $data
+     */
     public static function populateData($name, $object, $data)
     {
     }
 
-    public static function getViewData($name, $object, $options)
+    /**
+     * @param string $name
+     * @param array  $options
+     *
+     * @return array
+     */
+    public static function getViewColumns($name, $options)
     {
         return [];
+    }
+
+    /**
+     * @param $name
+     * @param $object
+     *
+     * @return string
+     */
+    public static function getViewValue($name, $object)
+    {
+        return '';
     }
 
     /**
@@ -38,7 +72,7 @@ abstract class AField
      *
      * @return string
      */
-    protected static function t($name, array $arguments = array(), $code = null)
+    protected static function t($name, array $arguments = [], $code = null)
     {
         return \XLite\Core\Translation::getInstance()->translate($name, $arguments, $code);
     }

@@ -1,0 +1,10 @@
+{##
+ # Template
+ #
+ # @ListChild (list="add2cart_popup.item.buttons", weight="1000")
+ #}
+{% if this.isPayWithAmazonActive() %}
+<div id="payWithAmazonDiv_add2c_popup_btn" style="display: inline-block;">
+	<img src="{{ this.getAmazonButtonURL() }}" style="cursor: pointer;" />
+</div>
+{% endif %}

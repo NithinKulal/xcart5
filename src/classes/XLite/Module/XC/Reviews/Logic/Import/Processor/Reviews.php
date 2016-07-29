@@ -257,7 +257,7 @@ class Reviews extends \XLite\Logic\Import\Processor\AProcessor
         $result = null;
 
         if (!$this->verifyValueAsEmpty($value)) {
-            $result = inet_pton($value);
+            $result = utf8_encode(inet_pton($value));
         }
 
         return $result;

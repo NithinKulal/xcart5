@@ -100,40 +100,44 @@ class Products extends \XLite\Logic\Export\Step\Base\I18n
     {
         $columns = array();
 
-        $cnd = new \XLite\Core\CommonCell();
+        if ('none' !== $this->generator->getOptions()->attrs) {
 
-        if ('global' === $this->generator->getOptions()->attrs) {
-            $cnd->{\XLite\Model\Repo\Attribute::SEARCH_PRODUCT} = null;
-            $cnd->{\XLite\Model\Repo\Attribute::SEARCH_PRODUCT_CLASS} = null;
+            $cnd = new \XLite\Core\CommonCell();
 
-        } elseif ('global_n_classes' === $this->generator->getOptions()->attrs) {
-            $cnd->{\XLite\Model\Repo\Attribute::SEARCH_PRODUCT} = null;
-        }
+            if ('global' === $this->generator->getOptions()->attrs) {
+                $cnd->{\XLite\Model\Repo\Attribute::SEARCH_PRODUCT} = null;
+                $cnd->{\XLite\Model\Repo\Attribute::SEARCH_PRODUCT_CLASS} = null;
 
-        $count = \XLite\Core\Database::getRepo('XLite\Model\Attribute')->search($cnd, true);
+            } elseif ('global_n_classes' === $this->generator->getOptions()->attrs) {
+                $cnd->{\XLite\Model\Repo\Attribute::SEARCH_PRODUCT} = null;
+            }
 
-        if ($count) {
-            $limit = 100;
-            $start = 0;
+            $count = \XLite\Core\Database::getRepo('XLite\Model\Attribute')->search($cnd, true);
 
-            do {
-                $cnd->{\XLite\Model\Repo\Attribute::P_LIMIT} = array($start, $limit);
-                foreach (\XLite\Core\Database::getRepo('XLite\Model\Attribute')->search($cnd) as $attribute) {
-                    $name = $this->getUniqueFieldName($attribute);
-                    $column = $this->getAttributeColumn($attribute);
-                    if (\XLite\Model\Attribute::TYPE_TEXT === $attribute->getType()) {
-                        foreach ($this->getRepository()->getTranslationRepository()->getUsedLanguageCodes() as $code) {
-                            $columns[$name . '_' . $code] = $column;
+            if ($count) {
+                $limit = 100;
+                $start = 0;
+
+                do {
+                    $cnd->{\XLite\Model\Repo\Attribute::P_LIMIT} = array($start, $limit);
+                    foreach (\XLite\Core\Database::getRepo('XLite\Model\Attribute')->search($cnd) as $attribute) {
+                        $name = $this->getUniqueFieldName($attribute);
+                        $column = $this->getAttributeColumn($attribute);
+                        if (\XLite\Model\Attribute::TYPE_TEXT === $attribute->getType()) {
+                            foreach ($this->getRepository()->getTranslationRepository()->getUsedLanguageCodes() as $code) {
+                                $columns[$name . '_' . $code] = $column;
+                            }
+
+                        } else {
+                            $columns[$name] = $column;
                         }
-
-                    } else {
-                        $columns[$name] = $column;
                     }
-                }
 
-                $count -= $limit;
-                $start += $limit;
-            } while ($count > 0);
+                    $count -= $limit;
+                    $start += $limit;
+
+                } while ($count > 0);
+            }
         }
 
         return $columns;

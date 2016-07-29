@@ -325,7 +325,7 @@ class AuctionInc extends \XLite\Model\Shipping\Processor\AProcessor
                 'sku'                    => $product->getSku(),
                 'name'                   => $product->getName(),
                 'qty'                    => (int) $item->getAmount(),
-                'weight'                 => $product->getWeight(),
+                'weight'                 => max(0.1, $item->getWeight()),
                 'weightUOM'              => $auctionIncData->getWeightUOM(),
                 'dimensions'             => $auctionIncData->getDimensions(),
                 'dimensionsUOM'          => $auctionIncData->getDimensionsUOM(),

@@ -43,14 +43,6 @@ class Inventory extends \XLite\View\FormModel\AFormModel
     /**
      * @return array
      */
-    protected function defineSections()
-    {
-        return [self::SECTION_DEFAULT];
-    }
-
-    /**
-     * @return array
-     */
     protected function defineFields()
     {
         return [

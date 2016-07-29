@@ -51,7 +51,10 @@ abstract class Storage extends \XLite\Model\Repo\ARepo
      */
     public function getAllowedFileSystemRoots()
     {
-        return array();
+        $result = array();
+        $result[] = $this->getFileSystemRoot();
+
+        return $result;
     }
 
     // {{{ Remove cross-repository files

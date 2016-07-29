@@ -152,6 +152,18 @@ class Attributes extends \XLite\View\Product\Details\AAttributes
 
         $list[] = $productId;
 
+        $widgetParams = [
+            'personalOnly',
+            'productClass',
+            'group',
+        ];
+
+        foreach ($widgetParams as $param) {
+            $parameter = $this->getWidgetParams($param);
+            $value = $parameter ? $parameter->value : null;
+            $list[] = !is_object($value) ? $value : $value->getUniqueIdentifier();
+        }
+
         // We don't need a dependence on cart items here:
         // $list[] = $cart->getItemsFingerprintByProductId($productId);
 

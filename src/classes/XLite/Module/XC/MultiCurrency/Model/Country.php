@@ -23,7 +23,7 @@ class Country extends \XLite\Model\Country implements \XLite\Base\IDecorator
     /**
      * Active currencies
      *
-     * @var \XLite\Module\XC\MultiCurrency\Model\ActiveCurrency[]
+     * @var \XLite\Module\XC\MultiCurrency\Model\ActiveCurrency
      *
      * @ManyToOne (targetEntity="XLite\Module\XC\MultiCurrency\Model\ActiveCurrency", inversedBy="countries")
      * @JoinColumn (name="active_currency", referencedColumnName="active_currency_id", onDelete="SET NULL")

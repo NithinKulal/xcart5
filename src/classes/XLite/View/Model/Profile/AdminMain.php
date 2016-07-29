@@ -105,6 +105,9 @@ class AdminMain extends \XLite\View\Model\AModel
         'statusComment' => array(
             self::SCHEMA_CLASS    => '\XLite\View\FormField\Textarea\Simple',
             self::SCHEMA_LABEL    => 'Status comment (reason)',
+            self::SCHEMA_MODEL_ATTRIBUTES => array(
+                \XLite\View\FormField\Input\Base\StringInput::PARAM_MAX_LENGTH => 'length',
+            ),
             self::SCHEMA_REQUIRED => false,
         ),
         'membership_id' => array(

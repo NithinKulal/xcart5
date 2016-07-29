@@ -15,27 +15,25 @@ class Category extends \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Field\AField
         $position = isset($options['position']) ? $options['position'] : 0;
 
         return [
+            $name                => [
+                'label'    => static::t('Categories'),
+                'type'     => 'XLite\View\FormModel\Type\ProductCategoryType',
+                'multiple' => true,
+                'position' => $position,
+            ],
             $name . '_edit_mode' => [
                 'type'              => 'Symfony\Component\Form\Extension\Core\Type\ChoiceType',
                 'choices'           => [
-                    static::t('Add')          => 'add',
-                    static::t('Remove')       => 'remove',
-                    static::t('Replace with') => 'replace',
+                    static::t('Add')     => 'add',
+                    static::t('Remove')  => 'remove',
+                    static::t('Move to') => 'move-to',
                 ],
                 'choices_as_values' => true,
                 'placeholder'       => false,
                 'multiple'          => false,
                 'expanded'          => true,
                 'is_data_field'     => false,
-                // 'input_grid'        => 'col-sm-8',
-                'position'          => $position,
-            ],
-            $name                => [
-                'label'    => static::t('Category'),
-                'type'     => 'XLite\View\FormModel\Type\ProductCategoryType',
-                'multiple' => true,
-                // 'input_grid' => 'col-sm-8',
-                'position' => $position + 1,
+                'position'          => $position + 1,
             ],
         ];
     }
@@ -56,7 +54,7 @@ class Category extends \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Field\AField
         if ($categoryEditMode === 'remove') {
             $object->removeCategoryProductsLinksByCategories($categories);
 
-        } elseif ($categoryEditMode === 'replace') {
+        } elseif ($categoryEditMode === 'move-to') {
             $object->replaceCategoryProductsLinksByCategories($categories);
 
         } else {
@@ -65,27 +63,35 @@ class Category extends \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Field\AField
     }
 
     /**
-     * @param string               $name
-     * @param \XLite\Model\Product $object
-     * @param array                $options
+     * @param string $name
+     * @param array  $options
      *
      * @return array
      */
-    public static function getViewData($name, $object, $options)
+    public static function getViewColumns($name, $options)
     {
+        return [
+            $name => [
+                'name'    => static::t('Categories'),
+                'orderBy' => isset($options['position']) ? $options['position'] : 0,
+            ],
+        ];
+    }
 
+    /**
+     * @param $name
+     * @param $object
+     *
+     * @return array
+     */
+    public static function getViewValue($name, $object)
+    {
         $categories = [];
         /** @var \XLite\Model\Category $category */
         foreach ($object->getCategories() as $category) {
             $categories[] = $category->getStringPath();
         }
 
-        return [
-            $name => [
-                'label'    => static::t('Category'),
-                'value'    => $categories ? implode(', ', $categories) : static::t('Not defined'),
-                'position' => isset($options['position']) ? $options['position'] : 0,
-            ],
-        ];
+        return $categories ? implode(', ', $categories) : static::t('Not set');
     }
 }

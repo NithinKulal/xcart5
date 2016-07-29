@@ -1,0 +1,18 @@
+{##
+ # Just a template for settings. We need it since we do not implement decorator for modules now
+ #
+ #}
+
+{{ widget('\\XLite\\Module\\CDev\\XPaymentsConnector\\View\\Settings\\HTTPSWarning', useBodyTemplate='1') }}
+
+{{ widget('\\XLite\\Module\\CDev\\XPaymentsConnector\\View\\Settings\\Deploy', useBodyTemplate='1') }}
+
+{{ widget('\\XLite\\Module\\CDev\\XPaymentsConnector\\View\\Settings\\PaymentMethods', useBodyTemplate='1') }}
+
+{{ widget('\\XLite\\Module\\CDev\\XPaymentsConnector\\View\\Settings\\ZeroAuth', useBodyTemplate='1') }}
+
+{{ widget('\\XLite\\Module\\CDev\\XPaymentsConnector\\View\\Settings\\Welcome', useBodyTemplate='1') }}
+
+<div class="settings general-settings settings-xpc">
+  {{ widget('\\XLite\\Module\\CDev\\XPaymentsConnector\\View\\Model\\Settings', useBodyTemplate='1') }}
+</div>

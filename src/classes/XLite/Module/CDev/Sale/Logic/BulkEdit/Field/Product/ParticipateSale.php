@@ -17,7 +17,7 @@ class ParticipateSale extends \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Field\
     {
         return [
             $name => [
-                'label'            => static::t('Participate sale'),
+                'label'            => static::t('On sale'),
                 'type'             => 'XLite\View\FormModel\Type\SwitcherType',
                 'position'         => isset($options['position']) ? $options['position'] : 0,
             ],
@@ -37,20 +37,29 @@ class ParticipateSale extends \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Field\
     }
 
     /**
-     * @param string               $name
-     * @param \XLite\Model\Product $object
-     * @param array                $options
+     * @param string $name
+     * @param array  $options
      *
      * @return array
      */
-    public static function getViewData($name, $object, $options)
+    public static function getViewColumns($name, $options)
     {
         return [
             $name => [
-                'label'    => static::t('Participate sale'),
-                'value'    => $object->getParticipateSale() ? static::t('Yes') : static::t('No'),
-                'position' => isset($options['position']) ? $options['position'] : 0,
+                'name'    => static::t('On sale'),
+                'orderBy' => isset($options['position']) ? $options['position'] : 0,
             ],
         ];
+    }
+
+    /**
+     * @param $name
+     * @param $object
+     *
+     * @return array
+     */
+    public static function getViewValue($name, $object)
+    {
+        return $object->getParticipateSale() ? static::t('Yes') : static::t('No');
     }
 }

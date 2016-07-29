@@ -1,0 +1,13 @@
+{##
+ # Zero-dolar authrization (card setup) settings 
+ #
+ #}
+
+<br/>
+
+{% if not this.hasActiveMethodsSavingCards() %}
+<div class="alert alert-warning no-zero-auth-methods" role="alert">
+  <strong>Warning!</strong>
+  {{ t('No active X-Payments payment methods, or saving credit cards is not activated.') }}
+</div>
+{% endif %}

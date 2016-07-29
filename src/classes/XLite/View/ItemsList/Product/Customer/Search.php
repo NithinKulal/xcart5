@@ -14,6 +14,8 @@ namespace XLite\View\ItemsList\Product\Customer;
  */
 class Search extends \XLite\View\ItemsList\Product\Customer\ACustomer
 {
+    use \XLite\View\ItemsList\Product\Customer\DefaultSortByTrait;
+
     /**
      * Widget param names
      */
@@ -26,10 +28,38 @@ class Search extends \XLite\View\ItemsList\Product\Customer\ACustomer
     const PARAM_BY_SKU            = 'by_sku';
 
     /**
+     * Allowed sort criterions
+     */
+    const SORT_BY_MODE_DEFAULT = 'cp.orderby';
+
+    /**
      * Widget target
      */
     const WIDGET_TARGET = 'search';
 
+    /**
+     * Get default sort order value
+     *
+     * @return string
+     */
+    protected function getDefaultSortOrderValue()
+    {
+        return \XLite\Core\Config::getInstance()->General->default_search_sort_order;
+    }
+
+    /**
+     * Define and set widget attributes; initialize widget
+     *
+     * @param array $params Widget params OPTIONAL
+     *
+     * @return void
+     */
+    public function __construct(array $params = array())
+    {
+        parent::__construct($params);
+
+        $this->processAdditionalSortByModes();
+    }
 
     /**
      * Return search parameters.

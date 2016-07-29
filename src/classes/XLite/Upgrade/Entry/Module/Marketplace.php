@@ -303,7 +303,8 @@ class Marketplace extends \XLite\Upgrade\Entry\Module\AModule
 
         $result = \XLite\Core\Marketplace::getInstance()->getAddonHash(
             $this->getModuleInstalled()->getMarketplaceID(),
-            $licenseKey ? $licenseKey->getKeyValue() : null
+            $licenseKey ? $licenseKey->getKeyValue() : null,
+            $this->moduleInfoInstalled ?: null
         );
 
         if (!$result) {
@@ -377,7 +378,8 @@ class Marketplace extends \XLite\Upgrade\Entry\Module\AModule
 
         $path = \XLite\Core\Marketplace::getInstance()->getAddonPack(
             $this->getMarketplaceID(),
-            $licenseKey ? $licenseKey->getKeyValue() : null
+            $licenseKey ? $licenseKey->getKeyValue() : null,
+            $this->moduleInfoInstalled ?: null
         );
 
         $params = array('name' => $this->getActualName());

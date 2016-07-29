@@ -20,6 +20,7 @@ class Sections extends \XLite\View\Tabs\AJsTabs
         return array_merge(
             parent::getJSFiles(),
             array(
+                FastLaneCheckout\Main::getSkinDir() . 'sections/section_change_button.js',
                 FastLaneCheckout\Main::getSkinDir() . 'sections/next_button.js',
                 FastLaneCheckout\Main::getSkinDir() . 'sections/section.js',
                 FastLaneCheckout\Main::getSkinDir() . 'sections/sections.js',
@@ -57,25 +58,34 @@ class Sections extends \XLite\View\Tabs\AJsTabs
      */
     protected function defineTabs()
     {
-        return array(
+        $sections = array(
             'address' => array(
                 'weight'   => 100,
                 'title'    => 'Address',
                 'widget'   => 'XLite\Module\XC\FastLaneCheckout\View\Sections\Address',
+                'index'    => 0,
                 // 'paneClasses' => array('slide-left', 'in'),
-            ),
-            'shipping' => array(
+            )
+        );
+
+        if ($this->isShippingNeeded()) {
+            $sections['shipping'] = array(
                 'weight'   => 200,
                 'title'    => 'Shipping',
                 'widget'   => 'XLite\Module\XC\FastLaneCheckout\View\Sections\Shipping',
+                'index'    => 1,
                 // 'paneClasses' => array('slide-left'),
-            ),
-            'payment' => array(
-                'weight'   => 300,
-                'title'    => 'Payment',
-                'widget'   => 'XLite\Module\XC\FastLaneCheckout\View\Sections\Payment',
-                // 'paneClasses' => array('slide-left'),
-            ),
+            );
+        }
+
+        $sections['payment'] = array(
+            'weight'   => 300,
+            'title'    => 'Payment',
+            'widget'   => 'XLite\Module\XC\FastLaneCheckout\View\Sections\Payment',
+            'index'    => 2,
+            // 'paneClasses' => array('slide-left'),
         );
+
+        return $sections;
     }
 }

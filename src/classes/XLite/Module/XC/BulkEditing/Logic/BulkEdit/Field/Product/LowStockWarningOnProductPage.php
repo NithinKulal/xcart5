@@ -34,24 +34,31 @@ class LowStockWarningOnProductPage extends \XLite\Module\XC\BulkEditing\Logic\Bu
     }
 
     /**
-     * @param string               $name
-     * @param \XLite\Model\Product $object
-     * @param array                $options
+     * @param string $name
+     * @param array  $options
      *
      * @return array
      */
-    public static function getViewData($name, $object, $options)
+    public static function getViewColumns($name, $options)
     {
-        $inventorTrackingStatus = $object->getInventoryEnabled();
+        return [
+            $name => [
+                'name'    => static::t('Low stock warning on product page'),
+                'orderBy' => isset($options['position']) ? $options['position'] : 0,
+            ],
+        ];
+    }
 
-        return $inventorTrackingStatus
-            ? [
-                $name => [
-                    'label'    => static::t('Show low stock warning on product page'),
-                    'value'    => $object->getLowLimitEnabledCustomer() ? static::t('Yes') : static::t('No'),
-                    'position' => isset($options['position']) ? $options['position'] : 0,
-                ],
-            ]
-            : [];
+    /**
+     * @param $name
+     * @param $object
+     *
+     * @return array
+     */
+    public static function getViewValue($name, $object)
+    {
+        return $object->getInventoryEnabled()
+            ? ($object->getLowLimitEnabledCustomer() ? static::t('Yes') : static::t('No'))
+            : '';
     }
 }

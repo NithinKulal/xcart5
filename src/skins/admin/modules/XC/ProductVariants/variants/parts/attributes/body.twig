@@ -1,0 +1,44 @@
+{##
+ # Attributes
+ #}
+
+{% include 'modules/XC/ProductVariants/variants/parts/javascript.twig' %}
+
+{% form 'XLite\\Module\\XC\\ProductVariants\\View\\Form\\Product\\Modify\\Attributes' with {className: 'form-attributes'} %}
+  <div class="{{ this.getBlockStyle() }}">
+    <div class="header">
+      <span class="title">{{ t('Choose the optional attributes that your variants will be based on') }}</span>
+      {{ widget('\\XLite\\View\\Tooltip', text=t('To set product variants you should select attributes with multiple options.'), isImageTag='true', className='help-icon') }}
+    </div>
+    <div class="content">
+      <ul class="data">
+        {% for a in this.getMultipleAttributes() %}
+          <li class="fade-variant clearfix">
+            <div class="checkbox{% if this.isChecked(a) %} checked{% endif %}"><input type="checkbox" name="attr[{{ a.id }}]" value="{{ a.id }}" data-count="{{ this.getAttributeCount(a) }}"{% if this.isChecked(a) %} checked{% endif %} /></div>
+            <div class="name">
+              <span>{{ a.name }}</span>
+              <img src="{{ asset('images/spacer.gif') }}" class="right-fade" alt="" />
+            </div>
+            <div class="title">{{ this.getAttributeTitle(a) }}:</div>
+            <div class="values">
+              {% for v in a.getAttributeValue(this.product, 1) %}
+                <span>{{ v }}</span>
+              {% endfor %}
+            </div>
+            <img src="{{ asset('images/spacer.gif') }}" class="right-fade" alt="" />
+          </li>
+        {% endfor %}
+      </ul>
+      <div class="buttons" data-attributes-title="{{ t('Add variants manually') }}" data-no-attributes-title="{{ t('Save changes') }}">
+        {{ widget('\\XLite\\View\\Button\\Submit', style='main-button save-changes', label=t('Save changes')) }}
+        <div class="additional">
+          <span class="or">{{ t('or') }}</span>
+          {% include 'modules/XC/ProductVariants/variants/parts/create_variants.twig' %}
+        </div>
+        {% if this.product.hasVariants() %}
+          {{ widget('\\XLite\\View\\Button\\Simple', style='main-button cancel', label=t('Cancel')) }}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endform %}

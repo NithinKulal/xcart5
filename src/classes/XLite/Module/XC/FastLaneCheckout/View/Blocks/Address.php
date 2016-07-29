@@ -82,29 +82,26 @@ abstract class Address extends \XLite\View\Checkout\AAddressBlock
         $fields = \XLite::getController()->getAddressFields();
         $result = array();
 
-        $omittedNames = array();
-
         foreach ($fields as $fieldName => $field) {
-            if (!in_array($fieldName, $omittedNames)) {
-                $value = $this->getFieldValue($fieldName, true);
+            $value = $this->getFieldValue($fieldName, true);
 
-                if (!$value) {
-                    continue;
-                }
-
-                $result[$fieldName] = array(
-                    'label' => $field['label'],
-                    'value' => $value,
-                    'attributes' => $this->getFieldAttributes($fieldName, $field),
-                );
+            // TODO: not sure if needed
+            if (!$value && $value !== '') {
+                continue;
             }
+
+            $result[$fieldName] = array(
+                'label' => $field['label'],
+                'value' => $value,
+                'attributes' => $this->getFieldAttributes($fieldName, $field),
+            );
         }
 
         if ($this->isEmailVisible()) {
             $result['email'] = array(
                 'label' => 'Email',
-                'value' => $this->getFieldValue($fieldName, true),
-                'attributes' => $this->getFieldAttributes($fieldName, $field),
+                'value' => $this->getFieldValue('email', true),
+                'attributes' => $this->getFieldAttributes('email', []),
             );
         }
 
@@ -140,25 +137,15 @@ abstract class Address extends \XLite\View\Checkout\AAddressBlock
 
     public function buildCountryNamesObject()
     {
-        $countries = \XLite\Core\Database::getRepo('XLite\Model\Country')->findAllEnabled();
-        $dto = array_map(function ($item) {
-            return [
-                "key" => $item->getCode(),
-                "name" => $item->getCountry()
-            ];
-        }, $countries);
+        $dto = \XLite\Core\Database::getRepo('XLite\Model\Country')->findAllEnabledDTO();
+
         return json_encode($dto);
     }
 
     public function buildStateNamesObject()
     {
-        $states = \XLite\Core\Database::getRepo('XLite\Model\State')->findAllStates();
-        $dto = array_map(function ($item) {
-            return [
-                "key" => $item->getStateId(),
-                "name" => $item->getState()
-            ];
-        }, $states);
+        $dto = \XLite\Core\Database::getRepo('XLite\Model\State')->findAllStatesDTO();
+
         return json_encode($dto);
     }
 }

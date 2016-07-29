@@ -67,25 +67,34 @@ class MinimumPurchaseQuantity extends \XLite\Module\XC\BulkEditing\Logic\BulkEdi
     }
 
     /**
-     * @param string               $name
-     * @param \XLite\Model\Product $object
-     * @param array                $options
+     * @param string $name
+     * @param array  $options
      *
      * @return array
      */
-    public static function getViewData($name, $object, $options)
+    public static function getViewColumns($name, $options)
+    {
+        return [
+            $name => [
+                'name'    => $options['label'],
+                'orderBy' => isset($options['position']) ? $options['position'] : 0,
+            ],
+        ];
+    }
+
+    /**
+     * @param $name
+     * @param $object
+     *
+     * @return array
+     */
+    public static function getViewValue($name, $object)
     {
         $membershipRepo = \XLite\Core\Database::getRepo('XLite\Model\Membership');
 
         $membershipId = str_replace('membership_', '', $name);
         $membership = $membershipRepo->find($membershipId);
 
-        return [
-            $name => [
-                'label'    => $options['label'],
-                'value'    => $object->getMinQuantity($membership),
-                'position' => isset($options['position']) ? $options['position'] : 0,
-            ],
-        ];
+        return $object->getMinQuantity($membership);
     }
 }

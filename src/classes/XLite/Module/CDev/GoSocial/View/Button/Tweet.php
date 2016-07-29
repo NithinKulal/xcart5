@@ -54,7 +54,8 @@ class Tweet extends \XLite\View\AView
         }
 
         if ($this->getTitle()) {
-            $list['text'] = urlencode($this->getTitle());
+            $list['text'] = urlencode(htmlspecialchars_decode($this->getTitle()));
+            $list['text'] = preg_replace('/\+/', '%20', $list['text']);
         }
 
         if (\XLite\Core\Config::getInstance()->CDev->GoSocial->tweet_recommend) {

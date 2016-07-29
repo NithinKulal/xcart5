@@ -1,0 +1,14 @@
+{##
+ # 'Save search filter' button template
+ #}
+
+<div {{ this.printTagAttributes(this.getAttributes())|raw }}>
+  <div class="button-label">{{ this.getButtonLabel() }}</div>
+  <div class="button-action">
+    <input type="text" name="{{ this.getFilterFieldName() }}" value="{{ this.getFilterName() }}" placeholder="{{ this.getPlaceholder() }}" class="form-control" />
+    {% if this.getFilterId() %}
+      <input type="hidden" name="{{ this.getFilterIdFieldName() }}" value="{{ this.getFilterId() }}" />
+    {% endif %}
+    {{ widget('\\XLite\\View\\Button\\Regular', label=this.getActionButtonLabel(), action=this.getDefaultAction()) }}
+  </div>
+</div>

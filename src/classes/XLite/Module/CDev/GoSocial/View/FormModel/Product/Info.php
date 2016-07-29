@@ -38,8 +38,7 @@ class Info extends \XLite\View\FormModel\Product\Info implements \XLite\Base\IDe
             ],
             'position'  => 51,
         ];
-
-
+        
         return $schema;
     }
 }

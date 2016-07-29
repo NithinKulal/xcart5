@@ -20,7 +20,7 @@ abstract class Main extends \XLite\Module\AModule
      */
     public static function getAuthorName()
     {
-        return 'Qualiteam';
+        return 'Qualiteam Software';
     }
 
     /**
@@ -60,7 +60,7 @@ abstract class Main extends \XLite\Module\AModule
      */
     public static function getMinorVersion()
     {
-        return '0';
+        return '1';
     }
 
     /**

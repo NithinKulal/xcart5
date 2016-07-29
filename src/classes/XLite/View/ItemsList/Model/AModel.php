@@ -553,7 +553,7 @@ abstract class AModel extends \XLite\View\ItemsList\AItemsList
     }
 
     /**
-     * Check - moel processing is active or not
+     * Check - model processing is active or not
      *
      * @return boolean
      */

@@ -1,0 +1,18 @@
+{##
+ # Form for the add new card 
+ #
+ #
+ # @ListChild (list="customer.account.add_new_card.form", weight="100")
+ #}
+
+<div id="add_new_card_iframe_container">
+
+  <iframe src="{{ this.buildUrl('add_new_card', 'xpc_iframe') }}" width="300" height="100%" border="0" style="border: 0px" id="add_new_card_iframe"></iframe>
+
+  <div class="clearfix"></div>
+
+  <input type="button" value="{{ t('Save credit card') }}" id="submit-button" class="btn regular-button regular-main-button submit add-new-card-button" />
+
+  <a href="{{ url('saved_cards') }}">{{ t('Back to credit cards') }}</a>
+
+</div>

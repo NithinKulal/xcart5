@@ -1,0 +1,17 @@
+{##
+ # Upgrade entry changelog
+ #
+ # @ListChild (list="upgrade.step.ready_to_install.entries_list.sections.table.columns.changelog", weight="350")
+ #}
+
+<td class="changelog" colspan="4">
+  <div class="changelog-block">
+    <div class="changelog-record">
+      {% for changelog in this.entry.getUpgradeChangelogs() %}
+        <div class="description">
+          {{ changelog|raw }}
+        </div>
+      {% endfor %}
+      </div>
+  </div>
+</td>

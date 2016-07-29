@@ -1,0 +1,11 @@
+{##
+ # Entry new version
+ #
+ # @ListChild (list="upgrade.step.ready_to_install.entries_list.sections.table.columns", weight="300")
+ #}
+
+{% if this.entry.getUpgradeChangelogs() %}
+  <td class="changelog-link"><span class="changelog-link">{{ this.t('Changelog') }}</span></td>
+{% else %}
+  <td></td>
+{% endif %}

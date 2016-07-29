@@ -65,6 +65,18 @@ class ProductVariantWholesalePrice extends \XLite\Module\CDev\Wholesale\Model\Ba
     }
 
     /**
+     * Set product: fake method for compatibility with \XLite\Module\CDev\Wholesale\Model\WholesalePrice class
+     *
+     * @param \XLite\Model\Product $product
+     *
+     * @return \XLite\Module\CDev\Wholesale\Model\WholesalePrice
+     */
+    public function setProduct($product)
+    {
+        return $this;
+    }
+
+    /**
      * Get id
      *
      * @return integer 

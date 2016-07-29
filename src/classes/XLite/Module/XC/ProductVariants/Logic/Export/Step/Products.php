@@ -26,11 +26,17 @@ abstract class Products extends \XLite\Logic\Export\Step\Products implements \XL
      */
     protected function getModelDatasets(\XLite\Model\AEntity $model)
     {
-        return $this->distributeDatasetModel(
-            parent::getModelDatasets($model),
-            'variant',
-            $model->getVariants()
-        );
+        $result = parent::getModelDatasets($model);
+
+        if ('none' !== $this->generator->getOptions()->attrs) {
+            $result = $this->distributeDatasetModel(
+                $result,
+                'variant',
+                $model->getVariants()
+            );
+        }
+
+        return $result;
     }
 
     // }}}
@@ -46,14 +52,16 @@ abstract class Products extends \XLite\Logic\Export\Step\Products implements \XL
     {
         $columns = parent::defineColumns();
 
-        $columns += array(
-            static::VARIANT_PREFIX . 'SKU'          => array(static::COLUMN_MULTIPLE => true),
-            static::VARIANT_PREFIX . 'Price'        => array(static::COLUMN_MULTIPLE => true),
-            static::VARIANT_PREFIX . 'Quantity'     => array(static::COLUMN_MULTIPLE => true),
-            static::VARIANT_PREFIX . 'Weight'       => array(static::COLUMN_MULTIPLE => true),
-            static::VARIANT_PREFIX . 'Image'        => array(static::COLUMN_MULTIPLE => true),
-            static::VARIANT_PREFIX . 'ImageAlt'     => array(static::COLUMN_MULTIPLE => true),
-        );
+        if ('none' !== $this->generator->getOptions()->attrs) {
+            $columns += array(
+                static::VARIANT_PREFIX . 'SKU'          => array(static::COLUMN_MULTIPLE => true),
+                static::VARIANT_PREFIX . 'Price'        => array(static::COLUMN_MULTIPLE => true),
+                static::VARIANT_PREFIX . 'Quantity'     => array(static::COLUMN_MULTIPLE => true),
+                static::VARIANT_PREFIX . 'Weight'       => array(static::COLUMN_MULTIPLE => true),
+                static::VARIANT_PREFIX . 'Image'        => array(static::COLUMN_MULTIPLE => true),
+                static::VARIANT_PREFIX . 'ImageAlt'     => array(static::COLUMN_MULTIPLE => true),
+            );
+        }
 
         return $columns;
     }

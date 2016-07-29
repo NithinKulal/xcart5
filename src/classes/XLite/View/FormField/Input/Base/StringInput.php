@@ -31,7 +31,7 @@ abstract class StringInput extends \XLite\View\FormField\Input\AInput
     {
         $value = parent::prepareRequestData($value);
 
-        return substr($value, 0, $this->getParam(static::PARAM_MAX_LENGTH));
+        return mb_substr($value, 0, $this->getParam(static::PARAM_MAX_LENGTH));
     }
 
     /**

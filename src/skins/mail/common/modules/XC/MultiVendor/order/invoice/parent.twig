@@ -1,0 +1,6 @@
+{##
+ # Invoice
+ #}
+{% for _child in this.getOrders() %}
+  {{ widget('XLite\\View\\Invoice', order=_child, displayForVendor=this.displayForVendor, isChild='true') }}
+{% endfor %}

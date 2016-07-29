@@ -1,0 +1,165 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Invoice styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+/*
+   CLIENT-SPECIFIC STYLES from skins/mail/common/common/layout.twig
+   Copied and beautified (gonna be inlined anyway)
+   because some clients ignores <style> tags in <head>
+*/
+img {
+    -ms-interpolation-mode: bicubic;
+}
+/* Force IE to smoothly render resized images. */
+
+#outlook a {
+    padding: 0;
+}
+/* Force Outlook 2007 and up to provide a "view in browser" message. */
+
+table {
+  mso-table-lspace: 0pt;
+  mso-table-rspace:0pt;
+}
+/* Remove spacing between tables in Outlook 2007 and up. */
+
+.ReadMsgBody {
+    width: 100%;
+}
+.ExternalClass {
+    width: 100%;
+}
+/* Force Outlook.com to display emails at full width. */
+
+p,
+a,
+li,
+td,
+blockquote {
+    mso-line-height-rule: exactly;
+}
+/* Force Outlook to render line heights as they're originally set. */
+
+a[href^="tel"],
+a[href^="sms"] {
+    color: inherit;
+    cursor: default;
+    text-decoration: none;
+}
+/* Force mobile devices to inherit declared link styles. */
+
+p,
+a,
+li,
+td,
+body,
+table,
+blockquote {
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+/* Prevent Windows- and Webkit-based mobile platforms from changing declared text sizes. */
+
+.ExternalClass,
+.ExternalClass p,
+.ExternalClass td,
+.ExternalClass div,
+.ExternalClass span,
+.ExternalClass font {
+    line-height: 100%;
+}
+/* Force Outlook.com to display line heights normally. */
+
+/* REAL STYLES HERE */
+.invoice-box {
+  max-width: 700px;
+  min-width: 600px;
+  font-family: Helvetica, Arial, sans-serif;
+  width: 100%;
+  margin-top: 30px;
+}
+
+.invoice-box h2.invoice {
+  font-size: 39px;
+}
+.invoice-box .subhead{
+  margin-top: 7px;
+}
+
+.invoice-box .subhead .subhead-item {
+  font-size: 21px;
+}
+
+.invoice-box .address .wrapper {
+  padding-top: 26px;
+}
+
+.invoice-box .totals li {
+  margin: 0.5em 0 0;
+}
+
+.invoice-box .thank-you
+{
+  white-space: nowrap;
+  display: none;
+}
+
+.invoice-box .addresses li.address {
+  width: 45%;
+}
+
+.invoice-box .payment-status,
+.invoice-box .shipping-status {
+    font-size: 15px;
+    margin-top:15px
+}
+
+.invoice-box .address-field {
+    padding-right: 4px;
+    white-space: nowrap;
+    margin-left: 0px;
+}
+
+.invoice-box .address-field.left-floated {
+  float: left;
+}
+
+.invoice-box .address-field span {
+    font-size: 14px;
+    line-height: 20px;
+    padding-top: 8px;
+    color: #000;
+}
+
+.invoice-box .header .logo {
+  max-width: 95%; width: auto;
+}
+
+/*  PinCodes styles */
+.invoice-box .pin-codes .code {
+  padding-left: 5px;
+  margin-left: 5px;
+}
+
+/* Can't use margin-top in outlook on that block */
+.invoice-box .totals {
+  margin-top: 0px;
+}
+.invoice-box .after-totals .total{
+  margin-top: 10px;
+  padding-top: 0px;
+}
+.invoice-box .attributes .common-title,
+.invoice-box .attributes .option {
+  color: #5a5a5a;
+  margin: 0px;
+  padding: 0px;
+  border: none;
+  vertical-align: top;
+  font-size: 14px;
+}

@@ -60,7 +60,13 @@ XLite\Model\Notification:
     availableForCustomer: false
     enabledForAdmin: true
     enabledForCustomer: false
-    translations: 
+    adminHeaderEnabled: true
+    adminGreetingEnabled: false
+    adminSignatureEnabled: true
+    customerHeaderEnabled: true
+    customerGreetingEnabled: true
+    customerSignatureEnabled: true
+    translations:
       - code: en
         name: Contact us form submitted (Contact us module)
         description: 'This notification is sent to the administrator when someone submits a request via the "Contact us" form.'

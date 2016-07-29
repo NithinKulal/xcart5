@@ -1,0 +1,45 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Specific styles for "Fashion" color scheme
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.top-main-menu > li > span.primary-title {
+    font-size: 16px;
+    padding: 9px 20px;
+}
+.top-main-menu li:hover > ul {
+    top: 39px;
+}
+.top-main-menu li:hover > ul > li > ul {
+    top: 0;
+}
+.top-main-menu li ul a {
+    color: #fff;
+    font-size: 16px;
+}
+.top-main-menu > li.active > span.primary-title {
+    background: #000;
+}
+.top-main-menu > li > span.primary-title.tap,
+.top-main-menu > li > a.tap,
+.top-main-menu > li.active > span.primary-title,
+.top-main-menu > li > span.primary-title:hover,
+.top-main-menu > li:hover > a,
+.top-main-menu li ul li:hover > a,
+.top-main-menu li ul li:hover > a:after,
+.top-main-menu li ul a:hover {
+    color: #e14285;
+    background-color: transparent;
+}
+.top-main-menu > li > span.primary-title:hover {
+    background: #363636;
+}
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+    color: #e14285;
+    background-color: transparent;
+}

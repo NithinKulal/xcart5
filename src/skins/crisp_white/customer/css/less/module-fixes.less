@@ -1,0 +1,62 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * CDev\VolumeDiscounts
+ *
+ * Copyright (c) 2001-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+.volume-discounts-promo .next {
+    #rhythmless > .rhythm(@font-size-base + 2);
+}
+
+/**
+ * CDev\Coupons
+ */
+
+.coupons form {
+    .floating-label;
+}
+
+/**
+ * XC\Reviews
+ */
+
+.modify-review-dialog .form-item {
+    .floating-label;
+
+    br {
+        display: none;
+    }
+
+    .table-value .tooltip-main {
+        left: 290px;
+    }
+}
+
+.modify-review-dialog .model.form.buttons {
+    margin-top: @rhythmic-unit;
+
+    button.submit {
+        min-width: 144px;
+    }
+}
+
+/**
+ * XC\ProductComparison
+ */
+
+table.comparison-table a.remove {
+    .icon-cross;
+}
+
+table.comparison-table td.clear-list a {
+    .regular-button;
+    .icon-trash;
+
+    &:before {
+        margin-right: 10px;
+        margin-left: -2px;
+        vertical-align: top;
+    }
+}

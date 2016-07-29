@@ -1,0 +1,20 @@
+{##
+ # Connection status
+ #
+ #}
+
+<br />
+
+{% if this.isConnected() %}
+  <div class="alert alert-success connection-status">
+      <strong>{{ t('Connected!') }}</strong>
+      {{ t('Connection with X-Payments is OK.') }}
+  </div>
+{% else %}
+  <div class="alert alert-danger connection-status">
+      <strong>{{ t('Connection failed!') }}</strong>
+      {{ t('Check the settings.') }}
+  </div>
+{% endif %}
+
+<br />

@@ -65,4 +65,14 @@ class Payment extends \XLite\View\AView
     {
         return static::t('Place order');
     }
+
+    /**
+     * Get commented data
+     *
+     * @return array
+     */
+    public function getCommentedData()
+    {
+        return array();
+    }
 }

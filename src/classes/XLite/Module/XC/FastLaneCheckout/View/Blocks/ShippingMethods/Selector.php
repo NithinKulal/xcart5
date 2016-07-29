@@ -54,23 +54,4 @@ class Selector extends \XLite\View\ShippingList
     {
         return \XLite\Model\Shipping::getInstance()->hasOnlineProcessors();
     }
-
-    /**
-     * @return string
-     */
-    protected function getShippingMethodsList()
-    {
-        $self = $this;
-        $list = array_reduce(
-            $this->getRates(),
-            function ($acc, $rate) use ($self) {
-                $acc[$self->getMethodId($rate)] = $self->getMethodName($rate);
-
-                return $acc;
-            },
-            []
-        );
-
-        return json_encode($list);
-    }
 }

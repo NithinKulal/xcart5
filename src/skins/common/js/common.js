@@ -702,4 +702,27 @@ jQuery(document).ready(
           });
       }
     );
+
+    core.microhandlers.add(
+      'HideEmptySidebars',
+      '.sidebar',
+      function (event) {
+        var appendClass = _.bind(function() {
+          var className = this.attr('id') + '-empty';
+          jQuery('body').removeClass(className);
+
+          var visibleBlockCount = jQuery('.list-container *:visible', this).length
+
+          if (visibleBlockCount == 0) {
+            jQuery('body').addClass(className);
+          } else {
+            jQuery('body').removeClass(className);
+          };
+        }, jQuery(this));
+
+        appendClass();
+
+        jQuery(window).resize(_.debounce(appendClass, 30));
+      }
+    );
 });

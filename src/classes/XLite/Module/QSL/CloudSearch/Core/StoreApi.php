@@ -2,29 +2,8 @@
 // vim: set ts=4 sw=4 sts=4 et:
 
 /**
- * X-Cart
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the software license agreement
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://www.x-cart.com/license-agreement.html
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to licensing@x-cart.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not modify this file if you wish to upgrade X-Cart to newer versions
- * in the future. If you wish to customize X-Cart for your needs please
- * refer to http://www.x-cart.com/ for more information.
- *
- * @category  X-Cart 5
- * @author    Qualiteam software Ltd <info@x-cart.com>
- * @copyright Copyright (c) 2011-2013 Qualiteam software Ltd <info@x-cart.com>. All rights reserved
- * @license   http://www.x-cart.com/license-agreement.html X-Cart 5 License Agreement
- * @link      http://www.x-cart.com/
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
  */
 
 namespace XLite\Module\QSL\CloudSearch\Core;
@@ -65,23 +44,28 @@ class StoreApi extends \XLite\Base\Singleton
     public function getEntityCounts()
     {
         $repo        = Database::getRepo('XLite\Model\Product');
-        $numProducts = $repo->search(new CommonCell(), true);
+        $numProducts = $repo->search(new CommonCell(), $repo::SEARCH_MODE_COUNT);
 
         $catRepo       = Database::getRepo('XLite\Model\Category');
-        $numCategories = $catRepo->search(new CommonCell(), true);
+        $numCategories = $catRepo->search(new CommonCell(), $catRepo::SEARCH_MODE_COUNT);
 
         $pageRepo = Database::getRepo('\XLite\Module\CDev\SimpleCMS\Model\Page');
-        $numPages = $pageRepo ? $pageRepo->search(new CommonCell(), true) : 0;
+        $numPages = $pageRepo ? $pageRepo->search(new CommonCell(array(PageRepo::PARAM_ENABLED => true)), $pageRepo::SEARCH_MODE_COUNT) : 0;
 
         return array(
             'numProducts'      => $numProducts,
             'numCategories'    => $numCategories,
             'numManufacturers' => 0,
             'numPages'         => $numPages,
-            'productsAtOnce'   => static::MAX_ENTITIES_AT_ONCE,
+            'productsAtOnce'   => $this->getMaxEntitiesAtOnce(),
         );
     }
 
+    protected function getMaxEntitiesAtOnce()
+    {
+        return static::MAX_ENTITIES_AT_ONCE;
+    }
+    
     /**
      * Get products data
      *
@@ -92,74 +76,113 @@ class StoreApi extends \XLite\Base\Singleton
      */
     public function getProducts($start, $limit)
     {
-        $repo    = Database::getRepo('XLite\Model\Product');
-        $catRepo = Database::getRepo('XLite\Model\Category');
-
         $cnd                                       = new CommonCell;
         $cnd->{\XLite\Model\Repo\Product::P_LIMIT} = array($start, $limit);
-        $products                                  = $repo->search($cnd);
 
-        $productsArray = array();
+        return array_map(
+            array($this, 'getIndexProductHash'), 
+            Database::getRepo('XLite\Model\Product')->search($cnd, \XLite\Model\Repo\Product::SEARCH_MODE_ENTITIES)
+        );
+    }
 
-        foreach ($products as $product) {
-            $productHash = array(
-                'name'        => $product->getName(),
-                'description' => $product->getDescription() ?: $product->getBriefDescription(),
-                'id'          => $product->getProductId(),
-                'sku'         => $product->getSku(),
-                'price'       => $product->getDisplayPrice(),
-            );
+    public function getIndexProductHash($product)
+    {
+        return array(
+            'name'          => $product->getName(),
+            'description'   => $product->getDescription(),
+            'id'            => $product->getProductId(),
+            'sku'           => $this->getSkuInfo($product),
+            'price'         => $product->getDisplayPrice(),
+            'url'           => $this->getUrlProductHash($product),
+            'category'      => $this->getCategoryProductHash($product),
+            'modifiers'     => $this->getModifiersProductHash($product),
+        ) + $this->getImageInfoProductHash($product);
+    }
 
-            $productHash['url'] = Converter::buildFullURL(
-                'product',
-                '',
-                array('product_id' => $product->getProductId())
-            );
+    protected function getSkuInfo($product)
+    {
+        return $product->getSku();
+    }
 
-            if ($product->getImage()) {
-                list($productHash['image_width'], $productHash['image_height'], $productHash['image_src']) =
-                    $product->getImage()->getResizedURL(static::MAX_THUMBNAIL_WIDTH, static::MAX_THUMBNAIL_HEIGHT);
-            }
+    protected function getModifiersProductHash($product)
+    {
+        $result = array();
 
-            $productHash['category'] = array();
+        foreach ($product->getAllAttributes() as $attribute) {
+            $values = array();
+            $avs = $attribute->getAttributeValue($product);
 
-            foreach ($product->getCategories() as $category) {
-                $path = array();
-
-                foreach ($catRepo->getCategoryPath($category->getCategoryId()) as $c) {
-                    $path[] = $c->getName();
-                }
-
-                $productHash['category'] = array_merge($productHash['category'], $path);
-            }
-
-            $productHash['modifiers'] = array();
-
-            foreach ($product->getAllAttributes() as $attribute) {
-                $values = array();
-                $avs    = $attribute->getAttributeValue($product);
-
-                if (is_array($avs)) {
-                    foreach ($avs as $av) {
-                        if ($av->asString()) {
-                            $values[] = $av->asString();
-                        }
+            if (is_array($avs)) {
+                foreach ($avs as $av) {
+                    if ($av->asString()) {
+                        $values[] = $av->asString();
                     }
-
-                } elseif (is_string($avs)) {
-                    $values[] = $avs;
                 }
-
-                $productHash['modifiers'][] = array(
-                    'name'   => $attribute->getName(),
-                    'values' => $values,
-                );
+            } elseif (is_string($avs)) {
+                $values[] = $avs;
             }
 
-            $productsArray[] = $productHash;
+            $result[] = array(
+                'name' => $attribute->getName(),
+                'values' => $values,
+            );
         }
 
-        return $productsArray;
+        $result[] = $this->getAdditionalProductInfo($product);
+        
+        return $result;
+    }
+
+    protected function getAdditionalProductInfo($product)
+    {
+        return array(
+            'name' => '_meta_additional_',
+            'values' => array(
+                $product->getBriefDescription(),
+                $product->getMetaTags(),
+                $product->getMetaDesc(),
+            ),
+        );
+    }
+
+    protected function getCategoryProductHash($product)
+    {
+        $result = array();
+        $catRepo = Database::getRepo('XLite\Model\Category');
+
+        foreach ($product->getCategories() as $category) {
+            $path = array();
+
+            foreach ($catRepo->getCategoryPath($category->getCategoryId()) as $c) {
+                $path[] = $c->getName();
+            }
+
+            $result = array_merge($result, $path);
+        }
+
+        return $result;
+    }
+
+    protected function getUrlProductHash($product)
+    {
+        return Converter::buildFullURL(
+            'product', '', array('product_id' => $product->getProductId())
+        );
+    }
+
+    protected function getImageInfoProductHash($product)
+    {
+        $result = array();
+
+        if ($product->getImage()) {
+            list(
+                $result['image_width'], 
+                $result['image_height'], 
+                $result['image_src']
+            ) = $product->getImage()->getResizedURL(static::MAX_THUMBNAIL_WIDTH, static::MAX_THUMBNAIL_HEIGHT);
+        }
+
+        return $result;
     }
 
     /**
@@ -175,7 +198,7 @@ class StoreApi extends \XLite\Base\Singleton
         $repo = Database::getRepo('XLite\Model\Category');
 
         $cnd                                             = new CommonCell;
-        $cnd->{\XLite\Model\Repo\Category::SEARCH_LIMIT} = array($start, $limit);
+        $cnd->{\XLite\Model\Repo\Category::P_LIMIT} = array($start, $limit);
         $categories                                      = $repo->search($cnd, false);
 
         $categoriesArray = array();
@@ -225,10 +248,10 @@ class StoreApi extends \XLite\Base\Singleton
         $pagesArray = array();
 
         if ($repo) {
-            $cnd                           = new CommonCell;
-            $cnd->{PageRepo::SEARCH_LIMIT} = array($start, $limit);
+            $cnd                            = new CommonCell;
+            $cnd->{PageRepo::P_LIMIT}       = array($start, $limit);
             $cnd->{PageRepo::PARAM_ENABLED} = true;
-            $pages                         = $repo->search($cnd, false);
+            $pages                          = $repo->search($cnd, false);
 
             foreach ($pages as $page) {
                 $pageHash = array(

@@ -38,4 +38,20 @@ abstract class AView extends \XLite\View\AView implements \XLite\Base\IDecorator
 
         return $list;
     }
+
+    /**
+     * Get cache parameters
+     *
+     * @return array
+     */
+    protected function getCacheParameters()
+    {
+        $result = parent::getCacheParameters();
+
+        if (!\XLite::isAdminZone()) {
+            $result[] = \XLite\Module\XC\ColorSchemes\Main::getSkinName();
+        }
+
+        return $result;
+    }
 }

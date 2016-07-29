@@ -1,0 +1,10 @@
+{##
+ # Notification page template
+ #}
+{% if this.getDescription() %}
+  <div class="alert alert-info" role="alert">
+    {{ this.getDescription() }}
+  </div>
+{% endif %}
+
+{{ widget('XLite\\View\\FormModel\\Settings\\Notification\\Notification') }}

@@ -134,7 +134,13 @@ class Review extends \XLite\Controller\Customer\ACustomer
      */
     public function getReturnTarget()
     {
-        return \XLite\Core\Request::getInstance()->return_target;
+        $result = \XLite\Core\Request::getInstance()->return_target;
+
+        if ($result === 'quick_look') {
+            $result = 'product';
+        }
+
+        return $result;
     }
 
     /**
@@ -265,7 +271,7 @@ class Review extends \XLite\Controller\Customer\ACustomer
 
         $review->map($data);
         $review->setProfile($this->getProfile());
-        $review->setIp(inet_pton($_SERVER['REMOTE_ADDR']) ?: 0);
+        $review->setIp(utf8_encode(inet_pton($_SERVER['REMOTE_ADDR'])) ?: 0);
 
         if (!$review->getEmail()) {
             $review->setEmail($this->getProfileField('email'));

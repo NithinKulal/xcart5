@@ -215,6 +215,12 @@ class CleanURL extends \XLite\Model\Repo\ARepo
             $suffix = '';
             $increment = 1;
 
+            $result = substr(
+                $result,
+                0,
+                255 - strlen($separator . (string) static::CLEAN_URL_CHECK_LIMIT . $this->postProcessURL('', $entity))
+            );
+
             while (!$this->isURLUnique($this->postProcessURL($result . $suffix, $entity), $entity)
                 && static::CLEAN_URL_CHECK_LIMIT > $increment
             ) {

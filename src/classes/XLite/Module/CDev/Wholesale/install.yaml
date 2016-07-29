@@ -21,3 +21,4 @@ XLite\Model\LanguageLabel:
   - { name: "Set the price for this variant to define variant's personal wholesale prices", translations: [{ code: en, label: "Set the price for this variant to define variant's personal wholesale prices" }] }
   - { name: "View parent product's wholesale prices", translations: [{ code: en, label: "View parent product's wholesale prices" }] }
   - { name: 'Wholesale prices are not defined', translations: [{ code: en, label: 'Wholesale prices are not defined' }]}
+  - { name: 'The minimum amount of "{{product}}" product {{description}} allowed to purchase is {{min}} item(s). Please adjust the product quantity.', translations: [{ code: en, label: 'The minimum amount of "{{product}}" product {{description}} allowed to purchase is {{min}} item(s). Please adjust the product quantity.' }] }

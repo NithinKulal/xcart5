@@ -1,0 +1,16 @@
+{##
+ # Payment methods 
+ #
+ #}
+
+<br/><br/>
+
+<div class="not-configured">
+
+  <p>
+    {{ t('Note: No payment methods here because the module is not configured. Please finalize settings at ')|raw }}
+    <b><a href="{{ this.buildUrl('module', '', {'moduleId': this.module.getModuleID(), 'section': 'connection'}) }}">{{ t('Connection') }}</a></b>
+    {{ t('tab and get back here to configure methods.')|raw }}
+  </p>
+
+</div>

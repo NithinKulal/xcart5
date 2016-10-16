@@ -22,4 +22,22 @@ class Labels extends \XLite\View\Form\ItemsList\AItemsList
     {
         return 'labels';
     }
+
+    /**
+     * Return list of the form default parameters
+     *
+     * @return array
+     */
+    protected function getDefaultParams()
+    {
+        $params = array(
+            'code' => \XLite\Core\Request::getInstance()->code ?: static::getDefaultLanguage(),
+        );
+
+        if (\XLite\Core\Request::getInstance()->label_id) {
+            $params['label_id'] = \XLite\Core\Request::getInstance()->label_id;
+        }
+
+        return $params;
+    }
 }

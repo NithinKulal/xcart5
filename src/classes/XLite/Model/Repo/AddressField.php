@@ -135,7 +135,8 @@ class AddressField extends \XLite\Model\Repo\Base\I18n
             $this->prepareCndRequired($qb, $required, false);
         }
 
-        $qb->orderBy('a.id', 'ASC');
+        $qb->addOrderBy('a.position', 'ASC');
+        $qb->addOrderBy('a.id', 'ASC');
 
         return $qb;
     }

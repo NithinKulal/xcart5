@@ -14,12 +14,12 @@ class ClassPathResolver implements ClassPathResolverInterface
 
     public function __construct($classDir)
     {
-        $this->classDir = rtrim($classDir, '\\/') . '/';
+        $this->classDir = rtrim($classDir, '\\/') . LC_DS;
     }
 
     public function getPathname($class)
     {
-        return $this->classDir . str_replace('\\', '/', $class) . '.php';
+        return $this->classDir . str_replace('\\', LC_DS, $class) . '.php';
     }
 
     public function getClass($pathname)

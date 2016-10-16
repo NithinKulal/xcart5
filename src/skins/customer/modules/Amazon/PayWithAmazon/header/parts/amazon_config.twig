@@ -1,0 +1,42 @@
+{##
+ # Head list children
+ #
+ # @ListChild (list="head", weight="1310")
+ #}
+{% if this.isAmazonConfigured() %}
+  {% set amazonConfig = this.getAmazonConfig() %}
+  <script type="text/javascript">
+    var amazonConfig = {
+      sid: '{{ amazonConfig.amazon_pa_sid }}',
+      mode: '{{ amazonConfig.amazon_pa_mode }}',
+      mobile: '{{ this.isMobileDevice }}',
+      clientId: '{{ amazonConfig.amazon_pa_client_id }}'
+    };
+
+    window.onAmazonLoginReady = function() {
+      amazon.Login.setSandboxMode({{ this.isSandboxMode() }});
+      amazon.Login.setClientId(amazonConfig.clientId);
+      amazon.Login.setRegion('{{ amazonConfig.amazon_pa_region }}');
+      amazon.Login.setUseCookie(true);
+
+      {% if not this.isLogged() %}
+      if (xliteConfig.target !== 'amazon_checkout') {
+        amazon.Login.logout();
+      }
+      {% endif %}
+
+//      var uriHash = hash.get();
+//      if (uriHash.action === 'loginWithAmazon') {
+//        amazon.Login.authorize(
+//          {
+//            scope: 'profile payments:widget payments:shipping_address',
+//            popup: 'true'
+//          },
+//          uriHash.returnUrl
+//        );
+//        window.location.hash = '';
+//      }
+    };
+
+  </script>
+{% endif %}

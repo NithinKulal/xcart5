@@ -969,8 +969,37 @@ class Menu extends \XLite\Model\Repo\ARepo
      */
     protected function performUpdate(\XLite\Model\AEntity $entity, array $data = array())
     {
-        if (isset($data['enabled']) && $entity->getParent() && ($entity->getEnabled() xor ((bool) $data['enabled']))) {
-            $this->updateQuickFlags($entity->getParent(), $this->prepareQuickFlags(0, $entity->getEnabled() ? -1 : 1));
+        if (!empty($data)) {
+            $changeset = array(
+                'enabled' => array(
+                    $entity->getEnabled(),
+                    isset($data['enabled']) ? $data['enabled'] : null
+                )
+            );
+
+        } else {
+            $uow = \XLite\Core\Database::getEM()->getUnitOfWork();
+            $uow->computeChangeSets();
+            $changeset = $uow->getEntityChangeSet($entity);
+        }
+
+        if (!$changeset && $entity->_getPreviousState()->enabled !== null) {
+            $changeset = [
+                'enabled' => [
+                    (bool) $entity->_getPreviousState()->enabled,
+                    $entity->getEnabled(),
+                ]
+            ];
+        }
+
+        if (isset($changeset['enabled'][0]) && isset($changeset['enabled'][1])
+            && $entity->getParent()
+            && ($changeset['enabled'][0] xor ((bool) $changeset['enabled'][1]))
+        ) {
+            $this->updateQuickFlags(
+                $entity->getParent(),
+                $this->prepareQuickFlags(0, ($changeset['enabled'][0] ? -1 : 1))
+            );
         }
 
         parent::performUpdate($entity, $data);

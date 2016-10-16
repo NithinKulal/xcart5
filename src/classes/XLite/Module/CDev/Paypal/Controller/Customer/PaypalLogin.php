@@ -192,15 +192,15 @@ class PaypalLogin extends \XLite\Controller\Customer\ACustomer
      *
      * @return string
      */
-    protected function getAuthReturnUrl($failure = false)
+    protected function getAuthReturnURL($failure = false)
     {
         $controller = \XLite\Core\Request::getInstance()->state;
 
         $redirectTo = $failure ? 'login' : '';
 
-        if ('XLite\Controller\Customer\Checkout' == $controller) {
+        if ('XLite\Controller\Customer\Checkout' === $controller) {
             $redirectTo = 'checkout';
-        } elseif ('XLite\Controller\Customer\Profile' == $controller) {
+        } elseif ('XLite\Controller\Customer\Profile' === $controller) {
             $redirectTo = 'profile';
         }
 

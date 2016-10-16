@@ -11,7 +11,7 @@
     {% endif %}
 
     {% if this.additional_note %}
-      <div class="additional-note">{{ this.additional_note }}</div>
+      <div class="additional-note">{{ this.additional_note|raw }}</div>
     {% endif %}
 
     <form id="login_form" action="{{ url('login') }}" method="post" name="login_form">

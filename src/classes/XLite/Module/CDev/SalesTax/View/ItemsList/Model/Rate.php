@@ -134,7 +134,7 @@ class Rate extends \XLite\View\ItemsList\Model\Table
      */
     protected function isPagerVisible()
     {
-        return false;
+        return true;
     }
 
     /**

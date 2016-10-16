@@ -106,8 +106,8 @@ class SitemapIterator extends \XLite\Base implements \SeekableIterator, \Countab
 
             if ($category && $category->isVisible()) {
                 $data = $this->assembleCategoryData($category);
-                \XLite\Core\Database::getEM()->detach($category);
             }
+            \XLite\Core\Database::getEM()->clear('XLite\Model\Category');
 
         } elseif ($this->position < $this->getCategoriesLength() + $this->getProductsLength() + 1) {
             $positionInProducts = $this->position - $this->getCategoriesLength() - 1;

@@ -76,11 +76,15 @@ abstract class URLManager extends \Includes\Utils\URLManager
         $result = false;
 
         $domain = parse_url($url, PHP_URL_HOST);
+        $path = parse_url($url, PHP_URL_PATH);
+
+        // Checks if there is a redirect hack in returnURL. See bug #BUG-3904
+        $hack_attempt = (strpos($path, '\\') !== false && strpos($path, '\\') < 2);
 
         if ($domain) {
             $result = in_array($domain, static::getAllowedDomains());
 
-        } elseif (!$strict) {
+        } elseif (!$strict && !$hack_attempt) {
             $result = true;
         }
 

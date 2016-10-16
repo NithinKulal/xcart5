@@ -35,8 +35,22 @@
     width: 100%;
     min-height: (@rhythmic-unit * 3);
 
+    .inline-error {
+      display: none;
+    }
+
+    input.validation-error {
+      border-color: #d0021b;
+    }
+
     & > .input-field-wrapper {
       display: block;
+    }
+  }
+
+  .form-group > .table-label {
+    label {
+      color: #9b9b9b;
     }
   }
 

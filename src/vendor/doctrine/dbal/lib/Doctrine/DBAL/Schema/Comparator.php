@@ -374,7 +374,9 @@ class Comparator
                 $addedIndexName = strtolower($addedIndex->getName());
 
                 if (! isset($tableDifferences->renamedIndexes[$removedIndexName])) {
-                    $tableDifferences->renamedIndexes[$removedIndexName] = $addedIndex;
+                    // See BUG-3896 for details
+                    // This fix is moved from 084a919916cf37564e6a416e82ca60363e0e2759
+                    //  $tableDifferences->renamedIndexes[$removedIndexName] = $addedIndex;
                     unset($tableDifferences->addedIndexes[$addedIndexName]);
                     unset($tableDifferences->removedIndexes[$removedIndexName]);
                 }

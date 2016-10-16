@@ -1,0 +1,34 @@
+<td class="item-subtotal">
+    {% if not this.hasSurcharges() %}
+      <div class="subtotal">
+          {{ widget('XLite\\View\\Surcharge', surcharge=this.item.getDisplayTotal(), currency=this.getCurrency()) }}
+      </div>
+    {% endif %}
+    {% if this.hasSurcharges() %}
+      <div class="subtotal subtotal-with-surcharges">
+          <div>
+              <del>{{ widget('XLite\\View\\Surcharge', surcharge=this.getSubtotal(), currency=this.getCurrency()) }}</del>
+          </div>
+          <div>
+              {% if this.isFreeItem() %}
+                <span class="modified-subtotal">{{ t('Free') }}!</span>
+              {% endif %}
+              {% if not this.isFreeItem() %}
+                <span class="modified-subtotal">{{ widget('XLite\\View\\Surcharge', surcharge=this.getTotal(), currency=this.getCurrency()) }}</span>
+              {% endif %}
+              <div class="including-modifiers" style="display: none;">
+                  <table class="including-modifiers">
+                      {% for surcharge in this.getSurcharges() %}
+                        <tr>
+                            <td class="name">{{ surcharge.label }}:&nbsp;</td>
+                            <td class="value">{{ widget('XLite\\View\\Surcharge', surcharge=surcharge.value, currency=this.getCurrency()) }}</td>
+                        </tr>
+                      {% endfor %}
+                  </table>
+              </div>
+              {{ widget_list('cart.item.specialoffer.surcharges', item=this.item) }}
+          </div>
+      </div>
+    {% endif %}
+    {{ widget_list('cart.item.actions', item=this.item) }}
+</td>

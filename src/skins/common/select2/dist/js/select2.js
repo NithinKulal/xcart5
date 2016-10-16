@@ -4800,7 +4800,7 @@ S2.define('select2/defaults',[
         return result.text;
       },
       templateSelection: function (selection) {
-        return selection.text;
+        return '<span class="select2-selection-text">'+selection.text+'</span>';
       },
       theme: 'default',
       width: 'resolve'

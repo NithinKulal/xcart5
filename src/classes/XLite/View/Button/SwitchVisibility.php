@@ -25,7 +25,7 @@ class SwitchVisibility extends \XLite\View\Button\AButton
      */
     public function getCSSFiles()
     {
-        $list = parent::getJSFiles();
+        $list = parent::getCSSFiles();
 
         $list[] = 'button/css/switch-visibility.css';
 

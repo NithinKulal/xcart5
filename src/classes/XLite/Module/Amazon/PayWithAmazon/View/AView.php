@@ -10,35 +10,15 @@ namespace XLite\Module\Amazon\PayWithAmazon\View;
 
 abstract class AView extends \XLite\View\AView implements \XLite\Base\IDecorator
 {
-
-    public function getMetaTags()
-    {
-        $list = parent::getMetaTags();
-
-        $amazonSid = \XLite\Core\Config::getInstance()->Amazon->PayWithAmazon->amazon_pa_sid;
-
-        if (!empty($amazonSid)) {
-            $mode = \XLite\Core\Config::getInstance()->Amazon->PayWithAmazon->amazon_pa_mode;
-            $ism = method_exists('\XLite\Core\Request', 'isMobileDevice') && \XLite\Core\Request::isMobileDevice() ? 'true' : 'false';
-            $list[] = "<script type=\"text/javascript\">var AMAZON_PA_CONST = {SID:'$amazonSid',MODE:'$mode',MOBILE:$ism};</script>";
-        }
-
-        return $list;
-    }
-
-    // looks like there is no way to display "{" and "}" in flexy, so use this hack
-    public function getLdelim() {
-        return '{';
-    }
-
-    public function getRdelim() {
-        return '}';
-    }
-
     public function isRefundButtonVisible() {
         $order = $this->get('order');
         if ($order) {
-            if ($order->getPaymentStatusCode() == \XLite\Model\Order\Status\Payment::STATUS_PAID) {
+            if ($order->getPaymentStatusCode() === \XLite\Model\Order\Status\Payment::STATUS_PAID
+                || ($order->getPaymentStatusCode() === \XLite\Model\Order\Status\Payment::STATUS_REFUNDED
+                    && $order->getDetail('amazon_pa_refund_status')
+                    && $order->getDetail('amazon_pa_refund_status')->getValue() === 'Pending'
+                )
+            ) {
                 return true;
             }
         }
@@ -46,9 +26,10 @@ abstract class AView extends \XLite\View\AView implements \XLite\Base\IDecorator
     }
 
     public function isRefreshButtonVisible() {
+        /** @var \XLite\Model\Order $order */
         $order = $this->get('order');
         if ($order) {
-            if ($order->getPaymentStatusCode() == \XLite\Model\Order\Status\Payment::STATUS_QUEUED) {
+            if ($order->getPaymentStatusCode() === \XLite\Model\Order\Status\Payment::STATUS_QUEUED) {
                 return true;
             }
         }
@@ -58,7 +39,7 @@ abstract class AView extends \XLite\View\AView implements \XLite\Base\IDecorator
     public function isCaptureButtonVisible() {
         $order = $this->get('order');
         if ($order) {
-            if ($order->getPaymentStatusCode() == \XLite\Model\Order\Status\Payment::STATUS_AUTHORIZED) {
+            if ($order->getPaymentStatusCode() === \XLite\Model\Order\Status\Payment::STATUS_AUTHORIZED) {
                 return true;
             }
         }
@@ -74,103 +55,43 @@ abstract class AView extends \XLite\View\AView implements \XLite\Base\IDecorator
         }
     }
 
-    public function isAmazonControlsVisible() {
+    public function isAmazonControlsVisible()
+    {
         $order = $this->get('order');
         return (
             $this->getOrderDetail('AmazonOrderReferenceId')
-            && in_array($order->getPaymentStatusCode(), array(
-                \XLite\Model\Order\Status\Payment::STATUS_AUTHORIZED, 
+            && (in_array($order->getPaymentStatusCode(), array(
+                \XLite\Model\Order\Status\Payment::STATUS_AUTHORIZED,
                 \XLite\Model\Order\Status\Payment::STATUS_PAID,
                 \XLite\Model\Order\Status\Payment::STATUS_QUEUED,
             ))
-        );
+                || ($order->getPaymentStatusCode() === \XLite\Model\Order\Status\Payment::STATUS_REFUNDED
+                    && $order->getDetail('amazon_pa_refund_status')
+                    && $order->getDetail('amazon_pa_refund_status')->getValue() === 'Pending'
+                )
+        ));
     }
 
+    /**
+     * @param boolean|null $adminZone
+     *
+     * @return array
+     */
     protected function getThemeFiles($adminZone = null)
     {
         $list = parent::getThemeFiles($adminZone);
+        $api = \XLite\Module\Amazon\PayWithAmazon\Main::getApi();
 
-        $list[static::RESOURCE_JS][] = 'modules/Amazon/PayWithAmazon/func.js';
+        if ($api->isConfigured()) {
+            $list[static::RESOURCE_JS][] = [
+                'url' => $api->getJsUrl(), // todo: allow async attribute for script tag
+            ];
+            $list[static::RESOURCE_JS][] = 'modules/Amazon/PayWithAmazon/func.js';
+
+            $list[static::RESOURCE_CSS][] = 'modules/Amazon/PayWithAmazon/checkout_button/style.css';
+        }
 
         return $list;
-    }
-
-    public function getAmazonJSURL()
-    {
-        $url = '';
-        $amazonSid = \XLite\Core\Config::getInstance()->Amazon->PayWithAmazon->amazon_pa_sid;
-        $amazonCurr = \XLite\Core\Config::getInstance()->Amazon->PayWithAmazon->amazon_pa_currency;
-
-        if (!empty($amazonSid)) {
-
-            if (\XLite\Core\Config::getInstance()->Amazon->PayWithAmazon->amazon_pa_mode == 'live') {
-                switch ($amazonCurr) {
-                    case 'EUR':
-                        $url = 'https://static-eu.payments-amazon.com/OffAmazonPayments/de/js/Widgets.js';
-                        break;
-                    case 'GBP':
-                        $url = 'https://static-eu.payments-amazon.com/OffAmazonPayments/uk/js/Widgets.js';
-                        break;
-                    default: // USD
-                        $url = 'https://static-na.payments-amazon.com/OffAmazonPayments/us/js/Widgets.js';
-                        break;
-                }
-            } else {
-                switch ($amazonCurr) {
-                    case 'EUR':
-                        $url = 'https://static-eu.payments-amazon.com/OffAmazonPayments/de/sandbox/js/Widgets.js';
-                        break;
-                    case 'GBP':
-                        $url = 'https://static-eu.payments-amazon.com/OffAmazonPayments/uk/sandbox/js/Widgets.js';
-                        break;
-                    default: // USD
-                        $url = 'https://static-na.payments-amazon.com/OffAmazonPayments/us/sandbox/js/Widgets.js';
-                        break;
-                }
-            }
-            $url .= '?sellerId=' . $amazonSid;
-        }
-
-        return $url;
-    }
-
-    public function getAmazonButtonURL()
-    {
-        $url = '';
-        $amazonSid = \XLite\Core\Config::getInstance()->Amazon->PayWithAmazon->amazon_pa_sid;
-        $amazonCurr = \XLite\Core\Config::getInstance()->Amazon->PayWithAmazon->amazon_pa_currency;
-
-        if (!empty($amazonSid)) {
-
-            if (\XLite\Core\Config::getInstance()->Amazon->PayWithAmazon->amazon_pa_mode == 'live') {
-                switch ($amazonCurr) {
-                    case 'EUR':
-                        $url = 'https://payments.amazon.de/gp/widgets/button';
-                        break;
-                    case 'GBP':
-                        $url = 'https://payments.amazon.co.uk/gp/widgets/button';
-                        break;
-                    default: // USD
-                        $url = 'https://payments.amazon.com/gp/widgets/button';
-                        break;
-                }
-            } else {
-                switch ($amazonCurr) {
-                    case 'EUR':
-                        $url = 'https://payments-sandbox.amazon.de/gp/widgets/button';
-                        break;
-                    case 'GBP':
-                        $url = 'https://payments-sandbox.amazon.co.uk/gp/widgets/button';
-                        break;
-                    default: // USD
-                        $url = 'https://payments-sandbox.amazon.com/gp/widgets/button';
-                        break;
-                }
-            }
-            $url .= '?sellerId=' . $amazonSid . '&size=large&color=orange';
-        }
-
-        return $url;
     }
 
     public function isPayWithAmazonActive()
@@ -203,6 +124,4 @@ abstract class AView extends \XLite\View\AView implements \XLite\Base\IDecorator
             return false;
         }
     }
-
 }
-

@@ -1,0 +1,4 @@
+Version 5.3.1.1
+
+Fixes
+2016-08-04 - [Bug] Minor improvement (added common style for <p> inside the static page content). #BUG-3657 (Vladimir Semyonov) #SimpleCMS

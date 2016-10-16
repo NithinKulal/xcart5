@@ -1,0 +1,13 @@
+{##
+ # Login
+ #}
+
+{% form '\\XLite\\View\\Form\\Login\\Customer\\Main' %}
+
+<table class="login-form">
+  {{ widget_list('customer.signin.popup.fields') }}
+</table>
+
+{% endform %}
+
+{{ widget_list('customer.signin.after') }}

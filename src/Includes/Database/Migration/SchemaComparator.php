@@ -132,7 +132,7 @@ class SchemaComparator
                 if (in_array($key->getForeignTableName(), $this->disabledTables)) {
                     unset($diff->orphanedForeignKeys[$k]);
 
-                    $preservedForeignKeys[] = substr($key->getName(), 3); // Cut off 'FK_' from key name
+                    $preservedForeignKeys[] = $key;
                 }
             }
 
@@ -141,7 +141,7 @@ class SchemaComparator
                     if (in_array($key->getForeignTableName(), $this->disabledTables)) {
                         unset($changedTable->removedForeignKeys[$k]);
 
-                        $preservedForeignKeys[] = substr($key->getName(), 3); // Cut off 'FK_' from key name
+                        $preservedForeignKeys[] = $key;
                     }
                 }
             }
@@ -149,10 +149,8 @@ class SchemaComparator
             if ($preservedForeignKeys) {
                 foreach ($diff->changedTables as $changedTable) {
                     foreach ($changedTable->removedIndexes as $k => $index) {
-                        // Hack for different names of indexes (IDX_*) and foreign keys (FK_*) in Windows
-                        // See BUG-1963
-                        $indexForAForeignKey = (bool)array_filter($preservedForeignKeys, function ($fkName) use ($index) {
-                            return strpos($index->getName(), $fkName) !== false;
+                        $indexForAForeignKey = (bool)array_filter($preservedForeignKeys, function ($fkey) use ($index) {
+                            return $fkey->intersectsIndexColumns($index);
                         });
 
                         if ($indexForAForeignKey) {

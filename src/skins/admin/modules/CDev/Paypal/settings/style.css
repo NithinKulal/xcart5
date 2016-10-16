@@ -54,3 +54,8 @@ body.module-cdev-paypal .general-settings .model-properties ul.table li.select-p
   width: 70px;
   padding: 3px;
 }
+
+ul.unstyled {
+  list-style: disc;
+  padding-left: 20px;
+}

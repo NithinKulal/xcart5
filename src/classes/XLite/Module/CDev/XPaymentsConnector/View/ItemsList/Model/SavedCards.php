@@ -93,7 +93,27 @@ class SavedCards extends \XLite\View\ItemsList\Model\Table
      */
     protected function isCreation()
     {
-        return static::CREATE_INLINE_NONE;
+        return static::CREATE_INLINE_TOP;
+    }
+
+    /**
+    * Get create button label
+    *
+    * @return string
+    */
+    protected function getCreateButtonLabel()
+    {
+        return 'Add new credit card';
+    }
+
+    /**
+    * Get create entity URL
+    *
+    * @return string
+    */
+    protected function getCreateURL()
+    {
+        return \XLite\Core\Converter::buildURL('add_new_card','',array('profile_id' => \XLite\Core\Request::getInstance()->profile_id));
     }
 
     /**
@@ -121,8 +141,8 @@ class SavedCards extends \XLite\View\ItemsList\Model\Table
     }
 
     /**
-     * Get customer profile 
-     * 
+     * Get customer profile
+     *
      * @return \XLite\Model\Profile
      */
     protected function getCustomerProfile()
@@ -132,10 +152,10 @@ class SavedCards extends \XLite\View\ItemsList\Model\Table
     }
 
     /**
-     * Get order 
-     * 
+     * Get order
+     *
      * @param \XLite\Model\AEntity $entity Entity
-     *  
+     *
      * @return \XLite\Model\Order
      */
     protected function getOrder(\XLite\Model\AEntity $entity)
@@ -169,9 +189,9 @@ class SavedCards extends \XLite\View\ItemsList\Model\Table
 
     /**
      * Check - specified card is default or not
-     * 
+     *
      * @param \XLite\Model\AEntity $entity Model OPTIONAL
-     *  
+     *
      * @return boolean
      */
     public function isDefaultCard(\XLite\Model\AEntity $entity = null)

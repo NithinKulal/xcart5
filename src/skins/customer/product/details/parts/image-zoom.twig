@@ -2,7 +2,7 @@
  # Product thumbnail zoom
  #}
 <div class="product-photo">
-  <a href="{{ this.getZoomImageURL() }}" class="cloud-zoom" id="pimage_{{ this.product.product_id }}" data-rel-base="adjustX: {{ this.getZoomAdjustX() }}, showTitle: false, tintOpacity: 0.5, tint: '#fff', lensOpacity: 0, zoomWidth: {{ this.getZoomWidth() }}, zoomHeight: {{ this.getZoomHeight() }}" title="{{ t('Thumbnail') }}">
+  <a href="{{ this.getZoomImageURL() }}" class="cloud-zoom" id="pimage_{{ this.product.product_id }}" data-rel-base="adjustX: {{ this.getZoomAdjustX() }}, showTitle: false, tintOpacity: 0.5, tint: '#fff', lensOpacity: 0, zoomWidth: {{ this.getZoomWidth() }}, zoomHeight: {{ this.getZoomHeight() }}" title="{{ t('Thumbnail') }}" style="width: {{ this.getMaxImageWidth() }}px;height: {{ this.getWidgetMaxHeight() }}px;">
   {{ widget('\\XLite\\View\\Image', image=this.product.getImage(), className='photo product-thumbnail', id='product_image_' ~ this.product.product_id, verticalAlign='top', alt=this.getAlt(this.product.getImage()), maxWidth=this.getWidgetMaxWidth(), maxHeight=this.getWidgetMaxHeight()) }}
 {{ this.displayCommentedData(this.getJSData()) }}
   </a>

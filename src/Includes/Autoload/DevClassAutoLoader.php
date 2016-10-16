@@ -23,7 +23,7 @@ class DevClassAutoLoader extends AbstractClassAutoLoader implements ClassAutoLoa
 
     protected function load($class)
     {
-        if (($stream = $this->classBuilder->buildClass($class)) !== null) {
+        if (($stream = $this->classBuilder->buildClassname($class)) !== null) {
             require_once $stream;
         }
     }

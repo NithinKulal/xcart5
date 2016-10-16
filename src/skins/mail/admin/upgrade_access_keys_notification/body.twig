@@ -1,0 +1,38 @@
+{##
+ # Safe mode key generated email body (to admin) during upgrade
+ #}
+
+<div class="upgrade-access-keys-notification">
+  <p>
+    {{ t('X-Cart Team have done their best to make your upgrade process as enjoyable as possible.')|raw }}
+  </p>
+
+  <div class="options">
+    <p>
+      {{ t('First, restore your website from the created backup - this is the fastest way to get your store back online.')|raw }}
+    </p>
+
+    <p>
+      {{ t('Second, try to disable all non-X-Cart modules by using the links below:')|raw }}
+    </p>
+
+    <div class="access-links">
+      <ul>
+        <li>
+          {{ t('Soft reset. Turn off all addons except those provided by X-Cart Team & Qualiteam',{'url':this.hard_reset_url})|raw }}
+        </li>
+        <li>
+          {{ t('Hard reset. Disable all addons except those provided by X-Cart Team',{'url':this.hard_reset_url})|raw }}
+        </li>
+      </ul>
+      <p>
+      </p>
+      <p>
+      </p>
+    </div>
+  </div>
+
+  <p>
+    {{ t('If you still need help, please, feel free to contact X-Cart Help Desk at helpdesk@x-cart.com.')|raw }}
+  </p>
+</div>

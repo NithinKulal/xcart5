@@ -13,6 +13,8 @@ namespace XLite\Module\Amazon\PayWithAmazon;
  */
 abstract class Main extends \XLite\Module\AModule
 {
+    protected static $api;
+
     /**
      * Author name
      *
@@ -40,7 +42,7 @@ abstract class Main extends \XLite\Module\AModule
      */
     public static function getMinorVersion()
     {
-        return '1';
+        return '2';
     }
 
     /**
@@ -81,5 +83,17 @@ abstract class Main extends \XLite\Module\AModule
     public static function getSettingsForm()
     {
         return \XLite\Core\Converter::buildURL('pay_with_amazon');
+    }
+
+    /**
+     * @return AMZ
+     */
+    public static function getApi()
+    {
+        if (null === static::$api) {
+            static::$api = new AMZ(\XLite\Core\Config::getInstance()->Amazon->PayWithAmazon);
+        }
+
+        return static::$api;
     }
 }

@@ -64,6 +64,16 @@ abstract class Main extends \XLite\Module\AModule
     }
 
     /**
+     * Get module build number (4th number in the version)
+     *
+     * @return string
+     */
+    public static function getBuildVersion()
+    {
+        return '1';
+    }
+
+    /**
      * Determines if we need to show settings form link
      *
      * @return boolean

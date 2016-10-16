@@ -22,8 +22,7 @@ abstract class DefaultProductSortOrder extends \XLite\View\FormField\Select\Defa
     {
         return parent::getDefaultOptions()
             + array(
-                'rateAsc'  => static::t('Rate asc'),
-                'rateDesc' => static::t('Rate desc'),
+                'rate'  => static::t('Rate'),
             );
     }
 }

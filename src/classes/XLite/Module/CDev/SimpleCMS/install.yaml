@@ -71,7 +71,7 @@ XLite\Module\CDev\SimpleCMS\Model\Page:
       - code: en
         name: 'Shipping'
         teaser: 'Shipping teaser'
-        body: '<p>Shipping text</p><p>To replace this text with the actual delivery information, go to the "Content -> Pages" section, open the "Shipping" page and edit the "Content" field.</p>'
+        body: <p>This page is intended for your store's shipping policy.</p><p>Here you can provide general information about the available shipping options and rates, shipping turn-around times, size and weight limits for shipping, shipping restrictions, order tracking, and so on.</p><p></p><p>To replace this text with the actual delivery information, go to the "Content -> Pages" section, open the "Shipping" page and edit the "Content" field.</p>
       - code: ru
         name: 'Доставка'
         teaser: 'Доставка'

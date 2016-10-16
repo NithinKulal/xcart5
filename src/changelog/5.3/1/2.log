@@ -1,0 +1,9 @@
+Version 5.3.1.2
+
+Fixes
+2016-08-11 - [Bug] Product images had wrong proportions in the IE11 browser. Fixed. #BUG-3715 (Michael Lipinski) #Core #CrispWhiteSkin
+2016-08-11 - [Bug] Category banner image was displayed with wrong proportions in the Safari browser. Fixed. #BUG-3712 (Michael Lipinski) #Core #CrispWhiteSkin
+2016-08-10 - [Bug] Quick data was not updated when a product was created; as a result, the product could not sometimes be found in the Customer area. Fixed. #BUG-3700 (Michael Lipinski) #Core
+2016-08-09 - [Bug] Text labels could not be translated into another language because of the error "The language you are trying to edit has not been found". Fixed. #BUG-3695 (Michael Lipinski) #Core
+2016-08-09 - [Bug] Products without categories were not shown in the Customer area when searched for (One had to use a direct link to see them). Fixed. #BUG-3696 (Michael Lipinski) #Core
+2016-08-08 - [Bug] In FastLane checkout, the fields that had not passed validation were not marked properly. Fixed. #BUG-3655 (verde) #Core #FastLaneCheckout #CrispWhiteSkin

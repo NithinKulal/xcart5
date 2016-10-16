@@ -22,6 +22,8 @@ interface StaticReflectorInterface
 
     public function isInterface();
 
+    public function isTrait();
+
     public function getClassName();
 
     public function getFQCN();
@@ -35,6 +37,8 @@ interface StaticReflectorInterface
     public function getParent();
 
     public function getImplements();
+
+    public function isPSR0();
 
     // Decorator-related functions
 

@@ -514,9 +514,8 @@ class Product extends \XLite\Model\Repo\Base\I18n implements \XLite\Base\IREST
             $value = $value->getCategoryId();
         }
 
-        $queryBuilder->linkInner('p.categoryProducts', 'cp')
-            ->linkInner('cp.category', 'c')
-            ->addOrderBy('cp.orderby');
+        $queryBuilder->linkLeft('p.categoryProducts', 'cp')
+            ->linkLeft('cp.category', 'c');
 
         if (empty($this->searchState['currentSearchCnd']->{self::P_SEARCH_IN_SUBCATS})) {
             $queryBuilder->andWhere('c.category_id = :categoryId')

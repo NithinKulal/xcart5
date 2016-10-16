@@ -8,10 +8,23 @@
  */
 
 .filters-mobile {
-  .visible-xs;
+  width: 48px;
+  display: none;
+
+  @media(max-width: @screen-xs-max) {
+    display: inline-block;
+  }
 
   & > a {
     .icon-filters;
+    position: absolute;
+    right: -8px;
+    top: 8px;
+    width: 48px;
+    height: 48px;
+    .flex-display();
+    .justify-content(center);
+    .align-items(center);
   }
 
   .filters-zone {

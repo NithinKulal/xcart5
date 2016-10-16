@@ -22,6 +22,4 @@ interface StaticReflectorFactoryInterface
      * @return StaticReflectorInterface
      */
     public function reflectSource($pathname);
-
-//        public function finalizeReflector(StaticReflectorInterface $reflector);
 }

@@ -230,6 +230,16 @@ class PaypalAdaptiveAPI extends \XLite\Module\CDev\Paypal\Core\AAPI
     }
 
     /**
+     * Get match criteria value
+     *
+     * @return string
+     */
+    public function getMatchCriteria()
+    {
+        return $this->getSetting('matchCriteria');
+    }
+
+    /**
      * Do GetVerifiedStatus api request
      * 
      * @param string $paypalLogin Paypal login email
@@ -248,6 +258,38 @@ class PaypalAdaptiveAPI extends \XLite\Module\CDev\Paypal\Core\AAPI
             $params
         );
     }
+
+    /**
+     * Do GetVerifiedStatus api request
+     *
+     * @param string $paypalLogin Paypal login email
+     *
+     * @return array Paypal server response to GetVerifiedStatus api call
+     */
+    public function doGetVerifiedStatusCallWithCriteria($matchCriteria, array $params)
+    {
+        if ($matchCriteria === 'name') {
+            $params = array(
+                'emailAddress'  => $params['paypalLogin'],
+                'firstName'     => $params['firstName'],
+                'lastName'      => $params['lastName'],
+                'matchCriteria' => 'NAME'
+            );
+        } elseif ($matchCriteria === 'none') {
+            $params = array(
+                'emailAddress'  => $params['paypalLogin'],
+                'matchCriteria' => 'NONE'
+            );
+        } else {
+            return null;
+        }
+
+        return $this->call(
+            'GetVerifiedStatus',
+            $params
+        );
+    }
+
 
     /**
      * Do paypal api request

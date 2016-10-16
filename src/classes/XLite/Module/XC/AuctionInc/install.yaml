@@ -185,7 +185,7 @@ XLite\Model\Shipping\Method:
   - processor: auctionInc
     carrier: ''
     code: ''
-    enabled: true 
+    enabled: false 
     added: true
     position: 0
     moduleName: XC_AuctionInc

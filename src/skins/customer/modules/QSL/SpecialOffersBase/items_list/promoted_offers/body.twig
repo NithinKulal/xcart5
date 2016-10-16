@@ -1,0 +1,7 @@
+<div class="promoted-special-offers {{ this.getFingerprint() }}">
+  <ul class="special-offers special-offers-columns-{{ this.getColumnsCount() }}">
+    {% for rowIndex, row in this.getRows() %}{% for columnIndex, offer in row %}<li class="{{ this.getRowCSSClass(rowIndex) }} {{ this.getColumnCSSClass(rowIndex, columnIndex) }}" style="{{ this.getItemInlineStyle() }}">
+      {{ widget(this.getWidgetClassname(), offer=offer, row=rowIndex, column=columnIndex) }}
+    </li>{% endfor %}{% endfor %}
+  </ul>
+</div>

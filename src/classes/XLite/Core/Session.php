@@ -182,8 +182,6 @@ class Session extends \XLite\Base\Singleton
     {
         $this->lastFormId = null;
 
-        $this->resetFormId();
-
         $dump = $this->isDump();
         if (!$dump && !\XLite\Core\Database::getEM()->contains($this->session)) {
             try {

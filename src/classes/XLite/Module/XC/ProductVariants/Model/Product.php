@@ -571,7 +571,9 @@ class Product extends \XLite\Model\Product implements \XLite\Base\IDecorator
      */
     public function getVariants()
     {
-        return $this->variants;
+        return $this->variants->filter(function($variant) {
+            return $variant && $variant->getValues();
+        });
     }
 
     /**

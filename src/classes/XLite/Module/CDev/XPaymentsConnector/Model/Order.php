@@ -20,13 +20,8 @@ class Order extends \XLite\Model\Order implements \XLite\Base\IDecorator
     const FRAUD_STATUS_CLEAN    = 'Clean';
     const FRAUD_STATUS_FRAUD    = 'Fraud';
     const FRAUD_STATUS_REVIEW   = 'Review';
+    const FRAUD_STATUS_ERROR    = 'Error';
     const FRAUD_STATUS_UNKNOWN  = '';
-
-    /**
-     * Fraud types
-     */
-    const FRAUD_TYPE_KOUNT = 'kount';
-    const FRAUD_TYPE_GATEWAY = 'gateway'; 
 
     /**
      * Order fraud status
@@ -45,6 +40,20 @@ class Order extends \XLite\Model\Order implements \XLite\Base\IDecorator
      * @Column (type="string")
      */
     protected $fraud_type_xpc = '';
+
+    /**
+     * Transaction with fraud check data
+     * 
+     * @var integer
+     *
+     * @Column (type="integer")
+     */
+    protected $fraud_check_transaction_id = 0;
+
+    /**
+     * Fraud check data from transaction
+     */
+    protected $fraudCheckData = false;
 
     /**
      * Get visible payment methods
@@ -320,17 +329,32 @@ class Order extends \XLite\Model\Order implements \XLite\Base\IDecorator
      */
     public function getFraudInfoXpcAnchor()
     {
-        $anchor = '';
-
-        if (self::FRAUD_TYPE_KOUNT == $this->getFraudTypeXpc()) {
-            $anchor = 'fraud-info-kount';
-        } elseif (self::FRAUD_TYPE_GATEWAY == $this->getFraudTypeXpc()) {
-            $anchor = 'fraud-info-gateway';
-        }
-
-        return $anchor;
+        return 'fraud-info-' . $this->getFraudTypeXpc();
     }
 
+    /**
+     * Get fraud check data from transaction
+     *
+     * @return array
+     */
+    public function getFraudCheckData()
+    {
+        if (empty($this->fraudCheckData)) {
+
+            if ($this->getFraudCheckTransactionId()) {
+
+                $transaction = \XLite\Core\Database::getRepo('XLite\Model\Payment\Transaction')->find(
+                    $this->getFraudCheckTransactionId()
+                );
+
+                if ($transaction) {
+                    $this->fraudCheckData = $transaction->getFraudCheckData();
+                }
+            }
+        }
+
+        return $this->fraudCheckData;
+    }
 
     /**
      * Set fraud_status_xpc
@@ -374,5 +398,27 @@ class Order extends \XLite\Model\Order implements \XLite\Base\IDecorator
     public function getFraudTypeXpc()
     {
         return $this->fraud_type_xpc;
+    }
+
+    /**
+     * Set fraud_check_transaction_id
+     *
+     * @param integer $fraudCheckTransactionId
+     * @return Order
+     */
+    public function setFraudCheckTransactionId($fraudCheckTransactionId)
+    {
+        $this->fraud_check_transaction_id = $fraudCheckTransactionId;
+        return $this;
+    }
+
+    /**
+     * Get fraud_check_transaction_id
+     *
+     * @return integer 
+     */
+    public function getFraudCheckTransactionId()
+    {
+        return $this->fraud_check_transaction_id;
     }
 }

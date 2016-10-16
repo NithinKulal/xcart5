@@ -412,6 +412,21 @@ abstract class AModule extends \XLite\View\ItemsList\AItemsList
     }
 
     /**
+     * @param \XLite\Model\Module $module Module to check
+     *
+     * @return boolean
+     */
+    protected function isUpgradeRequestAvailable(\XLite\Model\Module $module)
+    {
+        $isInternalModule = in_array($module->getAuthor(), ['XC', 'CDev']);
+
+        return $this->isModuleUpgradeNeeded($module)
+            && !$this->isCoreUpgradeNeeded($module)
+            && !$isInternalModule
+            && \XLite\Core\Marketplace::getInstance()->isUpgradeRequestAvailable($module);
+    }
+
+    /**
      * Compare module version with the core one
      *
      * @param \XLite\Model\Module $module   Module to check

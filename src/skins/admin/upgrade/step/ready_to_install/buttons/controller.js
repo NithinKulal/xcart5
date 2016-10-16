@@ -31,14 +31,10 @@ var UpgradeButtonsBox = function(submitFormFlag)
         if (state) {
           jQuery(button).removeClass('disabled');
           jQuery(button).prop('disabled', false);
-          jQuery(box).removeClass('alert-warning');
-          jQuery(box).addClass('alert-success');
 
         } else {
-          jQuery(button).addClass('disabled')
+          jQuery(button).addClass('disabled');
           jQuery(button).prop('disabled', true);
-          jQuery(box).removeClass('alert-success');
-          jQuery(box).addClass('alert-warning');
         }
       }
     }

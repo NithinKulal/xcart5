@@ -157,7 +157,7 @@ Checkout.define('Checkout.PlaceOrder', [], function(){
         ) {
           // form based
           document.write(response);
-          window.fireEvent('load');
+          emitEvent(window, 'load');
         } else if (xhr.getResponseHeader('AJAX-Location')) {
           var url = xhr.getResponseHeader('AJAX-Location');
           if (url) {

@@ -12,6 +12,7 @@ namespace XLite\Module\XC\CrispWhiteSkin\View;
  * Signin
  *
  * @Decorator\Depend("CDev\SocialLogin")
+ * @Decorator\After("XC\CrispWhiteSkin")
  */
 abstract class SigninSocialLogin extends \XLite\View\Signin implements \XLite\Base\IDecorator
 {

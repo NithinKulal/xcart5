@@ -30,14 +30,27 @@ class Contacts extends \XLite\View\AView
 
     public function getLocation()
     {
+        $config = \XLite\Core\Config::getInstance()->Company;
         $parts = [
-            \XLite\Core\Config::getInstance()->Company->location_address,
-            \XLite\Core\Config::getInstance()->Company->location_city,
-            \XLite\Core\Config::getInstance()->Company->location_state,
-            \XLite\Core\Config::getInstance()->Company->location_country,
+            $config->location_address,
+            $config->location_city,
         ];
 
-        return implode(', ', $parts);
+        $hasStates = $config->locationCountry && $config->locationCountry->hasStates();
+
+        if ($hasStates) {
+            $locationState = \XLite\Core\Database::getRepo('XLite\Model\State')->find($config->location_state);
+            $locationState = $locationState ? $locationState->getCode() : null;
+        } else {
+            $locationState = \XLite\Core\Database::getRepo('XLite\Model\State')->getOtherState($config->location_custom_state);
+            $locationState = $locationState ? $locationState->getState() : null;
+        }
+
+        $parts[] = $locationState;
+        $parts[] = $config->location_country;
+        $parts[] = $config->location_zipcode;
+
+        return implode(', ', array_filter($parts));
     }
 
     public function getEmail()

@@ -1304,24 +1304,6 @@ table.order-statistics td.title {
   text-align: left;
 }
 
-table.top-sellers {
-  width: 80%;
-}
-
-table.top-sellers th {
-  text-align: left;
-}
-
-table.top-sellers td {
-  white-space: normal;
-  padding-top: 6px;
-  padding-bottom: 6px;
-}
-
-table.top-sellers th.title {
-  text-align: left;
-}
-
 /**
  * Benchmark summary
  */

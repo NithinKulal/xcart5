@@ -1,0 +1,4 @@
+Version 5.3.1.2
+
+Fixes
+2016-09-26 - [Bug] A file link could not be added via the WYSIWYG editor on a product page. #BUG-3903 (Sergey Elmanov) #TinyMCE

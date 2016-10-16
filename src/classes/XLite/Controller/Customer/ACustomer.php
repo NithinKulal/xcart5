@@ -63,7 +63,7 @@ abstract class ACustomer extends \XLite\Controller\AController
      */
     public function isCheckoutLayout()
     {
-        return in_array($this->getTarget(), array('checkout', 'checkoutPayment'));
+        return in_array($this->getTarget(), array('checkout', 'checkoutPayment'), true);
     }
 
     /**

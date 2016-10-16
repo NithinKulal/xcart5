@@ -8,6 +8,17 @@
  */
 
 define('form_model_start', ['js/vue/vue', 'ready'], function (XLiteVue) {
+  if (typeof(Inputmask) !== 'undefined') {
+    Inputmask.extendAliases({
+      xcdecimal: {
+        alias:          "numeric",
+        digitsOptional: false,
+        groupSeparator: "",
+        radixPoint:     "."
+      }
+    });
+  }
+
   XLiteVue.start();
 });
 
@@ -71,6 +82,7 @@ define('form_model', ['js/vue/vue'], function (XLiteVue) {
         this.changed = result;
         return result;
       },
+
       onSubmit: function (event) {
         var self = this;
         this.$validate(true, function () {

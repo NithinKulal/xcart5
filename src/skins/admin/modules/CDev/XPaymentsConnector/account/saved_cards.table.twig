@@ -5,14 +5,12 @@
  # @ListChild (list="admin.account.saved_cards.table", weight="100")
  #}
 
-{% if this.getSavedCards() %}
-  <div>
-  
-  {% form '\\XLite\\Module\\CDev\\XPaymentsConnector\\View\\Form\\SavedCards' %}
-  
-    {{ widget('XLite\\Module\\CDev\\XPaymentsConnector\\View\\ItemsList\\Model\\SavedCards') }}
-  
-  {% endform %}
-  
-  </div>
-{% endif %}
+<div>
+
+{% form '\\XLite\\Module\\CDev\\XPaymentsConnector\\View\\Form\\SavedCards' %}
+
+{{ widget('XLite\\Module\\CDev\\XPaymentsConnector\\View\\ItemsList\\Model\\SavedCards') }}
+
+{% endform %}
+
+</div>

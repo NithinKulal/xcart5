@@ -28,6 +28,20 @@ class Color extends \XLite\View\FormField\Inline\Base\Single
     }
 
     /**
+     * Register CSS files
+     *
+     * @return array
+     */
+    public function getCSSFiles()
+    {
+        $list = parent::getCSSFiles();
+
+        $list[] = 'form_field/inline/input/text/color.css';
+
+        return $list;
+    }
+
+    /**
      * Define form field
      *
      * @return string

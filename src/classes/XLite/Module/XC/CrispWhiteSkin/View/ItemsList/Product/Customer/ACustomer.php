@@ -10,9 +10,21 @@ namespace XLite\Module\XC\CrispWhiteSkin\View\ItemsList\Product\Customer;
 
 /**
  * ACustomer
+ * @Decorator\Before({"XC\Reviews", "CDev\Bestsellers"})
  */
 abstract class ACustomer extends \XLite\View\ItemsList\Product\Customer\ACustomer implements \XLite\Base\IDecorator
 {
+    public function __construct(array $params = array())
+    {
+        parent::__construct($params);
+
+        $this->sortOrderModes[self::SORT_BY_MODE_NAME] = [
+            self::SORT_ORDER_ASC => $this->t('A - Z'),
+            self::SORT_ORDER_DESC => $this->t('Z - A')
+        ];
+    }
+
+
     /**
      * @return array
      */
@@ -64,12 +76,55 @@ abstract class ACustomer extends \XLite\View\ItemsList\Product\Customer\ACustome
     protected function getSortOrderLabel($key = null)
     {
         if (!$key || $key === $this->getSortBy()) {
+
+            if (isset($this->sortOrderModes[$this->getSortBy()])) {
+                return $this->getSortArrowClassCSS($this->getSortBy()) != ''
+                    ? $this->sortOrderModes[$this->getSortBy()][$this->getSortOrder()]
+                    : '';
+            }
+
             return $this->getSortArrowClassCSS($this->getSortBy()) != ''
                 ? $this->sortOrderModes[$this->getSortOrder()]
                 : '';
         }
 
         return '';
+    }
+
+    /**
+     * @return string
+     */
+    protected function getAscOrderLabel($key = null)
+    {
+        if (!is_null($key) && isset($this->sortOrderModes[$key])) {
+            return $this->sortOrderModes[$key][self::SORT_ORDER_ASC];
+        }
+
+        return $this->sortOrderModes[self::SORT_ORDER_ASC];
+    }
+
+    /**
+     * @return string
+     */
+    protected function getDescOrderLabel($key = null)
+    {
+        if (!is_null($key) && isset($this->sortOrderModes[$key])) {
+            return $this->sortOrderModes[$key][self::SORT_ORDER_DESC];
+        }
+
+        return $this->sortOrderModes[self::SORT_ORDER_DESC];
+    }
+
+    /**
+     * isSortByModeSelected
+     *
+     * @param string $sortByMode Value to check
+     *
+     * @return boolean
+     */
+    protected function isSortByModeSelected($sortByMode, $order = null)
+    {
+        return parent::isSortByModeSelected($sortByMode) && (is_null($order) || $order == $this->getSortOrder());
     }
 
     /**

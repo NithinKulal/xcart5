@@ -1,0 +1,21 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: amazon_pa_sid
+    category: Amazon\PayWithAmazon
+    translations:
+      - code: en
+        option_comment: If you do not have seller account, you can register here:<br /><a href="https://payments.amazon.com/signup?LD=SPEXUSAPA_XCart_core" target="_blank">USA</a>,&nbsp;<a href="https://payments.amazon.co.uk/preregistration/lpa?LD=SPEXUKAPA_XCart_core" target="_blank">UK</a>,&nbsp;<a href="https://payments.amazon.de/preregistration/lpa?LD=SPEXDEAPA_XCart_core" target="_blank">Germany</a>
+  - name: amazon_pa_client_id
+    category: Amazon\PayWithAmazon
+    type: text
+    orderby: 25
+    translations:
+      - code: en
+        option_name: Client ID
+        option_comment: Register your website as an application on the <a href="http://login.amazon.com/manageApps" trget="_blank">Login with Amazon App Console</a>. For more information, see the <a href="https://images-na.ssl-images-amazon.com/images/G/01/lwa/dev/docs/website-gsg._TTH_.pdf" target="_blank">Login with Amazon Getting Started Guide</a>. A client identifier (Client ID) is set when you register your website. You will need this identifier for your integration.

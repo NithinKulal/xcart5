@@ -36,7 +36,7 @@ class ZeroAuthPaymentMethods extends \XLite\View\FormField\Select\Regular
      */
     public function getLabel()
     {
-        return \XLite\Core\Translation::lbl('Payment method for card setup' . \XLite\Core\Config::getInstance()->CDev->XPaymentsConnector->xpc_zero_auth_method_id);
+        return \XLite\Core\Translation::lbl('Payment method for card setup');
     }
 
     /**

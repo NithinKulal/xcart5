@@ -41,46 +41,4 @@ class PaymentReturn extends \XLite\Controller\Customer\PaymentReturn implements 
 
         parent::setReturnURL($url);
     }
-
-    /**
-     * Process return
-     *
-     * @return void
-     */
-    protected function doActionReturn()
-    {
-        $this->detectTransaction();
-
-        if ($this->reload) {
-            sleep(5);
-            $server = \XLite\Core\Request::getInstance()->getServerData();
-            $this->setReturnURL($server['REQUEST_URI']);
-
-        } else {
-            parent::doActionReturn();
-        }
-    }
-
-    /**
-     * Detect transaction from request or from the inner payment methods detection
-     *
-     * @return \XLite\Model\Payment\Transaction
-     */
-    protected function detectTransaction()
-    {
-        if (null === $this->transaction || !$this->transaction instanceof \XLite\Model\Payment\Transaction) {
-            $this->transaction = parent::detectTransaction();
-            if ($this->transaction && $this->transaction->isByPayPal()) {
-                $order = $this->transaction->getOrder();
-                if (\XLite\Module\CDev\Paypal\Core\Lock\OrderLocker::getInstance()->isLocked($order)) {
-                    $this->reload = true;
-
-                } else {
-                    \XLite\Module\CDev\Paypal\Core\Lock\OrderLocker::getInstance()->lock($order);
-                }
-            }
-        }
-
-        return $this->transaction;
-    }
 }

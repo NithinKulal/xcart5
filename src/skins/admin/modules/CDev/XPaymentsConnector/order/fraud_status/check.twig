@@ -1,0 +1,80 @@
+{##
+ # Fraud check results 
+ #
+ # @ListChild (list="order", weight="1100")
+ #}
+{% if this.order.getFraudCheckData() %}
+
+  {% for data in this.order.getFraudCheckData() %}
+
+    <div class="kount-result">
+
+      <a name="fraud-info-{{ data.code }}"></a>
+
+      <h2>{{ data.service }} {{ t('result') }}</h2>
+
+      {% if data.errors %}
+        <div class="alert alert-danger">
+          <strong>{{ t('Check was not performed due to error occurred!') }}</strong>
+          <ul>
+            {% for error in data.getErrorsList() %}
+              <li>{{ error|raw }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+
+      {% if data.warnings %}
+        <div class="alert alert-warning">
+          <strong>{{ t('Warning!') }}</strong>
+          <ul>
+            {% for warning in data.getWarningList() %}
+              <li>{{ warning|raw }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+
+      {% if data.getDisplayMessage() %}
+        <p class="lead">
+          {{ data.getDisplayMessage()|raw }}.
+  
+          {% if data.score %}
+            {{ t('Score') }}: 
+            <span class="lead {{ data.scoreClass }}">{{ data.score }}</span>
+          {% endif %}
+        </p>
+      {% endif %}
+
+      {% if data.serviceTransactionId %}
+        <p>
+          
+          {{ t('Transaction ID') }}:
+  
+          {% if data.url %}
+            <a href="{{ data.url }}" target="_blank">{{ data.serviceTransactionId }}</a>
+          {% else %}
+            {{ data.serviceTransactionId }}
+          {% endif %}
+  
+        </p>
+      {% endif %}
+
+      {% if data.rules %}
+
+        <h3>{{ t('Rules triggered') }}:</h3>
+
+        <ul class="kount-result-lines">
+        {% for rule in data.getRulesList() %}
+          <li>{{ rule|raw }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+
+    </div>
+
+  {% endfor %}
+
+<br/>
+
+{% endif %}

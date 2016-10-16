@@ -60,24 +60,15 @@ abstract class ACustomer extends \XLite\View\ItemsList\Product\Customer\ACustome
     }
 
     /**
-     * Defines the CSS class for sorting order arrow
+     * Get products single order 'sort by' fields
+     * Return in format [sort_by_field => sort_order]
      *
-     * @param string $sortBy
-     *
-     * @return string
+     * @return array
      */
-    protected function getSortArrowClassCSS($sortBy)
+    protected function getSingleOrderSortByFields()
     {
-        return static::SORT_BY_MODE_DATE === $this->getSortBy() ? '' : parent::getSortArrowClassCSS($sortBy);
-    }
-
-    /**
-     * getSortOrder
-     *
-     * @return string
-     */
-    protected function getSortOrder()
-    {
-        return static::SORT_BY_MODE_DATE === $this->getSortBy() ? static::SORT_ORDER_DESC : parent::getSortOrder();
+        return parent::getSingleOrderSortByFields() + [
+            static::SORT_BY_MODE_DATE => static::SORT_ORDER_DESC
+        ];
     }
 }

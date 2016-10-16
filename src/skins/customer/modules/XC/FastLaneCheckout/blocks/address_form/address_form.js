@@ -23,6 +23,7 @@ Checkout.define('Checkout.AddressForm', [], function(){
       this.triggerUpdate({
         silent: true
       });
+
       core.trigger('checkout.address_form.ready');
     },
 
@@ -67,6 +68,14 @@ Checkout.define('Checkout.AddressForm', [], function(){
     },
 
     events: {
+      requestNextNotReady: function() {
+        if ($(this.form).is(':visible') && !_.isUndefined(this.form.commonController)) {
+          this.form.commonController.validate({
+            silent: false,
+            focus: true
+          });
+        }
+      },
       modify_create_profile: function(value, oldValue) {
         this.create_profile = value;
 

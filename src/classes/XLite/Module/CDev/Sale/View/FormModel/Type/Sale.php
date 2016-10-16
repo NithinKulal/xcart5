@@ -45,7 +45,7 @@ class Sale extends AType
         $builder->add('value', 'XLite\View\FormModel\Type\PatternType', [
             'label' => false,
             'pattern'    => [
-                'alias'          => 'decimal',
+                'alias'          => 'xcdecimal',
                 'rightAlign'     => false,
                 'digits'         => 2,
             ],

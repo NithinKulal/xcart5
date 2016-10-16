@@ -466,8 +466,105 @@ XLite\Model\Order:
         data: { orderId: 4, newStatus: "Declined", oldStatus: "Awaiting payment" }
         author: { login: bit-bucket@example.com }
 
+  - order_id: 5
+    profile:
+      login: bit-bucket@example.com
+      password: 084e0343a0486ff05530df6c705c8bb4
+      anonymous: 1
+      cms_profile_id: 0
+      addresses:
+        - is_billing: true
+          is_shipping: true
+          state: { country_code: US, code: OK }
+          country: { code: US }
+          addressFields :
+            - addressField: { serviceName: title }
+              value : 'Mr.'
+            - addressField: { serviceName: firstname }
+              value: Guest
+            - addressField: { serviceName: lastname }
+              value: Guest
+            - addressField: { serviceName: phone }
+              value: '0123456789'
+            - addressField: { serviceName: street }
+              value: '51 apt, 87 street'
+            - addressField: { serviceName: city }
+              value: Edmond
+            - addressField: { serviceName: state_id }
+              value: 595
+            - addressField: { serviceName: country_code }
+              value: US
+            - addressField: { serviceName: zipcode }
+              value: '73003'
+    orig_profile: { login: bit-bucket@example.com }
+    total: 352.81
+    subtotal: 351.31
+    date: 1452604702
+    currency: { code: USD }
+    paymentStatus: { code: P }
+    shippingStatus: { code: D }
+    orderNumber: 5
+    shipping_method_name: Courier
+    shipping_id: 1
+    recent: 0
+    payment_transactions:
+      - method_name: MoneyOrdering
+        method_local_name: 'Money Ordering'
+        payment_method: { service_name: MoneyOrdering }
+        date: 1452604702
+        status: S
+        value: 352.81
+        type: sale
+        note: ''
+        publicTxnId: '000005-KXAQ'
+        public_id: 'demostore-000005-KXAQ'
+    items:
+      - object: { sku: '12029' }
+        name: 'Soft Kitty Singing Plush [Sale] [Reviews]'
+        sku: '12029'
+        price: 25.4900
+        itemNetPrice: 25.4900
+        discountedSubtotal: 305.8800
+        amount: 12
+        subtotal: 305.8800
+        total: 305.8800
+        object_type: product
+      - object: { sku: '12035' }
+        name: 'Superhero Mom Mug'
+        sku: '12035'
+        price: 6.4900
+        itemNetPrice: 6.4900
+        discountedSubtotal: 45.4300
+        amount: 7
+        subtotal: 45.4300
+        total: 45.4300
+        object_type: product
+    surcharges:
+      - type: shipping
+        code: SHIPPING
+        class: '\XLite\Logic\Order\Modifier\Shipping'
+        name: Shipping cost
+        value: 1.5000
+    events:
+      - date: 1452604702
+        code: PLACE ORDER
+        description: Order placed
+        author: { login: bit-bucket@example.com }
+      - date: 1452604702
+        code: TRANSACTION
+        description: 'Payment transaction [method: Money Ordering, type: sale, amount: 352.81, status: Pending]'
+        author: { login: bit-bucket@example.com }
+      - date: 1452604702
+        code: EMAIL ADMIN SENT
+        description: Email sent to the admin
+        data: { orderId: 5 }
+        comment: Order is initially created
+        author: { login: bit-bucket@example.com }
+
 # The code below allows to recalculate 'sales' fields of updated products
 XLite\Model\Product:
+  - { sku: '12029', sales: 12 }
+  - { sku: '12035', sales: 7 }
   - { sku: '12030', sales: 2 }
   - { sku: '12022', sales: 6 }
   - { sku: '1204', sales: 1 }

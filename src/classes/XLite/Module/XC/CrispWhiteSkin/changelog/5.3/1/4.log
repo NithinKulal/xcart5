@@ -1,0 +1,5 @@
+Version 5.3.1.4
+
+Fixes
+2016-09-07 - [Bug] In the Crisp White Skin, the address in the store's footer was displayed incorrectly. #BUG-3832 (Sergey Elmanov) #CrispWhiteSkin
+2016-08-08 - [Bug] The field for entering coupon codes on the cart page in Crisp White was overlapped by the footer. #BUG-3687 (Michael Lipinski) #CrispWhiteSkin

@@ -10,6 +10,7 @@ namespace Includes\Decorator\ClassBuilder\DependencyExtractor;
 
 use Includes\ClassPathResolverInterface;
 use Includes\Decorator\ClassBuilder\DependencyExtractor\DependencyExtractorInterface;
+use Includes\Reflection\StaticReflectorInterface;
 use MJS\TopSort\Implementations\StringSort;
 use Includes\Decorator\ClassBuilder\ModuleInterface;
 use Includes\Decorator\ClassBuilder\ModuleRegistryInterface;
@@ -93,7 +94,8 @@ class DependencyExtractor implements DependencyExtractorInterface
             $reflector = $this->reflectorFactory->reflectSource($decorator);
 
             return $this->moduleRegistry->hasAll($reflector->getPositiveDependencies())
-                   && $this->moduleRegistry->hasNone($reflector->getNegativeDependencies());
+                   && $this->moduleRegistry->hasNone($reflector->getNegativeDependencies())
+                   && (LC_DEVELOPER_MODE || $reflector->isPSR0());
         });
 
         return !empty($decorators) ? $this->sortDecorators($decorators) : [];

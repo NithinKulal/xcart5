@@ -45,7 +45,7 @@ class PaypalAuthProvider extends \XLite\Module\CDev\SocialLogin\Core\AAuthProvid
      */
     protected function getClientId()
     {
-        return \Xlite\Core\Config::getInstance()->CDev->Paypal->loginClientId;
+        return \XLite\Core\Config::getInstance()->CDev->Paypal->loginClientId;
     }
 
     /**
@@ -55,6 +55,6 @@ class PaypalAuthProvider extends \XLite\Module\CDev\SocialLogin\Core\AAuthProvid
      */
     protected function getClientSecret()
     {
-        return \Xlite\Core\Config::getInstance()->CDev->Paypal->loginClientSecret;
+        return \XLite\Core\Config::getInstance()->CDev->Paypal->loginClientSecret;
     }
 }

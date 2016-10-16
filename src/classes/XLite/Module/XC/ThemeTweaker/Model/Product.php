@@ -24,17 +24,18 @@ class Product extends \XLite\Model\Product implements \XLite\Base\IDecorator
     }
 
     /**
-     * Checks if given property is available to modification through layout editor mode.
+     * Provides metadata for the property
      *
      * @param  string  $property Checked entity property
      * @return boolean
      */
-    public function getEditableMetadata($property)
+    public function getFieldMetadata($property)
     {
-        return array(
-            'data-model' => $this->getEntityName(),
-            'data-identifier' => $this->getProductId(),
-            'data-property' => $property,
+        return array_merge(
+            parent::getFieldMetadata($property),
+            array(
+                'data-inline-editable' => 'data-inline-editable',
+            )
         );
     }
 }

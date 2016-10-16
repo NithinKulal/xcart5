@@ -1229,10 +1229,14 @@ class Category extends \XLite\Model\Repo\Base\I18n
 
         $queryBuilder->addSelect('IDENTITY(c.parent) as parent_id');
         $queryBuilder->addSelect('c.depth as depth');
-        $queryBuilder->addSelect('quickFlags.subcategories_count_enabled as subcategoriesCount');
+        $queryBuilder->addSelect('count(conditional_children) as subcategoriesCount');
 
+        $queryBuilder->linkLeft('c.children', 'conditional_children',
+            'WITH',
+            'conditional_children.enabled = true AND (:membership MEMBER OF conditional_children.memberships OR conditional_children.memberships IS EMPTY)'
+        );
 
-        $queryBuilder->linkLeft('c.quickFlags');
+        $queryBuilder->setParameter('membership', \XLite\Core\Auth::getInstance()->getMembershipId());
 
         $queryBuilder->addGroupBy('c.category_id');
 

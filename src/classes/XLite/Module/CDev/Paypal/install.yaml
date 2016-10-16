@@ -179,6 +179,8 @@ XLite\Model\Payment\Method:
         value: PayPal
       - name: feesPayer
         value: PRIMARYRECEIVER
+      - name: matchCriteria
+        value: name
       - name: prefix
         value: mystore_
       - name: transaction_type
@@ -316,3 +318,9 @@ XLite\Model\LanguageLabel:
   - { name: 'Registering your application with PayPal', translations: [{ code: en, label: 'Registering your application with PayPal' }]}
   - { name: 'SECONDARYONLY', translations: [{ code: en, label: 'SECONDARYONLY' }]}
   - { name: 'SENDER', translations: [{ code: en, label: 'SENDER' }]}
+
+  - { name: 'Additional criteria to match for PayPal account verification', translations: [{ code: en, label: 'Additional criteria to match for PayPal account verification' }] }
+  - { name: 'MATCH_CRITERIA_HELP', translations: [{ code: en, label: '<div>Determines the type of criteria that should be matched for account verification (in addition to vendor PayPal account identifier).<div><ul class="unstyled"><li>NAME - Default; should be good in most cases.</li><li>NONE - Is available only to certain financial institutions (Contact Paypal for approval prior to selection!)</li><li>Disable - Deactivates account verification.</li></ul>' }] }
+  - { name: 'MATCH_CRITERIA_NAME', translations: [{ code: en, label: 'NAME' }] }
+  - { name: 'MATCH_CRITERIA_NONE', translations: [{ code: en, label: 'NONE' }] }
+  - { name: 'MATCH_CRITERIA_DISABLED', translations: [{ code: en, label: 'Disable' }] }

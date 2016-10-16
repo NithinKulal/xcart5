@@ -34,7 +34,7 @@
 
     <p class="alert alert-warning">
       <strong>{{ t('Warning') }}!</strong>
-      {{ t('X-Payments considers this transaction as potentially fraudulent.') }}
+      {{ this.getFraudStatusText(this.entity) }}
     </p>
 
     <a class="btn regular-button" href="{{ url('order', 'accept', {'order_number': this.order.getOrderNumber(), 'trn_id': this.getTransactionId(this.entity)}) }}">{{ t('Accept') }}</a>

@@ -7,18 +7,15 @@
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
 
-function makeSmallHeight(button)
-{
+function makeSmallHeight(button) {
   switchHeight('.modified-files-block');
 }
 
-function makeLargeHeight(button)
-{
+function makeLargeHeight(button) {
   switchHeight('.modified-files-block');
 }
 
-function switchHeight(area)
-{
+function switchHeight(area) {
   var max = "600px";
 
   if ("undefined" === typeof(jQuery(area).attr("old_height"))) {
@@ -53,20 +50,31 @@ core.bind(
   function () {
     jQuery('#radio-select-all').click(function () {
       jQuery('.modified-file input[type=checkbox]')
-      .prop('checked', '')
-      .prop('readonly', 'readonly')
-      .addClass('readonly');
+        .prop('checked', '')
+        .prop('disabled', true)
+        .prop('readonly', 'readonly')
+        .addClass('readonly');
 
-      jQuery('a.unselect-all, a.select-all').unbind('click');
+      jQuery('.modified-files-section .select-actions').addClass('disabled');
+
+      jQuery('a.unselect-all, a.select-all')
+        .attr('disabled', true)
+        .unbind('click');
     });
 
     jQuery('#radio-unselect').click(function () {
+      jQuery('a.unselect-all, a.select-all')
+        .removeAttr('disabled');
+
+      jQuery('.modified-files-section .select-actions').removeClass('disabled');
+
       attachClickOnSelectAll();
       attachClickOnUnselectAll();
 
       jQuery('.modified-file input[type=checkbox]')
-      .removeProp('readonly')
-      .removeClass('readonly');
+        .removeProp('readonly')
+        .removeProp('disabled')
+        .removeClass('readonly');
     });
 
     attachClickOnSelectAll();
@@ -76,4 +84,4 @@ core.bind(
     // Must be selected by default
     jQuery('#radio-select-all').click();
   }
-  );
+);

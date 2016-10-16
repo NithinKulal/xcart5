@@ -970,7 +970,7 @@ GLOBAL.renderTwig = function (nodes) {
                     end    = findParam(params, 'end'),
                     template = findParam(params, 'template'),
                     target   = findParam(params, 'target'),
-                    isFormWidget = clazz && name && classExp.match(/Form/);
+                    isFormWidget = clazz && name && classExp.match(/Form\b/);
 
                 params = _.without(params, clazz, end, target);
 

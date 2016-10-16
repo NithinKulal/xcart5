@@ -173,13 +173,13 @@ class Configuration extends \XLite\View\AView
     }
 
     /**
-     * Get video URL
+     * Get G2A marketplace URL
      *
      * @return string
      */
-    protected function getVideoURL()
+    protected function getG2AUrl()
     {
-        return 'http://www.paypal.com/understandingonlinepayments';
+        return \XLite\Core\Database::getRepo('XLite\Model\Module')->getMarketplaceUrlByName('G2APay', 'G2APay');
     }
     // }}}
 }

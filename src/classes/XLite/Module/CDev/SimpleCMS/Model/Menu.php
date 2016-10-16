@@ -337,6 +337,22 @@ class Menu extends \XLite\Model\Base\I18n
     }
 
     /**
+     * Get the number of submenus
+     *
+     * @return integer
+     */
+    public function getSubmenusCountConditional()
+    {
+        $currentState = \XLite\Core\Auth::getInstance()->isLogged() && !\XLite\Core\Auth::getInstance()->isAnonymous()
+            ? 'L'
+            : 'A';
+
+        return $this->getSubmenus()->filter(function(\XLite\Module\CDev\SimpleCMS\Model\Menu $submenu) use ($currentState){
+            return $submenu->getEnabled() && ($submenu->getVisibleFor() === 'AL' || $submenu->getVisibleFor() === $currentState);
+        })->count();
+    }
+
+    /**
      * Get id
      *
      * @return integer 

@@ -38,12 +38,6 @@
           var $el = $(this.el);
           this.vm.$set(model, $el.val() || []);
         }, this));
-    },
-    update: function (nv, ov) {
-      var $el = $(this.el);
-
-      $(this.el).val(nv);
-      $el.trigger('change');
     }
   });
 

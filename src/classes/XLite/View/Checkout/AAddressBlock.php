@@ -7,6 +7,7 @@
  */
 
 namespace XLite\View\Checkout;
+use XLite\View\Model\AModel;
 
 /**
  * Address block info
@@ -451,8 +452,8 @@ abstract class AAddressBlock extends \XLite\View\AView
     {
         $commentedData = array();
 
-        if (isset($filedData[\XLite\View\Model\AModel::SCHEMA_DEPENDENCY])) {
-            $commentedData['dependency'] = $filedData[\XLite\View\Model\AModel::SCHEMA_DEPENDENCY];
+        if (isset($filedData[AModel::SCHEMA_DEPENDENCY])) {
+            $commentedData['dependency'] = $filedData[AModel::SCHEMA_DEPENDENCY];
         }
 
         return $commentedData;

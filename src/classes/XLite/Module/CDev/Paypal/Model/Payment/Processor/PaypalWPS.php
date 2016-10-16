@@ -181,10 +181,8 @@ class PaypalWPS extends \XLite\Model\Payment\Base\WebBased
         parent::processCallback($transaction);
 
         if (Paypal\Model\Payment\Processor\PaypalIPN::getInstance()->isCallbackIPN()) {
-            // If callback is IPN request from Paypal
             Paypal\Model\Payment\Processor\PaypalIPN::getInstance()
-                ->processCallbackIPN($transaction, $this);
-            $transaction->registerTransactionInOrderHistory('callback, IPN');
+                ->tryProcessCallbackIPN($transaction, $this);
         }
 
         $this->saveDataFromRequest();
@@ -200,6 +198,10 @@ class PaypalWPS extends \XLite\Model\Payment\Base\WebBased
     public function processReturn(\XLite\Model\Payment\Transaction $transaction)
     {
         parent::processReturn($transaction);
+
+        if ($transaction->hasTtlForIpn()) {
+            $transaction->removeTtlForIpn();
+        }
 
         if (\XLite\Core\Request::getInstance()->cancel) {
             $this->setDetail(

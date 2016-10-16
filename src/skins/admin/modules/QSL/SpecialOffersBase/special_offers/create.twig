@@ -1,0 +1,9 @@
+{% if this.hasActiveOfferTypes() %}
+{% form '\\XLite\\Module\\QSL\\SpecialOffersBase\\View\\Form\\ItemsList\\SpecialOffer\\Create' %}
+  <ul class="special-offer-create-params">
+    {{ this.displayViewListContent('qsl.specialoffersbase.special_offers.list.create') }}
+  </ul>
+{% endform %}
+{% else %}
+    {% include 'modules/QSL/SpecialOffersBase/special_offers/special_offer_modules.twig' %}
+{% endif %}

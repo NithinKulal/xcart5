@@ -275,9 +275,13 @@ class Info extends \XLite\View\AView
      */
     protected function isHistoryVisible()
     {
-        $id = $this->getOrder()->getOrderId();
+        $result = false;
 
-        return 0 < count(\XLite\Core\Database::getRepo('XLite\Model\OrderHistoryEvents')->find($id));
+        if ($this->getOrder()) {
+            $result = (bool) \XLite\Core\Database::getRepo('XLite\Model\OrderHistoryEvents')->findOneBy(array('order' => $this->getOrder()));
+        }
+
+        return $result;
     }
 
     // }}}

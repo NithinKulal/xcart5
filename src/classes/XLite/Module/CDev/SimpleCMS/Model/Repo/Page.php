@@ -12,7 +12,7 @@ namespace XLite\Module\CDev\SimpleCMS\Model\Repo;
  * Pages repository
  *
  */
-class Page extends \XLite\Model\Repo\ARepo
+class Page extends \XLite\Model\Repo\Base\I18n
 {
     /**
      * Alternative record identifiers

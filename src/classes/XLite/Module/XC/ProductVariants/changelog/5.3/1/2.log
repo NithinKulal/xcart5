@@ -1,0 +1,4 @@
+Version 5.3.1.2
+
+Fixes
+2016-08-15 - [Bug] With the widget cache enabled, variant selection on the product page was not working correctly (The product price was updated, whereas the option names remained the default ones). Fixed. #BUG-3714 (verde) #ProductVariants

@@ -53,7 +53,7 @@ abstract class AView extends \XLite\View\AView implements \XLite\Base\IDecorator
             $markTplText = get_class($this) . ' : ' . $template . ' (' . $cnt . ')'
                 . ($this->viewListName ? ' [\'' . $this->viewListName . '\' list child]' : '');
 
-            echo ('<!-- ' . $markTplText . ' {' . '{{ -->');
+            echo ('<!-- ' . $markTplText . ' {@! -->');
             $result['markTplText'] = $markTplText;
         }
 
@@ -78,7 +78,7 @@ abstract class AView extends \XLite\View\AView implements \XLite\Base\IDecorator
         }
 
         if (isset($profilerData['markTplText'])) {
-            echo ('<!-- }}' . '} ' . $profilerData['markTplText'] . ' -->');
+            echo ('<!-- !@} ' . $profilerData['markTplText'] . ' -->');
         }
 
         if (isset($profilerData['timePoint'])) {

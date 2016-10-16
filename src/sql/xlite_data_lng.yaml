@@ -1996,6 +1996,12 @@ XLite\Model\LanguageLabel:
   - { name: "Empty \"class\" parameter is passed to the {{method}}", translations: [{ code: en, label: "Empty \"class\" parameter is passed to the {{method}}" }] }
   - { name: "You need hard and soft reset links in case some 3rd party module crashes your web-store", translations: [{ code: en, label: "You need hard and soft reset links in case some 3rd party addon <a href=\"{{article}}\" target=\"_blank\">crashes your web store</a>" }] }
   - { name: "If your store is crashed after upgrade, you can recover it", translations: [{ code: en, label: "We strongly recommend <b>to make a full backup</b> of your live store before starting the upgrade process. If your store crashes as a result of a failed upgrade, you will be able to <a href=\"{{article}}\" target=\"_blank\">restore it</a> from backup." }] }
+  - { name: "Don’t forget to create a backup!", translations: [{ code: en, label: "Don’t forget to create a backup!" }] }
+  - { name: "Backup your store with Backup Master", translations: [{ code: en, label: "Backup your store with Backup Master" }] }
+  - { name: "Yes, I have made the full backup of my store files and database", translations: [{ code: en, label: "Yes, I've made the full backup of my store files and database" }] }
+  - { name: "We are doing our best to make your upgrade process not only easy to do, but safe.", translations: [{ code: en, label: "We are doing our best to make your upgrade process not only easy to do, but safe." }] }
+  - { name: "Use our new nifty module to automatically backup your store and be able to restore it if anything crops up.", translations: [{ code: en, label: "Use our new nifty module to automatically backup your store and be able to restore it if anything crops up." }] }
+  - { name: "We will email you with emergency links to disable custom modules and stay only with original add-ons.", translations: [{ code: en, label: "We will email you with <b>emergency links</b> to disable custom modules and stay only with original add-ons.<br/> Pay attention, these links do not create backups." }] }
   - { name: "More info is available in X-Cart's Knowledge Base article 'What to do if you cannot access your store...'", translations: [{ code: en, label: "More info is available in X-Cart's Knowledge Base article <a href=\"{{article}}\" target=\"_blank\">What to do if you cannot access your store...</a>" }] }
   - { name: "Couldn't move image X", translations: [{ code: en, label: "Couldn't move image {{path}}" }] }
   - { name: "Couldn't move X images. See log for details.", translations: [{ code: en, label: "Couldn't move {{count}} images. See log for details." }] }
@@ -2844,8 +2850,17 @@ XLite\Model\LanguageLabel:
   - { name: "Billing", translations: [{ code: en, label: "Billing" }] }
   - { name: "Enable this if you would like us to use your shipping address as your billing address", translations: [{ code: en, label: "Enable this if you would like us to use your shipping address as your billing address" }] }
   - { name: "Proceed to payment", translations: [{ code: en, label: "Proceed to payment" }] }
-  - { name: "Shipping to", translations: [{ code: en, label: "Shipping tog" }] }
+  - { name: "Shipping to", translations: [{ code: en, label: "Shipping to" }] }
   - { name: "Billing to", translations: [{ code: en, label: "Billing to" }] }
   - { name: "same as shipping", translations: [{ code: en, label: "same as shipping" }] }
   - { name: 'Choose shipping', translations: [{ code: en, label: 'Choose shipping' }] }
   - { name: 'Payment', translations: [{ code: en, label: 'Payment' }] }
+  
+  - { name: 'There is already state with code {{code}} in {{country}}', translations: [{ code: en, label: 'There is already state with code {{code}} in {{country}}' }] }
+
+  - { name: "X-Cart Team have done their best to make your upgrade process as enjoyable as possible.", translations: [{ code: en, label: "Hi,<br/><br/>X-Cart Team have done their best to make your upgrade process as enjoyable as possible. If that didn’t work out well for you, please follow these quick steps to get it right:" }] }
+  - { name: 'First, restore your website from the created backup - this is the fastest way to get your store back online.', translations: [{ code: en, label: 'First, restore your website from the created backup - this is the fastest way to get your store back online.' }] }
+  - { name: 'Second, try to disable all non-X-Cart modules by using the links below:', translations: [{ code: en, label: 'Second, try to disable all non-X-Cart modules by using the links below:' }] }
+  - { name: 'Soft reset. Turn off all addons except those provided by X-Cart Team & Qualiteam', translations: [{ code: en, label: 'Soft reset. Turn off all addons except those provided by X-Cart Team & Qualiteam<br/><a href="{{url}}">{{url}}</a>' }] }
+  - { name: 'Hard reset. Disable all addons except those provided by X-Cart Team', translations: [{ code: en, label: 'Hard reset. Disable all addons except those provided by X-Cart Team<br/><a href="{{url}}">{{url}}</a>' }] }
+  - { name: 'If you still need help, please, feel free to contact X-Cart Help Desk at helpdesk@x-cart.com.', translations: [{ code: en, label: 'If you still need help, please, feel free to contact X-Cart Help Desk at <a href=”mailto:helpdesk@x-cart.com”>helpdesk@x-cart.com</a>. Remember to attach the log files (from “xcart_directory/var/log”) to your email, so that their tech engineers could instantly spot the problem and help you to fix it in the most effective way possible.' }] }

@@ -166,8 +166,8 @@ class Info extends \XLite\Model\DTO\Base\ADTO
         $categories = \XLite\Core\Database::getRepo('XLite\Model\Category')->findByIds($default->category);
         $object->replaceCategoryProductsLinksByCategories($categories);
 
-        $object->setBriefDescription((string) $default->description);
-        $object->setDescription((string) $default->full_description);
+        $object->setBriefDescription((string) $rawData['default']['description']);
+        $object->setDescription((string) $rawData['default']['full_description']);
 
         $object->setEnabled((boolean) $default->available_for_sale);
         $object->setArrivalDate((int) $default->arrival_date);
@@ -239,6 +239,17 @@ class Info extends \XLite\Model\DTO\Base\ADTO
             }
 
         }
+    }
+
+    /**
+     * @param \XLite\Model\Product $object
+     * @param array|null           $rawData
+     *
+     * @return mixed
+     */
+    public function afterUpdate($object, $rawData = null)
+    {
+        $object->updateQuickData();
     }
 
     /**

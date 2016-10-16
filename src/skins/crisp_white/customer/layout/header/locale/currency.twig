@@ -4,7 +4,7 @@
  # @ListChild (list="layout.header.bar.locale", weight="30")
  #}
 
-{% if this.getCurrentCurrency() %}
+{% if this.isCurrencySelectorAvailable() and this.getCurrentCurrency() %}
 <span class='currency-indicator'>
 	{{ this.getCurrentCurrency().getCode() }}
 </span>

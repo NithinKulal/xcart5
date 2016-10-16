@@ -112,15 +112,34 @@
   display: block;
   margin-bottom: 140px;
 }
+
 #cart:after {
   content: '';
   display: block;
-  margin-bottom: 45px;
+  margin-bottom: 25px;
+}
+
+#cart.opened:after {
+  margin-bottom: 105px;
+}
+
+@media (max-width: 991px) {
+  #cart:after {
+    margin-bottom: 65px;
+  }
+
+  #cart.opened:after {
+    margin-bottom: 145px;
+  }
 }
 
 @media (max-width: 767px) {
+  #cart:after {
+    margin-bottom: 45px;
+  }
+
   #cart.opened:after {
-    margin-bottom: 180px;
+    margin-bottom: 185px;
   }
 
   .checkout-block .review-step:after {

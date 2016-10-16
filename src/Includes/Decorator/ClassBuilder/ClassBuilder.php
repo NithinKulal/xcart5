@@ -13,6 +13,7 @@ use Includes\ClassPathResolverInterface;
 use Includes\Reflection\ClassTransformer;
 use Includes\Reflection\ClassTransformerInterface;
 use Includes\Decorator\ClassBuilder\DependencyExtractor\DependencyExtractorInterface;
+use Includes\Reflection\StaticReflectorInterface;
 use Includes\SourceToTargetPathMapperInterface;
 use Includes\Reflection\StaticReflectorFactoryInterface;
 use Includes\Autoload\StreamWrapperInterface;
@@ -66,7 +67,20 @@ class ClassBuilder extends AbstractClassBuilder
         });
     }
 
-    public function buildClass($class)
+    public function buildPathname($pathname)
+    {
+        $class = $this->sourceClassPathResolver->getClass($pathname);
+
+        if (!isset($this->builtClasses[$class])) {
+            $reflector = $this->reflectorFactory->reflectSource($pathname);
+
+            if ($reflector->isPSR0()) {
+                $this->builtClasses += $this->buildClass($reflector, $class);
+            }
+        }
+    }
+
+    public function buildClassname($class)
     {
         if (isset($this->builtClasses[$class])) {
             return $this->builtClasses[$class];
@@ -78,20 +92,29 @@ class ClassBuilder extends AbstractClassBuilder
 
         $reflector = $this->reflectorFactory->reflectClass($class);
 
+        $this->builtClasses += $this->buildClass($reflector, $class);
+
+        return isset($this->builtClasses[$class]) ? $this->builtClasses[$class] : null;
+    }
+
+    protected function buildClass(StaticReflectorInterface $reflector, $class)
+    {
+        $builtClasses = [];
+
         if ($reflector->isClass()) {
-            $this->builtClasses += $reflector->isDecorator()
+            $builtClasses += $reflector->isDecorator()
                 ? $this->buildDecoratedClass($reflector->getParent())
                 : $this->buildDecoratedClass($class);
 
         } else {
             $this->copyClass($class);
 
-            $this->builtClasses[$class] = $this->shuttingDown
+            $builtClasses[$class] = $this->shuttingDown
                 ? $this->getStream($class)
                 : $this->getWrappedStream($class);
         }
 
-        return isset($this->builtClasses[$class]) ? $this->builtClasses[$class] : null;
+        return $builtClasses;
     }
 
     protected function buildDecoratedClass($class)

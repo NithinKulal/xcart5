@@ -1,0 +1,65 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Top sellers styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.top-sellers-selectors {
+  width: 1000px;
+  margin: 20px 0;
+
+  &.period-selectors {
+    td {
+      text-align: left;
+      width: 16%;
+
+      a {
+        text-decoration: none;
+        border-bottom: 1px dashed;
+
+        &.selected {
+          font-weight: bold;
+          color: @text-color;
+          border-bottom: none;
+        }
+      }
+    }
+  }
+
+  td.title {
+    width: 16%;
+    text-align: left;
+  }
+
+}
+
+table.top-sellers {
+  &.data-table {
+    width: 1000px;
+  }
+
+  th {
+    text-align: left;
+  }
+
+  tr {
+    td {
+      white-space: normal;
+      padding-top: 6px;
+      padding-bottom: 6px;
+
+      &.title {
+        width: 40%;
+      }
+    }
+
+    &:nth-child(odd) {
+      td {
+        background-color: #fafafa;
+      }
+    }
+  }
+}

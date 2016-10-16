@@ -40,6 +40,10 @@ class Module extends \XLite\Model\AEntity
      */
     const NOT_AVAILABLE_MODULE = -1;
 
+    /**
+     * Identity separator to generate MarketplaceID hash
+     */
+    const IDENTITY_SEPARATOR = '.';
 
     /**
      * Module ID
@@ -849,7 +853,8 @@ class Module extends \XLite\Model\AEntity
     {
         $module = $this->getRepository()->getModuleFromMarketplace($this);
 
-        return !isset($module) || $module->getModuleID() === $this->getModuleID();
+        return !isset($module)
+            || (!$this->getFromMarketplace() && $module->getModuleID() === $this->getModuleID());
     }
 
     /**
@@ -955,7 +960,7 @@ class Module extends \XLite\Model\AEntity
     public function getMarketplaceID()
     {
         if (!isset($this->marketplaceID)) {
-            $this->marketplaceID = md5(implode('', $this->getIdentityData()));
+            $this->marketplaceID = md5(implode(self::IDENTITY_SEPARATOR, $this->getIdentityData()));
         }
 
         return $this->marketplaceID;

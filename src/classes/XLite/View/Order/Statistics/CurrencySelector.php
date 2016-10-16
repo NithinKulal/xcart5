@@ -40,7 +40,7 @@ class CurrencySelector extends \XLite\View\AView
      */
     public function getCSSFiles()
     {
-        $list = parent::getJSFiles();
+        $list = parent::getCSSFiles();
         $list[] = 'order/currency_selector.css';
 
         return $list;

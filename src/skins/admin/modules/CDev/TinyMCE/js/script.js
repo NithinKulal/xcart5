@@ -17,10 +17,13 @@ function TinyMCE(base)
     var id = jQuery(this).attr('id');
     if (id) {
       self.initialization('#' + id);
-      this.commonController.bind(
-        'local.validate',
-        _.bind(self.specialValidate, self, id)
-      );
+      
+      if (!_.isUndefined(this.commonController)) {
+        this.commonController.bind(
+          'local.validate',
+          _.bind(self.specialValidate, self, id)
+        );
+      }
     } else {
       var styleClass = 'mce' + (new Date().getTime());
       jQuery(this).addClass(styleClass);

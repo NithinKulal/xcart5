@@ -993,24 +993,6 @@ class Converter extends \XLite\Base\Singleton
 
             if (function_exists('exec')) {
                 exec($cmd, $locales);
-
-            } elseif (function_exists('passthru')) {
-                ob_start();
-                passthru($cmd);
-                $res = ob_get_contents();
-                ob_end_clean();
-                if ($res) {
-                    $locales = array_filter(explode(PHP_EOL, $res));
-                }
-
-            } elseif (function_exists('system')) {
-                ob_start();
-                system($cmd);
-                $res = ob_get_contents();
-                ob_end_clean();
-                if ($res) {
-                    $locales = array_filter(explode(PHP_EOL, $res));
-                }
             }
 
             $cacheDriver->save($cacheKey, $locales, $ttl);

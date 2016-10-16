@@ -28,7 +28,7 @@ class DeleteUser extends \XLite\View\Button\APopupButton
     }
 
     /**
-     * getJSFiles
+     * getCSSFiles
      *
      * @return array
      */

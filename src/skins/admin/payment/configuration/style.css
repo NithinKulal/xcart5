@@ -91,9 +91,8 @@ button.add-method.top-button-add-method {
   display: inline-block;
 }
 
-.right-panel-payment-modules .subbox.marketplace .payment-logos {
-  padding: 10px 0 20px 0;
-  width: 234px;
+.right-panel-payment-modules .g2a-logo {
+  width: 280px;
 }
 
 .right-panel-payment-modules .subbox.marketplace h2 {

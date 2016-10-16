@@ -1,0 +1,15 @@
+{##
+ # "Module upgrade needed"
+ #
+ # @ListChild (list="itemsList.module.manage.columns.module-main-section.messages.cannot_enable", weight="400")
+ # @ListChild (list="itemsList.module.install.columns.module-main-section.cannot_enable", weight="400")
+ #}
+
+{% if this.isUpgradeRequestAvailable(this.module) %}
+    <div class="request-for-upgrade">
+        {{  widget('XLite\\View\\Button\\Link',
+        location=url('addons_list_marketplace', 'request_for_upgrade', { 'module': this.module.getModuleId() } ),
+        label=t('Request for upgrade'),
+        style='btn regular-button always-enabled') }}
+    </div>
+{% endif %}

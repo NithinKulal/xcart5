@@ -39,6 +39,7 @@ require_once (__DIR__ . '/classes/XLite/Module/CDev/VAT/Main.php');
 require_once (__DIR__ . '/classes/XLite/Module/CDev/VolumeDiscounts/Main.php');
 require_once (__DIR__ . '/classes/XLite/Module/CDev/Wholesale/Main.php');
 require_once (__DIR__ . '/classes/XLite/Module/CDev/XMLSitemap/Main.php');
+require_once (__DIR__ . '/classes/XLite/Module/G2APay/G2APay/Main.php');
 require_once (__DIR__ . '/classes/XLite/Module/QSL/FlyoutCategoriesMenu/Main.php');
 require_once (__DIR__ . '/classes/XLite/Module/QSL/ShopGate/Main.php');
 require_once (__DIR__ . '/classes/XLite/Module/XC/Add2CartPopup/Main.php');

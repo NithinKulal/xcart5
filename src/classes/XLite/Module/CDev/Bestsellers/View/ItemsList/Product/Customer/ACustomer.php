@@ -41,4 +41,17 @@ abstract class ACustomer extends \XLite\View\ItemsList\Product\Customer\ACustome
 
         return $fields;
     }
+
+    /**
+     * Get products single order 'sort by' fields
+     * Return in format [sort_by_field => sort_order]
+     *
+     * @return array
+     */
+    protected function getSingleOrderSortByFields()
+    {
+        return parent::getSingleOrderSortByFields() + [
+            static::SORT_BY_MODE_BOUGHT => static::SORT_ORDER_DESC
+        ];
+    }
 }

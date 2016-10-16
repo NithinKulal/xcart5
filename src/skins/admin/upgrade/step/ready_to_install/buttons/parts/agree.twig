@@ -5,8 +5,8 @@
  #}
 
 {% if this.isNextStepAvailable() %}
-  <div class="alert alert-warning agree">
+  <div class="alert agree">
     <input type="checkbox" id="agree" name="agree" />
-    <label for="agree">{{ t('I confirm that I have created backups of my store\'s files and database before upgrading the store')|raw }}</label>
+    <label for="agree">{{ t('Yes, I have made the full backup of my store files and database')|raw }}</label>
   </div>
 {% endif %}

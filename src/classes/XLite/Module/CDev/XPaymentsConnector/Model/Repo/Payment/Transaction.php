@@ -24,7 +24,7 @@ class Transaction extends \XLite\Model\Repo\Payment\BackendTransaction implement
      *
      * @var string
      */
-    protected $defaultAlias = 'bt';
+    protected $defaultAlias = 'bpt';
 
     /**
      * Create new QueryBuilder instance that is prepopulated for this entity name
@@ -37,7 +37,7 @@ class Transaction extends \XLite\Model\Repo\Payment\BackendTransaction implement
     public function createQueryBuilder($alias = null, $indexBy = null)
     {
         $qb = parent::createQueryBuilder($alias, $indexBy)
-            ->innerJoin('bt.payment_transaction', 'pt')
+            ->innerJoin('bpt.payment_transaction', 'pt')
             ->innerJoin('pt.order', 'o');
 
         return $qb;

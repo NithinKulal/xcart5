@@ -682,6 +682,12 @@ CacheEngine.prototype.clear = function () {
 
 jQuery(document).ready(
   function() {
+    var isIE11 = !!navigator.userAgent.match(/Trident.*rv[ :]*11\./);
+
+    if(isIE11){
+        jQuery('body').addClass('ie11');
+    }
+
     // Open warning popup
     core.microhandlers.add(
       'OverlayHeightResize',

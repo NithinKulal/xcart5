@@ -57,16 +57,9 @@ XLite\Model\Category:
       - code: en
         name: 'Catalog'
         description: '<h1>Welcome to X-Cart Demo Store!</h1><p>It illustrates operation and features of X-Cart - all-in-one eCommerce solution for swift and easy launch of a professional online store. Orders placed here cannot be fulfilled as all the sample products listed in this store are for demonstration and testing purposes only.</p>'
-    featuredProducts:
-      - { product: { sku: 'sw-0' }, orderBy: 10 }
-      - { product: { sku: '12029' }, orderBy: 20 }
-      - { product: { sku: '12004' }, orderBy: 30 }
-      - { product: { sku: '10096' }, orderBy: 40 }
-      - { product: { sku: '12003' }, orderBy: 50 }
-      - { product: { sku: '1204' }, orderBy: 60 }
 
     children:
-      - pos: 10
+      - pos: 30
         show_title: false
         cleanURLs: [{ cleanURL: igoods }]
         image: { path: igoods.png, mime: image/png, width: 434, height: 555, size: 265767, date: 1394109447 }
@@ -103,7 +96,7 @@ XLite\Model\Category:
 
       - cleanURLs: [{ cleanURL: apparel }]
         show_title: false
-        pos: 30
+        pos: 10
         image: { path: 1814_star_trek_command_cycle_jersey.jpeg, mime: image/jpeg, width: 600, height: 640, size: 56283, date: 1278412215 }
         banner: { path: banner_apparel_clean.jpg, mime: image/jpeg, width: 2720, height: 800, size: 122998, date: 1394109447 }
         translations:
@@ -185,8 +178,8 @@ XLite\Model\Config:
   - { name: anonymous_zipcode, category: Shipping, value: '90001' }
   - { name: anonymous_city, category: Shipping, value: 'Los Angeles' }
   - { name: time_zone, category: General, value: Europe/Moscow }
-  - { name: order_number_counter, category: General, value: 5 }
-  - { name: doSearch, category: QSL\CloudSearch, value: N}
+  - { name: order_number_counter, category: General, value: 6 }
+  - { name: checkout_type, category: General, value: 'one-page' }
 
 XLite\Model\Zone:
   - { zone_name: 'All Addresses (default zone)' }

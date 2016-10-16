@@ -50,7 +50,7 @@ class Admin extends ANotification
 
             $object->setAdminHeaderEnabled($this->scheme->header['status']);
             $object->setAdminGreetingEnabled($this->scheme->greeting['status']);
-            $object->setAdminText($this->scheme->text);
+            $object->setAdminText(isset($rawData['scheme']['text']) ? $rawData['scheme']['text'] : $this->scheme->text);
             $object->setAdminSignatureEnabled($this->scheme->signature['status']);
         }
     }

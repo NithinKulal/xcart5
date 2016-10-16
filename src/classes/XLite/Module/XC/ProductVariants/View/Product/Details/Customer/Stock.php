@@ -48,8 +48,11 @@ class Stock extends \XLite\View\Product\Details\Customer\Stock implements \XLite
         $variant = $this->getProductVariant();
 
         if ($variant) {
-            $result = !$this->getProductVariant()->isOutOfStock();
-
+            if ($variant->getDefaultAmount()) {
+                $result = $this->getProduct()->getInventoryEnabled() && !$variant->isOutOfStock();
+            } else {
+                $result = !$variant->isOutOfStock();
+            }
         } elseif ($this->getProduct()->mustHaveVariants()) {
             $result = false;
         }

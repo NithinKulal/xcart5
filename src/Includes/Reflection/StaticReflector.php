@@ -10,6 +10,7 @@ namespace Includes\Reflection;
 
 use Doctrine\Common\Annotations\AnnotationException;
 use Includes\Annotations\Parser\AnnotationParserInterface;
+use Includes\ClassPathResolverInterface;
 use Includes\Decorator\Utils\Tokenizer;
 use XLite\Logger;
 
@@ -29,15 +30,29 @@ class StaticReflector implements StaticReflectorInterface
 
     private $annotationsByType;
 
-    public function __construct(AnnotationParserInterface $annotationParser, $pathname)
-    {
-        $this->pathname         = $pathname;
-        $this->annotationParser = $annotationParser;
+    /**
+     * @var ClassPathResolverInterface
+     */
+    private $classPathResolver;
+
+    public function __construct(
+        ClassPathResolverInterface $classPathResolver, AnnotationParserInterface $annotationParser, $pathname
+    ) {
+        $this->pathname          = $pathname;
+        $this->annotationParser  = $annotationParser;
+        $this->classPathResolver = $classPathResolver;
     }
 
     public function getPathname()
     {
         return $this->pathname;
+    }
+
+    public function getRealPathname()
+    {
+        $from = LC_DS == '\\' ? '/' : '\\';
+
+        return str_replace($from, LC_DS, $this->getPathname());
     }
 
     public function getNamespace()
@@ -60,17 +75,38 @@ class StaticReflector implements StaticReflectorInterface
         return Tokenizer::getInterfaceName($this->pathname) !== null;
     }
 
+    public function isTrait()
+    {
+        return Tokenizer::getTraitName($this->pathname) !== null;
+    }
+
     public function getClassName()
     {
-        return Tokenizer::getClassName($this->pathname);
+        $className = Tokenizer::getClassName($this->pathname);
+
+        if ($className === null) {
+            $className = Tokenizer::getInterfaceName($this->pathname);
+        }
+
+        if ($className === null) {
+            $className = Tokenizer::getTraitName($this->pathname);
+        }
+
+        return $className;
     }
 
     public function getFQCN()
     {
+        $className = $this->getClassName();
+
+        if ($className === null) {
+            return null;
+        }
+
         $namespace = $this->getNamespace();
 
         return $namespace
-            ? $namespace . '\\' . $this->getClassName()
+            ? $namespace . '\\' . $className
             : $this->getClassName();
     }
 
@@ -130,6 +166,13 @@ class StaticReflector implements StaticReflectorInterface
             },
             Tokenizer::getInterfaces($this->pathname)
         );
+    }
+
+    public function isPSR0()
+    {
+        $fqcn = $this->getFQCN();
+
+        return $fqcn !== null && $this->classPathResolver->getPathname($fqcn) == $this->getRealPathname();
     }
 
     public function isDecorator()

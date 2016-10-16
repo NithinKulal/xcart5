@@ -542,6 +542,7 @@ abstract class AAttributeValue extends \XLite\Logic\Import\Processor\AProcessor
         if ($create && !empty($name) && $productClass && !$this->groupsCache[$name]) {
             $entity = new \XLite\Model\AttributeGroup;
             $entity->setName($name);
+            $entity->setProductClass($productClass);
             $group = \XLite\Core\Database::getRepo('XLite\Model\AttributeGroup')->insert($entity);
 
             \XLite\Core\Database::getEM()->persist($group);

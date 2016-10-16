@@ -13,11 +13,113 @@ namespace XLite\Module\Amazon\PayWithAmazon;
  */
 class AMZ
 {
-    const AMAZON_PA_DEBUG = false;
-    const AMAZON_PA_PLATFORM_ID = 'A1PQFSSKP8TT2U';
+    const AMAZON_PA_DEBUG        = false;
+    const AMAZON_PA_PLATFORM_ID  = 'A1PQFSSKP8TT2U';
     const AMAZON_PA_HOST_PATTERN = '/^sns\.[a-zA-Z0-9\-]{3,}\.amazonaws\.com(\.cn)?$/';
 
-    public static function func_amazon_pa_debug($message, $xml = false) {
+    protected $jsUrls = [
+        'test' => [
+            'EUR' => 'https://static-eu.payments-amazon.com/OffAmazonPayments/de/sandbox/js/Widgets.js',
+            'GBR' => 'https://static-eu.payments-amazon.com/OffAmazonPayments/uk/sandbox/js/Widgets.js',
+            'USD' => 'https://static-na.payments-amazon.com/OffAmazonPayments/us/sandbox/js/Widgets.js',
+        ],
+        'live' => [
+            'EUR' => 'https://static-eu.payments-amazon.com/OffAmazonPayments/de/js/Widgets.js',
+            'GBR' => 'https://static-eu.payments-amazon.com/OffAmazonPayments/uk/js/Widgets.js',
+            'USD' => 'https://static-na.payments-amazon.com/OffAmazonPayments/us/js/Widgets.js',
+        ],
+    ];
+
+    /**
+     * @var \XLite\Core\CommonCell
+     */
+    protected $config;
+
+    /**
+     * @param \XLite\Core\CommonCell $config
+     */
+    public function __construct($config)
+    {
+        $config->amazon_pa_region = in_array($config->amazon_pa_currency, ['EUR', 'GBR'], true)
+            ? 'EU'
+            : 'NA';
+
+        $this->config = $config;
+    }
+
+    /**
+     * @return \XLite\Core\CommonCell
+     */
+    public function getConfig()
+    {
+        return $this->config;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isConfigured()
+    {
+        return $this->config->amazon_pa_sid && $this->config->amazon_pa_client_id
+            && \XLite\Core\Config::getInstance()->Security->customer_security;
+    }
+
+    /**
+     * @return string
+     */
+    public function getJsUrl()
+    {
+        $mode = $this->config->amazon_pa_mode === 'live' ? 'live' : 'test';
+        $currency = in_array($this->config->amazon_pa_currency, ['EUR', 'GBR'], true)
+            ? $this->config->amazon_pa_currency
+            : 'USD';
+        $sid = $this->config->amazon_pa_sid;
+
+        return $this->jsUrls[$mode][$currency] . '?sellerId=' . $sid;
+    }
+
+    /**
+     * @param string $accessToken
+     *
+     * @return boolean
+     */
+    public function checkAccessToken($accessToken)
+    {
+        $result = false;
+
+        $endPoint = 'https://api.amazon.com/auth/o2/tokeninfo?access_token=' . $accessToken;
+        $request = new \XLite\Core\HTTP\Request($endPoint);
+
+        $response = $request->sendRequest();
+
+        if ($response && $response->body) {
+            $data = json_decode($response->body, true);
+
+            $result = isset($data['aud']) && $data['aud'] === $this->config->amazon_pa_client_id;
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param string $accessToken
+     *
+     * @return array|null
+     */
+    public function getProfileInfo($accessToken)
+    {
+        $request = new \XLite\Core\HTTP\Request('https://api.amazon.com/user/profile');
+        $request->setHeader('Authorization', 'bearer ' . $accessToken);
+
+        $response = $request->sendRequest();
+
+        return $response && $response->body
+            ? json_decode($response->body, true)
+            : null;
+    }
+
+    public static function func_amazon_pa_debug($message, $xml = false)
+    {
 
         if (!self::AMAZON_PA_DEBUG || empty($message))
             return true;
@@ -27,17 +129,21 @@ class AMZ
         }
 
         \XLite\Logger::logCustom('amazon_pa', $message);
+
         return true;
     }
 
-    public static function func_amazon_pa_error($message) {
+    public static function func_amazon_pa_error($message)
+    {
 
         \XLite\Logger::logCustom('amazon_pa', $message);
+
         return true;
     }
 
-    public static function _func_xml_make_tree($vals, &$i) {
-        $children = array();
+    public static function _func_xml_make_tree($vals, &$i)
+    {
+        $children = [];
 
         if (isset($vals[$i]['value'])) {
             array_push($children, $vals[$i]['value']);
@@ -99,7 +205,8 @@ class AMZ
         return $children;
     }
 
-    public static function func_change_order_status($orderid, $orderStatus, $advinfo = false) {
+    public static function func_change_order_status($orderid, $orderStatus, $advinfo = false)
+    {
 
         self::func_amazon_pa_debug("change order $orderid status to $orderStatus");
 
@@ -108,6 +215,7 @@ class AMZ
             \XLite\Model\Cart::setObject($cart);
         } else {
             self::func_amazon_pa_error("Cant find order $orderid to change its status");
+
             return;
         }
 
@@ -118,30 +226,31 @@ class AMZ
 
             if ($orderStatus == \XLite\Model\Order\Status\Payment::STATUS_DECLINED || $orderStatus == \XLite\Model\Order\Status\Payment::STATUS_CANCELED) {
                 // cancel ORO if declined
-                self::func_amazon_pa_request('CancelOrderReference', array(
-                    'AmazonOrderReferenceId' => $orefid
-                ));
+                self::func_amazon_pa_request('CancelOrderReference', [
+                    'AmazonOrderReferenceId' => $orefid,
+                ]);
             }
 
             if ($orderStatus == \XLite\Model\Order\Status\Payment::STATUS_PAID) {
                 // close ORO
-                self::func_amazon_pa_request('CloseOrderReference', array(
-                    'AmazonOrderReferenceId' => $orefid
-                ));
+                self::func_amazon_pa_request('CloseOrderReference', [
+                    'AmazonOrderReferenceId' => $orefid,
+                ]);
             }
         }
 
         \XLite\Core\Database::getEM()->flush();
     }
 
-    public static function func_amazon_pa_save_order_extra($orderid, $key, $val) {
-        global $sql_tbl;
-
+    public static function func_amazon_pa_save_order_extra($orderid, $key, $val)
+    {
         $cart = \XLite\Core\Database::getRepo('XLite\Model\Order')->find($orderid);
+
         if ($cart) {
             \XLite\Model\Cart::setObject($cart);
         } else {
             self::func_amazon_pa_debug("Cant find order $orderid to save extra data");
+
             return;
         }
 
@@ -150,35 +259,39 @@ class AMZ
         \XLite\Core\Database::getEM()->flush();
     }
 
-    public static function func_xml_format($xml) {
+    public static function func_xml_format($xml)
+    {
         return \XLite\Core\XML::getFormattedXML($xml);
     }
 
-    public static function func_xml_parse($data, &$error, $options = array()) {
+    public static function func_xml_parse($data, &$error, $options = [])
+    {
 
-        static $default_options = array (
+        static $default_options = [
             'XML_OPTION_CASE_FOLDING' => 0,
-            'XML_OPTION_SKIP_WHITE' => 1
-        );
+            'XML_OPTION_SKIP_WHITE'   => 1,
+        ];
 
         $data = trim($data);
-        $vals = $index = $array = array();
+        $vals = $index = $array = [];
         $parser = xml_parser_create();
         $options = array_merge($default_options, $options);
 
         foreach ($options as $opt => $val) {
-            if (!defined($opt)) continue;
+            if (!defined($opt))
+                continue;
 
             xml_parser_set_option($parser, constant($opt), $val);
         }
 
         if (!xml_parse_into_struct($parser, $data, $vals, $index)) {
-            $error = array (
-                'code' => xml_get_error_code($parser),
+            $error = [
+                'code'   => xml_get_error_code($parser),
                 'string' => xml_error_string(xml_get_error_code($parser)),
-                'line' => xml_get_current_line_number($parser)
-            );
+                'line'   => xml_get_current_line_number($parser),
+            ];
             xml_parser_free($parser);
+
             return false;
         }
 
@@ -190,7 +303,7 @@ class AMZ
         if (isset($vals[$i]['attributes'])) {
             $array[$tagname]['@'] = $vals[$i]['attributes'];
         } else {
-            $array[$tagname]['@'] = array();
+            $array[$tagname]['@'] = [];
         }
 
         $array[$tagname]["#"] = self::_func_xml_make_tree($vals, $i);
@@ -199,35 +312,37 @@ class AMZ
     }
 
 
-    public static function func_amazon_pa_request($action, $data) {
-
-        if (\XLite\Core\Config::getInstance()->Amazon->PayWithAmazon->amazon_pa_currency == 'USD') {
+    public static function func_amazon_pa_request($action, $data)
+    {
+        if (\XLite\Core\Config::getInstance()->Amazon->PayWithAmazon->amazon_pa_currency === 'USD') {
             $urlHost = 'mws.amazonservices.com';
         } else {
             $urlHost = 'mws-eu.amazonservices.com';
         }
-        if (\XLite\Core\Config::getInstance()->Amazon->PayWithAmazon->amazon_pa_mode == 'test') {
+        if (\XLite\Core\Config::getInstance()->Amazon->PayWithAmazon->amazon_pa_mode === 'test') {
             $urlUri = '/OffAmazonPayments_Sandbox/2013-01-01';
         } else {
             $urlUri = '/OffAmazonPayments/2013-01-01';
         }
 
-        $params = array(
-            'AWSAccessKeyId=' . \XLite\Core\Config::getInstance()->Amazon->PayWithAmazon->amazon_pa_access_key,
-            'Action=' . $action,
-            'SellerId=' . \XLite\Core\Config::getInstance()->Amazon->PayWithAmazon->amazon_pa_sid,
-            'SignatureMethod=HmacSHA256',
-            'SignatureVersion=2',
-            'Timestamp=' . urlencode(date('c')),
-        );
+        $params = [
+            'AWSAccessKeyId'   => \XLite\Core\Config::getInstance()->Amazon->PayWithAmazon->amazon_pa_access_key,
+            'Action'           => $action,
+            'SellerId'         => \XLite\Core\Config::getInstance()->Amazon->PayWithAmazon->amazon_pa_sid,
+            'SignatureMethod'  => 'HmacSHA256',
+            'SignatureVersion' => '2',
+            'Timestamp'        => date('c'),
+        ];
 
-        foreach ($data as $k => $v) {
-            $params[] = "$k=$v";
-        }
-        sort($params);
+        // foreach ($data as $k => $v) {
+        //     $params[] = "$k=$v";
+        // }
+        $params = array_merge($params, $data);
+
+        ksort($params, \SORT_STRING);
 
         // sign request
-        $concatParams = implode('&', $params);
+        $concatParams = http_build_query($params, null, '&', \PHP_QUERY_RFC3986);
         $str2sign = "POST\n$urlHost\n$urlUri\n" . $concatParams;
         $signature = self::func_amazon_pa_sign($str2sign);
         $concatParams .= '&Signature=' . urlencode($signature);
@@ -244,11 +359,12 @@ class AMZ
             $reply = $response->body;
         } else {
             self::func_amazon_pa_error("Empty or wrong response received. Reply code=" . $response->code . " response body=" . $response->body);
+
             return false;
         }
         self::func_amazon_pa_debug($reply, true);
 
-        $parse_error = array();
+        $parse_error = [];
         $res = self::func_xml_parse($reply, $parse_error);
         if (!$res) {
             self::func_amazon_pa_error("Can not parse XML reply: " . print_r($parse_error, true));
@@ -257,13 +373,15 @@ class AMZ
         return $res;
     }
 
-    public static function func_amazon_pa_sign($data) {
+    public static function func_amazon_pa_sign($data)
+    {
 
         return base64_encode(hash_hmac('sha256', $data, \XLite\Core\Config::getInstance()->Amazon->PayWithAmazon->amazon_pa_secret_key, true));
 
     }
 
-    public static function func_amazon_pa_ipn_verify_singature($message) {
+    public static function func_amazon_pa_ipn_verify_singature($message)
+    {
 
         $signature = base64_decode($message['Signature']);
         $certificatePath = $message['SigningCertURL'];
@@ -277,21 +395,22 @@ class AMZ
             || !preg_match(self::AMAZON_PA_HOST_PATTERN, $parsed['host'])
         ) {
             self::func_amazon_pa_error('The certificate is located on an invalid domain.');
+
             return false;
         }
 
-        $fields = array(
+        $fields = [
             "Timestamp" => true,
-            "Message" => true,
+            "Message"   => true,
             "MessageId" => true,
-            "Subject" => false,
-            "TopicArn" => true,
-            "Type" => true
-        );
+            "Subject"   => false,
+            "TopicArn"  => true,
+            "Type"      => true,
+        ];
 
         ksort($fields);
 
-        $signatureFields = array();
+        $signatureFields = [];
         foreach ($fields as $fieldName => $mandatoryField) {
             $value = $message[$fieldName];
             if (!is_null($value)) {
@@ -316,10 +435,12 @@ class AMZ
         }
 
         $result = openssl_verify($data, $signature, $certKey, OPENSSL_ALGO_SHA1);
+
         return ($result > 0);
     }
 
-    public static function & func_array_path(&$array, $tag_path, $strict = false) {
+    public static function & func_array_path(&$array, $tag_path, $strict = false)
+    {
         $not_found = false;
         if (!is_array($array) || empty($array)) {
             return $not_found;

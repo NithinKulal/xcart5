@@ -63,7 +63,7 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
         $result = parent::updateModel($model, $data);
 
         if ($result) {
-            if (LC_USE_CLEAN_URLS && !isset($data['cleanURL']) && !$model->getCleanURL()) {
+            if (LC_USE_CLEAN_URLS && !isset($data['cleanURL']) && !$model->getCleanURL() && $model instanceof \XLite\Model\Product) {
                 $this->generateCleanURL($model);
             }
 

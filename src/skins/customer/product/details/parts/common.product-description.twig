@@ -4,4 +4,4 @@
  # @ListChild (list="product.details.page.tab.description", weight="100")
  #}
 
-<div class="description product-description" data-inline-editable {{ this.printTagAttributes(this.product.getEditableMetadata('description'))|raw }} >{{ this.product.getProcessedDescription()|raw }}</div>
+<div class="description product-description" data-inline-editable {{ this.printTagAttributes(this.product.getFieldMetadata('description'))|raw }} >{{ this.product.getProcessedDescription()|raw }}</div>

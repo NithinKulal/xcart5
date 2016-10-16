@@ -1,0 +1,6 @@
+<a href="{{ this.buildUrl('special_offer', '', {'offer_id': this.getOfferId()}) }}" class="special-offer-cell">
+  {% if this.hasImage() %}
+    <span class="special-offer-image">{{ widget('\\XLite\\View\\Image', image=this.getImage(), maxWidth=this.getImageWidth(), maxHeight=this.getImageHeight(), centerImage='0', verticalAlign='middle', alt=this.getImageAlt()) }}</span>
+  {% endif %}
+  <span class="special-offer-short-text">{{ this.getPromoText()|raw }}</span>
+</a>

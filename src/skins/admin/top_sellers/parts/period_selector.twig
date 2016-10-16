@@ -1,0 +1,16 @@
+{##
+ # Top sellers period selectors
+
+ # @ListChild (list="top_sellers.selectors", weight="10")
+ #}
+
+<table class="top-sellers-selectors period-selectors">
+  <tr>
+    <td class="title">{{ t('For the period') }}:</td>
+    {% for c in this.getStatsColumns() %}
+      <td>
+        <a href="{{ this.getIntervalLink(c) }}" data-interval="{{ c }}" class="{% if c == this.getTimeInterval() %} selected{% endif %}">{{ t(this.getColumnTitle(c)) }}</a>
+      </td>
+    {% endfor %}
+  </tr>
+</table>

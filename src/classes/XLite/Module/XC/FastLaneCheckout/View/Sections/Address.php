@@ -33,7 +33,7 @@ class Address extends \XLite\View\AView
     public function getCSSFiles()
     {
         return array_merge(
-            parent::getJSFiles(),
+            parent::getCSSFiles(),
             array(
                 array(
                     'file'  => $this->getDir() . '/style.less',

@@ -57,6 +57,22 @@ class Search extends \XLite\View\ItemsList\Model\Product\Admin\AAdmin
     }
 
     /**
+     * Get wrapper form params
+     *
+     * @return array
+     */
+    protected function getFormParams()
+    {
+        $params = parent::getFormParams();
+
+        if ('low' === \XLite\Core\Request::getInstance()->{static::PARAM_INVENTORY}) {
+            $params[static::PARAM_INVENTORY] = 'low';
+        }
+
+        return $params;
+    }
+
+    /**
      * Return list of allowed targets
      *
      * @return array
@@ -223,10 +239,12 @@ class Search extends \XLite\View\ItemsList\Model\Product\Admin\AAdmin
      */
     public static function getSearchCaseProcessor()
     {
-        return new \XLite\View\ItemsList\SearchCaseProcessor(
+        $return = new \XLite\View\ItemsList\SearchCaseProcessor(
             static::getSearchParams(),
             static::getSearchValuesStorage()
         );
+
+        return $return;
     }
     /**
      * Return search parameters.

@@ -1,0 +1,4 @@
+Version 5.3.1.1
+
+Fixes
+2016-08-10 - [Bug] Header, greeting and signature could not be edited for email notifications if the setting "Mark templates" was enabled in WebmasterKit. Fixed. #BUG-3699 (Michael Lipinski) #WebMasterKit

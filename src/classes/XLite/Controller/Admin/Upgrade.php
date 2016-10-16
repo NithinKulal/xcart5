@@ -595,7 +595,7 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
 
         if (\XLite\Upgrade\Cell::getInstance()->isUnpacked()) {
             if (!$this->isForce()) {
-                \Includes\SafeMode::sendNotification();
+                \Includes\SafeMode::sendUpgradeNotification();
             }
 
             $restorePoint = \Includes\Utils\ModulesManager::getEmptyRestorePoint();

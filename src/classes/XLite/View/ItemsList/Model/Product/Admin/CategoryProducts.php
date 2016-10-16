@@ -13,6 +13,8 @@ namespace XLite\View\ItemsList\Model\Product\Admin;
  */
 class CategoryProducts extends \XLite\View\ItemsList\Model\Product\Admin\Search
 {
+    const SORT_BY_MODE_POSITION = 'cp.orderby';
+
     /**
      * Should itemsList be wrapped with form
      *
@@ -101,10 +103,10 @@ class CategoryProducts extends \XLite\View\ItemsList\Model\Product\Admin\Search
      */
     protected function getSearchCondition()
     {
-        $cnd = new \XLite\Core\CommonCell();
-        $cnd->{static::PARAM_CATEGORY_ID} = $this->getCategoryId();
+        $result = parent::getSearchCondition();
+        $result->{static::PARAM_CATEGORY_ID} = $this->getCategoryId();
 
-        return $cnd;
+        return $result;
     }
 
     /**
@@ -185,5 +187,15 @@ class CategoryProducts extends \XLite\View\ItemsList\Model\Product\Admin\Search
     protected function getPanelClass()
     {
         return 'XLite\View\StickyPanel\Product\Admin\CategoryProducts';
+    }
+
+    /**
+     * getSortByModeDefault
+     *
+     * @return string
+     */
+    protected function getSortByModeDefault()
+    {
+        return static::SORT_BY_MODE_POSITION;
     }
 }

@@ -1,0 +1,5 @@
+{% if this.isOfferTypeEnabled() %}
+{{ widget(this.getPageWidgetClass(), useBodyTemplate='1') }}
+{% else %}
+    <div class="error-message">{{ 'This offer type requires a module that is disabled or uninstalled at the moment.' }}</div>
+{% endif %}

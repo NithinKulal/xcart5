@@ -7,6 +7,7 @@
  */
 
 namespace XLite\Module\Amazon\PayWithAmazon\Controller\Customer;
+
 use XLite\Module\Amazon\PayWithAmazon\AMZ as AMZ;
 
 /**
@@ -15,20 +16,23 @@ use XLite\Module\Amazon\PayWithAmazon\AMZ as AMZ;
 class AmazonCheckout extends \XLite\Controller\Customer\ACustomer
 {
     /**
-     * params
-     *
-     * @var string
+     * @param array $params
      */
-    protected $params = array('target', 'amz_pa_ref');
+    public function __construct(array $params)
+    {
+        $this->params = array_merge($this->params, ['orderReference']);
+
+        parent::__construct($params);
+    }
 
     /**
      * Return the current page title (for the content area)
      *
      * @return string
-     */ 
+     */
     public function getTitle()
     {
-        return 'Pay with Amazon';
+        return static::t('Pay with Amazon');
     }
 
     /**
@@ -52,6 +56,127 @@ class AmazonCheckout extends \XLite\Controller\Customer\ACustomer
         return true;
     }
 
+    protected function doNoAction()
+    {
+        if (\XLite\Core\Request::getInstance()->access_token) {
+            $this->doActionLogin();
+
+        } else {
+            parent::doNoAction();
+        }
+    }
+
+    protected function doActionLogin()
+    {
+        $api = \XLite\Module\Amazon\PayWithAmazon\Main::getApi();
+        $requestProcessed = false;
+        $returnURL = '';
+
+        // todo: add logging
+
+        $accessToken = \XLite\Core\Request::getInstance()->access_token;
+        $profileInfo = $api->checkAccessToken($accessToken) ? $api->getProfileInfo($accessToken) : null;
+
+        if ($profileInfo && !empty($profileInfo['user_id']) && !empty($profileInfo['email'])) {
+            if ('loginWithAmazon' === \XLite\Core\Request::getInstance()->mode) {
+                $profile = $this->getSocialLoginProfile(
+                    $profileInfo['email'],
+                    'Amazon',
+                    $profileInfo['user_id'],
+                    $profileInfo
+                );
+
+                if (!\XLite\Core\Auth::getInstance()->isLogged()
+                    || \XLite\Core\Auth::getInstance()->getProfile()->getProfileId() !== $profile->getProfileId()
+                ) {
+                    if ($profile->isEnabled()) {
+                        \XLite\Core\Auth::getInstance()->loginProfile($profile);
+
+                        // We merge the logged in cart into the session cart
+                        $profileCart = $this->getCart();
+                        $profileCart->login($profile);
+                        \XLite\Core\Database::getEM()->flush();
+
+                        if ($profileCart->isPersistent()) {
+                            $this->updateCart();
+                        }
+
+                        $returnURL = $this->getAuthReturnURL();
+
+                    } else {
+                        \XLite\Core\TopMessage::addError('Profile is disabled');
+                        $returnURL = $this->getAuthReturnURL(true);
+                    }
+                } else {
+                    $returnURL = $this->getAuthReturnURL();
+                }
+            }
+
+            $requestProcessed = true;
+        }
+
+        if (!$requestProcessed) {
+            \XLite\Core\TopMessage::addError('We were unable to process this request');
+            $returnURL = $this->getAuthReturnURL(true);
+        }
+
+        $this->setReturnURL($returnURL);
+    }
+
+    /**
+     * Fetches an existing social login profile or creates new
+     *
+     * @param string $login          E-mail address
+     * @param string $socialProvider SocialLogin auth provider
+     * @param string $socialId       SocialLogin provider-unique id
+     * @param array  $profileInfo    Profile info OPTIONAL
+     *
+     * @return \XLite\Model\Profile
+     */
+    protected function getSocialLoginProfile($login, $socialProvider, $socialId, $profileInfo = [])
+    {
+        $profile = \XLite\Core\Database::getRepo('XLite\Model\Profile')->findOneBy(
+            [
+                'socialLoginProvider' => $socialProvider,
+                'socialLoginId'       => $socialId,
+                'order'               => null,
+            ]
+        );
+
+        if (!$profile) {
+            $profile = \XLite\Core\Database::getRepo('XLite\Model\Profile')
+                ->findOneBy(['login' => $login, 'order' => null]);
+        }
+
+        if (!$profile) {
+            $profile = new \XLite\Model\Profile();
+            $profile->setLogin($login);
+            $profile->create();
+        }
+
+        $profile->setSocialLoginProvider($socialProvider);
+        $profile->setSocialLoginId($socialId);
+
+        return $profile;
+    }
+
+    /**
+     * Set redirect URL
+     *
+     * @param mixed $failure Indicates if auth process failed OPTIONAL
+     *
+     * @return string
+     */
+    protected function getAuthReturnURL($failure = false)
+    {
+        if ($failure) {
+
+            return $this->buildURL('login');
+        }
+
+        return \XLite\Core\Request::getInstance()->returnUrl ?: $this->getURL();
+    }
+
     /**
      * Go to cart view if cart is empty
      *
@@ -60,12 +185,12 @@ class AmazonCheckout extends \XLite\Controller\Customer\ACustomer
     public function handleRequest()
     {
         // check if it's IPN callback
-        if (\XLite\Core\Request::getInstance()->isipn == 'Y') {
+        if (\XLite\Core\Request::getInstance()->isipn === 'Y') {
             $this->handleIPNCallback();
             exit;
         }
 
-        if (!$this->getCart()->checkCart()) {
+        if (!$this->getCart()->isEmpty() && !$this->getCart()->checkCart()) {
             $this->setHardRedirect();
             $this->setReturnURL($this->buildURL('cart'));
             $this->doRedirect();
@@ -75,213 +200,215 @@ class AmazonCheckout extends \XLite\Controller\Customer\ACustomer
 
             switch (\XLite\Core\Request::getInstance()->mode) {
 
-            case 'check_address':
-                $orefid = \XLite\Core\Request::getInstance()->orefid;
+                case 'check_address':
+                    $orefid = \XLite\Core\Request::getInstance()->orefid;
 
-                $addr_set = false;
-                $res = AMZ::func_amazon_pa_request('GetOrderReferenceDetails', array(
-                    'AmazonOrderReferenceId' => $orefid
-                ));
+                    $addr_set = false;
+                    $res = AMZ::func_amazon_pa_request('GetOrderReferenceDetails', [
+                        'AmazonOrderReferenceId' => $orefid,
+                    ]);
 
-                if ($res) {
-                    $res = AMZ::func_array_path($res, 'GetOrderReferenceDetailsResponse/GetOrderReferenceDetailsResult/OrderReferenceDetails/Destination/PhysicalDestination/0/#');
                     if ($res) {
+                        $res = AMZ::func_array_path($res, 'GetOrderReferenceDetailsResponse/GetOrderReferenceDetailsResult/OrderReferenceDetails/Destination/PhysicalDestination/0/#');
+                        if ($res) {
 
-                        $tmp = array();
-                        $tmp['zipcode'] = $res['PostalCode'][0]['#'];
-                        $tmp['country_code'] = $res['CountryCode'][0]['#'];
-                        $tmp['city'] = $res['City'][0]['#'];
+                            $tmp = [];
+                            $tmp['zipcode'] = $res['PostalCode'][0]['#'];
+                            $tmp['country_code'] = $res['CountryCode'][0]['#'];
+                            $tmp['city'] = $res['City'][0]['#'];
 
-                        if ($_st = \XLite\Core\Database::getRepo('XLite\Model\State')->findOneByCountryAndState($tmp['country_code'], $res['StateOrRegion'][0]['#'])) {
-                            $tmp['state_id'] = $_st->getStateId();
-                        } elseif (!empty($res['StateOrRegion'][0]['#'])) {
-                            $tmp['custom_state'] = $res['StateOrRegion'][0]['#'];
+                            if ($_st = \XLite\Core\Database::getRepo('XLite\Model\State')->findOneByCountryAndState($tmp['country_code'], $res['StateOrRegion'][0]['#'])) {
+                                $tmp['state_id'] = $_st->getStateId();
+                            } elseif (!empty($res['StateOrRegion'][0]['#'])) {
+                                $tmp['custom_state'] = $res['StateOrRegion'][0]['#'];
+                            }
+
+                            $this->updateAddress($tmp);
+                            $addr_set = true;
                         }
-
-                        $this->updateAddress($tmp);
-                        $addr_set = true;
                     }
-                }
-                if (!$addr_set) {
-                    echo 'error';
-                    AMZ::func_amazon_pa_error("check address error: orefid=$orefid reply=" . print_r($res, true));
-                } else {
-                    echo 'ok';
-                }
+                    if (!$addr_set) {
+                        echo 'error';
+                        AMZ::func_amazon_pa_error("check address error: orefid=$orefid reply=" . print_r($res, true));
+                    } else {
+                        echo 'ok';
+                    }
 
-                break;
+                    break;
 
-            case 'place_order':
+                case 'place_order':
 
-                $amazon_pa_orefid = \XLite\Core\Request::getInstance()->amazon_pa_orefid;
-                $cart_total_cost = $this->getCart()->getTotal();
-                $customer_notes = \XLite\Core\Request::getInstance()->notes;
+                    $amazon_pa_orefid = \XLite\Core\Request::getInstance()->amazon_pa_orefid;
+                    $cart_total_cost = $this->getCart()->getTotal();
+                    $customer_notes = \XLite\Core\Request::getInstance()->notes;
 
-                $payment_method_text = 'Pay with Amazon'; 
+                    $payment_method_text = 'Pay with Amazon';
 
-                $this->getCart()->assignOrderNumber();
+                    $this->getCart()->assignOrderNumber();
 
-                // SetOrderReferenceDetails
-                $res = AMZ::func_amazon_pa_request('SetOrderReferenceDetails', array(
-                    'AmazonOrderReferenceId' => $amazon_pa_orefid,
-                    'OrderReferenceAttributes.OrderTotal.Amount' => $cart_total_cost,
-                    'OrderReferenceAttributes.OrderTotal.CurrencyCode' => \XLite\Core\Config::getInstance()->Amazon->PayWithAmazon->amazon_pa_currency,
-                    'OrderReferenceAttributes.PlatformId' => AMZ::AMAZON_PA_PLATFORM_ID,
-                    'OrderReferenceAttributes.SellerNote' => '',
-                    'OrderReferenceAttributes.SellerOrderAttributes.SellerOrderId' => $this->getCart()->getOrderNumber(),
-                ));
+                    // SetOrderReferenceDetails
+                    $res = AMZ::func_amazon_pa_request('SetOrderReferenceDetails', [
+                        'AmazonOrderReferenceId'                                       => $amazon_pa_orefid,
+                        'OrderReferenceAttributes.OrderTotal.Amount'                   => $cart_total_cost,
+                        'OrderReferenceAttributes.OrderTotal.CurrencyCode'             => \XLite\Core\Config::getInstance()->Amazon->PayWithAmazon->amazon_pa_currency,
+                        'OrderReferenceAttributes.PlatformId'                          => AMZ::AMAZON_PA_PLATFORM_ID,
+                        'OrderReferenceAttributes.SellerNote'                          => '',
+                        'OrderReferenceAttributes.SellerOrderAttributes.SellerOrderId' => $this->getCart()->getOrderNumber(),
+                        'OrderReferenceAttributes.SellerOrderAttributes.StoreName'     => \XLite\Core\Config::getInstance()->Company->company_name,
+                    ]);
 
-                // ConfirmOrderReference
-                $res = AMZ::func_amazon_pa_request('ConfirmOrderReference', array(
-                    'AmazonOrderReferenceId' => $amazon_pa_orefid,
-                ));
+                    // ConfirmOrderReference
+                    $res = AMZ::func_amazon_pa_request('ConfirmOrderReference', [
+                        'AmazonOrderReferenceId' => $amazon_pa_orefid,
+                    ]);
 
-                // get more order details using GetOrderReferenceDetails after confirmation
-                $res = AMZ::func_amazon_pa_request('GetOrderReferenceDetails', array(
-                    'AmazonOrderReferenceId' => $amazon_pa_orefid,
-                ));
-                if ($res) {
-                    $dest = AMZ::func_array_path($res, 'GetOrderReferenceDetailsResponse/GetOrderReferenceDetailsResult/OrderReferenceDetails/Destination/PhysicalDestination/0/#');
-                    $buyer = AMZ::func_array_path($res, 'GetOrderReferenceDetailsResponse/GetOrderReferenceDetailsResult/OrderReferenceDetails/Buyer/0/#');
-                    if ($dest) {
-                        //address
-                        $tmp = array();
-                        $tmp['zipcode'] = $dest['PostalCode'][0]['#'];
-                        $tmp['country_code'] = $dest['CountryCode'][0]['#'];
-                        $tmp['city'] = $dest['City'][0]['#'];
+                    // get more order details using GetOrderReferenceDetails after confirmation
+                    $res = AMZ::func_amazon_pa_request('GetOrderReferenceDetails', [
+                        'AmazonOrderReferenceId' => $amazon_pa_orefid,
+                    ]);
+                    if ($res) {
+                        $dest = AMZ::func_array_path($res, 'GetOrderReferenceDetailsResponse/GetOrderReferenceDetailsResult/OrderReferenceDetails/Destination/PhysicalDestination/0/#');
+                        $buyer = AMZ::func_array_path($res, 'GetOrderReferenceDetailsResponse/GetOrderReferenceDetailsResult/OrderReferenceDetails/Buyer/0/#');
+                        if ($dest) {
+                            //address
+                            $tmp = [];
+                            $tmp['zipcode'] = $dest['PostalCode'][0]['#'];
+                            $tmp['country_code'] = $dest['CountryCode'][0]['#'];
+                            $tmp['city'] = $dest['City'][0]['#'];
 
-                        if ($_st = \XLite\Core\Database::getRepo('XLite\Model\State')->findOneByCountryAndState($tmp['country_code'], $dest['StateOrRegion'][0]['#'])) {
-                            $tmp['state_id'] = $_st->getStateId();
-                        } elseif (!empty($dest['StateOrRegion'][0]['#'])) {
-                            $tmp['custom_state'] = $dest['StateOrRegion'][0]['#'];
-                        }
+                            if ($_st = \XLite\Core\Database::getRepo('XLite\Model\State')->findOneByCountryAndState($tmp['country_code'], $dest['StateOrRegion'][0]['#'])) {
+                                $tmp['state_id'] = $_st->getStateId();
+                            } elseif (!empty($dest['StateOrRegion'][0]['#'])) {
+                                $tmp['custom_state'] = $dest['StateOrRegion'][0]['#'];
+                            }
 
-                        if (!empty($dest['Phone'][0]['#'])) {
-                            $tmp['phone'] = $dest['Phone'][0]['#'];
-                        }
-                        $tmp['street'] = $dest['AddressLine1'][0]['#'];
-                        if (isset($dest['AddressLine2'])) {
-                            $tmp['street'] .= ' ' . $dest['AddressLine2'][0]['#'];
-                        }
+                            if (!empty($dest['Phone'][0]['#'])) {
+                                $tmp['phone'] = $dest['Phone'][0]['#'];
+                            }
+                            $tmp['street'] = $dest['AddressLine1'][0]['#'];
+                            if (isset($dest['AddressLine2'])) {
+                                $tmp['street'] .= ' ' . $dest['AddressLine2'][0]['#'];
+                            }
 
-                        list($tmp['firstname'], $tmp['lastname']) = explode(' ', $dest['Name'][0]['#'], 2);
-                        if (empty($tmp['lastname'])) {
-                            // XC does not support single word customer name
-                            $tmp['lastname'] = $tmp['firstname'];
-                        }
+                            list($tmp['firstname'], $tmp['lastname']) = explode(' ', $dest['Name'][0]['#'], 2);
+                            if (empty($tmp['lastname'])) {
+                                // XC does not support single word customer name
+                                $tmp['lastname'] = $tmp['firstname'];
+                            }
 
-                        $this->updateAddress($tmp);
+                            $this->updateAddress($tmp);
 
-                        $profile = $this->getCartProfile();
-
-                        // email, name
-                        if ($buyer && !$profile->getLogin()) {
-                            $uinfo = array();
-                            $uinfo['email'] = $buyer['Email'][0]['#'];
-                            // list($uinfo['firstname'], $uinfo['lastname']) = explode(' ', $buyer['Name'][0]['#'], 2);
-
-                            // update email
                             $profile = $this->getCartProfile();
-                            $profile->setLogin($uinfo['email']);
-                            $this->getCart()->setProfile($profile);
-                        }
-                    }
-                }
 
-                $orderids = $this->placeAmazonOrder($payment_method_text);
+                            // email, name
+                            if ($buyer && !$profile->getLogin()) {
+                                $uinfo = [];
+                                $uinfo['email'] = $buyer['Email'][0]['#'];
+                                // list($uinfo['firstname'], $uinfo['lastname']) = explode(' ', $buyer['Name'][0]['#'], 2);
 
-                AMZ::func_amazon_pa_save_order_extra($orderids, 'AmazonOrderReferenceId', $amazon_pa_orefid);
-
-                $order_status = \XLite\Model\Order\Status\Payment::STATUS_CANCELED;
-                $amz_authorized = false;
-                $amz_authorization_id = '';
-                $amz_captured = false;
-                $amz_capture_id = '';
-                $advinfo = array();
-
-                // Authorize
-                $_tmp = array(
-                    'AmazonOrderReferenceId' => $amazon_pa_orefid,
-                    'AuthorizationAmount.Amount' => $cart_total_cost,
-                    'AuthorizationAmount.CurrencyCode' => \XLite\Core\Config::getInstance()->Amazon->PayWithAmazon->amazon_pa_currency,
-                    'AuthorizationReferenceId' => 'auth_' . \XLite\Core\Config::getInstance()->Amazon->PayWithAmazon->amazon_pa_order_prefix . '_' . $orderids,
-                    'SellerAuthorizationNote' => '',
-                );
-                if (\XLite\Core\Config::getInstance()->Amazon->PayWithAmazon->amazon_pa_capture_mode == 'C') {
-                    // capture immediate
-                    $_tmp['CaptureNow'] = 'true';
-                }
-                if (\XLite\Core\Config::getInstance()->Amazon->PayWithAmazon->amazon_pa_mode == 'test' && !empty($customer_notes)) {
-                    // simulate decline
-                    if ($customer_notes == 'decline') {
-                        $_tmp['SellerAuthorizationNote'] = urlencode('{"SandboxSimulation":{"State":"Declined","ReasonCode":"AmazonRejected"}}');
-                    }
-                }
-                if (\XLite\Core\Config::getInstance()->Amazon->PayWithAmazon->amazon_pa_sync_mode == 'S') {
-                    // sync request (returns only "open" or "declined" status, no "pending")
-                    $_tmp['TransactionTimeout'] = '0';
-                }
-                $res = AMZ::func_amazon_pa_request('Authorize', $_tmp);
-                if ($res) {
-                    $_auth_details = AMZ::func_array_path($res, 'AuthorizeResponse/AuthorizeResult/AuthorizationDetails/0/#');
-                    if ($_auth_details) {
-                        $amz_authorization_id = $_auth_details['AmazonAuthorizationId'][0]['#'];
-                        $_reply_status = $_auth_details['AuthorizationStatus'][0]['#']['State'][0]['#'];
-                        $advinfo[] = "AmazonAuthorizationId: $amz_authorization_id";
-                        $advinfo[] = "AuthorizationStatus: $_reply_status";
-                        AMZ::func_amazon_pa_save_order_extra($orderids, 'amazon_pa_auth_id', $amz_authorization_id);
-                        AMZ::func_amazon_pa_save_order_extra($orderids, 'amazon_pa_auth_status', $_reply_status);
-
-                        if ($_reply_status == 'Declined') {
-                            $order_status = \XLite\Model\Order\Status\Payment::STATUS_DECLINED;
-                        }
-
-                        if ($_reply_status == 'Pending') {
-                            $order_status = \XLite\Model\Order\Status\Payment::STATUS_QUEUED; // wait for IPN message
-                        }
-
-                        if ($_reply_status == 'Open') {
-                            $amz_authorized = true;
-                        }
-
-                        if ($_reply_status == 'Closed') {
-                            // capture now mode
-                            if (\XLite\Core\Config::getInstance()->Amazon->PayWithAmazon->amazon_pa_capture_mode == 'C') {
-                                $amz_authorized = true;
-                                $amz_captured = true;
-                                $_capt_id = $_auth_details['IdList'][0]['#']['member'][0]['#'];
-                                AMZ::func_amazon_pa_save_order_extra($orderids, 'amazon_pa_capture_id', $_capt_id);
+                                // update email
+                                $profile = $this->getCartProfile();
+                                $profile->setLogin($uinfo['email']);
+                                $this->getCart()->setProfile($profile);
                             }
                         }
-
-                    } else {
-                        // log error
-                        AMZ::func_amazon_pa_error('Unexpected authorize reply: res=' . print_r($res, true));
                     }
-                }
 
-                if ($amz_authorized) {
-                    if ($amz_captured) {
-                        // capture now mode, order is actually processed here
-                        $order_status = \XLite\Model\Order\Status\Payment::STATUS_PAID;
-                    } else {
-                        // pre-auth
-                        $order_status = \XLite\Model\Order\Status\Payment::STATUS_AUTHORIZED;
+                    $orderids = $this->placeAmazonOrder($payment_method_text);
+
+                    AMZ::func_amazon_pa_save_order_extra($orderids, 'AmazonOrderReferenceId', $amazon_pa_orefid);
+
+                    $order_status = \XLite\Model\Order\Status\Payment::STATUS_CANCELED;
+                    $amz_authorized = false;
+                    $amz_authorization_id = '';
+                    $amz_captured = false;
+                    $amz_capture_id = '';
+                    $advinfo = [];
+
+                    // Authorize
+                    $_tmp = [
+                        'AmazonOrderReferenceId'           => $amazon_pa_orefid,
+                        'AuthorizationAmount.Amount'       => $cart_total_cost,
+                        'AuthorizationAmount.CurrencyCode' => \XLite\Core\Config::getInstance()->Amazon->PayWithAmazon->amazon_pa_currency,
+                        'AuthorizationReferenceId'         => 'auth_' . \XLite\Core\Config::getInstance()->Amazon->PayWithAmazon->amazon_pa_order_prefix . '_' . $orderids,
+                        'SellerAuthorizationNote'          => '',
+                    ];
+                    if (\XLite\Core\Config::getInstance()->Amazon->PayWithAmazon->amazon_pa_capture_mode == 'C') {
+                        // capture immediate
+                        $_tmp['CaptureNow'] = 'true';
                     }
-                }
+                    if (\XLite\Core\Config::getInstance()->Amazon->PayWithAmazon->amazon_pa_mode == 'test' && !empty($customer_notes)) {
+                        // simulate decline
+                        if ($customer_notes/* == 'decline'*/) {
+                            // $_tmp['SellerAuthorizationNote'] = '{"SandboxSimulation":{"State":"Declined","ReasonCode":"AmazonRejected"}}';
+                            $_tmp['SellerAuthorizationNote'] = $customer_notes;
+                        }
+                    }
+                    if (\XLite\Core\Config::getInstance()->Amazon->PayWithAmazon->amazon_pa_sync_mode == 'S') {
+                        // sync request (returns only "open" or "declined" status, no "pending")
+                        $_tmp['TransactionTimeout'] = '0';
+                    }
+                    $res = AMZ::func_amazon_pa_request('Authorize', $_tmp);
+                    if ($res) {
+                        $_auth_details = AMZ::func_array_path($res, 'AuthorizeResponse/AuthorizeResult/AuthorizationDetails/0/#');
+                        if ($_auth_details) {
+                            $amz_authorization_id = $_auth_details['AmazonAuthorizationId'][0]['#'];
+                            $_reply_status = $_auth_details['AuthorizationStatus'][0]['#']['State'][0]['#'];
+                            $advinfo[] = "AmazonAuthorizationId: $amz_authorization_id";
+                            $advinfo[] = "AuthorizationStatus: $_reply_status";
+                            AMZ::func_amazon_pa_save_order_extra($orderids, 'amazon_pa_auth_id', $amz_authorization_id);
+                            AMZ::func_amazon_pa_save_order_extra($orderids, 'amazon_pa_auth_status', $_reply_status);
 
-                // change order status
-                AMZ::func_change_order_status($orderids, $order_status, join("\n", $advinfo));
+                            if ($_reply_status == 'Declined') {
+                                $order_status = \XLite\Model\Order\Status\Payment::STATUS_DECLINED;
+                            }
 
-                if ($amz_authorized) {
-                    $this->getCart()->processSucceed();
-                    \XLite\Core\Database::getEM()->flush();
-                }
+                            if ($_reply_status == 'Pending') {
+                                $order_status = \XLite\Model\Order\Status\Payment::STATUS_QUEUED; // wait for IPN message
+                            }
 
-                // show invoice or error message
-                $this->orderRedirect($orderids, $order_status);
+                            if ($_reply_status == 'Open') {
+                                $amz_authorized = true;
+                            }
 
-                break;
+                            if ($_reply_status == 'Closed') {
+                                // capture now mode
+                                if (\XLite\Core\Config::getInstance()->Amazon->PayWithAmazon->amazon_pa_capture_mode == 'C') {
+                                    $amz_authorized = true;
+                                    $amz_captured = true;
+                                    $_capt_id = $_auth_details['IdList'][0]['#']['member'][0]['#'];
+                                    AMZ::func_amazon_pa_save_order_extra($orderids, 'amazon_pa_capture_id', $_capt_id);
+                                }
+                            }
+
+                        } else {
+                            // log error
+                            AMZ::func_amazon_pa_error('Unexpected authorize reply: res=' . print_r($res, true));
+                        }
+                    }
+
+                    if ($amz_authorized) {
+                        if ($amz_captured) {
+                            // capture now mode, order is actually processed here
+                            $order_status = \XLite\Model\Order\Status\Payment::STATUS_PAID;
+                        } else {
+                            // pre-auth
+                            $order_status = \XLite\Model\Order\Status\Payment::STATUS_AUTHORIZED;
+                        }
+                    }
+
+                    // change order status
+                    AMZ::func_change_order_status($orderids, $order_status, implode("\n", $advinfo));
+
+                    if ($amz_authorized) {
+                        $this->getCart()->processSucceed();
+                        \XLite\Core\Database::getEM()->flush();
+                    }
+
+                    // show invoice or error message
+                    $this->orderRedirect($orderids, $order_status);
+
+                    break;
 
             } // switch mode
 
@@ -308,9 +435,9 @@ class AmazonCheckout extends \XLite\Controller\Customer\ACustomer
 
         $cart->setPaymentStatus(\XLite\Model\Order\Status\Payment::STATUS_QUEUED);
         $cart->setShippingStatus(\XLite\Model\Order\Status\Shipping::STATUS_NEW);
-        
+
         // apply $payment_method_text payment method
-        $_tmp_method = \XLite\Core\Database::getRepo('XLite\Model\Payment\Method')->findBy(array('service_name' => 'PayWithAmazon'));
+        $_tmp_method = \XLite\Core\Database::getRepo('XLite\Model\Payment\Method')->findBy(['service_name' => 'PayWithAmazon']);
         if ($_tmp_method) {
             $_tmp_method = $_tmp_method[0];
         } else {
@@ -438,7 +565,7 @@ class AmazonCheckout extends \XLite\Controller\Customer\ACustomer
      *
      * @return void
      */
-    protected function orderRedirect($orderids, $order_status) 
+    protected function orderRedirect($orderids, $order_status)
     {
         if ($order_status == \XLite\Model\Order\Status\Payment::STATUS_CANCELED || $order_status == \XLite\Model\Order\Status\Payment::STATUS_DECLINED) {
 
@@ -454,7 +581,7 @@ class AmazonCheckout extends \XLite\Controller\Customer\ACustomer
             // error message
             \XLite\Core\TopMessage::addError($reason);
 
-            $this->setReturnURL($this->buildURL('checkoutFailed'));
+            $this->setReturnURL($this->buildURL('checkoutFailed', '', ['mode' => 'Amazon']));
             $this->redirect();
 
         } else {
@@ -468,8 +595,8 @@ class AmazonCheckout extends \XLite\Controller\Customer\ACustomer
                     'checkoutSuccess',
                     '',
                     $cart->getOrderNumber()
-                        ? array('order_number' => $cart->getOrderNumber())
-                        : array('order_id' => $cart->getOrderId())
+                        ? ['order_number' => $cart->getOrderNumber()]
+                        : ['order_id' => $cart->getOrderId()]
                 )
             );
             $this->redirect();
@@ -606,7 +733,8 @@ class AmazonCheckout extends \XLite\Controller\Customer\ACustomer
      *
      * @return void
      */
-    protected function handleIPNCallback() {
+    protected function handleIPNCallback()
+    {
 
         $request_body = file_get_contents('php://input');
         if (empty($request_body)) {
@@ -618,12 +746,14 @@ class AmazonCheckout extends \XLite\Controller\Customer\ACustomer
         $json_error = json_last_error();
         if ($json_error != 0) {
             AMZ::func_amazon_pa_error("incorrect IPN call (can not parse json data (err=$json_error) request=" . $request_body);
+
             return;
         }
 
         // verify signature
         if (!AMZ::func_amazon_pa_ipn_verify_singature($message)) {
             AMZ::func_amazon_pa_error("ERROR: can't verify signature. IPN message=" . print_r($message, true));
+
             return;
         }
 
@@ -631,7 +761,7 @@ class AmazonCheckout extends \XLite\Controller\Customer\ACustomer
         AMZ::func_amazon_pa_debug("IPN message received: $message[Message]");
         $notification = json_decode($message['Message'], true);
         $res = AMZ::func_xml_parse($notification['NotificationData'], $parse_error);
-        $advinfo = array();
+        $advinfo = [];
 
         switch ($notification['NotificationType']) {
 
@@ -716,10 +846,23 @@ class AmazonCheckout extends \XLite\Controller\Customer\ACustomer
         }
     }
 
+    /**
+     * Amazon used own profile for customer
+     *
+     * @return boolean
+     */
+    public function getProfile()
+    {
+        return false;
+    }
+
     // workaround for compatibility with XP (XP's checkout/script.twig produce error without it)
     public function getXpcPaymentIds() { return array(); }
     public function isCheckoutReady()  { return false; }
     public function checkCheckoutAction()  { return false; }
     public function getSaveCardBoxClass() { return ''; }
     public function showSaveCardBox() { return false; }
+    public function getXpcSavedCardPaymentId() { return false; }
+    public function getXpcBillingAddressId() { return false; }
+    public function isUseIframe() { return false; }
 }

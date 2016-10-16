@@ -13,13 +13,25 @@
     </div>
     <ul class="display-sort sort-crit grid-list" id="{{ this.getSortWidgetId(this.true) }}">
     {% for key, name in this.sortByModes %}
-    <li class="list-type-grid {% if this.isSortByModeSelected(key) %} selected{% endif %}">
-      <a data-sort-by="{{ key }}" data-sort-order="{{ this.getSortOrderToChange(key) }}" href="{{ this.getActionURL({'sortBy': key, 'sortOrder': this.getSortOrderToChange()}) }}">
-        {{ t(name) }} {{ t(this.getSortOrderLabel(key)) }}<i class="sort-arrow {{ this.getSortArrowClassCSS(key) }}"></i>
-      </a>
-    </li>
+      {% if this.isSingleOrderSortBy(key) %}
+        <li class="list-type-grid {% if this.isSortByModeSelected(key) %} selected{% endif %}">
+          <a data-sort-by="{{ key }}" data-sort-order="{{ this.getSortOrderToChange(key) }}" href="{{ this.getActionURL({'sortBy': key, 'sortOrder': this.getSortOrderToChange()}) }}">
+            {{ t(name) }} {{ t(this.getSortOrderLabel(key)) }}<i class="sort-arrow {{ this.getSortArrowClassCSS(key) }}"></i>
+          </a>
+        </li>
+      {% else %}
+        <li class="list-type-grid {% if this.isSortByModeSelected(key, 'asc') %} selected{% endif %}">
+          <a data-sort-by="{{ key }}" data-sort-order="asc" href="{{ this.getActionURL({'sortBy': key, 'sortOrder': 'asc'}) }}">
+            {{ t(name) }} {{ t(this.getAscOrderLabel(key)) }}<i class="sort-arrow {{ this.getSortArrowClassCSS(key) }}"></i>
+          </a>
+        </li>
+        <li class="list-type-grid {% if this.isSortByModeSelected(key, 'desc') %} selected{% endif %}">
+          <a data-sort-by="{{ key }}" data-sort-order="desc" href="{{ this.getActionURL({'sortBy': key, 'sortOrder': 'desc'}) }}">
+            {{ t(name) }} {{ t(this.getDescOrderLabel(key)) }}<i class="sort-arrow {{ this.getSortArrowClassCSS(key) }}"></i>
+          </a>
+        </li>
+      {% endif %}
     {% endfor %}
     </ul>
-  
   </div>
 {% endif %}

@@ -21,7 +21,7 @@ abstract class ACheckoutFailed extends \XLite\View\AView
      */
     public function getCSSFiles()
     {
-        $list = parent::getJSFiles();
+        $list = parent::getCSSFiles();
         $list[] = 'checkout/css/checkout.css';
 
         return $list;

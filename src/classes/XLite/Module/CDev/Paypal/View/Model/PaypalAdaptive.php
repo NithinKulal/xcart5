@@ -55,6 +55,12 @@ class PaypalAdaptive extends \XLite\Module\CDev\Paypal\View\Model\ASettings
             self::SCHEMA_HELP     => 'See more details here <a href="https://developer.paypal.com/docs/classic/adaptive-payments/integration-guide/APIntro/#id091QF0N0MPF">https://developer.paypal.com/docs/classic/adaptive-payments/integration-guide/APIntro/#id091QF0N0MPF</a>',
             self::SCHEMA_REQUIRED => true,
         ),
+        'matchCriteria' => array(
+            self::SCHEMA_CLASS    => 'XLite\Module\CDev\Paypal\View\FormField\Select\MatchCriteria',
+            self::SCHEMA_LABEL    => 'Additional criteria to match for PayPal account verification',
+            self::SCHEMA_HELP     => 'MATCH_CRITERIA_HELP',
+            self::SCHEMA_REQUIRED => true,
+        ),
     );
 
     /**

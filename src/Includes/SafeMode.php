@@ -180,6 +180,21 @@ abstract class SafeMode
     }
 
     /**
+     * Send email notification to administrator about access key during upgrade
+     *
+     * @param boolean $keyChanged is access key was changed
+     *
+     * @return void
+     */
+    public static function sendUpgradeNotification()
+    {
+        if (!\Includes\Decorator\Utils\CacheManager::isRebuildNeeded(\Includes\Decorator\Utils\CacheManager::STEP_THIRD)) {
+            // Send email notification
+            \XLite\Core\Mailer::sendUpgradeSafeModeAccessKeyNotification();
+        }
+    }
+
+    /**
      * Get safe mode URL
      *
      * @param boolean $soft Soft reset flag OPTIONAL

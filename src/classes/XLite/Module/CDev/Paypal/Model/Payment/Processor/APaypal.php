@@ -530,6 +530,22 @@ abstract class APaypal extends \XLite\Model\Payment\Base\Iframe
                 $this->updateInitialBackendTransaction($transaction, $status);
             }
         }
+
+        if ($transaction->hasTtlForIpn() && $this->canUnlockIpnOnReturn($transaction)) {
+            $transaction->removeTtlForIpn();
+        }
+    }
+
+    /**
+     * Check if processor can unlock IPN on return
+     *
+     * @param \XLite\Model\Payment\Transaction $transaction Return-owner transaction
+     *
+     * @return boolean
+     */
+    protected function canUnlockIpnOnReturn(\XLite\Model\Payment\Transaction $transaction)
+    {
+        return true;
     }
 
     /**
@@ -568,13 +584,15 @@ abstract class APaypal extends \XLite\Model\Payment\Base\Iframe
             $this->markCallbackRequestAsInvalid(static::t('Request type must be POST'));
 
         } elseif (null === $resultCode) {
-            if (Paypal\Model\Payment\Processor\PaypalIPN::getInstance()->isCallbackIPN()) {
-                // If callback is IPN request from Paypal
-                Paypal\Model\Payment\Processor\PaypalIPN::getInstance()
-                    ->processCallbackIPN($transaction, $this);
 
-                $transaction->getOrder()->setPaymentStatusByTransaction($transaction);
-                \XLite\Core\Database::getEM()->flush();
+            if (Paypal\Model\Payment\Processor\PaypalIPN::getInstance()->isCallbackIPN()) {
+                $result = Paypal\Model\Payment\Processor\PaypalIPN::getInstance()
+                        ->tryProcessCallbackIPN($transaction, $this);
+
+                if ($result) {
+                    $transaction->getOrder()->setPaymentStatusByTransaction($transaction);
+                    \XLite\Core\Database::getEM()->flush();
+                }
 
             } else {
                 // RESULT parameter must be presented in all callback requests
@@ -697,29 +715,22 @@ abstract class APaypal extends \XLite\Model\Payment\Base\Iframe
      */
     protected function doCapture(\XLite\Model\Payment\BackendTransaction $transaction)
     {
-        $result = false;
+        return $this->processRequest('Capture', $transaction, 
+            function ($responseData, $state) use ($transaction) {
+                if (0 === (int) $responseData['RESULT']) {
+                    $state['result'] = true;
+                    $state['status'] = \XLite\Model\Payment\Transaction::STATUS_SUCCESS;
 
-        $responseData = $this->doRequest('Capture', $transaction);
+                    \XLite\Core\TopMessage::getInstance()->addInfo('Payment has been captured successfully');
 
-        if (!empty($responseData)) {
-            $status = \XLite\Model\Payment\Transaction::STATUS_FAILED;
+                } else {
+                    \XLite\Core\TopMessage::getInstance()
+                        ->addError('Transaction failure. PayPal response: ' . $responseData['RESPMSG']);
+                }
 
-            if (0 === (int) $responseData['RESULT']) {
-                $result = true;
-                $status = \XLite\Model\Payment\Transaction::STATUS_SUCCESS;
-
-                \XLite\Core\TopMessage::getInstance()->addInfo('Payment has been captured successfully');
-
-            } else {
-                \XLite\Core\TopMessage::getInstance()
-                    ->addError('Transaction failure. PayPal response: ' . $responseData['RESPMSG']);
+                return $state;
             }
-
-            $transaction->setStatus($status);
-            $transaction->update();
-        }
-
-        return $result;
+        );
     }
 
     /**
@@ -762,29 +773,23 @@ abstract class APaypal extends \XLite\Model\Payment\Base\Iframe
      */
     protected function doVoid(\XLite\Model\Payment\BackendTransaction $transaction)
     {
-        $result = false;
+        return $this->processRequest('Credit', $transaction, 
+            function ($responseData, $state) use ($transaction) {
+                if (0 === (int) $responseData['RESULT']) {
+                    $state['result'] = true;
+                    $state['status'] = \XLite\Model\Payment\Transaction::STATUS_SUCCESS;
 
-        $responseData = $this->doRequest('Void', $transaction);
+                    $transaction->getPaymentTransaction()->setStatus(\XLite\Model\Payment\Transaction::STATUS_VOID);
+                    \XLite\Core\TopMessage::getInstance()->addInfo('Payment have been voided successfully');
 
-        if (!empty($responseData)) {
-            $status = \XLite\Model\Payment\Transaction::STATUS_FAILED;
+                } else {
+                    \XLite\Core\TopMessage::getInstance()
+                        ->addError('Transaction failure. PayPal response: ' . $responseData['RESPMSG']);
+                }
 
-            if (0 === (int) $responseData['RESULT']) {
-                $result = true;
-                $status = \XLite\Model\Payment\Transaction::STATUS_SUCCESS;
-                $transaction->getPaymentTransaction()->setStatus(\XLite\Model\Payment\Transaction::STATUS_VOID);
-                \XLite\Core\TopMessage::getInstance()->addInfo('Payment have been voided successfully');
-
-            } else {
-                \XLite\Core\TopMessage::getInstance()
-                    ->addError('Transaction failure. PayPal response: ' . $responseData['RESPMSG']);
+                return $state;
             }
-
-            $transaction->setStatus($status);
-            $transaction->update();
-        }
-
-        return $result;
+        );
     }
 
     /**
@@ -815,29 +820,22 @@ abstract class APaypal extends \XLite\Model\Payment\Base\Iframe
      */
     protected function doRefund(\XLite\Model\Payment\BackendTransaction $transaction)
     {
-        $result = false;
+        return $this->processRequest('Credit', $transaction, 
+            function ($responseData, $state) use ($transaction) {
+                if (0 === (int) $responseData['RESULT']) {
+                    $state['result'] = true;
+                    $state['status'] = \XLite\Model\Payment\Transaction::STATUS_SUCCESS;
 
-        $responseData = $this->doRequest('Credit', $transaction);
+                    \XLite\Core\TopMessage::getInstance()->addInfo('Payment has been refunded successfully');
 
-        if (!empty($responseData)) {
-            $status = \XLite\Model\Payment\Transaction::STATUS_FAILED;
+                } else {
+                    \XLite\Core\TopMessage::getInstance()
+                        ->addError('Transaction failure. PayPal response: ' . $responseData['RESPMSG']);
+                }
 
-            if (0 === (int) $responseData['RESULT']) {
-                $result = true;
-                $status = \XLite\Model\Payment\Transaction::STATUS_SUCCESS;
-
-                \XLite\Core\TopMessage::getInstance()->addInfo('Payment has been refunded successfully');
-
-            } else {
-                \XLite\Core\TopMessage::getInstance()
-                    ->addError('Transaction failure. PayPal response: ' . $responseData['RESPMSG']);
+                return $state;
             }
-
-            $transaction->setStatus($status);
-            $transaction->update();
-        }
-
-        return $result;
+        );
     }
 
     /**
@@ -935,6 +933,20 @@ abstract class APaypal extends \XLite\Model\Payment\Base\Iframe
         return $params;
     }
 
+    /**
+     * Get list of IPN locking request types
+     *
+     * @return array
+     */
+    protected function getIpnLockingRequests()
+    {
+        return array(
+            'Credit',
+            'Capture',
+            'Void',
+        );
+    }
+
     // }}}
 
     // {{{ Backend request
@@ -958,6 +970,10 @@ abstract class APaypal extends \XLite\Model\Payment\Base\Iframe
             $transaction = $this->transaction;
         }
 
+        if (in_array($requestType, $this->getIpnLockingRequests())) {
+            $transaction->getPaymentTransaction()->setTtlForIpn(600);
+        }
+
         $method = sprintf('get%sRequestParams', ucfirst($requestType));
         if (method_exists($this, $method)) {
             $params = $this->{$method}($transaction);
@@ -974,6 +990,48 @@ abstract class APaypal extends \XLite\Model\Payment\Base\Iframe
             $this->saveFilteredData($result, $transaction);
 
             \XLite\Core\Database::getEM()->flush();
+        }
+
+        return $result;
+    }
+
+    /**
+     * Do HTTPS request to Paypal server with data set depended on $requestType.
+     * Returns an array represented a parsed response from Paypal
+     *
+     * @param string                                  $requestType Type of request
+     * @param \XLite\Model\Payment\BackendTransaction $transaction Backend transaction object OPTIONAL
+     * @param callable                                $onResponse  On response callback OPTIONAL
+     *                                                             (must return 'status' and 'result')
+     *
+     * @return boolean
+     */
+    protected function processRequest($requestType, $transaction = null, $onResponse = null)
+    {
+        $result = false;
+
+        $responseData = $this->doRequest($requestType, $transaction);
+
+        if (!empty($responseData)) {
+            $status = \XLite\Model\Payment\Transaction::STATUS_FAILED;
+
+            if (is_callable($onResponse)) {
+                $responseResult = call_user_func(
+                    $onResponse, 
+                    $responseData,
+                    array('status' => $status, 'result' => $result)
+                );
+
+                $status = isset($responseResult['status']) ? $responseResult['status'] : $status;
+                $result = isset($responseResult['result']) ? $responseResult['result'] : $result;
+            }
+
+            $transaction->setStatus($status);
+            $transaction->update();
+        }
+
+        if (in_array($requestType, $this->getIpnLockingRequests())) {
+            $transaction->getPaymentTransaction()->removeTtlForIpn();
         }
 
         return $result;

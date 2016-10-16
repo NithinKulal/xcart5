@@ -21,6 +21,11 @@ abstract class URLManager extends \Includes\Utils\AUtils
     const URL_OUTPUT_FULL  = 'full';
 
     /**
+     * @var https flag
+     */
+    protected static $isHTTPS;
+
+    /**
      * Remove trailing slashes from URL
      *
      * @param string $url URL to prepare
@@ -31,7 +36,7 @@ abstract class URLManager extends \Includes\Utils\AUtils
     {
         return \Includes\Utils\Converter::trimTrailingChars($url, '/');
     }
-    
+
     /**
      * Return full URL for the resource
      *
@@ -142,9 +147,13 @@ abstract class URLManager extends \Includes\Utils\AUtils
      */
     public static function isHTTPS()
     {
-        return (isset($_SERVER['HTTPS']) && ('on' === strtolower($_SERVER['HTTPS']) || '1' == $_SERVER['HTTPS']))
-            || (isset($_SERVER['SERVER_PORT']) && '443' == $_SERVER['SERVER_PORT'])
-            || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && 'https' == $_SERVER['HTTP_X_FORWARDED_PROTO']);
+        if (null === static::$isHTTPS) {
+            static::$isHTTPS = (isset($_SERVER['HTTPS']) && ('on' === strtolower($_SERVER['HTTPS']) || '1' == $_SERVER['HTTPS']))
+                || (isset($_SERVER['SERVER_PORT']) && '443' == $_SERVER['SERVER_PORT'])
+                || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && 'https' == $_SERVER['HTTP_X_FORWARDED_PROTO']);
+        }
+
+        return static::$isHTTPS;
     }
 
     /**
@@ -207,10 +216,10 @@ abstract class URLManager extends \Includes\Utils\AUtils
     }
 
     /**
-     * Get options 
-     * 
+     * Get options
+     *
      * @param mixed $option Option
-     *  
+     *
      * @return mixed
      */
     protected static function getOptions($option)

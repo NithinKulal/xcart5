@@ -53,4 +53,20 @@ class ACustomer extends \XLite\Controller\Customer\ACustomer implements \XLite\B
 
         return $currency;
     }
+
+    /**
+     * Return true if there are active currencies for currency selector
+     *
+     * @return boolean
+     */
+    public function isCurrencySelectorAvailable()
+    {
+        $result = false;
+
+        if (CrispWhiteSkin\Main::isModuleEnabled('XC\MultiCurrency')) {
+            $result = \XLite\Module\XC\MultiCurrency\Core\MultiCurrency::getInstance()->hasMultipleCurrencies();
+        }
+
+        return $result;
+    }
 }

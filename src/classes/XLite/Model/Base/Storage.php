@@ -693,7 +693,7 @@ abstract class Storage extends \XLite\Model\AEntity
                             $this->loadError = 'unwriteable';
                             $this->loadErrorMessage = array(
                                 'Unable to write data to file {{file}}',
-                                array('file' => $path)
+                                array('file' => $tmp)
                             );
 
                             \XLite\Logger::getInstance()->log(

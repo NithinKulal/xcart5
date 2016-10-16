@@ -2140,6 +2140,7 @@ abstract class AView extends \XLite\Core\Handler
     protected function getCacheParameters()
     {
         return array(
+            \Includes\Utils\URLManager::isHTTPS(),
             \XLite\Core\Session::getInstance()->getLanguage()->getCode(),
             substr(get_called_class(), 6),
         );

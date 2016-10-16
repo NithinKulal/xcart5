@@ -1,0 +1,5 @@
+{{ widget(template='common/dialog.twig', body='modules/QSL/SpecialOffersBase/special_offers/create.twig') }}
+{% if this.isSearchVisible() %}
+  {{ widget(template='common/dialog.twig', body='modules/QSL/SpecialOffersBase/special_offers/search.twig') }}
+{% endif %}
+{{ widget(template='common/dialog.twig', body='modules/QSL/SpecialOffersBase/special_offers/list.twig') }}

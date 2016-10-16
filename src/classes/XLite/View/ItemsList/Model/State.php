@@ -315,25 +315,51 @@ class State extends \XLite\View\ItemsList\Model\Table
     }
 
     /**
-     * Return params list to use for search
+     * Get wrapper form params
      *
-     * @return \XLite\Core\CommonCell
+     * @return array
      */
-    protected function getSearchCondition()
+    protected function getFormParams()
     {
-        $result = parent::getSearchCondition();
+        return array_merge(
+            parent::getFormParams(),
+            array(
+                static::PARAM_COUNTRY_CODE => $this->getParam(static::PARAM_COUNTRY_CODE)
+            )
+        );
+    }
 
-        foreach (static::getSearchParams() as $modelParam => $requestParam) {
-            $result->$modelParam = $this->getParam($requestParam);
+    /**
+     * Post-validate new entity
+     *
+     * @param \XLite\Model\AEntity $entity Entity
+     *
+     * @return boolean
+     */
+    protected function prevalidateNewEntity(\XLite\Model\AEntity $entity)
+    {
+        $validated = parent::prevalidateNewEntity($entity);
+
+        if (!$entity->getCountry()) {
+            $validated = false;
         }
 
-        if (empty($result->{\XLite\Model\Repo\State::P_COUNTRY_CODE})) {
-            $result->{\XLite\Model\Repo\State::P_COUNTRY_CODE} = $this->getCountryCode();
+        if ($validated) {
+            $exists = \XLite\Core\Database::getRepo('XLite\Model\State')
+                ->findOneByCountryAndCode($entity->getCountry()->getCode(), $entity->getCode());
+            if ($exists){
+                \XLite\Core\TopMessage::addWarning(
+                    'There is already state with code {{code}} in {{country}}',
+                    [
+                        'code' => $entity->getCode(),
+                        'country' => $entity->getCountry()->getCountry(),
+                    ]
+                );
+                $validated = false;
+            }
         }
 
-        $result->{\XLite\Model\Repo\State::P_ORDER_BY} = array('s.state', 'ASC');
-
-        return $result;
+        return $validated;
     }
 
     /**

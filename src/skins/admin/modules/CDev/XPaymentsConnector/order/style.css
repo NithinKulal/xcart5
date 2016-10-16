@@ -156,6 +156,9 @@ div.warning-container {
 div.warning-container p.alert {
   padding: 4px 15px 4px 15px;
   font-size: 14px;
+  max-width: 800px;
+  white-space: normal;
+  line-height: 22px;  
 }
 
 /**
@@ -228,14 +231,22 @@ ul.kount-result-lines li {
 
 div.alert {
   font-size: 14px;
+  max-width: 800px;
+}
+
+div.alert li {
+  margin-left: 30px;
+  list-style: initial;
 }
 
 .fraud-status-Fraud .cell ,
 .fraud-status-Clean .cell ,
 .fraud-status-Review .cell ,
+.fraud-status-Error .cell ,
 .fraud-status-Fraud .cell  a,
 .fraud-status-Clean .cell  a,
-.fraud-status-Review .cell  a {
+.fraud-status-Review .cell  a,
+.fraud-status-Error .cell  a {
   display: block;
   height: 24px;
   width: 24px;
@@ -243,7 +254,8 @@ div.alert {
 
 .fraud-status-Fraud .cell  a,
 .fraud-status-Clean .cell  a,
-.fraud-status-Review .cell  a {
+.fraud-status-Review .cell  a,
+.fraud-status-Error .cell {
   background-repeat: no-repeat;
   background-position: center right;
 }
@@ -260,6 +272,11 @@ div.alert {
 
 .fraud-status-Review .cell  a {
   background: url(fraud_status/review.svg);
+  background-size: 24px 24px;
+}
+
+.fraud-status-Error .cell  a {
+  background: url(fraud_status/error.svg);
   background-size: 24px 24px;
 }
 

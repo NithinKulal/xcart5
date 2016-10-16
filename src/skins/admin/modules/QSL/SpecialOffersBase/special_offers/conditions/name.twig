@@ -1,0 +1,7 @@
+{##
+ # @ListChild (list="qsl.specialoffersbase.special_offers.list.search.conditions", weight="100")
+ #}
+
+<li class="condition name">
+  {{ widget('XLite\\View\\FormField\\Input\\Text', fieldName='name', value=this.getCondition('name'), label=t('Name')) }}
+</li>

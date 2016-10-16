@@ -290,7 +290,9 @@ abstract class AController extends \XLite\Core\Handler
 
         \XLite\Core\Session::getInstance()->set(\XLite::SHOW_TRIAL_NOTICE, null);
 
-        $result = \XLite::isAdminZone() ? $showTrialNotice : \XLite::isTrialPeriodExpired();
+        $result = \XLite::isAdminZone()
+            ? $showTrialNotice && \XLite::getTrialPeriodLeft() < 7
+            : \XLite::isTrialPeriodExpired();
 
         if ($result && \XLite::isAdminZone()) {
             \XLite\Core\Session::getInstance()->set(static::TRIAL_NOTICE_DISPLAYED, true);

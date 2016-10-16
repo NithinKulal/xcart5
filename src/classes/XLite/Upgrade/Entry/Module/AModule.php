@@ -38,16 +38,6 @@ abstract class AModule extends \XLite\Upgrade\Entry\AEntry
     abstract protected function updateDBRecords();
 
     /**
-     * Get unique module entry ID
-     *
-     * @return string
-     */
-    public function getModuleEntryID()
-    {
-        return md5(implode('', $this->getEntryIdentityData()));
-    }
-
-    /**
      * Names of variables to serialize
      *
      * @return array
@@ -58,6 +48,16 @@ abstract class AModule extends \XLite\Upgrade\Entry\AEntry
         $list[] = 'isFreshInstall';
 
         return $list;
+    }
+
+    /**
+     * Get unique module entry ID
+     *
+     * @return string
+     */
+    public function getModuleEntryID()
+    {
+        return $this->getModuleInstalled()->getMarketplaceID();
     }
 
     /**
@@ -137,23 +137,6 @@ abstract class AModule extends \XLite\Upgrade\Entry\AEntry
         }
 
         return $result;
-    }
-
-    /**
-     * Get module identity data to generate module ID
-     *
-     * @return array
-     */
-    protected function getEntryIdentityData()
-    {
-        list($author, $name) = explode('\\', $this->getActualName());
-
-        return array(
-            'author'       => $author,
-            'name'         => $name,
-            'majorVersion' => $this->getMajorVersionOld(),
-            'minorVersion' => $this->getMinorVersionOld(),
-        );
     }
 
     /**

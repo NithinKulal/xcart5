@@ -11,32 +11,49 @@ CommonForm.elementControllers.push(
   {
     pattern: '.input-field-wrapper input.color',
     handler: function () {
+      var $input = jQuery(this);
+
+      var getOwner = function() {
+        return jQuery('.colorpicker').get(0).owner;
+      }
+      var changeValue = _.throttle(
+        function (owner, hex) {
+          owner.val(hex);
+          owner.change();
+        },
+        50
+      );
 
       var options = {
+        eventName: 'focus',
         onShow: function (colpkr) {
-          jQuery(this).data('colorpicker-show', true);
-          jQuery(this).ColorPickerSetColor(this.value);
-          jQuery(colpkr).fadeIn(500);
+          getOwner().data('colorpicker-show', true);
+          getOwner().ColorPickerSetColor(this.value);
+          jQuery(colpkr).fadeIn(250);
 
           return false;
         },
         onHide: function (colpkr) {
-          jQuery(this).data('colorpicker-show', false);
-          jQuery(colpkr).fadeOut(500);
+          getOwner().data('colorpicker-show', false);
+          getOwner().blur();
+
+          jQuery(colpkr).fadeOut(250);
 
           return false;
         },
         onSubmit: function(hsb, hex, rgb, el) {
-          var inp = jQuery('.colorpicker').get(0).owner;
-          jQuery(inp).val(hex)
-            .ColorPickerHide();
+          getOwner().ColorPickerHide();
+          changeValue(getOwner(), hex);
+        },
+        onChange: function(hsb, hex, rgb, el) {
+          changeValue(getOwner(), hex);
         },
         onBeforeShow: function () {
-          jQuery('.colorpicker').get(0).owner = this;
-          jQuery(this).ColorPickerSetColor(this.value);
+          jQuery('.colorpicker').get(0).owner = jQuery(this);
+          $input.ColorPickerSetColor(this.value);
         }
       };
-      jQuery(this).ColorPicker(options);
+      $input.ColorPicker(options);
 
     }
   }

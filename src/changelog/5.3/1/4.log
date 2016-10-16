@@ -1,0 +1,22 @@
+Version 5.3.1.4
+
+Fixes
+2016-10-11 - [Bug] When importing a CSV spreadsheet containing the same image url for multiple products, it was not imported for all the products (only got associated with the first product). #BUG-3959 (Sergey Elmanov) #Core
+2016-10-07 - [Bug] An error was logged when Update quantity was used to change the stock quantity of a variant. #BUG-3953 (Sergey Elmanov) #Core
+2016-10-06 - [Bug] The "default" value for an attribute was imported wrongly if that attribute was a global one or defined at the class level and existed in a group of attributes. #BUG-3936 (Sergey Elmanov) #Core
+2016-10-05 - [Bug] The sorting of custom address fields was not the same in the Admin area and on the checkout page. #BUG-3937 (Sergey Elmanov) #Core
+2016-10-05 - [Bug] Not all the attribute values were displayed when editing an attribute if the number of values was more than 25. #BUG-3939 (Sergey Elmanov) #Core
+2016-10-04 - [Bug] Quick_flags were calculated incorrectly for menus and categories; as a result, styles were sometimes applied incorrectly for the display of submenus and subcategories. #BUG-3915 (Michael Lipinski) #Core #SimpleCMS
+2016-09-30 - [Bug] Products in a list could not be edited if the list had been accessed via the Low stock products link on the Bell icon (menu item at the top left of the page). #BUG-3854 (Vladimir Semyonov) #Core
+2016-09-29 - [Bug] Advanced mode was working incorrectly during module updates. #BUG-3870 (Vladimir Semyonov) #Core
+2016-09-23 - [Bug] The sort by rating feature now takes into account not only the average rating, but the number of users who have provided a rating as well. #BUG-3898 (Sergey Elmanov) #Core #Bestsellers #ProductReviews
+2016-09-23 - [Bug] Improved the usability of the page displaying sold items statistics in the Admin area. #BUG-3901 (Sergey Elmanov) #Core
+2016-09-22 - [Bug] Fatal error on a product page when disabling the module ThemeTweaker. #BUG-3881 (Eugene Dementjev) #Core #ThemeTweaker
+2016-09-21 - [Bug] The sorting or products on the Category products page in the Admin area was not displayed correctly. #BUG-3861 (Sergey Elmanov) #Core
+2016-09-21 - [Bug] HTML tags were stripped from the Scheme->Text field when editing email notifications. #BUG-3879 (Sergey Elmanov) #Core
+2016-09-20 - [Bug] States could not be added for the countries that did not have states in the database. #BUG-3892 (Eugene Dementjev) #Core
+2016-09-20 - [Bug] "Open Redirection Vulnerability" security issue. Fixed. Thanks to https://www.netsparker.com. #BUG-3904 (Eugene Dementjev) #Core
+2016-09-14 - [Bug] The tracking numbers of all orders were displayed on the page of any order in the Admin area. #BUG-3848 (Eugene Dementjev) #Core
+2016-09-14 - [Bug] The sort order of address fields in the store's Admin back end did not have any effect on the sort order of the fields in the address book popup in the Customer area. #BUG-3850 (Eugene Dementjev) #Core
+2016-09-08 - [Bug] Prices and weights that were supposed to use a format with a comma (for example, 1.999,99 / 1 999,99 / 1,999.99) were displayed and processed incorrectly. #BUG-3836 (Michael Lipinski) #Core
+2016-09-06 - [Bug] Fatal error on the product page if the product has an attribute of the "textarea editable" type #BUG-3827 (Michael Lipinski) #Core

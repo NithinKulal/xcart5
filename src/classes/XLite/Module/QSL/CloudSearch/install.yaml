@@ -24,6 +24,15 @@ XLite\Model\Config:
         option_name: Turn on the CloudSearch specific search on the product list
       - code: ru
         option_name: Включить поиск продуктов от CloudSearch
+  - name: doIndexModifiers
+    category: QSL\CloudSearch
+    type: checkbox
+    value: N
+    translations:
+      - code: en
+        option_name: Include products attributes into CloudSearch index
+      - code: ru
+        option_name: Вносить в индекс CloudSearch информацию об атрибутах
 
 XLite\Model\LanguageLabel:
   - { name: "cs_showing_results_for", translations: [{ code: en, label: "Showing results for" }, { code: ru, label: "Показаны результаты для" }] }

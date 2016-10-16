@@ -33,7 +33,7 @@ abstract class ACheckboxList extends \XLite\View\FormField\Select\Multiple
      */
     public function getCSSFiles()
     {
-        $list = parent::getJSFiles();
+        $list = parent::getCSSFiles();
         $list[] = $this->getDir() . '/checkbox_list.css';
 
         return $list;

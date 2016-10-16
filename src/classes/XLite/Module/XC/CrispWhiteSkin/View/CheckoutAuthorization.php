@@ -21,9 +21,20 @@ class CheckoutAuthorization extends \XLite\View\Authorization
     public static function getAllowedTargets()
     {
         $list = parent::getAllowedTargets();
-
         $list[] = 'checkout';
 
         return $list;
+    }
+
+    /**
+     * Return file name for the center part template
+     *
+     * @return string
+     */
+    protected function getBody()
+    {
+        return \XLite\Core\Request::getInstance()->popup
+            ? 'authorization/checkout/authorization_popup.twig'
+            : 'authorization/checkout/authorization.twig';
     }
 }

@@ -14,6 +14,29 @@ namespace XLite\Module\CDev\SimpleCMS\View\Menu\Customer;
 class Top extends \XLite\View\Menu\Customer\Top implements \XLite\Base\IDecorator
 {
     /**
+     * Correct widget cach parameters
+     *
+     * @return array
+     */
+    protected function getCacheParameters()
+    {
+        $auth = \XLite\Core\Auth::getInstance();
+
+        $params = parent::getCacheParameters();
+
+        $params[] = $auth->isAnonymous();
+
+        $params[] = $auth->isLogged() && $auth->getProfile() && $auth->getProfile()->getMembership()
+            ? $auth->getProfile()->getMembership()->getMembershipId()
+            : null;
+
+        $params[] = \XLite\Core\Database::getRepo('XLite\Module\CDev\SimpleCMS\Model\Menu')->getVersion();
+        $params[] = LC_USE_CLEAN_URLS;
+
+        return $params;
+    }
+
+    /**
      * Define menu items
      *
      * @return array
@@ -37,7 +60,7 @@ class Top extends \XLite\View\Menu\Customer\Top implements \XLite\Base\IDecorato
                 'depth'       => $menuItem->getDepth(),
                 'controller'  => $menuItem->getLinkController(),
                 'url'         => $menuItem->getUrl(),
-                'hasSubmenus' => $menuItem->getSubmenusCount() > 0,
+                'hasSubmenus' => $menuItem->getSubmenusCountConditional() > 0,
             );
         }
 

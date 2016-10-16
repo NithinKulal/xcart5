@@ -166,7 +166,7 @@ ProductDetailsView.prototype.processVariantImageAsGallery = function(data)
 
   if (imageChanged) {
     // Gallery reinitialization
-    this.gallery = jQuery('.image .product-image-gallery li', this.base);
+    this.gallery = jQuery('.product-image-gallery li', this.base);
     this.hideLightbox();
 
     this.base.find('.product-image-gallery li:eq(0) a').click();

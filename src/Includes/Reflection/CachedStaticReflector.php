@@ -9,14 +9,16 @@
 namespace Includes\Reflection;
 
 use Includes\Annotations\Parser\AnnotationParserInterface;
+use Includes\ClassPathResolverInterface;
 
 class CachedStaticReflector extends StaticReflector implements SerializableState
 {
     private $cachedState = [];
 
-    public function __construct(AnnotationParserInterface $annotationParser, $pathname)
-    {
-        parent::__construct($annotationParser, $pathname);
+    public function __construct(
+        ClassPathResolverInterface $classPathResolver, AnnotationParserInterface $annotationParser, $pathname
+    ) {
+        parent::__construct($classPathResolver, $annotationParser, $pathname);
     }
 
     public function getNamespace()
@@ -53,6 +55,15 @@ class CachedStaticReflector extends StaticReflector implements SerializableState
         }
 
         return $this->cachedState['isInterface'];
+    }
+
+    public function isTrait()
+    {
+        if (!isset($this->cachedState['isTrait'])) {
+            $this->cachedState['isTrait'] = parent::isTrait();
+        }
+
+        return $this->cachedState['isTrait'];
     }
 
     public function getClassName()
@@ -107,6 +118,15 @@ class CachedStaticReflector extends StaticReflector implements SerializableState
         }
 
         return $this->cachedState['implements'];
+    }
+
+    public function isPSR0()
+    {
+        if (!isset($this->cachedState['isPSR0'])) {
+            $this->cachedState['isPSR0'] = parent::isPSR0();
+        }
+
+        return $this->cachedState['isPSR0'];
     }
 
     public function isDecorator()

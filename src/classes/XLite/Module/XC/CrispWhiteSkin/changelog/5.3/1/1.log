@@ -1,0 +1,7 @@
+Version 5.3.1.1
+
+Fixes
+2016-08-03 - [Bug] The button for going to the next step of Fast Lane Checkout was misplaced (in the old skin). #BUG-3668 (verde) #FastLaneCheckout #CrispWhiteSkin
+2016-08-02 - [Bug] Mobile menu layout improvement. #BUG-3638 (Michael Lipinski) #CrispWhiteSkin
+2016-08-02 - [Bug] Fixed the layout of the page for anonymous user login before checkout. #BUG-3660 (Maxim Kuznetsov) #CrispWhiteSkin
+2016-08-01 - [Bug] In the Crisp White skin, module dependencies were processed incorrectly. #BUG-3645 (verde) #CrispWhiteSkin

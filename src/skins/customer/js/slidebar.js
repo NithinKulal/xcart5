@@ -19,11 +19,6 @@ function slidebar(){
             api.closeAllPanels();
         });
 
-        var isIE11 = !!navigator.userAgent.match(/Trident.*rv[ :]*11\./);
-        if(isIE11){
-            jQuery('html').addClass('ie11');
-        }
-
         jQuery('.dropdown-menu#search_box').parent().on('shown.bs.dropdown', function () {
             jQuery('#header').addClass('hidden');
         });

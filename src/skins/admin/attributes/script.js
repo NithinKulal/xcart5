@@ -121,7 +121,8 @@ jQuery().ready(
             target:             'attribute',
             product_class_id:   product_class_id,
             id:                 jQuery(this).parent().data('id'),
-            widget:             'XLite\\View\\Attribute'
+            widget:             'XLite\\View\\Attribute',
+            pageId:             1
           })
         );
       }

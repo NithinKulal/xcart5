@@ -17,6 +17,16 @@ use XLite\Module\QSL\CloudSearch\Core\StoreApi;
 class CloudSearchApi extends \XLite\Controller\Customer\ACustomer
 {
     /**
+     * Stub for the CMS connectors
+     *
+     * @return boolean
+     */
+    protected function checkStorefrontAccessibility()
+    {
+        return true;
+    }
+
+    /**
      * 'info' api verb
      *
      * @return void
@@ -74,6 +84,15 @@ class CloudSearchApi extends \XLite\Controller\Customer\ACustomer
         list($start, $limit) = $this->getLimits();
 
         $data = $api->getPages($start, $limit);
+
+        $this->printOutputAndExit($data);
+    }
+
+    protected function doActionManufacturers()
+    {
+        $api = StoreApi::getInstance();
+
+        $data = $api->getBrands();
 
         $this->printOutputAndExit($data);
     }

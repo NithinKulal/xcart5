@@ -40,7 +40,7 @@ class Main extends \Includes\Decorator\Plugin\APlugin
         $classBuilder = (new ClassBuilderFactory())->create(LC_DIR_CLASSES, $this->getCacheClassesDir(), $modules);
 
         foreach (Operator::getClassFileIterator()->getIterator() as $file) {
-            $classBuilder->buildPathname($file);
+            $classBuilder->buildPathname((string)$file);
         }
     }
 }

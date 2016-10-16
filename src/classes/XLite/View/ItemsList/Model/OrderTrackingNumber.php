@@ -244,7 +244,7 @@ class OrderTrackingNumber extends \XLite\View\ItemsList\Model\Table
 
         $this->widgetParams += array(
             static::PARAM_ORDER_ID => new \XLite\Model\WidgetParam\TypeInt(
-                'OrderID ', ($this->getOrder() ? $this->getOrder()->getOrderId() : null)
+                'OrderID ', null
             ),
         );
     }
@@ -259,30 +259,26 @@ class OrderTrackingNumber extends \XLite\View\ItemsList\Model\Table
     public static function getSearchParams()
     {
         return array(
-            static::PARAM_ORDER_ID => static::PARAM_ORDER_ID,
+            \XLite\Model\Repo\OrderTrackingNumber::P_ORDER_ID => static::PARAM_ORDER_ID,
         );
     }
 
     /**
-     * Return params list to use for search
+     * Get search values storage
      *
-     * @return \XLite\Core\CommonCell
+     * @param boolean $forceFallback Force fallback to session storage
+     *
+     * @return \XLite\View\ItemsList\ISearchValuesStorage
      */
-    protected function getSearchCondition()
+    public static function getSearchValuesStorage($forceFallback = false)
     {
-        $result = parent::getSearchCondition();
+        $storage = parent::getSearchValuesStorage($forceFallback);
 
-        $result->{\XLite\Model\Repo\OrderTrackingNumber::P_ORDER_ID} = $this->getParam(static::PARAM_ORDER_ID);
+        $orderId = (\XLite::getController()->getOrder() ? \XLite::getController()->getOrder()->getOrderId() : null);
 
-        foreach (static::getSearchParams() as $modelParam => $requestParam) {
-            $paramValue = $this->getParam($requestParam);
+        $storage->setValue(\XLite\Model\Repo\OrderTrackingNumber::P_ORDER_ID, $orderId);
 
-            if ('' !== $paramValue && 0 !== $paramValue) {
-                $result->$modelParam = $paramValue;
-            }
-        }
-
-        return $result;
+        return $storage;
     }
 
     /**

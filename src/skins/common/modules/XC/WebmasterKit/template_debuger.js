@@ -214,7 +214,9 @@ jQuery(document).ready(
             var elm = p;
             while (elm.previousSibling) {
               elm = elm.previousSibling;
-              if (elm.nodeType == 8 && elm.data.search(' {{{ ') != -1) {
+              var startDelimiter  = '\{\@\!';
+              var endDelimiter    = '\!\@\}';
+              if (elm.nodeType == 8 && elm.data.search(' ' + startDelimiter + ' ') != -1) {
 
                 // Found begin comment tag
                 var begin = elm;
@@ -222,7 +224,7 @@ jQuery(document).ready(
                 // Search end comment tag
                 var match = elm.data.match(/ \((\d+)\)/);
                 var end = null;
-                var endPattern = new RegExp(' \}\}\} .+\(' +  match[1] + '\)');
+                var endPattern = new RegExp(' ' + endDelimiter + ' .+\(' +  match[1] + '\)');
                 var ns = p;
                 while (ns.nextSibling && !end) {
                   ns = ns.nextSibling;
@@ -252,7 +254,7 @@ jQuery(document).ready(
                       // Comment tag is list child - detect list borders
                       var listFirst = null;
                       var listEnd = null;
-                      var beginPattern = new RegExp('\'' + m[4] + '\' list child. +\{\{\{');
+                      var beginPattern = new RegExp('\'' + m[4] + '\' list child. +' + startDelimiter + '');
                       for (var i = 0; begin.parentNode.childNodes.length && !listFirst; i++) {
                         var n = begin.parentNode.childNodes[i];
                         if (n.nodeType == 8 && n.data.search(beginPattern) != -1) {
@@ -260,7 +262,7 @@ jQuery(document).ready(
                         }
                       }
 
-                      var endPattern = new RegExp('\}\}\} .+\'' + m[4] + '\' list child');
+                      var endPattern = new RegExp(endDelimiter + ' .+\'' + m[4] + '\' list child');
                       for (var i = begin.parentNode.childNodes.length - 1; i >= 0 && !listEnd; i--) {
                         var n = begin.parentNode.childNodes[i];
                         if (n.nodeType == 8 && n.data.search(endPattern) != -1) {

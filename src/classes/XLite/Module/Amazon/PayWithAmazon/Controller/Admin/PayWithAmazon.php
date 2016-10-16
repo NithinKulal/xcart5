@@ -20,11 +20,14 @@ class PayWithAmazon extends \XLite\Controller\Admin\Module
      */
     public function getModuleId()
     {
-        return \XLite\Core\Database::getRepo('XLite\Model\Module')->findOneBy(array(
-            'author'            => 'Amazon',
-            'name'              => 'PayWithAmazon',
-            'fromMarketplace'   => false,
-        ))->getModuleID();
+        return \XLite\Core\Database::getRepo('XLite\Model\Module')
+            ->findOneBy(
+                [
+                    'author'          => 'Amazon',
+                    'name'            => 'PayWithAmazon',
+                    'fromMarketplace' => false,
+                ]
+            )
+            ->getModuleID();
     }
-
 }

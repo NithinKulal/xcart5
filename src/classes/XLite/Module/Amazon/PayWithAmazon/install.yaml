@@ -8,17 +8,18 @@
 XLite\Model\Config:
   - name: amazon_pa_sid
     category: Amazon\PayWithAmazon
-    type: XLite\Module\Amazon\PayWithAmazon\View\FormField\Input\SellerID
+    type: text
     orderby: 5
     value: ''
     translations:
       - code: en
-        option_name: 'Amazon Seller ID'
+        option_name: Amazon Seller ID
+        option_comment: If you do not have seller account, you can register here:<br /><a href="https://payments.amazon.com/signup?LD=SPEXUSAPA_XCart_core" target="_blank">USA</a>,&nbsp;<a href="https://payments.amazon.co.uk/preregistration/lpa?LD=SPEXUKAPA_XCart_core" target="_blank">UK</a>,&nbsp;<a href="https://payments.amazon.de/preregistration/lpa?LD=SPEXDEAPA_XCart_core" target="_blank">Germany</a>
   - name: amazon_pa_mode
     category: Amazon\PayWithAmazon
     type: XLite\Module\Amazon\PayWithAmazon\View\FormField\Select\OpMode
     orderby: 10
-    value: 'test'
+    value: test
     translations:
       - code: en
         option_name: Operation mode
@@ -38,11 +39,19 @@ XLite\Model\Config:
     translations:
       - code: en
         option_name: Secret Access Key
+  - name: amazon_pa_client_id
+    category: Amazon\PayWithAmazon
+    type: text
+    orderby: 25
+    translations:
+      - code: en
+        option_name: Client ID
+        option_comment: Register your website as an application on the <a href="http://login.amazon.com/manageApps" trget="_blank">Login with Amazon App Console</a>. For more information, see the <a href="https://images-na.ssl-images-amazon.com/images/G/01/lwa/dev/docs/website-gsg._TTH_.pdf" target="_blank">Login with Amazon Getting Started Guide</a>. A client identifier (Client ID) is set when you register your website. You will need this identifier for your integration.
   - name: amazon_pa_currency
     category: Amazon\PayWithAmazon
     type: XLite\Module\Amazon\PayWithAmazon\View\FormField\Select\Currency
     orderby: 30
-    value: 'USD'
+    value: USD
     translations:
       - code: en
         option_name: Country of Merchant account
@@ -50,7 +59,7 @@ XLite\Model\Config:
     category: Amazon\PayWithAmazon
     type: XLite\Module\Amazon\PayWithAmazon\View\FormField\Select\CaptureMode
     orderby: 40
-    value: 'C'
+    value: C
     translations:
       - code: en
         option_name: Capture mode
@@ -58,7 +67,7 @@ XLite\Model\Config:
     category: Amazon\PayWithAmazon
     type: XLite\Module\Amazon\PayWithAmazon\View\FormField\Select\SyncMode
     orderby: 45
-    value: 'S'
+    value: S
     translations:
       - code: en
         option_name: Type of authorization request
@@ -80,3 +89,5 @@ XLite\Model\LanguageLabel:
   - { name: 'This operation will cancel order. Payment authorization will be voided. Please confirm to proceed.', translations: [{ code: en, label: 'This operation will cancel order. Payment authorization will be voided. Please confirm to proceed.' }] }
   - { name: 'This operation will capture funds from customer. Please confirm to proceed.', translations: [{ code: en, label: 'This operation will capture funds from customer. Please confirm to proceed.' }] }
   - { name: 'This operation will refund funds to customer. Please confirm to proceed.', translations: [{ code: en, label: 'This operation will refund funds to customer. Please confirm to proceed.' }] }
+  - { name: 'The "Pay With Amazon" feature is not configured and cannot be used.', translations: [{ code: en, label: 'The "Pay With Amazon" feature is not configured and cannot be used.' }] }
+  - { name: 'The "Pay with Amazon" feature requires https to be properly set up for your store.', translations: [{ code: en, label: 'The "Pay with Amazon" feature requires https to be <a href="{{url}}">properly set up</a> for your store.' }] }

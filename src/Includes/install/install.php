@@ -1626,6 +1626,10 @@ OUT;
 
     }
 
+    // Do this to correct categories structure after loading all yaml files
+    // Remove after fix of BUG-3674
+    \XLite\Core\Database::getRepo('XLite\Model\Category')->correctCategoriesStructure();
+
     x_install_log(xtr('Installation complete'));
 
     return $result;

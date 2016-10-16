@@ -265,6 +265,10 @@ class PaypalAdaptive extends \XLite\Model\Payment\Base\WebBased
     {
         parent::processReturn($transaction);
 
+        if ($transaction->hasTtlForIpn()) {
+            $transaction->removeTtlForIpn();
+        }
+
         if (\XLite\Core\Request::getInstance()->cancel) {
             $this->setDetail(
                 'cancel',
@@ -290,8 +294,7 @@ class PaypalAdaptive extends \XLite\Model\Payment\Base\WebBased
 
         if (Paypal\Model\Payment\Processor\PaypalIPN::getInstance()->isCallbackAdaptiveIPN()) {
             Paypal\Model\Payment\Processor\PaypalIPN::getInstance()
-                ->processCallbackIPN($transaction, $this);
-            $transaction->registerTransactionInOrderHistory('callback, IPN');
+                ->tryProcessCallbackIPN($transaction, $this);
         }
 
         $this->saveDataFromRequest();

@@ -1,0 +1,12 @@
+{##
+ # Banner promo block
+ #
+ # @ListChild (list="crud.modulesettings.formHeader", zone="admin", weight="50")
+ #}
+{% if this.getModule() and this.getModule().getActualName() == 'CDev\\Egoods' %}
+    {{ widget(template='promo.twig',
+        promoId='banner-system-promo g2a-egoods',
+        promoContent=t('Your payment module to accept payments for digital items. [Get it now]!', {
+            'url': url('addons_list_marketplace', '', {'moduleName': 'G2APay\\G2APay'})
+        })) }}
+{% endif %}

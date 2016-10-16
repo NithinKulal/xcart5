@@ -54,11 +54,6 @@ abstract class AbstractClassBuilder implements ClassBuilderInterface
         $this->decoratedAncestorStreamWrapper = $decoratedAncestorStreamWrapper;
     }
 
-    public function buildPathname($pathname)
-    {
-        return $this->buildClass($this->sourceClassPathResolver->getClass($pathname));
-    }
-
     protected function copyClass($class)
     {
         $sourcePathname = $this->sourceClassPathResolver->getPathname($class);

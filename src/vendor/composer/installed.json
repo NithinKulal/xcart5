@@ -595,7 +595,7 @@
         "source": {
             "type": "git",
             "url": "https://bitbucket.org/xcart/doctrine-dbal.git",
-            "reference": "0d62d0f7ca0fd7ceb724727ca252439e672a1bff"
+            "reference": "aa790efb407ab7ac2fc5baf0788a47df74676770"
         },
         "archive": {
             "exclude": [
@@ -619,7 +619,7 @@
         "suggest": {
             "symfony/console": "For helpful console commands such as SQL execution and import of files."
         },
-        "time": "2016-05-13 20:12:24",
+        "time": "2016-09-22 08:13:09",
         "bin": [
             "bin/doctrine-dbal"
         ],

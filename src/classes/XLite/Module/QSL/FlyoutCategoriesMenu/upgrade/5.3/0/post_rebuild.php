@@ -13,6 +13,9 @@ return function () {
             'name'     => 'fcm_show_icons',
         )
     );
-    \XLite\Core\Database::getEM()->remove($fcm_show_icons_option);
-    \XLite\Core\Database::getEM()->flush();
+
+    if ($fcm_show_icons_option) {
+        \XLite\Core\Database::getEM()->remove($fcm_show_icons_option);
+        \XLite\Core\Database::getEM()->flush();
+    }
 };

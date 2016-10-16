@@ -15,14 +15,13 @@ namespace XLite\Module\Amazon\PayWithAmazon\Module\XC\Add2CartPopup\Core;
 abstract class Add2CartPopup extends \XLite\Module\XC\Add2CartPopup\Core\Add2CartPopup implements \XLite\Base\IDecorator
 {
     /**
-     * Get list of targets where 'Add to Cart' popup should not be displayed
+     * Do not display add to cart popup on 'amazon_checkout' target
      *
-     * @param boolean
+     * @return array
      */
     protected static function getAdd2CartPopupExcludedTargets()
     {
         $targets = parent::getAdd2CartPopupExcludedTargets();
-
         $targets[] = 'amazon_checkout';
 
         return $targets;

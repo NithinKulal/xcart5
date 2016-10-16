@@ -23,6 +23,8 @@ Checkout.define('Checkout.NextButton', [], function(){
       requestNext: function() {
         if (this.ready) {
           this.$root.$broadcast('requestNext');
+        } else {
+          this.$root.$broadcast('requestNextNotReady');
         }
       }
     },

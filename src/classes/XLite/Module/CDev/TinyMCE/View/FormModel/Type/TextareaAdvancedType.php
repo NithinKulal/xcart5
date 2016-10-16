@@ -72,7 +72,7 @@ class TextareaAdvancedType extends \XLite\View\FormModel\Type\TextareaAdvancedTy
                     'attributes' => [
                         'v-tinymce' => $view->vars['v_model'],
                         'v-model'   => $view->vars['v_model'],
-                        'id'        => '',
+                        'id'        => $view->vars['id'],
                     ],
                     'value'      => $view->vars['value'],
                 ]

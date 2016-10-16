@@ -35,21 +35,9 @@
 {% endif %}
   <div class="right-panel-payment-modules">
 
-    {% if this.hasPaymentModules() %}
-      <div class="subbox marketplace">
-        <h2>{{ t('Need more payment methods?') }}</h2>
-  
-        <img src="{{ asset('images/payment_logos.gif') }}" alt="{{ t('Payment methods') }}" class="payment-logos" /><br />
-  
-        {{ widget('XLite\\View\\Button\\Payment\\AddMethod', paymentType=constant('XLite\\Model\\Payment\\Method::TYPE_ALLINONE'), label="Find your payment", style='regular-main-button') }}
-      </div>
-    {% endif %}
-
-    <div class="subbox watch-video">
-      <h2>{{ t('Understanding Online Payments') }}</h2>
-      <p>{{ t('Watch this short video and learn the basics of how online payment processing works') }}</p>
-      {{ widget('XLite\\View\\Button\\Link', label=t('Watch video'), location=this.getVideoURL(), style='watch-video', blank='true') }}
-    </div>
+    <a href="{{ this.getG2AUrl() }}" target="_blank">
+      <img src="{{ asset('images/G2A.jpg') }}" alt="{{ t('G2A Pay') }}" class="g2a-logo" />
+    </a>
 
   </div>
 

@@ -71,10 +71,15 @@ ul.account-links {
 }
 
 .lc-minicart.empty:hover {
-  background-color: #ffffff;
+  background-color: transparent;
 }
+
 .lc-minicart:hover {
   background-color: transparent;
+}
+
+.lc-minicart:hover .minicart-items-number, .lc-minicart:hover .minicart-items-text {
+  color: #ff9ca3 !important;
 }
 
 .lc-minicart .minicart-items-text {
@@ -215,7 +220,7 @@ div.list-header .sort-box label {
   margin:0 0 0 10px;
 }
 
-.product-details .title {
+.product-details h1.title {
   color: #333333;
   font-family: 'Oswald', sans-serif;
   font-weight: 400;

@@ -157,11 +157,24 @@ class Info extends \XLite\View\Order\Details\Admin\Info implements \XLite\Base\I
     {
         $result = parent::isDisplayAntiFraudAd();
 
-        if (
-            $result
-            && \XLite\Module\CDev\XPaymentsConnector\Core\Kount::getInstance()->getKountData($this->getOrder())
-        ) {
-            $result = false;
+        if ($result) {
+
+            if (\XLite\Module\CDev\XPaymentsConnector\Core\Kount::getInstance()->getKountData($this->getOrder())) {
+
+                $result = false;
+
+            } elseif ($this->getOrder()->getFraudCheckData()) {
+
+                foreach ($this->getOrder()->getFraudCheckData() as $fraudCheckData) {
+                    if (
+                        \XLite\Module\CDev\XPaymentsConnector\Model\Payment\FraudCheckData::CODE_KOUNT == $fraudCheckData->getCode()
+                        || \XLite\Module\CDev\XPaymentsConnector\Model\Payment\FraudCheckData::CODE_NOFRAUD == $fraudCheckData->getCode()
+                    ) {
+                        $result = false;
+                        break;
+                    }
+                }
+            }
         }
 
         return $result;

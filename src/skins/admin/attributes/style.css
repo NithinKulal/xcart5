@@ -7,9 +7,14 @@
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
 
-.items-list-table.attribute_options table.list
+.items-list-table.attribute_options table.list,
+.items-list-table.attribute_options .table-pager
 {
   width: 486px;
+}
+
+.items-list-table.attribute_options .table-pager .pagination li {
+  display: inline;
 }
 
 .items-list-table table.list th.name {
@@ -122,7 +127,8 @@ div.group table.list th.actions.left {
 }
 
 .ajax-container-loadable .model-properties div.table-value.values-value {
-  width: 400px;
+  width: auto;
+  max-width: none;
 }
 
 .ajax-container-loadable div.button.submit {

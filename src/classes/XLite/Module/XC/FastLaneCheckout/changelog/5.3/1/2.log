@@ -1,0 +1,6 @@
+Version 5.3.1.2
+
+Fixes
+2016-08-15 - [Bug] JS error in FastLane checkout when an attempt was made to pay for the order using the DataTrans UPP method. Fixed. #BUG-3718 (Vladimir Semyonov) #FastLaneCheckout #DatatransUPP
+2016-08-10 - [Bug] In the Standard skin, the button for going to the next step of FastLane checkout disappeared when the browser window width was 768px. Fixed. #BUG-3701 (Michael Lipinski) #FastLaneCheckout
+2016-08-08 - [Bug] In FastLane checkout, the fields that had not passed validation were not marked properly. Fixed. #BUG-3655 (verde) #Core #FastLaneCheckout #CrispWhiteSkin

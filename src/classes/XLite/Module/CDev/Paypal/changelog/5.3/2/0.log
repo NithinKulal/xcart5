@@ -1,0 +1,4 @@
+Version 5.3.2.0
+
+Fixes
+2016-09-26 - [Bug] IPN callback from PayPal was processed incorrectly if it came earlier than or simultaneously with the return. Fixed. Now IPN is not processed until the return, or until 1 hour has passed after the beginning of the payment process. #BUG-3909 (Eugene Dementjev) #Paypal

@@ -147,8 +147,6 @@ class Moneybookers extends \XLite\Model\Payment\Base\Iframe
         'MAE'   => array('GBR', 'ESP', 'AUT'),
         'SLO'   => array('GBR'),
         'AMX'   => true,
-        'DIN'   => true,
-        'JCB'   => true,
         'LSR'   => array('IRL'),
         'GCB'   => array('FRA'),
         'DNK'   => array('DNK'),
@@ -200,8 +198,6 @@ class Moneybookers extends \XLite\Model\Payment\Base\Iframe
         'MAE'   => 'powered-btn-maestro-90x45.png',
         'SLO'   => 'powered-btn-solo-90x45.png',
         'AMX'   => 'powered-btn-amex-90x45.png',
-        'DIN'   => 'powered-btn-diners-90x45.png',
-        'JCB'   => 'powered-btn-jcb-90x45.png',
         'LSR'   => 'powered-btn-laser-90x45.png',
         'GCB'   => 'cartebleue.gif',
         'DNK'   => 'powered-btn-dankort-90x45.png',
@@ -490,6 +486,10 @@ class Moneybookers extends \XLite\Model\Payment\Base\Iframe
      */
     public function getAdminIconURL(\XLite\Model\Payment\Method $method)
     {
+        if ($method->getServiceName() == 'Moneybookers.OBT') {
+            return \XLite\Core\Layout::getInstance()->getResourceWebPath('modules/CDev/Moneybookers/OBT_method_icon.jpg');
+        }
+
         return true;
     }
 

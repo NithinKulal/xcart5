@@ -149,7 +149,7 @@ abstract class Tokenizer extends \Includes\Decorator\Utils\AUtils
     }
 
     /**
-     * Get inteface name
+     * Get interface name
      *
      * @param string $path Repository file path
      *
@@ -158,6 +158,20 @@ abstract class Tokenizer extends \Includes\Decorator\Utils\AUtils
     public static function getInterfaceName($path)
     {
         return preg_match('/[\r\n]\s*interface\s+(\S+)/Ss', static::getHead($path), $match)
+            ? $match[1]
+            : null;
+    }
+
+    /**
+     * Get trait name
+     *
+     * @param string $path Repository file path
+     *
+     * @return string
+     */
+    public static function getTraitName($path)
+    {
+        return preg_match('/[\r\n]\s*trait\s+(\S+)/Ss', static::getHead($path), $match)
             ? $match[1]
             : null;
     }

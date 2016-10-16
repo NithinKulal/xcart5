@@ -1,0 +1,4 @@
+Version 5.3.1.1
+
+Fixes
+2016-10-07 - [Bug] The page for setting up sales tax rates and VAT rates could show no more than 25 rates. #BUG-3950 (Sergey Elmanov) #SalesTax #VAT

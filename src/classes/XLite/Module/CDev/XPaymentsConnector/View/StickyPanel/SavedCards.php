@@ -22,34 +22,4 @@ class SavedCards extends \XLite\View\StickyPanel\ItemsListForm
     {
         return \XLite\Module\CDev\XPaymentsConnector\Core\ZeroAuth::getInstance()->allowZeroAuth();
     }
-
-    /**
-     * Define buttons widgets
-     *
-     * @return array
-     */
-    protected function defineButtons()
-    {
-        $list = parent::defineButtons();
-
-        $location = \XLite\Core\Converter::buildURL(
-            'add_new_card',
-            '',
-            array(
-                'profile_id' => \XLite\Core\Request::getInstance()->profile_id,
-            )
-        );
-
-        $list['add_new_card'] = $this->getWidget(
-            array(
-                \XLite\View\Button\AButton::PARAM_STYLE    => 'always-enabled',
-                \XLite\View\Button\AButton::PARAM_LABEL    => 'Add new credit card',
-                \XLite\View\Button\AButton::PARAM_DISABLED => false,
-                \XLite\View\Button\Link::PARAM_LOCATION    => $location,
-            ),
-            'XLite\View\Button\Link'
-        );
-
-        return $list;
-    }
 }

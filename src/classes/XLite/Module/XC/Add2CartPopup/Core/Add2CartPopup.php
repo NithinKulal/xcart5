@@ -74,7 +74,7 @@ class Add2CartPopup extends \XLite\Base\Singleton
     /**
      * Get list of targets where 'Add to Cart' popup should not be displayed
      *
-     * @param boolean
+     * @return array
      */
     protected static function getAdd2CartPopupExcludedTargets()
     {

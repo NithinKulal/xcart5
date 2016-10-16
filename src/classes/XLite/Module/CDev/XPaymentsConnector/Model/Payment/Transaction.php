@@ -29,6 +29,15 @@ class Transaction extends \XLite\Model\Payment\Transaction implements \XLite\Bas
     protected $xpc_data;
 
     /**
+     * One-to-one relation with X-Payments payment fraud check data
+     *
+     * @var \XLite\Module\CDev\XPaymentsConnector\Model\Payment\FraudCheckData
+     *
+     * @OneToMany  (targetEntity="\XLite\Module\CDev\XPaymentsConnector\Model\Payment\FraudCheckData", mappedBy="transaction", cascade={"all"})
+     */
+    protected $fraud_check_data;
+
+    /**
      * Check - transaction is X-Payment connector's transaction
      * 
      * @return boolean
@@ -233,5 +242,27 @@ class Transaction extends \XLite\Model\Payment\Transaction implements \XLite\Bas
     public function getXpcData()
     {
         return $this->xpc_data;
+    }
+
+    /**
+     * Add fraud_check_data
+     *
+     * @param \XLite\Module\CDev\XPaymentsConnector\Model\Payment\FraudCheckData $fraudCheckData
+     * @return Transaction
+     */
+    public function addFraudCheckData(\XLite\Module\CDev\XPaymentsConnector\Model\Payment\FraudCheckData $fraudCheckData)
+    {
+        $this->fraud_check_data[] = $fraudCheckData;
+        return $this;
+    }
+
+    /**
+     * Get fraud_check_data
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFraudCheckData()
+    {
+        return $this->fraud_check_data;
     }
 }

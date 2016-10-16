@@ -8,6 +8,8 @@
 
 namespace XLite\View\FormModel\Type;
 
+use Symfony\Component\Form\CallbackTransformer;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -43,13 +45,41 @@ class SymbolType extends AType
     {
         $resolver->setDefaults(
             [
-                'left_symbol'  => '',
-                'right_symbol' => '',
-                'symbol'       => '',
-                'pattern'      => '',
-                'compound'     => false
+                'left_symbol'       => '',
+                'right_symbol'      => '',
+                'symbol'            => '',
+                'pattern'           => '',
+                'compound'          => false,
+                'transformToFloat'  => true
             ]
         );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        if ($options['transformToFloat']) {
+            $builder->addModelTransformer(
+                new CallbackTransformer(
+                    function ($originalValue) {
+                        return $originalValue;
+                    },
+                    function ($submittedValue) use ($options) {
+                        if (isset($options['pattern']['groupSeparator'])) {
+                            $submittedValue = str_replace($options['pattern']['groupSeparator'], '', $submittedValue);
+                        }
+
+                        if (isset($options['pattern']['radixPoint'])) {
+                            $submittedValue = str_replace($options['pattern']['radixPoint'], '.', $submittedValue);
+                        }
+
+                        return $submittedValue;
+                    }
+                )
+            );
+        }
     }
 
     /**

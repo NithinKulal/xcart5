@@ -1,0 +1,44 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Create Backup styles
+ *
+ * @author    Qualiteam software Ltd <info@x-cart.com>
+ * @copyright Copyright (c) 2011-2015 Qualiteam software Ltd <info@x-cart.com>. All rights reserved
+ * @license   http://www.x-cart.com/license-agreement.html X-Cart 5 License Agreement
+ * @link      http://www.x-cart.com/
+ */
+
+.backup-focus-overlay {
+    transition: visibility 0.5s ease-out, opacity 0.5s ease-out;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #FFFFFF;
+    opacity: 0;
+    z-index: 1000;
+    visibility: hidden;
+}
+
+.backup-focus-overlay.active {
+    visibility: visible;
+    transition: visibility 0s, opacity 0.5s ease-out;
+    opacity: 0.9;
+}
+
+.create-backup-section {
+    transition: box-shadow 0.7s ease-out;
+    z-index: 1100;
+    position: relative;
+}
+
+.create-backup-section.focus {
+    box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2);
+}
+
+.ready-to-install-actions {
+    z-index: 1200;
+    position: relative;
+}

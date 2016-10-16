@@ -46,6 +46,19 @@ abstract class ACategory extends \XLite\View\ItemsList\Product\Customer\ACustome
     }
 
     /**
+     * Get products single order 'sort by' fields
+     * Return in format [sort_by_field => sort_order]
+     *
+     * @return array
+     */
+    protected function getSingleOrderSortByFields()
+    {
+        return parent::getSingleOrderSortByFields() + [
+            static::SORT_BY_MODE_DEFAULT => static::SORT_ORDER_DESC
+        ];
+    }
+
+    /**
      * Category
      *
      * @var \XLite\Model\Category

@@ -7,15 +7,6 @@
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
 
-/**
- * IFRAME actions
- */
-var XPC_IFRAME_DO_NOTHING       = 0;
-var XPC_IFRAME_CHANGE_METHOD    = 1;
-var XPC_IFRAME_CLEAR_INIT_DATA  = 2;
-var XPC_IFRAME_ALERT            = 3;
-var XPC_IFRAME_TOP_MESSAGE      = 4;
-
 function xpcMessageListener(event)
 {
 
@@ -117,14 +108,7 @@ function submitXpcIframe(event, state)
 
   state.state = false;
 
-  var formData = {
-    notes : jQuery('#order_note').val(),
-    save_card : jQuery('#save-card').is(':checked') ? 'Y' : 'N'
-  };
-
-  formData[xliteConfig.form_id_name] = xliteConfig.form_id;
-
-  jQuery.post('cart.php?target=checkout&action=save_checkout_form_data', formData);
+  saveCheckoutFormDataXpc('#order_note', '#save-card');
 
   if (jQuery('.xpc_iframe').length) {
     var message = {

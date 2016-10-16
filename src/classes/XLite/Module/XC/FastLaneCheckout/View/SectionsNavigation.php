@@ -23,7 +23,7 @@ class SectionsNavigation extends Sections
     public function getCSSFiles()
     {
         return array_merge(
-            parent::getJSFiles(),
+            parent::getCSSFiles(),
             array(
                 array(
                     'file'  => FastLaneCheckout\Main::getSkinDir() . 'sections_navigation/style.less',

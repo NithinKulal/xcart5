@@ -170,12 +170,45 @@ abstract class ACustomer extends \XLite\View\ItemsList\Product\AProduct
      */
     protected function getSortByFields()
     {
-        return array(
+        return [
             'price'  => static::SORT_BY_MODE_PRICE,
             'name'   => static::SORT_BY_MODE_NAME,
             'sku'    => static::SORT_BY_MODE_SKU,
             'amount' => static::SORT_BY_MODE_AMOUNT,
-        );
+        ];
+    }
+
+    /**
+     * Get products single order 'sort by' fields
+     * Return in format [sort_by_field => sort_order]
+     *
+     * @return array
+     */
+    protected function getSingleOrderSortByFields()
+    {
+        return [];
+    }
+
+    /**
+     * Is 'sort by' field has only one sort order
+     *
+     * @param string $sortBy
+     *
+     * @return array
+     */
+    protected function isSingleOrderSortBy($sortBy)
+    {
+        return isset($this->getSingleOrderSortByFields()[$sortBy]);
+    }
+
+    /**
+     * getSortOrder
+     *
+     * @return string
+     */
+    protected function getSortOrder()
+    {
+        return $this->isSingleOrderSortBy($this->getSortBy()) ? $this->getSingleOrderSortByFields()[$this->getSortBy()] : parent::getSortOrder();
     }
 
     /**
@@ -188,6 +221,11 @@ abstract class ACustomer extends \XLite\View\ItemsList\Product\AProduct
     protected function getSortArrowClassCSS($sortBy)
     {
         $result = '';
+
+        if ($this->isSingleOrderSortBy($this->getSortBy())) {
+            return $result;
+        }
+
         if ($this->isSortByModeSelected($sortBy)) {
             $result = static::SORT_ORDER_DESC === $this->getSortOrder()
                 ? 'sort-arrow-desc'

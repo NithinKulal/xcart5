@@ -51,7 +51,7 @@ class Customer extends ANotification
 
             $object->setCustomerHeaderEnabled($this->scheme->header['status']);
             $object->setCustomerGreetingEnabled($this->scheme->greeting['status']);
-            $object->setCustomerText($this->scheme->text);
+            $object->setCustomerText(isset($rawData['scheme']['text']) ? $rawData['scheme']['text'] : $this->scheme->text);
             $object->setCustomerSignatureEnabled($this->scheme->signature['status']);
         }
     }

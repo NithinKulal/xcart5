@@ -23,45 +23,15 @@ class Callback extends \XLite\Controller\Customer\Callback implements \XLite\Bas
     protected $transaction;
 
     /**
-     * Process callback
+     * Trigger IPN resending by error response.
      */
-    protected function doActionCallback()
-    {
-        $this->detectTransaction();
-
-        if (!$this->ignore) {
-            parent::doActionCallback();
-            if ($this->transaction
-                && $this->transaction instanceof \XLite\Model\Payment\Transaction
-                && $this->transaction->isByPayPal()
-            ) {
-                Paypal\Core\Lock\OrderLocker::getInstance()->unlock($this->transaction->getOrder());
-            }
-        } else {
-            $this->set('silent', true);
-        }
-    }
-
-    /**
-     * Detect transaction from request or from the inner payment methods detection
-     *
-     * @return \XLite\Model\Payment\Transaction
-     */
-    protected function detectTransaction()
-    {
-        if (null === $this->transaction || !$this->transaction instanceof \XLite\Model\Payment\Transaction) {
-            $this->transaction = parent::detectTransaction();
-            if ($this->transaction && $this->transaction->isByPayPal()) {
-                $order = $this->transaction->getOrder();
-                if (Paypal\Core\Lock\OrderLocker::getInstance()->isLocked($order)) {
-                    $this->ignore = true;
-
-                } else {
-                    Paypal\Core\Lock\OrderLocker::getInstance()->lock($order);
-                }
-            }
-        }
-
-        return $this->transaction;
+    public function sendConflictResponse()
+    {        
+        $this->setSuppressOutput(true);
+        $this->set('silent', true);
+        
+        header('HTTP/1.1 409 Conflict', true, 409);
+        header('Status: 409 Conflict');
+        header('X-Robots-Tag: noindex, nofollow');
     }
 }

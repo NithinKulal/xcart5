@@ -26,20 +26,6 @@ class AttributeOption extends \XLite\View\ItemsList\Model\Table
     }
 
     /**
-     * Get a list of CSS files required to display the widget properly
-     *
-     * @return array
-     */
-    public function getCSSFiles()
-    {
-        $list = parent::getCSSFiles();
-
-        $list[] = 'attribute_options/style.css';
-
-        return $list;
-    }
-
-    /**
      * Define columns structure
      *
      * @return array
@@ -156,7 +142,17 @@ class AttributeOption extends \XLite\View\ItemsList\Model\Table
      */
     protected function isPagerVisible()
     {
-        return false;
+        return true;
+    }
+
+    /**
+     * Return class name for the list pager
+     *
+     * @return string
+     */
+    protected function getPagerClass()
+    {
+        return 'XLite\View\Pager\Admin\Model\AttributeOption';
     }
 
     // {{{ Search
@@ -209,6 +205,22 @@ class AttributeOption extends \XLite\View\ItemsList\Model\Table
 
         if (!$result && $name === 'name') {
             $result = true;
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get URL common parameters
+     *
+     * @return array
+     */
+    protected function getCommonParams()
+    {
+        $result = parent::getCommonParams();
+
+        if ($this->getAttribute()) {
+            $result['id'] = $this->getAttribute()->getId();
         }
 
         return $result;

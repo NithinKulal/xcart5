@@ -13,8 +13,11 @@ CommonForm.elementControllers.push(
     handler: function () {
 
       var field = jQuery(this);
-
       var input = jQuery('.field :input.color', this).eq(0);
+
+      input.focus(function(event) {
+        jQuery(this).ColorPickerShow();
+      });
 
       // Check - process blur event or not
       this.isProcessBlur = function()
@@ -25,7 +28,9 @@ CommonForm.elementControllers.push(
       // Save field into view
       this.saveField = function()
       {
-        field.find(this.viewValuePattern).find('.value').css('background-color', '#' + this.getFieldFormattedValue());
+        field.find(this.viewValuePattern).find('.value').css({
+          'background-color': '#' + this.getFieldFormattedValue()
+        });
       }
 
     }

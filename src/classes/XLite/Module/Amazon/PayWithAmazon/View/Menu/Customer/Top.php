@@ -13,7 +13,6 @@ namespace XLite\Module\Amazon\PayWithAmazon\View\Menu\Customer;
  */
 class Top extends \XLite\View\Menu\Customer\Top implements \XLite\Base\IDecorator
 {
-
     /**
      * Check if widget is visible
      *
@@ -21,11 +20,8 @@ class Top extends \XLite\View\Menu\Customer\Top implements \XLite\Base\IDecorato
      */
     protected function isVisible()
     {
-        if (\XLite\Core\Request::getInstance()->target == 'amazon_checkout') {
-            return false;
-        } else {
-            return parent::isVisible();
-        }
+        return \XLite::getController()->getTarget() === 'amazon_checkout'
+            ? false
+            : parent::isVisible();
     }
-
 }

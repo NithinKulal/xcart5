@@ -1,0 +1,12 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Data
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\LanguageLabel:
+ - { name: 'High - Low', translations: [{ code: en, label: 'High - Low' }, { code: ru, label: 'по убыванию' }] }
+ - { name: 'Low - High', translations: [{ code: en, label: 'Low - High' }, { code: ru, label: 'по возрастанию' }] }
+ - { name: 'A - Z', translations: [{ code: en, label: 'A - Z' }, { code: ru, label: 'А - Я' }] }
+ - { name: 'Z - A', translations: [{ code: en, label: 'Z - A' }, { code: ru, label: 'Я - А' }] }

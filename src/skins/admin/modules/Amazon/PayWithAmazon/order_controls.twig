@@ -13,21 +13,21 @@
     var lbl_amazon_pa_confirm_void = '{{ t('This operation will cancel order. Payment authorization will be voided. Please confirm to proceed.') }}';
     var lbl_amazon_pa_confirm_refund = '{{ t('This operation will refund funds to customer. Please confirm to proceed.') }}';
 
-    function amz_submit_form(formObj, formMode) {{ this.getLdelim() }}
+    function amz_submit_form(formObj, formMode) {
       if (!formObj)
         return false;
 
-      if (formObj.tagName != "FORM") {{ this.getLdelim() }}
+      if (formObj.tagName != "FORM") {
         if (!formObj.form)
           return false;
         formObj = formObj.form;
-      {{ this.getRdelim() }}
+      }
 
       if (formObj.action) 
         formObj.action.value = formMode;
 
       return formObj.submit();
-    {{ this.getRdelim() }}
+    }
     //]]>
   </script>
 

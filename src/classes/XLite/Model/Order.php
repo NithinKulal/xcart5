@@ -3857,7 +3857,7 @@ class Order extends \XLite\Model\Base\SurchargeOwner
     /**
      * Get details
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection|\XLite\Model\OrderDetail[]
      */
     public function getDetails()
     {

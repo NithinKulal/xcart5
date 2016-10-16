@@ -185,6 +185,34 @@ class Subscribers extends \XLite\View\ItemsList\Model\Table
     }
 
     /**
+     * Post-validate new entity
+     *
+     * @param \XLite\Model\AEntity $entity Entity
+     *
+     * @return boolean
+     */
+    protected function prevalidateNewEntity(\XLite\Model\AEntity $entity)
+    {
+        $validated = parent::prevalidateNewEntity($entity);
+
+        if ($validated) {
+            $exists = \XLite\Core\Database::getRepo('XLite\Module\XC\NewsletterSubscriptions\Model\Subscriber')
+                ->findOneByEmail($entity->getEmail());
+            if ($exists){
+                \XLite\Core\TopMessage::addWarning(
+                    'Subscriber with email {{email}} already subscribed',
+                    [
+                        'email'=> $entity->getEmail()
+                    ]
+                );
+                $validated = false;
+            }
+        }
+
+        return $validated;
+    }
+
+    /**
      * Get search panel widget class
      *
      * @return string

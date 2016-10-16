@@ -11,7 +11,7 @@ XLite\Model\Config:
     type: XLite\View\FormField\Input\Text\Integer
     widgetParameters: { min: 1 }
     orderby: 115
-    value: 6
+    value: 4
     translations:
       - code: en
         option_name: Number of products in the bestsellers list

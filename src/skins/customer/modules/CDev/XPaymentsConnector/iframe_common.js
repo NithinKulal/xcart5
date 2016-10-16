@@ -62,3 +62,17 @@ function checkXpcIframeMessage(msg)
       || 'showMessage' == msg.message
     );
 }
+
+/**
+ * Save checkout data before submitting X-Payments iframe form
+ */
+function saveCheckoutFormDataXpc(notesSelector, saveCardSelector)
+{
+  var formData = {};
+
+  formData['notes'] = jQuery(notesSelector).val();
+  formData['save_card'] = jQuery(saveCardSelector).is(':checked') ? 'Y' : 'N';
+  formData[xliteConfig.form_id_name] = xliteConfig.form_id;
+
+  jQuery.post('cart.php?target=checkout&action=save_checkout_form_data', formData);
+}

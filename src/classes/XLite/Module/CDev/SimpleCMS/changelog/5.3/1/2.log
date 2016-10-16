@@ -1,0 +1,5 @@
+Version 5.3.1.2
+
+Fixes
+2016-10-04 - [Bug] Quick_flags were calculated incorrectly for menus and categories; as a result, styles were sometimes applied incorrectly for the display of submenus and subcategories. #BUG-3915 (Michael Lipinski) #Core #SimpleCMS
+2016-09-28 - [Bug] Refactoring of the SimpleCMS module. The model for static page extended a wrong class. #BUG-3914 (Michael Lipinski) #SimpleCMS

@@ -35,6 +35,7 @@ class Mailer extends \XLite\Base\Singleton
     const TYPE_ORDER_CANCELED_ADMIN             = 'siteAdmin'; // todo: check
 
     const TYPE_SAFE_MODE_ACCESS_KEY             = 'siteAdmin';
+    const TYPE_UPGRADE_SAFE_MODE_ACCESS_KEY     = 'siteAdmin';
 
     /**
      * FROM: Users department
@@ -1100,6 +1101,29 @@ class Mailer extends \XLite\Base\Singleton
             static::getSiteAdministratorMail(),
             static::getSiteAdministratorMail(),
             'safe_mode_key_generated',
+            array(),
+            true,
+            \XLite::ADMIN_INTERFACE,
+            static::getMailer()->getLanguageCode(\XLite::ADMIN_INTERFACE)
+        );
+    }
+
+    /**
+     * Send notification about generated safe mode access key
+     *
+     * @return void
+     */
+    public static function sendUpgradeSafeModeAccessKeyNotification()
+    {
+        // Register variables
+        static::register('hard_reset_url', \Includes\SafeMode::getResetURL());
+        static::register('soft_reset_url', \Includes\SafeMode::getResetURL(true));
+
+        static::compose(
+            static::TYPE_UPGRADE_SAFE_MODE_ACCESS_KEY,
+            static::getSiteAdministratorMail(),
+            static::getSiteAdministratorMail(),
+            'upgrade_access_keys',
             array(),
             true,
             \XLite::ADMIN_INTERFACE,

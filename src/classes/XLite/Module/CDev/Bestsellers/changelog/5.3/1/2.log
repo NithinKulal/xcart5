@@ -1,0 +1,4 @@
+Version 5.3.1.2
+
+Fixes
+2016-09-23 - [Bug] The sort by rating feature now takes into account not only the average rating, but the number of users who have provided a rating as well. #BUG-3898 (Sergey Elmanov) #Core #Bestsellers #ProductReviews

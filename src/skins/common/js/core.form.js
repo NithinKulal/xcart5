@@ -969,7 +969,7 @@ CommonElement.prototype.validate = function(silent, noFocus)
         }
       }
 
-      if (!result && !silent && this.$element.hasClass('validation-error')) {
+      if (result && !silent && this.$element.hasClass('validation-error')) {
         this.unmarkAsInvalid();
       }
     }

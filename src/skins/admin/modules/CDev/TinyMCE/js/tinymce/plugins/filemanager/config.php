@@ -1,7 +1,7 @@
 <?php
 if($_SESSION["verify"] != "FileManager4TinyMCE") die('forbidden');
 
-require_once (dirname(__FILE__) . '/../../../../../../../../../../top.inc.php');
+require_once (dirname(__FILE__) . '/../../../../../../../../../top.inc.php');
 
 // Filter GET parameters with tags
 foreach ($_GET as $k => $v) {

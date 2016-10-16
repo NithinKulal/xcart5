@@ -3,6 +3,6 @@
  #
  # @ListChild (list="product.details.page", weight="20")
  #}
-<div class="image{% if not this.product.hasImage() %} empty{% endif %}"  style="width: {{ this.getMaxImageWidth() }}px;">
+<div class="image{% if not this.product.hasImage() %} empty{% endif %}" style="width: {{ this.getMaxImageWidth() }}px;">
   {{ widget_list('product.details.page.image') }}
 </div>

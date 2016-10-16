@@ -52,6 +52,16 @@ abstract class Main extends \XLite\Module\AModule
      */
     public static function getMinorVersion()
     {
+        return '2';
+    }
+
+    /**
+     * Get module build number (4th number in the version)
+     *
+     * @return string
+     */
+    public static function getBuildVersion()
+    {
         return '0';
     }
 
@@ -128,5 +138,15 @@ abstract class Main extends \XLite\Module\AModule
     public static function doSearch()
     {
         return \XLite\Core\Config::getInstance()->QSL->CloudSearch->doSearch;
+    }
+
+    /**
+     * Check if the CloudSearch specific search is used
+     * 
+     * @return boolean
+     */
+    public static function doIndexModifiers()
+    {
+        return \XLite\Core\Config::getInstance()->QSL->CloudSearch->doIndexModifiers;
     }
 }

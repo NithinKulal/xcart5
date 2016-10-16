@@ -1,0 +1,10 @@
+{##
+ # Template
+ #
+ # @ListChild (list="cart.panel.totals", weight="1000")
+ #}
+{% if this.isPayWithAmazonActive() %}
+<li class="button">
+  <div id="payWithAmazonDiv_cart_btn" class="pay-with-amazon-button"></div>
+</li>
+{% endif %}

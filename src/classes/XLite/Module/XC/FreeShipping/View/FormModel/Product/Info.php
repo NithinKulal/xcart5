@@ -57,11 +57,9 @@ class Info extends \XLite\View\FormModel\Product\Info implements \XLite\Base\IDe
                             'type'        => 'XLite\View\FormModel\Type\SymbolType',
                             'symbol'      => $currencySymbol,
                             'pattern'     => [
-                                'alias'          => 'currency',
+                                'alias'          => 'xcdecimal',
                                 'prefix'         => '',
                                 'rightAlign'     => false,
-                                'groupSeparator' => $currency->getThousandDelimiter(),
-                                'radixPoint'     => $currency->getDecimalDelimiter(),
                                 'digits'         => $currency->getE(),
                             ],
                             'constraints' => [

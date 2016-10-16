@@ -5,7 +5,7 @@
  # @ListChild (list="order", weight="1000")
  #}
 
-{% if this.getKountData() %}
+{% if this.getKountData() and not this.order.getFraudCheckData() %}
   <div class="kount-result">
   
     <a name="fraud-info-kount"></a>

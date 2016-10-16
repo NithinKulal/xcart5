@@ -313,8 +313,6 @@ class Checkout extends \XLite\Controller\Customer\Checkout implements \XLite\Bas
 
             }
 
-            \XLite\Core\Database::getEM()->flush();
-
             if (
                 \XLite\Core\Session::getInstance()->xpc_order_create_profile
                 && !($order instanceof \XLite\Model\Cart)
@@ -332,6 +330,8 @@ class Checkout extends \XLite\Controller\Customer\Checkout implements \XLite\Bas
                 }
             }
         }
+
+        \XLite\Core\Database::getEM()->flush();
 
         parent::doActionReturn();
 

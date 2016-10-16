@@ -1,0 +1,5 @@
+Version 5.3.1.3
+
+Fixes
+2016-10-03 - [Bug] A wrong SKU was displayed when the variant was changed on a product page in the Customer area. #BUG-3934 (Sergey Elmanov) #ProductVariants
+2016-09-27 - [Bug] When "Inventory tracking" was disabled for a product, the label "In stock (1000 items available)" was still displayed on the product page. The problem was reproduced for products with variants. #BUG-3844 (Sergey Elmanov) #ProductVariants

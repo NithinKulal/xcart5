@@ -2122,9 +2122,20 @@ abstract class AProcessor extends \XLite\Base implements \SeekableIterator, \Cou
     {
         return function ($element) use ($images) {
             $filename = $element->getFileName() ?: basename($element->getPath());
-            return !in_array($filename, array_map(function ($image) {
-                return basename($image);
-            }, $images), true);
+
+            $pathinfo = pathinfo($filename);
+            $name = preg_quote(preg_replace("/_[0-9]+$/", '', $pathinfo['filename']), '/');
+            $ext = $pathinfo['extension'] ? preg_quote('.' . $pathinfo['extension'], '/') : '';
+
+            $pattern = "/^{$name}(_[0-9]*)?{$ext}$/";
+
+            $result = preg_grep($pattern, array_map(function ($image) {
+                return \Includes\Utils\FileManager::sanitizeFilename(
+                    \Includes\Utils\Converter::convertToTranslit(basename($image))
+                );
+            }, $images));
+
+            return empty($result);
         };
     }
 

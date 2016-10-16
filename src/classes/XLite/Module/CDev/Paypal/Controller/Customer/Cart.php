@@ -30,10 +30,12 @@ class Cart extends \XLite\Controller\Customer\Cart implements \XLite\Base\IDecor
         // todo: rewrite add2cartPopup top message block
         // parent::processAddItemSuccess();
 
-        if (\XLite\Module\CDev\Paypal\Main::isExpressCheckoutEnabled()) {
-            if (!\XLite\Core\Request::getInstance()->expressCheckout) {
-                \XLite\Core\TopMessage::addInfo(new \XLite\Module\CDev\Paypal\View\Button\TopMessage\ExpressCheckout());
-            }
+        if (\XLite\Module\CDev\Paypal\Main::isExpressCheckoutEnabled($this->getCart())
+            && !\XLite\Core\Request::getInstance()->expressCheckout
+        ) {
+            \XLite\Core\TopMessage::addInfo(
+                new \XLite\Module\CDev\Paypal\View\Button\TopMessage\ExpressCheckout()
+            );
         } else {
             parent::processAddItemSuccess();
         }

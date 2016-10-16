@@ -263,4 +263,44 @@ class Transactions extends \XLite\View\ItemsList\Model\Table
             && $transaction->getDataCell('xpc_is_fraud_status')->getValue();
 
     }
+
+    /**
+     * Get text for the warning for potentially fraudulent transaction
+     *
+     * @param \XLite\Model\AEntity $entity Entity
+     *
+     * @return string 
+     */
+    public function getFraudStatusText(\XLite\Model\AEntity $entity)
+    {
+        $transaction = $entity->getTransaction();
+
+        $text = false;
+
+        if ($transaction->getFraudCheckData()) {
+
+            $text = array();
+
+            foreach ($transaction->getFraudCheckData() as $fraudCheckData) {
+
+                if (!$fraudCheckData->isPending()) {
+                    continue;
+                }
+
+                if ($fraudCheckData->getMessage()) {
+                    $text[] = $fraudCheckData->getMessage();
+                } else {
+                    $text[] = $fraudCheckData->getService() . ' ' . static::t('considers this payment transaction as potentially fraudulent.');
+                }
+            }
+
+            $text = implode("\n", $text);
+        }
+
+        if (empty($text)) {            
+            $text = static::t('X-Payments considers this transaction as potentially fraudulent.');
+        }
+
+        return $text;
+    }
 }

@@ -1,0 +1,4 @@
+Version 5.3.1.1
+
+Fixes
+2016-09-26 - [Bug] Removed the payment methods Skrill JCB and Skrill Diners. #BUG-3874 (Sergey Elmanov) #Skrill

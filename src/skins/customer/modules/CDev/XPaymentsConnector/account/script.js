@@ -9,7 +9,7 @@
 
 jQuery(function () {
 
-  shadeIframe();
+  initXpcIframe();
 
   jQuery('#submit-button').click(function () {
 
@@ -100,3 +100,9 @@ function unshadeIframe()
   jQuery('#main .wait-overlay-progress').remove();
 }
 
+function initXpcIframe()
+{
+  shadeIframe();
+  var iframe = jQuery('iframe#add_new_card_iframe');
+  iframe.attr('src', iframe.data('src'));
+}

@@ -218,6 +218,7 @@ class AuctionInc extends \XLite\Model\Shipping\Processor\AProcessor
 
         $key = $this->getConfigurationFingerPrint() . serialize($data);
 
+        $cachedResponse = null;
         if (!$ignoreCache) {
             $cachedResponse = $this->getDataFromCache($key);
         }
@@ -325,7 +326,7 @@ class AuctionInc extends \XLite\Model\Shipping\Processor\AProcessor
                 'sku'                    => $product->getSku(),
                 'name'                   => $product->getName(),
                 'qty'                    => (int) $item->getAmount(),
-                'weight'                 => max(0.1, $item->getWeight()),
+                'weight'                 => max(0.1, $item->getAmount() ? $item->getWeight() / (int)$item->getAmount() : $item->getWeight()),
                 'weightUOM'              => $auctionIncData->getWeightUOM(),
                 'dimensions'             => $auctionIncData->getDimensions(),
                 'dimensionsUOM'          => $auctionIncData->getDimensionsUOM(),

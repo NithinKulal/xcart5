@@ -10,7 +10,7 @@ namespace Includes\Decorator\ClassBuilder;
 
 interface ClassBuilderInterface
 {
-    public function buildClass($class);
+    public function buildClassname($class);
 
     public function buildPathname($pathname);
 }

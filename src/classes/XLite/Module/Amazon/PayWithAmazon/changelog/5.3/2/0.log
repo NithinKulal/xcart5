@@ -1,0 +1,4 @@
+Version 5.3.2.0
+
+Improvements
+2016-09-27 - [Change] Pay With Amazon module improvement: Fixed a few minor bugs in UX + added Amazon login support. #XCN-6961 (Maxim Kuznetsov) #PayWithAmazon

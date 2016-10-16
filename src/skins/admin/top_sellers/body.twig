@@ -1,0 +1,36 @@
+{##
+ # Top sellers page
+ #}
+
+<div class="top-sellers-container">
+  <p align="justify">{{ t('This section displays 10 top-selling products for today, this week and this month') }}</p>
+
+  <h2>{{ t('Top X products', {'count': this.getRowsCount()}) }}</h2>
+
+  <div class="selectors">
+    {{ widget_list('top_sellers.selectors') }}
+  </div>
+
+  <table class="data-table top-sellers">
+    <tr class="TableHead">
+      <th>{{ t('Position') }}</th>
+      <th>{{ t('Product') }}</th>
+    </tr>
+    {% for idx, val in this.getIntervalStats() %}
+      <tr class="dialog-box">
+        <td class="title">{{ this.processPositionValue(idx, val) }}</td>
+        <td class="item">
+          {% if val %}
+            {% if val.product.product_id %}
+              <a href="{{ url('product', '', {'product_id': val.product.product_id}) }}">{{ val.name }}</a>
+            {% else %}
+              <span>{{ val.name }} ({{ t('deleted') }})</span>
+            {% endif %}
+          {% else %}
+            <span>&mdash;</span>
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+</div>

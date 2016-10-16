@@ -61,6 +61,11 @@ li.update-module-info .module-icon {
   margin: 0px 10px 0px 0px;
 }
 
+li.update-module-info .module-icon img{
+  max-width: 84px;
+  max-height: 84px;
+}
+
 li.update-module-info ul.module-info {
   float: left;
 }

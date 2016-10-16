@@ -2617,4 +2617,19 @@ class Product extends \XLite\Model\Base\Catalog implements \XLite\Model\Base\IOr
     {
         return $this->lowLimitAmount;
     }
+
+    /**
+     * Checks if given property is available to modification through layout editor mode.
+     *
+     * @param  string  $property Checked entity property
+     * @return boolean
+     */
+    public function getFieldMetadata($property)
+    {
+        return array(
+            'data-model' => $this->getEntityName(),
+            'data-identifier' => $this->getProductId(),
+            'data-property' => $property,
+        );
+    }
 }

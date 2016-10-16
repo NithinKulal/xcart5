@@ -1,0 +1,10 @@
+{##
+ # Configuration
+ #}
+{% if this.hasAmazonWarning() %}
+  <div class="alert alert-warning">
+    {{ this.getAmazonWarning()|raw }}
+  </div>
+{% endif %}
+
+{{ widget('\\XLite\\View\\Model\\Settings') }}

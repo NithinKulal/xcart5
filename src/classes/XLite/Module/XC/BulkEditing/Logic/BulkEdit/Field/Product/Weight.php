@@ -21,11 +21,9 @@ class Weight extends \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Field\AField
                 'type'     => 'XLite\View\FormModel\Type\SymbolType',
                 'symbol'   => \XLite\Core\Config::getInstance()->Units->weight_symbol,
                 'pattern'  => [
-                    'alias'          => 'decimal',
+                    'alias'          => 'xcdecimal',
                     'digitsOptional' => false,
                     'rightAlign'     => false,
-                    'groupSeparator' => $weightFormatDelimiters[0],
-                    'radixPoint'     => $weightFormatDelimiters[1],
                     'digits'         => 4,
                 ],
                 'position' => isset($options['position']) ? $options['position'] : 0,

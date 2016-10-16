@@ -24,18 +24,13 @@ class StaticReflectorFactory implements StaticReflectorFactoryInterface
     /**
      * @var SourceToTargetPathMapperInterface
      */
-//        private $sourceToTargetPathMapper;
 
     private $reflectors = [];
 
-    public function __construct(
-        ClassPathResolverInterface $classPathResolver/*,
-            SourceToTargetPathMapperInterface $sourceToTargetPathMapperInterface*/
-    )
+    public function __construct(ClassPathResolverInterface $classPathResolver)
     {
         $this->annotationParser  = (new AnnotationParserFactory())->create();
         $this->classPathResolver = $classPathResolver;
-//            $this->sourceToTargetPathMapper = $sourceToTargetPathMapperInterface;
     }
 
     /**
@@ -57,34 +52,12 @@ class StaticReflectorFactory implements StaticReflectorFactoryInterface
     {
         if (!isset($this->reflectors[$pathname])) {
             $this->reflectors[$pathname] = new CachedStaticReflector(
+                $this->classPathResolver,
                 $this->annotationParser,
                 $pathname
             );
-
-            /*$metadataFile = $this->getMetadataPathname($sourcePathname);
-
-            if (file_exists($metadataFile) && filemtime($sourcePathname) < filemtime($metadataFile)) {
-                $reflector->unserializeState(file_get_contents($metadataFile));
-            }*/
         }
 
         return $this->reflectors[$pathname];
     }
-
-    /*public function finalizeReflector(StaticReflectorInterface $reflector)
-    {
-        // Do not write if state was not changed
-
-        if ($reflector instanceof SerializableState) {
-            file_put_contents(
-                $this->getMetadataPathname($reflector->getPathname()),
-                $reflector->serializeState()
-            );
-        }
-    }
-
-    private function getMetadataPathname($sourcePathname)
-    {
-        return $this->sourceToTargetPathMapper->map($sourcePathname) . '.metadata';
-    }*/
 }

@@ -26,6 +26,21 @@ class CommonAttributes extends \XLite\View\Product\Details\Customer\CommonAttrib
     }
 
     /**
+     * Get cache parameters
+     *
+     * @return array
+     */
+    protected function getCacheParameters()
+    {
+        $list = parent::getCacheParameters();
+
+        $variantId = $this->getProductVariant() ? $this->getProductVariant()->getId() : null;
+        $list[] = $variantId;
+
+        return $list;
+    }
+
+    /**
      * Return weight of product
      *
      * @return float

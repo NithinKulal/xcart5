@@ -250,7 +250,7 @@ abstract class AXPayments extends \XLite\Model\Payment\Base\WebBased
                             : ''
                     );
 
-                    $transaction->getOrder()->setFraudTypeXpc(\XLite\Model\Order::FRAUD_TYPE_KOUNT);
+                    $transaction->getOrder()->setFraudTypeXpc(\XLite\Module\CDev\XPaymentsConnector\Model\Payment\FraudCheckData::CODE_KOUNT);
 
                     $result->Auto = $field['value'];
 
@@ -276,10 +276,137 @@ abstract class AXPayments extends \XLite\Model\Payment\Base\WebBased
             && !$result->Auto
         ) {
             $transaction->getOrder()->setFraudStatusXpc(\XLite\Model\Order::FRAUD_STATUS_FRAUD);
-            $transaction->getOrder()->setFraudTypeXpc(\XLite\Model\Order::FRAUD_TYPE_KOUNT);
+            $transaction->getOrder()->setFraudTypeXpc(\XLite\Module\CDev\XPaymentsConnector\Model\Payment\FraudCheckData::CODE_KOUNT);
         }
 
         return $result;
+    }
+
+    /**
+     * Process Fraud Check data from callback
+     *
+     * @param \XLite\Model\Payment\Transaction $transaction Callback-owner transaction
+     * @param array $data Data
+     *
+     * @return void
+     */
+    protected function processFraudCheckData(\XLite\Model\Payment\Transaction $transaction, $data)
+    {
+        if (
+            empty($data['fraudCheckData'])
+            || !is_array($data['fraudCheckData'])
+        ) {
+            return;
+        }
+
+        foreach ($transaction->getFraudCheckData() as $fraudCheckData) {
+            \XLite\Core\Database::getEM()->remove($fraudCheckData);
+        }
+
+        // Maximum fraud result within several serices (if there are more than one)
+        $maxFraudResult = \XLite\Module\CDev\XPaymentsConnector\Model\Payment\FraudCheckData::RESULT_UNKNOWN;
+
+        // Code of the service which got "most fraud" result
+        $maxFraudResultCode = '';
+
+        // Flag to check if any errors which prevented fraud check occurred 
+        $errorsFound = false;
+
+        foreach ($data['fraudCheckData'] as $service) {
+
+            // Ignore "noname" services. This must be filled in on the X-Payments side
+            if (empty($service['code']) || empty($service['service'])) {
+                continue;
+            }
+
+            if (empty($maxFraudResultCode)) {
+                // Use first the code, so that something is specified
+                $maxFraudResultCode = $service['code'];
+            }
+
+            $fraudCheckData = new \XLite\Module\CDev\XPaymentsConnector\Model\Payment\FraudCheckData;
+            $fraudCheckData->setTransaction($transaction);
+
+            $transaction->addFraudCheckData($fraudCheckData);
+
+            $fraudCheckData->setCode($service['code']);
+            $fraudCheckData->setService($service['service']);
+
+            if (!empty($service['result'])) {
+                $fraudCheckData->setResult($service['result']);
+
+                if (intval($service['result']) > $maxFraudResult) {
+                    $maxFraudResult = intval($service['result']);
+                    $maxFraudResultCode = $service['code'];
+                }
+            }
+
+            if (!empty($service['status'])) {
+                $fraudCheckData->setStatus($service['status']);
+            }
+
+            if (!empty($service['score'])) {
+                $fraudCheckData->setScore($service['score']);
+            }
+
+            if (!empty($service['transactionId'])) {
+                $fraudCheckData->setServiceTransactionId($service['transactionId']); 
+            }
+
+            if (!empty($service['url'])) {
+                $fraudCheckData->setUrl($service['url']);
+            }
+
+            if (!empty($service['message'])) {
+                $fraudCheckData->setMessage($service['message']);
+            }
+
+            if (!empty($service['errors'])) {
+                $errors = implode("\n", $service['errors']);
+                $fraudCheckData->setErrors($errors);
+                $errorsFound = true;
+            }
+
+            if (!empty($service['rules'])) {
+                $rules = implode("\n", $service['rules']);
+                $fraudCheckData->setRules($rules);
+            }
+
+            if (!empty($service['warnings'])) {
+                $warnings = implode("\n", $service['warnings']);
+                $fraudCheckData->setWarnings($warnings);
+            }
+        }
+
+        // Convert maximun fraud result to the order's fraud status
+        switch ($maxFraudResult) {
+
+            case \XLite\Module\CDev\XPaymentsConnector\Model\Payment\FraudCheckData::RESULT_UNKNOWN:
+                if ($errorsFound) {
+                    $transaction->getOrder()->setFraudStatusXpc(\XLite\Model\Order::FRAUD_STATUS_ERROR);
+                } else {
+                    $transaction->getOrder()->setFraudStatusXpc(\XLite\Model\Order::FRAUD_STATUS_UNKNOWN);
+                }
+                break;
+
+            case \XLite\Module\CDev\XPaymentsConnector\Model\Payment\FraudCheckData::RESULT_ACCEPTED:
+                $transaction->getOrder()->setFraudStatusXpc(\XLite\Model\Order::FRAUD_STATUS_CLEAN);
+                break;
+
+            case \XLite\Module\CDev\XPaymentsConnector\Model\Payment\FraudCheckData::RESULT_REVIEW:
+                $transaction->getOrder()->setFraudStatusXpc(\XLite\Model\Order::FRAUD_STATUS_REVIEW);
+                break;
+
+            case \XLite\Module\CDev\XPaymentsConnector\Model\Payment\FraudCheckData::RESULT_FAIL:
+                $transaction->getOrder()->setFraudStatusXpc(\XLite\Model\Order::FRAUD_STATUS_FRAUD);
+                break;
+        }
+
+        // Set type of the fraud system
+        $transaction->getOrder()->setFraudTypeXpc($maxFraudResultCode);
+
+        // Set transaction iD for fraud check data to order
+        $transaction->getOrder()->setFraudCheckTransactionId($transaction->getTransactionId());
     }
 
     /**
@@ -441,7 +568,8 @@ abstract class AXPayments extends \XLite\Model\Payment\Base\WebBased
             isset($data['isFraudStatus'])
             && '1' == $data['isFraudStatus']
         ) {
-            $transaction->getOrder()->setFraudTypeXpc(\XLite\Model\Order::FRAUD_TYPE_GATEWAY);
+            // Set default fraud "review" for the backwards compatibility
+            $transaction->getOrder()->setFraudTypeXpc(\XLite\Module\CDev\XPaymentsConnector\Model\Payment\FraudCheckData::CODE_GATEWAY);
             $transaction->getOrder()->setFraudStatusXpc(\XLite\Model\Order::FRAUD_STATUS_REVIEW);
         }
 
@@ -490,6 +618,8 @@ abstract class AXPayments extends \XLite\Model\Payment\Base\WebBased
         $this->processMaskedCardData($transaction, $data);
 
         $this->process3dSecureData($transaction, $data);
+
+        $this->processFraudCheckData($transaction, $data);
     }
 
     /**

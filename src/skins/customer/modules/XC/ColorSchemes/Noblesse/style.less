@@ -7,7 +7,7 @@
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
 
-@body-bg: #333333 url("@{customer-skin}/modules/XC/ColorSchemes/Noblesse/images/store_bg.gif") left top repeat;
+// @body-bg: #333333;
 
 @font-family-sans-serif: Arial, Helvetica, sans-serif;
 @headings-font-family: 'Oswald', sans-serif;
@@ -70,16 +70,22 @@
 @navtab-bgcolor-normal: @base-gradient-end-color;
 @navtab-bgcolor-normal-hover: @base-gradient-start-color;
 
-@mobile-menu-bg: #f5f5f5;
-@mobile-menu-icons-color: #707070;
-@mobile-menu-minicart-color: #d80611;
-@slidebar-header-color: #707070;
-@slidebar-back-arrow-color: #707070;
+@mobile-menu-bg: #383838;
+@mobile-menu-icons-color: #d0d0d0;
+@mobile-menu-minicart-color: #d0d0d0;
+@slidebar-header-color: #d0d0d0;
+@slidebar-back-arrow-color: #d0d0d0;
 
 /* Noblesse styles */
 
 #main-wrapper {
   .border-bottom-radius(10px);
+}
+
+#page .category-banner {
+  margin: 0;
+  padding-bottom: 25px;
+  background-color: #fff;
 }
 
 #header-area {
@@ -218,6 +224,11 @@ h6 {
   .simple-search-box{
     box-shadow: none !important;
   }
+
+  ul.nav.nav-pills {
+    #gradient > .vertical (#383838, #010101);
+    .box-shadow(0 1px 3px 0px rgba(50,50,50,0.7));
+  }
 }
 
 .lc-minicart {
@@ -269,7 +280,6 @@ h6 {
 
 @media (min-width: @screen-md-min) {
   .lc-minicart {
-    border-left: 1px solid #cccccc;
     color: #333333;
     margin: 19px 0 0;
     background: #ffffff url("@{customer-skin}/modules/XC/ColorSchemes/Noblesse/images/shopping-bag.png") 10px 10px no-repeat;
@@ -290,6 +300,10 @@ h6 {
 .checkout-block .steps .shipping-step .shipping-rates li span.value,
 .checkout-block .review-step .total span {
   color: @price-color;
+}
+
+html, body {
+  background: #333333 url("@{customer-skin}/modules/XC/ColorSchemes/Noblesse/images/store_bg.gif") left top repeat;
 }
 
 @media (max-width: @screen-sm-max) {

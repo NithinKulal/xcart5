@@ -46,6 +46,7 @@ XLite\Model\LanguageLabel:
   - { name: "less one hour", translations: [{ code: en, label: "less than one hour" }] }
   - { name: E-goods, translations: [{ code: en, label: E-goods }] }
   - { name: 'Ordered files', translations: [{ code: en, label: 'Ordered files' }] }
+  - { name: 'Your payment module to accept payments for digital items. [Get it now]!', translations: [{ code: en, label: 'Your payment module to accept payments for digital items. <a href="{{url}}" target="_blank">Get it now</a>!' }, { code: ru, label: 'Продаёшь цифровые товары? Устрой тест-драйв нашему <a href="{{url}}" target="_blank">новому модулю</a> и начни принимать платежи прямо сейчас.' }] }
 
 XLite\Model\Notification:
   - templatesDirectory: modules/CDev/Egoods/egoods_links

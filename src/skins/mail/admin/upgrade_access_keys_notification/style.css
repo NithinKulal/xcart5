@@ -1,0 +1,29 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Notification styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.upgrade-access-keys-notification {
+    max-width: 640px;
+}
+
+.upgrade-access-keys-notification .access-links {
+    margin-left: 40px
+}
+
+.upgrade-access-keys-notification .access-links ul {
+    list-style: circles;
+}
+
+.upgrade-access-keys-notification .access-links ul li {
+    line-height: 20px;
+}
+
+.upgrade-access-keys-notification p {
+    line-height: 20px;
+    margin-bottom: 20px;
+}

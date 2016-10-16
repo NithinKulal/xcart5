@@ -70,7 +70,7 @@ class AddonsListMarketplace extends \XLite\Controller\Admin\Base\AddonsList
                 : null;
 
             // Landing page is unavailable if no modules are set on the landing page
-            $isLandingModules = (bool) \XLite\Core\Database::getRepo('XLite\Model\Module')
+            $isLandingModules = (bool)\XLite\Core\Database::getRepo('XLite\Model\Module')
                 ->findOneBy(array('isLanding' => true));
 
             $this->landingPageAvail = isset($landingPageAvail[\XLite\Core\Marketplace::FIELD_LANDING])
@@ -202,6 +202,35 @@ class AddonsListMarketplace extends \XLite\Controller\Admin\Base\AddonsList
             : array();
 
         $this->setReturnURL($this->buildURL('addons_list_marketplace', '', $params));
+    }
+
+    /**
+     * Request for upgrade
+     *
+     * @return void
+     */
+    protected function doActionRequestForUpgrade()
+    {
+        $module = \XLite\Core\Database::getRepo('XLite\Model\Module')
+            ->find(\XLite\Core\Request::getInstance()->module);
+
+        if (!$module || !\XLite\Core\Marketplace::getInstance()->isUpgradeRequestAvailable($module)) {
+            return;
+        }
+
+        $result = \XLite\Core\Marketplace::getInstance()->requestForUpgrade([
+            $module->getMarketplaceID() => $module,
+        ]);
+
+        if (!empty($result)) {
+            \XLite\Core\Marketplace::getInstance()->markAsUpgradeRequested($module);
+            \XLite\Core\TopMessage::addInfo('Your request has been sent successfully');
+
+        } else {
+            \XLite\Core\TopMessage::addWarning('An error occurred while sending the request');
+        }
+
+        $this->setReturnURL($this->getReferrerURL());
     }
 
     /**

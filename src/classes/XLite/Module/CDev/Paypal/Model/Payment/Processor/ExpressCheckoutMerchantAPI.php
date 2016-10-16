@@ -259,6 +259,10 @@ class ExpressCheckoutMerchantAPI extends \XLite\Module\CDev\Paypal\Model\Payment
         \XLite\Core\Session::getInstance()->ec_payer_id = null;
         \XLite\Core\Session::getInstance()->ec_type = null;
 
+        if ($transaction->hasTtlForIpn()) {
+            $transaction->removeTtlForIpn();
+        }
+
         return $status;
     }
 
@@ -306,6 +310,20 @@ class ExpressCheckoutMerchantAPI extends \XLite\Module\CDev\Paypal\Model\Payment
 
     // }}}
 
+    /**
+     * Get list of IPN locking request types
+     *
+     * @return array
+     */
+    protected function getIpnLockingRequests()
+    {
+        return array(
+            'DoVoid',
+            'DoCapture',
+            'RefundTransaction',
+        );
+    }
+
     // {{{ doVoid
 
     /**
@@ -318,9 +336,35 @@ class ExpressCheckoutMerchantAPI extends \XLite\Module\CDev\Paypal\Model\Payment
      */
     public function doVoid(\XLite\Model\Payment\BackendTransaction $transaction)
     {
-        $responseData = $this->doRequest('DoVoid', $transaction);
+        $processor = $this;
 
-        return $this->processDoVoidResponse($transaction, $responseData);
+        return $this->processRequest('DoVoid', $transaction, 
+            function ($responseData, $state) use ($transaction, $processor) {
+                if ($processor->isSuccessACK($responseData['ACK'])) {
+                    $state['result'] = true;
+                    $state['status'] = \XLite\Model\Payment\Transaction::STATUS_SUCCESS;
+
+                    $transaction->getPaymentTransaction()->getOrder()->setPaymentStatus(
+                        \XLite\Model\Order\Status\Payment::STATUS_DECLINED
+                    );
+
+                    // save transaction id for IPN
+                    $transaction->setDataCell(
+                        'PPREF',
+                        $responseData['AUTHORIZATIONID'],
+                        'Unique PayPal transaction ID (AUTHORIZATIONID)'
+                    );
+
+                    \XLite\Core\TopMessage::getInstance()->addInfo('Payment has been voided successfully');
+
+                } else {
+                    \XLite\Core\TopMessage::getInstance()
+                        ->addError('Transaction failure. PayPal response: ' . $responseData['L_LONGMESSAGE0']);
+                }
+
+                return $state;
+            }
+        );
     }
 
     /**
@@ -338,49 +382,6 @@ class ExpressCheckoutMerchantAPI extends \XLite\Module\CDev\Paypal\Model\Payment
         return $this->api->convertDoVoidParams($authorizationId);
     }
 
-    /**
-     * Process DoVoid response
-     *
-     * @param \XLite\Model\Payment\BackendTransaction $transaction  Transaction
-     * @param string                                  $responseData Response data OPTIONAL
-     *
-     * @return boolean
-     */
-    protected function processDoVoidResponse(\XLite\Model\Payment\BackendTransaction $transaction, $responseData = null)
-    {
-        $result = false;
-
-        if (!empty($responseData)) {
-            $status = \XLite\Model\Payment\Transaction::STATUS_FAILED;
-
-            if ($this->isSuccessACK($responseData['ACK'])) {
-                $result = true;
-                $status = \XLite\Model\Payment\Transaction::STATUS_SUCCESS;
-                $transaction->getPaymentTransaction()->getOrder()->setPaymentStatus(
-                    \XLite\Model\Order\Status\Payment::STATUS_DECLINED
-                );
-
-                // save transaction id for IPN
-                $transaction->setDataCell(
-                    'PPREF',
-                    $responseData['AUTHORIZATIONID'],
-                    'Unique PayPal transaction ID (AUTHORIZATIONID)'
-                );
-
-                \XLite\Core\TopMessage::getInstance()->addInfo('Payment has been voided successfully');
-
-            } else {
-                \XLite\Core\TopMessage::getInstance()
-                    ->addError('Transaction failure. PayPal response: ' . $responseData['L_LONGMESSAGE0']);
-            }
-
-            $transaction->setStatus($status);
-            $transaction->update();
-        }
-
-        return $result;
-    }
-
     // }}}
 
     // {{{ doCapture
@@ -395,9 +396,41 @@ class ExpressCheckoutMerchantAPI extends \XLite\Module\CDev\Paypal\Model\Payment
      */
     public function doCapture(\XLite\Model\Payment\BackendTransaction $transaction)
     {
-        $responseData = $this->doRequest('DoCapture', $transaction);
+        $processor = $this;
 
-        return $this->processDoCaptureResponse($transaction, $responseData);
+        return $this->processRequest('DoCapture', $transaction, 
+            function ($responseData, $state) use ($transaction, $processor) {
+                if ($processor->isSuccessACK($responseData['ACK'])) {
+                    $state['result'] = true;
+                    $state['status'] = \XLite\Model\Payment\Transaction::STATUS_SUCCESS;
+
+                    $transaction->getPaymentTransaction()->getOrder()->setPaymentStatus(
+                        \XLite\Model\Order\Status\Payment::STATUS_PAID
+                    );
+
+                    \XLite\Core\TopMessage::getInstance()->addInfo('Payment has been captured successfully');
+
+                    $transaction->setDataCell(
+                        $processor->getReferenceIdField(),
+                        $responseData['TRANSACTIONID'],
+                        'Transaction ID'
+                    );
+
+                    // save transaction id for IPN
+                    $transaction->setDataCell(
+                        'PPREF',
+                        $responseData['TRANSACTIONID'],
+                        'Unique PayPal transaction ID (TRANSACTIONID)'
+                    );
+
+                } else {
+                    \XLite\Core\TopMessage::getInstance()
+                        ->addError('Transaction failure. PayPal response: ' . $responseData['L_LONGMESSAGE0']);
+                }
+
+                return $state;
+            }
+        );
     }
 
     /**
@@ -415,55 +448,6 @@ class ExpressCheckoutMerchantAPI extends \XLite\Module\CDev\Paypal\Model\Payment
         return $this->api->convertDoCaptureParams($transaction, $authorizationId);
     }
 
-    /**
-     * Process DoCapture response
-     *
-     * @param \XLite\Model\Payment\BackendTransaction $transaction  Transaction
-     * @param string                                  $responseData Response data OPTIONAL
-     *
-     * @return boolean
-     */
-    protected function processDoCaptureResponse(\XLite\Model\Payment\BackendTransaction $transaction, $responseData = null)
-    {
-        $result = false;
-
-        if (!empty($responseData)) {
-            $status = \XLite\Model\Payment\Transaction::STATUS_FAILED;
-
-            if ($this->isSuccessACK($responseData['ACK'])) {
-                $result = true;
-                $status = \XLite\Model\Payment\Transaction::STATUS_SUCCESS;
-                $transaction->getPaymentTransaction()->getOrder()->setPaymentStatus(
-                    \XLite\Model\Order\Status\Payment::STATUS_PAID
-                );
-
-                \XLite\Core\TopMessage::getInstance()->addInfo('Payment has been captured successfully');
-
-                $transaction->setDataCell(
-                    $this->getReferenceIdField(),
-                    $responseData['TRANSACTIONID'],
-                    'Transaction ID'
-                );
-
-                // save transaction id for IPN
-                $transaction->setDataCell(
-                    'PPREF',
-                    $responseData['TRANSACTIONID'],
-                    'Unique PayPal transaction ID (TRANSACTIONID)'
-                );
-
-            } else {
-                \XLite\Core\TopMessage::getInstance()
-                    ->addError('Transaction failure. PayPal response: ' . $responseData['L_LONGMESSAGE0']);
-            }
-
-            $transaction->setStatus($status);
-            $transaction->update();
-
-        }
-
-        return $result;
-    }
     // }}}
 
     // {{{ refundTransaction
@@ -478,9 +462,35 @@ class ExpressCheckoutMerchantAPI extends \XLite\Module\CDev\Paypal\Model\Payment
      */
     public function doRefund(\XLite\Model\Payment\BackendTransaction $transaction)
     {
-        $responseData = $this->doRequest('RefundTransaction', $transaction);
+        $processor = $this;
 
-        return $this->processRefundTransactionResponse($transaction, $responseData);
+        return $this->processRequest('RefundTransaction', $transaction, 
+            function ($responseData, $state) use ($transaction, $processor) {
+                if ($processor->isSuccessACK($responseData['ACK'])) {
+                    $state['result'] = true;
+                    $state['status'] = \XLite\Model\Payment\Transaction::STATUS_SUCCESS;
+
+                    $transaction->getPaymentTransaction()->getOrder()->setPaymentStatus(
+                        \XLite\Model\Order\Status\Payment::STATUS_REFUNDED
+                    );
+
+                    // save transaction id for IPN
+                    $transaction->setDataCell(
+                        'PPREF',
+                        $responseData['REFUNDTRANSACTIONID'],
+                        'Unique PayPal transaction ID (REFUNDTRANSACTIONID)'
+                    );
+
+                    \XLite\Core\TopMessage::getInstance()->addInfo('Payment has bes refunded successfully');
+
+                } else {
+                    \XLite\Core\TopMessage::getInstance()
+                        ->addError('Transaction failure. PayPal response: ' . $responseData['L_LONGMESSAGE0']);
+                }
+
+                return $state;
+            }
+        );
     }
 
     /**
@@ -496,49 +506,6 @@ class ExpressCheckoutMerchantAPI extends \XLite\Module\CDev\Paypal\Model\Payment
         $transactionId = $this->getTransactionReferenceId($transaction);
 
         return $this->api->convertRefundTransactionParams($transaction, $transactionId);
-    }
-
-    /**
-     * Process DoCapture response
-     *
-     * @param \XLite\Model\Payment\BackendTransaction $transaction  Transaction
-     * @param string                                  $responseData Response data OPTIONAL
-     *
-     * @return boolean
-     */
-    protected function processRefundTransactionResponse(\XLite\Model\Payment\BackendTransaction $transaction, $responseData = null)
-    {
-        $result = false;
-
-        if (!empty($responseData)) {
-            $status = \XLite\Model\Payment\Transaction::STATUS_FAILED;
-
-            if ($this->isSuccessACK($responseData['ACK'])) {
-                $result = true;
-                $status = \XLite\Model\Payment\Transaction::STATUS_SUCCESS;
-                $transaction->getPaymentTransaction()->getOrder()->setPaymentStatus(
-                    \XLite\Model\Order\Status\Payment::STATUS_REFUNDED
-                );
-
-                // save transaction id for IPN
-                $transaction->setDataCell(
-                    'PPREF',
-                    $responseData['REFUNDTRANSACTIONID'],
-                    'Unique PayPal transaction ID (REFUNDTRANSACTIONID)'
-                );
-
-                \XLite\Core\TopMessage::getInstance()->addInfo('Payment has bes refunded successfully');
-
-            } else {
-                \XLite\Core\TopMessage::getInstance()
-                    ->addError('Transaction failure. PayPal response: ' . $responseData['L_LONGMESSAGE0']);
-            }
-
-            $transaction->setStatus($status);
-            $transaction->update();
-        }
-
-        return $result;
     }
 
     // }}}

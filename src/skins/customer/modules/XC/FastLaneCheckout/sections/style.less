@@ -78,7 +78,8 @@
 }
 
 .checkout_fastlane_section-buttons {
-  margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 40px;
   margin-top: 20px;
   &.loading .place-button{
     display: none;
@@ -87,20 +88,29 @@
   .mobile_panel-details {
     display: none;
   }
+
+  @media(min-width: @screen-sm-min) {
+    .place-button {
+      .terms-notice {
+        color: @btn-link-disabled-color;
+        font-size: 12px;
+      }
+    }
+  }
 }
 
 .checkout_fastlane_section_heading {
   .h2;
 }
 
-@media(max-width: @screen-sm-min) {
+@media(max-width: @screen-xs-max) {
   .checkout_fastlane_section-buttons {
-    @media(min-width: @screen-sm-min) {
-      display: none;
-    }
-
     .mobile_panel-details {
       display: block;
+      text-decoration: none;
+      .title{
+        text-decoration: underline;
+      }
     }
 
     border-top: 1px solid #e2e2e2;

@@ -22,10 +22,10 @@ class AmazonCheckout extends \XLite\View\AView
      */
     public static function getAllowedTargets()
     {
-        return array_merge(parent::getAllowedTargets(), array('amazon_checkout'));
+        return array_merge(parent::getAllowedTargets(), ['amazon_checkout']);
     }
 
-   /**
+    /**
      * Get a list of CSS files required to display the widget properly
      *
      * @return array
@@ -33,7 +33,6 @@ class AmazonCheckout extends \XLite\View\AView
     public function getCSSFiles()
     {
         $list = parent::getCSSFiles();
-
         $list[] = 'modules/Amazon/PayWithAmazon/checkout.css';
 
         return $list;
@@ -47,7 +46,6 @@ class AmazonCheckout extends \XLite\View\AView
     public function getJSFiles()
     {
         $list = parent::getJSFiles();
-
         $list[] = 'checkout/steps/review/parts/items.js';
 
         return $list;
@@ -60,23 +58,15 @@ class AmazonCheckout extends \XLite\View\AView
     }
 
     /**
-     * Get current refid
-     *
-     * @return string
-     */
-    public function getAmazonOrderRefId()
-    {
-        return \XLite\Core\Request::getInstance()->amz_pa_ref;
-    }
-
-    /**
      * Check if order has only non-shippable products
      *
      * @return boolean
      */
     public function isOrderShippable()
     {
-        $modifier = \XLite::getController()->getCart()->getModifier(\XLite\Model\Base\Surcharge::TYPE_SHIPPING, 'SHIPPING');
+        $cart = \XLite::getController()->getCart();
+        $modifier = $cart->getModifier(\XLite\Model\Base\Surcharge::TYPE_SHIPPING, 'SHIPPING');
+
         return $modifier && $modifier->canApply();
     }
 
@@ -87,11 +77,6 @@ class AmazonCheckout extends \XLite\View\AView
      */
     protected function getDefaultTemplate()
     {
-        if (!\XLite::isAdminZone() && method_exists('\XLite\Core\Request', 'isMobileDevice') && \XLite\Core\Request::isMobileDevice()) {
-            return 'modules/Amazon/PayWithAmazon/checkout_mobile.twig';
-        } else {
-            return 'modules/Amazon/PayWithAmazon/checkout.twig';
-        }
+        return 'modules/Amazon/PayWithAmazon/checkout.twig';
     }
-
 }

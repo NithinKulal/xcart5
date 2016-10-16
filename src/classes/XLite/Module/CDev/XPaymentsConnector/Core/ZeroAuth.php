@@ -165,19 +165,15 @@ class ZeroAuth extends \XLite\Base\Singleton
                 continue;
             }
 
-            $method = 'get' . $field;
+            $method = 'get' . ucfirst($field);
 
-                $item = $address->$method();
+            $item = $address->$method();
 
-                if (method_exists($item, $method)) {
-                    $item = $item->$method();
-                }
+            if (is_callable(array($item, $method))) {
+                $item = $item->$method();
+            }
 
-                if ('country' == $field) {
-                    $item = $item->getCountry();
-                }
-
-                $result = $result . ' ' . $item;
+            $result = $result . ' ' . $item;
         }
 
         return trim($result);

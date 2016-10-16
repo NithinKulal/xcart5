@@ -7,7 +7,9 @@
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
 
-body.target-amazon-checkout #breadcrumb, body.target-amazon-checkout #header-area #header, body.target-amazon-checkout #header-area #search {
+body.target-amazon-checkout #breadcrumb,
+body.target-amazon-checkout #header-area #header,
+body.target-amazon-checkout #header-area #search {
   display: none;
 }
 
@@ -15,7 +17,9 @@ body.target-amazon-checkout #header-area {
   padding-bottom: 10px;
 }
 
-table.amazon-checkout-tbl, table.amazon-checkout-tbl td, table.amazon-checkout-tbl tr {
+table.amazon-checkout-tbl,
+table.amazon-checkout-tbl td,
+table.amazon-checkout-tbl tr {
   border: none;
 }
 
@@ -45,6 +49,88 @@ body > .wait-block-overlay {
   left: 0;
   right: 0;
   bottom: 0;
+  margin: 0 !important;
   position: fixed;
-  z-index: 1010;
+  z-index: 20001;
+}
+
+.amazon-checkout-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -ms-grid-row-align: center;
+  align-items: center;}
+
+#addressBookWidgetDiv {
+  min-width: 300px;
+  max-width: 600px;
+  min-height: 228px;
+  max-height: 400px;
+}
+
+#walletWidgetDiv {
+  min-width: 300px;
+  max-width:600px;
+  min-height: 228px;
+  max-height: 400px;
+}
+
+
+/* Mobile optimized and small window */
+
+#addressBookWidgetDiv {
+  width: 100%;
+  height: 228px;
+  margin-bottom: 28px;
+}
+
+#walletWidgetDiv {
+  width: 100%;
+  height: 228px;
+}
+
+/* Desktop and tablet */
+
+@media only screen and (min-width: 768px) {
+
+  #addressBookWidgetDiv {
+    width: 400px;
+    height: 228px;
+  }
+
+  #walletWidgetDiv {
+    width: 400px;
+    height: 228px;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .amazon-checkout-wrapper {
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    -ms-grid-row-align: flex-start;
+    align-items: flex-start;  }
+
+  .amazon-widgets {
+    -ms-flex-preferred-size: 40%;
+    flex-basis: 40%;
+    margin-top: 28px;
+  }
+
+  .xcart-widgets {
+    -ms-flex-preferred-size: 40%;
+    flex-basis: 40%;
+  }
 }

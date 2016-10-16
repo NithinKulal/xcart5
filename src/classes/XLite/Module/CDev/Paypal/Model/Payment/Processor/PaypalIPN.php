@@ -43,6 +43,56 @@ class PaypalIPN extends \XLite\Base\Singleton
      * @param \XLite\Model\Payment\Transaction    $transaction Callback-owner transaction
      * @param \XLite\Model\Payment\Base\Processor $processor   Payment processor object
      *
+     * @return boolean
+     */
+    public function tryProcessCallbackIPN($transaction, $processor) {
+
+        $result = false;
+        // Hack to defer IPN processing on after payment return or ttl expire.
+        // Because we can't reliably process IPN right now.
+        if ($this->canProcessIPN($transaction)) {
+            // If callback is IPN request from Paypal
+            $result = $this->processCallbackIPN($transaction, $processor);
+        }
+
+        if (!$result) {
+            $processor->markCallbackRequestAsInvalid(static::t('Not ready to process this IPN right now (waiting for payment return or db flush)'));
+            \XLite::getController()->sendConflictResponse();
+
+            // Need this because transaction has no sums and will be refreshed in Model\Order->getRawPaymentTransactionSums()
+            \XLite\Core\Database::getEM()->flush();
+        }
+
+        return $result;
+    }
+
+    /**
+     * Check if we can process IPN right now or should receive it later
+     *
+     * @param \XLite\Model\Payment\Transaction $transaction Callback-owner transaction
+     *
+     * @return boolean
+     */
+    protected function canProcessIPN(\XLite\Model\Payment\Transaction $transaction)
+    {
+        $result = $transaction->isTtlExpired() || !$transaction->hasTtlForIpn();
+
+        // Set ttl once when no payment return happened yet
+        if (($transaction->isOpen() || $transaction->isInProgress())
+         && !$transaction->hasTtlForIpn()) {
+            $transaction->setTtlForIpn(3600);
+            $result = false;
+        }
+
+        return $result;
+    }
+
+    /**
+     * Process callback
+     *
+     * @param \XLite\Model\Payment\Transaction    $transaction Callback-owner transaction
+     * @param \XLite\Model\Payment\Base\Processor $processor   Payment processor object
+     *
      * @return void
      */
     public function processCallbackIPN($transaction, $processor)
@@ -75,40 +125,29 @@ class PaypalIPN extends \XLite\Base\Singleton
 
                 $backendTransaction = null;
 
-                $i = 0;
-                do {
-                    // Try to get related backend transaction by PPREF
+                // Try to get related backend transaction by PPREF
+                $ppref = \XLite\Core\Database::getRepo('XLite\Model\Payment\BackendTransactionData')
+                    ->findOneBy(
+                        array(
+                            'name' => 'PPREF',
+                            'value' => $request->txn_id,
+                        )
+                    );
+
+                if (!$ppref) {
+                    // Try to get related backend transaction by PAYMENTINFO_0_TRANSACTIONID
                     $ppref = \XLite\Core\Database::getRepo('XLite\Model\Payment\BackendTransactionData')
                         ->findOneBy(
                             array(
-                                'name' => 'PPREF',
+                                'name' => 'PAYMENTINFO_0_TRANSACTIONID',
                                 'value' => $request->txn_id,
                             )
                         );
+                }
 
-                    if (!$ppref) {
-                        // Try to get related backend transaction by PAYMENTINFO_0_TRANSACTIONID
-                        $ppref = \XLite\Core\Database::getRepo('XLite\Model\Payment\BackendTransactionData')
-                            ->findOneBy(
-                                array(
-                                    'name' => 'PAYMENTINFO_0_TRANSACTIONID',
-                                    'value' => $request->txn_id,
-                                )
-                            );
-                    }
-
-                    if ($ppref) {
-                        $backendTransaction = $ppref->getTransaction();
-                    }
-
-                    if ($backendTransaction) {
-                        break;
-                    }
-
-                    $i++;
-                    sleep(3);
-
-                } while ($i < 10);
+                if ($ppref) {
+                    $backendTransaction = $ppref->getTransaction();
+                }
 
                 $paymentStatus = $this->isCallbackAdaptiveIPN()
                     ? $request->status
@@ -240,6 +279,11 @@ class PaypalIPN extends \XLite\Base\Singleton
                 // No default actions
         }
 
+        // Remove ttl for IPN requests
+        if ($transaction->hasTtlForIpn()) {
+            $transaction->removeTtlForIpn();
+        }
+
         if ($transaction->getStatus() != $status) {
             $transaction->setStatus($status);
         }
@@ -274,6 +318,8 @@ class PaypalIPN extends \XLite\Base\Singleton
                 'Note: received IPN does not relate to any backend transaction registered with the order. It is possible if you update payment directly on PayPal site or if your customer or PayPal updated the payment.'
             );
         }
+
+        return true;
     }
 
     /**

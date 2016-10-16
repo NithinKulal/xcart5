@@ -466,10 +466,11 @@ class Module extends \XLite\Model\Repo\ARepo
         if (!empty($modules)) {
             foreach ($modules as $module) {
                 $key = sprintf(
-                    '%s_%s_%s',
+                    '%s_%s_%s.%s',
                     $module->getAuthor(),
                     $module->getName(),
-                    $module->getMajorVersion()
+                    $module->getMajorVersion(),
+                    $module->getMinorVersion()
                 );
 
                 if (isset($data[$key])) {

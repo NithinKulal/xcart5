@@ -51,6 +51,7 @@ class Settings extends \XLite\Base\Singleton
      * List of API versions
      */
     public $apiVersions = array(
+        '1.7',
         '1.6',
         '1.5',
         '1.4',

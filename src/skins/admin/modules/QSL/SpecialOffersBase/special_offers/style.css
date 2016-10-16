@@ -1,0 +1,44 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/*
+ * Special offers list styles
+ */
+
+.special-offer-create-params li {
+    display: inline-block;
+}
+
+.special-offer-create-params .type-id-label,
+.special-offer-create-params .type-id-value {
+    padding-right: 0.35em;
+}
+
+.special-offer-create-params .type-id-label,
+.special-offer-create-params .table-value select {
+    width: auto;
+}
+
+.special-offer-create-params .type-id-label label {
+    display: inline;
+}
+
+.special-offer-create-params .star {
+    display: none;
+}
+
+.special-offer-no-create-form {
+    margin-bottom: 1em;
+}
+
+.special-offer-no-create-form p,
+.special-offer-no-create-form a {
+    font-size: 1.17em;
+}
+
+.special-offer-no-create-form ul {
+    padding-left: 2em;
+}
+
+.special-offer-no-create-form li {
+    list-style: disc;
+}

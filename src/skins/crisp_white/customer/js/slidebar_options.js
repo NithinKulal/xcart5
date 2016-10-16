@@ -33,7 +33,7 @@ core.bind('mm-menu.before_create', function(event, element) {
 
 core.bind('mm-menu.created', function(event, api){
   api.bind('openPanel', function ($panel) {
-    if ($panel.attr('id') === 'mm-1') {
+    if ($panel.is('.mm-panel:first')) {
       $panel.parent('#slidebar').addClass('first-opened');
     } else {
       $panel.parent('#slidebar').removeClass('first-opened');

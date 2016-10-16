@@ -30,7 +30,7 @@ class OrderHistory extends \XLite\Core\OrderHistory implements \XLite\Base\IDeco
     {
         $alreadyPlaced = false;
 
-        foreach (\XLite\Core\Database::getRepo('XLite\Model\OrderHistoryEvents')->search($orderId) as $event) {
+        foreach (\XLite\Core\Database::getRepo('XLite\Model\OrderHistoryEvents')->find($orderId) as $event) {
             if (static::CODE_PLACE_ORDER == $event->getCode()) {
                 $alreadyPlaced = true;
                 break;

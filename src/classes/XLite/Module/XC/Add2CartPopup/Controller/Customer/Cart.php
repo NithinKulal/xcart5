@@ -20,7 +20,7 @@ class Cart extends \XLite\Controller\Customer\Cart implements \XLite\Base\IDecor
      *
      * @return boolean
      */
-    public function addItem($item)
+    protected function addItem($item)
     {
         $isAdded = parent::addItem($item);
 

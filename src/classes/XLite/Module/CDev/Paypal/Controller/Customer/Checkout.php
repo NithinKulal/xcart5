@@ -321,20 +321,4 @@ class Checkout extends \XLite\Controller\Customer\Checkout implements \XLite\Bas
 
         \XLite\Core\Event::updatePaypalTransparentRedirect(array());
     }
-
-    /**
-     * Return from payment gateway
-     */
-    protected function doActionReturn()
-    {
-        parent::doActionReturn();
-
-        $order = \XLite\Model\Cart::getInstance(false);
-
-        if ($order && $order->isPaypalMethod($order->getPaymentMethod())
-            && Paypal\Core\Lock\OrderLocker::getInstance()->isLocked($order)
-        ) {
-            Paypal\Core\Lock\OrderLocker::getInstance()->unlock($order);
-        }
-    }
 }

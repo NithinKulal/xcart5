@@ -55,7 +55,7 @@ class StoreApi extends \XLite\Base\Singleton
         return array(
             'numProducts'      => $numProducts,
             'numCategories'    => $numCategories,
-            'numManufacturers' => 0,
+            'numManufacturers' => $this->getBrandsCount(),
             'numPages'         => $numPages,
             'productsAtOnce'   => $this->getMaxEntitiesAtOnce(),
         );
@@ -66,6 +66,24 @@ class StoreApi extends \XLite\Base\Singleton
         return static::MAX_ENTITIES_AT_ONCE;
     }
     
+    protected function getBrandsCount()
+    {
+        return 0;
+    }
+    
+    /**
+     * Get products data
+     *
+     * @param $start
+     * @param $limit
+     *
+     * @return array
+     */
+    public function getBrands()
+    {
+        return [];
+    }
+
     /**
      * Get products data
      *
@@ -108,24 +126,28 @@ class StoreApi extends \XLite\Base\Singleton
     {
         $result = array();
 
-        foreach ($product->getAllAttributes() as $attribute) {
-            $values = array();
-            $avs = $attribute->getAttributeValue($product);
+        // Attributes retrieving could have overloading effect on the DB
+        // Avoid it if you do not need it actually
+        if (\XLite\Module\QSL\CloudSearch\Main::doIndexModifiers()) {
+            foreach ($product->getAllAttributes() as $attribute) {
+                $values = array();
+                $avs = $attribute->getAttributeValue($product);
 
-            if (is_array($avs)) {
-                foreach ($avs as $av) {
-                    if ($av->asString()) {
-                        $values[] = $av->asString();
+                if (is_array($avs)) {
+                    foreach ($avs as $av) {
+                        if ($av->asString()) {
+                            $values[] = $av->asString();
+                        }
                     }
+                } elseif (is_string($avs)) {
+                    $values[] = $avs;
                 }
-            } elseif (is_string($avs)) {
-                $values[] = $avs;
-            }
 
-            $result[] = array(
-                'name' => $attribute->getName(),
-                'values' => $values,
-            );
+                $result[] = array(
+                    'name' => $attribute->getName(),
+                    'values' => $values,
+                );
+            }
         }
 
         $result[] = $this->getAdditionalProductInfo($product);

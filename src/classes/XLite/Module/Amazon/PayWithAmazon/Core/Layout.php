@@ -14,7 +14,7 @@ namespace XLite\Module\Amazon\PayWithAmazon\Core;
 class Layout extends \XLite\Core\Layout implements \XLite\Base\IDecorator
 {
     /**
-     * Define the pages where first sidebar will be hidden.
+     * Hide left sidebar for 'amazon_checkout' target
      *
      * @return array
      */
@@ -22,9 +22,24 @@ class Layout extends \XLite\Core\Layout implements \XLite\Base\IDecorator
     {
         return array_merge(
             parent::getSidebarFirstHiddenTargets(),
-            array(
+            [
                 'amazon_checkout',
-            )
+            ]
+        );
+    }
+
+    /**
+     * Hide right sidebar for 'amazon_checkout' target
+     *
+     * @return array
+     */
+    protected function getSidebarSecondHiddenTargets()
+    {
+        return array_merge(
+            parent::getSidebarSecondHiddenTargets(),
+            [
+                'amazon_checkout',
+            ]
         );
     }
 }

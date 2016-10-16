@@ -129,7 +129,7 @@ class Marketplace extends \XLite\Base\Singleton
     /**
      * Marketplace API version
      */
-    const MP_API_VERSION      = '2.2';
+    const MP_API_VERSION      = '2.3';
     const XC_FREE_LICENSE_KEY = 'XC5-FREE-LICENSE';
 
     /**
@@ -2264,6 +2264,35 @@ class Marketplace extends \XLite\Base\Singleton
             static::ACTION_REQUEST_FOR_UPGRADE,
             $this->getRequestForUpgradeData($modules)
         );
+    }
+
+    /**
+     * @param \XLite\Model\Module $module Module to check
+     *
+     * @return boolean
+     */
+    public function isUpgradeRequestAvailable(\XLite\Model\Module $module)
+    {
+        $name = 'module_request_available_' . $module->getActualName();
+
+        $isLastRequestExpired = !\XLite\Core\TmpVars::getInstance()->{$name}
+            || \XLite\Core\TmpVars::getInstance()->{$name} < time();
+
+        return !$module->isCustom() && $isLastRequestExpired;
+    }
+
+    /**
+     * @param \XLite\Model\Module $module Module to check
+     *
+     * @return boolean
+     */
+    public function markAsUpgradeRequested(\XLite\Model\Module $module)
+    {
+        $name = 'module_request_available_' . $module->getActualName();
+
+        $ttl = 86400;
+
+        \XLite\Core\TmpVars::getInstance()->{$name} = time() + $ttl;
     }
 
     /**

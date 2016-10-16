@@ -15,8 +15,8 @@
     lang: cloudSearchData.lng,
     EventHandlers: {
       OnPopupRender: [
-        function () {
-          var popup = $('#instant_search_menu'),
+        function (searchTerm, menu) {
+          var popup = $(menu),
             products = $('.block-products dd', popup),
             prices = products.find('.price'),
             pids = [],
@@ -28,7 +28,7 @@
             pids.push($(this).attr('data-id'));
           });
 
-          if (pids) {
+          if (pids.length > 0) {
             url = URLHandler.buildURL({target: 'cloud_search_api', action: 'get_prices', ids: pids.join(',')});
             
             core.get(url, function (data) {

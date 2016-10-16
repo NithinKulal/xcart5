@@ -178,7 +178,9 @@ TableItemsList.prototype.listeners.createButton = function(handler)
           );
 
         box.append(line);
-        jQuery(':input', line).eq(0).focus();
+        _.defer(function(){
+          jQuery(':input', line).eq(0).focus();
+        });
 
         var form = box.parents('form').get(0);
         if (form) {

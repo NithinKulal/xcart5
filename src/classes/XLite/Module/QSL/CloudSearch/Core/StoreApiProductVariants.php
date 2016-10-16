@@ -32,7 +32,7 @@ namespace XLite\Module\QSL\CloudSearch\Core;
 /**
  * CloudSearch store-side API methods
  * 
- * @Decorator\Depend ({"QSL\CloudSearch", "XC\ProductVariants"})
+ * @Decorator\Depend ({"XC\ProductVariants"})
  */
 abstract class StoreApiProductVariants extends \XLite\Module\QSL\CloudSearch\Core\StoreApi implements \XLite\Base\IDecorator
 {

@@ -384,15 +384,16 @@ ul.address-book {
 }
 
 @media (max-width: @screen-xs-max) {
-  
-}
+  .display-mode-box {
+    float: none;
+  }
 
-@media (max-width: @screen-xs-min) {
   .items-list-products {
     .list-header {
       .flex-display();
       .justify-content(space-between);
 
+      cursor: pointer;
       margin-left: (-@grid-gutter-width / 2);
       width: 100vw;
       min-width: 320px;
@@ -412,6 +413,11 @@ ul.address-book {
         width: 100%;
       }
     }
+  }
+}
+
+@media (max-width: @screen-xs-min) {
+  .items-list-products {
     .display-mode-box {
       display: none;
       padding-bottom: 20px;

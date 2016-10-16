@@ -212,6 +212,22 @@ class ExpressCheckout extends \XLite\Module\CDev\Paypal\Model\Payment\Processor\
             \XLite\Core\Session::getInstance()->ec_payer_id = \XLite\Core\Request::getInstance()->PayerID;
             $this->doDoExpressCheckoutPayment();
         }
+
+        if ($transaction->hasTtlForIpn()) {
+            $transaction->removeTtlForIpn();
+        }
+    }
+
+    /**
+     * Check if processor can unlock IPN on return
+     *
+     * @param \XLite\Model\Payment\Transaction $transaction Return-owner transaction
+     *
+     * @return boolean
+     */
+    protected function canUnlockIpnOnReturn(\XLite\Model\Payment\Transaction $transaction)
+    {
+        return false;
     }
 
     /**
@@ -590,6 +606,10 @@ HTML;
         \XLite\Core\Session::getInstance()->ec_date = null;
         \XLite\Core\Session::getInstance()->ec_payer_id = null;
         \XLite\Core\Session::getInstance()->ec_type = null;
+
+        if ($transaction->hasTtlForIpn()) {
+            $transaction->removeTtlForIpn();
+        }
 
         return $status;
     }

@@ -5,7 +5,16 @@
  #}
 
 <div class="info">
-  <strong><a href="{{ url('profile', '', {'profile_id': this.order.origProfile.profileId}) }}">{{ this.getName() }}</a></strong>
+  <strong>
+    {% if this.order.origProfile %}
+      <a href="{{ url('profile', '', {'profile_id': this.order.origProfile.profileId}) }}">{{ this.getName() }}</a>
+    {% else %}
+      {{ this.getName() }}
+    {% endif %}
+  </strong>
   <span class="separator">-</span>
-  <span class="email"><a href="mailto:{{ this.getEmail() }}">{{ this.getEmail() }}</a></span>
+  {#<span class="email"><a href="mailto:{{ this.getEmail() }}">{{ this.getEmail() }}</a></span>#}
+  <span class="email">
+  {{ widget('\\XLite\\View\\FormField\\Inline\\Input\\Text\\Email', entity=this.order.getProfile(), name='address_login', fieldName='login', fieldNamespace='address_login') }}
+  </span>
 </div>

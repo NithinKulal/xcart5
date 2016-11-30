@@ -1,0 +1,94 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Powered by widget style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+table.subscriptions-list tr.subscriptions-line td {
+  vertical-align: middle;
+  font-size: 14px;
+  padding: 7px;
+}
+
+table.subscriptions-list td {
+  border: 0px !important;
+}
+
+table.subscriptions-list tr.subscriptions-line,
+table.subscriptions-list tr.interests {
+
+  td div.table-value span.input-field-wrapper {
+    display: inline;
+  }
+}
+
+table.subscriptions-list tr.subscriptions-line td.subscriptions-checkbox {
+  width: 10px;
+  padding-top: 4px;
+}
+
+table.subscriptions-list tr.subscriptions-line td.subscriptions-submit button {
+  margin-top: 14px;
+}
+
+.subscriptions-list-container {
+  .subscriptions-list-header {
+    margin-bottom: 24px;
+  }
+
+  tr.subscriptions-line {
+    td.subscriptions-name {
+      font-weight: bold;
+      padding-bottom: 12px;
+    }
+    &.select-box {
+      td.subscriptions-name {
+        width: 1%;
+      }
+    }
+  }
+
+  tr.interests {
+    & > td {
+      padding: 0;
+      padding-bottom: 12px;
+    }
+
+    &.select-box > td {
+      padding-left: 7px;
+      .group-title,
+      .group-names {
+        display: none;
+      }
+    }
+
+    &.checkboxes > td {
+      padding-left: 34px;
+    }
+
+    .group-names {
+      margin-top: 12px;
+
+      .group-name {
+        line-height: 22px;
+      }
+
+      .group-name-checkbox,
+      .group-name-name {
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .group-name-checkbox {
+        margin-right: 12px;
+
+        input.form-control[type="checkbox"] {
+          margin-top: 0;
+        }
+      }
+    }
+  }
+}

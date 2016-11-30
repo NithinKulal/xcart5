@@ -13,30 +13,8 @@ namespace XLite\Module\CDev\GoSocial\View\Button;
  *
  * @ListChild (list="buttons.share", weight="300")
  */
-class GooglePlus extends \XLite\View\AView
+class GooglePlus extends \XLite\Module\CDev\GoSocial\View\Button\ASocialButton
 {
-    /**
-     * Return widget default template
-     *
-     * @return string
-     */
-    protected function getDefaultTemplate()
-    {
-        return 'modules/CDev/GoSocial/button/google_plus.twig';
-    }
-
-    /**
-     * Get button attributes
-     *
-     * @return array
-     */
-    protected function getButtonAttributes()
-    {
-        return array(
-            'href' => \XLite::getInstance()->getShopURL($this->getURL()),
-            'size' => 'medium',
-        );
-    }
 
     /**
      * Check if widget is visible
@@ -49,4 +27,33 @@ class GooglePlus extends \XLite\View\AView
             && \XLite\Core\Config::getInstance()->CDev->GoSocial->gplus_use;
     }
 
+    /**
+     * The link caption that should be posted to the social networks. By default it’s the page’s title.
+     *
+     * @return string
+     */
+    protected function getDataTitle()
+    {
+        return $this->getTitle() ?: null;
+    }
+
+    /**
+     * Get button type
+     *
+     * @return string
+     */
+    function getButtonType()
+    {
+        return self::BUTTON_CLASS_GOOGLEPLUS;
+    }
+
+    /**
+     * Get button type
+     *
+     * @return string
+     */
+    function getButtonLabel()
+    {
+        return static::t('Plus');
+    }
 }

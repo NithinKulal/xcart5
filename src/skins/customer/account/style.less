@@ -1,0 +1,125 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.tabs-container .page-tabs {
+  margin-bottom: 40px;
+  height: 56px;
+  line-height: 33px;
+  border: none;
+  background: none;
+
+  & > ul {
+    @media (max-width: @screen-xs-max) {
+      display: none;
+    }
+  }
+
+  .tabs-selector {
+    display: none;
+    width: 100%;
+    height: 56px;
+
+    @media (max-width: @screen-xs-max) {
+      display: block;
+      min-height: 20px;
+    }
+
+    .selected {
+      height: 56px;
+      background-color: @base-gradient-start-color;
+
+      border-radius: 5px;
+      font-size: 24px;
+      padding-top: 12px;
+      padding-left: 20px;
+      color: #333333;
+      font-weight: 400;
+      text-shadow: 0 0 1px rgba(51,51,51,.1);
+    }
+
+    .dropdown-toggle {
+      width: 56px;
+      height: 56px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: block;
+      padding: 18px 18px 18px 16px;
+
+      border-left: 2px solid @body-bg;
+
+      svg {
+        fill: @headings-color;
+      }
+    }
+
+    &.open {
+      .tabs {
+        display: block;
+      }
+    }
+
+    .tabs {
+      display: none;
+      position: absolute;
+      z-index: 1000;
+      background: @body-bg;
+      border-radius: 5px;
+      box-shadow: 0 0 8px 0 rgba(0,0,0,0.3);
+      right: 0;
+      top: 73px;
+      left: auto;
+
+      &:before {
+        content: "";
+        position: absolute;
+        box-shadow: rgba(0, 0, 0, 0.2) 2px 2px 4px;
+        -moz-transform: rotate(225deg);
+        -webkit-transform: rotate(225deg);
+        top: -8px;
+        right: 20px;
+        border-width: 8px;
+        border-style: solid;
+        border-color: transparent @body-bg @body-bg transparent;
+      }
+
+      ul {
+        border-bottom: none;
+        li {
+          border-bottom: 1px solid #f3f3f3;
+          float: none;
+          margin: 0;
+          padding: 8px;
+
+          a {
+            font-size: 20px;
+            border: none;
+            background: none;
+            color: @headings-color;
+            text-shadow: 0 0 1px rgba(87,158,210,.1);
+
+            &:hover {
+              border: none;
+            }
+          }
+
+          &:last-of-type {
+            border-bottom: none;
+          }
+
+          &.tab-current a {
+            color: #000000;
+            text-shadow: 0 0 1px rgba(0,0,0,.1);
+          }
+        }
+      }
+    }
+  }
+
+}

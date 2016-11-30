@@ -16,3 +16,20 @@ div.table-value.code-value {
 div.table-value.code-value textarea {
   width: 100%;
 }
+
+div[class|="formfield"] {
+    overflow: auto;
+}
+
+.custom-code-form div[class|="formfield"] + div[class|="formfield"] {
+    margin-top: 20px;
+}
+
+.custom-code-form + .custom-code-form {
+    margin-top: 20px;
+}
+
+.custom-code-form .model-form-buttons {
+    padding: 20px 0 0 0;
+    margin: 10px 0 0 0;
+}

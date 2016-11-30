@@ -11,6 +11,17 @@ namespace XLite\View\RemoveData;
 
 class Progress extends \XLite\View\AView
 {
+    use \XLite\View\EventTaskProgressProviderTrait;
+
+    /**
+     * Returns processing unit
+     * @return mixed
+     */
+    protected function getProcessor()
+    {
+        return \XLite\Logic\RemoveData\Generator::getInstance();
+    }
+
     /**
      * Register CSS files
      *
@@ -45,37 +56,5 @@ class Progress extends \XLite\View\AView
     protected function getDefaultTemplate()
     {
         return 'remove_data/progress.twig';
-    }
-
-    /**
-     * Get time label
-     *
-     * @return string
-     */
-    protected function getTimeLabel()
-    {
-        $generator = \XLite\Logic\RemoveData\Generator::getInstance();
-
-        return \XLite\Core\Translation::formatTimePeriod($generator->getTimeRemain());
-    }
-
-    /**
-     * Check - current event driver is blocking or not
-     *
-     * @return boolean
-     */
-    protected function isBlocking()
-    {
-        return \XLite\Core\EventTask::getInstance()->getDriver()->isBlocking();
-    }
-
-    /**
-     * Get export event name
-     *
-     * @return string
-     */
-    protected function getEventName()
-    {
-        return \XLite\Logic\RemoveData\Generator::getEventName();
     }
 }

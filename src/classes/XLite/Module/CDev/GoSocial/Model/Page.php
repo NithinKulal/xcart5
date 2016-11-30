@@ -79,6 +79,8 @@ abstract class Page extends \XLite\Module\CDev\SimpleCMS\Model\Page implements \
 
         if ($this->getImage()) {
             $list['og:image'] = $this->getOpenGraphImage();
+            $list['og:image:width'] = $this->getImage()->getWidth();
+            $list['og:image:height'] = $this->getImage()->getHeight();
         }
 
         $appId = $this->getOpenGraphAppId();

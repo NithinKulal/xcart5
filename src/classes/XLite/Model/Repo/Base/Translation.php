@@ -61,7 +61,7 @@ class Translation extends \XLite\Model\Repo\ARepo
     /**
      * Define query for getUsedLanguageCodes() methods
      * 
-     * @return void
+     * @return \Doctrine\ORM\QueryBuilder
      */
     protected function defineGetUsedLanguageCodesQuery()
     {

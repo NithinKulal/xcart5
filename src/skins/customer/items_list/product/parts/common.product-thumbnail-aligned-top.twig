@@ -5,6 +5,6 @@
  #}
 <a 
   href="{{ this.getProductURL(this.categoryId) }}"
-  class="product-thumbnail">
+  class="product-thumbnail lazy-load">
   {{ widget('\\XLite\\View\\Image', image=this.product.getImage(), maxWidth=this.getIconWidth(), maxHeight=this.getIconHeight(), alt=this.product.name, verticalAlign='top', className='photo') }}
 </a>

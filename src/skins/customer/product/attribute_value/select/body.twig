@@ -3,8 +3,11 @@
  #}
 
 <label class="title">{{ this.attribute.name }}</label>
-<select class="form-control" name="{{ this.getName() }}" data-attribute-id="{{ this.attribute.id }}">
-  {% for v in this.getAttrValue() %}
-    <option {% if this.isSelectedValue(v) %} selected="selected" {% endif %} value="{{ v.id }}">{{ this.getOptionTitle(v) }}{{ this.getModifierTitle(v)|raw }}</option>
+<select class="form-control" name="{{ this.getName() }}" data-attribute-id="{{ this.attribute.id }}" {{ this.printTagAttributes(this.getSelectAttributes())|raw }}>
+  {% if this.showPlaceholderOption() %}
+    <option {{ this.printTagAttributes(this.getPlaceholderOptionAttributes())|raw }}disabled="disabled" hidden="hidden" selected="selected" value="">{{ this.getPlaceholderOptionLabel() }}</option>
+  {% endif %}
+  {% for v in this.getAttributeValue() %}
+    {% include this.getOptionTemplate() with {'option': v} %}
   {% endfor %}
 </select>

@@ -7,12 +7,24 @@
  */
 
 namespace XLite\Controller\Admin;
+use XLite\View\ItemsList\Model\State;
 
 /**
  * States management page controller
  */
 class States extends \XLite\Controller\Admin\AAdmin
 {
+    /**
+     * Preprocessor for no-action run
+     *
+     * @return void
+     */
+    protected function doNoAction()
+    {
+        if (!\XLite\Core\Request::getInstance()->{State::PARAM_COUNTRY_CODE}) {
+            $this->setReturnURL($this->buildURL('states', '', [State::PARAM_COUNTRY_CODE => $this->getCountryCode()]));
+        }
+    }
 
     /**
      * Return the current page title (for the content area)
@@ -31,9 +43,9 @@ class States extends \XLite\Controller\Admin\AAdmin
      */
     public function getCountryCode()
     {
-        return \XLite\Core\Request::getInstance()->{\XLite\View\ItemsList\Model\State::PARAM_COUNTRY_CODE}
+        return \XLite\Core\Request::getInstance()->{State::PARAM_COUNTRY_CODE}
             ?: \XLite\Core\Config::getInstance()->Company->location_country
-                    ?: 'US';
+                ?: 'US';
     }
 
     /**

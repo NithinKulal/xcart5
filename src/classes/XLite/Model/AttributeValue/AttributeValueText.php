@@ -32,19 +32,19 @@ class AttributeValueText extends \XLite\Model\AttributeValue\AAttributeValue
 
     /**
      * Return diff
+     * todo: add test
      *
-     * @param array oldValues Old values
-     * @param array newValues New values
+     * @param array $oldValues Old values
+     * @param array $newValues New values
      *
      * @return array
      */
-    static public function getDiff(array $oldValues, array $newValues)
+    public static function getDiff(array $oldValues, array $newValues)
     {
         $diff = array();
         if ($newValues) {
             foreach ($newValues as $attributeId => $value) {
-                if (
-                    !isset($oldValues[$attributeId])
+                if (!isset($oldValues[$attributeId])
                     || $value != $oldValues[$attributeId]
                 ) {
                     $diff[$attributeId] = $value;
@@ -62,6 +62,7 @@ class AttributeValueText extends \XLite\Model\AttributeValue\AAttributeValue
      */
     public function asString()
     {
+        /** @see \XLite\Model\AttributeValue\AttributeValueTextTranslation */
         return $this->getValue();
     }
 
@@ -69,75 +70,19 @@ class AttributeValueText extends \XLite\Model\AttributeValue\AAttributeValue
      * Set editable
      *
      * @param boolean $editable
-     * @return AttributeValueText
      */
     public function setEditable($editable)
     {
         $this->editable = $editable;
-        return $this;
     }
 
     /**
      * Get editable
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getEditable()
     {
         return $this->editable;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set product
-     *
-     * @param \XLite\Model\Product $product
-     * @return AttributeValueText
-     */
-    public function setProduct(\XLite\Model\Product $product = null)
-    {
-        $this->product = $product;
-        return $this;
-    }
-
-    /**
-     * Get product
-     *
-     * @return \XLite\Model\Product 
-     */
-    public function getProduct()
-    {
-        return $this->product;
-    }
-
-    /**
-     * Set attribute
-     *
-     * @param \XLite\Model\Attribute $attribute
-     * @return AttributeValueText
-     */
-    public function setAttribute(\XLite\Model\Attribute $attribute = null)
-    {
-        $this->attribute = $attribute;
-        return $this;
-    }
-
-    /**
-     * Get attribute
-     *
-     * @return \XLite\Model\Attribute 
-     */
-    public function getAttribute()
-    {
-        return $this->attribute;
     }
 }

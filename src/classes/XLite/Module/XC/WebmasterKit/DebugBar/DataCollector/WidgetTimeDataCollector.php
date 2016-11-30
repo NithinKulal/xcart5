@@ -11,6 +11,7 @@ namespace XLite\Module\XC\WebmasterKit\DebugBar\DataCollector;
 use DebugBar\DataCollector\DataCollector;
 use DebugBar\DataCollector\Renderable;
 use DebugBar\DebugBarException;
+use XLite\Module\XC\WebmasterKit\Core\DataCollector\QueriesCollector;
 use XLite\Module\XC\WebmasterKit\DebugBar\Doctrine\DBAL\Logging\ObservableDebugStack;
 use XLite\Module\XC\WebmasterKit\Logic\DebugBarSettingsManager;
 
@@ -53,7 +54,9 @@ class WidgetTimeDataCollector extends DataCollector implements Renderable
         $query = ['sql' => $sql];
 
         if ($settingsMgr->areWidgetsSqlQueryStacktracesEnabled()) {
-            $query['backtrace'] = array_slice(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS), 3);
+            $query['backtrace'] = QueriesCollector::getInstance()->hasQuery($sql)
+                ? array_slice(QueriesCollector::getInstance()->getCollected($sql)['trace'], 2)
+                : null;
         }
 
         foreach ($this->measuresStack as &$measure) {

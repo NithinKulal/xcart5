@@ -401,6 +401,15 @@ class Module extends \XLite\Model\AEntity
     protected $isSkin = false;
 
     /**
+     * Flag: true - module is private, 0 - public
+     *
+     * @var boolean
+     *
+     * @Column (type="boolean")
+     */
+    protected $private = false;
+
+    /**
      * Returns string representation of module entity
      *
      * @return string
@@ -855,6 +864,28 @@ class Module extends \XLite\Model\AEntity
 
         return !isset($module)
             || (!$this->getFromMarketplace() && $module->getModuleID() === $this->getModuleID());
+    }
+
+    /**
+     * Check for private module
+     *
+     * @return boolean
+     */
+    public function isPrivate()
+    {
+        $module = $this->getRepository()->getModuleFromMarketplace($this);
+
+        return $module && $module->getPrivate();
+    }
+
+    /**
+     * Check for private module
+     *
+     * @return boolean
+     */
+    public function isExtendedWarranty()
+    {
+        return false;
     }
 
     /**
@@ -1930,5 +1961,27 @@ class Module extends \XLite\Model\AEntity
     public function getIsSkin()
     {
         return $this->isSkin;
+    }
+
+    /**
+     * Set private
+     *
+     * @param boolean $value
+     * @return Module
+     */
+    public function setPrivate($value)
+    {
+        $this->private = $value;
+        return $this;
+    }
+
+    /**
+     * Get private
+     *
+     * @return boolean
+     */
+    public function getPrivate()
+    {
+        return $this->private;
     }
 }

@@ -1,0 +1,7 @@
+Version 5.3.1.6
+
+Fixes
+2016-11-16 - [Bug] Some images were not downloaded during an upgrade if their URL contained special symbols (_, space, % and the like). #BUG-4095 (Sergey Elmanov) #Core
+2016-11-16 - [Bug] During an upgrade, files were overridden even though the store admin had selected not to override them. #BUG-4121 (Sergey Elmanov) #Core
+2016-11-15 - [Bug] A product that was turned off (Available for sale:NO) could still be purchased if saved in a customer's cart. #BUG-4102 (Sergey Elmanov) #Core
+2016-11-14 - [Bug] The sorting of a product image sequence was reset every time the product was edited. #BUG-4101 (Maxim Kuznetsov) #Core

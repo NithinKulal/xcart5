@@ -207,15 +207,34 @@ div.pack-warning a {
   min-height: 0;
   background: transparent;
   width: auto;
+  min-width: 500px;
 }
 
 .addons-search-box div.substring {
   white-space: nowrap;
+  width: 300px;
+  display: inline-block;
+}
+
+.addons-search-box div.state {
+  display: inline-block;
+  position: absolute;
+  margin-left: 14px;
+}
+
+.addons-search-box div.state .state-value {
+  padding: 0;
 }
 
 .target-addons-list-installed .addons-search-box .search-form input#substring {
   border-radius: 5px;
-  width: 350px;
+  width: 300px;
+}
+
+.target-addons-list-installed .addons-search-box .search-form select#state {
+  border-radius: 5px;
+  border: 1px solid #a3a3a3;
+  width: 170px;
 }
 
 .actions span.separator-or {
@@ -259,4 +278,41 @@ div.pack-warning a {
 
 .modules-list .module-main-section .messages {
   display: none;
+}
+
+@media(max-width: 1280px) {
+  .installed-modules-header .actions {
+    text-align: left;
+    margin-top: 10px;
+  }
+
+  .installed-modules-header > div {
+    display: block;
+  }
+
+  .addons-search-box div.substring {
+    width: 350px;
+  }
+
+  .target-addons-list-installed .addons-search-box .search-form input#substring {
+    width: 350px;
+  }
+
+  .target-addons-list-installed .addons-search-box .search-form select#state {
+    width: 250px;
+  }
+}
+
+@media(min-width: 1500px) {
+  .addons-search-box div.substring {
+    width: 350px;
+  }
+
+  .target-addons-list-installed .addons-search-box .search-form input#substring {
+    width: 350px;
+  }
+
+  .target-addons-list-installed .addons-search-box .search-form select#state {
+    width: 250px;
+  }
 }

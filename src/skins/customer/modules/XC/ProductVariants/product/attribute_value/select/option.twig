@@ -1,0 +1,8 @@
+{##
+ # Attribute value (Select option)
+ #}
+{% if option.isVariantAvailable() %}
+<option {% if this.isSelectedValue(option) %} selected="selected" {% endif %} value="{{ option.id }}">{{ this.getOptionTitle(option) }}{{ this.getModifierTitle(option)|raw }}</option>
+{% else %}
+<optgroup label="{{ this.getOptionTitle(option) }}{{ this.getModifierTitle(option)|raw }}"></optgroup>
+{% endif %}

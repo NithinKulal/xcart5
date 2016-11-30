@@ -60,6 +60,18 @@
   }
 }
 
+.checkout_fastlane_section-content > .checkout_fastlane_section-column {
+  @media(min-width: @screen-sm-min) {
+    width: 50%;
+    float: left;
+    padding-right: @grid-gutter-width;
+
+    &:last-of-type {
+      padding-right: 0px;
+    }
+  }
+}
+
 .checkout_fastlane_sections {
   .checkout_fastlane_details_box.loading { visibility: hidden; }
   &.section-address {
@@ -110,9 +122,18 @@
 
 .checkout_fastlane_details_box {
   .checkout_fastlane_section-buttons {
-    margin-bottom: (@rhythmic-unit * 2);
+    margin-bottom: 0px;
     margin-top: @rhythmic-unit;
   }
+}
+
+.order-total {
+  #rhythmless > .rhythm(@font-size-h2);
+  padding-top: (@rhythmic-unit);
+  line-height: (@rhythmic-unit * 2);
+  color: @color-text-dark;
+  font-weight: 600;
+  text-align: right;
 }
 
 .checkout_fastlane_address_edit_link, .checkout_fastlane_shipping_edit_link {

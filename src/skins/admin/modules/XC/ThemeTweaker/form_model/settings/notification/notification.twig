@@ -1,0 +1,18 @@
+
+{% extends 'form_model/settings/notification/notification.twig' %}
+
+{% block _form_scheme_body_widget %}
+    {{ parent () }}
+
+    {% if url %}
+        {% if editable %}
+            <div class="notification-editor">
+                {{ widget('XLite\\View\\Button\\Link', location=url, label=t('Edit via Webmaster mode')) }}
+            </div>
+        {% else %}
+            <div class="notification-editor">
+                {{ widget('XLite\\View\\Button\\Tooltip', location=url, disabled=true, label=t('Edit via Webmaster mode'), buttonTooltip=t('No orders available. Please create at least one order.')) }}
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}

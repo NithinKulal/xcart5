@@ -9,3 +9,72 @@ XLite\Model\SearchFilter:
   directives: { addModel: 'XLite\Model\SearchFilterTranslation' }
   - { id: 1, translations: [{ code: zh, name: 未付款 }] }
   - { id: 2, translations: [{ code: zh, name: 已付款尚未寄出 }] }
+
+XLite\Model\Config:
+  - name: shop_currency
+    category: General
+    value: 156
+
+  - name: default_language
+    category: General
+    value: 'zh'
+
+  - name: default_admin_language
+    category: General
+    value: 'zh'
+
+  - name: location_address
+    category: Company
+    value: '*Your company address*'
+
+  - name: location_country
+    category: Company
+    value: CN
+
+  - name: location_state
+    category: Company
+    value: 66
+
+  - name: location_city
+    category: Company
+    value: '北京'
+
+  - name: location_zipcode
+    category: Company
+    value: 100000
+
+  - name: company_name
+    category: Company
+    value: '*Your company name*'
+
+  - name: company_phone
+    category: Company
+    value: '(555) 555-5555'
+
+  - name: company_fax
+    category: Company
+    value: '(555) 555-5555'
+
+  - name: anonymous_country
+    category: Shipping
+    value: CN
+
+  - name: anonymous_city
+    category: Shipping
+    value: '上海'
+
+  - name: anonymous_zipcode
+    category: Shipping
+    value: '200000'
+
+  - name: anonymous_state
+    category: Shipping
+    value: 90
+
+XLite\Model\Language:
+  - code: en
+    enabled: false
+
+XLite\Model\Payment\Method:
+  - service_name: Pilibaba
+    added: true

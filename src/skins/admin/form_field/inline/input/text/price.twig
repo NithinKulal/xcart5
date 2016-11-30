@@ -3,10 +3,10 @@
  #}
 
 {% if this.currency.getPrefix() %}
-  <span class="symbol">{{ this.currency.getPrefix()|raw }}</span>
+  <span class="symbol{% if not this.isSymbolVisible(this.singleField) %} hidden{% endif %}">{{ this.currency.getPrefix()|raw }}</span>
 {% endif %}
 <span class="value">{{ this.getViewValue(this.singleField)|raw }}</span>
 {% if this.currency.getSuffix() %}
-  <span class="symbol">{{ this.currency.getSuffix()|raw }}</span>
+  <span class="symbol {% if not this.isSymbolVisible(this.singleField) %} hidden{% endif %}">{{ this.currency.getSuffix()|raw }}</span>
 {% endif %}
 

@@ -45,11 +45,11 @@ class Info extends \XLite\Model\DTO\Product\Info implements \XLite\Base\IDecorat
     public function populateTo($object, $rawData = null)
     {
         $participateSale = static::deCompose($this, 'prices_and_inventory', 'price', 'participate_sale');
-        $object->setParticipateSale($participateSale);
+        $object->setParticipateSale((boolean) $participateSale);
 
         $salePrice = static::deCompose($this, 'prices_and_inventory', 'price', 'sale_price');
-        $object->setDiscountType($salePrice['type']);
-        $object->setSalePriceValue($salePrice['value']);
+        $object->setDiscountType((string) $salePrice['type']);
+        $object->setSalePriceValue((float) $salePrice['value']);
 
         parent::populateTo($object, $rawData);
     }

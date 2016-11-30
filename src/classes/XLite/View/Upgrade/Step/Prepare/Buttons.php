@@ -34,4 +34,17 @@ class Buttons extends \XLite\View\Upgrade\Step\Prepare\APrepare
     {
         return parent::getListName() . '.buttons';
     }
+
+    /**
+     * Add some JS files
+     *
+     * @return array
+     */
+    public function getJSFiles()
+    {
+        $list = parent::getJSFiles();
+        $list[] = 'upgrade/step/prepare/buttons/controller.js';
+
+        return $list;
+    }
 }

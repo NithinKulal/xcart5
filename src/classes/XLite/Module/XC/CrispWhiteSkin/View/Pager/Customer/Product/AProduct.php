@@ -12,6 +12,11 @@ abstract class AProduct extends \XLite\View\Pager\Customer\Product\AProduct impl
 {
     protected function getPerPageCounts()
     {
-        return [1, 3, 6, 12, 24, 36];
+        $min = \XLite\Core\Config::getInstance()->General->products_per_page;
+        $max = \XLite\Core\Config::getInstance()->General->products_per_page_max;
+
+        return array_map(function ($item) use ($min) {
+            return pow(2, $item) * $min;
+        }, range(0, ceil(log($max / $min, 2)) - 1));
     }
 }

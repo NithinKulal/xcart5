@@ -17,7 +17,7 @@ class AddressBook extends \XLite\Controller\Customer\AddressBook implements \XLi
      */
     public function getTitle()
     {
-        return static::t('My account');
+        return \XLite\Core\Request::getInstance()->widget_title ?: static::t('My account');
     }
 
     /**

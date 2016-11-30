@@ -149,7 +149,7 @@ class Module extends \XLite\Core\Pack\APack
         $result = array();
 
         foreach (\XLite\Core\Layout::getInstance()->getSkinsAll() as $interface => $tmp) {
-            $result = array_merge($result, \XLite\Core\Layout::getInstance()->getSkinPaths($interface, '', false, true));
+            $result = array_merge($result, \XLite\Core\Layout::getInstance()->getSkinPaths($interface, false, true, true));
         }
 
         $modulePath = \Includes\Utils\ModulesManager::getRelativeDir($this->module->getAuthor(), $this->module->getName());

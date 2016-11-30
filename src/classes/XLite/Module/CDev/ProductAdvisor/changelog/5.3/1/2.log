@@ -1,0 +1,4 @@
+Version 5.3.1.2
+
+Fixes
+2016-11-01 - [Bug] Added removal of options that are no longer used to upgrade hook. #BUG-4055 (Sergey Elmanov) #ProductAdvisor

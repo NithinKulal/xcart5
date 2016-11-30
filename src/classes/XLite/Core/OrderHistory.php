@@ -612,8 +612,11 @@ class OrderHistory extends \XLite\Base\Singleton
     {
         // Switch interface to admin
         $layout = \XLite\Core\Layout::getInstance();
-        $old_skin = $layout->getSkin();
-        $old_interface = $layout->getInterface();
+
+        $baseSkin = $layout->getSkin();
+        $baseInterface = $layout->getInterface();
+        $baseInnerInterface = $layout->getInnerInterface();
+
         $layout->setAdminSkin();
 
         // Get compiled widget content
@@ -626,8 +629,7 @@ class OrderHistory extends \XLite\Base\Singleton
         $result = $widget->getContent();
 
         // Restore interface
-        switch ($old_interface) {
-
+        switch ($baseInterface) {
             case \XLite::ADMIN_INTERFACE:
                 $layout->setAdminSkin();
                 break;
@@ -641,11 +643,11 @@ class OrderHistory extends \XLite\Base\Singleton
                 break;
 
             case \XLite::MAIL_INTERFACE:
-                $layout->setMailSkin();
+                $layout->setMailSkin($baseInnerInterface);
                 break;
         }
 
-        $layout->setSkin($old_skin);
+        $layout->setSkin($baseSkin);
 
         return $result;
     }
@@ -663,7 +665,7 @@ class OrderHistory extends \XLite\Base\Singleton
     {
         return isset($change['type']) && $change['type']
             ? (
-                'payment' == $change['type']
+                'payment' === $change['type']
                 ? static::CODE_CHANGE_PAYMENT_STATUS_ORDER
                 : static::CODE_CHANGE_SHIPPING_STATUS_ORDER
             ) : static::CODE_CHANGE_STATUS_ORDER;
@@ -897,6 +899,6 @@ class OrderHistory extends \XLite\Base\Singleton
     protected function isAbleToReduceAmount($product, $delta)
     {
         // Do record if the product is reserved and we have enough amount in stock for it
-        return $product->getPublicAmount() > abs($delta);
+        return $product->getPublicAmount() >= abs($delta);
     }
 }

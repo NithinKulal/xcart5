@@ -26,13 +26,21 @@ class Shipping extends FastLaneCheckout\View\Blocks\Address
     }
 
     /**
+     * @return void
+     */
+    protected function getEditAddressTitle()
+    {
+        return static::t('Edit shipping address');
+    }
+
+    /**
      * Check - email field is visible or not
      *
      * @return boolean
      */
     protected function isEmailVisible()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -54,5 +62,15 @@ class Shipping extends FastLaneCheckout\View\Blocks\Address
         $profile = $this->getCart()->getProfile();
 
         return $profile ? $profile->getShippingAddress() : null;
+    }
+
+    /**
+     * Check - shipping and billing addrsses are same or not
+     *
+     * @return boolean
+     */
+    protected function isSameAddress()
+    {
+        return false;
     }
 }

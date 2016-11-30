@@ -21,6 +21,6 @@ class AutomateShippingRoutine extends \XLite\Controller\Admin\AAdmin
      */
     public function getTitle()
     {
-        return static::t('Automate shipping');
+        return static::t('Shipping solutions');
     }
 }

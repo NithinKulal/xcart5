@@ -6,8 +6,15 @@
  * Copyright (c) 2001-present Qualiteam software Ltd. All rights reserved.
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
-Checkout.define('Checkout.BillingAddressForm', ['Checkout.AddressForm'], function(){
-  Checkout.BillingAddressForm = Checkout.AddressForm.extend({
+
+define(
+  'checkout_fastlane/blocks/address_form/billing',
+ ['vue/vue',
+  'checkout_fastlane/blocks/address_form',
+  'checkout_fastlane/sections/address'],
+  function(Vue, AddressForm, AddressSection) {
+
+  var BillingAddressForm = AddressForm.extend({
     name: 'billing-address-form',
 
     vuex: {
@@ -22,7 +29,7 @@ Checkout.define('Checkout.BillingAddressForm', ['Checkout.AddressForm'], functio
     },
 
     data: function() {
-      return _.extend(Checkout.BillingAddressForm.super.options.data.apply(this, arguments), {
+      return _.extend(BillingAddressForm.super.options.data.apply(this, arguments), {
         same_address: window.WidgetData['same_address'],
         visible: !window.WidgetData['same_address']
       });
@@ -30,6 +37,7 @@ Checkout.define('Checkout.BillingAddressForm', ['Checkout.AddressForm'], functio
 
     created: function() {
       this.shortType = 'b';
+      this.fullType = 'billing';
     },
 
     ready: function() {
@@ -41,47 +49,62 @@ Checkout.define('Checkout.BillingAddressForm', ['Checkout.AddressForm'], functio
         this.toggle(!value);
 
         this.$nextTick(function(){
-          var force = oldValue !== null;
-
           jQuery('#billingaddress-country-code').change();
-          this.$emit('modify', value, oldValue, force);
+
+          this.persistSameAsShipping(value, oldValue);
         });
       }
     },
 
     events: {
       global_selectcartaddress: function(data) {
-        Checkout.BillingAddressForm.super.options.events.global_selectcartaddress.apply(this, arguments);
         if (data.same != !!this.fields.same_address) {
           this.nonPersistMode = true;
           this.same_address = data.same ? 1 : 0;
+        }
+      },
+      global_updatecart: function(data) {
+        if (_.has(data, 'sameAddress') && data['sameAddress'] != !!this.fields.same_address) {
+          this.nonPersistMode = true;
+          this.same_address = data['sameAddress'] ? 1 : 0;
         }
       }
     },
 
     methods: {
+      persistSameAsShipping: _.debounce(
+        function(value, oldValue){
+          var force = oldValue !== null;
+          this.$emit('modify', value, oldValue, force);
+        },
+        100
+      ),
+
       preprocess: function(data) {
         if (this.same_address == 1 || !this.isValid) {
           return {
             'same_address': this.same_address
           };
         } else {
-          return Checkout.BillingAddressForm.super.options.methods.preprocess.apply(this, arguments);
+          return BillingAddressForm.super.options.methods.preprocess.apply(this, arguments);
         }
       },
 
       triggerUpdate: function(options) {
         this.updateBillingAddress(this.toDataObject());
         this.updateSameAddressFlag(this.same_address);
-        Checkout.BillingAddressForm.super.options.methods.triggerUpdate.apply(this, arguments);
+        BillingAddressForm.super.options.methods.triggerUpdate.apply(this, arguments);
       },
 
       toDataObject: function() {
-        return _.extend(Checkout.BillingAddressForm.super.options.methods.toDataObject.apply(this, arguments), {
+        return _.extend(BillingAddressForm.super.options.methods.toDataObject.apply(this, arguments), {
           'same_address': this.same_address
         });
       },
     }
   });
 
+  Vue.registerComponent(AddressSection, BillingAddressForm);
+
+  return BillingAddressForm;
 });

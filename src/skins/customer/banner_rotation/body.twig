@@ -2,7 +2,7 @@
  # Banner rotation widget template
  #}
 
-<div id="banner-rotation-widget" class="carousel slide banner-carousel">
+<div id="banner-rotation-widget" class="carousel slide banner-carousel lazy-load">
   {{ this.displayCommentedData(this.getCommentedData()) }}
 
   <!-- Indicators -->
@@ -16,7 +16,7 @@
 
   <div class="carousel-inner" role="listbox">
     {% for image in this.getImages() %}
-      <a href="{{ image.bannerRotationSlide.getLink() }}" class="item">
+      <a href="{{ image.bannerRotationSlide.getFrontLink() }}" class="item">
         <img src="{{ image.getFrontURL() }}" alt="{{ image.getAlt() }}" >
       </a>
     {% endfor %}

@@ -1,0 +1,13 @@
+{##
+ # Layout editor save button
+ #
+ # @ListChild (list="inline_editor", weight="20")
+ #}
+
+<div class='inline-editor-save inline-editor--switchable'>
+	{{ widget('XLite\\View\\Button\\Regular', disabled='true', label=t('Save changes'), style='regular-main-button inline-editor-save_button', jsCode='core.trigger("inline_editor.submit");') }}
+
+    <script type="application/javascript">
+        window.inlineEditorCautionMode = {{ this.isInlineEditorAvailable() ? 'false' : 'true' }};
+    </script>
+</div>

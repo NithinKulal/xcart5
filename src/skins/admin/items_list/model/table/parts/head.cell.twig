@@ -33,5 +33,7 @@
 {% endif %}
 {{ widget_list(this.getCellListNamePart('head', column), type='inherited', column=column) }}
 {% if column.columnSelector %}
-  <input type="checkbox" class="selectAll not-significant" />
+  <input type="checkbox"
+         class="selectAll not-significant"
+         autocomplete="off" />
 {% endif %}

@@ -22,25 +22,11 @@ abstract class AController extends \XLite\Controller\AController implements \XLi
     {
         parent::processRequest();
 
-        if (
-            !$this->suppressOutput
+        if (!$this->suppressOutput
             && !$this->isAJAX()
         ) {
             $viewer = $this->getViewer();
 
-            /*
-            $treeKey = 'theme_tweaker_tree_' . md5(LC_START_TIME);
-            \XLite\Core\Session::getInstance()->{$treeKey} = $viewer::getJsonTree();
-
-            $output = sprintf(
-                '<div id="templates_tree_wrapper" style="display: none;" data-tree-key="%s">'
-                . '<div id="templates_tree"></div>'
-                . '</div>',
-                $treeKey
-            );
-
-            echo $output;
-            */
             echo $viewer::getHtmlTree();
         }
     }

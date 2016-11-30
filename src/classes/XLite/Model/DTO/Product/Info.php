@@ -29,7 +29,7 @@ class Info extends \XLite\Model\DTO\Base\ADTO
         }
 
         if (!$dto->marketing->clean_url->autogenerate && !$dto->marketing->clean_url->force) {
-            $repo = \XLite\Core\Database::getRepo('XLite\Model\CleanURL');
+            $repo  = \XLite\Core\Database::getRepo('XLite\Model\CleanURL');
             $value = $dto->marketing->clean_url->clean_url . '.html';
 
             if (!$repo->isURLUnique($value, 'XLite\Model\Product', $dto->default->identity)) {
@@ -45,7 +45,7 @@ class Info extends \XLite\Model\DTO\Base\ADTO
      */
     protected static function isSKUValid($dto)
     {
-        $sku = $dto->default->sku;
+        $sku      = $dto->default->sku;
         $identity = $dto->default->identity;
 
         $entity = \XLite\Core\Database::getRepo('XLite\Model\Product')->findOneBySku($sku);
@@ -64,7 +64,7 @@ class Info extends \XLite\Model\DTO\Base\ADTO
         }
 
         $objectImages = $object->getImages();
-        $images = [0 => [
+        $images       = [0 => [
             'delete'   => false,
             'position' => '',
             'alt'      => '',
@@ -79,17 +79,19 @@ class Info extends \XLite\Model\DTO\Base\ADTO
             ];
         }
 
-        $default = [
+        $default       = [
             'identity' => $object->getProductId(),
 
-            'name'               => $object->getName(),
-            'sku'                => $object->getSku(),
-            'images'             => $images,
-            'category'           => $categories,
-            'description'        => $object->getBriefDescription(),
-            'full_description'   => $object->getDescription(),
-            'available_for_sale' => $object->getEnabled(),
-            'arrival_date'       => $object->getArrivalDate() ?: time(),
+            'name'                 => $object->getName(),
+            'sku'                  => $object->getSku(),
+            'images'               => $images,
+            'category'             => $categories,
+            'category_tree'        => $categories,
+            'category_widget_type' => \XLite\Core\Request::getInstance()->product_modify_categroy_widget ?: 'search',
+            'description'          => $object->getBriefDescription(),
+            'full_description'     => $object->getDescription(),
+            'available_for_sale'   => $object->getEnabled(),
+            'arrival_date'         => $object->getArrivalDate() ?: time(),
         ];
         $this->default = new CommonCell($default);
 
@@ -98,12 +100,12 @@ class Info extends \XLite\Model\DTO\Base\ADTO
             $memberships[] = $membership->getMembershipId();
         }
 
-        $taxClass = $object->getTaxClass();
-        $inventoryTracking = new CommonCell([
+        $taxClass                   = $object->getTaxClass();
+        $inventoryTracking          = new CommonCell([
             'inventory_tracking' => $object->getInventoryEnabled(),
             'quantity'           => $object->getAmount(),
         ]);
-        $pricesAndInventory = [
+        $pricesAndInventory         = [
             'memberships'        => $memberships,
             'tax_class'          => $taxClass ? $taxClass->getId() : null,
             'price'              => $object->getPrice(),
@@ -111,7 +113,7 @@ class Info extends \XLite\Model\DTO\Base\ADTO
         ];
         $this->prices_and_inventory = new CommonCell($pricesAndInventory);
 
-        $shippingBox = new CommonCell([
+        $shippingBox    = new CommonCell([
             'separate_box' => $object->getUseSeparateBox(),
             'dimensions'   => [
                 'length' => $object->getBoxLength(),
@@ -119,10 +121,10 @@ class Info extends \XLite\Model\DTO\Base\ADTO
                 'height' => $object->getBoxHeight(),
             ],
         ]);
-        $itemsInBox = new CommonCell([
+        $itemsInBox     = new CommonCell([
             'items_in_box' => $object->getItemsPerBox(),
         ]);
-        $shipping = [
+        $shipping       = [
             'weight'            => $object->getWeight(),
             'requires_shipping' => $object->getShippable(),
             'shipping_box'      => $shippingBox,
@@ -132,11 +134,11 @@ class Info extends \XLite\Model\DTO\Base\ADTO
 
         $cleanURL = new CommonCell([
             'autogenerate' => !(boolean) $object->getCleanURL(),
-            'clean_url'    => rtrim($object->getCleanURL(), '.html'),
+            'clean_url'    => preg_replace('/.html$/', '', $object->getCleanURL()),
             'force'        => false,
         ]);
 
-        $marketing = [
+        $marketing       = [
             'meta_description_type' => $object->getMetaDescType(),
             'meta_description'      => $object->getMetaDesc(),
             'meta_keywords'         => $object->getMetaTags(),
@@ -173,19 +175,19 @@ class Info extends \XLite\Model\DTO\Base\ADTO
         $object->setArrivalDate((int) $default->arrival_date);
 
         $priceAndInventory = $this->prices_and_inventory;
-        $memberships = \XLite\Core\Database::getRepo('XLite\Model\Membership')->findByIds($priceAndInventory->memberships);
+        $memberships       = \XLite\Core\Database::getRepo('XLite\Model\Membership')->findByIds($priceAndInventory->memberships);
         $object->replaceMembershipsByMemberships($memberships);
 
         $taxClass = \XLite\Core\Database::getRepo('XLite\Model\TaxClass')->find($priceAndInventory->tax_class);
         $object->setTaxClass($taxClass);
 
-        $object->setPrice($priceAndInventory->price);
+        $object->setPrice((float) $priceAndInventory->price);
 
         $object->setInventoryEnabled((boolean) $priceAndInventory->inventory_tracking->inventory_tracking);
-        $object->setAmount($priceAndInventory->inventory_tracking->quantity);
+        $object->setAmount((int) $priceAndInventory->inventory_tracking->quantity);
 
         $shipping = $this->shipping;
-        $object->setWeight($shipping->weight);
+        $object->setWeight((float) $shipping->weight);
         $object->setShippable((boolean) $shipping->requires_shipping);
 
         $shippingBox = $shipping->shipping_box;
@@ -211,7 +213,7 @@ class Info extends \XLite\Model\DTO\Base\ADTO
         } else {
             $value = $marketing->clean_url->clean_url . '.html';
             if ($marketing->clean_url->force) {
-                $repo = \XLite\Core\Database::getRepo('XLite\Model\CleanURL');
+                $repo           = \XLite\Core\Database::getRepo('XLite\Model\CleanURL');
                 $conflictEntity = $repo->getConflict(
                     $value,
                     $object,
@@ -232,7 +234,7 @@ class Info extends \XLite\Model\DTO\Base\ADTO
                     }
                 }
 
-                $object->setCleanURL((string) $value, true);
+                $object->setCleanURL((string) $value, !$conflictEntity || !($conflictEntity instanceof \XLite\Model\TargetCleanUrl));
 
             } else {
                 $object->setCleanURL((string) $value);

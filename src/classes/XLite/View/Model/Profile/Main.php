@@ -329,7 +329,14 @@ class Main extends \XLite\View\Model\Profile\AProfile
      */
     protected function performActionUpdate()
     {
-        return $this->checkPassword() ? parent::performActionUpdate() : false;
+        $data = $this->getRequestData();
+        $result = $this->checkPassword() ? parent::performActionUpdate() : false;
+        
+        if ($result && !empty($data['password']) && $profile = $this->getModelObject()) {
+            $profile->logoffSessions(true);
+        }
+
+        return $result;
     }
 
     /**

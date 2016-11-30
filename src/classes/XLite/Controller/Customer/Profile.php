@@ -96,6 +96,19 @@ class Profile extends \XLite\Controller\Customer\ACustomer
     }
 
     /**
+     * Check if widget is visible
+     *
+     * @return boolean
+     */
+    protected function isVisible()
+    {
+        $registerModeForLogged = \XLite\Core\Auth::getInstance()->isLogged()
+            && self::getRegisterMode() === \XLite\Core\Request::getInstance()->mode;
+
+        return parent::isVisible() && !$registerModeForLogged;
+    }
+
+    /**
      * The "mode" parameter used to determine if we create new or modify existing profile
      *
      * @return boolean
@@ -167,8 +180,12 @@ class Profile extends \XLite\Controller\Customer\ACustomer
      */
     protected function doActionRegister()
     {
-        $result = $this->getModelForm()->performAction('create');
-        $this->postprocessActionRegister();
+        if (!\XLite\Core\Auth::getInstance()->isLogged()) {
+            $result = $this->getModelForm()->performAction('create');
+            $this->postprocessActionRegister();
+        } else {
+            $result = false;
+        }
 
         return $result;
     }
@@ -189,9 +206,14 @@ class Profile extends \XLite\Controller\Customer\ACustomer
 
         } else {
             $this->postprocessActionRegisterSuccess();
-            $this->setReturnURL(
-                call_user_func_array(array($this, 'buildURL'), $this->getActionRegisterSuccessURL())
-            );
+
+            if (\XLite\Core\Request::getInstance()->fromURL) {
+                $this->setReturnURL(\XLite\Core\Request::getInstance()->fromURL);
+            } else {
+                $this->setReturnURL(
+                    call_user_func_array(array($this, 'buildURL'), $this->getActionRegisterSuccessURL())
+                );
+            }
         }
     }
 

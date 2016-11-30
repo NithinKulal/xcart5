@@ -10,7 +10,7 @@
 /**
  * Export
  */
-div.dialog-block.quick-data-box {
+.quick-data-box {
   width: 902px;
   min-width: 902px;
   display: block;
@@ -25,7 +25,7 @@ div.dialog-block.quick-data-box {
   font-weight: normal;
 }
 
-div.dialog-block.quick-data-box .subcontent {
+.quick-data-box .subcontent {
   padding: 20px;
 }
 
@@ -42,60 +42,19 @@ div.dialog-block.quick-data-box .subcontent {
 /**
  * Export (progress)
  */
-div.dialog-block.quick-data-progress .subcontent {
-  padding: 40px;
+.quick-data-progress .subcontent {
+  padding: 20px 0;
   padding-bottom: 12px;
 }
 
-div.dialog-block.quick-data-progress div.content {
-  width: 900px;
-}
-
-.quick-data-progress .subcontent .progress-bar {
-  float: left;
-  margin-right: 20px;
-}
-
-.quick-data-progress .subcontent .bar {
+.quick-data-progress div.content {
   width: 650px;
-}
-
-.quick-data-progress .subcontent button {
-  padding: 1px 17px 2px 17px;
-  float: right;
-  min-height: 24px;
-}
-
-.quick-data-progress .subcontent .time {
-  font-size: 14px;
-  text-align: center;
-  color: #44769d;
-  height: 20px;
-  margin-top: 27px;
-}
-
-.quick-data-progress .help {
-  padding-left: 49px;
-  padding-top: 6px;
-  min-height: 38px;
-  line-height: 20px;
-}
-
-.quick-data-progress .help i {
-  color: #b9b9b9;
-  font-size: 36px;
-  float: left;
-}
-
-.quick-data-progress .help p {
-  font-size: 14px;
-  margin-left: 51px;
 }
 
 /**
  * Export failed
  */
-div.dialog-block.export-failed .header h2,
+.export-failed .header h2,
 .export-failed h3
 {
   color: #b94a48;

@@ -105,6 +105,7 @@ class CommonResources extends \XLite\View\AView
                 'js/core.popup.js',
                 'js/core.popup_button.js',
                 'js/core.form.js',
+                'js/lazy-load.js',
                 array(
                     'file'      => 'js/php.min.js',
                     'no_minify' => true,
@@ -121,6 +122,7 @@ class CommonResources extends \XLite\View\AView
                 'css/jquery.mousewheel.css',
                 'css/validationEngine.jquery.css',
                 'css/font-awesome/font-awesome.min.css',
+                'css/lazy-load.css',
                 array(
                     'file'      => 'bootstrap/css/initialize.less',
                     'media'     => 'screen',

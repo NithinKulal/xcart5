@@ -7,6 +7,8 @@
  */
 
 namespace XLite\Module\XC\ProductVariants\Model\Repo;
+use Doctrine\ORM\Query\Expr\Andx;
+use Doctrine\ORM\Query\Expr\Orx;
 
 /**
  * Product model repository
@@ -26,17 +28,17 @@ abstract class Product extends \XLite\Model\Repo\Product implements \XLite\Base\
     {
         $queryBuilder->linkLeft('p.variants', 'pv');
 
-        $productAmountCnd = new \Doctrine\ORM\Query\Expr\Andx();
-        $productAmountCnd->add('i.amount > :zero');
-        // Product amount counts ONLY IF product have no variants
-        // OR have variant with defaultAmount
-        $productAmountCnd->add('pv.id IS NULL OR pv.defaultAmount = true');
-
-        $orCnd = new \Doctrine\ORM\Query\Expr\Orx();
-
-        $orCnd->add('p.inventoryEnabled = :disabled');
-        $orCnd->add('p.amount > :zero');
-        $orCnd->add('pv.amount > :zero');
+        $orCnd = new Orx([
+            'p.inventoryEnabled = :disabled',
+            'pv.amount > :zero',
+            new Andx([
+                'p.amount > :zero',
+                new Orx([
+                    'pv.id IS NULL',
+                    'pv.defaultAmount = true'
+                ])
+            ]),
+        ]);
 
         $queryBuilder->andWhere($orCnd)
             ->setParameter('disabled', false)
@@ -71,5 +73,122 @@ abstract class Product extends \XLite\Model\Repo\Product implements \XLite\Base\
                 static::VARIANT_SKU_FIELD,
             )
         );
+    }
+
+    /**
+     * Assign prica range-based search condition
+     *
+     * @param \Doctrine\ORM\QueryBuilder $queryBuilder Query builder
+     * @param float                      $min          Minimum
+     * @param float                      $max          Maximum
+     *
+     * @return void
+     */
+    protected function assignPriceRangeCondition(\Doctrine\ORM\QueryBuilder $queryBuilder, $min, $max)
+    {
+        if (!\XLite::isAdminZone() && \XLite\Module\XC\ProductVariants\Main::isDisplayPriceAsRange()) {
+            if (null !== $min) {
+                $queryBuilder->andWhere($this->getCalculatedField($queryBuilder, 'maxPrice') . ' >= :minPrice')
+                    ->setParameter('minPrice', (float) $min);
+            }
+
+            if (null !== $max) {
+                $queryBuilder->andWhere($this->getCalculatedField($queryBuilder, 'minPrice') . ' <= :maxPrice')
+                    ->setParameter('maxPrice', (float) $max);
+            }
+        } elseif (null !== $min || null !== $max) {
+            parent::assignPriceRangeCondition($queryBuilder, $min, $max);
+        }
+    }
+
+    /**
+     * Define calculated minimal price definition DQL
+     *
+     * @param \XLite\Model\QueryBuilder\AQueryBuilder $queryBuilder Query builder
+     * @param string                                  $alias        Main alias
+     *
+     * @return string
+     */
+    protected function defineCalculatedMinPriceDQL(\XLite\Model\QueryBuilder\AQueryBuilder $queryBuilder, $alias)
+    {
+        $profile = \XLite\Core\Auth::getInstance()->getProfile();
+        if ($profile
+            && $profile->getMembership()
+        ) {
+            $queryBuilder->getAllAliases()->innerJoin(
+                $alias . '.quickData',
+                'qdMinPrice',
+                'WITH',
+                'qdMinPrice.membership = :qdMembership'
+            )->setParameter('qdMembership', $profile->getMembership());
+
+        } else {
+            $queryBuilder->innerJoin(
+                $alias . '.quickData',
+                'qdMinPrice',
+                'WITH',
+                'qdMinPrice.membership is null'
+            );
+        }
+
+        return 'qdMinPrice.minPrice';
+    }
+
+    /**
+     * Define calculated maximal price definition DQL
+     *
+     * @param \XLite\Model\QueryBuilder\AQueryBuilder $queryBuilder Query builder
+     * @param string                                  $alias        Main alias
+     *
+     * @return string
+     */
+    protected function defineCalculatedMaxPriceDQL(\XLite\Model\QueryBuilder\AQueryBuilder $queryBuilder, $alias)
+    {
+        $profile = \XLite\Core\Auth::getInstance()->getProfile();
+        if ($profile
+            && $profile->getMembership()
+        ) {
+            $queryBuilder->innerJoin(
+                $alias . '.quickData',
+                'qdMaxPrice',
+                'WITH',
+                'qdMaxPrice.membership = :qdMembership'
+            )->setParameter('qdMembership', $profile->getMembership());
+
+        } else {
+            $queryBuilder->innerJoin(
+                $alias . '.quickData',
+                'qdMaxPrice',
+                'WITH',
+                'qdMaxPrice.membership is null'
+            );
+        }
+
+        return 'qdMaxPrice.maxPrice';
+    }
+
+    /**
+     * Prepare certain search condition
+     *
+     * @param \Doctrine\ORM\QueryBuilder $queryBuilder Query builder to prepare
+     * @param array                      $value        Condition data
+     *
+     * @return void
+     */
+    protected function prepareCndOrderBy(\Doctrine\ORM\QueryBuilder $queryBuilder, array $value)
+    {
+        if (!$this->isCountSearchMode()) {
+            list($sort, $order) = $this->getSortOrderValue($value);
+
+            if ('p.price' === $sort && !\XLite::isAdminZone() && \XLite\Module\XC\ProductVariants\Main::isDisplayPriceAsRange()) {
+                $this->assignCalculatedField($queryBuilder, 'minPrice');
+                $sort = 'calculatedMinPrice';
+
+                $queryBuilder->addOrderBy($sort, $order);
+            } else {
+                parent::prepareCndOrderBy($queryBuilder, $value);
+            }
+
+        }
     }
 }

@@ -42,6 +42,39 @@ class PaymentActionsUnit extends \XLite\View\AView
     }
 
     /**
+     * Payment action units that need amount
+     *
+     * @return array
+     */
+    protected function needAmount()
+    {
+        return array(
+            \XLite\Model\Payment\BackendTransaction::TRAN_TYPE_REFUND_PART,
+            \XLite\Model\Payment\BackendTransaction::TRAN_TYPE_REFUND_MULTI,
+        );
+    }
+
+    /**
+     * Payment action units that need amount
+     *
+     * @return array
+     */
+    protected function isNeedAmount()
+    {
+        return in_array($this->getParam(self::PARAM_UNIT), $this->needAmount());
+    }
+
+    /**
+     * Return refund maximum value
+     *
+     * @return array
+     */
+    protected function getRefundValue()
+    {
+        return $this->getParam(self::PARAM_TRANSACTION)->getChargeValueModifier();
+    }
+
+    /**
      * Return widget default template
      *
      * @return string
@@ -132,8 +165,13 @@ class PaymentActionsUnit extends \XLite\View\AView
      */
     protected function getButtonWidgetClass(){
         $class = '\XLite\View\Button\Regular';
+
         if (in_array($this->getParam(self::PARAM_UNIT), $this->needConfirm())) {
             $class = '\XLite\View\Button\ConfirmRegular';
+        }
+
+        if (in_array($this->getParam(self::PARAM_UNIT), $this->needAmount())) {
+            $class = '\XLite\View\FormField\Input\RefundMultiple';
         }
 
         return $class;

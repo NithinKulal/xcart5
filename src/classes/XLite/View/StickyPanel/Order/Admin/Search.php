@@ -20,43 +20,27 @@ class Search extends \XLite\View\StickyPanel\Order\Admin\AAdmin
      */
     protected function defineAdditionalButtons()
     {
-        $list = parent::defineAdditionalButtons();
-
-        $list[] = $this->getWidget(
-            array(
-                'disabled'   => true,
-                'label'      => 'Delete',
-                'style'      => 'more-action link list-action',
-                'icon-style' => 'fa fa-trash-o',
-            ),
-            'XLite\View\Button\DeleteSelected'
-        );
-
-        $list[] = $this->getWidget(
-            array(),
-            'XLite\View\Button\Divider'
-        );
-
-        $list[] = $this->getWidget(
-            array(
-                'disabled'   => true,
-                'label'      => 'Print invoice',
-                'style'      => 'more-action',
-                'icon-style' => 'fa fa-print',
-            ),
-            'XLite\View\Button\PrintSelectedInvoices'
-        );
-
-        $list[] = $this->getWidget(
-            array(
-                'disabled'   => true,
-                'label'      => 'Print packing slip',
-                'style'      => 'more-action',
-                'icon-style' => 'fa fa-print',
-            ),
-            'XLite\View\Button\PrintSelectedPackingSlip'
-        );
-
-        return $list;
+        return [
+            'delete' => [
+                'class'    => 'XLite\View\Button\DeleteSelected',
+                'params'   => [
+                    'label'      => '',
+                    'style'      => 'more-action icon-only hide-on-disable hidden',
+                    'icon-style' => 'fa fa-trash-o',
+                ],
+                'position' => 100,
+            ],
+            'print'  => [
+                'class'    => 'XLite\View\Button\Dropdown\OrderPrint',
+                'params'   => [
+                    'label'         => '',
+                    'style'         => 'more-action icon-only hide-on-disable hidden',
+                    'icon-style'    => 'fa fa-print',
+                    'showCaret'     => false,
+                    'dropDirection' => 'dropup',
+                ],
+                'position' => 200,
+            ],
+        ];
     }
 }

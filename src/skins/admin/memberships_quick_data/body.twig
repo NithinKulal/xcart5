@@ -1,0 +1,9 @@
+{##
+ # Memberships quick data page
+ #}
+
+{% if this.isCalculationNotFinished() %}
+  {{ widget('\\XLite\\View\\MembershipsQuickData\\Progress') }}
+{% else %}
+  {{ widget('\\XLite\\View\\ItemsList\\Model\\Membership') }}
+{% endif %}

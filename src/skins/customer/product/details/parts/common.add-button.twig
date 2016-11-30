@@ -7,6 +7,4 @@
  # @ListChild (list="product.details.quicklook.info.buttons.cart-buttons", weight="20")
  #}
 
-{% if this.isProductAvailableForSale() %}
-  {{ widget('\\XLite\\View\\Product\\Details\\Customer\\AddButton', product=this.product) }}
-{% endif %}
+{{ widget('\\XLite\\View\\Product\\Details\\Customer\\AddButton', product=this.product) }}

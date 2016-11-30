@@ -18,7 +18,7 @@ class EventListener extends \XLite\Base\Singleton
      *
      * @var array
      */
-    protected $errors = array();
+    protected $errors = [];
 
     /**
      * Handle event
@@ -28,15 +28,15 @@ class EventListener extends \XLite\Base\Singleton
      *
      * @return boolean
      */
-    public function handle($name, array $arguments = array())
+    public function handle($name, array $arguments = [])
     {
         $result = false;
-        $this->errors = array();
+        $this->errors = [];
 
         $list = $this->getListeners();
 
         if (isset($list[$name])) {
-            $list = is_array($list[$name]) ? $list[$name] : array($list[$name]);
+            $list = is_array($list[$name]) ? $list[$name] : [$list[$name]];
             foreach ($list as $class) {
                 if ($class::handle($name, $arguments)) {
                     $result = true;
@@ -78,14 +78,16 @@ class EventListener extends \XLite\Base\Singleton
      */
     protected function getListeners()
     {
-        return array(
-            'probe'       => array('XLite\Core\EventListener\Probe'),
-            'export'      => array('XLite\Core\EventListener\Export'),
-            'import'      => array('XLite\Core\EventListener\Import'),
-            'imageResize' => array('XLite\Core\EventListener\ImageResize'),
-            'quickData'   => array('XLite\Core\EventListener\QuickData'),
-            'removeData'  => array('XLite\Core\EventListener\RemoveData'),
-            'sales'       => array('XLite\Core\EventListener\Sales'),
-        );
+        return [
+            'probe'                 => ['XLite\Core\EventListener\Probe'],
+            'export'                => ['XLite\Core\EventListener\Export'],
+            'import'                => ['XLite\Core\EventListener\Import'],
+            'imageResize'           => ['XLite\Core\EventListener\ImageResize'],
+            'quickData'             => ['XLite\Core\EventListener\QuickData'],
+            'removeData'            => ['XLite\Core\EventListener\RemoveData'],
+            'membershipsQuickData'  => ['XLite\Core\EventListener\MembershipsQuickData'],
+            'integrityCheck'        => ['XLite\Core\EventListener\IntegrityCheck'],
+            'sales'                 => ['XLite\Core\EventListener\Sales'],
+        ];
     }
 }

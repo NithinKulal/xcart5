@@ -184,6 +184,7 @@ abstract class Countable extends \XLite\Core\EventListener\AEventListener
      */
     protected function finishStep()
     {
+        $this->compileTouchData();
         $this->record['state'] = $this->isStepSuccess() ? \XLite\Core\EventTask::STATE_STANDBY : \XLite\Core\EventTask::STATE_ABORTED;
         if (\XLite\Core\Database::getRepo('XLite\Model\TmpVar')->getEventState($this->getEventName())) {
             \XLite\Core\Database::getRepo('XLite\Model\TmpVar')->setEventState($this->getEventName(), $this->record);
@@ -201,10 +202,18 @@ abstract class Countable extends \XLite\Core\EventListener\AEventListener
      */
     protected function finishTask()
     {
+        $this->compileTouchData();
         $this->record['state'] = $this->isStepSuccess() ? \XLite\Core\EventTask::STATE_FINISHED : \XLite\Core\EventTask::STATE_ABORTED;
         if (\XLite\Core\Database::getRepo('XLite\Model\TmpVar')->getEventState($this->getEventName())) {
             \XLite\Core\Database::getRepo('XLite\Model\TmpVar')->setEventState($this->getEventName(), $this->record);
         }
+    }
+
+    /**
+     * Writes some data into $this->record['touchData'] after step/task finish.
+     */
+    protected function compileTouchData()
+    {
     }
 
     /**

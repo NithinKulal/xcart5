@@ -1,0 +1,62 @@
+
+
+.attribute-options {
+  width: 100%;
+  position: relative;
+}
+
+.attribute-options div.table-value select {
+  display: none;
+}
+
+.items-list-table table.list .attribute-options.inline-field select {
+  width: 100%;
+}
+
+td .attribute-options div.table-value {
+  width: 100%;
+}
+
+.items-list-table table.list .attribute-options .field .subfield,
+.items-list-table table.list .attribute-options .field .subfield .table-value {
+  width: 100%;
+}
+
+.select2-container--default .select2-selection--multiple {
+  cursor: default;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+  cursor: move;
+  color: #3a618d;
+  background: #e2f1f7;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  border: none;
+  font-size: 14px;
+  padding: 9px 13px;
+  margin: 4px 2px;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+  display: none;
+}
+
+.select2-container .select2-search--inline {
+  display: none;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__rendered {
+  padding: 0;
+  margin-top: -4px;
+  margin-bottom: -9px;
+}
+
+.select2-container--default .select2-selection--multiple {
+  border: none;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+  border: none;
+}

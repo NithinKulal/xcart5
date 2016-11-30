@@ -1,0 +1,4 @@
+Version 5.3.1.1
+
+Fixes
+2016-11-08 - [Bug] Fatal error in logs when clicking "Reset filter" on a category page if the filter did not contain attributes of the checkbox type (Yes/No attributes). #BUG-4082 (Sergey Elmanov) #ProductFilter

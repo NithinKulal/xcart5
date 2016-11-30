@@ -1,0 +1,13 @@
+{##
+ # Fastlane checkout address section
+ #
+ # @ListChild (list="checkout_fastlane.sections.shipping.left", weight="20")
+ #}
+
+{{ widget('XLite\\Module\\XC\\FastLaneCheckout\\View\\Blocks\\Address\\Shipping') }}
+
+{% if this.isAddressBookVisible() %}
+<div class="checkout_fastlane_change_address">
+    {{ widget('XLite\\View\\Button\\AddressBook', addressType='s', label=t('Choose another address')) }}
+</div>
+{% endif %}

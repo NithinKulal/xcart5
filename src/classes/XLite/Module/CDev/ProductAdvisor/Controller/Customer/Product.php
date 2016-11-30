@@ -15,8 +15,6 @@ class Product extends \XLite\Controller\Customer\Product implements \XLite\Base\
 {
     /**
      * Save requested product ID in the recently viewed statistics
-     *
-     * @return void
      */
     public function handleRequest()
     {
@@ -24,6 +22,6 @@ class Product extends \XLite\Controller\Customer\Product implements \XLite\Base\
             \XLite\Module\CDev\ProductAdvisor\Main::saveProductIds($this->getProductId());
         }
 
-        return parent::handleRequest();
+        parent::handleRequest();
     }
 }

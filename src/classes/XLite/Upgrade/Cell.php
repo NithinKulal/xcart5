@@ -7,12 +7,14 @@
  */
 
 namespace XLite\Upgrade;
+use XLite\Core\Cache\ExecuteCachedTrait;
 
 /**
  * Cell
  */
 class Cell extends \XLite\Base\Singleton
 {
+    use ExecuteCachedTrait;
     /**
      * Name of TmpVar
      */
@@ -147,8 +149,6 @@ class Cell extends \XLite\Base\Singleton
     public function isUpgradeHotfixModeSelectorAvailable()
     {
         if (!isset($this->isUpgradeHotfixModeSelectorAvailable)) {
-            $result = false;
-
             $modulesInfo = \XLite\Core\Database::getRepo('XLite\Model\Module')->getUpgradeModulesInfoHash();
 
             $result = $modulesInfo['hotfix'] && $modulesInfo['update'];
@@ -173,6 +173,66 @@ class Cell extends \XLite\Base\Singleton
     public function getEntries()
     {
         return $this->entries;
+    }
+
+    /**
+     * Return list of modules and/or core to upgrade that hotfix only updates
+     *
+     * @return array
+     */
+    public function getHotfixEntries()
+    {
+        return $this->executeCachedRuntime(function () {
+            $result = [];
+
+            foreach ($this->getEntries() as $entry) {
+                if ($entry->isHotfixUpdate()) {
+                    $result[] = $entry;
+                }
+            }
+
+            return $result;
+        });
+    }
+
+    /**
+     * Check if there any modules and/or core to upgrade that hotfix only updates
+     *
+     * @return boolean
+     */
+    public function hasHotfixEntries()
+    {
+        return (boolean)count($this->getHotfixEntries());
+    }
+
+    /**
+     * Return list of modules and/or core to upgrade that not hotfix only updates
+     *
+     * @return array
+     */
+    public function getNewFeaturesEntries()
+    {
+        return $this->executeCachedRuntime(function () {
+            $result = [];
+
+            foreach ($this->getEntries() as $entry) {
+                if (!$entry->isHotfixUpdate()) {
+                    $result[] = $entry;
+                }
+            }
+
+            return $result;
+        });
+    }
+
+    /**
+     * Check if there any modules and/or core to upgrade that not hotfix only updates
+     *
+     * @return boolean
+     */
+    public function hasNewFeaturesEntries()
+    {
+        return (boolean)count($this->getNewFeaturesEntries());
     }
 
     /**
@@ -1209,7 +1269,14 @@ class Cell extends \XLite\Base\Singleton
                 $this->preloadHelpers();
             }
 
-            foreach ($this->getEntries() as $entry) {
+            $entries = $this->getEntries();
+            uasort($entries, function($a, $b) {
+                return get_class($a) === 'XLite\Upgrade\Entry\Core'
+                    ? 1
+                    : 0;
+            });
+
+            foreach ($entries as $entry) {
                 $entry->upgrade($isTestMode, $filesToOverwrite);
             }
 

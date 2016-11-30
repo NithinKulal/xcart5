@@ -40,6 +40,8 @@ XLite\Model\LanguageLabel:
 
   - { name: 'Click the link to increase variant amount', translations: [{ code: en, label: 'Click the link to increase variant amount' }] }
   - { name: 'Variants list', translations: [{ code: en, label: 'Variants list' }]}
+  - { name: 'Default variant price', translations: [{ code: en, label: 'Default variant price' },{ code: ru, label: 'Цена варианта по умолчанию' }]}
+  - { name: 'Price range (min - max)', translations: [{ code: en, label: 'Price range ($5 - $64)' },{ code: ru, label: 'Диапазон (5 руб. - 64 руб.)' }]}
 
 XLite\Model\Notification:
   - templatesDirectory: modules/XC/ProductVariants/low_variant_limit_warning
@@ -64,3 +66,17 @@ XLite\Model\Notification:
         description: "Данное уведомление используется для оповещения администратора об уменьшении количества какого-либо варианта товара до минимального уровня (в соответствии со значением, установленным на странице соответствующего товара)"
         adminSubject: 'Предупреждение об уменьшении количества варианта товара на складе до минимального уровня'
         adminText: 'Количество варианта товара на складе достигло минимального уровня.'
+
+XLite\Model\Config:
+  - name: price_in_list
+    category: XC\ProductVariants
+    type: \XLite\Module\XC\ProductVariants\View\FormField\Select\PriceInList
+    orderby: 100
+    value: 'D'
+    translations:
+      - code: en
+        option_name: 'How to show variant prices in product lists'
+        option_comment: 'If you choose to switch to the "Price range" option, the first time you do so be sure to run a recalculation of <a href="admin.php?target=cache_management">quick data</a>. This has to be done either before or after the switch. Without the recalculation some features may not work correctly.'
+      - code: ru
+        option_name: 'Как отображать цены вариантов в списках продуктов'
+        option_comment: 'При первом переключении в режим диапазона необходимо запустить перестройку <a href="admin.php?target=cache_management">quick data</a>. Это нужно сделать либо до, либо после переключения. Без перестройки quick data некоторые функции могут работать некорректно.'

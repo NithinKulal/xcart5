@@ -1,0 +1,33 @@
+{##
+ # Modified files list body template 
+ #}
+
+<div class="integrity-wrapper">
+  {% for groupName, group in this.getFilesGroups() %}
+    {% if group %}
+      <div class="integrity-group integrity-group-{{ groupName|replace({'\\': ''}) }}">
+        <h2>{{ groupName }}</h2>
+        <div class="integrity-list">
+          {% for typeName, type in group %}
+            {% if type %}
+              <div class="integrity-list-type type-{{ typeName }}">
+                <div class="type-heading">
+                  <span>{{ t(typeName|capitalize ~ ' files') }}</span>
+                </div>
+                <ul class="files-list">
+                  {% for itemName, item in type %}
+                    <li class="files-list-item">{{ item }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  {% else %}
+    <p>{{ t('Integrity has not yet been checked. Initiate an integrity check by clicking the button "Refresh integrity status".') }}</p>
+  {% endfor %}
+</div>
+
+{{ widget('XLite\\View\\StickyPanel\\IntegrityCheck') }}

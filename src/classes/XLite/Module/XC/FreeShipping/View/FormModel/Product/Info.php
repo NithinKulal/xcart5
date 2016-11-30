@@ -8,6 +8,9 @@
 
 namespace XLite\Module\XC\FreeShipping\View\FormModel\Product;
 
+/**
+ * Class Info
+ */
 class Info extends \XLite\View\FormModel\Product\Info implements \XLite\Base\IDecorator
 {
     /**
@@ -31,7 +34,14 @@ class Info extends \XLite\View\FormModel\Product\Info implements \XLite\Base\IDe
     protected function defineFields()
     {
         $schema = parent::defineFields();
-
+        
+        $schema = $this->defineFieldsFreeShipping($schema);
+        
+        return $schema;
+    }
+    
+    protected function defineFieldsFreeShipping($schema)
+    {
         $currency = \XLite::getInstance()->getCurrency();
         $currencySymbol = $currency->getCurrencySymbol(false);
 
@@ -80,7 +90,7 @@ class Info extends \XLite\View\FormModel\Product\Info implements \XLite\Base\IDe
                 ],
             ]
         );
-
+        
         return $schema;
     }
 }

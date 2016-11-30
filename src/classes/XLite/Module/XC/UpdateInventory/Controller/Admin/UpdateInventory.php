@@ -46,7 +46,7 @@ class UpdateInventory extends \XLite\Controller\Admin\Import
 
         $options['target'] = \XLite\Module\XC\UpdateInventory\Main::TARGET_UPDATE_INVENTORY;
         $options['warningsAccepted'] = true;
-        $options['updateOnly'] = true;
+        $options['importMode'] = \XLite\View\Import\Begin::MODE_UPDATE_ONLY;
 
         if (!empty(\XLite\Core\Request::getInstance()->options['delimiter'])) {
             $options['delimiter'] = \XLite\Core\Request::getInstance()->options['delimiter'];

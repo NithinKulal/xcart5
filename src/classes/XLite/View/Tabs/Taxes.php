@@ -37,7 +37,7 @@ class Taxes extends \XLite\View\Tabs\ATabs
             'tax_classes' => [
                 'weight'   => 100,
                 'title'    => static::t('Tax classes'),
-                'widget'   => '\XLite\View\ItemsList\Model\TaxClass',
+                'template' => 'tax_classes/body.twig',
             ],
         ];
     }

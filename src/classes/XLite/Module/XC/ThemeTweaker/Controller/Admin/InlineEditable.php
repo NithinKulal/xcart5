@@ -52,7 +52,36 @@ class InlineEditable extends \XLite\Controller\Admin\ACL\Catalog
         $errors = array();
 
         $nonFiltered = \XLite\Core\Request::getInstance()->getNonFilteredData();
+
+        // update images
+        $images = isset($nonFiltered['images']) ? $nonFiltered['images'] : array();
         $updates = isset($nonFiltered['changeset']) ? $nonFiltered['changeset'] : array();
+        $processedImages = array();
+
+        foreach ($images as $imageId) {
+            $temporaryFile = $imageId
+                ? \XLite\Core\Database::getRepo('\XLite\Model\TemporaryFile')->find($imageId)
+                : null;
+
+            if ($temporaryFile) {
+                $tempUrl = $temporaryFile->getFrontURL();
+                $file = $this->createContentImageEntity($temporaryFile);
+
+                if ($file) {
+                    $newUrl = str_replace(\XLite\Core\URLManager::getShopURL(), '', $file->getFrontURL());
+                    $processedImages[$imageId] = $newUrl;
+
+                    $updates = array_map(function($record) use ($tempUrl, $newUrl) {
+                        $record['value'] = str_replace($tempUrl, $newUrl, $record['value']);
+                        return $record;
+                    }, $updates);
+                } else {
+                    $errors[] = static::t('Error on saving image');
+                }
+            } else {
+                $errors[] = static::t('Unknown temporary file');
+            }
+        }
 
         foreach ($updates as $data) {
             $result = $this->applyUpdate($data);
@@ -73,6 +102,7 @@ class InlineEditable extends \XLite\Controller\Admin\ACL\Catalog
         } else {
             $response = array(
                 'message' => static::t('Entity was successfully saved'),
+                'imageUrls' => $processedImages
             );
         }
 
@@ -151,7 +181,7 @@ class InlineEditable extends \XLite\Controller\Admin\ACL\Catalog
         return $data['model']
             && $data['identifier']
             && $data['property']
-            && $data['value'];
+            && isset($data['value']);
     }
 
     /**
@@ -181,7 +211,6 @@ class InlineEditable extends \XLite\Controller\Admin\ACL\Catalog
     /**
      * Accepts id of temporary image and moves it to Image\Content repository.
      * Returns HTTP 500 in case of error
-     * TODO: Apply crop region and rotation
      */
     protected function doActionSaveImage()
     {

@@ -207,6 +207,7 @@ class Category extends \XLite\View\ItemsList\Model\Table
                 static::COLUMN_NAME     => \XLite\Core\Translation::lbl('Products'),
                 static::COLUMN_TEMPLATE => false,
                 static::COLUMN_ORDERBY  => 400,
+                static::COLUMN_HEAD_HELP => 'If there are subcategories, the value in brackets stands for the sum of all products in this category and its subcategories.',
             ),
         );
     }
@@ -452,6 +453,20 @@ class Category extends \XLite\View\ItemsList\Model\Table
         }
 
         return $params;
+    }
+
+    /**
+     * Returns condition to use in products count table
+     * 
+     * @return \XLite\Core\CommonCell
+     */
+    protected function getProductsCountCondition()
+    {
+        $cnd = new \XLite\Core\CommonCell();
+
+        $cnd->{\XLite\Model\Repo\Product::P_SEARCH_IN_SUBCATS} = true;
+
+        return $cnd;
     }
 
     // }}}

@@ -144,6 +144,7 @@ abstract class Storage extends \XLite\Model\Repo\ARepo
         return array(
             'XLite\Model\Image\Product\Image',
             'XLite\Model\Image\Category\Image',
+            'XLite\Model\Image\Category\Banner',
         );
     }
 

@@ -256,7 +256,12 @@ div.model-form-buttons {
 
 ul.default-table {
   list-style: none;
-  min-width: 366px;
+}
+
+@media(min-width: 768px) {
+  ul.default-table {
+    min-width: 366px;
+  }
 }
 
 ul.default-table li {
@@ -498,6 +503,7 @@ ul.product-options li.product-option
 .ui-dialog .product-quicklook .product-details-info
 {
   position: relative;
+  min-width: 350px;
 }
 
 body.store-product h1#page-title,

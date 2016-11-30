@@ -20,6 +20,27 @@ class Labels extends \XLite\View\ItemsList\Model\Table
     const PARAM_CODE       = 'code';
 
     /**
+     * Return URL to search label
+     *
+     * @param string $substring Substring to search
+     * @param string $code      Language code
+     *
+     * @return string
+     */
+    public static function getSearchLabelURL($substring, $code = null)
+    {
+        return \XLite\Core\Converter::buildURL(
+            'labels',
+            'searchItemsList',
+            array(
+                'itemsList' => 'XLite\View\ItemsList\Model\Translation\Labels',
+                static::PARAM_SUBSTRING => $substring,
+                static::PARAM_CODE => $code,
+            )
+        );
+    }
+
+    /**
      * Register JS files
      *
      * @return array

@@ -1,42 +1,75 @@
 /* vim: set ts=2 sw=2 sts=2 et: */
 
 /**
- * Style
+ * style.less
  *
- * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * Copyright (c) 2001-present Qualiteam software Ltd. All rights reserved.
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
-
 .checkout_fastlane_address_wrapper {
-	address {
-	    margin: 0;
+    position: relative;
 
-	   	.address-box {
-	   		padding: 0;
-			.address-header {
-				font-weight: 600;
-				color: @color-text-dark;
-				margin-bottom: (@rhythmic-unit / 2);
-			}
-			.address-field {
-				display: block;
-			}
+    &.full {
+        border: @border-base solid @color-border;
+        border-radius: @border-radius-base;
+        padding: (@rhythmic-unit - 2);
+        padding-right: (@rhythmic-unit * 2 - 2);
 
-			.address-field_firstname, .address-field_lastname {
-				font-weight: 600;
-				display: inline-block;
-			}
+        .is-same-address-text {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 9px;
+            padding: (@rhythmic-unit / 2);
+            background: @body-bg;
+            font-size: 12px;
+            transform: translateY(-50%);
+            color: #ababab;
+        }
 
-			.address-field_city, .address-field_country_code, .address-field_state_id, .address-field_zipcode {
-				display: inline-block;
-				&:not(.address-field_zipcode):after {
-					content: ',';
-				}
-			}
+        .checkout_fastlane_address_edit_link {
+            display: none;
+            cursor: pointer;
+            bottom: @rhythmic-unit;
+            right: @rhythmic-unit;
+            height: @rhythmic-unit;
+            
+            @media(max-width: @screen-sm-max) {
+                display: block;
+            }
+        }
+
+        &:hover .checkout_fastlane_address_edit_link {
+            display: block;
+        }
+    }
+
+    &.simple {
+        .checkout_fastlane_address_edit_link {
+            display: none;
+        }
+    }
+	
+   	.address-box {
+   		padding: 0;
+
+		.address-field {
+			display: block;
 		}
 
-		&:not(:last-of-type) {
-			margin-bottom: @rhythmic-unit;
+		.address-field_firstname, .address-field_lastname {
+			font-weight: 600;
+			display: inline-block;
+		}
+
+		.address-field_city, .address-field_country_code, .address-field_state_id, .address-field_custom_state, .address-field_zipcode {            
+			&:not(.address-field_zipcode):after {
+				content: ',';
+			}
+
+            &:empty {
+                display: none;
+            }
 		}
 	}
 }

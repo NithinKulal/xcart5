@@ -6,13 +6,15 @@
  * Copyright (c) 2001-present Qualiteam software Ltd. All rights reserved.
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
-Checkout.define(
-  'Checkout.AddressSection',
-  ['Checkout.SectionMixin', 'Checkout.BillingAddressForm', 'Checkout.CartItems', 'Checkout.NextButton'],
-  function(){
+define(
+  'checkout_fastlane/sections/address',
+  ['vue/vue',
+   'checkout_fastlane/sections',
+   'checkout_fastlane/sections/section_mixin'],
+  function(Vue, Sections, SectionMixin){
 
-  Checkout.AddressSection = Vue.extend({
-    mixins: [Checkout.SectionMixin],
+  var AddressSection = Vue.extend({
+    mixins: [SectionMixin],
     name: 'address-section',
     replace: false,
 
@@ -56,23 +58,22 @@ Checkout.define(
 
         data[xliteConfig.form_id_name] = xliteConfig.form_id;
 
-        core.post(
-          this.endpoint,
-          null,
-          data,
-          this.request_options
-        )
-        .fail(function(){
-          core.showError('Server connection error. Please check your Internet connection.');
-        });
-      },
+        $.when(this.xhr).then(_.bind(function() {
+          this.xhr = core.post(
+            this.endpoint,
+            null,
+            data,
+            this.request_options
+          )
+          .fail(function(){
+            core.showError('Server connection error. Please check your Internet connection.');
+          });
+        }, this));
+      }
     },
-
-    components: {
-      BillingAddressForm: Checkout.BillingAddressForm,
-      CartItems: Checkout.CartItems,
-      NextButton: Checkout.NextButton,
-    }
   });
 
+  Vue.registerComponent(Sections, AddressSection);
+
+  return AddressSection;
 });

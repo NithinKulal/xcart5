@@ -38,7 +38,9 @@
     var indicator = $('.compare-indicator');
     var link = $('.compare-indicator > a');
     var span = link.find('.counter');
-    span.text(data.count);
+    var old_count = parseInt(span.first().text());
+
+    span.text(data.count > 0 ? data.count : '');
 
     if (data.count > 1) {
       indicator.removeClass('disabled');
@@ -46,11 +48,30 @@
       link.attr('title', core.t('Go to comparison table'));
     } else {
       indicator.addClass('disabled');
-      link.attr('href', '');
+      link.removeAttr('href');
       link.attr('title', core.t('Please add another product to comparison'));
     }
+
+    if (data.count > 0 && (data.count > old_count || isNaN(old_count) || indicator.hasClass('recently-updated'))) {
+      indicator.addClass('recently-updated');
+    } else {
+      indicator.removeClass('recently-updated');
+    }
+
+    core.trigger('checkHeaderSettingsRecentlyUpdated');
   });
 
   core.bind('afterPopupPlace', product_comparison);
 
 })();
+
+jQuery(function () {
+  if ('undefined' !== typeof HeaderSettingsController) {
+    var save = HeaderSettingsController.prototype.isRecentlyUpdated;
+
+    HeaderSettingsController.prototype.isRecentlyUpdated = function()
+    {
+      return save() || $('.compare-indicator').hasClass('recently-updated');
+    };
+  }
+});

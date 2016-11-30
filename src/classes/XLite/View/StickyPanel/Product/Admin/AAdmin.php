@@ -20,56 +20,42 @@ abstract class AAdmin extends \XLite\View\StickyPanel\Product\AProduct
      */
     protected function defineAdditionalButtons()
     {
-        $list = parent::defineAdditionalButtons();
-
-        $list[] = $this->getWidget(
-            array(
-                'disabled'   => true,
-                'label'      => 'Delete',
-                'style'      => 'more-action',
-                'icon-style' => 'fa fa-trash-o',
-            ),
-            'XLite\View\Button\DeleteSelectedProducts'
-        );
-
-        $list[] = $this->getWidget(
-            array(),
-            'XLite\View\Button\Divider'
-        );
-
-        $list[] = $this->getWidget(
-            array(
-                'disabled'   => true,
-                'label'      => 'Clone',
-                'style'      => 'more-action',
-                'icon-style' => 'fa fa-copy',
-            ),
-            'XLite\View\Button\CloneSelected'
-        );
-
-        $list[] = $this->getWidget(
-            array(
-                'disabled'   => true,
-                'label'      => 'Enable',
-                'style'      => 'more-action',
-                'icon-style' => 'fa fa-power-off state-on',
-            ),
-            'XLite\View\Button\EnableSelected'
-        );
-
-        $list[] = $this->getWidget(
-            array(
-                'disabled'   => true,
-                'label'      => 'Disable',
-                'style'      => 'more-action',
-                'icon-style' => 'fa fa-power-off state-off',
-            ),
-            'XLite\View\Button\DisableSelected'
-        );
-
-        return $list;
+        return [
+            'delete' => [
+                'class'    => 'XLite\View\Button\DeleteSelected',
+                'params'   => [
+                    'label'      => '',
+                    'style'      => 'more-action icon-only hide-on-disable hidden',
+                    'icon-style' => 'fa fa-trash-o',
+                ],
+                'position' => 100,
+            ],
+            'status' => [
+                'class'    => 'XLite\View\Button\Dropdown\Status',
+                'params'   => [
+                    'label'         => '',
+                    'style'         => 'more-action icon-only hide-on-disable hidden',
+                    'icon-style'    => 'fa fa-power-off',
+                    'showCaret'     => false,
+                    'dropDirection' => 'dropup',
+                ],
+                'position' => 200,
+            ],
+            'clone' => [
+                'class'    => 'XLite\View\Button\Regular',
+                'params'   => [
+                    'action'     => 'clone',
+                    'label'      => '',
+                    'style'      => 'more-action icon-only hide-on-disable hidden',
+                    'icon-style' => 'fa fa-copy',
+                    'attributes'    => [
+                        'title' => static::t('Clone')
+                    ]
+                ],
+                'position' => 300,
+            ],
+        ];
     }
-
 
     /**
      * Define buttons widgets
@@ -80,9 +66,10 @@ abstract class AAdmin extends \XLite\View\StickyPanel\Product\AProduct
     {
         $list = parent::defineButtons();
         $list['export'] = $this->getWidget(
-            array(),
+            [],
             'XLite\View\Button\ItemsExport\Product'
         );
+
         return $list;
     }
 }

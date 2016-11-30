@@ -22,6 +22,8 @@ function LayoutEditorPanel()
 
     this.state = localStorage.getItem('layout-editor-mode');
 
+    $('#layout-editor-panel').removeClass('layout-editor--initial');
+
     if (this.state === null) {
         this.state = true;
     } else {

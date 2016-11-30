@@ -131,6 +131,17 @@ abstract class AModifier extends \XLite\Logic\ALogic
     }
 
     /**
+     * Return true if surcharges created after calculate() should be processed to remove duplicates
+     * See XLite\View\FormField\Inline\Input\Text\Price\OrderModifierTotal::saveFieldEntityValue()
+     *
+     * @return boolean
+     */
+    public function isIgnoreDuplicates()
+    {
+        return false;
+    }
+
+    /**
      * Preprocess internal state
      *
      * @return void
@@ -232,8 +243,20 @@ abstract class AModifier extends \XLite\Logic\ALogic
      */
     public function isSurchargeOwner(\XLite\Model\Base\Surcharge $surcharge)
     {
-        return ($this->identificationPattern && preg_match($this->identificationPattern, $surcharge->getCode()))
-            || $surcharge->getCode() === $this->getCode();
+        return $this->isCodeApplicable($surcharge->getCode());
+    }
+
+    /**
+     * Check - is code applicable to this modifier or not
+     * 
+     * @param $code
+     *
+     * @return bool
+     */
+    public function isCodeApplicable($code)
+    {
+        return ($this->identificationPattern && preg_match($this->identificationPattern, $code))
+        || $code === $this->getCode();
     }
 
     /**

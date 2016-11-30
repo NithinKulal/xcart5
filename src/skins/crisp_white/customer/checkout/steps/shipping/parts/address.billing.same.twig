@@ -1,0 +1,16 @@
+{##
+ # Billing address : save new checkbox
+ #}
+
+{% if this.isSameAddressVisible() %}
+  <li class="same-address">
+    <input type="hidden" name="same_address" value="0" />
+    <div class="checkbox">
+    <label>
+    	<input id="same_address" type="checkbox" name="same_address" value="1" {% if this.isSameAddress() %} checked="checked" {% endif %} />
+    	{{ t('The same as shipping') }}
+    </label>
+    </div>
+    <p class="same-address-help">{{ t('Enable this if you would like us to use your shipping address as your billing address') }}</p>
+  </li>
+{% endif %}

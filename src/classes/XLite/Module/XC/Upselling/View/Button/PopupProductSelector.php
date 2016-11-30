@@ -65,4 +65,18 @@ class PopupProductSelector extends \XLite\View\Button\PopupProductSelector
             static::PARAM_PARENT_PRODUCT_ID  => new \XLite\Model\WidgetParam\TypeString('Parent product id, if it is provided', ''),
         );
     }
+
+    /**
+     * Register files from common repository
+     *
+     * @return array
+     */
+    public function getCommonFiles()
+    {
+        $list = parent::getCommonFiles();
+        $list[static::RESOURCE_JS][] = 'select2/dist/js/select2.js';
+        $list[static::RESOURCE_CSS][] = 'select2/dist/css/select2.min.css';
+
+        return $list;
+    }
 }

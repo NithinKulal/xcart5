@@ -79,6 +79,28 @@ class EditableAttributes extends \XLite\View\Product\Details\Customer\Widget
         $list[] = $productId;
         $list[] = $cart->getItemsFingerprintByProductId($productId);
 
+        $attrs_values = [];
+        foreach ($this->getAttributeValues() as $attribute) {
+            $attrs_values[] = $this->getCacheParamByAttribute($attribute);
+        }
+        $list[] = implode(';',  $attrs_values);
+
         return $list;
+    }
+
+    /**
+     * @param $attribute
+     *
+     * @return string
+     */
+    protected function getCacheParamByAttribute($attribute)
+    {
+        $attributeObj = is_array($attribute) && isset($attribute['attributeValue'])
+            ? $attribute['attributeValue']
+            : $attribute;
+
+        return $attributeObj instanceof \XLite\Model\AttributeValue\AAttributeValue
+            ? $attributeObj->asString()
+            : md5(serialize($attributeObj));
     }
 }

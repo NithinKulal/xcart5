@@ -10,7 +10,6 @@ namespace XLite\View\ItemsList\Product\Customer\Category;
 
 /**
  * Category products list widget (abstract)
- *
  */
 abstract class ACategory extends \XLite\View\ItemsList\Product\Customer\ACustomer
 {
@@ -19,7 +18,7 @@ abstract class ACategory extends \XLite\View\ItemsList\Product\Customer\ACustome
     /**
      * Widget parameter names
      */
-    const PARAM_CATEGORY_ID = 'category_id';
+    const PARAM_CATEGORY_ID  = 'category_id';
 
     /**
      * Allowed sort criterions
@@ -32,13 +31,23 @@ abstract class ACategory extends \XLite\View\ItemsList\Product\Customer\ACustome
     const WIDGET_TARGET = 'category';
 
     /**
+     * Return search parameters.
+     *
+     * @return array
+     */
+    public static function getSearchParams()
+    {
+        return [
+            \XLite\Model\Repo\Product::P_CATEGORY_ID => static::PARAM_CATEGORY_ID,
+        ];
+    }
+
+    /**
      * Define and set widget attributes; initialize widget
      *
      * @param array $params Widget params OPTIONAL
-     *
-     * @return void
      */
-    public function __construct(array $params = array())
+    public function __construct(array $params = [])
     {
         parent::__construct($params);
 
@@ -57,13 +66,6 @@ abstract class ACategory extends \XLite\View\ItemsList\Product\Customer\ACustome
             static::SORT_BY_MODE_DEFAULT => static::SORT_ORDER_DESC
         ];
     }
-
-    /**
-     * Category
-     *
-     * @var \XLite\Model\Category
-     */
-    protected $category;
 
     /**
      * Return list of targets allowed for this widget
@@ -106,7 +108,7 @@ abstract class ACategory extends \XLite\View\ItemsList\Product\Customer\ACustome
      */
     protected function getPagerClass()
     {
-        return '\XLite\View\Pager\Customer\Product\Category';
+        return 'XLite\View\Pager\Customer\Product\Category';
     }
 
     /**
@@ -116,11 +118,9 @@ abstract class ACategory extends \XLite\View\ItemsList\Product\Customer\ACustome
      */
     protected function getCategory()
     {
-        if (!isset($this->category)) {
-            $this->category = \XLite\Core\Database::getRepo('XLite\Model\Category')->find($this->getCategoryId());
-        }
-
-        return $this->category;
+        return $this->executeCachedRuntime(function () {
+            return \XLite\Core\Database::getRepo('XLite\Model\Category')->find($this->getCategoryId());
+        });
     }
 
     /**
@@ -143,9 +143,9 @@ abstract class ACategory extends \XLite\View\ItemsList\Product\Customer\ACustome
     {
         parent::defineWidgetParams();
 
-        $this->widgetParams += array(
+        $this->widgetParams += [
             static::PARAM_CATEGORY_ID => new \XLite\Model\WidgetParam\ObjectId\Category('Category ID', $this->getRootCategoryId()),
-        );
+        ];
     }
 
     /**
@@ -161,18 +161,22 @@ abstract class ACategory extends \XLite\View\ItemsList\Product\Customer\ACustome
     }
 
     /**
-     * Return products list
+     * Default search conditions
      *
-     * @param \XLite\Core\CommonCell $cnd       Search condition
-     * @param boolean                $countOnly Return items list or only its size OPTIONAL
+     * @param  \XLite\Core\CommonCell $searchCase Search case
      *
-     * @return array|void
+     * @return \XLite\Core\CommonCell
      */
-    protected function getData(\XLite\Core\CommonCell $cnd, $countOnly = false)
+    protected function postprocessSearchCase(\XLite\Core\CommonCell $searchCase)
     {
-        $category = $this->getCategory();
+        $searchCase = parent::postprocessSearchCase($searchCase);
+        if ('directLink' !== \XLite\Core\Config::getInstance()->General->show_out_of_stock_products
+            && !\XLite::isAdminZone()
+        ) {
+            $searchCase->{\XLite\Model\Repo\Product::P_INVENTORY} = false;
+        }
 
-        return $category ? $category->getProducts($cnd, $countOnly) : null;
+        return $searchCase;
     }
 
     /**
@@ -207,7 +211,7 @@ abstract class ACategory extends \XLite\View\ItemsList\Product\Customer\ACustome
      */
     protected function getSavedRequestParam($param)
     {
-        return \XLite\View\Pager\APager::PARAM_PAGE_ID != $param ? parent::getSavedRequestParam($param) : null;
+        return \XLite\View\Pager\APager::PARAM_PAGE_ID !== $param ? parent::getSavedRequestParam($param) : null;
     }
 
     // {{{ Cache
@@ -220,7 +224,6 @@ abstract class ACategory extends \XLite\View\ItemsList\Product\Customer\ACustome
     protected function getCacheParameters()
     {
         $list = parent::getCacheParameters();
-
         $list[] = $this->getCategoryId();
 
         return $list;
@@ -230,18 +233,18 @@ abstract class ACategory extends \XLite\View\ItemsList\Product\Customer\ACustome
 
     /**
      * Defines if the widget is listening to #hash changes
-     * 
+     *
      * @return boolean
      */
     protected function getListenToHash()
     {
         return true;
     }
-    
+
     /**
      * Defines the #hash prefix of the data for the widget
      * @TODO implement!
-     * 
+     *
      * @return string
      */
     protected function getListenToHashPrefix()

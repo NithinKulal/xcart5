@@ -49,6 +49,35 @@ abstract class Widget extends \XLite\View\Product\Details\Customer\Widget implem
     {
         return $this->getProductVariant()
             ? $this->getProductVariant()->isOutOfStock()
-            : ($this->getProduct()->mustHaveVariants() ? true : parent::isOutOfStock());
+            : ($this->getProduct()->mustHaveVariants() ? !$this->showPlaceholderOption() : parent::isOutOfStock());
+    }
+
+    /**
+     * @return boolean
+     */
+    public function showPlaceholderOption()
+    {
+        if (\XLite\Core\Config::getInstance()->General->force_choose_product_options === 'quicklook') {
+
+            return \XLite::getController()->getTarget() !== 'product';
+
+        } elseif (\XLite\Core\Config::getInstance()->General->force_choose_product_options === 'product_page') {
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Check - 'out of stock' label is visible or not
+     *
+     * @return boolean
+     */
+    protected function isProductAvailableForSale()
+    {
+        return $this->getProductVariant()
+            ? !$this->getProductVariant()->isOutOfStock()
+            : ($this->getProduct()->mustHaveVariants() ? $this->showPlaceholderOption() : parent::isProductAvailableForSale());
     }
 }

@@ -115,28 +115,26 @@ class Product extends \XLite\Model\Product implements \XLite\Base\IDecorator
      */
     public function getRatings()
     {
-        $cnd = $this->getConditions();
-
         $maxRating = $this->getMaxRatingValue();
-        $countOnly = true;
 
-        $totalCount = $this->getVotesCount();
+        $status = \XLite\Core\Config::getInstance()->XC->Reviews->disablePendingReviews
+            ? \XLite\Module\XC\Reviews\Model\Review::STATUS_APPROVED
+            : null;
+        $votes = \XLite\Core\Database::getRepo('XLite\Module\XC\Reviews\Model\Review')->getVotesCount($this, $status);
 
-        $result = array();
+        $result = [];
 
-        if (0 < $totalCount) {
+        if ($votes) {
+            $totalCount = array_sum($votes);
             for ($rating = $maxRating; 0 < $rating; $rating--) {
-                $cnd->{\XLite\Module\XC\Reviews\Model\Repo\Review::SEARCH_RATING} = $rating;
-                $count
-                    = \XLite\Core\Database::getRepo('\XLite\Module\XC\Reviews\Model\Review')->search($cnd, $countOnly);
-
-                $percent = ceil(100 * $count / $totalCount);
-                $result[] = array(
+                $count    = isset($votes[$rating]) ? $votes[$rating] : 0;
+                $percent  = ceil(100 * $count / $totalCount);
+                $result[] = [
                     'count'                 => $count,
                     'percent'               => $percent,
                     'rating'                => $rating,
-                    'showPercentLastDiv'    => (98 > $percent),
-                );
+                    'showPercentLastDiv'    => 98 > $percent,
+                ];
             }
         }
 
@@ -302,6 +300,11 @@ class Product extends \XLite\Model\Product implements \XLite\Base\IDecorator
     public function addReviews(\XLite\Module\XC\Reviews\Model\Review $reviews)
     {
         $this->reviews[] = $reviews;
+        
+        if (!$reviews->isPersistent()) {
+            $reviews->sendNotificationToOwner();
+        }
+        
         return $this;
     }
 

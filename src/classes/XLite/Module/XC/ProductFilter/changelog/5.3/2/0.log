@@ -1,0 +1,4 @@
+Version 5.3.2.0
+
+Fixes
+2016-11-22 - [Bug] Every time a category page is opened, the filters selected when the page was opened the previous time must be reset. #BUG-4144 (Michael Lipinski) #ProductFilter

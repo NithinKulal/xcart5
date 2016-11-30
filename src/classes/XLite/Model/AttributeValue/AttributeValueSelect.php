@@ -33,22 +33,33 @@ class AttributeValueSelect extends \XLite\Model\AttributeValue\Multiple
     protected $attribute_option;
 
     /**
+     * Position
+     *
+     * @var integer
+     *
+     * @Column (type="integer")
+     */
+    protected $position = 0;
+
+    /**
      * Return attribute value as string
      *
      * @return string
      */
     public function asString()
     {
+        /** @see \XLite\Model\AttributeOptionTranslation */
         return $this->getAttributeOption()->getName();
     }
 
     /**
      * Clone
      *
-     * @return \XLite\Model\AEntity
+     * @return static
      */
     public function cloneEntity()
     {
+        /** @var static $newEntity */
         $newEntity = parent::cloneEntity();
 
         if ($this->getAttributeOption()) {
@@ -66,141 +77,19 @@ class AttributeValueSelect extends \XLite\Model\AttributeValue\Multiple
     }
 
     /**
-     * Set priceModifier
-     *
-     * @param decimal $priceModifier
-     * @return AttributeValueSelect
-     */
-    public function setPriceModifier($priceModifier)
-    {
-        $this->priceModifier = $priceModifier;
-        return $this;
-    }
-
-    /**
-     * Get priceModifier
-     *
-     * @return decimal 
-     */
-    public function getPriceModifier()
-    {
-        return $this->priceModifier;
-    }
-
-    /**
-     * Set priceModifierType
-     *
-     * @param string $priceModifierType
-     * @return AttributeValueSelect
-     */
-    public function setPriceModifierType($priceModifierType)
-    {
-        $this->priceModifierType = $priceModifierType;
-        return $this;
-    }
-
-    /**
-     * Get priceModifierType
-     *
-     * @return string 
-     */
-    public function getPriceModifierType()
-    {
-        return $this->priceModifierType;
-    }
-
-    /**
-     * Set weightModifier
-     *
-     * @param decimal $weightModifier
-     * @return AttributeValueSelect
-     */
-    public function setWeightModifier($weightModifier)
-    {
-        $this->weightModifier = $weightModifier;
-        return $this;
-    }
-
-    /**
-     * Get weightModifier
-     *
-     * @return decimal 
-     */
-    public function getWeightModifier()
-    {
-        return $this->weightModifier;
-    }
-
-    /**
-     * Set weightModifierType
-     *
-     * @param string $weightModifierType
-     * @return AttributeValueSelect
-     */
-    public function setWeightModifierType($weightModifierType)
-    {
-        $this->weightModifierType = $weightModifierType;
-        return $this;
-    }
-
-    /**
-     * Get weightModifierType
-     *
-     * @return string 
-     */
-    public function getWeightModifierType()
-    {
-        return $this->weightModifierType;
-    }
-
-    /**
-     * Set defaultValue
-     *
-     * @param boolean $defaultValue
-     * @return AttributeValueSelect
-     */
-    public function setDefaultValue($defaultValue)
-    {
-        $this->defaultValue = $defaultValue;
-        return $this;
-    }
-
-    /**
-     * Get defaultValue
-     *
-     * @return boolean 
-     */
-    public function getDefaultValue()
-    {
-        return $this->defaultValue;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
      * Set attribute_option
      *
      * @param \XLite\Model\AttributeOption $attributeOption
-     * @return AttributeValueSelect
      */
     public function setAttributeOption(\XLite\Model\AttributeOption $attributeOption = null)
     {
         $this->attribute_option = $attributeOption;
-        return $this;
     }
 
     /**
      * Get attribute_option
      *
-     * @return \XLite\Model\AttributeOption 
+     * @return \XLite\Model\AttributeOption
      */
     public function getAttributeOption()
     {
@@ -208,46 +97,18 @@ class AttributeValueSelect extends \XLite\Model\AttributeValue\Multiple
     }
 
     /**
-     * Set product
-     *
-     * @param \XLite\Model\Product $product
-     * @return AttributeValueSelect
+     * @return integer
      */
-    public function setProduct(\XLite\Model\Product $product = null)
+    public function getPosition()
     {
-        $this->product = $product;
-        return $this;
+        return $this->position;
     }
 
     /**
-     * Get product
-     *
-     * @return \XLite\Model\Product 
+     * @param integer $position
      */
-    public function getProduct()
+    public function setPosition($position)
     {
-        return $this->product;
-    }
-
-    /**
-     * Set attribute
-     *
-     * @param \XLite\Model\Attribute $attribute
-     * @return AttributeValueSelect
-     */
-    public function setAttribute(\XLite\Model\Attribute $attribute = null)
-    {
-        $this->attribute = $attribute;
-        return $this;
-    }
-
-    /**
-     * Get attribute
-     *
-     * @return \XLite\Model\Attribute 
-     */
-    public function getAttribute()
-    {
-        return $this->attribute;
+        $this->position = $position;
     }
 }

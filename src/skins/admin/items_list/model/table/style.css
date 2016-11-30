@@ -243,6 +243,11 @@
   line-height: 1;
 }
 
+.items-list-table table.list tbody.lines td.actions.left .action .inline-position{
+  margin-right: 7px;
+  margin-left:  3px;
+}
+
 .items-list-table table.list tbody.lines td.actions .action.next {
   background: transparent url(../../../images/actions_separator.png) no-repeat left center;
   line-height: 1;
@@ -475,6 +480,7 @@
 .items-list-table table.list tbody.lines td .plain-value {
   font-size: 14px;
   display: inline-block;
+  padding: 6px 10px 6px 9px;
 }
 
 .items-list-table table.list tbody.lines td .plain-value span {

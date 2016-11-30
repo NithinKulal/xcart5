@@ -21,8 +21,15 @@ class Main extends \XLite\View\StickyPanel\Country\Admin\Main
     protected function defineButtons()
     {
         $return = parent::defineButtons();
-
-        $return['backToList'] = $this->getBackToListButton();
+        $return['backToList'] = $this->getWidget(
+            [
+                'style'    => 'action link',
+                'label'    => static::t('Back to currencies list'),
+                'disabled' => false,
+                'location' => $this->buildURL('currencies'),
+            ],
+            'XLite\View\Button\SimpleLink'
+        );
 
         return $return;
     }
@@ -34,47 +41,16 @@ class Main extends \XLite\View\StickyPanel\Country\Admin\Main
      */
     protected function defineAdditionalButtons()
     {
-        $list = \XLite\View\StickyPanel\ItemsListForm::defineAdditionalButtons();
-
-        $list[] = $this->getWidget(
-            array(
-                'disabled'   => true,
-                'label'      => 'Delete',
-                'style'      => 'more-action link list-action',
-                'icon-style' => 'fa fa-trash-o',
-            ),
-            'XLite\View\Button\DeleteSelected'
-        );
-
-        return $list;
-    }
-
-    /**
-     * Get approve button
-     *
-     * @return \XLite\View\Button\Regular
-     */
-    protected function getBackToListButton()
-    {
-        return $this->getWidget(
-            array(
-                'style'                                 => 'action always-enabled',
-                'label'                                 => $this->getBackToListButtonLabel(),
-                'disabled'                              => false,
-                \XLite\View\Button\Link::PARAM_BTN_TYPE => 'regular-button',
-                \XLite\View\Button\Link::PARAM_LOCATION => $this->buildURL('currencies')
-            ),
-            'XLite\View\Button\Link'
-        );
-    }
-
-    /**
-     * Defines the label for the approve button
-     *
-     * @return string
-     */
-    protected function getBackToListButtonLabel()
-    {
-        return static::t('Back to currencies list');
+        return [
+            'delete' => [
+                'class'    => 'XLite\View\Button\DeleteSelected',
+                'params'   => [
+                    'label'      => static::t('Delete'),
+                    'style'      => 'more-action hide-on-disable hidden',
+                    'icon-style' => 'fa fa-trash-o',
+                ],
+                'position' => 100,
+            ],
+        ];
     }
 }

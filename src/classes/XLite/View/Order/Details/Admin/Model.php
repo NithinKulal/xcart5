@@ -398,6 +398,24 @@ class Model extends \XLite\View\Order\Details\Base\AModel
     }
 
     /**
+     * Define order staff note
+     *
+     * @return array
+     */
+    protected function defineLogin()
+    {
+        return $this->getWidget(
+            array(
+                \XLite\View\FormField\Inline\AInline::PARAM_ENTITY    => $this->getOrder()->getProfile(),
+                \XLite\View\FormField\Inline\AInline::PARAM_FIELD_NAME => 'login',
+                \XLite\View\FormField\Inline\AInline::FIELD_NAME     => 'login',
+                \XLite\View\FormField\Inline\AInline::PARAM_FIELD_NAMESPACE => 'login',
+            ),
+            'XLite\View\FormField\Inline\Input\Text\OrderEmail'
+        );
+    }
+
+    /**
      * Define order customer note
      *
      * @return array
@@ -772,6 +790,7 @@ class Model extends \XLite\View\Order\Details\Base\AModel
             'staffNote',
             'customerNote',
             'modifiersTotals',
+            'login',
         );
     }
 
@@ -789,6 +808,7 @@ class Model extends \XLite\View\Order\Details\Base\AModel
             'billingAddress',
             'shippingAddress',
             'modifiersTotals',
+            'login',
         );
     }
     // }}}

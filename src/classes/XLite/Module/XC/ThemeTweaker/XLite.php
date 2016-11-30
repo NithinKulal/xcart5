@@ -23,5 +23,9 @@ class XLite extends \XLite implements \XLite\Base\IDecorator
         parent::initModules();
 
         \XLite\Core\Layout::getInstance()->addSkin('theme_tweaker' . LC_DS . 'customer', \XLite::CUSTOMER_INTERFACE);
+        \XLite\Core\Layout::getInstance()->addSkin('theme_tweaker' . LC_DS . 'mail', \XLite::MAIL_INTERFACE);
+        \XLite\Core\Layout::getInstance()->addSkin('theme_tweaker' . LC_DS . 'admin', \XLite::ADMIN_INTERFACE);
+        \XLite\Core\Layout::getInstance()->addSkin('theme_tweaker' . LC_DS . 'common', \XLite::COMMON_INTERFACE);
+        \XLite\Core\Layout::getInstance()->addSkin('theme_tweaker' . LC_DS . 'pdf', \XLite::PDF_INTERFACE);
     }
 }

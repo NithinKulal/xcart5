@@ -54,7 +54,7 @@ class Header extends \XLite\View\AResourcesContainer
      */
     protected function getDefaultTitle()
     {
-        return 'X-Cart';
+        return static::t('default-site-title');
     }
 
     /**

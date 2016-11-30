@@ -29,7 +29,7 @@ class PaypalWPS extends \XLite\Model\Payment\Base\WebBased
      *
      * @var string
      */
-    protected $knowledgeBasePageURL = 'http://kb.x-cart.com/pages/viewpage.action?pageId=7505720';
+    protected $knowledgeBasePageURL = 'http://kb.x-cart.com/en/payments/paypal/setting_up_paypal_payments_standard.html';
 
     /**
      * Constructor
@@ -204,11 +204,13 @@ class PaypalWPS extends \XLite\Model\Payment\Base\WebBased
         }
 
         if (\XLite\Core\Request::getInstance()->cancel) {
-            $this->setDetail(
-                'cancel',
-                'Customer has canceled checkout before completing their payments'
-            );
-            $this->transaction->setStatus($transaction::STATUS_CANCELED);
+            if ($this->api->isTransactionCancellable($transaction)) {
+                $this->setDetail(
+                    'cancel',
+                    'Customer has canceled checkout before completing their payments'
+                );
+                $this->transaction->setStatus($transaction::STATUS_CANCELED);
+            }
 
         } elseif ($transaction::STATUS_INPROGRESS == $this->transaction->getStatus()) {
             $this->transaction->setStatus($transaction::STATUS_PENDING);

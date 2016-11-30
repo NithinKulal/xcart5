@@ -18,23 +18,23 @@ class Attribute extends \XLite\View\Model\AModel
      *
      * @var array
      */
-    protected $schemaDefault = array(
-        'name' => array(
+    protected $schemaDefault = [
+        'name'            => [
             self::SCHEMA_CLASS    => 'XLite\View\FormField\Input\Text',
             self::SCHEMA_LABEL    => 'Attribute',
             self::SCHEMA_REQUIRED => true,
-        ),
-        'attribute_group' => array(
+        ],
+        'attribute_group' => [
             self::SCHEMA_CLASS    => 'XLite\View\FormField\Select\AttributeGroups',
             self::SCHEMA_LABEL    => 'Attribute group',
             self::SCHEMA_REQUIRED => false,
-        ),
-        'type' => array(
+        ],
+        'type'            => [
             self::SCHEMA_CLASS    => 'XLite\View\FormField\Select\AttributeTypes',
             self::SCHEMA_LABEL    => 'Type',
             self::SCHEMA_REQUIRED => false,
-        ),
-    );
+        ],
+    ];
 
     /**
      * Return true if param value may contain anything
@@ -71,7 +71,7 @@ class Attribute extends \XLite\View\Model\AModel
      */
     public function getCSSFiles()
     {
-        $list = parent::getCSSFiles();
+        $list   = parent::getCSSFiles();
         $list[] = 'attribute/style.css';
 
         return $list;
@@ -111,26 +111,32 @@ class Attribute extends \XLite\View\Model\AModel
                 $this->schemaDefault['type'][self::SCHEMA_COMMENT] = 'Attribute data will be lost. warning text';
             }
 
-            if (
-                \XLite\Model\Attribute::TYPE_SELECT == $this->getModelObject()->getType()
-            ) {
-                $this->schemaDefault['values'] = array(
-                    self::SCHEMA_CLASS    => 'XLite\View\FormField\ItemsList',
-                    self::SCHEMA_LABEL    => 'Attribute values',
-                    \XLite\View\FormField\ItemsList::PARAM_LIST_CLASS => 'XLite\View\ItemsList\Model\AttributeOption',
+            if (\XLite\Model\Attribute::TYPE_SELECT == $this->getModelObject()->getType()) {
+                $this->schemaDefault['values'] = [
+                    self::SCHEMA_CLASS                                    => 'XLite\View\FormField\ItemsList',
+                    self::SCHEMA_LABEL                                    => 'Attribute values',
+                    \XLite\View\FormField\ItemsList::PARAM_LIST_CLASS     => 'XLite\View\ItemsList\Model\AttributeOption',
                     \XLite\View\FormField\AFormField::PARAM_WRAPPER_CLASS => 'custom-field type-' . $this->getModelObject()->getType(),
-                );
+                ];
+
+                if ($this->getModelObject()->getAttributeOptions()->count()) {
+                    $this->schemaDefault['applySortingGlobally'] = [
+                        self::SCHEMA_CLASS                                    => 'XLite\View\FormField\Input\Checkbox',
+                        self::SCHEMA_FIELD_ONLY => true,
+                        \XLite\View\FormField\Input\Checkbox::PARAM_CAPTION => static::t('Apply sorting globally'),
+                    ];
+                }
             }
 
             if (
                 \XLite\Model\Attribute::TYPE_CHECKBOX == $this->getModelObject()->getType()
             ) {
-                $this->schemaDefault['addToNew'] = array(
-                    self::SCHEMA_CLASS     => '\XLite\View\FormField\Select\CheckboxList\YesNo',
-                    self::SCHEMA_LABEL     => 'Default value',
+                $this->schemaDefault['addToNew'] = [
+                    self::SCHEMA_CLASS                                    => '\XLite\View\FormField\Select\CheckboxList\YesNo',
+                    self::SCHEMA_LABEL                                    => 'Default value',
                     \XLite\View\FormField\AFormField::PARAM_HELP          => 'This value will be added to new products or class’s assigns automatically',
                     \XLite\View\FormField\AFormField::PARAM_WRAPPER_CLASS => 'custom-field type-' . $this->getModelObject()->getType(),
-                );
+                ];
             }
         }
     }
@@ -148,7 +154,7 @@ class Attribute extends \XLite\View\Model\AModel
             ->find($data['attribute_group']);
 
         if (!isset($data['addToNew'])) {
-            $data['addToNew'] = array();
+            $data['addToNew'] = [];
         }
 
         parent::setModelProperties($data);
@@ -188,11 +194,11 @@ class Attribute extends \XLite\View\Model\AModel
     protected function getContainerClass()
     {
         return parent::getContainerClass()
-            . (
-                $this->getModelObject()->getId()
-                    ? ' attribute-type-' . $this->getModelObject()->getType()
-                    : ''
-            );
+        . (
+        $this->getModelObject()->getId()
+            ? ' attribute-type-' . $this->getModelObject()->getType()
+            : ''
+        );
     }
 
     /**
@@ -218,11 +224,11 @@ class Attribute extends \XLite\View\Model\AModel
         $style = 'action ' . ($this->getModelObject()->getId() ? 'save' : 'next');
 
         $result['submit'] = new \XLite\View\Button\Submit(
-            array(
+            [
                 \XLite\View\Button\AButton::PARAM_LABEL    => $label,
                 \XLite\View\Button\AButton::PARAM_BTN_TYPE => 'regular-main-button',
                 \XLite\View\Button\AButton::PARAM_STYLE    => $style,
-            )
+            ]
         );
 
         return $result;
@@ -240,6 +246,25 @@ class Attribute extends \XLite\View\Model\AModel
 
         } else {
             \XLite\Core\TopMessage::addInfo('The attribute has been added');
+        }
+    }
+
+    /**
+     * Perform some actions on success
+     *
+     * @return void
+     */
+    protected function postprocessSuccessActionUpdate()
+    {
+        parent::postprocessSuccessActionUpdate();
+
+        if (\XLite\Model\Attribute::TYPE_SELECT == $this->getModelObject()->getType()
+            && $this->getRequestData('applySortingGlobally')) {
+
+            foreach ($this->getModelObject()->getAttributeOptions() as $option) {
+                \XLite\Core\Database::getRepo('XLite\Model\AttributeValue\AttributeValueSelect')
+                    ->updatePositionByOption($option);
+            }
         }
     }
 }

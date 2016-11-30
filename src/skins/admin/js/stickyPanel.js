@@ -98,6 +98,8 @@ StickyPanel.prototype.process = function()
       _.bind(this.unmarkMoreActionAsEnabled, this)
     );
   }
+
+  this.fixMoreActionButtons();
 };
 
 // Check - sticky panel in dialog widget or not
@@ -264,6 +266,8 @@ StickyPanel.prototype.markMoreActionAsEnabled = function()
       )
     );
 
+    this.fixMoreActionButtons();
+
     this.moreActionAsEnabled = true;
   }
 };
@@ -275,11 +279,15 @@ StickyPanel.prototype.unmarkMoreActionAsEnabled = function()
     this.getMoreActionButtons().each(
       _.bind(
         function(index, button) {
-          this.disableButton(button);
+          if (!jQuery(button).hasClass('always-enabled')) {
+            this.disableButton(button);
+          }
         },
         this
       )
     );
+
+    this.fixMoreActionButtons();
 
     this.moreActionAsEnabled = false;
   }
@@ -298,10 +306,20 @@ StickyPanel.prototype.enableButton = function(button)
   this.triggerVent('check.button.enable', state);
 
   if (state.state) {
-    button.enable();
+    if (button.enable) {
+      button.enable();
+    }
+    if (jQuery(button).is('.hide-on-disable')) {
+      jQuery(button).removeClass('hidden');
+    }
 
   } else if (state.inverse) {
-    button.disable();
+    if (button.disable) {
+      button.disable();
+    }
+    if (jQuery(button).is('.hide-on-disable')) {
+      jQuery(button).addClass('hidden');
+    }
   }
 };
 
@@ -313,17 +331,27 @@ StickyPanel.prototype.disableButton = function(button)
   this.triggerVent('check.button.disable', state);
 
   if (state.state) {
-    button.disable();
+    if (button.disable) {
+      button.disable();
+    }
+    if (jQuery(button).is('.hide-on-disable')) {
+      jQuery(button).addClass('hidden');
+    }
 
   } else if (state.inverse) {
-    button.enable();
+    if (button.enable) {
+      button.enable();
+    }
+    if (jQuery(button).is('.hide-on-disable')) {
+      jQuery(button).removeClass('hidden');
+    }
   }
 };
 
 // Get a form button, which should change as the state of the form
 StickyPanel.prototype.getFormChangedButtons = function()
 {
-  var buttons = this.base.find('button');
+  var buttons = this.base.find('button, div.divider');
 
   // If there is any element inside the dropdown menu with the "always-enabled" state
   // then we do not disable the toggle list action button
@@ -335,6 +363,17 @@ StickyPanel.prototype.getFormChangedButtons = function()
 StickyPanel.prototype.getMoreActionButtons = function()
 {
   return this.base.find('.more-action, .more-actions');
+};
+
+StickyPanel.prototype.fixMoreActionButtons = function()
+{
+  this.getMoreActionButtons().removeClass('fist-visible').removeClass('last-visible')
+    .filter(':visible')
+    .first().addClass('first-visible')
+    .end()
+    .last().addClass('last-visible');
+
+  this.base.find('.additional-buttons .or').toggle(!!this.getMoreActionButtons().filter(':visible').length);
 };
 
 // Get a form links, which should change as the state of the form

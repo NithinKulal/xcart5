@@ -30,6 +30,14 @@
 
         & > * {
           display: none;
+          margin-left: 0;
+          text-align: center;
+          min-width: 48px;
+
+          & > a {
+            display: block;
+            width: 100%;
+          }
         }
 
         .header_search {
@@ -42,6 +50,19 @@
 
         .lc-minicart {
           display: inline-block;
+        }
+      }
+    }
+
+    .mobile_header-slidebar {
+      a {
+        padding: 20px 10px;
+        min-width: 48px;
+        text-align: center;
+        color: @color-contrast;
+
+        &:hover {
+          color: @color-hover;
         }
       }
     }

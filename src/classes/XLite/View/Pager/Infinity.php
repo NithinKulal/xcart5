@@ -85,5 +85,4 @@ class Infinity extends \XLite\View\Pager\APager
     {
         return 0;
     }
-
 }

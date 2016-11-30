@@ -1,0 +1,23 @@
+{##
+ # Cache management action body template
+ #}
+
+<table class="cache-management-actions">
+    <tbody>
+        {% for idx, line in this.getBodyLines() %}
+            <tr>
+                {% for idx, column in line.columns %}
+                    <td class="column column-{{ column.serviceName|lower }}">
+                        {% if column.view is not empty %}
+                            {{ widget(column.view, idx=idx, entity=line.entity, column=column) }}
+                        {% elseif column.template is not empty %}
+                            {{ widget(template=column.template, idx=idx, entity=line.entity, column=column) }}
+                        {% else %}
+                            {{ column.value }}
+                        {% endif %}
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

@@ -3,11 +3,11 @@
  #
  # @ListChild (list="invoice.base.totals.after", weight="20")
  #}
-{% if this.order.getItemsIncludeSurchargesTotals() %}
-    {% for row in this.order.getItemsIncludeSurchargesTotals() %}
-      <tr class='included-surcharge'>
-        <td class="name">{{ t('Including X', {'name': row.surcharge.getName()}) }}:</td>
-        <td class="value">{{ this.formatPrice(row.cost, this.order.getCurrency()) }}</td>
-      </tr>
+{% if this.getItemsIncludeSurchargesTotals() %}
+    {% for row in this.getItemsIncludeSurchargesTotals() %}
+      <div class="included-surcharge">
+        <span class="title">{{ t('Including X', {'name': row.surcharge.getName()}) }}:</span>
+        <span class="value">{{ this.formatPrice(row.cost, this.order.getCurrency()) }}</span>
+      </div>
     {% endfor %}
 {% endif %}

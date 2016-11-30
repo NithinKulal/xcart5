@@ -58,7 +58,10 @@
     {% endif %}
 
     {% if this.isEnabledHTTPS() %}
-      {{ widget('\\XLite\\View\\Button\\Regular', label='Disable HTTPS', jsCode='self.location=\'' ~ url('https_settings', 'disable_HTTPS') ~ '\'', style='regular-main-button action') }}
+      <div class="full-customer-security-wrapper">
+        {{ widget('\\XLite\\View\\FormField\\Input\\Checkbox\\FullCustomerSecurity', fieldName='force_customers_to_https') }}
+      </div>
+      {{ widget('\\XLite\\View\\Button\\Regular', label='Disable HTTPS', jsCode='self.location=\'' ~ url('https_settings', 'disable_HTTPS') ~ '\'', style='regular-main-button action disable-https') }}
     {% endif %}
 
   {% endif %}

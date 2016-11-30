@@ -50,7 +50,8 @@ class Selector extends \XLite\View\Checkout\PaymentMethodsList
     protected function defineWidgetData()
     {
         return array(
-            'required' => !$this->isPayedCart()
+            'required' => !$this->isPayedCart(),
+            'methodId' => $this->getCart()->getPaymentMethodId(),
         );
     }
 

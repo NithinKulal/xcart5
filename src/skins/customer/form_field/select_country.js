@@ -88,7 +88,7 @@ StateSelector.prototype.changeState = function(state)
 
 StateSelector.prototype.changeCountry = function(country)
 {
-  if (this.getParentBlock(this.countrySelectBox).filter(':visible').length) {
+  if (this.getParentBlock(this.countrySelectBox).length) {
     if (statesList[country]) {
 
       this.removeOptions();

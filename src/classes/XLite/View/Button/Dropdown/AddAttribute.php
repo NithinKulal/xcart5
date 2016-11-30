@@ -16,7 +16,7 @@ class AddAttribute extends \XLite\View\Button\Dropdown\ADropdown
     /**
      * Widget parameter names
      */
-    const PARAM_LIST_ID  = 'listId';
+    const PARAM_LIST_ID = 'listId';
 
     /**
      * Return button text
@@ -37,9 +37,9 @@ class AddAttribute extends \XLite\View\Button\Dropdown\ADropdown
     {
         parent::defineWidgetParams();
 
-        $this->widgetParams += array(
+        $this->widgetParams += [
             self::PARAM_LIST_ID => new \XLite\Model\WidgetParam\TypeInt('List ID', 0),
-        );
+        ];
     }
 
     /**
@@ -49,16 +49,30 @@ class AddAttribute extends \XLite\View\Button\Dropdown\ADropdown
      */
     protected function defineAdditionalButtons()
     {
+        $list = [];
+        $position = 0;
+
         foreach (\XLite\Model\Attribute::getTypes() as $type => $name) {
-            $list[] = $this->getWidget(
-                array(
+            $list[$type] = [
+                'params'   => [
                     'label'  => $name,
+                    'style'  => 'action link list-action',
                     'jsCode' => 'addAttribute(\'' . $type . '\',' . $this->getParam(static::PARAM_LIST_ID) . ')',
-                ),
-                'XLite\View\Button\Regular'
-            );
+                ],
+                'position' => $position += 100,
+            ];
         }
 
         return $list;
+    }
+
+    /**
+     * Get style
+     *
+     * @return string
+     */
+    protected function getStyle()
+    {
+        return parent::getStyle() . ' use-first-item';
     }
 }

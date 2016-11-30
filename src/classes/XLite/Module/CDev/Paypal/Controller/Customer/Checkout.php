@@ -85,6 +85,27 @@ class Checkout extends \XLite\Controller\Customer\Checkout implements \XLite\Bas
     }
 
     /**
+     * Prepare profile and address for quick checkout
+     */
+    protected function prepareProfile()
+    {
+        $profile = $this->getCartProfile();
+
+        if ($profile && !$profile->getFirstAddress()) {
+            $address = \XLite\Model\Address::createDefaultShippingAddress();
+            $address->setProfile($profile);
+            $address->setIsBilling(true);
+            $address->setIsShipping(true);
+            $address->setIsWork(true);
+            $profile->addAddresses($address);
+
+            \XLite\Core\Database::getEM()->persist($address);
+        }
+
+        \XLite\Core\Database::getEM()->flush($profile);
+    }
+
+    /**
      * doActionStartExpressCheckout
      *
      * @return void
@@ -96,6 +117,7 @@ class Checkout extends \XLite\Controller\Customer\Checkout implements \XLite\Bas
 
             $this->getCart()->setPaymentMethod($paymentMethod);
 
+            $this->prepareProfile();
             $this->updateCart();
 
             \XLite\Core\Session::getInstance()->ec_type
@@ -230,11 +252,31 @@ class Checkout extends \XLite\Controller\Customer\Checkout implements \XLite\Bas
      */
     protected function doPayment()
     {
+        $isEC = (Paypal\Model\Payment\Processor\ExpressCheckout::EC_TYPE_SHORTCUT == \XLite\Core\Session::getInstance()->ec_type);
+
         $this->setHardRedirect(
             $this->isReturnedAfterExpressCheckout()
         );
 
         parent::doPayment();
+
+        $cart = $this->getCart();
+
+        if ($isEC && $cart->isExpressCheckout($cart->getPaymentMethod())) {
+            $url = $this->returnURL;
+            if (preg_match('/target=checkout(Success|Failed)/', $url, $m) && !preg_match('/order_number=|order_id=/', $url)) {
+                $cart = $this->getCart();
+                $this->setReturnURL(
+                    $this->buildURL(
+                        'checkout' . $m[1],
+                        '',
+                        $cart->getOrderNumber()
+                            ? array('order_number' => $cart->getOrderNumber())
+                            : array('order_id' => $cart->getOrderId())
+                    )
+                );
+            }
+        }
     }
 
     /**

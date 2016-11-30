@@ -1,0 +1,4 @@
+Version 5.3.1.4
+
+Fixes
+2016-08-25 - [Bug] Add2CartPopup was decorating Controller\Customer\Cart::addItem() in a wrong way. #BUG-3767 (Michael Lipinski) #Add2CartPopup

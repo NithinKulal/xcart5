@@ -65,6 +65,8 @@ abstract class Product extends \XLite\Model\Product implements \XLite\Base\IDeco
 
         if ($this->getImage()) {
             $list['og:image'] = $this->getOpenGraphImage();
+            $list['og:image:width'] = $this->getImage()->getWidth();
+            $list['og:image:height'] = $this->getImage()->getHeight();
         }
 
         $appId = $this->getOpenGraphAppId();

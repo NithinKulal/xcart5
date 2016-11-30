@@ -1,0 +1,19 @@
+{##
+ # Email body (to admin)
+ #}
+<p>{{ t('A new review has been submitted for the product "{{name}}".', {'name': this.review.getProduct().getName()}) }}</p>
+<br>
+<div>
+  <p>
+    {{ this.review.getReviewerName()|default(t('Customer')) }} [{{ this.review.getEmail()|default(t('No email')) }}]
+  </p>
+  {% if this.review.getRating() %}
+    <p>{{ t('Rating') }}: {{ this.review.getRating() }}</p>
+  {% endif %}
+  {% if this.review.getReview() %}
+    <p>{{ t('Review') }}: {{ this.review.getReview() }}</p>
+  {% endif %}
+</div>
+<br>
+<p>{{ t('Go to see the review [in the Admin area]', {'link': this.review.getURLForProductAdminPage()})|raw }}</p>
+<br>

@@ -11,14 +11,6 @@ jQuery().ready(
   function() {
     jQuery('.resize-progress .bar')
       .bind(
-        'changePercent',
-        function(event, data) {
-          if (data && 'undefined' != typeof(data.timeLabel)) {
-            jQuery('.resize-progress .time').html(data.timeLabel);
-          }
-        }
-      )
-      .bind(
         'error',
         function() {
           this.errorState = true;

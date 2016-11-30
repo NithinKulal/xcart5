@@ -1,0 +1,4 @@
+Version 5.3.1.2
+
+Fixes
+2016-11-10 - [Bug] Fatal error when removing a customer subscribed  to the store newsletter. #BUG-4093 (Michael Lipinski) #NewsletterSubscriptions

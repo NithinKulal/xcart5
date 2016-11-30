@@ -84,14 +84,24 @@ abstract class Catalog extends \XLite\Model\Base\I18n
      */
     public function setCleanURL($cleanURL, $force = false)
     {
+        if ($this->getCleanURL()) {
+            $cu = $this->getCleanUrls()->last();
+            if ($cu && !$cu->isPersistent()) {
+                $this->getCleanUrls()->removeElement($cu);
+                \XLite\Core\Database::getEM()->remove($cu);
+            }
+        }
+
         if ($cleanURL && $this->getCleanURL() !== $cleanURL) {
-            $cleanURLObject = new \XLite\Model\CleanURL();
+            /** @var \XLite\Model\Repo\CleanURL $repo */
+            $repo = \Xlite\Core\Database::getRepo('\XLite\Model\CleanURL');
+
+            /** @var \XLite\Model\CleanURL $cleanURLObject */
+            $cleanURLObject = $repo->insert(null, false);
 
             $cleanURLObject->setEntity($this);
             $cleanURLObject->setCleanURL($cleanURL);
 
-            /** @var \XLite\Model\Repo\CleanURL $repo */
-            $repo = \Xlite\Core\Database::getRepo('\XLite\Model\CleanURL');
 
             if ($force || $repo->isURLUnique($cleanURL, $this)) {
                 \XLite\Core\Database::getEM()->persist($cleanURLObject);
@@ -131,6 +141,7 @@ abstract class Catalog extends \XLite\Model\Base\I18n
      */
     public function prepareBeforeSave()
     {
+        //TODO PreUpdate doesn't help here http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/events.html#preupdate
         if (\XLite\Core\Converter::isEmptyString($this->getCleanURL())) {
             $this->setCleanURL($this->generateCleanURL());
         }

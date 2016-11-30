@@ -1,0 +1,12 @@
+{##
+ # Entries list
+ #
+ # @ListChild (list="upgrade.step.prepare.incompatible_entries_update.sections", weight="300")
+ #}
+
+{% if this.isShowCheckbox() %}
+  <div class="alert agree">
+    <input type="checkbox" id="agree" name="agree" />
+    <label for="agree">{{ t('I agree that these addons may require an adaptation.')|raw }}</label>
+  </div>
+{% endif %}

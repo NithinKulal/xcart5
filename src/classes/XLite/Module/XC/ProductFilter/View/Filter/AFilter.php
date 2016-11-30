@@ -32,14 +32,9 @@ abstract class AFilter extends \XLite\View\AView
     protected function getFilterValues()
     {
         $filterValues = array();
+
         if (in_array($this->getTarget(), array('category', 'category_filter'), true)) {
-            $cellName = \XLite\Module\XC\ProductFilter\View\ItemsList\Product\Customer\Category\CategoryFilter::getSessionCellName();
-            $filterValues = \XLite\Core\Session::getInstance()->$cellName;
-            $filterValues = (
-                is_array($filterValues)
-                && isset($filterValues['filter'])
-                && is_array($filterValues['filter'])
-            ) ? $filterValues['filter'] : array();
+            $filterValues = \XLite\Core\Request::getInstance()->filter ?: array();
         }
 
         return $filterValues;

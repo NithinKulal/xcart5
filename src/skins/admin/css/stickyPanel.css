@@ -15,15 +15,16 @@
 }
 
 .sticky-panel .box {
-  top: 0px;
+  top: 0;
   background-color: #fff;
   position: absolute;
-  margin: 0px;
-  padding-top: 6px;
-  padding-bottom: 14px;
   overflow: visible;
   border-top: 1px solid #d6d6d6;
   z-index: 100;
+  height: 60px;
+
+  display: flex;
+  align-items: center;
 }
 
 .sticky-panel .box.sticky {
@@ -33,4 +34,14 @@
 .sticky-panel .box .dropdown-menu button {
   font-size: 14px;
   text-align: left;
+}
+
+.btn-group > .more-action.first-visible {
+  border-top-left-radius: 3px !important;
+  border-bottom-left-radius: 3px !important;
+}
+
+.btn-group > .more-action.last-visible {
+  border-top-right-radius: 3px !important;
+  border-bottom-right-radius: 3px !important;
 }

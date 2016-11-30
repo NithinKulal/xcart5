@@ -6,8 +6,13 @@
  * Copyright (c) 2001-present Qualiteam software Ltd. All rights reserved.
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
-Checkout.define('Checkout.SectionChangeButton', ['Checkout.PlaceOrder', 'Checkout.NextButton'], function(){
-  Checkout.SectionChangeButton = Vue.extend({
+define(
+  'checkout_fastlane/sections/section_change_button',
+  ['vue/vue',
+   'checkout_fastlane/sections'], 
+  function(Vue, Sections){
+
+  var SectionChangeButton = Vue.extend({
     name: 'section-change-button',
     replace: false,
 
@@ -20,11 +25,6 @@ Checkout.define('Checkout.SectionChangeButton', ['Checkout.PlaceOrder', 'Checkou
           return state.order.total_text;
         },
       },
-    },
-
-    components: {
-      PlaceOrder: Checkout.PlaceOrder,
-      NextButton: Checkout.NextButton,
     },
 
     ready: function() {
@@ -62,4 +62,8 @@ Checkout.define('Checkout.SectionChangeButton', ['Checkout.PlaceOrder', 'Checkou
       }
     },
   });
+
+  Vue.registerComponent(Sections, SectionChangeButton);
+
+  return SectionChangeButton;
 });

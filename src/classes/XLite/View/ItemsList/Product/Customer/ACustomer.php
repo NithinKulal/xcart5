@@ -150,8 +150,6 @@ abstract class ACustomer extends \XLite\View\ItemsList\Product\AProduct
      * Define and set widget attributes; initialize widget
      *
      * @param array $params Widget params OPTIONAL
-     *
-     * @return void
      */
     public function __construct(array $params = array())
     {
@@ -194,7 +192,7 @@ abstract class ACustomer extends \XLite\View\ItemsList\Product\AProduct
      *
      * @param string $sortBy
      *
-     * @return array
+     * @return boolean
      */
     protected function isSingleOrderSortBy($sortBy)
     {
@@ -275,8 +273,7 @@ abstract class ACustomer extends \XLite\View\ItemsList\Product\AProduct
             );
         }
 
-        if (
-            !isset($params[static::PARAM_ICON_MAX_WIDTH])
+        if (!isset($params[static::PARAM_ICON_MAX_WIDTH])
             && !isset($params[static::PARAM_ICON_MAX_HEIGHT])
         ) {
             $sizes = static::getIconSizes();
@@ -374,6 +371,7 @@ abstract class ACustomer extends \XLite\View\ItemsList\Product\AProduct
             ),
         );
     }
+
     /**
      * Return default display mode from settings
      */
@@ -381,6 +379,7 @@ abstract class ACustomer extends \XLite\View\ItemsList\Product\AProduct
     {
         return \XLite\Core\Config::getInstance()->General->default_prod_display_mode;
     }
+
     /**
      * Get display modes
      *
@@ -454,7 +453,7 @@ abstract class ACustomer extends \XLite\View\ItemsList\Product\AProduct
      */
     protected function isSidebar()
     {
-        return static::WIDGET_TYPE_SIDEBAR == $this->getWidgetType();
+        return static::WIDGET_TYPE_SIDEBAR === $this->getWidgetType();
     }
 
     /**
@@ -518,7 +517,7 @@ abstract class ACustomer extends \XLite\View\ItemsList\Product\AProduct
      */
     protected function isDisplayModeSelected($displayMode)
     {
-        return $this->getParam(static::PARAM_DISPLAY_MODE) == $displayMode;
+        return $this->getParam(static::PARAM_DISPLAY_MODE) === $displayMode;
     }
 
     /**
@@ -535,11 +534,11 @@ abstract class ACustomer extends \XLite\View\ItemsList\Product\AProduct
             'list-type-' . $displayMode
         );
 
-        if ('grid' == $displayMode) {
+        if ('grid' === $displayMode) {
             $classes[] = 'first';
         }
 
-        if ('table' == $displayMode) {
+        if ('table' === $displayMode) {
             $classes[] = 'last';
         }
 
@@ -575,6 +574,10 @@ abstract class ACustomer extends \XLite\View\ItemsList\Product\AProduct
 
             case static::DISPLAY_MODE_TABLE:
                 $fa = 'fa-list-alt';
+                break;
+
+            default:
+                $fa = '';
                 break;
         }
 
@@ -624,7 +627,7 @@ abstract class ACustomer extends \XLite\View\ItemsList\Product\AProduct
      */
     protected function isCSSLayout()
     {
-        return ($this->getParam(static::PARAM_DISPLAY_MODE) == static::DISPLAY_MODE_GRID);
+        return $this->getParam(static::PARAM_DISPLAY_MODE) === static::DISPLAY_MODE_GRID;
     }
 
     /**
@@ -634,9 +637,8 @@ abstract class ACustomer extends \XLite\View\ItemsList\Product\AProduct
      */
     protected function getPageBodyFile()
     {
-        if (
-            $this->getWidgetType() == static::WIDGET_TYPE_CENTER
-            && $this->getParam(static::PARAM_DISPLAY_MODE) == static::DISPLAY_MODE_GRID
+        if ($this->getWidgetType() === static::WIDGET_TYPE_CENTER
+            && $this->getParam(static::PARAM_DISPLAY_MODE) === static::DISPLAY_MODE_GRID
         ) {
             return $this->isCSSLayout() ? 'body-css-layout.twig' : 'body-table-layout.twig';
         } else {
@@ -661,7 +663,9 @@ abstract class ACustomer extends \XLite\View\ItemsList\Product\AProduct
      */
     protected function getSideBarData()
     {
-        return $this->getData($this->getPager()->getLimitCondition(0, $this->getSidebarMaxItems()));
+        return $this->getData(
+            $this->getPager()->getLimitCondition(0, $this->getSidebarMaxItems(), $this->getSearchCondition())
+        );
     }
 
     /**
@@ -743,35 +747,35 @@ abstract class ACustomer extends \XLite\View\ItemsList\Product\AProduct
 
     /**
      * Prepare CSS files needed for popups
-     * TODO: check if there is a more convinient way to do that
+     * TODO: check if there is a more convenient way to do that
      *
      * @return array
      */
     protected function getPopupCSS()
     {
         return array_merge(
-            $this->getWidget(array(), '\XLite\View\Product\Details\Customer\Page\QuickLook')->getCSSFiles(),
-            $this->getWidget(array(), '\XLite\View\Product\Details\Customer\Image')->getCSSFiles(),
-            $this->getWidget(array(), '\XLite\View\Product\Details\Customer\Gallery')->getCSSFiles(),
-            $this->getWidget(array(), '\XLite\View\Product\QuantityBox')->getCSSFiles(),
-            $this->getWidget(array(), '\XLite\View\Product\Details\Customer\AttributesModify')->getCSSFiles()
+            $this->getWidget(array(), 'XLite\View\Product\Details\Customer\Page\QuickLook')->getCSSFiles(),
+            $this->getWidget(array(), 'XLite\View\Product\Details\Customer\Image')->getCSSFiles(),
+            $this->getWidget(array(), 'XLite\View\Product\Details\Customer\Gallery')->getCSSFiles(),
+            $this->getWidget(array(), 'XLite\View\Product\QuantityBox')->getCSSFiles(),
+            $this->getWidget(array(), 'XLite\View\Product\Details\Customer\AttributesModify')->getCSSFiles()
         );
     }
 
     /**
      * Prepare JS files needed for popups
-     * TODO: check if there is a more convinient way to do that
+     * TODO: check if there is a more convenient way to do that
      *
      * @return array
      */
     protected function getPopupJS()
     {
         return array_merge(
-            $this->getWidget(array(), '\XLite\View\Product\Details\Customer\Page\QuickLook')->getJSFiles(),
-            $this->getWidget(array(), '\XLite\View\Product\Details\Customer\Image')->getJSFiles(),
-            $this->getWidget(array(), '\XLite\View\Product\Details\Customer\Gallery')->getJSFiles(),
-            $this->getWidget(array(), '\XLite\View\Product\QuantityBox')->getJSFiles(),
-            $this->getWidget(array(), '\XLite\View\Product\Details\Customer\AttributesModify')->getJSFiles()
+            $this->getWidget(array(), 'XLite\View\Product\Details\Customer\Page\QuickLook')->getJSFiles(),
+            $this->getWidget(array(), 'XLite\View\Product\Details\Customer\Image')->getJSFiles(),
+            $this->getWidget(array(), 'XLite\View\Product\Details\Customer\Gallery')->getJSFiles(),
+            $this->getWidget(array(), 'XLite\View\Product\QuantityBox')->getJSFiles(),
+            $this->getWidget(array(), 'XLite\View\Product\Details\Customer\AttributesModify')->getJSFiles()
         );
     }
 
@@ -804,9 +808,12 @@ abstract class ACustomer extends \XLite\View\ItemsList\Product\AProduct
 
         // If some of the registered widget/request parameters are changed
         // the widget content must be recalculated
-        foreach($this->defineCachedParams() as $name) {
-            $params[] = $this->getRequestParamValue($name)
-                ?: (($widgetParam = $this->getWidgetParams($name)) ? $widgetParam->value : '');
+        foreach ($this->defineCachedParams() as $name) {
+            if ($this->getRequestParamValue($name)) {
+                $params[] = $this->getRequestParamValue($name);
+            } else {
+                $params[] = ($widgetParam = $this->getWidgetParams($name)) ? $widgetParam->value : '';
+            }
         }
 
         return $params;
@@ -844,10 +851,9 @@ abstract class ACustomer extends \XLite\View\ItemsList\Product\AProduct
      */
     public function buildURL($target = '', $action = '', array $params = array(), $forceCuFlag = null)
     {
-        if(
-            'product' == $target
+        if ('product' === $target
             && isset($params['category_id'])
-            && $this->getRootCategoryId() == $params['category_id']
+            && $this->getRootCategoryId() === (int) $params['category_id']
         ) {
             unset($params['category_id']);
         }

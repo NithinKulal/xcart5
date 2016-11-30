@@ -3,7 +3,7 @@
  #}
 
 {% if this.getAttributesList() %}
-<div class="filter {% if this.getTitle() %}group{% endif %}">
+<div class="filter attributes{% if this.getTitle() %} group{% endif %}">
   {% if this.getTitle() %}
     <div class="head-h4">{{ this.getTitle() }}</div>
   {% endif %}

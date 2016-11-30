@@ -6,8 +6,13 @@
  * Copyright (c) 2001-present Qualiteam software Ltd. All rights reserved.
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
-Checkout.define('Checkout.PlaceOrder', [], function(){
-  Checkout.PlaceOrder = Vue.extend({
+define(
+  'checkout_fastlane/sections/payment/place_order',
+ ['vue/vue',
+  'checkout_fastlane/sections/section_change_button'],
+  function(Vue, SectionChangeButton) {
+
+  var PlaceOrder = Vue.extend({
     name: 'place-order',
 
     vuex: {
@@ -201,7 +206,7 @@ Checkout.define('Checkout.PlaceOrder', [], function(){
         }
       },
       label: function() {
-        return core.t('Place order') + ' ' + this.total_text;
+        return core.t('Place order');
       },
       classes: function() {
         return {
@@ -217,4 +222,8 @@ Checkout.define('Checkout.PlaceOrder', [], function(){
       }
     },
   });
+
+  Vue.registerComponent(SectionChangeButton, PlaceOrder);
+
+  return PlaceOrder;
 });

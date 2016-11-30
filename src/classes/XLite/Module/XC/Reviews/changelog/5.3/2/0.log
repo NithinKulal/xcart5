@@ -1,0 +1,7 @@
+Version 5.3.2.0
+
+Improvements
+2016-11-10 - [Change] Added a new email notification message - "A new review has been submitted" - which is sent to admin/vendor when someone adds a new product review. #XCN-7315 (Michael Lipinski) #ProductReviews
+
+Fixes
+2016-11-15 - [Bug] Fatal error "PHP Fatal error:  Call to a member function select() on a non-object in classes/XLite/Module/XC/Reviews/Model/Repo/Review.php on line 68". Fixed. #BUG-4108 (Sergey Elmanov) #ProductReviews

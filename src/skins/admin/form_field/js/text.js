@@ -31,7 +31,7 @@ CommonElement.prototype.handlers.push(
   {
     canApply: function () {
       var parent = this.$element.parents('.input-field-wrapper');
-      return parent.length > 0 && core.getCommentedData(parent, 'selectOnFocus');
+      return parent.length > 0 && core.getCommentedData(parent, 'selectOnFocus') && this.$element.is('input');
     },
     handler: function () {
       this.$element.on('focus', function () {

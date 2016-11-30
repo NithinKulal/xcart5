@@ -33,13 +33,13 @@ abstract class Category extends \XLite\Model\Repo\Category implements \XLite\Bas
         $queryBuilder = parent::getCategoriesAsDTOQueryBuilder();
 
         if ($this->isShowProductNum()) {
-            $queryBuilder->addSelect('COUNT(subcategoriesProducts) as productsCount');
+            $queryBuilder->addSelect('COUNT(DISTINCT subcategoriesProducts) as productsCount');
 
             $queryBuilder->leftJoin(
                 '\XLite\Model\Category',
                 'subcategory',
                 'WITH',
-                'subcategory.lpos > c.lpos AND subcategory.lpos < c.rpos OR subcategory.category_id = c.category_id'
+                'subcategory.lpos > c.lpos AND subcategory.rpos < c.rpos OR subcategory.category_id = c.category_id'
             );
             $queryBuilder->leftJoin(
                 'subcategory.categoryProducts',

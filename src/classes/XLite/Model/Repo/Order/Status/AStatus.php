@@ -28,4 +28,35 @@ class AStatus extends \XLite\Model\Repo\Base\I18n
     protected $alternativeIdentifier = array(
         array('code'),
     );
+
+    /**
+     * Find entity by name (any language)
+     *
+     * @param string  $name      Name
+     * @param boolean $countOnly Count only OPTIONAL
+     *
+     * @return \XLite\Model\AttributeGroup|integer
+     */
+    public function findOneByName($name, $countOnly = false)
+    {
+        return $countOnly
+            ? count($this->defineOneByNameQuery($name)->getResult())
+            : $this->defineOneByNameQuery($name)->getSingleResult();
+    }
+
+    /**
+     * Define query builder for findOneByName() method
+     *
+     * @param string $name Name
+     *
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    protected function defineOneByNameQuery($name)
+    {
+        $qb = $this->createQueryBuilder()
+            ->andWhere('translations.name = :name')
+            ->setParameter('name', $name);
+
+        return $qb;
+    }
 }

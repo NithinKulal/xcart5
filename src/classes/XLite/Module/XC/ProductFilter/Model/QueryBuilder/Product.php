@@ -18,8 +18,6 @@ abstract class Product extends \XLite\Model\QueryBuilder\Product implements \XLi
      *
      * @param \XLite\Model\Attribute $attribute Attribute
      * @param mixed                  $value     Value
-     *
-     * @return void
      */
     public function assignAttributeCondition(\XLite\Model\Attribute $attribute, $value)
     {

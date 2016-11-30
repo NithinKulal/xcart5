@@ -25,6 +25,7 @@ class BackupRestore extends \XLite\View\Tabs\ATabs
         $list = parent::getAllowedTargets();
         $list[] = 'db_backup';
         $list[] = 'db_restore';
+        $list[] = 'integrity_check';
 
         return $list;
     }
@@ -37,6 +38,20 @@ class BackupRestore extends \XLite\View\Tabs\ATabs
     public function getUploadMaxFilesize()
     {
         return ini_get('upload_max_filesize');
+    }
+
+    public function getCSSFiles()
+    {
+        return array_merge(
+            parent::getCSSFiles(),
+            array(
+                array(
+                    'file'  => 'db/page_style.less',
+                    'media' => 'screen',
+                    'merge' => 'bootstrap/css/bootstrap.less',
+                ),
+            )
+        );
     }
 
     /**
@@ -54,6 +69,11 @@ class BackupRestore extends \XLite\View\Tabs\ATabs
                 'weight'   => 200,
                 'title'    => static::t('Restore database'),
                 'template' => 'db/restore.twig',
+            ],
+            'integrity_check' => [
+                'weight'   => 300,
+                'title'    => static::t('Integrity check'),
+                'template' => 'integrity_check/tab_content.twig',
             ],
         ];
     }

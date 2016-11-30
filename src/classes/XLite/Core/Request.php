@@ -54,6 +54,33 @@ class Request extends \XLite\Base\Singleton
     protected static $isMobileDeviceFlag;
 
     /**
+     * current language ISO 639-1 code
+     *
+     * @var string
+     */
+    protected $languageCode = '';
+
+    /**
+     * @return string
+     */
+    public function getLanguageCode()
+    {
+        return $this->languageCode;
+    }
+    
+    /**
+     * @param $languageCode
+     *
+     * @return $this
+     */
+    public function setLanguageCode($languageCode)
+    {
+        $this->languageCode = $languageCode;
+
+        return $this;
+    }
+
+    /**
      * Drag-n-drop-cart feature is turned off for the mobile devices
      *
      * @return boolean
@@ -810,4 +837,30 @@ class Request extends \XLite\Base\Singleton
     }
 
     // }}}
+
+    /**
+     * Returns customer ip
+     *
+     * @return string
+     */
+    public function getClientIp()
+    {
+        if (isset($_SERVER['REMOTE_ADDR'])) {
+            $ipAddress = $_SERVER['REMOTE_ADDR'];
+        } elseif (isset($_SERVER['HTTP_CLIENT_IP'])) {
+            $ipAddress = $_SERVER['HTTP_CLIENT_IP'];
+        } else if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ipAddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else if (isset($_SERVER['HTTP_X_FORWARDED'])) {
+            $ipAddress = $_SERVER['HTTP_X_FORWARDED'];
+        } else if (isset($_SERVER['HTTP_FORWARDED_FOR'])) {
+            $ipAddress = $_SERVER['HTTP_FORWARDED_FOR'];
+        } else if (isset($_SERVER['HTTP_FORWARDED'])) {
+            $ipAddress = $_SERVER['HTTP_FORWARDED'];
+        } else {
+            $ipAddress = 'UNKNOWN';
+        }
+
+        return $ipAddress;
+    }
 }

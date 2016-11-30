@@ -80,6 +80,17 @@ class SearchTotal extends \XLite\View\ItemsList\Model\Order\Admin\Search
         $cnd = \XLite\View\ItemsList\Model\Order\Admin\Search::getSearchCaseProcessor()
                 ->getSearchCase();
 
+        foreach ($cnd as $modelParam => $value) {
+            if (is_string($value)) {
+                $value = trim($value);
+                if (static::PARAM_DATE_RANGE === $modelParam && $value) {
+                    $value = \XLite\View\FormField\Input\Text\DateRange::convertToArray($value);
+                }
+            }
+
+            $cnd->{$modelParam} = $value;
+        }
+
         return \XLite\Core\Database::getRepo('XLite\Model\Order')->search($cnd, \XLite\Model\Repo\Order::SEARCH_MODE_TOTALS);
     }
 

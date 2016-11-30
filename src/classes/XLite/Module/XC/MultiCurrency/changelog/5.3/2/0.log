@@ -1,0 +1,4 @@
+Version 5.3.2.0
+
+Improvements
+2016-10-21 - [Change] Full-featured item list interface with pagination was added for the orders page in the Customer area. #XCN-6307 (Maxim Kuznetsov) #Core #CrispWhiteSkin #MultiCurrency #VendorMessages

@@ -17,7 +17,15 @@ class Profile extends \XLite\Controller\Customer\Profile implements \XLite\Base\
      */
     public function getTitle()
     {
-        return static::t('My account');
+        if ($this->isRegisterMode()) {
+            return static::t('New account');
+
+        } elseif ('delete' == \XLite\Core\Request::getInstance()->mode) {
+            return static::t('Delete account');
+
+        } else {
+            return static::t('My account');
+        }
     }
 
     /**
@@ -40,5 +48,19 @@ class Profile extends \XLite\Controller\Customer\Profile implements \XLite\Base\
         parent::addBaseLocation();
 
         array_pop($this->locationPath);
+    }
+
+    /**
+     * Get register success URL arguments
+     *
+     * @return array
+     */
+    protected function getActionRegisterSuccessURL()
+    {
+        if (preg_match('/target=checkout(&|\Z)/', \XLite\Core\Request::getInstance()->returnURL)) {
+            return ['checkout'];
+        }
+
+        return parent::getActionRegisterSuccessURL();
     }
 }

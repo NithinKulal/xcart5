@@ -1,0 +1,13 @@
+{##
+ # Invoice : header : Company address box : Address
+ #
+ # @ListChild (list="invoice.subhead.companyAddress", weight="200")
+ #}
+
+{% set company = this.company %}
+
+<p>
+  {% if company.location_address %}{{ company.location_address }}<br />{% endif %}
+  {% if company.location_city %}{{ company.location_city }}, {% endif %}{% if company.locationState.state %}{{ company.locationState.state }}, {% endif %}{% if company.location_zipcode %}{{ company.location_zipcode }}{% endif %}<br />
+  {% if company.locationCountry %}{{ company.locationCountry.getCountry() }}{% endif %}
+</p>

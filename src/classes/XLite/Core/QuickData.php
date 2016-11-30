@@ -173,7 +173,7 @@ class QuickData extends \XLite\Base\Singleton implements \Countable
      *
      * @return \XLite\Model\QuickData
      */
-    protected function updateData(\XLite\Model\Product $product, $membership)
+    public function updateData(\XLite\Model\Product $product, $membership)
     {
         $data = null;
 

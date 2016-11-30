@@ -2,7 +2,14 @@
  # Payment actions unit
  #}
 
-{{ widget(this.getButtonWidgetClass(), label=this.getUnitName(), jsCode='self.location=\'' ~ this.getActionURL() ~ '\'', style=this.getCSSClass()) }}
-{% if this.hasWarning() %}
-  {{ widget('\\XLite\\View\\Tooltip', text=t(this.getWarningMessage()), isImageTag='true', className='help-icon', imageClass='fa fa-exclamation-triangle') }}
-{% endif %}
+<div class="unit">
+  {% if this.isNeedAmount() %}
+    {{ widget(this.getButtonWidgetClass(), label=this.getUnitName(), link=this.getActionURL(), style=this.getCSSClass(), value=this.getRefundValue()) }}
+  {% else %}
+    {{ widget(this.getButtonWidgetClass(), label=this.getUnitName(), jsCode='self.location=\'' ~ this.getActionURL() ~ '\'', style=this.getCSSClass()) }}
+  {% endif %}
+  {% if this.hasWarning() %}
+    {{ widget('\\XLite\\View\\Tooltip', text=t(this.getWarningMessage()), isImageTag='true', className='help-icon', imageClass='fa fa-exclamation-triangle') }}
+  {% endif %}
+</div>
+

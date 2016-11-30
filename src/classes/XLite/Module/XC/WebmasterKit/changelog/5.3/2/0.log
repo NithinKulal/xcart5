@@ -1,0 +1,7 @@
+Version 5.3.2.0
+
+Improvements
+2016-10-11 - [Change] Performance optimization and refactoring for WebmasterKit. #XCN-6672 (Michael Lipinski) #WebmasterKit
+
+Fixes
+2016-11-24 - [Bug] JS errors with the Mark Templates option of the WebmasterKit module enabled and Crisp White skin activated. #BUG-4186 (Sergey Elmanov) #WebmasterKit

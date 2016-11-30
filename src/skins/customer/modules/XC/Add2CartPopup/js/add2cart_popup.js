@@ -28,7 +28,17 @@ function PopupButtonAdd2CartPopup()
       deboucedFallback();
     }
   );
-  core.bind('updateCart', this.handleOpenPopup);
+
+  core.bind(['updateCart', 'tryOpenAdd2CartPopup'], _.debounce(
+      this.handleOpenPopup,
+      500
+  ));
+
+  core.bind('addToCartViaClick', function(data) {
+    showAdd2CartPopup = true;
+    core.trigger('tryOpenAdd2CartPopup');
+  });
+
   core.bind(
     'afterPopupPlace',
     function() {
@@ -41,20 +51,12 @@ function PopupButtonAdd2CartPopup()
 }
 
 decorate(
-  'ProductsListView',
-  'handleAddToCart',
-  function (selector) {
-    arguments.callee.previousMethod.apply(this, arguments);
-    showAdd2CartPopup = true;
-  }
-);
-
-decorate(
   'ProductDetailsView',
   'postprocessAdd2Cart',
-  function (selector) {
+  function (event, data) {
     arguments.callee.previousMethod.apply(this, arguments);
-    showAdd2CartPopup = true;
+
+    core.trigger('tryOpenAdd2CartPopup');
   }
 );
 

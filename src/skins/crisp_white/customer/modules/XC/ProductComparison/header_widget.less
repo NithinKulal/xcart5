@@ -9,6 +9,7 @@
 
 .header_product-comparison {
   & > a {
+    position: relative;
     .icon-compare;
     &:before {
       display: inline-block;
@@ -21,14 +22,31 @@
       vertical-align: middle;
     }
   }
+
+  &.recently-updated {
+    > a {
+      .recently-updated-icon;
+    }
+  }
 }
 
 .account-link-compare {
   & > a {
     .icon-compare;
+    width: 100%;
+    display: block;
+  }
+
+  &.recently-updated {
+    a {
+      .counter {
+        color: @color-hover;
+      }
+    }
   }
 
   .counter {
     padding-left: @rhythmic-unit;
+    float: right;
   }
 }

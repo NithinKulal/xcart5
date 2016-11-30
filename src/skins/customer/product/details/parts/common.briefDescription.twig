@@ -4,6 +4,6 @@
  # @ListChild (list="product.details.page.info", weight="18")
  #}
 
-{% if this.product.briefDescription %}
-  <div class="brief-descr product-description" {{ this.printTagAttributes(this.product.getFieldMetadata('briefDescription'))|raw }} >{{ this.product.getProcessedBriefDescription()|raw }}</div>
+{% if this.product.briefDescription or this.isPreview() %}
+  <div class="brief-descr product-description" data-inline-editable {{ this.printTagAttributes(this.product.getFieldMetadata('briefDescription'))|raw }} >{{ this.product.getProcessedBriefDescription()|raw }}</div>
 {% endif %}

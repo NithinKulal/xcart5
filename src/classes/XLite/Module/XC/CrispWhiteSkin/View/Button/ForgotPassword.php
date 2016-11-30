@@ -36,7 +36,6 @@ class ForgotPassword extends \XLite\View\Button\PopupButton
         return 'Forgot password?';
     }
 
-
     /**
      * Return widget default template
      *
@@ -55,5 +54,15 @@ class ForgotPassword extends \XLite\View\Button\PopupButton
     protected function getClass()
     {
         return 'popup-button forgot';
+    }
+
+    /**
+     * Default withoutClose value
+     *
+     * @return boolean
+     */
+    protected function getDefaultWithoutCloseState()
+    {
+        return true;
     }
 }

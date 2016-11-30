@@ -942,7 +942,7 @@ CommonElement.prototype.validate = function(silent, noFocus)
     // Hidden element always validate successfull
     result = true;
 
-  } else if (this.$element.hasClass('server-validation-error') && !this.isChanged()) {
+  } else if (this.$element.hasClass('server-validation-error') && !this.isChanged() && !this.wasFilledOnce()) {
 
     // Element is fail server validation and element's value did not changed
     result = false;
@@ -988,6 +988,10 @@ CommonElement.prototype.validate = function(silent, noFocus)
     if (result && silent) {
       this.unmarkAsInvalid();
     }
+
+    if (result && !_.isEmpty(this.element.value) && this.$element.hasClass('show-valid-state')) {
+      this.markAsValid();
+    }
   }
 
   return result;
@@ -1017,6 +1021,7 @@ CommonElement.prototype.markAsInvalid = function(message, key, serverSideError)
     .data('lastValidationKey', key);
 
   this.$element.parent().addClass('has-error');
+  this.$element.parent().removeClass('has-success has-success-mark');
 
   if (this.isUseInlineError()) {
     this.$element
@@ -1105,6 +1110,11 @@ CommonElement.prototype.markAsValid = function(message)
     }
   );
 
+  this.$element.parent().addClass('has-success');
+  if (isElement(this.element, 'input') && -1 == jQuery.inArray(this.element.type, ['checkbox', 'radio'])) {
+    this.$element.parent().addClass('has-success-mark');
+  }
+
   this.triggerVent('markAsValid', this);
 };
 
@@ -1164,6 +1174,7 @@ CommonElement.prototype.hideInlineMessage = function()
 CommonElement.prototype.markAsProgress = function()
 {
   this.$element.addClass('progress-mark-apply');
+  this.$element.parent().removeClass('has-success has-success-mark');
 
   return jQuery('<div></div>')
     .insertAfter(this.$element)
@@ -1403,7 +1414,7 @@ CommonElement.prototype.isChanged = function(onlyVisible)
   return result;
 };
 
-// Check - element is significant or not
+// Check - element was filled once or not
 CommonElement.prototype.wasFilledOnce = function ()
 {
   if (!this.wasFilled) {
@@ -1496,6 +1507,9 @@ CommonElement.prototype.preprocessBackgroundSubmit = function()
   }
 
   if (!this.$element.prop('readonly')) {
+    if (isElement(this.element, 'select')) {
+      this.$element.addClass('readonly-mark');
+    }
     this.$element.prop('readonly', 'readonly');
     this.element.isTemporaryReadonly = true;
   }
@@ -1513,6 +1527,9 @@ CommonElement.prototype.postprocessBackgroundSubmit = function()
   }
 
   if (this.element.isTemporaryReadonly) {
+    if (isElement(this.element, 'select')) {
+      this.$element.removeClass('readonly-mark');
+    }
     this.$element.removeProp('readonly');
     this.element.isTemporaryReadonly = null;
   }

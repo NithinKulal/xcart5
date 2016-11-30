@@ -1,0 +1,8 @@
+Version 5.3.1.5
+
+Fixes
+2016-11-10 - [Bug] Pagination was missing on category pages in Crisp White skin on mobile devices. #BUG-4094 (Sergey Elmanov) #CrispWhiteSkin
+2016-11-08 - [Bug] In the Crisp White skin, the 'Settings' item was showing up in the mobile sidebar menu even if the store was using an only currency and an only language. #BUG-4083 (Sergey Elmanov) #CrispWhiteSkin
+2016-10-28 - [Bug] When using the browser window width of 992px, the minicart icon disappeared in the Crisp White skin. #BUG-4046 (Maxim Kuznetsov) #CrispWhiteSkin
+2016-10-28 - [Bug] The "including VAT" text on the product page was misplaced in the Crisp White skin. #BUG-4039 (Sergey Elmanov) #VAT #CrispWhiteSkin
+2016-10-26 - [Bug] Problems with the address book page layout if an address contains a long text string. #BUG-4017 (Michael Lipinski) #CrispWhiteSkin

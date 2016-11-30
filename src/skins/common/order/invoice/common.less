@@ -389,6 +389,8 @@ body * {
   .address-section {
     margin-bottom: 0;
     padding-top: 4px;
+    word-break: break-all;
+
     li {
       background: none;
       margin: 0;
@@ -397,6 +399,7 @@ body * {
     .address-field {
       padding-right: 3px;
       line-height: 1.6em;
+      white-space: normal;
       span {
         font-size: 15px;
       }
@@ -414,19 +417,8 @@ body * {
     }
   }
 
-  .address-field.address-phone,
-  .address-field.address-vat_number,
-  .address-field.address-type,
-  .address-field.field-additional {
-    .address-title {
-      display: inline;
-    }
-  }
-
   .address-field.address-title,
-  .address-field.address-firstname,
-  .address-field.address-city,
-  .address-field.address-state_id {
+  .address-field.address-firstname {
     float: left;
   }
 }

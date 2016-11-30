@@ -1,7 +1,7 @@
 {##
  # Payment method row
  #}
-<span class="payment-title">{{ this.method.getTitle() }}</span>
+<span class="payment-title paypal">{{ this.method.getTitle() }}</span>
 <img src="{{ asset('images/../modules/CDev/Paypal/checkout/paypal.png') }}" alt="{{ this.method.getName() }}" title="{{ this.method.getName() }}" class="paypal" />
 {% if this.method.getDescription() %}
   <div class="payment-description">{{ this.method.getDescription() }}</div>

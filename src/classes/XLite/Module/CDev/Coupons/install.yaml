@@ -57,11 +57,10 @@ XLite\Model\LanguageLabel:
   - { name: "Sorry, this coupon cannot be combined with the coupon already applied. Revome the previously applied coupon and try again.", translations: [{ code: en, label: "Sorry, this coupon cannot be combined with the coupon already applied. Remove the previously applied coupon and try again." }] }
   - { name: "Coupon cannot be combined with other coupons", translations: [{ code: en, label: "Coupon cannot be combined with other coupons" }] }
   - { name: "If you want the coupon discount to be applied only to products from specific categories, specify these categories here.", translations: [{ code: en, label: "If you want the coupon discount to be applied only to products from specific categories, specify these categories here." }] }
-
   - { name: "Sorry, the coupon you entered is invalid. Make sure the coupon code is spelled correctly", translations: [{ code: en, label: "Sorry, the coupon you entered is invalid. Make sure the coupon code is spelled correctly" }] }
   - { name: "Sorry, the coupon has expired", translations: [{ code: en, label: "Sorry, the coupon has expired" }] }
   - { name: "Sorry, the coupon use limit has been reached", translations: [{ code: en, label: "Sorry, the coupon use limit has been reached" }] }
   - { name: "Sorry, the coupon you entered cannot be applied to the items in your cart", translations: [{ code: en, label: "Sorry, the coupon you entered cannot be applied to the items in your cart" }] }
   - { name: "Sorry, the coupon you entered is not valid for your membership level. Contact the administrator", translations: [{ code: en, label: "Sorry, the coupon you entered is not valid for your membership level. Contact the administrator" }] }
-
   - { name: 'The maximum number of uses per user', translations: [{ code: en, label: 'The maximum number of uses per user' }] }
+  - { name: 'There are currently no coupons.', translations: [{ code: en, label: 'There are currently no coupons. Information on the use of coupons is available <a href="https://kb.x-cart.com/en/seo_and_promotion/setting_up_discount_coupons.html">here</a>.' },{ code: ru, label: 'В настоящее время купонов нет. Об использовании купонов можно прочесть <a href="https://kb.x-cart.com/en/seo_and_promotion/setting_up_discount_coupons.html">здесь</a>.' }] }

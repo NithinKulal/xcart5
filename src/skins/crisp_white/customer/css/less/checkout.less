@@ -16,9 +16,9 @@
  */
 
 body.target-checkout #breadcrumb,
-body.target-checkout #header-area .header-right-bar,
+body.target-checkout #header-area .header-right-bar > *,
 body.target-checkoutPayment #breadcrumb,
-body.target-checkoutPayment #header-area .header-right-bar {
+body.target-checkoutPayment #header-area .header-right-bar > * {
   display: none;
 }
 
@@ -62,7 +62,7 @@ body.target-checkoutPayment {
             clear: both;
           }
 
-          .substep + .substep {
+          .substep ~ .substep {
             margin-top: (@rhythmic-unit * 2);
           }
 
@@ -90,7 +90,7 @@ body.target-checkoutPayment {
           width: 20px;
           height: 20px;
           line-height: @rhythmic-unit;
-          margin-right: @rhythmic-unit;
+          margin-right: @rhythmic-unit / 2;
 
           &:after {
             content: ".";
@@ -130,6 +130,31 @@ body.target-checkoutPayment {
     }
   }
 
+  .step-box .item-email,
+  .step-box .step-billing-address.address-visible .same-address {
+    min-height: @rhythmic-unit * 4;
+  }
+
+  .shipping-step.help-create-profile-warning,
+  .shipping-step.help-create-profile-note,
+  .shipping-step.help-allow-create-profile {
+    .step-box .item-email,
+    .step-box .step-billing-address.address-visible .same-address {
+      min-height: @rhythmic-unit * 5.5;
+    }
+  }
+
+  .shipping-step.help-email-invalid {
+    .step-box .item-email,
+    .step-box .step-billing-address.address-visible .same-address {
+      min-height: @rhythmic-unit * 4;
+    }
+  }
+
+  .same-address .same-address-help {
+    margin-top: @rhythmic-unit;
+  }
+  
   .item-email {
     .form-field-comment {
       color: @color-light;
@@ -139,6 +164,7 @@ body.target-checkoutPayment {
 
     .subbox {
       display: inline-block;
+      margin-top: (@rhythmic-unit / 2);
     }
 
 
@@ -161,9 +187,9 @@ body.target-checkoutPayment {
       display: none;
     }
 
-    &.create-profile-warning .create-warning,
-    &.create-profile-note .create-note,
-    &.allow-create-profile .create {
+    &:not(.invalid).create-profile-warning .create-warning,
+    &:not(.invalid).create-profile-note .create-note,
+    &:not(.invalid).allow-create-profile .create {
       display: inline-block;
     }
 
@@ -463,37 +489,7 @@ body.target-checkoutPayment {
   }
 
   .payment-tpl .form {
-    padding-left: 0px;
-    padding-bottom: 10px;
-
-    li {
-    }
-
-    .table-value {
-      width: 100%;
-      margin-top: 10px;
-    }
-
-    .star {
-      padding-top: 4px;
-      padding-left: 4px;
-    }
-
-    .table-label,
-    .star,
-    label
-    {
-      display: inline;
-      float: none;
-    }
-
-    .table-value {
-      float: none;
-    }
-
-    label {
-      width: auto;
-    }
+    margin-bottom: @rhythmic-unit;
   }
 }
 
@@ -610,6 +606,33 @@ iframe#pay_iframe {
 
     #card_type {
       display: none;
+    }
+  }
+}
+
+html:lang(ru) {
+  .checkout-block .steps .head-h3 {
+    letter-spacing: -1px;
+  }
+
+  .step-box .item-email,
+  .step-box .step-billing-address.address-visible .same-address {
+    min-height: @rhythmic-unit * 5;
+  }
+
+  .shipping-step.help-create-profile-warning,
+  .shipping-step.help-create-profile-note,
+  .shipping-step.help-allow-create-profile {
+    .step-box .item-email,
+    .step-box .step-billing-address.address-visible .same-address {
+      min-height: @rhythmic-unit * 6.5;
+    }
+  }
+
+  .shipping-step.help-email-invalid {
+    .step-box .item-email,
+    .step-box .step-billing-address.address-visible .same-address {
+      min-height: @rhythmic-unit * 5;
     }
   }
 }

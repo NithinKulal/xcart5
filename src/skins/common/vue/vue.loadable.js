@@ -22,10 +22,10 @@
           var promise = null;
 
           if (this.$options.loadable.cacheSimultaneous) {
-            if (!_.has(cache, this.$options.name)) {
-              cache[this.$options.name] = loader.call(this, arguments);
+            if (!_.has(cache, this._getCacheKey())) {
+              cache[this._getCacheKey()] = loader.call(this, arguments);
             }
-            promise = cache[this.$options.name];
+            promise = cache[this._getCacheKey()];
           } else {
             promise = loader.call(this, arguments);
           }
@@ -35,6 +35,13 @@
           }
         }
       },
+
+      _getCacheKey: function() {
+        return _.isFunction(this.$options.loadable.cacheKey)
+          ? this.$options.loadable.cacheKey.apply(this)
+          : this.$options.name;
+      },
+
       _resolve: function (data) {
         var uuid = _.uniqueId();
         var self = this;
@@ -50,7 +57,7 @@
               this.$reloading = false;
               this.$options.loadable.resolve.apply(this, [data]);
 
-              delete cache[this.$options.name];
+              delete cache[this._getCacheKey()];
             }
           },
           this)
@@ -62,7 +69,7 @@
         this.$reloading = false;
         this.$options.loadable.reject.apply(this, [data]);
 
-        delete cache[this.$options.name];
+        delete cache[this._getCacheKey()];
       },
       _updateComponent: function(html) {
         var element = this._parseTemplate(html);

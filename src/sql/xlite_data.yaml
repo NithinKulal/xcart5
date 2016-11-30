@@ -17,11 +17,12 @@ XLite\Model\Config:
   - { name: anonymous_city, category: Shipping, type: text, orderby: 8000, translations: [{ code: en, option_name: City }] }
   - { name: anonymous_zipcode, category: Shipping, type: text, orderby: 9000, translations: [{ code: en, option_name: 'Zip/postal code' }] }
   - { name: anonymous_address_type, category: Shipping, type: '\XLite\View\FormField\Select\AddressType', value: R, orderby: 10000, translations: [{ code: en, option_name: 'Address type' }] }
-  - { name: aggregate_css, category: Performance, type: checkbox, orderby: 2000, value: Y, translations: [{ code: en, option_name: 'Aggregate CSS files' }] }
-  - { name: aggregate_js, category: Performance, type: checkbox, orderby: 3000, value: Y, translations: [{ code: en, option_name: 'Aggregate JS files' }] }
-  - { name: use_view_cache, category: Performance, type: checkbox, orderby: 4000, value: Y, translations: [{ code: en, option_name: 'Use widget cache' }] }
-  - { name: use_dynamic_image_resizing, category: Performance, type: checkbox, orderby: 5000, value: N, translations: [{ code: en, option_name: 'Use dynamic image resizing', option_comment: 'This setting determines what happens if X-Cart cannot find a previously generated resized version of an image it needs to display. If this setting is enabled, an appropriately sized version of the image is generated on the fly. If this setting is disabled, the original (non-resized) image is used.' }] }
-  - { name: layout_type, category: Layout, type: XLite\View\FormField\Select\LayoutType, orderby: 1000, value: left, translations: [{ code: en, option_name: 'Layout type' }] }
+  - { name: aggregate_css, category: Performance, type: XLite\View\FormField\Input\Checkbox\OnOff, orderby: 2000, value: Y, translations: [{ code: en, option_name: 'Aggregate CSS files (enable for better performance)' }] }
+  - { name: aggregate_js, category: Performance, type: XLite\View\FormField\Input\Checkbox\OnOff, orderby: 3000, value: Y, translations: [{ code: en, option_name: 'Aggregate JS files (enable for better performance)' }] }
+  - { name: use_view_cache, category: Performance, type: XLite\View\FormField\Input\Checkbox\OnOff, orderby: 4000, value: Y, translations: [{ code: en, option_name: 'Use widget cache (enable for better performance)' }] }
+  - { name: use_dynamic_image_resizing, category: Performance, type: hidden, orderby: 5000, value: '' }
+  - { name: layout_type, category: Layout, type: XLite\View\FormField\Select\LayoutType, orderby: 1000, value: left, translations: [{ code: en, option_name: 'Default layout' }] }
+  - { name: layout_type_home, category: Layout, type: XLite\View\FormField\Select\LayoutType, orderby: 1010, value: left, translations: [{ code: en, option_name: 'Home page layout' }] }
   - { name: cli_key, category: Security, orderby: 11000, translations: [{ code: en, option_name: 'CLI mode key' }] }
   - { name: company_address, category: Company, type: separator, orderby: 38500, translations: [{ code: en, option_name: 'Company address' }] }
   - { name: company_contacts, category: Company, type: separator, orderby: 45500, translations: [{ code: en, option_name: Contacts }] }
@@ -31,7 +32,8 @@ XLite\Model\Config:
   - { name: company_website, category: Company, type: text, orderby: 37000, translations: [{ code: en, option_name: 'Company website' }] }
   - { name: terms_url, category: General, type: text, orderby: 38000, value: 'terms-and-conditions.html', translations: [{ code: en, option_name: 'Terms and conditions relative URL' }] }
   - { name: customer_presentation, category: General, type: separator, orderby: 20000, translations: [{ code: en, option_name: 'Customer Zone settings' }] }
-  - { name: customer_security, category: Security, type: checkbox, value: N, translations: [{ code: en, option_name: 'Use HTTPS in the Customer Zone (for login, Checkout and profile pages)' }] }
+  - { name: customer_security, category: Security, type: checkbox, value: N, orderby: 100, translations: [{ code: en, option_name: 'Use HTTPS in the Customer Zone (for login, Checkout and profile pages)' }] }
+  - { name: force_customers_to_https, category: Security, type: checkbox, value: Y, orderby: 200, translations: [{ code: en, option_name: 'Redirect customers to HTTPS' }] }
   - { name: date_format, category: Units, type: 'XLite\View\FormField\Select\DateFormat', orderby: 66000, value: '%b %e, %Y', translations: [{ code: en, option_name: 'Date format' }] }
   - { name: csv_delim, category: Units, type: 'XLite\View\FormField\Select\CSVDelimiter', orderby: 70000, value: ',', translations: [{ code: en, option_name: 'CSV column delimiter' }] }
   - { name: export_import_charset, category: Units, type: 'XLite\View\FormField\Select\IconvCharset', orderby: 72500, value: 'UTF-8', translations: [{ code: en, option_name: 'Import/export charset' }] }
@@ -51,7 +53,7 @@ XLite\Model\Config:
   - { name: location_city, category: Company, type: text, orderby: 42000, translations: [{ code: en, option_name: City }] }
   - { name: location_zipcode, category: Company, type: text, orderby: 43000, translations: [{ code: en, option_name: 'Zip/postal code' }] }
 
-  - { name: origin_use_company, category: Company, type: checkbox, orderby: 38000, value: true, translations: [{ code: en, option_name: 'Use the company address as the origin one', option_comment: 'See <a href="admin.php?target=settings&page=Company#company-address">company address</a>' }] }
+  - { name: origin_use_company, category: Company, type: checkbox, orderby: 38000, value: true, translations: [{ code: en, option_name: 'Use your company address as your ship-from address', option_comment: 'See <a href="admin.php?target=settings&page=Company#company-address">company address</a>' }] }
   - { name: origin_address, category: Company, type: text, orderby: 39000, translations: [{ code: en, option_name: 'Street address' }] }
   - { name: origin_country, category: Company, type: country, orderby: 40000, value: US, widgetParameters: { selectOne: false }, translations: [{ code: en, option_name: Country }] }
   - { name: origin_state, category: Company, type: state, orderby: 41000, translations: [{ code: en, option_name: State }] }
@@ -71,8 +73,7 @@ XLite\Model\Config:
   - { name: products_per_page, category: General, type: 'XLite\View\FormField\Input\Text\Integer', orderby: 25000, value: 12, widgetParameters: { min: 1 }, translations: [{ code: en, option_name: 'Products per category listing page' }] }
   - { name: products_per_page_max, category: General, type: 'XLite\View\FormField\Input\Text\Integer', orderby: 25000, value: 100, widgetParameters: { min: 1 }, translations: [{ code: en, option_name: 'Maximum products per category listing page' }] }
   - { name: products_per_page_admin, category: General, type: 'XLite\View\FormField\Input\Text\Integer', orderby: 41000, value: '10', widgetParameters: { min: 1 }, translations: [{ code: en, option_name: 'Products per page' }] }
-  - { name: recent_orders, category: General, type: 'XLite\View\FormField\Input\Text\Integer', orderby: 44000, value: '10', widgetParameters: { min: 1 }, translations: [{ code: en, option_name: 'The number of orders in the recent order list' }] }
-  - { name: force_choose_product_options, category: General, type: checkbox, orderby: 29900, value: N, translations: [{ code: en, option_name: 'Force customer to choose product options before the product can be added to cart' }] }
+  - { name: force_choose_product_options, category: General, type: 'XLite\View\FormField\Select\ForceProductOptions', orderby: 29900, value: '', translations: [{ code: en, option_name: 'Force customer to choose product options before the product can be added to cart' }] }
   - { name: redirect_to_cart, category: General, type: checkbox, orderby: 30000, value: N, translations: [{ code: en, option_name: 'Redirect customer to the cart page after a product is added to cart' }] }
   - { name: shop_closed, category: Internal, type: checkbox, orderby: 11000, value: N, translations: [{ code: en, option_name: 'Close the shop temporarily' }] }
   - { name: shop_currency, category: General, type: '', orderby: 60500, value: 840, translations: [{ code: en, option_name: 'Shop currency' }] }
@@ -95,7 +96,7 @@ XLite\Model\Config:
   - { name: users_per_page, category: General, type: 'XLite\View\FormField\Input\Text\Integer', orderby: 42000, value: '30', widgetParameters: { min: 1 }, translations: [{ code: en, option_name: 'Users per page' }] }
   - { name: use_smtp, category: Email, type: checkbox, orderby: 11000, value: N, translations: [{ code: en, option_name: 'Use SMTP server' }] }
   - { name: use_smtp_auth, category: Email, type: checkbox, orderby: 14000, value: N, translations: [{ code: en, option_name: 'Use authentication' }] }
-  - { name: version, category: Version, value: '5.3.1.4' }
+  - { name: version, category: Version, value: '5.3.2' }
   - { name: weight_symbol, category: Units, type: text, orderby: 62000, value: lbs, translations: [{ code: en, option_name: 'Weight symbol' }] }
   - { name: weight_unit, category: Units, type: 'XLite\View\FormField\Select\WeightUnit', orderby: 61000, value: lbs, translations: [{ code: en, option_name: 'Weight unit' }] }
   - { name: weight_trailing_zeroes, category: Units, type: checkbox, orderby: 62100, value: Y, translations: [{ code: en, option_name: 'Hide trailing zeros in fractional part' }] }
@@ -106,7 +107,87 @@ XLite\Model\Config:
   - { name: curl_capath, category: Environment, type: text, orderby: 12000, value: '', translations: [{ code: en, option_name: "Directory holding CA certificates" }] }
   - { name: force_login_before_checkout, category: General, type: checkbox, orderby: 30500, value: Y, translations: [{ code: en, option_name: 'Ask anonymous users to create an account or sign in before checkout' }] }
   - { name: enable_add2cart_button_grid, category: General, type: checkbox, orderby: 30100, value: Y, translations: [{ code: en, option_name: 'Display "Add to cart" buttons for products in grid view' }] }
-  - { name: clean_url_flag, category: CleanURL, type: checkbox, orderby: 10000, value: N, translations: [{ code: en, option_name: 'Clean URL availability flag' }] }
+  - name: clean_url_flag
+    category: CleanURL
+    type: XLite\View\FormField\Input\Checkbox\CleanUrl
+    value: 0
+    orderby: 1000
+  - { name: general_options, category: CleanURL, type: separator, orderby: 10000, translations: [{ code: en, option_name: 'General options' }] }
+  - name: default_site_title
+    category: CleanURL
+    type: XLite\View\FormField\Label\TranslationLabel
+    orderby: 11000
+    value: 'default-site-title'
+    translations:
+      - code: en
+        option_name: 'Default site title'
+  - name: default_site_meta_description
+    category: CleanURL
+    type: XLite\View\FormField\Label\TranslationLabel
+    orderby: 12000
+    value: 'default-meta-description'
+    translations:
+      - code: en
+        option_name: 'Default site meta description'
+  - name: default_site_meta_keywords
+    category: CleanURL
+    type: XLite\View\FormField\Label\TranslationLabel
+    orderby: 13000
+    value: 'default-meta-keywords'
+    translations:
+      - code: en
+        option_name: 'Default site meta keywords'
+  - name: home_page_title_and_meta
+    category: CleanURL
+    type: XLite\View\FormField\CleanUrls\FrontPage
+    orderby: 14000
+    translations:
+      - code: en
+        option_name: 'Home page title and meta'
+  - name: page_title_format
+    category: CleanURL
+    type: XLite\View\FormField\CleanUrls\PageTitleFormat
+    orderby: 15000
+    translations:
+      - code: en
+        option_name: 'Page title format'
+  - name: company_name
+    category: CleanURL
+    type: XLite\View\FormField\Input\Checkbox\OnOff
+    orderby: 15100
+    value: 1
+    translations:
+      - code: en
+        option_name: 'Company name'
+  - name: parent_category_path
+    category: CleanURL
+    type: XLite\View\FormField\Input\Checkbox\OnOff
+    orderby: 15200
+    value: 1
+    translations:
+      - code: en
+        option_name: 'Parent category path'
+  - name: object_name
+    category: CleanURL
+    type: XLite\View\FormField\Input\Checkbox\OnOffReadOnly
+    orderby: 15300
+    value: 1
+    translations:
+      - code: en
+        option_name: 'Object name (category, product, etc)'
+  - name: object_name_in_page_title_order
+    category: CleanURL
+    type: XLite\View\FormField\Select\ObjectNameInPageTitleOrder
+    orderby: 16000
+    value: L
+    translations:
+      - code: en
+        option_name: 'Show object name in page title'
+  - { name: clean_urls_about, category: CleanURL, type: separator, orderby: 20000, translations: [{ code: en, option_name: 'About clean urls' }] }
+  - name: about_widget
+    category: CleanURL
+    type: XLite\View\FormField\CleanUrls\AboutCleanUrls
+    orderby: 21000
   - { name: allow_membership_request, category: General, type: checkbox, orderby: 39900, value: N, translations: [{ code: en, option_name: 'Allow customers to sign up for membership' }] }
   - { name: upgrade_wave_sep, category: Environment, type: separator, orderby: 20000, translations: [{ code: en, option_name: 'Upgrade options' }] }
   - { name: upgrade_wave, category: Environment, type: 'XLite\View\FormField\Select\UpgradeWave', orderby: 21000, value: '', translations: [{ code: en, option_name: 'Upgrade access level' }] }
@@ -883,38 +964,38 @@ XLite\Model\Country:
     code: MX
     currency: { currency_id: 484 }
     states:
-      - { state:  Aguascalientes, code: AGU }
-      - { state:  Baja California, code: BCN }
-      - { state:  Baja California Sur, code: BCS }
-      - { state:  Campeche, code: CAM }
-      - { state:  Coahuila, code: COA }
-      - { state:  Colima, code: COL }
-      - { state:  Chiapas, code: CHP }
-      - { state:  Chihuahua, code: CHH }
-      - { state:  Distrito Federal, code: DIF }
-      - { state:  Durango, code: DUR }
-      - { state:  Guanajuato, code: GUA }
-      - { state:  Guerrero, code: GRO }
-      - { state:  Hidalgo, code: HID }
-      - { state:  Jalisco, code: JAL }
-      - { state:  México, code: MEX }
-      - { state:  Michoacán, code: MIC }
-      - { state:  Morelos, code: MOR }
-      - { state:  Nayarit, code: NAY }
-      - { state:  Nuevo León, code: NLE }
-      - { state:  Oaxaca, code: OAX }
-      - { state:  Puebla, code: PUE }
-      - { state:  Querétaro, code: QUE }
-      - { state:  Quintana Roo, code: ROO }
-      - { state:  San Luis Potosí, code: SLP }
-      - { state:  Sinaloa, code: SIN }
-      - { state:  Sonora, code: SON }
-      - { state:  Tabasco, code: TAB }
-      - { state:  Tamaulipas, code: TAM }
-      - { state:  Tlaxcala, code: TLA }
-      - { state:  Veracruz, code: VER }
-      - { state:  Yucatán, code: YUC }
-      - { state:  Zacatecas, code: ZAC }
+      - { state:  Aguascalientes, code: AG }
+      - { state:  Baja California, code: BN }
+      - { state:  Baja California Sur, code: BS }
+      - { state:  Campeche, code: CM }
+      - { state:  Coahuila, code: CA }
+      - { state:  Colima, code: CL }
+      - { state:  Chiapas, code: CP }
+      - { state:  Chihuahua, code: CH }
+      - { state:  Distrito Federal, code: DF }
+      - { state:  Durango, code: DU }
+      - { state:  Guanajuato, code: GT }
+      - { state:  Guerrero, code: GR }
+      - { state:  Hidalgo, code: HI }
+      - { state:  Jalisco, code: JA }
+      - { state:  México, code: MX }
+      - { state:  Michoacán, code: MC }
+      - { state:  Morelos, code: MR }
+      - { state:  Nayarit, code: NA }
+      - { state:  Nuevo León, code: NL }
+      - { state:  Oaxaca, code: OA }
+      - { state:  Puebla, code: PU }
+      - { state:  Querétaro, code: QE }
+      - { state:  Quintana Roo, code: QR }
+      - { state:  San Luis Potosí, code: SL }
+      - { state:  Sinaloa, code: SI }
+      - { state:  Sonora, code: SO }
+      - { state:  Tabasco, code: TB }
+      - { state:  Tamaulipas, code: TM }
+      - { state:  Tlaxcala, code: TL }
+      - { state:  Veracruz, code: VE }
+      - { state:  Yucatán, code: YU }
+      - { state:  Zacatecas, code: ZA }
   - { translations: [{ code: en, country: 'Micronesia, Federated States of' }], id: 583, code3: FSM, code: FM, currency: { currency_id: 840 } }
   - { translations: [{ code: en, country: 'Moldova, Republic of' }], id: 498, code3: MDA, code: MD, currency: { currency_id: 498 } }
   - { translations: [{ code: en, country: Monaco }], id: 492, code3: MCO, code: MC, currency: { currency_id: 978 }, eu_member: true }
@@ -1411,6 +1492,8 @@ XLite\Model\Zone:
   - { zone_name: 'All Addresses (default zone)', is_default: true }
 XLite\Model\Task:
   - { owner: 'XLite\Core\Task\EventListener' }
+  - { owner: 'XLite\Core\Task\OrdersGarbageCleaner' }
+  - { owner: 'XLite\Core\Task\SessionsGarbageCleaner' }
 XLite\Model\Role:
   - { translations: [{ code: en, name: Administrator }, { code: ru, name: Administrator }], permissions: [ { code: root access, section: All, translations: [{ code: en, name: Root access }] } ] }
 XLite\Model\Role\Permission:
@@ -1507,7 +1590,7 @@ XLite\Model\Notification:
   - { templatesDirectory: order_advanced_changed, availableForAdmin: false, availableForCustomer: true, enabledForAdmin: false, enabledForCustomer: true, adminHeaderEnabled: false, adminGreetingEnabled: false, adminSignatureEnabled: true, customerHeaderEnabled: false, customerGreetingEnabled: true, customerSignatureEnabled: true, translations: [{ code: en, name: Order changed with advanced order management, description: "This message is sent to notify the customer of any changes made to their order by an administrator using the advanced order management feature.", customerSubject: Your order has been changed, customerText: "Your order has been changed by customer service. Here are the details of your order:" }]}
   - { templatesDirectory: order_canceled, availableForAdmin: true, availableForCustomer: true, enabledForAdmin: true, enabledForCustomer: true, adminHeaderEnabled: false, adminGreetingEnabled: false, adminSignatureEnabled: true, customerHeaderEnabled: false, customerGreetingEnabled: true, customerSignatureEnabled: true, translations: [{ code: en, name: Order canceled, description: "This notification is sent to both the administrator and customer when an order gets the status Canceled.", customerSubject: Your order has been canceled, customerText: Your order has been canceled., adminSubject: Order has been canceled, adminText: Order has been canceled. }]}
   - { templatesDirectory: order_changed, availableForAdmin: true, availableForCustomer: true, enabledForAdmin: true, enabledForCustomer: true, adminHeaderEnabled: false, adminGreetingEnabled: false, adminSignatureEnabled: true, customerHeaderEnabled: false, customerGreetingEnabled: true, customerSignatureEnabled: true, translations: [{ code: en, name: Order changed, description: "This notification is sent to both the administrator and customer when the status of an order is updated - in the event that no other type of notification is sent.", customerSubject: Your order has been changed, customerText: "Your order has been changed. Here are the details of your order:", adminSubject: Order has been changed, adminText: Order has been changed. }]}
-  - { templatesDirectory: order_created, availableForAdmin: true, availableForCustomer: true, enabledForAdmin: false, enabledForCustomer: false, adminHeaderEnabled: false, adminGreetingEnabled: false, adminSignatureEnabled: true, customerHeaderEnabled: false, customerGreetingEnabled: true, customerSignatureEnabled: true, translations: [{ code: en, name: Order created, description: "This notification is sent to both the administrator and customer when a new order is created (Disabled by default).", customerSubject: Order has been created, customerText: "Thank you for shopping with us! We received your order.<br />You will receive an order confirmation once your order is processed.", adminSubject: Order has been created, adminText: Order has been created. }]}
+  - { templatesDirectory: order_created, availableForAdmin: true, availableForCustomer: true, enabledForAdmin: true, enabledForCustomer: true, adminHeaderEnabled: false, adminGreetingEnabled: false, adminSignatureEnabled: true, customerHeaderEnabled: false, customerGreetingEnabled: true, customerSignatureEnabled: true, translations: [{ code: en, name: Order created, description: "This notification is sent to both the administrator and customer when a new order is created (Disabled by default).", customerSubject: Order has been created, customerText: "Thank you for shopping with us! We received your order.<br />You will receive an order confirmation once your order is processed.", adminSubject: Order has been created, adminText: Order has been created. }]}
   - { templatesDirectory: order_failed, availableForAdmin: true, availableForCustomer: true, enabledForAdmin: true, enabledForCustomer: true, adminHeaderEnabled: false, adminGreetingEnabled: false, adminSignatureEnabled: true, customerHeaderEnabled: false, customerGreetingEnabled: true, customerSignatureEnabled: true, translations: [{ code: en, name: Order declined, description: "This notification is sent to both the administrator and customer when an order gets the status Declined.", customerSubject: Your order has been declined, customerText: "The status of your order has been changed to \"Declined\". This could be for one of the following reasons:<br />1) The order was declined by the store administrator.<br />2) The payment could not be processed at the time of order placement.<br />For more information, please contact the store administrator.", adminSubject: Order has been declined, adminText: Order has been declined. }]}
   - { templatesDirectory: order_processed, availableForAdmin: true, availableForCustomer: true, enabledForAdmin: true, enabledForCustomer: true, adminHeaderEnabled: false, adminGreetingEnabled: false, adminSignatureEnabled: true, customerHeaderEnabled: false, customerGreetingEnabled: true, customerSignatureEnabled: true, translations: [{ code: en, name: Order processed, description: "This notification is sent to both the administrator and customer when an order gets the status Paid.", customerSubject: Order confirmation, customerText: "Your order has been processed. Thank you for your business.<br />We will notify you by email of any further order status updates.", adminSubject: Order has been processed, adminText: Order has been processed. }]}
   - { templatesDirectory: order_shipped, availableForAdmin: false, availableForCustomer: true, enabledForAdmin: false, enabledForCustomer: true, adminHeaderEnabled: false, adminGreetingEnabled: false, adminSignatureEnabled: true, customerHeaderEnabled: false, customerGreetingEnabled: true, customerSignatureEnabled: true, translations: [{ code: en, name: Order shipped, description: "This notification is sent to both the administrator and customer when an order gets the status Shipped.", customerSubject: Your order has been shipped, customerText: "Your order has been shipped. Thank you for your business.<br />Please come back soon!" }]}
@@ -1515,7 +1598,7 @@ XLite\Model\Notification:
   - { templatesDirectory: profile_created, availableForAdmin: true, availableForCustomer: true, enabledForAdmin: false, enabledForCustomer: true, adminHeaderEnabled: true, adminGreetingEnabled: false, adminSignatureEnabled: true, customerHeaderEnabled: true, customerGreetingEnabled: true, customerSignatureEnabled: true, translations: [{ code: en, name: User profile created, description: "This notification is sent to both the administrator and customer when a new customer profile is created.", customerSubject: Welcome!, customerText: Thank you for registering with us., adminSubject: New user registration, adminText: "A new user profile has been registered:" }]}
   - { templatesDirectory: profile_deleted, availableForAdmin: true, availableForCustomer: false, enabledForAdmin: false, enabledForCustomer: false, adminHeaderEnabled: true, adminGreetingEnabled: false, adminSignatureEnabled: true, customerHeaderEnabled: true, customerGreetingEnabled: true, customerSignatureEnabled: true, translations: [{ code: en, name: User profile deleted, description: "This notification is sent to the administrator when a customer profile is deleted.", adminSubject: User profile has been deleted, adminText: "The following user profile has been deleted:" }]}
   - { templatesDirectory: profile_modified, availableForAdmin: true, availableForCustomer: true, enabledForAdmin: false, enabledForCustomer: true, adminHeaderEnabled: true, adminGreetingEnabled: false, adminSignatureEnabled: true, customerHeaderEnabled: true, customerGreetingEnabled: true, customerSignatureEnabled: true, translations: [{ code: en, name: User profile modified, description: "This notification is sent to both the administrator and customer when a user profile is updated.", customerSubject: Your profile has been modified, customerText: "Your profile has been modified. To view your profile information, log in at our site.", adminSubject: User profile has been modified, adminText: The user profile has been modified. }]}
-  - { templatesDirectory: recover_password_request, availableForAdmin: true, availableForCustomer: true, enabledForAdmin: true, enabledForCustomer: true, adminHeaderEnabled: true, adminGreetingEnabled: false, adminSignatureEnabled: true, customerHeaderEnabled: true, customerGreetingEnabled: true, customerSignatureEnabled: true, translations: [{ code: en, name: Password reset request, description: "This notification is sent to the user when a password reset is requested for their account.", customerSubject: Confirm password reset request, customerText: "<p>You have received this message because you requested to reset your forgotten password.<br />If you did not submit such a request, it might mean that somebody was trying to gain access to your account.</p><p>To confirm that this request was submitted by you, click on the link below<br/>(If the link does not work, please copy and paste the entire URL into your browser's address bar and press Enter).</p>", adminSubject: Confirm password reset request, adminText: "<p>You have received this message because you requested to reset your forgotten password.<br />If you did not submit such a request, it might mean that somebody was trying to gain access to your account.</p><p>To confirm that this request was submitted by you, click on the link below<br/>(If the link does not work, please copy and paste the entire URL into your browser's address bar and press Enter).</p>" }]}
+  - { templatesDirectory: recover_password_request, availableForAdmin: false, availableForCustomer: false, enabledForAdmin: true, enabledForCustomer: true, adminHeaderEnabled: true, adminGreetingEnabled: false, adminSignatureEnabled: true, customerHeaderEnabled: true, customerGreetingEnabled: true, customerSignatureEnabled: true, translations: [{ code: en, name: Password reset request, description: "This notification is sent to the user when a password reset is requested for their account.", customerSubject: Confirm password reset request, customerText: "<p>You have received this message because you requested to reset your forgotten password.<br />If you did not submit such a request, it might mean that somebody was trying to gain access to your account.</p><p>To confirm that this request was submitted by you, click on the link below<br/>(If the link does not work, please copy and paste the entire URL into your browser's address bar and press Enter).</p>", adminSubject: Confirm password reset request, adminText: "<p>You have received this message because you requested to reset your forgotten password.<br />If you did not submit such a request, it might mean that somebody was trying to gain access to your account.</p><p>To confirm that this request was submitted by you, click on the link below<br/>(If the link does not work, please copy and paste the entire URL into your browser's address bar and press Enter).</p>" }]}
   - { templatesDirectory: register_anonymous, availableForAdmin: false, availableForCustomer: true, enabledForAdmin: false, enabledForCustomer: true, adminHeaderEnabled: true, adminGreetingEnabled: false, adminSignatureEnabled: true, customerHeaderEnabled: true, customerGreetingEnabled: true, customerSignatureEnabled: true, translations: [{ code: en, name: User account created for guest buyer based on order info, description: "This notification is sent to the customer when a customer profile is created for them by the store administrator based on a previously created order.", customerSubject: User account created, customerText: "<p>Thank you for shopping with us! We noticed that one or more orders you made at our store were placed using guest checkout. We appreciate your business and look forward to continue serving you in the future. For your convenience, we created an account for you at our store. The account stores all the information about your previous orders with us.</p><p>To log in to your account, please use the following credentials:<br />(The password can be changed in your account profile.)</p>" }]}
   - { templatesDirectory: failed_transaction, availableForAdmin: true, availableForCustomer: false, enabledForAdmin: true, enabledForCustomer: false, adminHeaderEnabled: true, adminGreetingEnabled: false, adminSignatureEnabled: true, customerHeaderEnabled: true, customerGreetingEnabled: true, customerSignatureEnabled: true, translations: [{ code: en, name: Failed transaction, description: "This notification is sent to the administrator if payment transaction was failed", adminSubject: Failed transaction, adminText: "" }]}
 
@@ -1544,3 +1627,9 @@ XLite\Model\SearchFilter:
   - filterKey: search-filter-order_list
     translations: [{ code: en, name: Paid but not shipped }, { code: ru, name: Оплаченные, но не отправленные }]
     parameters: { paymentStatus: [4], shippingStatus: [1,2] }
+
+XLite\Model\AccessControlEntityType:
+  - type: '\XLite\Model\Order'
+
+XLite\Model\AccessControlZoneType:
+  - name: 'order'

@@ -13,12 +13,50 @@ namespace XLite\View\Button;
  */
 abstract class APopupButton extends \XLite\View\Button\AButton
 {
+    const PARAM_WITHOUT_CLOSE = 'withoutClose';
+
     /**
      * Return URL parameters to use in AJAX popup
      *
      * @return array
      */
     abstract protected function prepareURLParams();
+
+        /**
+     * Define widget parameters
+     *
+     * @return void
+     */
+    protected function defineWidgetParams()
+    {
+        parent::defineWidgetParams();
+
+        $this->widgetParams += array(
+            static::PARAM_WITHOUT_CLOSE => new \XLite\Model\WidgetParam\TypeBool('Without close', $this->getDefaultWithoutCloseState()),
+        );
+    }
+
+    /**
+     * Default withoutClose value
+     *
+     * @return boolean
+     */
+    protected function getDefaultWithoutCloseState()
+    {
+        return false;
+    }
+
+    /**
+     * Get default attributes
+     *
+     * @return array
+     */
+    protected function getButtonAttributes()
+    {
+        return parent::getButtonAttributes() + array(
+            'data-without-close' => $this->getParam(static::PARAM_WITHOUT_CLOSE),
+        );
+    }
 
     /**
      * Return array of URL params for JS

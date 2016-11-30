@@ -8,6 +8,8 @@
 
 namespace XLite\View\ItemsList;
 
+use XLite\View\ItemsList\ISearchValuesStorage;
+
 /**
  * SearchCaseProcessor
  */
@@ -23,18 +25,18 @@ class OldSearchCaseProcessor implements \XLite\View\ItemsList\ISearchCaseProvide
     /**
      * Search values provider
      *
-     * @var \XLite\View\ItemsList\ISearchValuesStorage
+     * @var ISearchValuesStorage
      */
     protected $searchValuesStorage;
 
     /**
-     * @param array     $searchParams    Search params list
-     * @param string    $sessionCellName Session cell name
+     * @param array                $searchParams        Search params list
+     * @param ISearchValuesStorage $searchValuesStorage Search value storage
      */
-    public function __construct(array $searchParams, \XLite\View\ItemsList\ISearchValuesStorage $searchValuesStorage)
+    public function __construct(array $searchParams, ISearchValuesStorage $searchValuesStorage)
     {
-        $this->searchParams         = $searchParams;
-        $this->searchValuesStorage  = $searchValuesStorage;
+        $this->searchParams        = $searchParams;
+        $this->searchValuesStorage = $searchValuesStorage;
     }
 
     /**
@@ -51,5 +53,37 @@ class OldSearchCaseProcessor implements \XLite\View\ItemsList\ISearchCaseProvide
         }
 
         return $cell;
+    }
+
+    /**
+     * @return array
+     */
+    public function getSearchParams()
+    {
+        return $this->searchParams;
+    }
+
+    /**
+     * @param array $searchParams
+     */
+    public function setSearchParams($searchParams)
+    {
+        $this->searchParams = $searchParams;
+    }
+
+    /**
+     * @return ISearchValuesStorage
+     */
+    public function getSearchValuesStorage()
+    {
+        return $this->searchValuesStorage;
+    }
+
+    /**
+     * @param ISearchValuesStorage $searchValuesStorage
+     */
+    public function setSearchValuesStorage($searchValuesStorage)
+    {
+        $this->searchValuesStorage = $searchValuesStorage;
     }
 }

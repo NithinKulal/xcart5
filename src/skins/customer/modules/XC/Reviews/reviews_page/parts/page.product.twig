@@ -10,7 +10,7 @@
       {{ widget('\\XLite\\View\\Product\\Details\\Customer\\Image', product=this.product) }}
     </div>
     <div class="product-details-info">
-      <h1 class="fn title">{{ this.product.name|raw }}</h1>
+      <h1 class="fn title">{{ this.getTitle() }}</h1>
       <a href="{{ url('product', '', {'product_id': this.getProductId(), 'category_id': this.getCategoryId()}) }}">{{ t('Back to product details') }}</a>
   
       <div>

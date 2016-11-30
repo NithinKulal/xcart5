@@ -11,7 +11,7 @@ namespace XLite\Module\CDev\GoSocial\View\Button;
 /**
  * Facebook Like button
  *
- * @ListChild (list="buttons.share", weight="100")
+ * @ListChild (list="buttons.share", weight="50")
  */
 class FacebookLike extends \XLite\View\AView
 {
@@ -75,7 +75,7 @@ class FacebookLike extends \XLite\View\AView
      */
     protected function getDefaultWidth()
     {
-        switch (\XLite\Core\Config::getInstance()->CDev->GoSocial->fb_like_layout) {
+        switch ($this->getLayoutStyle()) {
             case 'button_count':
                 $width = 90;
                 break;
@@ -93,6 +93,17 @@ class FacebookLike extends \XLite\View\AView
         }
 
         return $width;
+    }
+
+
+    /**
+     * Get like button layout
+     * 
+     * @return mixed
+     */
+    protected function getLayoutStyle()
+    {
+        return \XLite\Core\Config::getInstance()->CDev->GoSocial->fb_like_layout;
     }
 
     /**
@@ -125,7 +136,7 @@ class FacebookLike extends \XLite\View\AView
     protected function isVisible()
     {
         return parent::isVisible()
-            && \XLite\Core\Config::getInstance()->CDev->GoSocial->fb_like_use
-            && \XLite\Core\Config::getInstance()->CDev->GoSocial->fb_app_id;
+        && \XLite\Core\Config::getInstance()->CDev->GoSocial->fb_like_use
+        && \XLite\Core\Config::getInstance()->CDev->GoSocial->fb_app_id;
     }
 }

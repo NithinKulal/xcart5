@@ -7,10 +7,10 @@
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
 
-function LayoutType() {
+function LayoutType(base) {
   var o = this;
 
-  o.base = jQuery('.layout-types:first');
+  o.base = base;
   o.base.commonController = o;
 
   o.selector = jQuery('.hidden-field select', o.base);
@@ -27,18 +27,23 @@ LayoutType.prototype.handleChange = function (event, data) {
   var preview = jQuery('.layout-settings .preview img');
 
   assignWaitOverlay(o.base);
-  assignShadeOverlay(preview);
+  if (o.base.hasClass('layout-group-default')) {
+    assignShadeOverlay(preview);
+  }
 
   core.get(
     URLHandler.buildURL({
       target: 'layout',
       action: 'change_layout',
-      layout_type: data.layoutType
+      layout_type: data.layoutType,
+      layout_group: data.layoutGroup,
     }),
     function () {
       preview.attr('src', data.layoutPreview);
       unassignWaitOverlay(o.base);
-      unassignShadeOverlay(preview);
+      if (o.base.hasClass('layout-group-default')) {
+        unassignShadeOverlay(preview);
+      }
     }
   );
 };
@@ -54,4 +59,4 @@ LayoutType.prototype.setLayoutType = function (data) {
   this.selector.trigger('change', data);
 };
 
-core.autoload(LayoutType);
+core.autoload(LayoutType, '.layout-types');

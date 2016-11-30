@@ -30,8 +30,16 @@
 
   .payment-title {
     color: @color-text-dark;
-    display: block;
+    display: inline-block;
+    vertical-align: middle;
     #rhythmless > .rhythm(@font-size-base);
+    @media (max-width: @screen-xs-max) {
+      max-width: 60%;
+    }
+
+    &.paypal {
+      display: block;
+    }
   }
 
   .payment-description {
@@ -44,6 +52,8 @@
   .payment-test-mode {
     text-transform: uppercase;
     display: inline-block;
+    vertical-align: middle;
+    margin-left: @rhythmic-unit;
     background: #efb142;
     color: #fff;
     border-radius: 4px;
@@ -74,7 +84,12 @@
     }
   }
 
+  .payment-tpl {
+    margin-top: @rhythmic-unit;
+  }
+
   .payment-tpl .form {
+    margin-top: @rhythmic-unit;
     background: #fafafa;
     padding: 13px 20px;
     border-radius: 2px;

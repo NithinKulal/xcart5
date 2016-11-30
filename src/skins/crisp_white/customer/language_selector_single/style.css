@@ -1,0 +1,30 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.locale_language-selector {
+    min-width: 100px;
+}
+
+.header_bar-locale .dropdown-menu {
+    min-width: 100px;
+}
+
+.single-language-selector ul li label {
+    display: block;
+}
+
+.single-language-selector ul li label.selected {
+    pointer-events: none;
+    font-weight: bold;
+}
+
+.single-language-selector ul li label:hover {
+    color: #0ba2e8;
+    cursor: pointer;
+}

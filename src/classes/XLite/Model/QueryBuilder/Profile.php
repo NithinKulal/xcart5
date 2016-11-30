@@ -186,7 +186,8 @@ class Profile extends \XLite\Model\QueryBuilder\AQueryBuilder
     public function bindAdmin()
     {
         return $this->andWhere($this->getAdminCondition())
-            ->setParameter('adminAccessLevel', \XLite\Core\Auth::getInstance()->getAdminAccessLevel());
+            ->setParameter('adminAccessLevel', \XLite\Core\Auth::getInstance()->getAdminAccessLevel())
+            ->setParameter('anonymous', true);
     }
 
     /**

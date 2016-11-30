@@ -62,7 +62,7 @@ function materializeMinicart() {
   var viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 
   // mobile view
-  if (viewportWidth < 993) {
+  if (viewportWidth < 992) {
     switchMinicarts('.mobile_header .lc-minicart-placeholder');
   } else if ($('.desktop-header').find('.lc-minicart').length < 1) {
     switchMinicarts('.desktop-header .lc-minicart-placeholder');

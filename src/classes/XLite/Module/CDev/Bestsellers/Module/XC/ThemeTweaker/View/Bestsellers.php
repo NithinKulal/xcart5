@@ -24,11 +24,9 @@ abstract class Bestsellers extends \XLite\Module\CDev\Bestsellers\View\Bestselle
      */
     protected function getDisplayMode()
     {
-        if ($this->getDisplayGroup() === static::DISPLAY_GROUP_SIDEBAR) {
-            return static::DISPLAY_MODE_STHUMB;
-        } else {
-            return parent::getDisplayMode();
-        }
+        return $this->getDisplayGroup() === static::DISPLAY_GROUP_SIDEBAR
+            ? static::DISPLAY_MODE_STHUMB
+            : parent::getDisplayMode();
     }
 
     /**
@@ -39,7 +37,7 @@ abstract class Bestsellers extends \XLite\Module\CDev\Bestsellers\View\Bestselle
     protected function getWidgetType()
     {
         return $this->getDisplayGroup() === static::DISPLAY_GROUP_SIDEBAR
-            ?  static::WIDGET_TYPE_SIDEBAR
-            :  static::WIDGET_TYPE_CENTER;
+            ? static::WIDGET_TYPE_SIDEBAR
+            : static::WIDGET_TYPE_CENTER;
     }
 }

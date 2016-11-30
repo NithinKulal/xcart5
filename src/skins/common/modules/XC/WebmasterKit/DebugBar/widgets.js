@@ -171,12 +171,16 @@ if (typeof(PhpDebugBar) == 'undefined') {
                     var list = $('<ol>');
 
                     $.each(backtrace, function () {
+                      if (typeof this === 'string' || this instanceof String) {
+                        $('<li>').text(this).appendTo(list);
+                      } else {
                         var frame = this.file + ' (' + this.line + '): '
                             + (this.class ? this.class : '')
                             + (this.type ? this.type : '')
                             + this['function'] + '()';
 
                         $('<li>').text(frame).appendTo(list);
+                      }
                     });
 
                     return list;
@@ -208,10 +212,17 @@ if (typeof(PhpDebugBar) == 'undefined') {
                     form = $('<form>', {action: submitUrl, method: 'POST'}).appendTo(container),
                     list = $('<ul>').appendTo(form);
 
-                var sqlStacktraceSetting = this.addSetting(
+                var widgetsSqlStacktraceSetting = this.addSetting(
                     'Display stacktrace for every SQL query in the Widgets tab (may cause generated html size to grow significantly)',
                     'widgetsSqlQueryStacktracesEnabled',
                     data.widgetsSqlQueryStacktracesEnabled
+                );
+                $('<li>', {'class': settingsClass + '-setting'}).append(widgetsSqlStacktraceSetting).appendTo(list);
+
+                var sqlStacktraceSetting = this.addSetting(
+                    'Display stacktrace for SQL query in the Database tab (may cause generated html size to grow significantly)',
+                    'sqlQueryStacktracesEnabled',
+                    data.sqlQueryStacktracesEnabled
                 );
                 $('<li>', {'class': settingsClass + '-setting'}).append(sqlStacktraceSetting).appendTo(list);
 
@@ -443,7 +454,11 @@ if (typeof(PhpDebugBar) == 'undefined') {
                     _.each(
                         stmt.backtrace,
                         function(el, index) {
-                            list.append($('<li>' + el.class + '#' + el['function'] + '() on line ' + el.line + '</li>'));
+                            if (typeof el === 'string') {
+                                list.append($('<li>' + el + '</li>'));
+                            } else {
+                                list.append($('<li>' + el.class + '#' + el['function'] + '() on line ' + el.line + '</li>'));
+                            }
                         }
                     );
 

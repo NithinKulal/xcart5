@@ -120,6 +120,22 @@ class BannerRotationSlide extends \XLite\Model\AEntity
     }
 
     /**
+     * Get front link
+     *
+     * @return string
+     */
+    public function getFrontLink() {
+        $link = $this->getLink();
+
+        if ($link && LC_USE_CLEAN_URLS) {
+            $cleanUrlLink = \XLite\Core\Database::getRepo('XLite\Model\CleanURL')->buildCleanUrlByString($link);
+            $link = $cleanUrlLink ?: $link;
+        }
+
+        return $link;
+    }
+    
+    /**
      * Get link
      *
      * @return string 

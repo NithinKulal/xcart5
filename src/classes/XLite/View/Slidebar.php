@@ -49,4 +49,23 @@ class Slidebar extends \XLite\View\AView
     {
         return parent::isVisible() && !$this->isCheckoutLayout();
     }
+
+    /**
+     * Get preloaded labels
+     *
+     * @return array
+     */
+    protected function getPreloadedLabels()
+    {
+        $list = array(
+            'Menu',
+        );
+
+        $data = array();
+        foreach ($list as $name) {
+            $data[$name] = static::t($name);
+        }
+
+        return $data;
+    }
 }

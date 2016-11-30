@@ -10,10 +10,8 @@ namespace XLite\Module\XC\CrispWhiteSkin\View\LanguageSelector;
 
 /**
  * Language selector (customer)
- *
- * @Decorator\Depend ("XC\MultiCurrency")
  */
-class Customer extends \XLite\View\LanguageSelector\Customer implements \XLite\Base\IDecorator
+class Customer extends \XLite\View\LanguageSelector\Customer
 {
     /**
      * Get JS files
@@ -25,11 +23,10 @@ class Customer extends \XLite\View\LanguageSelector\Customer implements \XLite\B
         $return = parent::getJSFiles();
 
         $return[] = $this->getDir() . LC_DS . 'script.js';
-        $return[] = $this->getDir() . LC_DS . 'select.js';
 
         return $return;
     }
-
+    
     /**
      * Return widget directory
      *
@@ -37,8 +34,6 @@ class Customer extends \XLite\View\LanguageSelector\Customer implements \XLite\B
      */
     protected function getDir()
     {
-        $return = 'modules' . LC_DS . 'XC' . LC_DS . 'MultiCurrency' . LC_DS . 'language_selector';
-
-        return $return;
+        return 'language_selector_single';
     }
 }

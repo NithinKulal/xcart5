@@ -186,6 +186,16 @@ abstract class Surcharge extends \XLite\Model\AEntity
     }
 
     /**
+     * Get saved surcharge name
+     *
+     * @return string
+     */
+    public function getSurchargeName()
+    {
+        return $this->name;
+    }
+
+    /**
      * Get name
      *
      * @return string

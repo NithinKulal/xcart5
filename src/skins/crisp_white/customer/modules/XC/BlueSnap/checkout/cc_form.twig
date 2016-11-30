@@ -1,0 +1,65 @@
+{##
+ # Credit card form
+ #}
+
+<div class="cc-form-container">
+  <div class="header-line"></div>
+  <div class="content">
+    <div class="header">
+      <div class="lock"></div>
+      <h2>{{ t('Secure credit card payment') }}</h2>
+    </div>
+
+    <div class="cc-form">
+      <div class="cardName">
+        <div class="title">{{ t('Cardholder name') }}:</div>
+        <div class="value">
+          <input size="40" id="cc_name" class="form-control validate[required]" placeholder="{{ t('Cardholder name') }}" type="text" autocomplete="off" v-model="payment.cc_holder_name" lazy>
+        </div>
+      </div>
+
+      <div class="cardType">
+      </div>
+
+      <div class="cardNumber">
+        <div class="value form-control" data-bluesnap="ccn"></div>
+      </div>
+
+      <div class="cardExpire">
+        <div class="value">
+          <div class="top-line">
+            <div class="top-text lite-hide">{{ t('MONTH') }} / {{ t('YEAR') }}</div>
+          </div>
+          <div class="bottom-line">
+            <div class="left-text lite-hide">{{ t('VALID THRU') }}</div>
+            <div class="left-text lite-hide default-hide mobile-show">
+              <span class="valid-thru">{{ t('VALID THRU') }}</span>
+              <br>
+              <span class="month-year">{{ t('MONTH') }} / {{ t('YEAR') }}</span>
+            </div>
+            <div class="form-control" data-bluesnap="exp"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cardCVV2">
+        <div class="value">
+          <div data-bluesnap="cvv" class="form-control"></div>
+
+          <div class="right-text">
+            <span class="default-text">{{ t('Credit card security code (if present)') }}</span>
+            <span class="Visa">{{ t('Last three numbers on the back side of your card') }}</span>
+            <span class="MasterCard">{{ t('Last three numbers on the back side of your card') }}</span>
+            <span class="JCB">{{ t('Last three numbers on the back side of your card') }}</span>
+            <span class="AmericanExpress">{{ t('Four-digit number on the front side of your card') }}</span>
+          </div>
+        </div>
+        <div class="icon-container">
+          <div class="icon"></div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

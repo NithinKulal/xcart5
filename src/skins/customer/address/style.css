@@ -71,6 +71,7 @@ ul.address-entry,
 }
 
 ul.address-entry {
+  word-break: break-all;
   float: left;
   width: 230px;
 }

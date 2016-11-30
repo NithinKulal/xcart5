@@ -18,6 +18,7 @@ class SagePayForm extends \XLite\Model\Payment\Base\WebBased
 {
     const THOUSAND_DELIMITER = ',';
     const DECIMAL_DELIMITER = '.';
+
     /**
      * Get operation types
      *
@@ -27,6 +28,7 @@ class SagePayForm extends \XLite\Model\Payment\Base\WebBased
     {
         return array(
             self::OPERATION_SALE,
+            self::OPERATION_AUTH,
         );
     }
 
@@ -134,9 +136,10 @@ class SagePayForm extends \XLite\Model\Payment\Base\WebBased
      */
     public function getInitialTransactionType($method = null)
     {
-        return \XLite\Model\Payment\BackendTransaction::TRAN_TYPE_SALE;
+        return self::OPERATION_AUTH == ($method ? $method->getSetting('type') : $this->getSetting('type'))
+            ? \XLite\Model\Payment\BackendTransaction::TRAN_TYPE_AUTH
+            : \XLite\Model\Payment\BackendTransaction::TRAN_TYPE_SALE;
     }
-
     /**
      * Check - payment method is configured or not
      *
@@ -193,6 +196,7 @@ class SagePayForm extends \XLite\Model\Payment\Base\WebBased
             'vendorName',
             'password',
             'test',
+            'type',
             'prefix',
         );
     }
@@ -242,7 +246,9 @@ class SagePayForm extends \XLite\Model\Payment\Base\WebBased
     {
         return array(
             'VPSProtocol'   => '3.00',
-            'TxType'        => 'PAYMENT',
+            'TxType'        => $this->getSetting('type') === self::OPERATION_SALE
+                ? 'PAYMENT'
+                : 'DEFERRED',
             'Vendor'        => $this->getSetting('vendorName'),
             'Crypt'         => $this->getCrypt(),
         );

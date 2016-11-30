@@ -33,7 +33,7 @@ class Layout extends \XLite\Controller\Admin\AAdmin
      */
     public function getTitle()
     {
-        return static::t('Look & Feel');
+        return static::t('Layout');
     }
 
     /**
@@ -72,7 +72,7 @@ class Layout extends \XLite\Controller\Admin\AAdmin
         $controller->doActionSwitch();
 
         $this->setReturnURL(
-            $this->buildURL('layout', '', array('moduleId' => \Xlite\Core\Request::getInstance()->template))
+            $this->buildURL('layout', '', ['moduleId' => \Xlite\Core\Request::getInstance()->template])
         );
     }
 
@@ -83,7 +83,7 @@ class Layout extends \XLite\Controller\Admin\AAdmin
      */
     protected function getSwitchData()
     {
-        $result = array();
+        $result = [];
         $template = \Xlite\Core\Request::getInstance()->template;
         $moduleId = null;
         $color = null;
@@ -91,35 +91,35 @@ class Layout extends \XLite\Controller\Admin\AAdmin
         if (\XLite\View\FormField\Select\Template::SKIN_STANDARD !== $template) {
             list ($moduleId, $color) = (false !== strpos($template, '_'))
                 ? explode('_', $template)
-                : array($template, null);
+                : [$template, null];
         }
 
         if ($color) {
             \XLite\Core\Database::getRepo('XLite\Model\Config')->createOption(
-                array(
+                [
                     'category' => 'Layout',
-                    'name'     => 'color',
-                    'value'    => $color,
-                )
+                    'name' => 'color',
+                    'value' => $color,
+                ]
             );
         }
 
         $module = \XLite\Core\Database::getRepo('XLite\Model\Module')->getCurrentSkinModule();
         // turn current skin module off
-        if ($module && $module->getModuleId() !== (int) $moduleId) {
-            $result[$module->getModuleId()] = array(
+        if ($module && $module->getModuleId() !== (int)$moduleId) {
+            $result[$module->getModuleId()] = [
                 'old' => true,
                 'new' => null
-            );
+            ];
         }
 
         if (\XLite\View\FormField\Select\Template::SKIN_STANDARD !== $template
-            && (!$module || $module->getModuleId() !== (int) $moduleId)
+            && (!$module || $module->getModuleId() !== (int)$moduleId)
         ) {
-            $result[$moduleId] = array(
+            $result[$moduleId] = [
                 'old' => false,
                 'new' => true
-            );
+            ];
         }
 
         return $result;
@@ -133,23 +133,28 @@ class Layout extends \XLite\Controller\Admin\AAdmin
     protected function doActionChangeLayout()
     {
         $layoutType = \XLite\Core\Request::getInstance()->layout_type;
-        $availableLayoutTypes = \XLite\Core\Layout::getInstance()->getAvailableLayoutTypes();
+        $layoutGroup = \XLite\Core\Request::getInstance()->layout_group ?: \XLite\Core\Layout::LAYOUT_GROUP_DEFAULT;
 
-        if (in_array($layoutType, $availableLayoutTypes, true)) {
-            \XLite\Core\Database::getRepo('XLite\Model\Config')->createOption(
-                array(
-                    'category' => 'Layout',
-                    'name' => 'layout_type',
-                    'value' => $layoutType,
-                )
-            );
+        $availableLayoutTypes = \XLite\Core\Layout::getInstance()->getAvailableLayoutTypes();
+        $groupAvailableTypes = isset($availableLayoutTypes[$layoutGroup])
+            ? $availableLayoutTypes[$layoutGroup]
+            : [];
+
+        if (in_array($layoutType, $groupAvailableTypes, true)) {
+            $group_suffix = ($layoutGroup == \XLite\Core\Layout::LAYOUT_GROUP_DEFAULT ? '' : '_' . $layoutGroup);
+
+            \XLite\Core\Database::getRepo('XLite\Model\Config')->createOption([
+                'category' => 'Layout',
+                'name' => 'layout_type' . $group_suffix,
+                'value' => $layoutType,
+            ]);
         }
 
         \XLite\Core\TopMessage::addInfo(
             'Layout has been changed. Review the updated storefront.',
-            array(
+            [
                 'storefront' => $this->getShopURL('')
-            )
+            ]
         );
 
         $this->setReturnURL($this->buildURL('layout'));

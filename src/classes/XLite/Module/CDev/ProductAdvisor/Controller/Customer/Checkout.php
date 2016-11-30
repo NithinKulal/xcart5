@@ -16,28 +16,33 @@ class Checkout extends \XLite\Controller\Customer\Checkout implements \XLite\Bas
     /**
      * Order placement is success
      *
-     * @return void
+     * @param boolean $doCloneProfile
      */
     public function processSucceed($doCloneProfile = true)
     {
-        $this->saveProductStats(\XLite\Module\CDev\ProductAdvisor\Main::getProductIds());
-
         parent::processSucceed($doCloneProfile);
+
+        $this->saveProductStats(\XLite\Module\CDev\ProductAdvisor\Main::getProductIds());
     }
 
     /**
      * Order placement is success
      *
-     * @return void
+     * @param array $viewedProductIds
      */
     protected function saveProductStats($viewedProductIds)
     {
-        $viewedProducts = \XLite\Core\Database::getRepo('XLite\Model\Product')->findByProductIds($viewedProductIds);
+        $viewedProducts = array();
+
+        if ($viewedProductIds) {
+            $viewedProducts = (array) \XLite\Core\Database::getRepo('XLite\Model\Product')->search(
+                new \XLite\Core\CommonCell([\XLite\Model\Repo\Product::P_PRODUCT_IDS => $viewedProductIds])
+            );
+        }
 
         if ($viewedProducts) {
-
-            $orderItems = $this->getCart()->getItems();
-            $orderedProducts = array();
+            $orderItems      = $this->getCart()->getItems();
+            $orderedProducts = [];
 
             foreach ($orderItems as $item) {
                 if ($item->getProduct() && 0 < $item->getProduct()->getProductId()) {
@@ -50,8 +55,8 @@ class Checkout extends \XLite\Controller\Customer\Checkout implements \XLite\Bas
                 ->findStats($viewedProductIds, array_keys($orderedProducts));
 
             // Prepare array of pairs 'A-B', 'C-D',... where A,C - viewed product ID, B,D - ordered product ID
-            // This will make comparison easy 
-            $foundStatsPairs = array();
+            // This will make comparison easy
+            $foundStatsPairs = [];
 
             if ($foundStats) {
                 foreach ($foundStats as $stats) {
@@ -70,19 +75,15 @@ class Checkout extends \XLite\Controller\Customer\Checkout implements \XLite\Bas
             $statsCreated = false;
 
             foreach ($orderedProducts as $opid => $orderedProduct) {
-
                 foreach ($viewedProducts as $viewedProduct) {
-
-                    if (
-                        !in_array(sprintf('%d-%d', $viewedProduct->getProductId(), $opid), $foundStatsPairs)
+                    if (!in_array(sprintf('%d-%d', $viewedProduct->getProductId(), $opid), $foundStatsPairs, true)
                         && $viewedProduct->getProductId() != $opid
                     ) {
-
                         // Create statistics record
                         $stats = new \XLite\Module\CDev\ProductAdvisor\Model\ProductStats();
                         $stats->setViewedProduct($viewedProduct);
                         $stats->setBoughtProduct($orderedProduct);
-        
+
                         \XLite\Core\Database::getEM()->persist($stats);
 
                         $statsCreated = true;

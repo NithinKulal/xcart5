@@ -14,9 +14,11 @@ function PopupButton(base)
   var obj = this;
 
   if (base) {
+    this.base = base;
     this.eachCallback(base);
   } else {
-    jQuery(this.pattern).each(
+    this.base = jQuery(this.pattern);
+    this.base.each(
       function () {
         obj.eachCallback(this);
       }
@@ -39,7 +41,15 @@ PopupButton.prototype.callback = function (selector, link)
 {
   var obj = this;
 
-  if (this.enableBackgroundSubmit) {
+  var shouldClose = jQuery(this.base).data('without-close') === true || !jQuery(this.base).data('without-close');
+
+  if (!this.enableBackgroundSubmit) {
+    jQuery('form', selector).each(
+        function () {
+          this.commonController.backgroundSubmit = false;
+        }
+    );
+  } else if (shouldClose) {
     jQuery('form', selector).each(
       function() {
         jQuery(this).commonController(
@@ -66,12 +76,6 @@ PopupButton.prototype.callback = function (selector, link)
       }
     );
 
-  } else {
-    jQuery('form', selector).each(
-      function() {
-        this.commonController.backgroundSubmit = false;
-      }
-    );
   }
 
   core.autoload(PopupButton);
@@ -102,26 +106,30 @@ PopupButton.prototype.eachClick = function (elem)
   }
 
   if (proceed) {
+    this.beforeLoadDialog(elem);
     return loadDialogByLink(
       elem,
       URLHandler.buildURL(this.getURLParams(elem)),
       this.options,
-      this.callback,
-      this
+      _.bind(this.callback, this),
+      elem
     );
   }
 
   return proceed;
 };
 
+PopupButton.prototype.beforeLoadDialog = function(elem) {};
+
 PopupButton.prototype.eachCallback = function (elem)
 {
   var obj = this;
   elem.popupController = obj;
 
+  var handler = _.bind(obj.eachClick, this);
   jQuery(elem).click(
     function(event) {
-      obj.eachClick(this);
+      handler(this);
       event.stopImmediatePropagation();
 
       return false;

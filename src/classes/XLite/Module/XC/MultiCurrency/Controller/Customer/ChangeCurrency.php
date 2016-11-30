@@ -43,6 +43,12 @@ class ChangeCurrency extends \XLite\Controller\Customer\ACustomer
 
         if ($changeCurrency) {
             MultiCurrency::getInstance()->setSelectedCurrency($currency->getCurrency());
+            
+            if ($this->getCart()) {
+                $this->getCart()->updateMultiCurrency(
+                    MultiCurrency::getInstance()->getSelectedMultiCurrency()
+                );
+            }
         }
 
         $this->doActionChangeLanguage();

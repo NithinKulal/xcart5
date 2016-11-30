@@ -11,7 +11,8 @@ namespace XLite\Controller\Features;
 /**
  * ItemsListControllerTrait
  */
-trait ItemsListControllerTrait {
+trait ItemsListControllerTrait
+{
 
     /**
      * Runtime cache
@@ -100,7 +101,7 @@ trait ItemsListControllerTrait {
             $requestName = is_string($condition)
                 ? $condition
                 : $name;
-            $storage->setValue($name, \XLite\Core\Request::getInstance()->$requestName);
+            $storage->setValue($requestName, \XLite\Core\Request::getInstance()->$requestName);
         }
 
         $storage->update();
@@ -147,7 +148,7 @@ trait ItemsListControllerTrait {
 
             $this->doActionUpdateItemsList();
         } else {
-           \XLite\Core\TopMessage::addWarning('Please select the entities first');
+            \XLite\Core\TopMessage::addWarning('Please select the entities first');
         }
     }
 
@@ -167,7 +168,7 @@ trait ItemsListControllerTrait {
     /**
      * Return params list to use for search
      *
-     * @return \XLite\Core\CommonCell
+     * @return array
      */
     protected function getSearchCondition()
     {

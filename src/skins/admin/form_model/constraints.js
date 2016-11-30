@@ -7,15 +7,25 @@
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
 
-define('form_model/constraints', ['vue/vue'], function (Vue) {
+define('form_model/constraints', ['vue/vue', 'js/jquery'], function (Vue, $) {
+
+  Vue.validator('Backend', function (value, rule) {
+    return true;
+  });
 
   Vue.validator('NotBlank', function (value, rule) {
     return !!$.trim(value) && 0 !== value.length;
   });
 
+  Vue.validator('MetaDescription', function (value, rule) {
+    var notBlank = !!$.trim(value) && 0 !== value.length;
+    var isCustom = this._vm.$get(rule.dependency) === rule.dependency_value;
+    return !isCustom || notBlank;
+  });
+
   Vue.validator('MaxLength', {
     check: function (value, rule) {
-      return value.length < rule.length;
+      return value.length <= rule.length;
     }
   });
 

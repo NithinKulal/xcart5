@@ -45,6 +45,9 @@ class DebugBarAssets extends \XLite\View\AView
     {
         return [
             static::RESOURCE_JS  => array_merge(
+                [
+                    'js/jquery.min.js',
+                ],
                 Logic\DebugBar::getInstance()->getJsFiles(),
                 [
                     ['file' => 'jstree/jstree.min.js', 'no_minify' => true],

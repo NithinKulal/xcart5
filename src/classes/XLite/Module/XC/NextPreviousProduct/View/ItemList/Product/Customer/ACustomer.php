@@ -15,12 +15,67 @@ use XLite\Module\XC\NextPreviousProduct\View\Product\ListItem;
  */
 abstract class ACustomer extends \XLite\View\ItemsList\Product\Customer\ACustomer implements \XLite\Base\IDecorator
 {
+    const NP_MODE_VIEW = 'npModeView';
+    const NP_MODE_READ = 'npModeRead';
+
+    /**
+     * @var string
+     */
+    protected static $npMode = [];
+
+    /**
+     * @var string
+     */
+    protected static $npConditionCellName = [];
+
     /**
      * Item position on page
      *
      * @var integer
      */
     protected $position = 0;
+
+    /**
+     * @param string $mode
+     */
+    public static function setNPMode($mode)
+    {
+        static::$npMode[get_called_class()] = $mode;
+    }
+
+    /**
+     * @param string $conditionCellName
+     */
+    public static function setNPConditionCellName($conditionCellName)
+    {
+        static::$npConditionCellName[get_called_class()] = $conditionCellName;
+    }
+
+    /**
+     * @return string
+     */
+    public static function getNPConditionCellName()
+    {
+        return isset(static::$npConditionCellName[get_called_class()])
+            ? static::$npConditionCellName[get_called_class()]
+            : '';
+    }
+
+    /**
+     * @return boolean
+     */
+    protected static function isNPRead()
+    {
+        return isset(static::$npMode[get_called_class()]) && static::$npMode[get_called_class()] === self::NP_MODE_READ;
+    }
+
+    /**
+     * @return boolean
+     */
+    protected static function isNPView()
+    {
+        return !isset(static::$npMode[get_called_class()]) || static::$npMode === self::NP_MODE_VIEW;
+    }
 
     /**
      * Public wrapper for getSearchCondition()
@@ -33,33 +88,15 @@ abstract class ACustomer extends \XLite\View\ItemsList\Product\Customer\ACustome
     }
 
     /**
-     * Get a list of JavaScript files
-     *
-     * @return array
-     */
-    public function getJSFiles()
-    {
-        $list = parent::getJSFiles();
-
-        $list[] = 'modules/XC/NextPreviousProduct/items-list/cookie-setter.js';
-
-        return $list;
-    }
-
-    /**
      * Get three items around $itemPosition
      *
-     * @param \XLite\Core\CommonCell $cnd          Condition for search
-     * @param integer                $itemPosition Item position in condition
+     * @param integer $itemPosition Item position in condition
      *
      * @return array|integer
      */
-    public function getNextPreviousItems($cnd, $itemPosition)
+    public function getNextPreviousItems($itemPosition)
     {
-        $cnd->limit = array(
-            $itemPosition - 1,
-            3,
-        );
+        $cnd = $this->getPager()->getLimitCondition($itemPosition - 1, 3, $this->getSearchCondition());
 
         return $this->getData($cnd);
     }
@@ -72,6 +109,25 @@ abstract class ACustomer extends \XLite\View\ItemsList\Product\Customer\ACustome
     public function getPagerWrapper()
     {
         return $this->getPager();
+    }
+
+    /**
+     * @return \XLite\Core\CommonCell
+     */
+    protected function getSearchCondition()
+    {
+        $cellName = static::getSearchSessionCellName() . '_np';
+
+        if (static::isNPRead()) {
+            $npConditionCellName = static::getNPConditionCellName() ?: $cellName;
+            return \XLite\Core\Session::getInstance()->{$npConditionCellName};
+        }
+
+        $result   = parent::getSearchCondition();
+
+        \XLite\Core\Session::getInstance()->{$cellName} = $result;
+
+        return $result;
     }
 
     /**

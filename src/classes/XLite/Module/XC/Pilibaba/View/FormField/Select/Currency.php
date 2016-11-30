@@ -35,14 +35,19 @@ class Currency extends \XLite\View\FormField\Select\Regular
             }
         );
 
-        $currencies = @\PilipayCurrency::queryAll();
+        try {
+            $currencies = @\PilipayCurrency::queryAll();
 
-        $processedCurrencies = array();
+            $processedCurrencies = array();
 
-        foreach ($currencies as $currency) {
-            $processedCurrencies[$currency->code] = $currency->code;
+            foreach ($currencies as $currency) {
+                $processedCurrencies[$currency->code] = $currency->code;
+            }
+
+        } catch (\PilipayError $e) {
+            \XLite\Core\TopMessage::addError('Can\'t get allowed currencies from Pilibaba. Please, try again later');
+            $processedCurrencies = [];
         }
-
 
         return $processedCurrencies;
     }

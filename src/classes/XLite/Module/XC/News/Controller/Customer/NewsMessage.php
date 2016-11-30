@@ -58,7 +58,7 @@ class NewsMessage extends \XLite\Controller\Customer\ACustomer
      *
      * @return string
      */
-    public function getPageTitle()
+    public function getTitleObjectPart()
     {
         $model = $this->getNewsMessage();
 

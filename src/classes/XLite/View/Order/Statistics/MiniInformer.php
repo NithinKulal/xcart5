@@ -169,6 +169,9 @@ class MiniInformer extends \XLite\View\Dialog
                 $prevStartDate = 0;
         }
 
+        $startDate      = \XLite\Core\Converter::convertTimeToServer($startDate);
+        $prevStartDate  = \XLite\Core\Converter::convertTimeToServer($prevStartDate);
+
         $thisPeriod = \XLite\Core\Database::getRepo('XLite\Model\Order')->getOrderStats($startDate);
 
         $result['orders']['value'] = $thisPeriod['orders_count'];

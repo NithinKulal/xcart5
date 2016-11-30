@@ -61,16 +61,6 @@ jQuery().ready(
     var importTarget = core.getCommentedData('.import-page', 'importTarget');
     jQuery('.import-progress .bar')
       .bind(
-        'changePercent',
-        function (event, data) {
-          if (data) {
-            if ('undefined' != typeof(data.rowsProcessedLabel)) {
-              jQuery('.import-progress .rows-processed').html(data.rowsProcessedLabel);
-            }
-          }
-        }
-      )
-      .bind(
         'error',
         function () {
           this.errorState = true;

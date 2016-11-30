@@ -159,7 +159,7 @@ class Language extends \XLite\Model\Repo\Base\I18n
      */
     protected function defineByEnabledQuery($status)
     {
-        return $this->createQueryBuilder()
+        return $this->createPureQueryBuilder()
             ->andWhere('l.added = true')
             ->andWhere('l.enabled = :status')
             ->setParameter('status', $status);

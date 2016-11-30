@@ -1293,7 +1293,7 @@ class Parcel extends \XLite\Model\AEntity
      */
     public function setIsDocument($isDocument)
     {
-        $this->isDocument = $isDocument;
+        $this->isDocument = (boolean)$isDocument;
         return $this;
     }
 
@@ -1315,7 +1315,7 @@ class Parcel extends \XLite\Model\AEntity
      */
     public function setIsUnpackaged($isUnpackaged)
     {
-        $this->isUnpackaged = $isUnpackaged;
+        $this->isUnpackaged = (boolean)$isUnpackaged;
         return $this;
     }
 
@@ -1337,7 +1337,7 @@ class Parcel extends \XLite\Model\AEntity
      */
     public function setIsMailingTube($isMailingTube)
     {
-        $this->isMailingTube = $isMailingTube;
+        $this->isMailingTube = (boolean)$isMailingTube;
         return $this;
     }
 
@@ -1359,7 +1359,7 @@ class Parcel extends \XLite\Model\AEntity
      */
     public function setIsOversized($isOversized)
     {
-        $this->isOversized = $isOversized;
+        $this->isOversized = (boolean)$isOversized;
         return $this;
     }
 
@@ -1381,7 +1381,7 @@ class Parcel extends \XLite\Model\AEntity
      */
     public function setNotifyOnShipment($notifyOnShipment)
     {
-        $this->notifyOnShipment = $notifyOnShipment;
+        $this->notifyOnShipment = (boolean)$notifyOnShipment;
         return $this;
     }
 
@@ -1403,7 +1403,7 @@ class Parcel extends \XLite\Model\AEntity
      */
     public function setNotifyOnException($notifyOnException)
     {
-        $this->notifyOnException = $notifyOnException;
+        $this->notifyOnException = (boolean)$notifyOnException;
         return $this;
     }
 
@@ -1425,7 +1425,7 @@ class Parcel extends \XLite\Model\AEntity
      */
     public function setNotifyOnDelivery($notifyOnDelivery)
     {
-        $this->notifyOnDelivery = $notifyOnDelivery;
+        $this->notifyOnDelivery = (boolean)$notifyOnDelivery;
         return $this;
     }
 
@@ -1447,7 +1447,7 @@ class Parcel extends \XLite\Model\AEntity
      */
     public function setOptSignature($optSignature)
     {
-        $this->optSignature = $optSignature;
+        $this->optSignature = (boolean)$optSignature;
         return $this;
     }
 

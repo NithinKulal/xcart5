@@ -10,25 +10,17 @@ jQuery().ready(
   function() {
     jQuery('.quick-data-progress .bar')
       .bind(
-        'changePercent',
-        function(event, data) {
-          if (data && 'undefined' != typeof(data.timeLabel)) {
-            jQuery('.quick-data-progress .time').html(data.timeLabel);
-          }
-        }
-      )
-      .bind(
         'error',
         function() {
           this.errorState = true;
-          self.location = URLHandler.buildURL({ 'target': 'cache_management', 'resize_failed': 1 });
+          self.location = URLHandler.buildURL({ 'target': 'cache_management', 'quick_data_failed': 1 });
         }
       )
       .bind(
         'complete',
         function() {
           if (!this.errorState) {
-            self.location = URLHandler.buildURL({ 'target': 'cache_management', 'resize_completed': 1 });
+            self.location = URLHandler.buildURL({ 'target': 'cache_management', 'quick_data_completed': 1 });
           }
         }
       );

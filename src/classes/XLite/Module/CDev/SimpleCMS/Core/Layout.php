@@ -24,4 +24,17 @@ class Layout extends \XLite\Core\Layout implements \XLite\Base\IDecorator
 
         return $url ?: parent::getLogo();
     }
+
+    /**
+     * Get apple icon
+     *
+     * @return string
+     */
+    public function getAppleIcon()
+    {
+        $url = str_replace(LC_DS, '/', \XLite\Core\Config::getInstance()->CDev->SimpleCMS->appleIcon);
+
+        return $url ?: parent::getAppleIcon();
+    }
+
 }

@@ -25,7 +25,7 @@ class ChangeAttributeValues extends \XLite\View\AView
      *
      * @var string
      */
-    protected static $errorMessage = null;
+    protected static $errorMessage;
 
     /**
      * Return list of targets allowed for this widget
@@ -53,6 +53,18 @@ class ChangeAttributeValues extends \XLite\View\AView
         return $list;
     }
 
+    /**
+     * Register CSS files
+     *
+     * @return array
+     */
+    public function getJSFiles()
+    {
+        $list = parent::getJSFiles();
+        $list[] = 'change_attribute_values/controller.js';
+
+        return $list;
+    }
 
     /**
      * Return widget default template
@@ -113,7 +125,7 @@ class ChangeAttributeValues extends \XLite\View\AView
      */
     protected function getErrorMessage()
     {
-        if (is_null(static::$errorMessage)) {
+        if (null === static::$errorMessage) {
             static::$errorMessage = \XLite\Core\Session::getInstance()->error_message;
             \XLite\Core\Session::getInstance()->error_message = null;
         }

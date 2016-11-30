@@ -9,4 +9,5 @@
   <input id="files" type="file" name="files[]" multiple="multiple" />
   <p>{{ this.getUploadFileMessage() }}</p>
   <a href="{{ this.getSamplesURL() }}" target="_blank">{{ this.getSamplesURLText() }}</a>
+  {{ widget_list('import.begin.content.files') }}
 </div>

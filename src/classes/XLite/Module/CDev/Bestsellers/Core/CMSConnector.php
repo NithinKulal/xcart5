@@ -15,13 +15,11 @@ abstract class CMSConnector extends \XLite\Core\CMSConnector implements \XLite\B
 {
     /**
      * Constructor
-     *
-     * @return void
      */
     protected function __construct()
     {
         parent::__construct();
 
-        $this->widgetsList['\XLite\Module\CDev\Bestsellers\View\Bestsellers'] = 'Bestsellers list';
+        $this->widgetsList['XLite\Module\CDev\Bestsellers\View\Bestsellers'] = 'Bestsellers list';
     }
 }

@@ -1,0 +1,39 @@
+{##
+ # Name column template
+ #}
+
+<div class="action-name">
+    {{ this.entity.name }}
+</div>
+
+<div class="action-description">
+    {{ this.entity.description }}
+</div>
+
+{% if this.entity.options is not empty %}
+    <div class="action-options">
+        <table class="action-options-table">
+            {% for idx, option in this.entity.options %}
+                <tr>
+                    <td class="column-option">
+                        {{ option.name }}
+                    </td>
+                    <td class="column-option-action">
+                        {% if option.view is not empty %}
+                            {{ widget(option.view, option.viewParams) }}
+                        {% elseif column.template is not empty %}
+                            {{ widget(template=option.template, params=option.viewParams) }}
+                        {% else %}
+                            {{ column.value }}
+                        {% endif %}
+                    </td>
+                    <td class="column-option-help">
+                        <div class="help-wrapper">
+                            {{ widget('XLite\\View\\Tooltip', text=t(option.description), className='help-icon') }}
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endif %}

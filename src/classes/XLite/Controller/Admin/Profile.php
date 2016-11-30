@@ -303,6 +303,25 @@ class Profile extends \XLite\Controller\Admin\AAdmin
         }
     }
 
+    /**
+     * Operate as user
+     *
+     * @return void
+     */
+    protected function doActionTerminateSessions()
+    {
+        $profile = $this->getModelForm()->getModelObject();
+
+        if ($profile) {
+            $profile->logoffSessions(false);
+            \XLite\Core\TopMessage::addInfo('Success');
+        } else {
+            \XLite\Core\TopMessage::addError('Error');
+        }
+
+        $this->setReturnURL($this->buildURL('profile', '', ['profile_id' => $profile->getProfileId()]));
+    }
+
 
     /**
      * Login as admin

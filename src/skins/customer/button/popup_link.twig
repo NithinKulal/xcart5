@@ -1,7 +1,7 @@
 {##
  # Popup button
  #}
-<a href="#" class="{{ this.getClass() }}">
+<a href="#" class="{{ this.getClass() }}" {{ this.printTagAttributes(this.getAttributes())|raw }}>
   {{ this.displayCommentedData(this.getURLParams()) }}
   {% if this.getParam('icon-style') %}
   <i class="fa {{ this.getParam('icon-style') }}"></i>

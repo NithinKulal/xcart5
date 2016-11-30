@@ -34,4 +34,14 @@ class ProductVariant extends \XLite\Module\XC\ProductVariants\Model\ProductVaria
     {
         return \XLite\Module\CDev\Sale\Logic\PriceBeforeSale::getInstance()->apply($this, 'getNetPriceBeforeSale', array('taxable'), 'display');
     }
+
+    /**
+     * Get quick data price
+     *
+     * @return float
+     */
+    public function getQuickDataPrice()
+    {
+        return $this->getNetPrice();
+    }
 }

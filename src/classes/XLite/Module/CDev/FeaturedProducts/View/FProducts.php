@@ -22,7 +22,7 @@ class FProducts extends \XLite\View\AView
      */
     public static function getAllowedTargets()
     {
-        return array_merge(parent::getAllowedTargets(), array('f_products'));
+        return array_merge(parent::getAllowedTargets(), ['f_products']);
     }
 
     /**
@@ -44,5 +44,4 @@ class FProducts extends \XLite\View\AView
     {
         return true;
     }
-
 }

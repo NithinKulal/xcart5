@@ -161,6 +161,17 @@ class AdminMain extends \XLite\View\Model\AModel
     }
 
     /**
+     * @return array
+     */
+    public function getJSFiles()
+    {
+        $list = parent::getJSFiles();
+        $list[] = 'model/profile/email.js';
+
+        return $list;
+    }
+
+    /**
      * The "mode" parameter used to determine if we create new or modify existing profile
      *
      * @return boolean
@@ -352,7 +363,6 @@ class AdminMain extends \XLite\View\Model\AModel
                         $this->mainSchema[$field][self::SCHEMA_REQUIRED] = true;
                     }
                 }
-
             } elseif ($this->getModelObject()->getAnonymous()) {
                 // Anonymous user
                 foreach (array('password', 'password_conf') as $field) {
@@ -362,8 +372,12 @@ class AdminMain extends \XLite\View\Model\AModel
                 }
 
                 if (isset($this->mainSchema['login'])) {
-                    $this->mainSchema['login'][static::SCHEMA_CLASS] = '\XLite\View\FormField\Label';
+                    $this->mainSchema['login'][static::SCHEMA_CLASS] = 'XLite\View\FormField\Label';
                     $this->mainSchema['login'][static::SCHEMA_REQUIRED] = false;
+                }
+            } elseif ($this->getModelObject()->getOrdersCount()) {
+                if (isset($this->mainSchema['login'])) {
+                    $this->mainSchema['login'][static::SCHEMA_COMMENT] = static::t('E-mail will also be updated in all the related orders.');
                 }
             }
         }
@@ -457,7 +471,7 @@ class AdminMain extends \XLite\View\Model\AModel
      */
     protected function getModelObjectValue($name)
     {
-        if ('access_level' == $name) {
+        if ('access_level' === $name) {
             $field = $this->getFormField('access', 'access_level');
             if ($field && $field instanceof \XLite\View\FormField\Label) {
                 $value = $this->getAccessLevelAsText();
@@ -570,6 +584,7 @@ class AdminMain extends \XLite\View\Model\AModel
             unset($data['roles']);
         }
 
+        /** @var \XLite\Model\Profile $model */
         $model = $this->getModelObject();
 
         // Assign only role for admin
@@ -614,6 +629,10 @@ class AdminMain extends \XLite\View\Model\AModel
 
         if (isset($data['roles'])) {
             unset($data['roles']);
+        }
+
+        if (isset($data['login']) && $data['login'] !== $model->getLogin() && $model->getOrdersCount()) {
+            \XLite\Core\Database::getRepo('XLite\Model\Profile')->updateOrderProfileEmailByOrigProfile($model, $data['login']);
         }
 
         parent::setModelProperties($data);
@@ -845,7 +864,14 @@ class AdminMain extends \XLite\View\Model\AModel
      */
     protected function performActionUpdate()
     {
-        return $this->checkProfileData() ? parent::performActionUpdate() : false;
+        $data = $this->getRequestData();
+        $result = $this->checkPassword() ? parent::performActionUpdate() : false;
+
+        if ($result && !empty($data['password']) && $profile = $this->getModelObject()) {
+            $profile->logoffSessions(true);
+        }
+
+        return $result;
     }
 
     /**

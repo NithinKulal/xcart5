@@ -28,7 +28,7 @@ class CssJsPerformance extends \XLite\Controller\Admin\Settings
     public function getPages()
     {
         $list = parent::getPages();
-        $list[static::PERFORMANCE_PAGE] = static::t('Look & Feel');
+        $list[static::PERFORMANCE_PAGE] = static::t('Performance');
 
         return $list;
     }

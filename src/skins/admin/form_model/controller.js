@@ -35,6 +35,11 @@ define('form_model', ['js/vue/vue'], function (XLiteVue) {
       }, 1000);
       done();
     },
+
+    ready: function() {
+      new CommonForm(this.$el);
+    },
+
     directives: {
       xliteBackendValidator: {
         bind: function () {
@@ -44,6 +49,14 @@ define('form_model', ['js/vue/vue'], function (XLiteVue) {
               el.parentNode.removeChild(el);
             }
           })
+        }
+      },
+      xliteValidateTrigger: {
+        bind: function () {
+          var el = this.el;
+          this.vm.$watch(this.expression, _.bind(function () {
+            this.el.fireEvent('blur');
+          }, this));
         }
       }
     },

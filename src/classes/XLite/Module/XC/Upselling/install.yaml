@@ -7,11 +7,17 @@
 
 XLite\Model\LanguageLabel:
   - { name: 'Related products', translations: [{ code: en, label: 'Related products' }] }
-  - { name: 'Mutual link', translations: [{ code: en, label: 'Mutual link' }] }
+  - { name: 'Mutual link', translations: [{ code: en, label: 'Bidirectional link' }, { code: ru, label: 'Двунаправленная связь' }] }
   - { name: 'Related products page', translations: [{ code: en, label: 'Related products page' }] }
   - { name: 'You cannot choose this product', translations: [{ code: en, label: 'You cannot choose this product' }] }
   - { name: 'The product SKU#"X" is already set as related for the product', translations: [{ code: en, label: 'The product SKU#{{SKU}} is already set as related for the product' }] }
   - { name: 'Add related products', translations: [{ code: en, label: 'Add related products' }] }
   - { name: "a2cp-source-code-REL", translations: [{ code: en, label: "Related products (Related Products module)" }] }
   - { name: 'The product SKU#"X" is already set as Related for the product', translations: [{ code: en, label: 'The product SKU#"X" is already set as Related for the product' }] }
+  - { name: 'Enable mutual links', translations: [{ code: en, label: 'Enable bidirectional links' }, { code: ru, label: 'Включить двунаправленная связь' }] }
+  - { name: 'Disable mutual links', translations: [{ code: en, label: 'Disable bidirectional links' }, { code: ru, label: 'Отключить двунаправленная связь' }] }
+  - { name: 'Do you really want to delete all relations from this product?', translations: [{ code: en, label: 'Do you really want to delete all relations from this product?' }, { code: ru, label: 'Вы действительно хотите удалить все связи из этого товара?' }] }
+  - { name: 'Mutual link head help', translations: [{ code: en, label: '"Bidirectional link" means that the related product is not only linked to from the product on view, but also provides a link to that product. With the "Bidirectional link" option enabled, removing the link from one of the products will not remove the link in the opposite direction. To remove the relationship between the products completely, disable the "Bidirectional link" option first, then remove the link.' }, { code: ru, label: '"Двунаправленная связь" значит, что не только просматриваемый товар ссылается на связанный, но и связанный ссылается на него. При включенной настройке "Двунаправленная связь", удаление ссылки с одного из товаров не приведет к удалению ссылки в противоположном направлении. Для полного удаления связи между товарами, вначале отключите настройку "Двунаправленная связь", затем удалите ссылку на связанный товар.' }] }
+  - { name: 'Edit all', translations: [{ code: en, label: 'Edit all' }, { code: ru, label: 'Редактировать все' }] }
+  - { name: 'Make mutual relations', translations: [{ code: en, label: 'Make bidirectional relations' }, { code: ru, label: 'Добавлять двунаправленную связь' }] }
 

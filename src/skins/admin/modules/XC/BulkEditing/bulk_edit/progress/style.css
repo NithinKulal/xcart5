@@ -10,7 +10,7 @@
 /**
  * Export
  */
-div.dialog-block.bulk-edit-box {
+.bulk-edit-box {
   width: 902px;
   min-width: 902px;
   display: block;
@@ -25,7 +25,7 @@ div.dialog-block.bulk-edit-box {
   font-weight: normal;
 }
 
-div.dialog-block.bulk-edit-box .subcontent {
+.bulk-edit-box .subcontent {
   padding: 20px;
 }
 
@@ -43,61 +43,20 @@ div.dialog-block.bulk-edit-box .subcontent {
  * Export (progress)
  */
 
-div.dialog-block.bulk-edit-progress .subcontent {
-  padding: 40px;
+.bulk-edit-progress .subcontent {
+  padding: 20px 0;
   padding-bottom: 12px;
 }
 
-div.dialog-block.bulk-edit-progress div.content {
-  width: 900px;
-}
-
-.bulk-edit-progress .subcontent .progress-bar {
-  float: left;
-  margin-right: 20px;
-}
-
-.bulk-edit-progress .subcontent .bar {
+.bulk-edit-progress div.content {
   width: 650px;
-}
-
-.bulk-edit-progress .subcontent button {
-  padding: 1px 17px 2px 17px;
-  float: right;
-  min-height: 24px;
-}
-
-.bulk-edit-progress .subcontent .time {
-  font-size: 14px;
-  text-align: center;
-  color: #44769d;
-  height: 20px;
-  margin-top: 27px;
-}
-
-.bulk-edit-progress .help {
-  padding-left: 49px;
-  padding-top: 6px;
-  min-height: 38px;
-  line-height: 20px;
-}
-
-.bulk-edit-progress .help i {
-  color: #b9b9b9;
-  font-size: 36px;
-  float: left;
-}
-
-.bulk-edit-progress .help p {
-  font-size: 14px;
-  margin-left: 51px;
 }
 
 /**
  * Export failed
  */
 
-div.dialog-block.export-failed .header h2,
+.export-failed .header h2,
 .export-failed h3
 {
   color: #b94a48;

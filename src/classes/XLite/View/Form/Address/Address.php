@@ -13,6 +13,24 @@ namespace XLite\View\Form\Address;
  */
 class Address extends \XLite\View\Form\AForm
 {
+    const PARAM_FORM_RETURN_URL = 'returnURL';
+
+    /**
+     * Define widget parameters
+     *
+     * @return void
+     */
+    protected function defineWidgetParams()
+    {
+        parent::defineWidgetParams();
+
+        $this->widgetParams += array(
+            self::PARAM_FORM_RETURN_URL => new \XLite\Model\WidgetParam\TypeString(
+                'Return url', $this->getDefaultReturnURL()
+            ),
+        );
+    }
+
     /**
      * getDefaultTarget
      *
@@ -30,7 +48,7 @@ class Address extends \XLite\View\Form\AForm
      */
     protected function getDefaultAction()
     {
-        return 'save';
+        return \XLite\Core\Request::getInstance()->requestedAction ?: 'save';
     }
 
     /**
@@ -52,9 +70,23 @@ class Address extends \XLite\View\Form\AForm
             }
         }
 
-        $result[\XLite\Controller\AController::RETURN_URL] = $this->buildURL('address_book');
+        if (\XLite\Core\Request::getInstance()->atype) {
+            $result['atype'] = \XLite\Core\Request::getInstance()->atype;
+        }
+
+        $result['returnURL'] = $this->getParam(static::PARAM_FORM_RETURN_URL);
         
         return $result;
+    }
+    
+    /**
+     * Returns default returnURL param
+     * 
+     * @return string
+     */
+    protected function getDefaultReturnURL()
+    {
+        return $this->buildURL('address_book');
     }
 
     /**

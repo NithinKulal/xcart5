@@ -62,7 +62,7 @@ abstract class Main extends \XLite\Module\AModule
      */
     public static function getMinorVersion()
     {
-        return '1';
+        return '2';
     }
 
     /**
@@ -72,7 +72,7 @@ abstract class Main extends \XLite\Module\AModule
      */
     public static function getBuildVersion()
     {
-        return '1';
+        return '0';
     }
 
     /**
@@ -116,11 +116,51 @@ abstract class Main extends \XLite\Module\AModule
     {
         $result  = array();
 
-        if ($product->isNewProduct() && \XLite\Core\Config::getInstance()->CDev->ProductAdvisor->na_mark_with_label) {
+        if ($product->isNewProduct()
+            && \XLite\Module\CDev\ProductAdvisor\View\FormField\Select\MarkProducts::isCatalogEnabled(
+                \XLite\Core\Config::getInstance()->CDev->ProductAdvisor->na_mark_with_label
+            )
+        ) {
             $result[self::PA_MODULE_PRODUCT_LABEL_NEW] = \XLite\Core\Translation::getInstance()->translate('New!');
         }
 
-        if ($product->isUpcomingProduct() && \XLite\Core\Config::getInstance()->CDev->ProductAdvisor->cs_mark_with_label) {
+        if ($product->isUpcomingProduct()
+            && \XLite\Module\CDev\ProductAdvisor\View\FormField\Select\MarkProducts::isCatalogEnabled(
+                \XLite\Core\Config::getInstance()->CDev->ProductAdvisor->cs_mark_with_label
+            )
+        ) {
+            $result[self::PA_MODULE_PRODUCT_LABEL_SOON]
+                = \XLite\Core\Translation::getInstance()->translate('Coming soon');
+        }
+
+        return $result;
+    }
+
+
+    /**
+     * Get the "New!" label
+     *
+     * @param \XLite\Model\Product $product Current product
+     *
+     * @return array
+     */
+    public static function getProductPageLabels(\XLite\Model\Product $product)
+    {
+        $result  = array();
+
+        if ($product->isNewProduct()
+            && \XLite\Module\CDev\ProductAdvisor\View\FormField\Select\MarkProducts::isProductPageEnabled(
+                \XLite\Core\Config::getInstance()->CDev->ProductAdvisor->na_mark_with_label
+            )
+        ) {
+            $result[self::PA_MODULE_PRODUCT_LABEL_NEW] = \XLite\Core\Translation::getInstance()->translate('New!');
+        }
+
+        if ($product->isUpcomingProduct()
+            && \XLite\Module\CDev\ProductAdvisor\View\FormField\Select\MarkProducts::isProductPageEnabled(
+                \XLite\Core\Config::getInstance()->CDev->ProductAdvisor->cs_mark_with_label
+            )
+        ) {
             $result[self::PA_MODULE_PRODUCT_LABEL_SOON]
                 = \XLite\Core\Translation::getInstance()->translate('Coming soon');
         }
@@ -164,7 +204,7 @@ abstract class Main extends \XLite\Module\AModule
     {
         $result = false;
 
-        if (0 < intval($productId)) {
+        if (0 < (int) $productId) {
             if (\XLite\Core\Request::getInstance()->isBot()) {
                 \XLite\Core\Request::getInstance()->unsetCookie(
                     static::LC_RECENTLY_VIEWED_COOKIE_NAME
@@ -172,7 +212,7 @@ abstract class Main extends \XLite\Module\AModule
 
             } else {
                 $result = static::getProductIds();
-                array_unshift($result, intval($productId));
+                array_unshift($result, (int) $productId);
 
                 $result = array_unique($result, SORT_NUMERIC);
                 $result = implode('-', $result);

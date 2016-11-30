@@ -39,7 +39,25 @@ class Product extends ABulkEdit
 
     protected function defineAdditionalButtons()
     {
-        $result = [];
+        $result = [
+            'delete'         => [
+                'class'    => 'XLite\View\Button\DeleteSelected',
+                'params'   => [
+                    'label'      => static::t('Delete'),
+                    'style'      => 'more-action link list-action hide-on-disable',
+                    'icon-style' => 'fa fa-trash-o',
+                ],
+                'position' => 0,
+            ],
+            'delete_divider' => [
+                'class'    => 'XLite\View\Button\Dropdown\Divider',
+                'params'   => [
+                    'style'      => 'more-action hide-on-disable',
+                ],
+                'position' => 1,
+            ],
+        ];
+
         $scenarios = \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Scenario::getScenarios();
         $availableScenarios = $this->getScenarios();
 
@@ -52,20 +70,24 @@ class Product extends ABulkEdit
             if (isset($data['url'])) {
                 $result[$name] = [
                     'class'    => 'XLite\Module\XC\BulkEditing\View\Button\ComingSoon',
-                    'label'    => $data['title'],
-                    'location' => $data['url'],
-                    'blank'    => true,
-                    'style'    => 'always-enabled action link list-action',
+                    'params'   => [
+                        'label'    => $data['title'],
+                        'location' => $data['url'],
+                        'blank'    => true,
+                        'style'    => 'always-enabled action link list-action',
+                    ],
                     'position' => $options['position'],
                 ];
 
             } else {
                 $result[$name] = [
-                    'label'      => $data['title'],
-                    'action'     => 'start',
-                    'formParams' => ['target' => 'bulk_edit', 'scenario' => $name],
-                    'style'      => 'always-enabled action link list-action',
-                    'position'   => $options['position'],
+                    'params'   => [
+                        'label'      => $data['title'],
+                        'action'     => 'start',
+                        'formParams' => ['target' => 'bulk_edit', 'scenario' => $name],
+                        'style'      => 'always-enabled action link list-action',
+                    ],
+                    'position' => $options['position'],
                 ];
             }
         }

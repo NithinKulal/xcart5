@@ -21,26 +21,17 @@ abstract class ItemsListForm extends \XLite\View\StickyPanel\Product\Admin\Searc
     protected function defineAdditionalButtons()
     {
         $list = parent::defineAdditionalButtons();
-
-        $list[] = $this->getWidget(
-            array(
-                'disabled'   => true,
-                'label'      => 'Put up for sale',
-                'style'      => 'more-action',
-                'icon-style' => 'fa fa-percent state-on',
-            ),
-            'XLite\Module\CDev\Sale\View\SaleSelectedButton'
-        );
-
-        $list[] = $this->getWidget(
-            array(
-                'disabled'   => true,
-                'label'      => 'Cancel sale',
-                'style'      => 'more-action',
-                'icon-style' => 'fa fa-percent state-off',
-            ),
-            'XLite\Module\CDev\Sale\View\CancelSaleSelectedButton'
-        );
+        $list['sale'] = [
+            'class'    => 'XLite\Module\CDev\Sale\View\Button\Dropdown\ProductSale',
+            'params'   => [
+                'label'         => '',
+                'style'         => 'more-action icon-only hide-on-disable hidden',
+                'icon-style'    => 'fa fa-percent',
+                'showCaret'     => false,
+                'dropDirection' => 'dropup',
+            ],
+            'position' => 250,
+        ];
 
         return $list;
     }

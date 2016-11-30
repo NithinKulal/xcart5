@@ -9,7 +9,7 @@
 namespace XLite\Controller\Admin;
 
 /**
- * Autocomplete controller 
+ * Autocomplete controller
  */
 class Autocomplete extends \XLite\Controller\Admin\AAdmin
 {
@@ -19,8 +19,8 @@ class Autocomplete extends \XLite\Controller\Admin\AAdmin
     const PROFILES_MAX_RESULTS = 9;
 
     /**
-     * Data 
-     * 
+     * Data
+     *
      * @var array
      */
     protected $data = array();
@@ -99,7 +99,7 @@ class Autocomplete extends \XLite\Controller\Admin\AAdmin
             if (method_exists($this, $method)) {
 
                 // Method name assmbled from 'assembleDictionary' + dictionary input argument
-                $data = $this->$method(strval(\XLite\Core\Request::getInstance()->term));
+                $data = $this->$method((string) \XLite\Core\Request::getInstance()->term);
                 $this->data = $this->processData($data);
             }
         }
@@ -108,10 +108,10 @@ class Autocomplete extends \XLite\Controller\Admin\AAdmin
     }
 
     /**
-     * Process data 
-     * 
+     * Process data
+     *
      * @param array $data Key-value data
-     *  
+     *
      * @return array
      */
     protected function processData(array $data)
@@ -142,13 +142,14 @@ class Autocomplete extends \XLite\Controller\Admin\AAdmin
             $cnd->{\XLite\Model\Repo\AttributeOption::SEARCH_NAME} = $term;
         }
 
-        $id = intval(\XLite\Core\Request::getInstance()->id);
+        $id = (int) \XLite\Core\Request::getInstance()->id;
         if ($id) {
             $cnd->{\XLite\Model\Repo\AttributeOption::SEARCH_ATTRIBUTE} = $id;
         }
 
-        $list = array();
+        $cnd->{\XLite\Model\Repo\AttributeOption::P_ORDER_BY} = ['a.position', 'ASC'];
 
+        $list = array();
         foreach (\XLite\Core\Database::getRepo('\XLite\Model\AttributeOption')->search($cnd) as $a) {
             $name = $a->getName();
             $list[$name] = $name;

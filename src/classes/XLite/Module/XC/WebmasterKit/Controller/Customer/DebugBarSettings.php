@@ -27,6 +27,7 @@ class DebugBarSettings extends \XLite\Controller\Customer\ACustomer
         $request = \XLite\Core\Request::getInstance();
 
         $settingsMgr->setWidgetsSqlQueryStacktracesEnabled($request->{DebugBarSettingsManager::WIDGETS_SQL_QUERY_STACKTRACES_ENABLED});
+        $settingsMgr->setSqlQueryStacktracesEnabled($request->{DebugBarSettingsManager::SQL_QUERY_STACKTRACES_ENABLED});
         $settingsMgr->setWidgetsTabEnabled($request->{DebugBarSettingsManager::WIDGETS_TAB_ENABLED});
         $settingsMgr->setDatabaseDetailedModeEnabled($request->{DebugBarSettingsManager::WIDGETS_DETAILED_MODE_ENABLED});
 

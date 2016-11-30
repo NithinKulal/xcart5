@@ -22,8 +22,7 @@ class FeaturedProduct extends \XLite\View\ItemsList\Model\Table
      */
     public function getCSSFiles()
     {
-        $list = parent::getCSSFiles();
-
+        $list   = parent::getCSSFiles();
         $list[] = 'modules/CDev/FeaturedProducts/f_products/style.css';
 
         return $list;
@@ -36,7 +35,7 @@ class FeaturedProduct extends \XLite\View\ItemsList\Model\Table
      */
     protected function getTopActions()
     {
-        $actions = parent::getTopActions();
+        $actions   = parent::getTopActions();
         $actions[] = 'modules/CDev/FeaturedProducts/f_products/parts/create.twig';
 
         return $actions;
@@ -53,10 +52,10 @@ class FeaturedProduct extends \XLite\View\ItemsList\Model\Table
             'featured_products',
             'add',
             \XLite\Core\Request::getInstance()->id
-                ? array(
-                    'id' => \XLite\Core\Request::getInstance()->id
-                )
-                : array()
+                ? [
+                    'id' => \XLite\Core\Request::getInstance()->id,
+                ]
+                : []
         );
     }
 
@@ -67,29 +66,29 @@ class FeaturedProduct extends \XLite\View\ItemsList\Model\Table
      */
     protected function defineColumns()
     {
-        return array(
-            'sku' => array(
-                static::COLUMN_NAME => \XLite\Core\Translation::lbl('SKU'),
+        return [
+            'sku'     => [
+                static::COLUMN_NAME    => static::t('SKU'),
                 static::COLUMN_NO_WRAP => true,
-                static::COLUMN_ORDERBY  => 100,
-            ),
-            'product' => array(
-                static::COLUMN_NAME     => \XLite\Core\Translation::lbl('Product'),
+                static::COLUMN_ORDERBY => 100,
+            ],
+            'product' => [
+                static::COLUMN_NAME     => static::t('Product'),
                 static::COLUMN_TEMPLATE => 'modules/CDev/FeaturedProducts/f_products/parts/info.product.twig',
                 static::COLUMN_NO_WRAP  => true,
                 static::COLUMN_MAIN     => true,
                 static::COLUMN_ORDERBY  => 200,
-            ),
-            'price' => array(
-                static::COLUMN_NAME     => \XLite\Core\Translation::lbl('Price'),
+            ],
+            'price'   => [
+                static::COLUMN_NAME     => static::t('Price'),
                 static::COLUMN_TEMPLATE => 'modules/CDev/FeaturedProducts/f_products/parts/info.price.twig',
                 static::COLUMN_ORDERBY  => 300,
-            ),
-            'amount' => array(
-                static::COLUMN_NAME     => \XLite\Core\Translation::lbl('Stock'),
-                static::COLUMN_ORDERBY  => 400,
-            ),
-        );
+            ],
+            'amount'  => [
+                static::COLUMN_NAME    => static::t('Stock'),
+                static::COLUMN_ORDERBY => 400,
+            ],
+        ];
     }
 
     /**
@@ -147,11 +146,11 @@ class FeaturedProduct extends \XLite\View\ItemsList\Model\Table
     {
         parent::defineWidgetParams();
 
-        $this->widgetParams += array(
+        $this->widgetParams += [
             static::PARAM_CATEGORY_ID => new \XLite\Model\WidgetParam\TypeInt(
                 'CategoryID ', $this->getCategoryId(), false
             ),
-        );
+        ];
     }
 
     /**
@@ -163,6 +162,7 @@ class FeaturedProduct extends \XLite\View\ItemsList\Model\Table
     protected function getCategoryId()
     {
         $id = \XLite\Core\Request::getInstance()->id;
+
         return $id ?: $this->getRootCategoryId();
     }
 
@@ -189,7 +189,7 @@ class FeaturedProduct extends \XLite\View\ItemsList\Model\Table
     /**
      * Get panel class
      *
-     * @return \XLite\View\Base\FormStickyPanel
+     * @return string|\XLite\View\Base\FormStickyPanel
      */
     protected function getPanelClass()
     {
@@ -203,11 +203,11 @@ class FeaturedProduct extends \XLite\View\ItemsList\Model\Table
      *
      * @return array
      */
-    static public function getSearchParams()
+    public static function getSearchParams()
     {
-        return array(
+        return [
             \XLite\Module\CDev\FeaturedProducts\Model\Repo\FeaturedProduct::SEARCH_CATEGORY_ID => static::PARAM_CATEGORY_ID,
-        );
+        ];
     }
 
     /**
@@ -238,12 +238,11 @@ class FeaturedProduct extends \XLite\View\ItemsList\Model\Table
      */
     protected function getCommonParams()
     {
-        $this->commonParams = parent::getCommonParams();
+        $this->commonParams                            = parent::getCommonParams();
         $this->commonParams[static::PARAM_CATEGORY_ID] = \XLite\Core\Request::getInstance()->{static::PARAM_CATEGORY_ID};
 
         return $this->commonParams;
     }
 
     // }}}
-
 }

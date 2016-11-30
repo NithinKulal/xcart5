@@ -1435,7 +1435,7 @@ function doCreateAdminAccount(&$params, $silentMode = false)
 
     // Add banner for Paypal express checkout on the admin dashboard
     if (
-        'ru' !== XLITE_EDITION_LNG
+        !in_array(XLITE_EDITION_LNG, ['ru', 'zh'])
         && class_exists('\XLite\Module\CDev\Paypal\Main')
     ) {
         $expressCheckout = \XLite\Module\CDev\Paypal\Main::getPaymentMethod(\XLite\Module\CDev\Paypal\Main::PP_METHOD_EC);
@@ -3753,7 +3753,7 @@ setTimeout('isProcessComplete()', 1000);
 
 ?>
 
-<div id="cache-rebuild-failed" class="cache-error" style="display: none;"><span><?php echo xtr('Oops! Cache rebuild failed.'); ?></span> <?php echo xtr('Check for possible reasons <a href="http://kb.x-cart.com/pages/viewpage.action?pageId=7504578">here</a>.'); ?></div>
+<div id="cache-rebuild-failed" class="cache-error" style="display: none;"><span><?php echo xtr('Oops! Cache rebuild failed.'); ?></span> <?php echo xtr('Check for possible reasons <a href="http://kb.x-cart.com/en/setting_up_x-cart_5_environment/setting_time_limit_of_your_server.html">here</a>.'); ?></div>
 
 <iframe id="process_iframe" style="padding-top: 15px;" src="admin.php?doNotRedirectAfterCacheIsBuilt&<?php echo time(); ?>" width="100%" height="300" frameborder="0" marginheight="10" marginwidth="10"></iframe>
 

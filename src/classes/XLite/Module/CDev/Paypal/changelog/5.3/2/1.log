@@ -1,0 +1,4 @@
+Version 5.3.2.1
+
+Fixes
+2016-11-09 - [Bug] Fatal error as a result of unsuccessful payment attempt by an anonymous customer via Paypal Express Checkout not from the checkout page. #BUG-4085 (Michael Lipinski) #Paypal

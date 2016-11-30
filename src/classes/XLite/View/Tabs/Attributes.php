@@ -19,8 +19,6 @@ class Attributes extends \XLite\View\Tabs\ATabs
     const PARAM_PRODUCT = 'product';
 
     /**
-     * @todo: rename 'css_js_performance' to '...'
-     *
      * @return array
      */
     protected function defineTabs()
@@ -38,7 +36,9 @@ class Attributes extends \XLite\View\Tabs\ATabs
             ],
         ];
 
-        if (1 < count($this->getParam(static::PARAM_PRODUCT)->getEditableAttributes())) {
+        if ($this->getProduct()->hasMultipleAttributes()
+            || 1 < count($this->getProduct()->getEditableAttributes())
+        ) {
             $list['properties'] = [
                 'weight'   => 300,
                 'title'    => static::t('Sort settings'),
@@ -73,7 +73,7 @@ class Attributes extends \XLite\View\Tabs\ATabs
             '',
             [
                 'page'       => 'attributes',
-                'product_id' => $this->getParam(static::PARAM_PRODUCT)->getProductId(),
+                'product_id' => $this->getProduct()->getProductId(),
                 'spage'      => $target,
             ]
         );
@@ -106,5 +106,13 @@ class Attributes extends \XLite\View\Tabs\ATabs
                 'XLite\Model\Product'
             ),
         ];
+    }
+
+    /**
+     * @return \XLite\Model\Product
+     */
+    protected function getProduct()
+    {
+        return $this->getParam(self::PARAM_PRODUCT);
     }
 }

@@ -4,7 +4,7 @@
  # @ListChild (list="layout.header.bar", weight="100")
  #}
 
-{% if this.isAccountLinksVisible() %}
+{% if this.isAccountLinksVisible() and not this.isCheckoutLayout() %}
   <div class="header_bar-sign_in">
     {{ widget('XLite\\View\\Button\\PopupLogin', label='Sign in / sign up') }}
   </div>

@@ -58,6 +58,10 @@ class Main extends \XLite\View\Form\Profile\AProfile
             unset($result['profile_id']);
             // Set the appropriate mode
             $result['mode'] = $this->getCurrentForm()->getRegisterMode();
+
+            if (\XLite\Core\Request::getInstance()->fromURL) {
+                $result['fromURL'] = \XLite\Core\Request::getInstance()->fromURL;
+            }
         }
 
         return $result;

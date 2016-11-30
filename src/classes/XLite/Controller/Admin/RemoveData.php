@@ -116,6 +116,6 @@ class RemoveData extends \XLite\Controller\Admin\AAdmin
      */
     protected function getRemoveDataCancelFlagVarName()
     {
-        return \XLite\Logic\RemoveData\Generator::getRemoveDataCancelFlagVarName();
+        return \XLite\Logic\RemoveData\Generator::getCancelFlagVarName();
     }
 }

@@ -109,7 +109,7 @@ class Product extends \XLite\Model\Product implements \XLite\Base\IDecorator
      */
     public function setParticipateSale($participateSale)
     {
-        $this->participateSale = $participateSale;
+        $this->participateSale = (boolean) $participateSale;
         return $this;
     }
 
@@ -131,26 +131,26 @@ class Product extends \XLite\Model\Product implements \XLite\Base\IDecorator
      */
     public function setDiscountType($discountType)
     {
-        $this->discountType = $discountType;
+        $this->discountType = (string) $discountType;
         return $this;
     }
 
     /**
      * Set salePriceValue
      *
-     * @param decimal $salePriceValue
+     * @param float $salePriceValue
      * @return Product
      */
     public function setSalePriceValue($salePriceValue)
     {
-        $this->salePriceValue = $salePriceValue;
+        $this->salePriceValue = (float) $salePriceValue;
         return $this;
     }
 
     /**
      * Get salePriceValue
      *
-     * @return decimal 
+     * @return float
      */
     public function getSalePriceValue()
     {

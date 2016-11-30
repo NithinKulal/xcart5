@@ -13,6 +13,8 @@ namespace XLite\View\FormField\Select;
  */
 class Country extends \XLite\View\FormField\Select\Regular
 {
+    use SingleOptionAsLabelTrait;
+
     /**
      * Widget param names
      */
@@ -129,7 +131,7 @@ class Country extends \XLite\View\FormField\Select\Regular
      */
     protected function getOptions()
     {
-        return $this->getParam(static::PARAM_SELECT_ONE)
+        return $this->getParam(static::PARAM_SELECT_ONE) && count(parent::getOptions()) > 1
             ? array('' => $this->getParam(static::PARAM_SELECT_ONE_LABEL)) + parent::getOptions()
             : parent::getOptions();
     }

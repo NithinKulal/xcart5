@@ -77,6 +77,12 @@ class ProductCategoryType extends AType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
+        $categories = \XLite\Core\Database::getRepo('XLite\Model\Category')->getAllCategoriesAsDTO();
+        $fullNames  = [];
+        foreach ($categories as $category) {
+            $fullNames[$category['id']] = $category['fullName'];
+        }
+
         $view->vars = array_replace($view->vars, [
             'attr' => array_replace(
                 $view->vars['attr'],
@@ -85,6 +91,7 @@ class ProductCategoryType extends AType
                     'searching-lbl'            => static::t('Searching...'),
                     'no-results-lbl'           => static::t('No results found.'),
                     'enter-term-lbl'           => static::t('Enter a keyword to search.'),
+                    'data-categories'          => json_encode($fullNames),
                 ]
             ),
         ]);

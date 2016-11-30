@@ -1,0 +1,8 @@
+Version 5.3.1.2
+
+Improvements
+2016-11-14 - [Change] Now option values for which there are no existing variants are marked as disabled and cannot be selected on the product page. #XCN-7269 (Maxim Kuznetsov) #Core #Wholesale #ProductVariants
+
+Fixes
+2016-11-01 - [Bug] Wholesale prices sorting in the Admin area did not function correctly. Fixed. #BUG-4011 (Michael Lipinski) #Wholesale
+

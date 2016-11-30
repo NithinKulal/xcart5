@@ -7,39 +7,69 @@
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
 .checkout_fastlane_address_wrapper {
-	address {
-	    margin: 0;
+    position: relative;
 
-	   	.address-box {
-	   		padding: 0;
-			.address-header {
-				font-size: 18px;
-				margin-bottom: 10px;
+    &.full {
+        border: 1px solid #ccc;
+        border-radius: @border-radius-base;
+        padding: (20px - 2);
+        padding-right: (20px * 2 - 2);
 
-				span {
-					font-weight: bold;
-				}
-			}
+        .is-same-address-text {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 9px;
+            padding: (20px / 2);
+            background: @body-bg;
+            font-size: 12px;
+            transform: translateY(-50%);
+            color: @base-border-color;
+        }
 
-			.address-field {
-				display: block;
-			}
+        .checkout_fastlane_address_edit_link {
+            display: none;
+            cursor: pointer;
+            bottom: 20px;
+            right: 20px;
+            height: 20px;
 
-			.address-field_firstname, .address-field_lastname {
-				font-weight: 600;
-				display: inline-block;
-			}
+            @media(max-width: @screen-sm-max) {
+                display: block;
+            }
+        }
 
-			.address-field_city, .address-field_country_code, .address-field_state_id, .address-field_zipcode {
-				display: inline-block;
-				&:not(.address-field_zipcode):after {
-					content: ',';
-				}
-			}
+        &:hover .checkout_fastlane_address_edit_link {
+            display: block;
+        }
+    }
+
+    &.simple {
+        .checkout_fastlane_address_edit_link {
+            display: none;
+        }
+    }
+   
+   	.address-box {
+   		padding: 0;
+
+		.address-field {
+			display: block;
 		}
 
-		&:not(:last-of-type) {
-			margin-bottom: 10px;
+		.address-field_firstname, .address-field_lastname {
+			font-weight: 600;
+			display: inline-block;
+		}
+
+		.address-field_city, .address-field_country_code, .address-field_state_id, .address-field_zipcode {            
+			&:not(.address-field_zipcode):after {
+				content: ',';
+			}
+
+            &:empty {
+                display: none;
+            }
 		}
 	}
 }

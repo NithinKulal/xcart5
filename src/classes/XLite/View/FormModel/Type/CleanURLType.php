@@ -69,7 +69,7 @@ class CleanURLType extends AType
             'right_symbol'     => $options['extension'],
             'pattern'          => [
                 'alias'     => 'CleanUrl',
-                'regex'     => '^[\w\-]*$',
+                'regex'     => '^[.\w\-]*$',
                 'extension' => $options['extension'],
             ],
             'enable_when'        => [
@@ -119,7 +119,11 @@ class CleanURLType extends AType
 
             if ($conflict->getCleanURL() === $value) {
                 $hasUnForcibleError = true;
-                $errorMessage = static::t('The Clean URL entered is already in use.', ['entityURL' => $repo->buildEditURL($conflict)]);
+                if ($conflict instanceof \XLite\Model\TargetCleanUrl) {
+                    $errorMessage = static::t('The Clean URL entered is already in use by target alias.');
+                } else {
+                    $errorMessage = static::t('The Clean URL entered is already in use.', ['entityURL' => $repo->buildEditURL($conflict)]);
+                }
             } else {
                 $hasForcibleError = true;
                 $errorMessage = static::t('The Clean URL entered is a redirect to object.', ['entityURL' => $repo->buildEditURL($conflict)]);

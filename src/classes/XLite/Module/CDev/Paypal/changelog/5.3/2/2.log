@@ -1,0 +1,4 @@
+Version 5.3.2.2
+
+Fixes
+2016-11-15 - [Bug] The value of the field PAYMENTINFO_0_PENDINGREASON in PayPal's response was not processed correctly due to being case sensitive. Now it has been made case insensitive. #BUG-4112 (Sergey Elmanov) #Paypal

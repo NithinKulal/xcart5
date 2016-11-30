@@ -23,11 +23,19 @@ class ProductSelections extends \XLite\View\ProductSelections
      */
     public static function getAllowedTargets()
     {
-        $list = parent::getAllowedTargets();
-
         return array(
             'u_product_selections'
         );
+    }
+
+    /**
+     * Return widget default template
+     *
+     * @return string
+     */
+    protected function getDefaultTemplate()
+    {
+        return 'modules/XC/Upselling/u_products/body.twig';
     }
 
     /**

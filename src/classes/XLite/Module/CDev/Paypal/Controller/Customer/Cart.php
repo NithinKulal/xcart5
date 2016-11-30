@@ -21,27 +21,6 @@ class Cart extends \XLite\Controller\Customer\Cart implements \XLite\Base\IDecor
     protected $isAddedSuccessfully = false;
 
     /**
-     * Process 'Add item' success
-     *
-     * @return void
-     */
-    protected function processAddItemSuccess()
-    {
-        // todo: rewrite add2cartPopup top message block
-        // parent::processAddItemSuccess();
-
-        if (\XLite\Module\CDev\Paypal\Main::isExpressCheckoutEnabled($this->getCart())
-            && !\XLite\Core\Request::getInstance()->expressCheckout
-        ) {
-            \XLite\Core\TopMessage::addInfo(
-                new \XLite\Module\CDev\Paypal\View\Button\TopMessage\ExpressCheckout()
-            );
-        } else {
-            parent::processAddItemSuccess();
-        }
-    }
-
-    /**
      * URL to return after product is added
      *
      * @return string

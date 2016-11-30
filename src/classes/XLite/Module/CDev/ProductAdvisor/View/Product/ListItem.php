@@ -17,7 +17,7 @@ class ListItem extends \XLite\View\Product\ListItem implements \XLite\Base\IDeco
     /**
      * Add 'coming-soon' class attribute for the product cell
      *
-     * @return string
+     * @return object
      */
     public function getProductCellClass()
     {
@@ -84,9 +84,26 @@ class ListItem extends \XLite\View\Product\ListItem implements \XLite\Base\IDeco
     protected function defineItemHoverParams()
     {
         $result = parent::defineItemHoverParams();
-        $result[] = $this->defineItemHoverParamComingSoon();
+
+        if ($this->getProduct()->isUpcomingProduct()) {
+            $result = array(
+                'coming_soon' => $this->defineItemHoverParamComingSoon()
+            );
+        }
 
         return $result;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAllItemHoverParams(){
+        return array_merge(
+            parent::getAllItemHoverParams(),
+            [
+                'coming_soon' => $this->defineItemHoverParamComingSoon(),
+            ]
+        );
     }
 
     /**
@@ -97,8 +114,9 @@ class ListItem extends \XLite\View\Product\ListItem implements \XLite\Base\IDeco
     protected function defineItemHoverParamComingSoon()
     {
         return array(
-            'text'  => static::t('Coming soon...'),
-            'style' => 'coming-soon-message',
+            'text'      => static::t('Coming soon...'),
+            'style'     => 'coming-soon-message',
+            'showCondClass' => 'coming-soon',
         );
     }
 
@@ -119,25 +137,22 @@ class ListItem extends \XLite\View\Product\ListItem implements \XLite\Base\IDeco
                 ),
                 'XLite\View\Button\Simple'
             );
-        } else {
-            if ($this->getProduct()->isOutOfStock()) {
-                $widget = $this->getWidget(
-                    array(
-                        'label'     => 'Out of stock',
-                    ),
-                    'XLite\View\Button\Simple'
-                );
-            } else {
-                $widget = $this->getWidget(
-                    array(
-                        'style'     => 'add-to-cart product-add2cart productid-' . $this->getProduct()->getProductId(),
-                        'label'     => 'Add to cart',
-                    ),
-                    'XLite\View\Button\Simple'
-                );
-            }
         }
 
-        return $widget;
+        return $widget ?: parent::getAdd2CartBlockWidget();
+    }
+
+    /**
+     * Get cache parameters
+     *
+     * @return array
+     */
+    protected function getCacheParameters()
+    {
+        $params = parent::getCacheParameters();
+
+        $params[] = $this->getParam(\XLite\View\AView::PARAM_TEMPLATE);
+
+        return $params;
     }
 }

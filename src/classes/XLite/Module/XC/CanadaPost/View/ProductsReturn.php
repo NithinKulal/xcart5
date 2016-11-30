@@ -116,6 +116,18 @@ class ProductsReturn extends \XLite\View\AView
     }
 
     /**
+     * Get cart items
+     *
+     * @return array
+     */
+    public function getItems()
+    {
+        return $this->getOrder()
+            ? $this->getOrder()->getItems()
+            : [];
+    }
+
+    /**
      * Check - customer notes block is visible or not
      *
      * @return boolean

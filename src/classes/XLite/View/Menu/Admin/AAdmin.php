@@ -60,12 +60,18 @@ abstract class AAdmin extends \XLite\View\Menu\AMenu
             'category',
             'category_products',
         ),
+        'front_page' => array(
+            'banner_rotation',
+        ),
         'profile_list' => array(
             'profile',
             'address_book',
         ),
         'shipping_methods' => array(
             'shipping_rates',
+            'origin_address',
+            'automate_shipping_returns',
+            'automate_shipping_routine',
         ),
         'countries' => array(
             'zones',
@@ -77,6 +83,7 @@ abstract class AAdmin extends \XLite\View\Menu\AMenu
         ),
         'db_backup' => array(
             'db_restore',
+            'integrity_check',
         ),
         'product_classes' => array(
             'product_class',
@@ -94,10 +101,6 @@ abstract class AAdmin extends \XLite\View\Menu\AMenu
         'general_settings' => array(
             'shipping_settings',
             'address_fields',
-        ),
-        'layout' => array(
-            'css_js_performance',
-            'images',
         ),
         'notifications' => array(
             'notification',

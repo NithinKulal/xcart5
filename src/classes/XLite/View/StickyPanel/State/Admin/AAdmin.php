@@ -20,18 +20,17 @@ abstract class AAdmin extends \XLite\View\StickyPanel\State\AState
      */
     protected function defineAdditionalButtons()
     {
-        $list = parent::defineAdditionalButtons();
-
-        $list[] = $this->getWidget(
-            array(
-                'disabled'   => true,
-                'label'      => 'Delete',
-                'style'      => 'more-action',
-                'icon-style' => 'fa fa-trash-o',
-            ),
-            'XLite\View\Button\DeleteSelectedStates'
-        );
-
-        return $list;
+        return [
+            'delete' => [
+                'class'    => 'XLite\View\Button\DeleteSelected',
+                'params'   => [
+                    'action'     => 'delete',
+                    'label'      => static::t('Delete'),
+                    'style'      => 'more-action hide-on-disable hidden',
+                    'icon-style' => 'fa fa-trash-o',
+                ],
+                'position' => 100,
+            ],
+        ];
     }
 }

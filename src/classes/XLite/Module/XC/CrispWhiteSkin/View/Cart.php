@@ -14,6 +14,27 @@ namespace XLite\Module\XC\CrispWhiteSkin\View;
 abstract class Cart extends \XLite\View\Cart implements \XLite\Base\IDecorator
 {
     /**
+     * @return array
+     */
+    public function getCSSFiles()
+    {
+        $list = parent::getCSSFiles();
+
+        $list[] = [
+            'file'  => 'css/less/cart.less',
+            'media' =>  'screen',
+            'merge' =>  'bootstrap/css/bootstrap.less',
+        ];
+        $list[] = [
+            'file'  => 'css/less/estimator.less',
+            'media' =>  'screen',
+            'merge' =>  'bootstrap/css/bootstrap.less',
+        ];
+
+        return $list;
+    }
+
+    /**
      * Check - discount coupon subpanel is visible or not
      *
      * @param array $surcharge Surcharge

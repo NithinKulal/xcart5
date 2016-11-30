@@ -18,6 +18,11 @@ div.real-charge-note {
   padding-bottom: 0px !important;
 }
 
+.total-change-value,
+.total-change-help {
+  line-height: 20px;
+}
+
 .real-charge,
 #cart-right .totals > li.real-charge {
   text-align: right;

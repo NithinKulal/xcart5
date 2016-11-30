@@ -16,9 +16,7 @@ class Category extends \XLite\View\Pager\Customer\Product\AProduct
     /**
      * Widget parameter names
      */
-
     const PARAM_CATEGORY_ID = 'category_id';
-
 
     /**
      * Return current category model object

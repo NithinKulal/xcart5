@@ -1,0 +1,18 @@
+{##
+ # Invoice title
+ #}
+<td>
+  <h2 class="invoice">
+    <a href="{{ this.getOrderAdminUrl() }}">
+      {{ this.getInvoiceTitle()|raw }}
+    </a>
+  </h2>
+  <div class="subhead">
+    <div class="subhead-item order-date">
+      {{ this.formatTime(this.order.getDate()) }}
+    </div>
+    <div class="subhead-item grand-total grand-total-head">
+      {{ t('Grand total') }}: {{ this.getOrderTotal()|raw }}
+    </div>
+  </div>
+</td>

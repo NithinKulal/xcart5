@@ -1,15 +1,15 @@
 /* vim: set ts=2 sw=2 sts=2 et: */
 
 /**
- * Error page style
+ * style
  *
  * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
 
 .action.operate-as-this-user{
-     position: absolute;
-    bottom: 7px;
-    right: 10px;
+    float: right;
     display: inline-block;
+    margin-top: -25px;
+    margin-right: 10px;
 }

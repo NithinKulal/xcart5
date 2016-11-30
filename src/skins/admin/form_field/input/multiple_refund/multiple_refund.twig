@@ -1,0 +1,11 @@
+{##
+ # Multiple refund template
+ #}
+
+<div class="multiple-refund">
+  {{ widget('\\XLite\\View\\FormField\\Input\\Text\\RefundAmount', fieldName='refund_amount', fieldOnly='true', mouseWheelCtrl='false', mouseWheelIcon='false', value=this.getValue(), max=this.getValue()) }}
+  <button type="button" class="btn regular-button refund">
+    {{ this.displayCommentedData(this.getCommentedData()) }}
+    <span>{{ this.getLabel() }}</span>
+  </button>
+</div>

@@ -99,7 +99,7 @@ class BackendTransaction extends \XLite\Model\AEntity
     /**
      * Payment transactions
      *
-     * @var \Doctrine\Common\Collections\Collection
+     * @var \XLite\Model\Payment\Transaction
      *
      * @ManyToOne  (targetEntity="XLite\Model\Payment\Transaction", inversedBy="backend_transactions")
      * @JoinColumn (name="transaction_id", referencedColumnName="transaction_id", onDelete="CASCADE")
@@ -209,6 +209,16 @@ class BackendTransaction extends \XLite\Model\AEntity
             static::TRAN_TYPE_REFUND_MULTI,
             static::TRAN_TYPE_REFUND_PART,
         ));
+    }
+
+    /**
+     * Check if the backend transaction is full refund
+     *
+     * @return boolean
+     */
+    public function isFullRefund()
+    {
+        return $this->getValue() >= $this->getParentValue();
     }
 
     /**
@@ -473,7 +483,8 @@ class BackendTransaction extends \XLite\Model\AEntity
     /**
      * Set value
      *
-     * @param decimal $value
+     * @param float $value
+     *
      * @return BackendTransaction
      */
     public function setValue($value)
@@ -485,7 +496,7 @@ class BackendTransaction extends \XLite\Model\AEntity
     /**
      * Get value
      *
-     * @return decimal 
+     * @return float
      */
     public function getValue()
     {
@@ -529,7 +540,7 @@ class BackendTransaction extends \XLite\Model\AEntity
     /**
      * Get payment_transaction
      *
-     * @return \XLite\Model\Payment\Transaction 
+     * @return \XLite\Model\Payment\Transaction
      */
     public function getPaymentTransaction()
     {
@@ -556,5 +567,85 @@ class BackendTransaction extends \XLite\Model\AEntity
     public function getData()
     {
         return $this->data;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function hasCustomAmount()
+    {
+        return in_array($this->getType(), [
+            static::TRAN_TYPE_REFUND_PART,
+            static::TRAN_TYPE_REFUND_MULTI,
+        ]);
+    }
+
+    /**
+     * @param $amount
+     *
+     * @return $this
+     * @throws \XLite\Core\Exception\IncorrectValueException
+     */
+    public function setCustomAmount($amount)
+    {
+        $method = $this->getType()
+            ? __FUNCTION__ . \XLite\Core\Converter::convertToCamelCase($this->getType())
+            : null;
+
+        if (method_exists($this, $method)) {
+            return $this->{$method}($amount);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param $amount
+     *
+     * @return $this
+     * @throws \XLite\Core\Exception\IncorrectValueException
+     */
+    public function setCustomAmountRefundPart($amount)
+    {
+        if ($amount > 0 && $amount <= $this->getMaxRefundAmount()) {
+            $this->setValue($amount);
+        } else {
+            throw new \XLite\Core\Exception\IncorrectValueException('Incorrect amount');
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param $amount
+     *
+     * @return $this
+     * @throws \XLite\Core\Exception\IncorrectValueException
+     */
+    public function setCustomAmountRefundMulti($amount)
+    {
+        return $this->setCustomAmountRefundPart($amount);
+    }
+
+    /**
+     * Return max amount to refund
+     *
+     * @return float
+     */
+    public function getMaxRefundAmount()
+    {
+        $currency = $this->getPaymentTransaction()->getCurrency() ?: $this->getPaymentTransaction()->getOrder()->getCurrency();
+        return $currency->roundValue($this->getPaymentTransaction()->getChargeValueModifier());
+    }
+
+    /**
+     * Return max amount to refund
+     *
+     * @return float
+     */
+    public function getParentValue()
+    {
+        $currency = $this->getPaymentTransaction()->getCurrency() ?: $this->getPaymentTransaction()->getOrder()->getCurrency();
+        return $currency->roundValue($this->getPaymentTransaction()->getValue());
     }
 }

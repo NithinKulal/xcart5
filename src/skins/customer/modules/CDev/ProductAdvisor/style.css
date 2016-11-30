@@ -42,3 +42,13 @@ ul.products-sidebar ul.labels li, ul.products-sidebar ul.labels li.coming-soon d
   padding: 0;
   white-space: nowrap;
 }
+
+.product-details .labels {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  right: 10px;
+  top: 23px;
+  z-index: 10000;
+}

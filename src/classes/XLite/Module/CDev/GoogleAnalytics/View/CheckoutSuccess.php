@@ -8,6 +8,8 @@
 
 namespace XLite\Module\CDev\GoogleAnalytics\View;
 
+use XLite\Module\CDev\GoogleAnalytics;
+
 /**
  * Additional block for Checkout success page
  *
@@ -127,7 +129,7 @@ class CheckoutSuccess extends \XLite\View\AView
     protected function isVisible()
     {
         return parent::isVisible()
-            && !$this->useUniversalAnalytics()
+            && !GoogleAnalytics\Main::useUniversalAnalytics()
             && $this->isDisplayDrupal();
     }
 

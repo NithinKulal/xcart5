@@ -13,20 +13,20 @@
   padding-bottom: 14px;
 }
 
-.signin-wrapper.social-login .or-line .line {
+.signin-wrapper .or-line .line {
   border-right: 1px solid #e2e2e2;
   width: 50%;
   height: 238px;
 }
 
-.signin-wrapper:not(.social-login) .or-line .line {
-  border-bottom: 1px solid #e2e2e2;
-  width: 300px;
-  margin: 0 auto;
-  height: 0 !important;
-}
+// .signin-wrapper:not(.social-login) .or-line .line {
+//   border-bottom: 1px solid #e2e2e2;
+//   width: 300px;
+//   margin: 0 auto;
+//   height: 0 !important;
+// }
 
-.signin-wrapper.social-login .or-line .or-box {
+.signin-wrapper .or-line .or-box {
   display: none;
 }
 
@@ -47,7 +47,7 @@
 }
 
 .signin-anonymous-box {
-    margin: 0 auto 20px;
+  margin: 0 auto 20px;
 }
 
 .signin-wrapper table.login-form {

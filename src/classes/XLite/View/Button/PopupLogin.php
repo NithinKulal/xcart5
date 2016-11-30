@@ -63,4 +63,13 @@ class PopupLogin extends \XLite\View\Button\APopupButton
         return 'Login here';
     }
 
+    /**
+     * Default withoutClose value
+     *
+     * @return boolean
+     */
+    protected function getDefaultWithoutCloseState()
+    {
+        return true;
+    }
 }

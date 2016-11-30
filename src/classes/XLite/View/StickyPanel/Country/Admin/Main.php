@@ -20,29 +20,19 @@ class Main extends \XLite\View\StickyPanel\ItemsListForm
      */
     protected function defineAdditionalButtons()
     {
-        $list = parent::defineAdditionalButtons();
-
-        $list[] = $this->getWidget(
-            array(
-                'disabled'   => true,
-                'label'      => 'Enable',
-                'style'      => 'more-action',
-                'icon-style' => 'fa fa-power-off state-on',
-            ),
-            'XLite\View\Button\EnableSelected'
-        );
-        $list[] = $this->getWidget(
-            array(
-                'disabled'   => true,
-                'label'      => 'Disable',
-                'style'      => 'more-action',
-                'icon-style' => 'fa fa-power-off state-off',
-            ),
-            'XLite\View\Button\DisableSelected'
-        );
-
-        return $list;
+        return [
+            'status' => [
+                'class'    => 'XLite\View\Button\Dropdown\Status',
+                'params'   => [
+                    'label'          => static::t('Status'),
+                    'style'          => 'more-action hide-on-disable hidden',
+                    'icon-style'     => 'fa fa-power-off',
+                    'showCaret'      => true,
+                    'useCaretButton' => false,
+                    'dropDirection'  => 'dropup',
+                ],
+                'position' => 200,
+            ],
+        ];
     }
-
 }
-

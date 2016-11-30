@@ -17,6 +17,8 @@ XLite\Model\Payment\Method:
     settings:
       - name: vendorName
       - name: password
+      - name: type
+        value: sale
       - name: test
         value: 1
       - name: prefix

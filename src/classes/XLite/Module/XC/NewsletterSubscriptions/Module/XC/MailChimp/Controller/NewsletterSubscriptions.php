@@ -36,10 +36,7 @@ class NewsletterSubscriptions extends \XLite\Module\XC\NewsletterSubscriptions\C
      */
     protected function isMailChimpConfigured()
     {
-        $listsRepo = \XLite\Core\Database::getRepo('\XLite\Module\XC\MailChimp\Model\MailChimpList');
-
-        return Core\MailChimp::hasAPIKey()
-            && 0 < $listsRepo->countActiveMailChimpLists();
+        return \XLite\Module\XC\MailChimp\Main::isMailChimpConfigured();
     }
 
     /**
@@ -49,15 +46,31 @@ class NewsletterSubscriptions extends \XLite\Module\XC\NewsletterSubscriptions\C
     {
         $profile = \XLite\Core\Auth::getInstance()->getProfile();
 
-        if (!$profile) {
-            $profile = new \XLite\Model\Profile;
-            $profile->setLogin(\XLite\Core\Request::getInstance()->email);
-            $profile->setAnonymous(true);
+        $tempProfile = $profile && $profile->getLogin() !== \XLite\Core\Request::getInstance()->email;
+        
+        if (!$profile || $tempProfile) {
+            $profile = $this->getNewProfileToSubscribe();
             $profile->create();
         }
 
         \XLite\Module\XC\MailChimp\Core\MailChimp::processSubscriptionAll(
             $profile
         );
+
+        if ($tempProfile) {
+            $profile->delete();   
+        }
+    }
+
+    /**
+     * @return \XLite\Model\Profile
+     */
+    protected function getNewProfileToSubscribe()
+    {
+        $profileToSubscribe = new \XLite\Model\Profile();
+        $profileToSubscribe->setLogin(\XLite\Core\Request::getInstance()->email);
+        $profileToSubscribe->setAnonymous(true);
+        
+        return $profileToSubscribe;
     }
 }

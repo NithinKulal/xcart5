@@ -134,6 +134,18 @@ class AAPI extends \XLite\Base\SuperClass
         return $result;
     }
 
+    /**
+     * Return true if transaction could be cancelled.
+     * Transaction can be cancelled only before the cart become an order.
+     *
+     * @return boolean
+     */
+    public function isTransactionCancellable($transaction)
+    {
+        return $transaction
+            && $transaction->getOrder() instanceOf \XLite\Model\Cart;
+    }
+
     // }}}
 
     // {{{ Backend request
@@ -155,7 +167,7 @@ class AAPI extends \XLite\Base\SuperClass
         $response = $request->sendRequest();
         $this->response = $response;
 
-        if (200 == $response->code && !empty($response->body)) {
+        if ($response instanceof \PEAR2\HTTP\Request\Response && 200 == $response->code && !empty($response->body)) {
             $result = $this->parseResponse($type, $response->body);
         }
 
@@ -359,16 +371,14 @@ class AAPI extends \XLite\Base\SuperClass
     public function getRefundAmount($transaction)
     {
         /** @var \XLite\Model\Order $order */
-        $order = $transaction instanceOf \XLite\Model\Payment\BackendTransaction
-            ? $transaction->getPaymentTransaction()->getOrder()
-            : $transaction->getOrder();
+        $paymentTransaction = $transaction instanceOf \XLite\Model\Payment\BackendTransaction
+            ? $transaction->getPaymentTransaction()
+            : $transaction;
 
         /** @var \XLite\Model\Currency $currency */
-        $currency = $order->getCurrency();
+        $currency = $paymentTransaction->getCurrency() ?: $paymentTransaction->getOrder()->getCurrency();
 
-        $sums = $order->getRawPaymentTransactionSums();
-
-        $amount = $sums['sale'];
+        $amount = $transaction->getValue();
 
         return $currency->roundValue(max(0, $amount));
     }

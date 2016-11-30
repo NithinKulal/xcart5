@@ -1,0 +1,50 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Data
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: gosocial_sep_6
+    category: 'CDev\GoSocial'
+    type: separator
+    orderby: 1000
+    translations:
+      - code: en
+        option_name: 'Facebook Share Button settings'
+  - name: fb_share_use
+    category: 'CDev\GoSocial'
+    type: checkbox
+    orderby: 1050
+    value: false
+    translations:
+      - code: en
+        option_name: 'Display the Share button on product pages'
+        option_comment: 'The Share button lets a customer share your product pages with friends on Facebook.'
+  - name: fb_like_send_button
+    category: 'CDev\GoSocial'
+    type: hidden
+    orderby: 1100
+    value: false
+  - name: gosocial_sep_2
+    category: 'CDev\GoSocial'
+    orderby: 1300
+  - name: fb_like_use
+    category: 'CDev\GoSocial'
+    orderby: 1350
+  - name: fb_like_layout
+    category: 'CDev\GoSocial'
+    orderby: 1400
+  - name: fb_like_show_faces
+    category: 'CDev\GoSocial'
+    orderby: 1420
+  - name: fb_like_verb
+    category: 'CDev\GoSocial'
+    orderby: 1440
+  - name: fb_like_colorscheme
+    category: 'CDev\GoSocial'
+    orderby: 1460
+
+XLite\Model\LanguageLabel:
+  - { name: "We recommend to use share button instead of like", translations: [{ code: en, label: "We recommend using the Share button instead of Like." }] }

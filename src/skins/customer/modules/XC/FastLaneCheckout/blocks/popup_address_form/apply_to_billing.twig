@@ -1,0 +1,11 @@
+{##
+ # Fastlane checkout address section
+ #
+ # @ListChild (list="checkout_fastlane.blocks.popup_address_form.shipping", weight="999")
+ #}
+
+{% if this.isSameAddressVisible() %}
+    <li class="item-same_address input-checkbox-enabled clearfix form-group">
+        {{ widget('XLite\\View\\FormField\\Input\\Checkbox\\ApplyToBilling', value=this.isSameAddress(), fieldName='same_address', fieldId='popup_same_address')}}
+    </li>
+{% endif %}

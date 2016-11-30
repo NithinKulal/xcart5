@@ -674,60 +674,11 @@ abstract class Storage extends \XLite\Model\AEntity
      */
     public function loadFromURL($url, $copy2fs = false)
     {
-        $result = $this->isURL($url);
-
-        if ($result) {
-            $name = basename(parse_url($url, PHP_URL_PATH));
-
+        if ($this->isURL($url)) {
             if ($copy2fs) {
-                $result = \XLite\Core\Operator::checkURLAvailability($url);
-                if ($result && $result->ContentLength > 0) {
-                    try {
-                        $tmp = LC_DIR_TMP . $name;
-                        $result = \XLite\Core\Operator::writeURLContentsToFile($url, $tmp);
-
-                        if ($result) {
-                            $result = $this->loadFromLocalFile($tmp);
-                            \Includes\Utils\FileManager::deleteFile($tmp);
-                        } else {
-                            $this->loadError = 'unwriteable';
-                            $this->loadErrorMessage = array(
-                                'Unable to write data to file {{file}}',
-                                array('file' => $tmp)
-                            );
-
-                            \XLite\Logger::getInstance()->log(
-                                'Unable to write data to file \'' . $tmp . '\'.',
-                                LOG_ERR
-                            );
-                        }
-
-                    } catch (\Exception $e) {
-                        \Includes\Utils\FileManager::deleteFile($tmp);
-                        $this->loadError = 'undownloadable';
-                        $this->loadErrorMessage = array(
-                            'Unable to download the contents of {{url}}',
-                            array('url' => $url)
-                        );
-                        \XLite\Logger::getInstance()->log(
-                            'Unable to download the contents of \'' . $url . '\'.',
-                            LOG_ERR
-                        );
-                    }
-
-                } else {
-                    $this->loadError = 'URLAvailability';
-                    $this->loadErrorMessage = array(
-                        'Unable to get at the contents of {{url}}',
-                        array('url' => $url)
-                    );
-                    \XLite\Logger::getInstance()->log(
-                        'Unable to get at the contents of \'' . $url . '\'.',
-                        LOG_ERR
-                    );
-                }
-
+                $result = $this->copyFromURL($url);
             } else {
+                $name = basename(parse_url($url, PHP_URL_PATH));
                 $savedPath = $this->getPath();
                 $this->setPath($url);
                 $this->setFileName($name);
@@ -739,6 +690,69 @@ abstract class Storage extends \XLite\Model\AEntity
                     $this->setStorageType(static::STORAGE_URL);
                 }
             }
+
+            return $result;
+        }
+
+        return false;
+    }
+
+    /**
+     * Copy file from URL
+     *
+     * @param string  $url     URL
+     *
+     * @return boolean
+     */
+    protected function copyFromURL($url)
+    {
+        $result = false;
+
+        $name = basename(parse_url($url, PHP_URL_PATH));
+        $responseHeaders = \XLite\Core\Operator::checkURLAvailability($url);
+        if ($responseHeaders && $responseHeaders->ContentLength > 0) {
+            try {
+                $tmp = LC_DIR_TMP . $name;
+
+                if (\XLite\Core\Operator::writeURLContentsToFile($url, $tmp)) {
+                    $result = $this->loadFromLocalFile($tmp);
+                    \Includes\Utils\FileManager::deleteFile($tmp);
+                } else {
+                    $this->loadError = 'unwriteable';
+                    $this->loadErrorMessage = array(
+                        'Unable to write data to file {{file}}',
+                        array('file' => $tmp)
+                    );
+
+                    \XLite\Logger::getInstance()->log(
+                        'Unable to write data to file \'' . $tmp . '\'.',
+                        LOG_ERR
+                    );
+                }
+
+            } catch (\Exception $e) {
+                \Includes\Utils\FileManager::deleteFile($tmp);
+                $this->loadError = 'undownloadable';
+                $this->loadErrorMessage = array(
+                    'Unable to download the contents of {{url}}',
+                    array('url' => $url)
+                );
+                \XLite\Logger::getInstance()->log(
+                    'Unable to download the contents of \'' . $url . '\'.',
+                    LOG_ERR
+                );
+            }
+
+        } else {
+            $this->loadError = 'URLAvailability';
+            $this->loadErrorMessage = array(
+                'Unable to get at the contents of {{url}}',
+                array('url' => $url)
+            );
+            \XLite\Logger::getInstance()->log(
+                'Unable to get at the contents of \'' . $url . '\'.',
+                LOG_ERR
+            );
         }
 
         return $result;
@@ -917,7 +931,6 @@ abstract class Storage extends \XLite\Model\AEntity
      */
     protected function renew()
     {
-        $result = false;
         list($path, $isTempFile) = $this->getLocalPath();
 
         $result = $this->isFileExists($path, $isTempFile) && $this->renewByPath($path);

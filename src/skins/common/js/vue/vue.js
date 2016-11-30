@@ -9,6 +9,14 @@
 
 define('vue/vue', function () { return Vue; });
 
+if ('undefined' !== typeof(Vuex)) {
+  define('vue/vuex', function () { return Vuex; });
+}
+
+if ('undefined' !== typeof(VueLoadableMixin)) {
+  define('vue/vue.loadable', function () { return VueLoadableMixin; });
+}
+
 define('js/vue/vue', ['vue/vue', 'js/vue/component'], function (Vue, XLiteVueComponent) {
   function XLiteVue() {
   }

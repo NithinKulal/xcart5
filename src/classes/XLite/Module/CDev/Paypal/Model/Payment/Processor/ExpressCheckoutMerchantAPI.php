@@ -33,7 +33,7 @@ class ExpressCheckoutMerchantAPI extends \XLite\Module\CDev\Paypal\Model\Payment
     /**
      * Get allowed backend transactions
      *
-     * @return string Status code
+     * @return string[] Status code
      */
     public function getAllowedTransactions()
     {
@@ -41,7 +41,7 @@ class ExpressCheckoutMerchantAPI extends \XLite\Module\CDev\Paypal\Model\Payment
 
         return $method && $this->api->isConfiguredApiSolution()
             ? parent::getAllowedTransactions()
-            : array();
+            : [];
     }
 
     /**
@@ -51,7 +51,7 @@ class ExpressCheckoutMerchantAPI extends \XLite\Module\CDev\Paypal\Model\Payment
      */
     public function getAllowedMerchantCountries()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -142,7 +142,7 @@ class ExpressCheckoutMerchantAPI extends \XLite\Module\CDev\Paypal\Model\Payment
      */
     public function doGetExpressCheckoutDetails(\XLite\Model\Payment\Method $method)
     {
-        $data = array();
+        $data = [];
 
         if (!isset($this->transaction)) {
             $this->transaction = new \XLite\Model\Payment\Transaction();
@@ -165,7 +165,7 @@ class ExpressCheckoutMerchantAPI extends \XLite\Module\CDev\Paypal\Model\Payment
      */
     protected static function getSuccessACKValues()
     {
-        return array('Success', 'SuccessWithWarning');
+        return ['Success', 'SuccessWithWarning'];
     }
 
     /**
@@ -296,7 +296,7 @@ class ExpressCheckoutMerchantAPI extends \XLite\Module\CDev\Paypal\Model\Payment
      */
     protected function isSuccessResponse($response)
     {
-        $result = in_array($response['PAYMENTINFO_0_PENDINGREASON'], array('none', 'completed'));
+        $result = in_array(strtolower($response['PAYMENTINFO_0_PENDINGREASON']), ['none', 'completed']);
 
         if (!$result) {
             $result = (
@@ -317,11 +317,11 @@ class ExpressCheckoutMerchantAPI extends \XLite\Module\CDev\Paypal\Model\Payment
      */
     protected function getIpnLockingRequests()
     {
-        return array(
+        return [
             'DoVoid',
             'DoCapture',
             'RefundTransaction',
-        );
+        ];
     }
 
     // {{{ doVoid
@@ -537,8 +537,8 @@ class ExpressCheckoutMerchantAPI extends \XLite\Module\CDev\Paypal\Model\Payment
             . \Includes\Utils\ArrayManager::getIndex($paypalData, 'SHIPTOSTREET2')
         );
 
-        $data = array(
-            'shippingAddress' => array(
+        $data = [
+            'shippingAddress' => [
                 'name' => (string) \Includes\Utils\ArrayManager::getIndex($paypalData, 'SHIPTONAME'),
                 'street' => $street,
                 'country' => $country ?: '',
@@ -546,8 +546,8 @@ class ExpressCheckoutMerchantAPI extends \XLite\Module\CDev\Paypal\Model\Payment
                 'city' => (string) \Includes\Utils\ArrayManager::getIndex($paypalData, 'SHIPTOCITY'),
                 'zipcode' => (string) \Includes\Utils\ArrayManager::getIndex($paypalData, 'SHIPTOZIP'),
                 'phone' => (string) \Includes\Utils\ArrayManager::getIndex($paypalData, 'PHONENUM'),
-            ),
-        );
+            ],
+        ];
 
         return $data;
     }
@@ -564,13 +564,13 @@ class ExpressCheckoutMerchantAPI extends \XLite\Module\CDev\Paypal\Model\Payment
     {
         return array_merge(
             parent::getAllowedCurrencies($method),
-            array(
+            [
                 'AUD', 'BRL', 'CAD', 'CZK', 'DKK',
                 'EUR', 'HKD', 'HUF', 'ILS', 'JPY',
                 'MYR', 'MXN', 'NOK', 'NZD', 'PHP',
                 'PLN', 'GBP', 'RUB', 'SGD', 'SEK',
                 'CHF', 'TWD', 'THB', 'TRY', 'USD',
-            )
+            ]
         );
     }
 

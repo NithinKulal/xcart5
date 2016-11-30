@@ -1,0 +1,83 @@
+{##
+ # Tabber template
+ #}
+
+{% if this.isWrapperVisible() %}
+  <div class="tabbed-content-wrapper">
+    <div class="tabs-container">
+      {% if this.isTabsNavigationVisible() %}
+        <div class="page-tabs">
+
+          <div class="tabs-selector dropdown">
+            <div class="selected">{{ this.getSelectedTab().title|raw }}</div>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="20px" height="20px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+      <path d="M1.9,15.5h16.2v-1.8H1.9V15.5z M1.9,11h16.2V9.2H1.9V11z M1.9,4.7v1.8h16.2V4.7H1.9z"></path>
+    </svg>
+            </a>
+            <div class="tabs dropdown-menu" role="menu">
+              <ul>
+                {% for tabPage in this.getTabs() %}
+                  <li class="tab{% if tabPage.selected %}-current active{% endif %}">
+                    {%  if this.getTabLinkTemplate(tabPage) %}
+                      {% include this.getTabLinkTemplate(tabPage) %}
+                    {%  else %}
+                      <a href="{{ tabPage.url|raw }}"{% if tabPage.selected %} disabled="disabled"{% endif %}>{{ tabPage.title|raw }}</a>
+                    {%  endif %}
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+
+          <ul>
+            {% for tabPage in this.getTabs() %}
+              <li class="tab{% if tabPage.selected %}-current active{% endif %}">
+                {%  if this.getTabLinkTemplate(tabPage) %}
+                  {% include this.getTabLinkTemplate(tabPage) %}
+                {%  else %}
+                  <a href="{{ tabPage.url|raw }}">{{ tabPage.title|raw }}</a>
+                {%  endif %}
+              </li>
+            {% endfor %}
+          </ul>
+
+        </div>
+      {% endif %}
+      <div class="clear"></div>
+
+      <div class="tab-content">
+        {% if this.isTemplateOnlyTab() %}
+          {% include this.getTabTemplate() %}
+        {% endif %}
+        {% if this.isWidgetOnlyTab() %}
+          {{ widget(widget=this.getTabWidget()) }}
+        {% endif %}
+        {% if this.isFullWidgetTab() %}
+          {{ widget(widget=this.getTabWidget(), template=this.getTabTemplate()) }}
+        {% endif %}
+        {% if this.isCommonTab() %}
+          {% include this.getPageTemplate() %}
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+{% endif %}
+
+{% if not this.isWrapperVisible() %}
+  <div>
+    {% if this.isTemplateOnlyTab() %}
+      {% include this.getTabTemplate() %}
+    {% endif %}
+    {% if this.isWidgetOnlyTab() %}
+      {{ widget(widget=this.getTabWidget()) }}
+    {% endif %}
+    {% if this.isFullWidgetTab() %}
+      {{ widget(widget=this.getTabWidget(), template=this.getTabTemplate()) }}
+    {% endif %}
+    {% if this.isCommonTab() %}
+      {% include this.getPageTemplate() %}
+    {% endif %}
+  </div>
+{% endif %}

@@ -1,0 +1,4 @@
+Version 5.3.1.2
+
+Fixes
+2016-10-26 - [Bug] Added the H1 tag on the Customer Reviews page for a product. #BUG-4027 (Eugene Dementjev) #ProductReviews

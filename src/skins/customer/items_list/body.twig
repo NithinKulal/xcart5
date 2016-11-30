@@ -6,7 +6,7 @@
   {% do this.displayCommentedData(this.getJSData()) %}
 
   {% if this.isHeadVisible() %}
-    <div class="head-h2 {{ this.getListHeadClass() }}">{{ this.getListHead() }}</div>
+    <div class="head-h2 {{ this.getListHeadClass() }}">{{ this.getListHead()|raw }}</div>
   {% endif %}
   {% if this.isPagerVisible() %}
     <div class="list-pager">{% do this.pager.display() %}</div>

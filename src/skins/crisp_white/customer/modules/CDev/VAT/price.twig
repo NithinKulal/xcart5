@@ -1,0 +1,14 @@
+{##
+ # Product price value
+ #}
+
+{% if this.isVATApplicable() %}
+  {% if this.isDisplayedPriceIncludingVAT() %}
+    <li class="vat-price"><span class="vat-note-product-price">{{ t('incl.VAT', {'name': this.getVATName()}) }}</span>
+    </li>
+  {% else %}
+    <li class="vat-price"><span class="vat-note-product-price">{{ t('excl.VAT', {'name': this.getVATName()}) }}</span>
+    </li>
+  {% endif %}
+  <br>
+{% endif %}

@@ -8,17 +8,14 @@
 
 namespace XLite\Controller\Customer;
 
+use XLite\Core\Cache\ExecuteCachedTrait;
+
 /**
  * Change attribute values from cart / wishlist item
  */
 class ChangeAttributeValues extends \XLite\Controller\Customer\ACustomer
 {
-    /**
-     * Item (cache)
-     *
-     * @var \XLite\Model\OrderItem
-     */
-    protected $item = null;
+    use ExecuteCachedTrait;
 
     /**
      * Get page title
@@ -27,7 +24,7 @@ class ChangeAttributeValues extends \XLite\Controller\Customer\ACustomer
      */
     public function getTitle()
     {
-        return static::t('"{{product}} product" attributes', array('product' => $this->getItem()->getName()));
+        return static::t('"{{product}} product" attributes', ['product' => $this->getItem()->getName()]);
     }
 
     /**
@@ -51,26 +48,22 @@ class ChangeAttributeValues extends \XLite\Controller\Customer\ACustomer
      */
     public function getItem()
     {
-        if (!isset($this->item)) {
-            $this->item = false;
-
-            if (
-                \XLite\Core\Request::getInstance()->source == 'cart'
+        return $this->executeCachedRuntime(function () {
+            if (\XLite\Core\Request::getInstance()->source === 'cart'
                 && is_numeric(\XLite\Core\Request::getInstance()->item_id)
             ) {
                 $item = $this->getCart()->getItemByItemId(\XLite\Core\Request::getInstance()->item_id);
 
-                if (
-                    $item
+                if ($item
                     && $item->getProduct()
                     && $item->hasAttributeValues()
                 ) {
-                    $this->item = $item;
+                    return $item;
                 }
             }
-        }
 
-        return $this->item;
+            return false;
+        });
     }
 
     /**
@@ -80,7 +73,12 @@ class ChangeAttributeValues extends \XLite\Controller\Customer\ACustomer
      */
     public function getProduct()
     {
-        return $this->getItem()->getProduct();
+        $product = $this->getItem()->getProduct();
+        if (\XLite\Core\Request::getInstance()->attribute_values) {
+            $product->setAttrValues(\XLite\Core\Request::getInstance()->attribute_values);
+        }
+
+        return $product;
     }
 
     /**
@@ -135,15 +133,15 @@ class ChangeAttributeValues extends \XLite\Controller\Customer\ACustomer
                 $this->buildURL(
                     'change_attribute_values',
                     '',
-                    array(
-                        'source' => \XLite\Core\Request::getInstance()->source,
+                    [
+                        'source'     => \XLite\Core\Request::getInstance()->source,
                         'storage_id' => \XLite\Core\Request::getInstance()->storage_id,
-                        'item_id' => \XLite\Core\Request::getInstance()->item_id,
-                    )
+                        'item_id'    => \XLite\Core\Request::getInstance()->item_id,
+                    ]
                 )
             );
 
-        } elseif (\XLite\Core\Request::getInstance()->source == 'cart') {
+        } elseif (\XLite\Core\Request::getInstance()->source === 'cart') {
             $this->setReturnURL($this->buildURL('cart'));
         }
     }
@@ -153,7 +151,7 @@ class ChangeAttributeValues extends \XLite\Controller\Customer\ACustomer
      *
      * @param array $attributeValues Attrbiute values (prepared, from request)
      *
-     * @return boolean 
+     * @return boolean
      */
     protected function saveAttributeValues(array $attributeValues)
     {
@@ -169,7 +167,7 @@ class ChangeAttributeValues extends \XLite\Controller\Customer\ACustomer
      */
     protected function doActionChange()
     {
-        if ('cart' == \XLite\Core\Request::getInstance()->source) {
+        if ('cart' === \XLite\Core\Request::getInstance()->source) {
             $attributeValues = $this->getProduct()->prepareAttributeValues(
                 \XLite\Core\Request::getInstance()->attribute_values
             );
@@ -183,7 +181,7 @@ class ChangeAttributeValues extends \XLite\Controller\Customer\ACustomer
 
                 $this->setSilenceClose();
 
-            }  else {
+            } else {
 
                 $message = $this->getErrorMessage();
 
@@ -230,11 +228,11 @@ class ChangeAttributeValues extends \XLite\Controller\Customer\ACustomer
     {
         \XLite\Core\TopMessage::addWarning(
             'You tried to buy more items of "{{product}}" product {{description}} than are in stock. We have {{amount}} item(s) only. Please adjust the product quantity.',
-            array(
+            [
                 'product'     => $item->getProduct()->getName(),
                 'description' => $item->getExtendedDescription(),
-                'amount'      => $item->getProductAvailableAmount()
-            )
+                'amount'      => $item->getProductAvailableAmount(),
+            ]
         );
     }
 }

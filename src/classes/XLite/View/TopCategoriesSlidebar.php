@@ -132,7 +132,7 @@ class TopCategoriesSlidebar extends \XLite\View\SideBarBox
 
         $dtos = \XLite\Core\Database::getRepo('XLite\Model\Category')->getCategoriesAsDTO();
         foreach ($dtos as $key => $categoryDTO) {
-            $preprocessedDTOs[] = $this->preprocessDTO($categoryDTO);
+            $preprocessedDTOs[$categoryDTO['id']] = $this->preprocessDTO($categoryDTO);
         }
 
         foreach ($preprocessedDTOs as $categoryDTO) {
@@ -184,12 +184,12 @@ class TopCategoriesSlidebar extends \XLite\View\SideBarBox
      */
     protected function getCategories($categoryId = null)
     {
-        if(null === $this->categories) {
+        if (null === $this->categories) {
             $this->categories = $this->collectCategories();
         }
 
         if (!$categoryId) {
-            $categoryId = 1;
+            $categoryId = \XLite\Core\Database::getRepo('XLite\Model\Category')->getRootCategoryId();
         }
 
         return isset($this->categories[$categoryId]['children'])

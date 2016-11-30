@@ -19,7 +19,9 @@
   {% endif %}
   {% if not this.isPageBodyVisible() %}
     <div class="no-items">
-      {% if this.isEmptyListTemplateVisible() %}
+      {% if this.isDisplayBlankItemsListDescription() %}
+        {% include this.getBlankListTemplate() %}
+      {% elseif this.isEmptyListTemplateVisible() %}
         {% include this.getEmptyListTemplate() %}
       {% endif %}
     </div>

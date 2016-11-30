@@ -6,8 +6,13 @@
  * Copyright (c) 2001-present Qualiteam software Ltd. All rights reserved.
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
-Checkout.define('Checkout.NavigationItem', [], function(){
-  Checkout.NavigationItem = Vue.extend({
+define(
+  'checkout_fastlane/navigation/item',
+ ['vue/vue',
+  'checkout_fastlane/navigation'],
+  function(Vue, Navigation){
+
+  var NavigationItem = Vue.extend({
     name: 'navigation-item',
     replace: false,
 
@@ -34,7 +39,8 @@ Checkout.define('Checkout.NavigationItem', [], function(){
       isActive: function(state) {
         if (state) {
           jQuery(this.$els.link).tab('show');
-          $(window).scrollTop(0);
+          var pos = $('.checkout_fastlane_sections').position().top;
+          $(window).scrollTop(pos);
         }
       }
     },
@@ -94,4 +100,8 @@ Checkout.define('Checkout.NavigationItem', [], function(){
       }
     }
   });
+
+  Vue.registerComponent(Navigation, NavigationItem);
+
+  return NavigationItem;
 });

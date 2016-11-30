@@ -147,6 +147,7 @@ class DependencyExtractor implements DependencyExtractorInterface
 
     private function sortDecorators($decorators)
     {
+        rsort($decorators, SORT_STRING);
         $modules = $modulesDeps = [];
 
         foreach ($decorators as $file) {

@@ -13,6 +13,8 @@ namespace XLite\Module\CDev\Paypal\Model\Repo\Payment;
  */
 class Method extends \XLite\Model\Repo\Payment\Method implements \XLite\Base\IDecorator
 {
+    const P_EXCLUDED_SERVICE_NAMES = 'excludedServiceNames';
+
     /**
      * Find payment methods by specified type for dialog 'Add payment method'
      *
@@ -62,5 +64,21 @@ class Method extends \XLite\Model\Repo\Payment\Method implements \XLite\Base\IDe
 
         $queryBuilder->andWhere($this->getMainAlias($queryBuilder) . '.service_name != :paypalCreditMethod')
             ->setParameter('paypalCreditMethod', \XLite\Module\CDev\Paypal\Main::PP_METHOD_PC);
+    }
+
+    /**
+     * Prepare certain search condition for moduleEnabled flag
+     *
+     * @param \Doctrine\ORM\QueryBuilder $queryBuilder Query builder to prepare
+     * @param boolean                    $value        Condition data
+     * @param boolean                    $countOnly    "Count only" flag
+     *
+     * @return void
+     */
+    protected function prepareCndExcludedServiceNames(\Doctrine\ORM\QueryBuilder $queryBuilder, $value, $countOnly)
+    {
+        $excludedServiceNames = is_array($value) ? $value : [$value];
+        $queryBuilder->andWhere($this->getMainAlias($queryBuilder) . '.service_name NOT IN (:excluded_service_names)')
+            ->setParameter('excluded_service_names', $excludedServiceNames);
     }
 }

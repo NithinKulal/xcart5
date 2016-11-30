@@ -9,13 +9,7 @@
     {% endif %}
     {% if not this.isAllowedAddReview() %}
       <div class="add-review-button-disabled">
-          {% if this.isShouldBeALink() %}
-              <a href="{{ url('product_reviews', '', {'product_id': this.product.getProductId(), 'category_id': this.product.getCategoryId()}) }}">
-                  {{ this.getAddReviewMessage() }}
-              </a>
-          {% else %}
-              {{ this.getAddReviewMessage() }}
-          {% endif %}
+          {{ this.getAddReviewMessage() }}
       </div>
     {% endif %}
 </div>

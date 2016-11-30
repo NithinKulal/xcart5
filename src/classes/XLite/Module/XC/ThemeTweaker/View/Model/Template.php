@@ -7,6 +7,8 @@
  */
 
 namespace XLite\Module\XC\ThemeTweaker\View\Model;
+
+use XLite\Core\Layout;
 use XLite\Core\Templating\CacheManagerInterface;
 
 /**
@@ -19,17 +21,17 @@ class Template extends \XLite\View\Model\AModel
      *
      * @var array
      */
-    protected $schemaDefault = array(
-        'body' => array(
-            self::SCHEMA_CLASS      => 'XLite\Module\XC\ThemeTweaker\View\FormField\Textarea\CodeMirror',
-            self::SCHEMA_LABEL      => 'Template',
-            self::SCHEMA_REQUIRED   => false,
-            self::SCHEMA_FIELD_ONLY => true,
-            self::SCHEMA_TRUSTED    => true,
+    protected $schemaDefault = [
+        'body' => [
+            self::SCHEMA_CLASS                                                                => 'XLite\Module\XC\ThemeTweaker\View\FormField\Textarea\CodeMirror',
+            self::SCHEMA_LABEL                                                                => 'Template',
+            self::SCHEMA_REQUIRED                                                             => false,
+            self::SCHEMA_FIELD_ONLY                                                           => true,
+            self::SCHEMA_TRUSTED                                                              => true,
             \XLite\Module\XC\ThemeTweaker\View\FormField\Textarea\CodeMirror::PARAM_CODE_MODE => 'twig',
             \XLite\Module\XC\ThemeTweaker\View\FormField\Textarea\CodeMirror::PARAM_COLS      => 130,
-        ),
-    );
+        ],
+    ];
 
     /**
      * Return current model ID
@@ -79,7 +81,7 @@ class Template extends \XLite\View\Model\AModel
                 ->findOneByTemplate($localPath);
         }
 
-        return $model ?: new \XLite\Module\XC\ThemeTweaker\Model\Template;
+        return $model ?: new \XLite\Module\XC\ThemeTweaker\Model\Template();
     }
 
     /**
@@ -89,7 +91,7 @@ class Template extends \XLite\View\Model\AModel
      */
     protected function getFormClass()
     {
-        return '\XLite\Module\XC\ThemeTweaker\View\Form\Model\Template';
+        return 'XLite\Module\XC\ThemeTweaker\View\Form\Model\Template';
     }
 
     /**
@@ -102,20 +104,20 @@ class Template extends \XLite\View\Model\AModel
         $result = parent::getFormButtons();
 
         $result['save'] = new \XLite\View\Button\Submit(
-            array(
+            [
                 \XLite\View\Button\AButton::PARAM_LABEL    => 'Save changes',
                 \XLite\View\Button\AButton::PARAM_BTN_TYPE => 'regular-main-button',
                 \XLite\View\Button\AButton::PARAM_STYLE    => 'action',
-            )
+            ]
         );
 
         if (!\XLite\Core\Request::getInstance()->template) {
             $result['templates'] = new \XLite\View\Button\SimpleLink(
-                array(
+                [
                     \XLite\View\Button\AButton::PARAM_LABEL => 'Back to templates list',
                     \XLite\View\Button\AButton::PARAM_STYLE => 'action',
                     \XLite\View\Button\Link::PARAM_LOCATION => $this->buildURL('theme_tweaker_templates'),
-                )
+                ]
             );
         }
 
@@ -153,22 +155,15 @@ class Template extends \XLite\View\Model\AModel
 
                 if (\XLite\Core\Request::getInstance()->template) {
                     $localPath = \XLite\Core\Request::getInstance()->template;
+
                 } elseif ($this->getModelObject()->getId()) {
-                    $localPath = $this->getModelObjectValue('template');
+                    $localPath = parent::getModelObjectValue('template');
                 }
 
                 if ($localPath) {
-                    $model = $this->getModelObject();
-
-                    $fullPath = \XLite::isAdminZone()
-                        ? LC_DIR_SKINS . $localPath
-                        : $this->getFullPathByLocalPath(
-                            $localPath,
-                            $model->getId() ? 'theme_tweaker/customer' : null
-                        );
-
-                    $value = \Includes\Utils\FileManager::read($fullPath);
+                    $value = \Includes\Utils\FileManager::read(\LC_DIR_SKINS . $localPath);
                 }
+
                 break;
 
             default:
@@ -204,6 +199,7 @@ class Template extends \XLite\View\Model\AModel
         $data['date'] = LC_START_TIME;
 
         $localPath = '';
+        $layout = \XLite\Core\Layout::getInstance();
         if (\XLite\Core\Request::getInstance()->template) {
             $localPath = \XLite\Core\Request::getInstance()->template;
 
@@ -212,81 +208,29 @@ class Template extends \XLite\View\Model\AModel
         }
 
         if ($localPath) {
-            $fullPath = $this->getFullPathByLocalPath($localPath, 'theme_tweaker/customer');
-            \Includes\Utils\FileManager::write($fullPath, $body);
+            $interface = \XLite\Core\Request::getInstance()->interface;
+            $innerInterface = \XLite\Core\Request::getInstance()->innerInterface;
 
-            $data['template'] = substr($fullPath, strlen(LC_DIR_SKINS));
+            if ($interface === \XLite::MAIL_INTERFACE) {
+                $layout->setMailSkin($innerInterface);
+            }
 
-            $this->getTemplateCacheManager()->invalidate($fullPath);
+            $fullPath = $layout->getFullPathByLocalPath($localPath, $interface);
+
+            if (\Includes\Utils\FileManager::write($fullPath, $body)) {
+                $data['template'] = substr($fullPath, strlen(\LC_DIR_SKINS));
+
+                $this->getTemplateCacheManager()->invalidate($fullPath);
+            } else {
+                $this->addErrorMessage(
+                    'file permissions',
+                    static::t('The file {{file}} does not exist or is not writable.', ['file' => $localPath]),
+                    ['file' => $fullPath]
+                );
+            }
+
         }
 
         parent::setModelProperties($data);
-    }
-
-    /**
-     * Returns full path
-     *
-     * @param string $localPath Local path
-     * @param string $skin      Skin OPTIONAL
-     *
-     * @return string
-     */
-    protected function getFullPathByLocalPath($localPath, $skin = null)
-    {
-        /** @var \XLite\Core\Layout $layout */
-        $layout = \XLite\Core\Layout::getInstance();
-
-        $pathSkin = '';
-        $locale = '';
-        $shortPath = '';
-
-        foreach ($layout->getSkinPaths(\XLite::CUSTOMER_INTERFACE) as $path) {
-            if (strpos($localPath, $path['name']) === 0) {
-                $pathSkin = $path['name'];
-
-                $locale = substr(
-                    $localPath,
-                    strlen($pathSkin),
-                    strpos($localPath, LC_DS, strlen($pathSkin)) - strlen($pathSkin)
-                ) ?: null;
-
-                $shortPath = substr($localPath, strpos($localPath, LC_DS, strlen($pathSkin)) + strlen(LC_DS));
-
-                break;
-            }
-        }
-
-        return ($shortPath && $pathSkin)
-            ? $this->getFullPathByShortPath($shortPath, ($skin) ?: $pathSkin, $locale)
-            : '';
-    }
-
-    /**
-     * Returns full path
-     *
-     * @param string $shortPath Short path
-     * @param string $skin      Skin OPTIONAL
-     * @param string $locale    Locale OPTIONAL
-     *
-     * @return string
-     */
-    protected function getFullPathByShortPath($shortPath, $skin = 'theme_tweaker/customer', $locale = null)
-    {
-        $result = '';
-
-        /** @var \XLite\Core\Layout $layout */
-        $layout = \XLite\Core\Layout::getInstance();
-
-        foreach ($layout->getSkinPaths(\XLite::CUSTOMER_INTERFACE) as $path) {
-            if ($path['name'] === $skin
-                && (null === $locale || $path['locale'] === $locale)
-            ) {
-                $result = $path['fs'] . LC_DS . $shortPath;
-
-                break;
-            }
-        }
-
-        return $result;
     }
 }

@@ -5,6 +5,11 @@
  #}
 
 <td class="module-info">
-<span class="name">{{ this.entry.getModuleName() }}</span>
-<span class="author">({{ t('by') }} {{ this.entry.getAuthorName() }})</span>
+  <span class="name">{{ this.entry.getModuleName() }}</span>
+  <span class="author">({{ t('by') }} {{ this.entry.getAuthorName() }})</span>
+  {% if this.getModuleAuthorEmail(this.entry) is not empty %}
+    <span class="author-email">
+      <a href="mailto: {{ this.getModuleAuthorEmail(this.entry) }}">{{ this.getModuleAuthorEmail(this.entry) }}</a>
+    </span>
+  {% endif %}
 </td>

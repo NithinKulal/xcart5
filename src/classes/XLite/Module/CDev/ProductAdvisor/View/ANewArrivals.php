@@ -21,7 +21,6 @@ abstract class ANewArrivals extends \XLite\View\ItemsList\Product\Customer\ACust
     /**
      * Widget parameter names
      */
-
     const PARAM_ROOT_ID     = 'rootId';
     const PARAM_USE_NODE    = 'useNode';
     const PARAM_CATEGORY_ID = 'category_id';
@@ -30,7 +29,6 @@ abstract class ANewArrivals extends \XLite\View\ItemsList\Product\Customer\ACust
      * Widget target
      */
     const WIDGET_TARGET_NEW_ARRIVALS = 'new_arrivals';
-
 
     /**
      * Return target to retrieve this widget from AJAX
@@ -83,7 +81,7 @@ abstract class ANewArrivals extends \XLite\View\ItemsList\Product\Customer\ACust
      */
     protected function getHead()
     {
-        return \XLite\Core\Translation::getInstance()->translate('New arrivals');
+        return static::t('New arrivals');
     }
 
     /**
@@ -93,47 +91,41 @@ abstract class ANewArrivals extends \XLite\View\ItemsList\Product\Customer\ACust
      */
     protected function getPagerClass()
     {
-        return '\XLite\Module\CDev\ProductAdvisor\View\Pager\Pager';
+        return 'XLite\Module\CDev\ProductAdvisor\View\Pager\Pager';
     }
 
     /**
-     * Return params list to use for search
+     * Default search conditions
      *
-     * @param \XLite\Core\CommonCell $cnd Initial search conditions
+     * @param  \XLite\Core\CommonCell $searchCase Search case
      *
      * @return \XLite\Core\CommonCell
      */
-    protected function getSearchConditions(\XLite\Core\CommonCell $cnd)
+    protected function postprocessSearchCase(\XLite\Core\CommonCell $searchCase)
     {
+        $searchCase = parent::postprocessSearchCase($searchCase);
+
         $currentDate = static::getUserTime();
-        $daysOffset = abs(intval(\XLite\Core\Config::getInstance()->CDev->ProductAdvisor->na_max_days))
+        $daysOffset = abs((int) \XLite\Core\Config::getInstance()->CDev->ProductAdvisor->na_max_days)
             ?: \XLite\Module\CDev\ProductAdvisor\Main::PA_MODULE_OPTION_DEFAULT_DAYS_OFFSET;
 
-        $startDate = \XLite\Core\Converter::getDayStart($currentDate - $daysOffset * 24 * 60 * 60);
-        $endDate = \XLite\Core\Converter::getDayEnd($currentDate);
-
-        $cnd->{\XLite\Module\CDev\ProductAdvisor\Model\Repo\Product::P_ARRIVAL_DATE} = array(
-            $startDate,
-            $endDate
+        $searchCase->{\XLite\Module\CDev\ProductAdvisor\Model\Repo\Product::P_ARRIVAL_DATE} = array(
+            \XLite\Core\Converter::getDayStart($currentDate - $daysOffset * 24 * 60 * 60),
+            \XLite\Core\Converter::getDayEnd($currentDate)
         );
 
-        $cnd->{\XLite\Model\Repo\Product::P_ORDER_BY} = array('p.arrivalDate', 'DESC');
-
-        return $cnd;
+        return $searchCase;
     }
 
     /**
-     * Return products list
+     * Return 'Order by' array.
+     * array(<Field to order>, <Sort direction>)
      *
-     * @param \XLite\Core\CommonCell $cnd       Search condition
-     * @param boolean                $countOnly Return items list or only its size OPTIONAL
-     *
-     * @return mixed
+     * @return array|null
      */
-    protected function getData(\XLite\Core\CommonCell $cnd, $countOnly = false)
+    protected function getOrderBy()
     {
-        return \XLite\Core\Database::getRepo('XLite\Model\Product')
-            ->search($this->getSearchConditions($cnd), $countOnly);
+        return [static::SORT_BY_MODE_DATE, static::SORT_ORDER_DESC];
     }
 
     /**
@@ -143,7 +135,9 @@ abstract class ANewArrivals extends \XLite\View\ItemsList\Product\Customer\ACust
      */
     protected function isVisible()
     {
-        return \XLite\Core\Config::getInstance()->CDev->ProductAdvisor->na_enabled && parent::isVisible();
+        return \XLite\Core\Config::getInstance()->CDev->ProductAdvisor->na_enabled
+            && parent::isVisible()
+            && $this->hasResults();
     }
 
     /**
@@ -165,7 +159,7 @@ abstract class ANewArrivals extends \XLite\View\ItemsList\Product\Customer\ACust
     {
         return
             min(
-                intval(\XLite\Core\Config::getInstance()->CDev->ProductAdvisor->na_max_count_in_block),
+                (int) \XLite\Core\Config::getInstance()->CDev->ProductAdvisor->na_max_count_in_block,
                 $this->getMaxCountInFullList()
             )
             ?: 3;
@@ -178,7 +172,7 @@ abstract class ANewArrivals extends \XLite\View\ItemsList\Product\Customer\ACust
      */
     protected function getMaxCountInFullList()
     {
-        return intval(\XLite\Core\Config::getInstance()->CDev->ProductAdvisor->na_max_count_in_full_list);
+        return (int) \XLite\Core\Config::getInstance()->CDev->ProductAdvisor->na_max_count_in_full_list;
     }
 
     /**

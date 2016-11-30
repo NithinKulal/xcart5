@@ -20,17 +20,17 @@ class ProductVariant extends \XLite\View\StickyPanel\ItemsListForm
      */
     protected function defineAdditionalButtons()
     {
-        $list = parent::defineAdditionalButtons();
-
-        $list[] = $this->getWidget(
-            array(
-                'disabled'   => true,
-                'style'      => 'more-action',
-                'icon-style' => 'fa fa-trash-o',
-            ),
-            'XLite\Module\XC\ProductVariants\View\Button\DeleteSelectedVariants'
-        );
-
-        return $list;
+        return [
+            'delete' => [
+                'class'    => 'XLite\View\Button\DeleteSelected',
+                'params'   => [
+                    'action'     => 'deleteVariants',
+                    'label'      => static::t('Delete'),
+                    'style'      => 'more-action hide-on-disable hidden',
+                    'icon-style' => 'fa fa-trash-o',
+                ],
+                'position' => 100,
+            ],
+        ];
     }
 }

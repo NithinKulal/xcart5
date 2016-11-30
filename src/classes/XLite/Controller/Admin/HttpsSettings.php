@@ -24,6 +24,16 @@ class HttpsSettings extends \XLite\Controller\Admin\AAdmin
     }
 
     /**
+     * Define the actions with no secure token
+     *
+     * @return array
+     */
+    public static function defineFreeFormIdActions()
+    {
+        return array_merge(parent::defineFreeFormIdActions(), ['switch_customer_security']);
+    }
+
+    /**
      * Return url for read more link on invalid SSL
      *
      * @return string
@@ -58,6 +68,54 @@ class HttpsSettings extends \XLite\Controller\Admin\AAdmin
         \XLite\Core\TopMessage::addInfo('HTTPS option has been disabled');
 
         $this->setReturnURL($this->buildURL($this->get('target')));
+    }
+
+    /**
+     * Actions to enable the clean URL functionality
+     *
+     * @return void
+     */
+    public function doActionSwitchCustomerSecurity()
+    {
+        $oldValue = \XLite\Core\Config::getInstance()->Security->force_customers_to_https;
+
+        $ajaxResponse = array(
+            'Success'       => true,
+            'NewState'      => !(bool) $oldValue
+        );
+
+        \XLite\Core\Database::getRepo('XLite\Model\Config')->createOption(
+            array(
+                'category' => 'Security',
+                'name'     => 'force_customers_to_https',
+                'value'    => !(bool) $oldValue
+            )
+        );
+
+        $this->printAJAX($ajaxResponse);
+        $this->silent = true;
+        $this->setSuppressOutput(true);
+    }
+
+    /**
+     * Send specific headers and print AJAX data as JSON string
+     *
+     * @param array $data
+     *
+     * @return void
+     */
+    protected function printAJAX($data)
+    {
+        // Move top messages into headers since we print data and die()
+        $this->translateTopMessagesToHTTPHeaders();
+
+        $content = json_encode($data);
+
+        header('Content-Type: application/json; charset=UTF-8');
+        header('Content-Length: ' . strlen($content));
+        header('ETag: ' . md5($content));
+
+        print ($content);
     }
 
     /**

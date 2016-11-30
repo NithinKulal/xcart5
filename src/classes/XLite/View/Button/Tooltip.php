@@ -16,8 +16,12 @@ class Tooltip extends \XLite\View\Button\Regular
     /**
      * Widget parameter names
      */
-    const PARAM_BUTTON_TOOLTIP = 'buttonTooltip';
+    const PARAM_BUTTON_TOOLTIP   = 'buttonTooltip';
     const PARAM_SEPARATE_TOOLTIP = 'tooltip';
+    const PARAM_PLACEMENT        = 'placement';
+    const PARAM_DELAY            = 'delay';
+    const PARAM_DELAY_SHOW       = 'delayShow';
+    const PARAM_HELP_ID          = 'helpId';
 
     /**
      * Get a list of CSS files required to display the widget properly
@@ -64,10 +68,14 @@ class Tooltip extends \XLite\View\Button\Regular
     {
         parent::defineWidgetParams();
 
-        $this->widgetParams += array(
-            static::PARAM_BUTTON_TOOLTIP => new \XLite\Model\WidgetParam\TypeString('Button tooltip', ''),
+        $this->widgetParams += [
+            static::PARAM_BUTTON_TOOLTIP   => new \XLite\Model\WidgetParam\TypeString('Button tooltip', ''),
             static::PARAM_SEPARATE_TOOLTIP => new \XLite\Model\WidgetParam\TypeString('Separate tooltip', ''),
-        );
+            static::PARAM_PLACEMENT        => new \XLite\Model\WidgetParam\TypeString('Tooltip placement', 'top auto'),
+            static::PARAM_DELAY            => new \XLite\Model\WidgetParam\TypeInt('Tooltip hide delay', 0),
+            static::PARAM_DELAY_SHOW       => new \XLite\Model\WidgetParam\TypeInt('Tooltip show delay', 0),
+            static::PARAM_HELP_ID          => new \XLite\Model\WidgetParam\TypeString('ID of element contaning help text', ''),
+        ];
     }
 
     /**
@@ -78,7 +86,7 @@ class Tooltip extends \XLite\View\Button\Regular
     protected function getClass()
     {
         return parent::getClass()
-            . ($this->getParam(static::PARAM_BUTTON_TOOLTIP) ? ' tooltip-caption' : '');
+        . ($this->getParam(static::PARAM_BUTTON_TOOLTIP) ? ' tooltip-caption' : '');
     }
 
     /**
@@ -89,7 +97,7 @@ class Tooltip extends \XLite\View\Button\Regular
     protected function getWrapperClass()
     {
         return 'button-tooltip'
-            . ($this->getParam(static::PARAM_BUTTON_TOOLTIP) ? ' tooltip-main' : '');
+        . ($this->getParam(static::PARAM_BUTTON_TOOLTIP) ? ' tooltip-main' : '');
     }
 
     /**
@@ -110,5 +118,35 @@ class Tooltip extends \XLite\View\Button\Regular
     protected function getSeparateTooltip()
     {
         return $this->getParam(static::PARAM_SEPARATE_TOOLTIP);
+    }
+
+    /**
+     * Get ID of element containing help text
+     *
+     * @return string
+     */
+    protected function getHelpId()
+    {
+        return $this->getParam(static::PARAM_HELP_ID);
+    }
+
+    /**
+     * Get ID of element containing help text
+     *
+     * @return string
+     */
+    protected function getDelay()
+    {
+        $delayShow = (int) $this->getParam(static::PARAM_DELAY_SHOW);
+        $delayHide = (int) $this->getParam(static::PARAM_DELAY);
+
+        if ($delayShow == $delayHide) {
+            $result = $delayShow;
+
+        } else {
+            $result = json_encode(array('show' => $delayShow, 'hide' => $delayHide));
+        }
+
+        return $result;
     }
 }

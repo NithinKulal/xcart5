@@ -1,0 +1,13 @@
+{##
+ # Footer part part
+ #
+ # @ListChild (list="footer", weight="100")
+ #}
+
+{% if this.doCSSAggregation() and this.doCSSOptimization() %}
+  {% for file in this.getAggregateCSSResources() %}
+    {% if this.isResourceSuitableForOptimization(file) %}
+      <link href="{{ this.getResourceURL(file.url) }}" rel="stylesheet" type="text/css" media="{{ file.media }}" />
+    {% endif %}
+  {% endfor %}
+{% endif %}

@@ -15,6 +15,8 @@ use \XLite\Module\XC\FastLaneCheckout;
  */
 abstract class Address extends \XLite\View\Checkout\AAddressBlock
 {
+    const PARAM_DISPLAY_TYPE = 'display';
+
     /**
      * Get address type
      *
@@ -30,6 +32,38 @@ abstract class Address extends \XLite\View\Checkout\AAddressBlock
     protected function isPasswordVisible()
     {
         return false;
+    }
+
+    /**
+     * Returns display type 
+     * 
+     * @return string
+     */
+    protected function getDisplayType()
+    {
+        return $this->getParam(self::PARAM_DISPLAY_TYPE);
+    }
+
+    /**
+     * @return string
+     */
+    protected function getDefaultDisplayType()
+    {
+        return \XLite\Core\Request::getInstance()->display ?: 'full';
+    }
+
+    /**
+     * Define widget params
+     *
+     * @return void
+     */
+    protected function defineWidgetParams()
+    {
+        parent::defineWidgetParams();
+
+        $this->widgetParams += array(
+            self::PARAM_DISPLAY_TYPE => new \XLite\Model\WidgetParam\TypeString('Display type', $this->getDefaultDisplayType()),
+        );
     }
 
     /**
@@ -73,6 +107,26 @@ abstract class Address extends \XLite\View\Checkout\AAddressBlock
     }
 
     /**
+     * @return void
+     */
+    protected function getEditAddressTitle()
+    {
+        return static::t('Edit address');
+    }
+
+    /**
+     * Returns address id
+     * 
+     * @return integer
+     */
+    protected function getAddressId()
+    {
+        $address = $this->getAddressInfo();
+
+        return $address ? $address->getAddressId() : 0;
+    }
+
+    /**
      * Get an array of address fields
      *
      * @return array
@@ -85,10 +139,10 @@ abstract class Address extends \XLite\View\Checkout\AAddressBlock
         foreach ($fields as $fieldName => $field) {
             $value = $this->getFieldValue($fieldName, true);
 
-            // TODO: not sure if needed
-            if (!$value && $value !== '') {
-                continue;
-            }
+            // // TODO: not sure if needed
+            // if (!$value && $value !== '') {
+            //     continue;
+            // }
 
             $result[$fieldName] = array(
                 'label' => $field['label'],
@@ -109,43 +163,23 @@ abstract class Address extends \XLite\View\Checkout\AAddressBlock
     }
 
     /**
-     * Add CSS classes to the list of attributes
-     *
-     * @param string $fieldName Field service name
-     * @param array  $fieldData Array of field properties (see getAddressFields() for the details)
-     *
-     * @return array
+     * @return string
      */
-    public function getFieldAttributes($fieldName, array $fieldData)
+    public function defineFormSchema()
     {
-        $classes = array('field-' . $fieldName);
-
-        $attrs = empty($fieldData[\XLite\View\FormField\AFormField::PARAM_ATTRIBUTES])
-            ? array()
-            : $fieldData[\XLite\View\FormField\AFormField::PARAM_ATTRIBUTES];
-
-        if (!isset($attrs['class'])) {
-            $attrs['class'] = '';
+        $schema = array();
+        foreach ($this->getAddressFields() as $field => $data) {
+            $schema[$field] = (string) $this->getFieldValue($field);
         }
 
-        $attrs['class'] = trim($attrs['class'] . ' ' . implode(' ', $classes));
-
-        // Vue.js attributes
-
-        return $attrs;
+        return $schema;
     }
 
-    public function buildCountryNamesObject()
+    /**
+     * @return string
+     */
+    public function serializeFormSchema()
     {
-        $dto = \XLite\Core\Database::getRepo('XLite\Model\Country')->findAllEnabledDTO();
-
-        return json_encode($dto);
-    }
-
-    public function buildStateNamesObject()
-    {
-        $dto = \XLite\Core\Database::getRepo('XLite\Model\State')->findAllStatesDTO();
-
-        return json_encode($dto);
+        return json_encode($this->defineFormSchema());
     }
 }

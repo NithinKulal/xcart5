@@ -212,6 +212,31 @@ class Review extends \XLite\Model\AEntity
     }
 
     /**
+     * @return string
+     */
+    public function getURLForProductAdminPage()
+    {
+        return $this->getProduct()
+            ? \XLite\Core\Converter::makeURLValid(
+                \XLite\Core\Converter::buildFullURL('product', '', [
+                    'product_id'    => $this->getProduct()->getProductId(),
+                    'page'          => 'product_reviews'
+                ],  \XLite::ADMIN_SELF)
+            )
+            : '';
+    }
+
+    /**
+     * Send email notification to owner
+     *
+     * @return string
+     */
+    public function sendNotificationToOwner()
+    {
+        return \XLite\Core\Mailer::sendNewReview($this);
+    }
+
+    /**
      * Returns code for useForMeta selector
      *
      * @return integer

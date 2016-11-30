@@ -14,6 +14,19 @@ namespace XLite\Module\XC\CrispWhiteSkin\View\Checkout;
 abstract class AAddressBlock extends \XLite\View\Checkout\AAddressBlock implements \XLite\Base\IDecorator
 {
     /**
+     * @inheritDoc
+     */
+    public function getJSFiles()
+    {
+        return array_merge(
+            parent::getJSFiles(),
+            [
+                'checkout/fields-height-controller.js'
+            ]
+        );
+    }
+
+    /**
      * Get an array of address fields
      *
      * @return array

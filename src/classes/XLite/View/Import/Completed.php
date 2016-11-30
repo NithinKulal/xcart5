@@ -68,7 +68,7 @@ class Completed extends \XLite\View\AView
                             'separator' => \XLite\Core\Config::getInstance()->Units->csv_delim,
                             'encoding'  => \XLite\Core\Config::getInstance()->Units->export_import_charset,
                             'configURL' => $this->buildURL('units_formats'),
-                            'kbURL'     => 'http://kb.x-cart.com/pages/viewpage.action?pageId=7503874',
+                            'kbURL'     => 'http://kb.x-cart.com/en/import-export/index.html',
                         )
                     ),
                 );

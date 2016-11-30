@@ -215,6 +215,7 @@ class PaypalAPI extends \XLite\Module\CDev\Paypal\Core\AAPI
         $processor = $this->getProcessor();
 
         $params = array(
+            'LOCALECODE'                     => $this->getLocaleCode(\XLite\Core\Session::getInstance()->getLanguage()->getCode()),
             'BRANDNAME'                      => \XLite\Core\Config::getInstance()->Company->company_name,
             'RETURNURL'                      => $processor->getPaymentReturnUrl(),
             'CANCELURL'                      => $processor->getPaymentCancelUrl(),
@@ -229,7 +230,7 @@ class PaypalAPI extends \XLite\Module\CDev\Paypal\Core\AAPI
         );
 
         if (\XLite\Core\Config::getInstance()->Security->customer_security) {
-            $postData['HDRIMG'] = urlencode(\XLite\Module\CDev\Paypal\Main::getLogo());
+            $params['HDRIMG'] = urlencode(\XLite\Module\CDev\Paypal\Main::getLogo());
         }
 
         $items = $this->getItems($order);
@@ -265,7 +266,11 @@ class PaypalAPI extends \XLite\Module\CDev\Paypal\Core\AAPI
             );
         }
 
-        if (null !== $shippingCost && $profile && $profile->getShippingAddress()) {
+        if (null !== $shippingCost
+            && $profile
+            && $profile->getShippingAddress()
+            && $profile->getShippingAddress()->isCompleted(\XLite\Model\Address::SHIPPING)
+        ) {
             /** @var \XLite\Model\Address $address */
             $address = $profile->getShippingAddress();
 
@@ -289,6 +294,25 @@ class PaypalAPI extends \XLite\Module\CDev\Paypal\Core\AAPI
         }
 
         return $params;
+    }
+
+    /**
+     * @param string $language
+     *
+     * @return string
+     */
+    protected function getLocaleCode($language)
+    {
+        $locales = array(
+            'ar_EG', 'da_DK', 'de_DE', 'en_US', 'es_ES', 'fr_FR', 'he_IL', 'id_ID', 'it_IT', 'ja_JP',
+            'ko_KR', 'nl_NL', 'no_NO', 'pl_PL', 'pt_PT', 'ru_RU', 'sv_SE', 'th_TH', 'zh_CN',
+        );
+
+        $locale = array_filter($locales, function ($item) use ($language) {
+            return strpos($item, strtolower($language)) === 0;
+        });
+
+        return 1 === count($locale) ? reset($locale) : 'en_US';
     }
 
     // }}}
@@ -323,14 +347,22 @@ class PaypalAPI extends \XLite\Module\CDev\Paypal\Core\AAPI
      */
     protected function getConfirmedShippingAddress(\XLite\Model\Address $address)
     {
+        $countryCode = $address->getCountry()
+            ? $address->getCountry()->getCode()
+            : '';
+
+        $stateCode = $address->getState()
+            ? ($address->getState()->getCode() ?: $address->getState()->getState())
+            : '';
+
         return array(
             'PAYMENTREQUEST_0_SHIPTONAME'        => trim($address->getFirstname() . ' ' . $address->getLastname()),
             'PAYMENTREQUEST_0_SHIPTOSTREET'      => $address->getStreet(),
             'PAYMENTREQUEST_0_SHIPTOSTREET2'     => '',
             'PAYMENTREQUEST_0_SHIPTOCITY'        => $address->getCity(),
-            'PAYMENTREQUEST_0_SHIPTOSTATE'       => $address->getState()->getCode() ?: $address->getState()->getState(),
+            'PAYMENTREQUEST_0_SHIPTOSTATE'       => $stateCode,
             'PAYMENTREQUEST_0_SHIPTOZIP'         => $address->getZipcode(),
-            'PAYMENTREQUEST_0_SHIPTOCOUNTRYCODE' => $address->getCountry()->getCode(),
+            'PAYMENTREQUEST_0_SHIPTOCOUNTRYCODE' => $countryCode,
         );
     }
 
@@ -374,7 +406,10 @@ class PaypalAPI extends \XLite\Module\CDev\Paypal\Core\AAPI
         /** @var \XLite\Model\Profile $profile */
         $profile = $order->getProfile();
 
-        if ($profile && $profile->getShippingAddress()) {
+        if ($profile
+            && $profile->getShippingAddress()
+            && $profile->getShippingAddress()->isCompleted(\XLite\Model\Address::SHIPPING)
+        ) {
             $params += $this->getConfirmedShippingAddress(
                 $profile->getShippingAddress()
             );
@@ -464,10 +499,19 @@ class PaypalAPI extends \XLite\Module\CDev\Paypal\Core\AAPI
      */
     public function convertRefundTransactionParams($transaction, $transactionId)
     {
-        return array(
+        $result = [
             'TRANSACTIONID' => $transactionId,
             'AMT'           => $this->getRefundAmount($transaction),
-        );
+        ];
+
+        if (!$transaction->isFullRefund()) {
+            $paymentTransaction = $transaction->getPaymentTransaction();
+
+            $result['REFUNDTYPE'] = 'Partial';
+            $result['CURRENCYCODE'] = $paymentTransaction->getCurrency()->getCode();
+        }
+
+        return $result;
     }
 
     // }}}

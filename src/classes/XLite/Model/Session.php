@@ -462,4 +462,20 @@ class Session extends \XLite\Model\AEntity
     {
         return $this->formIds;
     }
+
+    /**
+     * Do some actions to logoff
+     */
+    public function logoff()
+    {
+        $this->last_profile_id = $this->profile_id;
+
+        foreach (\XLite\Core\Auth::getInstance()->getSessionVarsToClear() as $var) {
+            unset($this->$var);
+        }
+
+        foreach (\XLite\Model\Cart::getInstance()->getSessionVarsToClearOnLogoff() as $var) {
+            unset($this->$var);
+        }
+    }
 }

@@ -15,7 +15,7 @@
   position: absolute;
   border: 1px solid #c3c3c3;
   border-radius: 4px;
-  margin: -24px 0px 0px 0px;
+  margin: -13px 0px 0px 0px;
 }
 
 .model-selector ul.items-list li,
@@ -75,8 +75,13 @@
 
 .spinner {
   position: absolute;
-  margin-top: -31px;
-  right: 11px;
+  margin-top: -26px;
+  right: -15px;
+}
+
+.spinner .box {
+  width: 20px;
+  height: 20px;
 }
 
 .model-selector input.model-input-selector {

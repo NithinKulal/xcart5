@@ -6,27 +6,65 @@
  * Copyright (c) 2001-present Qualiteam software Ltd. All rights reserved.
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
-Checkout.define('Checkout.Address', [], function() {
+define(
+  'checkout_fastlane/blocks/address',
+  ['vue/vue',
+   'vue/vue.loadable',
+   'checkout_fastlane/sections',
+   'checkout_fastlane/sections/shipping',
+   'checkout_fastlane/sections/payment',
+   'checkout_fastlane/blocks/shipping_details'],
+  function(Vue, VueLoadableMixin, Sections, ShippingSection, PaymentSection, ShippingDetails) {
 
-  Checkout.Address = Vue.extend({
+  var Address = Vue.extend({
+    mixins: [VueLoadableMixin],
     name: 'address',
     replace: false,
 
+    loadable: {
+      transferState: false,
+      cacheSimultaneous: true,
+      cacheKey: function() {
+        return this.$options.name + this.type + this.display;
+      },
+      loader: function() {
+        this.$root.$broadcast('reloadingBlock', 3);
+        return core.get({
+          target: 'checkout',
+          widget: 'XLite\\Module\\XC\\FastLaneCheckout\\View\\Blocks\\Address\\' + this.type.charAt(0).toUpperCase() + this.type.slice(1),
+          display: this.display
+        }, undefined, undefined, { timeout: 45000 });
+      },
+      resolve: function() {
+        this.$root.$broadcast('reloadingUnblock', 3);
+      },
+      reject: function() {
+        this.$root.$broadcast('reloadingUnblock', 3);
+      }
+    },
+
     vuex: {
       getters: {
-        same_address_flag: function(state) {
-          return state.order.same_address;
-        },
-        address: function(state) {
+        vuex_address: function(state) {
           return state.order.address;
+        },
+        vuex_same_as_shipping: function(state) {
+          return state.order.same_address;
         }
       }
     },
 
     data: function() {
       return {
-        type: null
+        type: null,
+        addressId: null,
+        fieldsDefault: null,
+        display: 'full'
       };
+    },
+
+    ready: function() {
+      core.autoload(PopupButtonAddressModify);
     },
 
     computed: {
@@ -35,28 +73,44 @@ Checkout.define('Checkout.Address', [], function() {
           return {};
         }
 
-        if (!this.address[this.type]) {
-          return {};
+        var fields = this.fieldsDefault;
+
+        if (this.address) {
+          fields = _.extend(fields, this.address); 
         }
 
-        return this.preprocess(this.address[this.type]);
+        return this.preprocess(fields);
       },
-      title: function() {
-        return core.t(this.type.charAt(0).toUpperCase() + this.type.slice(1) + ' to');
+      address: function () {
+        if (!_.isUndefined(this.vuex_address[this.type])) {
+          return this.vuex_same_as_shipping
+            ? this.vuex_address['shipping']
+            : this.vuex_address[this.type];
+        }
+
+        return null;
       },
-      person: function() {
-        if (this.same_address) {
-          return core.t('same as shipping');
-        } else {
-          return '';
+      classes: function () {
+        return {
+          'reloading': this.$reloading,
         }
       },
-      same_address: function() {
-        return this.same_address_flag === 1 && this.type === 'billing';
-      },
+      btnTitle: function() {
+        return core.t("Edit address");
+      }
     },
 
     events: {
+      global_updatecart: function(data) {
+        var reloadKey = this.type + 'AddressId';
+        var updateKey = this.type + 'AddressFields';
+
+        if (_.has(data, reloadKey)) {
+          this.$reload();
+        } else if (_.has(data, updateKey)) {
+          this.fieldsDefault = _.extend(this.fieldsDefault, data[updateKey]);
+        }
+      },
     },
 
     methods: {
@@ -91,9 +145,32 @@ Checkout.define('Checkout.Address', [], function() {
           }
         }
 
+        var countryCode = address['country_code'];
+
+        if (_.isUndefined(window.statesList[countryCode])) {
+          value = '';
+        }
+
         return value;
       },
-    },
+      preprocess$custom_state: function(key, address) {
+        var value = address[key];
+
+        var countryCode = address['country_code'];
+
+        if (!_.isUndefined(window.statesList[countryCode])) {
+          value = '';
+        }
+
+        return value;
+      }
+    }
   });
 
+  Vue.registerComponent(Sections, Address);
+  Vue.registerComponent(ShippingSection, Address);
+  Vue.registerComponent(PaymentSection, Address);
+  Vue.registerComponent(ShippingDetails, Address);
+
+  return Address;
 });

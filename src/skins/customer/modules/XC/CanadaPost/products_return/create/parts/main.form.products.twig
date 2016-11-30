@@ -12,7 +12,7 @@
       {{ widget_list('capost_create_return.form.captions') }}
     </tr>
 
-    {% for item in this.order.getItems() %}
+    {% for item in this.getItems() %}
       <tr class="product-cell product">
         {% for column in this.getInheritedViewList('capost_create_return.form.columns', {'item': item}) %}
           <td>{{ column.display() }}</td>

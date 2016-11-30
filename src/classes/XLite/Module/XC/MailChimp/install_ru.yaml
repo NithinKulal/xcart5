@@ -1,0 +1,83 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  directives: { addModel: 'XLite\Model\ConfigTranslation' }
+  - { name: 'mailChimpSeparator', category: 'XC\MailChimp', translations: [{ code: ru, option_name: 'Настройки MailChimp' }] }
+  - { name: 'mailChimpAPIKey', category: 'XC\MailChimp', translations: [{ code: ru, option_name: 'API ключ MailChimp' }] }
+  - { name: 'analytics360enabled', category: 'XC\MailChimp', translations: [{ code: ru, option_name: 'Включить аналитику Ecommerce' }] }
+  - { name: 'abandonedCartEnabled', category: 'XC\MailChimp', translations: [{ code: ru, option_name: 'Включить Abandoned Carts' }] }
+  - { name: 'doubleOptinDisabled', category: 'XC\MailChimp', translations: [{ code: ru, option_name: 'Включить режим подписки "single opt-in"', option_comment: 'Когда этоа опция включена клиенты не будут получать запрос на подтверждение подписки (в отличие от метода "double opt-in"). Злоупотребление данной опцией может привести к блокировке вашей учетной записи MailChimp!'}] }
+  - { name: 'subscriptionElementType', category: 'XC\MailChimp', translations: [{ code: ru, option_name: 'Тип элемента выбора подписки', option_comment: 'Эта опция управляет тем, как ваши клиенты выбирают подписку на рассылку. Список позволяет подписаться только на одну рассылку из списка за раз, когда как галочка позволяет подписаться на несколько рассылок сразу.'}] }
+  - { name: 'updateInterval', category: 'XC\MailChimp', translations: [{ code: ru, option_name: 'Обновлять список рассылок MailChimp каждые', option_comment: 'Выберите временной интервал для обновления информации о списках рассылок.'}] }
+
+XLite\Model\LanguageLabel:
+  directives: { addModel: 'XLite\Model\LanguageLabelTranslation' }
+  - { name: 'MailChimp', translations: [{ code: ru, label: 'MailChimp' }] }
+  - { name: 'MailChimp Integration with E-commerce support', translations: [{ code: ru, label: 'Интеграция сервиса MailChimp с поддержкой Ecommerce' }] }
+  - { name: 'Type: select box', translations: [{ code: ru, label: 'Тип: список' }] }
+  - { name: 'Type: checkbox', translations: [{ code: ru, label: 'Тип: галочка' }] }
+  - { name: 'MailChimp is an email marketing service with powerful tools to manage your email campaigns and subscribers while gathering advanced analytics information on your campaign performance.', translations: [{ code: ru, label: 'MailChimp это маркетиногвай сервис по отправке почтовых сообщений с мощными средствами управления рассылками и подписчиками, позволяющими собирать и обрабатывать информацию эффективности маркетинговых кампаний.' }] }
+  - { name: 'Update MailChimp Lists', translations: [{ code: ru, label: 'Обновить список рассылок MailChimp' }] }
+  - { name: 'MailChimp Lists', translations: [{ code: ru, label: 'Список рассылок MailChimp' }] }
+  - { name: 'MailChimp list segments', translations: [{ code: ru, label: 'Сегменты списка рассылок "{{list_name}}" MailChimp' }] }
+  - { name: 'MailChimp segment settings', translations: [{ code: ru, label: 'Настройки сегмента MailChimp' }] }
+  - { name: 'Subscription', translations: [{ code: ru, label: 'Подписка' }] }
+  - { name: 'Subscribe to our news list and be in touch with our latest offers.', translations: [{ code: ru, label: 'Подпишитесь на наши новостные рассылки и будьте в курсе наших специальных предложений и акций.' }] }
+  - { name: 'News list subscriptions', translations: [{ code: ru, label: 'Подписки на новости' }] }
+  - { name: 'Select box', translations: [{ code: ru, label: 'Список' }] }
+  - { name: 'Filter by order frequency', translations: [{ code: ru, label: 'Фильтровать по частоте заказов' }] }
+  - { name: 'Orders last month', translations: [{ code: ru, label: 'Заказов за последний месяц' }] }
+  - { name: 'Filter by order amount', translations: [{ code: ru, label: 'Фильтровать по общей сумме заказов' }] }
+  - { name: 'Total amount of orders', translations: [{ code: ru, label: 'Общая сумма заказов' }] }
+  - { name: 'Filter by profile membership', translations: [{ code: ru, label: 'Фильтровать по пользовательским группам' }] }
+  - { name: 'Memberships', translations: [{ code: ru, label: 'Пользовательские группы' }] }
+  - { name: 'Filter by specific products', translations: [{ code: ru, label: 'Фильтровать по определенным продуктам' }] }
+  - { name: 'Products', translations: [{ code: ru, label: 'Продукты' }] }
+  - { name: 'Segment condition', translations: [{ code: ru, label: 'Условия попадания подписчика в сегмент' }] }
+  - { name: 'You will need a valid and working MailChimp Account in order to be able to use this module.', translations: [{ code: ru, label: 'Чтобы иметь возможность воспользоваться данным модулем вам понадобится рабочая учетная запись MailChimp.' }] }
+  - { name: 'You can register MailChimp account', translations: [{ code: ru, label: 'Вы можете зарегистрировать учетную запись MailChimp' }] }
+  - { name: 'here', translations: [{ code: ru, label: 'здесь' }] }
+  - { name: 'Month', translations: [{ code: ru, label: 'Месяц' }] }
+  - { name: 'Static', translations: [{ code: ru, label: 'Статический' }] }
+  - { name: 'Auto-Updated', translations: [{ code: ru, label: 'Авто обновляемый' }] }
+  - { name: 'No subscription', translations: [{ code: ru, label: 'Без подписки' }] }
+  - { name: 'Web ID', translations: [{ code: ru, label: 'Web ID' }] }
+  - { name: 'List rating', translations: [{ code: ru, label: 'Рейтинг рассылки' }] }
+  - { name: 'Members count', translations: [{ code: ru, label: 'Кол-во подписчиков' }] }
+  - { name: 'Open rate', translations: [{ code: ru, label: 'Процент открытия' }] }
+  - { name: 'Click rate', translations: [{ code: ru, label: 'Процент переходов' }] }
+  - { name: 'Selected by default', translations: [{ code: ru, label: 'Выбран по умолчанию' }] }
+  - { name: 'Allow this product to be used as a MailChimp segment condition', translations: [{ code: ru, label: 'Позволяэт данному продукту быть использованним как условие для сегмента MailChimp' }] }
+  - { name: 'Never', translations: [{ code: ru, label: 'Никогда' }] }
+  - { name: '1 minute', translations: [{ code: ru, label: '1 минута' }] }
+  - { name: '10 minutes', translations: [{ code: ru, label: '10 минут' }] }
+  - { name: '15 minutes', translations: [{ code: ru, label: '15 минут' }] }
+  - { name: '30 minutes', translations: [{ code: ru, label: '30 минут' }] }
+  - { name: '1 hour', translations: [{ code: ru, label: '1 час' }] }
+  - { name: '2 hours', translations: [{ code: ru, label: '2 часа' }] }
+  - { name: '4 hours', translations: [{ code: ru, label: '4 часа' }] }
+  - { name: '6 hours', translations: [{ code: ru, label: '6 часов' }] }
+  - { name: '12 hours', translations: [{ code: ru, label: '12 часов' }] }
+  - { name: '1 day', translations: [{ code: ru, label: '1 день' }] }
+  - { name: '2 days', translations: [{ code: ru, label: '2 деня' }] }
+  - { name: '5 days', translations: [{ code: ru, label: '5 деня' }] }
+  - { name: '1 week', translations: [{ code: ru, label: '1 неделя' }] }
+  - { name: 'MailChimp lists update', translations: [{ code: ru, label: 'Обновление списков MailChimp' }] }
+  - { name: 'First name or last name are empty. Please add a new address to your address book or modify existing and fill in those fields in order to subscribe to this list.', translations: [{ code: ru, label: 'Имя или фамилия пусты. Пожалуйста, добавьте новый адрес в адресную книгу или дополните существующий заполнив соответствующие поля для того, чтобы подписаться на данную рассылку.' }] }
+  - { name: 'Back to segments list', translations: [{ code: ru, label: 'Назад к списку сегментов' }] }
+  - { name: 'Subscribe by default', translations: [{ code: ru, label: 'Подписка по умолчанию' }] }
+
+  - { name: 'MailChimp list groups', translations: [{ code: ru, label: 'Группы листа "{{list_name}}"' }] }
+  - { name: 'MailChimp list group names', translations: [{ code: ru, label: 'Значения группы "{{group_name}}"' }] }
+  - { name: 'Sign up for news and updates from your favorite store. Be the first to know about exclusive sales, offers and deals.', translations: [{ code: ru, label: 'Подпишитесь на новости и обновления любимого магазина. Узнавайте об эксклюзивных скидках, акциях и предложениях первым!' }] }
+  - { name: 'Sign up for <Company name> news, sales and deals', translations: [{ code: ru, label: 'Подпишитесь на рассылку о новостях, акциях и скидках' }] }
+  - { name: 'Here you can view and manage the MailChimp news lists and groups of the user.', translations: [{ code: ru, label: 'Данная секция позволяет просматривать и управлять новостными подписками и группами пользователя (MailChimp).' }] }
+  - { name: 'Groups', translations: [{ code: ru, label: 'Группы' }] }
+  - { name: '_MailChimp ecommerce info text_', translations: [{ code: ru, label: 'Загрузите данные магазина в MailChimp для более эффективной работы рекомендаций товаров и поддержки оставленных корзин от MailChimp. Перед тем как нажать на кнопку, выберите списки, для которых требуется создать "магазины" в MailChimp. "Магазин" - это набор товаров, заказов, корзин и покупателей. MailChimp создаст "магазины" и привяжет их к спискам, которые вы указали. Данные из X-Cart будут выгружаться именно в эти магазины.<br><a href="{{url}}" target="_blank">Подробнее об опциях e-Commerce в MailChimp</a>' }] }
+  - { name: 'Upload store data to MailChimp', translations: [{ code: ru, label: 'Выгрузить данные в MailChimp' }] }
+  - { name: 'E-Commerce features setup', translations: [{ code: ru, label: 'Настройка опций e-Commerce' }] }

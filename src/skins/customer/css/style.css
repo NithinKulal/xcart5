@@ -71,6 +71,10 @@ select.validation-error
   padding-top: 1px;
 }
 
+.inline-message:empty {
+  padding-top: 0px !important;
+}
+
 form.invalid-form .form-error {
   line-height: normal;
   font-size: 12px;
@@ -509,6 +513,7 @@ ul.subcategory-list.subcategory-view-list {
 ul.subcategory-list.subcategory-view-list li {
   display: block;
   margin-bottom: 6px;
+  word-break: break-all;
 }
 
 ul.subcategory-list.subcategory-view-list li a {
@@ -1053,6 +1058,7 @@ body.store-product h1#page-title,
 {
   text-align: center;
   margin: 0 auto;
+  max-width: 90vw;
 }
 
 .product-details .image.empty .product-photo {
@@ -2672,7 +2678,8 @@ iframe#pay_iframe {
 .checkout-block input[type="text"],
 .checkout-block input[type="password"],
 .checkout-block select,
-.checkout-block textarea
+.checkout-block textarea,
+.checkout-block label.form-control
 {
   margin: 1px;
   border-style: solid;

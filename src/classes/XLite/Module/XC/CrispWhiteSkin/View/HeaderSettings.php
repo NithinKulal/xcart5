@@ -15,6 +15,11 @@ namespace XLite\Module\XC\CrispWhiteSkin\View;
  */
 class HeaderSettings extends \XLite\View\AView
 {
+    /**
+     * Return list of JS files
+     *
+     * @return array
+     */
     public function getJSFiles()
     {
         $list = parent::getJSFiles();
@@ -23,6 +28,11 @@ class HeaderSettings extends \XLite\View\AView
         return $list;
     }
 
+    /**
+     * Return list of CSS files
+     *
+     * @return array
+     */
     public function getCSSFiles()
     {
         $list = parent::getCSSFiles();
@@ -35,8 +45,49 @@ class HeaderSettings extends \XLite\View\AView
         return $list;
     }
 
+    /**
+     * Return default template path
+     *
+     * @return string
+     */
     protected function getDefaultTemplate()
     {
         return 'layout/header/header.right.settings.twig';
+    }
+
+    /**
+     * Check if recently updated
+     *
+     * @return bool
+     */
+    protected function isRecentlyUpdated()
+    {
+        return false;
+    }
+
+    /**
+     * Return classes list
+     *
+     * @return array
+     */
+    protected function getHeaderSettingsClassesList()
+    {
+        $list = [];
+
+        if ($this->isRecentlyUpdated()) {
+            $list[] = 'recently-updated';
+        }
+
+        return $list;
+    }
+
+    /**
+     * Return classes
+     *
+     * @return string
+     */
+    protected function getHeaderSettingsClasses()
+    {
+        return implode(' ', $this->getHeaderSettingsClassesList());
     }
 }

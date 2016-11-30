@@ -63,22 +63,27 @@ class Warehouse extends \XLite\View\FormField\Select\Regular
             }
         );
 
-        $addresses = @\PilipayWarehouseAddress::queryAll();
+        try {
+            $addresses = @\PilipayWarehouseAddress::queryAll();
 
-        $processedAddresses = array();
+            $processedAddresses = array();
 
-        foreach ($addresses as $key => $address) {
-            $identifier = base64_encode(serialize($address));
+            foreach ($addresses as $key => $address) {
+                $identifier = base64_encode(serialize($address));
 
-            $name = array(
-                $address->country,
-                $address->city,
-                $address->firstName,
-                $address->lastName,
-            );
-            $processedAddresses[$identifier] = join(' ', $name);
+                $name = array(
+                    $address->country,
+                    $address->city,
+                    $address->firstName,
+                    $address->lastName,
+                );
+                $processedAddresses[$identifier] = join(' ', $name);
+            }
+
+        } catch (\PilipayError $e) {
+            \XLite\Core\TopMessage::addError('Can\'t get warehouse address list from Pilibaba. Please, try again later');
+            $processedAddresses = [];
         }
-
 
         return $processedAddresses;
     }
@@ -149,7 +154,9 @@ class Warehouse extends \XLite\View\FormField\Select\Regular
         $list[''] = static::t('Select warehouse');
         $list = array_reverse($list, true);
 
-        $list['others'] = 'Others';
+        if (1 < count($list)) {
+            $list['others'] = 'Others';
+        }
 
         return $list;
     }

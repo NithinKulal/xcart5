@@ -719,3 +719,14 @@ ul.account-links .language-selector li.current a {
   color: #555;
 }
 
+.tabs-container .page-tabs .tabs-selector .selected {
+  color: #333333;
+}
+
+.tabs-container .page-tabs .tabs-selector .tabs ul li a {
+  color: #e14285;
+}
+
+.tabs-container .page-tabs .tabs-selector .dropdown-toggle svg {
+  fill: #e14285;
+}

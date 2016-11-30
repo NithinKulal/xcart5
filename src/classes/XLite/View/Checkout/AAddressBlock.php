@@ -242,7 +242,10 @@ abstract class AAddressBlock extends \XLite\View\AView
                 ? $data[\XLite\View\Model\Address\Address::SCHEMA_ATTRIBUTES]
                 : array();
 
-        $data[\XLite\View\Model\Address\Address::SCHEMA_ATTRIBUTES] += $this->getFieldAttributes($name, $data);
+        $data[\XLite\View\Model\Address\Address::SCHEMA_ATTRIBUTES] = array_merge(
+            $data[\XLite\View\Model\Address\Address::SCHEMA_ATTRIBUTES],
+            $this->getFieldAttributes($name, $data)
+        );
 
         $data[\XLite\View\Model\Address\Address::SCHEMA_ATTRIBUTES] +=
             isset($data[\XLite\View\Model\Address\Address::SCHEMA_MODEL_ATTRIBUTES])

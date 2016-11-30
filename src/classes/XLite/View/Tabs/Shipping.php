@@ -25,6 +25,8 @@ class Shipping extends \XLite\View\Tabs\ATabs
         $list = parent::getAllowedTargets();
         $list[] = 'shipping_methods';
         $list[] = 'origin_address';
+        $list[] = 'automate_shipping_returns';
+        $list[] = 'automate_shipping_routine';
 
         return $list;
     }
@@ -37,13 +39,23 @@ class Shipping extends \XLite\View\Tabs\ATabs
         return [
             'shipping_methods' => [
                 'weight' => 100,
-                'title'  => static::t('General'),
+                'title'  => static::t('Settings'),
                 'widget'    => 'XLite\View\ItemsList\Model\Shipping\Carriers',
             ],
             'origin_address' => [
                 'weight' => 200,
                 'title'  => static::t('Origin address'),
                 'widget' => 'XLite\View\Page\OriginAddress',
+            ],
+            'automate_shipping_returns' => [
+                'weight' => 300,
+                'title'  => static::t('Automate Shipping returns'),
+                'widget' => 'XLite\View\AutomateShippingReturns',
+            ],
+            'automate_shipping_routine' => [
+                'weight' => 400,
+                'title'  => static::t('More shipping solutions'),
+                'widget' => 'XLite\View\AutomateShippingRoutine',
             ],
         ];
     }

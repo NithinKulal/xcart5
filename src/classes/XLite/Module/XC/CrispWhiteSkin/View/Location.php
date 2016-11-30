@@ -25,4 +25,17 @@ class Location extends \XLite\View\Location implements \XLite\Base\IDecorator
                 && !$this->isCheckoutLayout()
             );
     }
+
+    public function getCSSFiles()
+    {
+        $list = parent::getCSSFiles();
+
+        $list[] = [
+            'file'  => 'css/less/breadcrumbs.less',
+            'media' =>  'screen',
+            'merge' =>  'bootstrap/css/bootstrap.less',
+        ];
+
+        return $list;
+    }
 }

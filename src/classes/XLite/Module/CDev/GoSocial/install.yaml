@@ -37,35 +37,50 @@ XLite\Model\Config:
       - code: en
         option_name: 'Facebook Admins'
         option_comment: 'Comma-separated list of the Facebook User IDs of page administrators. Include at least your own Facebook User ID.'
-  - name: gosocial_sep_2
+  - name: gosocial_sep_6
     category: 'CDev\GoSocial'
     type: separator
     orderby: 1000
     translations:
       - code: en
-        option_name: 'Facebook Like Button settings'
-  - name: fb_like_use
+        option_name: 'Facebook Share Button settings'
+  - name: fb_share_use
     category: 'CDev\GoSocial'
     type: checkbox
     orderby: 1050
     value: true
     translations:
       - code: en
-        option_name: 'Display the Like button on product pages'
-        option_comment: 'The Like button lets a customer share your product pages with friends on Facebook. The button will not be displayed if Facebook application id is not set.'
-  - name: fb_like_send_button
+        option_name: 'Display the Share button on product pages'
+        option_comment: 'The Share button lets a customer share your product pages with friends on Facebook.'
+  - name: gosocial_sep_2
+    category: 'CDev\GoSocial'
+    type: separator
+    orderby: 1300
+    translations:
+      - code: en
+        option_name: 'Facebook Like Button settings'
+  - name: like_settings_warning
+    category: 'CDev\GoSocial'
+    type: 'XLite\Module\CDev\GoSocial\View\FormField\Label\LikeSettingsWarning'
+    orderby: 1325
+    value: true
+    translations:
+      - code: en
+        option_name: 'We recommend using the Share button instead of Like.'
+  - name: fb_like_use
     category: 'CDev\GoSocial'
     type: checkbox
-    orderby: 1100
+    orderby: 1350
     value: false
     translations:
       - code: en
-        option_name: 'Display the Share button along with the Like button'
-        option_comment: 'The Share button lets people add a personalized message to links before sharing on their timeline, in groups, or to their friends via a Facebook Message.'
+        option_name: 'Display the Like button on product pages'
+        option_comment: 'The Like button lets a customer share your product pages with friends on Facebook. The button will not be displayed if Facebook application id is not set.'
   - name: fb_like_layout
     category: 'CDev\GoSocial'
     type: 'XLite\Module\CDev\GoSocial\View\FormField\Select\FBLayoutStyle'
-    orderby: 1200
+    orderby: 1400
     value: button_count
     translations:
       - code: en
@@ -74,7 +89,7 @@ XLite\Model\Config:
   - name: fb_like_show_faces
     category: 'CDev\GoSocial'
     type: checkbox
-    orderby: 1300
+    orderby: 1420
     value: true
     translations:
       - code: en
@@ -83,7 +98,7 @@ XLite\Model\Config:
   - name: fb_like_verb
     category: 'CDev\GoSocial'
     type: 'XLite\Module\CDev\GoSocial\View\FormField\Select\FBVerbDisplay'
-    orderby: 1400
+    orderby: 1440
     value: like
     translations:
       - code: en
@@ -91,7 +106,7 @@ XLite\Model\Config:
   - name: fb_like_colorscheme
     category: 'CDev\GoSocial'
     type: 'XLite\Module\CDev\GoSocial\View\FormField\Select\FBLikeColorScheme'
-    orderby: 1450
+    orderby: 1460
     value: light
     translations:
       - code: en
@@ -217,5 +232,6 @@ XLite\Model\Config:
 
 XLite\Model\LanguageLabel:
   - { name: "Tweet", translations: [{ code: en, label: "Tweet" }] }
+  - { name: "We recommend to use share button instead of like", translations: [{ code: en, label: "We recommend using the Share button instead of Like." }] }
   - { name: "These Open Graph meta tags were generated automatically based on general product information.", translations: [{ code: en, label: "These Open Graph meta tags were generated automatically based on general product information." }] }
   - { name: "Pin It", translations: [{ code: en, label: "Pin It" }] }

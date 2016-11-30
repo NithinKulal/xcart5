@@ -8,6 +8,7 @@
 
 namespace XLite\Model;
 
+use XLite\Core\Cache\ExecuteCachedTrait;
 use XLite\Core\Model\EntityVersion\EntityVersionInterface;
 use XLite\Core\Model\EntityVersion\EntityVersionTrait;
 use XLite\Model\Product\ProductStockAvailabilityPolicy;
@@ -32,6 +33,7 @@ use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 class Product extends \XLite\Model\Base\Catalog implements \XLite\Model\Base\IOrderItem, EntityVersionInterface
 {
     use EntityVersionTrait;
+    use ExecuteCachedTrait;
 
     /**
      * Default amounts
@@ -886,7 +888,7 @@ class Product extends \XLite\Model\Base\Catalog implements \XLite\Model\Base\IOr
     /**
      * Setter
      *
-     * @param double $value Value to set
+     * @param int $value Value to set
      *
      * @return void
      */
@@ -1150,7 +1152,7 @@ class Product extends \XLite\Model\Base\Catalog implements \XLite\Model\Base\IOr
      *
      * @return string
      */
-    public function getFrontURL()
+    public function getFrontURL($withAttributes = false)
     {
         return $this->getProductId()
             ? \XLite\Core\Converter::makeURLValid(
@@ -1158,7 +1160,7 @@ class Product extends \XLite\Model\Base\Catalog implements \XLite\Model\Base\IOr
                     \XLite\Core\Converter::buildURL(
                         'product',
                         '',
-                        array('product_id' => $this->getProductId()),
+                        $this->getParamsForFrontURL($withAttributes),
                         \XLite::getCustomerScript()
                     )
                 )
@@ -1166,6 +1168,44 @@ class Product extends \XLite\Model\Base\Catalog implements \XLite\Model\Base\IOr
             : null;
     }
 
+    /**
+     * @return array
+     */
+    protected function getParamsForFrontURL($withAttributes = false)
+    {
+        $result = [
+            'product_id'        => $this->getProductId(),
+        ];
+        
+        if ($withAttributes) {
+            $result['attribute_values'] = $this->getAttributeValuesParams();
+        }
+        
+        return $result;
+    }
+    
+    /**
+     * @return string
+     */
+    protected function getAttributeValuesParams()
+    {
+        $validAttributes = array_filter(
+            $this->getAttrValues(),
+            function ($attr) {
+                return $attr &&  $attr->getAttribute();
+            }
+        );
+
+        $paramsStrings = array_map(
+            function($attr) {
+                return $attr->getAttribute()->getId() . '_' . $attr->getId();
+            },
+            $validAttributes
+        );
+
+        return trim(join(',', $paramsStrings), ',');
+    }
+    
     /**
      * Minimal available amount
      *
@@ -1405,25 +1445,30 @@ class Product extends \XLite\Model\Base\Catalog implements \XLite\Model\Base\IOr
      */
     public function getEditableAttributes()
     {
-        $result = array();
+        return $this->executeCachedRuntime(function () {
+            return $this->defineEditableAttributes();
+        });
+    }
 
-        foreach (\XLite\Model\Attribute::getTypes() as $type => $name) {
+    /**
+     * @return array
+     */
+    protected function defineEditableAttributes()
+    {
+        $result = [];
+
+        foreach ((array) \XLite\Model\Attribute::getTypes() as $type => $name) {
             $class = \XLite\Model\Attribute::getAttributeValueClass($type);
             if (is_subclass_of($class, 'XLite\Model\AttributeValue\Multiple')) {
-                $result = array_merge(
-                    $result,
-                    \XLite\Core\Database::getRepo($class)->findMultipleAttributes($this)
-                );
+                $result[] = \XLite\Core\Database::getRepo($class)->findMultipleAttributes($this);
 
             } elseif ('\XLite\Model\AttributeValue\AttributeValueText' === $class) {
-                $result = array_merge(
-                    $result,
-                    \XLite\Core\Database::getRepo($class)->findEditableAttributes($this)
-                );
+                $result[] = \XLite\Core\Database::getRepo($class)->findEditableAttributes($this);
             }
         }
 
-        usort($result, array($this, 'sortEditableAttributes'));
+        $result = (array) call_user_func_array('array_merge', $result);
+        usort($result, [$this, 'sortEditableAttributes']);
 
         if ($result) {
             foreach ($result as $k => $v) {
@@ -1507,7 +1552,7 @@ class Product extends \XLite\Model\Base\Catalog implements \XLite\Model\Base\IOr
     }
 
     /**
-     * Check - product has multiple attrbiutes or not
+     * Check - product has multiple attributes or not
      *
      * @return boolean
      */
@@ -1529,6 +1574,23 @@ class Product extends \XLite\Model\Base\Catalog implements \XLite\Model\Base\IOr
     }
 
     /**
+     * @return boolean
+     */
+    protected function showPlaceholderOption()
+    {
+        if (\XLite\Core\Config::getInstance()->General->force_choose_product_options === 'quicklook') {
+
+            return \XLite::getController()->getTarget() !== 'product';
+
+        } elseif (\XLite\Core\Config::getInstance()->General->force_choose_product_options === 'product_page') {
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Prepare attribute values
      *
      * @param array $ids Request-based selected attribute values OPTIONAL
@@ -1547,7 +1609,10 @@ class Product extends \XLite\Model\Base\Catalog implements \XLite\Model\Base\IOr
                 );
 
             } else {
-                $attributeValues[$a->getId()] = $a->getDefaultAttributeValue($this);
+                if (!$this->showPlaceholderOption()) {
+                    $attributeValues[$a->getId()] = $a->getDefaultAttributeValue($this);
+                }
+
                 if (isset($ids[$a->getId()])) {
                     foreach ($a->getAttributeValue($this) as $av) {
                         if ($av->getId() == $ids[$a->getId()]) {
@@ -1773,12 +1838,12 @@ class Product extends \XLite\Model\Base\Catalog implements \XLite\Model\Base\IOr
     /**
      * Set weight
      *
-     * @param decimal $weight
+     * @param float $weight
      * @return Product
      */
     public function setWeight($weight)
     {
-        $this->weight = $weight;
+        $this->weight = (float) $weight;
         return $this;
     }
 
@@ -1900,7 +1965,7 @@ class Product extends \XLite\Model\Base\Catalog implements \XLite\Model\Base\IOr
      */
     public function setFreeShipping($freeShipping)
     {
-        $this->free_shipping = $freeShipping;
+        $this->free_shipping = (boolean) $freeShipping;
         return $this;
     }
 

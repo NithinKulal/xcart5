@@ -8,10 +8,13 @@
 
 namespace XLite\Module\CDev\GoogleAnalytics\View\Header;
 
+use XLite\Module\CDev\GoogleAnalytics;
+
 /**
  * Header declaration (Universal)
  *
- * @ListChild (list="head")
+ * @ListChild (list="head", zone="customer")
+ * @ListChild (list="head", zone="admin")
  */
 class Universal extends \XLite\Module\CDev\GoogleAnalytics\View\Header\AHeader
 {
@@ -26,75 +29,58 @@ class Universal extends \XLite\Module\CDev\GoogleAnalytics\View\Header\AHeader
     }
 
     /**
+     * @return bool
+     */
+    public function isDebugMode()
+    {
+        return GoogleAnalytics\Main::isDebugMode();
+    }
+
+    /**
+     * @return string
+     */
+    public function getGAScriptURL()
+    {
+        return $this->isDebugMode()
+            ? '//www.google-analytics.com/analytics_debug.js'
+            : '//www.google-analytics.com/analytics.js';
+    }
+
+    /**
+     * Get GA settings
+     *
+     * @return array
+     */
+    protected function getGASettings()
+    {
+        $group = \XLite\Core\Config::getInstance()->CDev->GoogleAnalytics;
+        $currencyCode = \XLite::getInstance()->getCurrency()
+            ? \XLite::getInstance()->getCurrency()->getCode()
+            : 'USD';
+
+        return [
+            'isDebug'       => $this->isDebugMode(),
+            'addTrace'      => $this->isDebugMode(),
+            'account'       => $group->ga_account,
+            'trackingType'  => $group->ga_tracking_type,
+            'sendPageview'  => $this->isSendPageviewActive(),
+            'currency'      => $currencyCode,
+        ];
+    }
+
+    protected function isSendPageviewActive()
+    {
+        return !\XLite::isAdminZone();
+    }
+
+    /**
      * Get GA options list
      *
      * @return array
      */
     protected function getGAOptions()
     {
-        $str = "'create', '"
-            . \XLite\Core\Config::getInstance()->CDev->GoogleAnalytics->ga_account
-            . "', 'auto'";
-
-        if (2 == \XLite\Core\Config::getInstance()->CDev->GoogleAnalytics->ga_tracking_type) {
-            $str .= ', {cookieDomain: \'.\' + self.location.host.replace(/^[^\.]+\./, \'\')}';
-
-        } elseif (3 == \XLite\Core\Config::getInstance()->CDev->GoogleAnalytics->ga_tracking_type) {
-            $str .= ", {'allowLinker': true}";
-        }
-
-        $list = array($str);
-        $list[] = "'send', 'pageview'";
-
-        $controller = \XLite::getController();
-
-        if ($this->isEcommercePartEnabled() && $controller instanceof \XLite\Controller\Customer\CheckoutSuccess) {
-            $orders = \XLite\Core\Session::getInstance()->gaProcessedOrders;
-            if (!is_array($orders)) {
-                $orders = array();
-            }
-
-            $order = $this->getOrder();
-
-            if (
-                !in_array($order->getOrderId(), $orders)
-                && $order->getProfile()
-            ) {
-
-                $bAddress = $order->getProfile()->getBillingAddress();
-                $city = $bAddress ? $bAddress->getCity() : '';
-                $state = ($bAddress && $bAddress->getState()) ? $bAddress->getState()->getState() : '';
-                $country = ($bAddress && $bAddress->getCountry()) ? $bAddress->getCountry()->getCountry() : '';
-
-                $tax = $order->getSurchargeSumByType(\XLite\Model\Base\Surcharge::TYPE_TAX);
-                $shipping = $order->getSurchargeSumByType(\XLite\Model\Base\Surcharge::TYPE_SHIPPING);
-
-                $list[] = "'require', 'ecommerce'";
-                $list[] = "'ecommerce:addTransaction', {"
-                    . "'id': '" . $order->getOrderNumber() . "', "
-                    . "'affiliation': '" . $this->escapeJavascript(\XLite\Core\Config::getInstance()->Company->company_name) . "', "
-                    . "'revenue': '" . $order->getTotal() . "', "
-                    . "'tax': '" . $tax . "', "
-                    . "'shipping': '" . $shipping . "'}";
-
-                foreach ($order->getItems() as $item) {
-
-                    $list[] = "'ecommerce:addItem', {"
-                        . "'id': '" . $order->getOrderNumber() . "', "
-                        . "'sku': '" . $this->escapeJavascript($item->getSku()) . "', "
-                        . "'name': '" . $this->escapeJavascript($item->getName()) . "', "
-                        . "'price': '" . $item->getPrice() . "', "
-                        . "'quantity': '" . $item->getAmount() . "'}";
-                }
-
-                $list[] = "'ecommerce:send'";
-
-                $orders[] = $order->getOrderId();
-                \XLite\Core\Session::getInstance()->gaProcessedOrders = $orders;
-            }
-        }
-
-        return $list;
+        return [];
     }
 
     /**
@@ -105,6 +91,30 @@ class Universal extends \XLite\Module\CDev\GoogleAnalytics\View\Header\AHeader
     protected function isVisible()
     {
         return parent::isVisible()
-            && $this->useUniversalAnalytics();
+            && GoogleAnalytics\Main::useUniversalAnalytics()
+            && (
+                ($this->isVisibleForCustomer() && !\XLite::isAdminZone())
+                || ($this->isVisibleForAdmin() && \XLite::isAdminZone())
+            );
+    }
+
+    /**
+     * Check if widget is visible
+     *
+     * @return boolean
+     */
+    protected function isVisibleForCustomer()
+    {
+        return true;
+    }
+
+    /**
+     * Check if widget is visible
+     *
+     * @return boolean
+     */
+    protected function isVisibleForAdmin()
+    {
+        return GoogleAnalytics\Main::isECommerceEnabled();
     }
 }

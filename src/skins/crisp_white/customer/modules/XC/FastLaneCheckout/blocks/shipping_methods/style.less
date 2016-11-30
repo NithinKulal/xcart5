@@ -20,9 +20,9 @@
   .shipping-rates {
     width: 100%;
 
-    // li + li {
-    //   margin-top: @rhythmic-unit;
-    // }
+    .shipping-rate + .shipping-rate {
+      margin-top: @rhythmic-unit;
+    }
   }
 
   .shipping-vendor {
@@ -48,7 +48,8 @@
       }
     }
 
-    input:checked ~ .rate-title {
+    input:checked ~ .rate-title,
+    input:checked ~ .value {
       color: @color-highlight;
     }
 

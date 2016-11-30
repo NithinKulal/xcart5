@@ -38,7 +38,7 @@ class Header extends \XLite\View\Header implements \XLite\Base\IDecorator
      */
     protected function isSandboxMode()
     {
-        return $this->getAmazonConfig()->amazon_pa_mode === 'test';
+        return $this->getAmazonConfig()->amazon_pa_mode === 'test' ? 'true' : 'false';
     }
 
     /**

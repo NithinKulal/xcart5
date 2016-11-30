@@ -1,0 +1,76 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.ui-fixed-dialog {
+    position: fixed;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%);
+}
+
+.widget-xc-themetweaker-code form {
+    width: 400px;
+    cursor: auto;
+}
+
+.widget-xc-themetweaker-code .table-value.code-value {
+    display: block;
+    width: 100%;
+    float: none;
+}
+
+.widget-xc-themetweaker-code .buttons {
+    margin-top: 20px;
+}
+
+body.live-css-reloading, body.live-css-reloading * {
+    transition: all 0.5s ease;
+}
+
+div.ui-dialog,
+.ui-dialog .widget-xc-themetweaker-code *,
+.list-item-actions * {
+    transition: none !important;
+}
+
+body.live-css-reloading .ui-dialog {
+    cursor: move;
+    box-shadow: 0px 2px 7px 1px rgba(0,0,0,0.4);
+}
+
+/* Header */
+.reloading {
+  position: relative;
+}
+
+.reloading:before {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  content: "";
+  display: block;
+  z-index: 1000;
+
+  background: rgba(255,255,255, 0.9);
+
+  -webkit-animation: appear 0.3s ease-in-out;
+  animation: appear 0.3s ease-in-out;
+}
+
+@-webkit-keyframes appear {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes appear {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}

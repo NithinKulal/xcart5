@@ -1,0 +1,11 @@
+{##
+ # Fastlane checkout address section
+ #
+ # @ListChild (list="checkout_fastlane.sections.shipping.left", weight="10")
+ #}
+
+{% if this.isEmailFieldVisible() %}
+<div class="checkout_fastlane_invoice_email">
+    {{ widget('XLite\\Module\\XC\\FastLaneCheckout\\View\\Blocks\\Email') }}
+</div>
+{% endif %}

@@ -1,22 +1,50 @@
 {##
  # Dropdown button
  #}
+<div class="btn-group btn-dropdown {{ this.getDropDirection() }}" role="group">
 
-<div class="btn-dropdown btn-group">
-  <button {% if this.hasName() %} name="{{ this.getName() }}"{% endif %}{% if this.hasValue() %} value="{{ this.getValue() }}"{% endif %} type="button" class="main btn btn-default{% if this.getStyle() %} {{ this.getStyle() }}{% endif %}">
-    <span>{{ t(this.getButtonLabel()) }}</span>
+  {% set showCaret = this.getShowCaret() %}
+  {% set useCaretButton = this.getUseCaretButton() %}
+
+  <button type="button"
+          {% if this.hasName() %} name="{{ this.getName() }}"{% endif %}
+          {% if this.hasValue() %} value="{{ this.getValue() }}"{% endif %}
+          class="{{ this.getClass() }}"
+          role="group"
+          {% if not useCaretButton %}
+    data-toggle="dropdown"
+    aria-haspopup="true"
+    aria-expanded="false"
+          {% endif %}>
+
+    {{ this.displayCommentedData(this.getCommentedData()) }}
+
+    {% set iconStyle = this.getParam('icon-style') %}
+    {% if iconStyle %}<span><i class="{{ iconStyle }}"></i></span>{% endif %}
+
+    {% set buttonLabel = t(this.getButtonLabel()) %}
+    {% if buttonLabel %}<span>{{ buttonLabel|raw }}</span>{% endif %}
+
+    {% if showCaret and not useCaretButton %}
+      <span class="caret"></span>
+    {% endif %}
   </button>
+  {% if useCaretButton %}
+    <button
+            type="button"
+            class="btn btn-default dropdown-toggle"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false">
+      <span class="caret"></span>
+    </button>
+  {% endif %}
 
-  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-    <span class="caret"></span>
-    <span class="sr-only"></span>
-  </button>
-
-{% if this.getAdditionalButtons() %}
-<ul class="dropdown-menu" role="menu">
-  {% for button in this.getAdditionalButtons() %}
-    <li>{{ button.display()|raw }}</li>
-  {% endfor %}
-</ul>
-{% endif %}
+  {% if this.getAdditionalButtons() %}
+    <ul class="dropdown-menu" role="menu">
+      {% for button in this.getAdditionalButtons() %}
+        <li>{{ button.display()|raw }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
 </div>

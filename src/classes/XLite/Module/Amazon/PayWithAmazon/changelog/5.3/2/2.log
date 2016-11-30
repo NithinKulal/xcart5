@@ -1,0 +1,4 @@
+Version 5.3.2.2
+
+Fixes
+2016-11-16 - [Bug] The setting "Amazon Seller ID" did not show up among the settings of PayWithAmazom payment method after an upgrade from 5.2.x to 5.3.x. #BUG-4127 (Sergey Elmanov) #PayWithAmazon

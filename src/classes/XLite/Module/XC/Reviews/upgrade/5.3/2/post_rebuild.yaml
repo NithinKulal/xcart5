@@ -1,0 +1,33 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Data
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\LanguageLabel:
+  - { name: 'Product {{name}} received a new review', translations: [{ code: 'en', label: 'Product {{name}} received a new review' }] }
+
+XLite\Model\Notification:
+  - templatesDirectory: modules/XC/Reviews/new_review
+    availableForAdmin: true
+    availableForCustomer: false
+    enabledForAdmin: true
+    enabledForCustomer: false
+    adminHeaderEnabled: true
+    adminGreetingEnabled: false
+    adminSignatureEnabled: true
+    customerHeaderEnabled: false
+    customerGreetingEnabled: false
+    customerSignatureEnabled: false
+    translations:
+      - code: en
+        name: The new review has been added (Product Reviews module)
+        description: "The new review has been added"
+        adminSubject: The new review has been added
+        adminText: "The new review has been added"
+      - code: ru
+        name: TODO
+        description: "TODO"
+        adminSubject: TODO
+        adminText: "TODO"

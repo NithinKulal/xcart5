@@ -68,7 +68,7 @@ abstract class AWholesalePrice extends \XLite\Model\AEntity
      * @var \XLite\Model\Membership
      *
      * @ManyToOne (targetEntity="XLite\Model\Membership")
-     * @JoinColumn (name="membership_id", referencedColumnName="membership_id")
+     * @JoinColumn (name="membership_id", referencedColumnName="membership_id", onDelete="CASCADE")
      */
     protected $membership;
 

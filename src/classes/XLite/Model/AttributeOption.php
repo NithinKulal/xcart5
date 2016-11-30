@@ -47,9 +47,18 @@ class AttributeOption extends \XLite\Model\Base\I18n
     protected $addToNew = false;
 
     /**
+     * Position
+     *
+     * @var integer
+     *
+     * @Column (type="integer")
+     */
+    protected $position = 0;
+
+    /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -60,18 +69,16 @@ class AttributeOption extends \XLite\Model\Base\I18n
      * Set addToNew
      *
      * @param boolean $addToNew
-     * @return AttributeOption
      */
     public function setAddToNew($addToNew)
     {
         $this->addToNew = $addToNew;
-        return $this;
     }
 
     /**
      * Get addToNew
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getAddToNew()
     {
@@ -82,21 +89,35 @@ class AttributeOption extends \XLite\Model\Base\I18n
      * Set attribute
      *
      * @param \XLite\Model\Attribute $attribute
-     * @return AttributeOption
      */
     public function setAttribute(\XLite\Model\Attribute $attribute = null)
     {
         $this->attribute = $attribute;
-        return $this;
     }
 
     /**
      * Get attribute
      *
-     * @return \XLite\Model\Attribute 
+     * @return \XLite\Model\Attribute
      */
     public function getAttribute()
     {
         return $this->attribute;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
+    /**
+     * @param int $position
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
     }
 }

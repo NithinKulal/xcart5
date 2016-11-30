@@ -47,4 +47,20 @@ class CacheManagement extends \XLite\View\SimpleDialog
     {
         return 'settings/cache_management.twig';
     }
+
+    /**
+     * Get last cache bebuild time war
+     */
+    public function getLastRebuildTimeRaw()
+    {
+        return \XLite\Core\Converter::convertTimeToUser(\XLite::getLastRebuildTimestamp());
+    }
+
+    /**
+     * Get last cache bebuild time
+     */
+    public function getLastRebuildTime()
+    {
+        return \XLite\Core\Converter::formatTime($this->getLastRebuildTimeRaw(), null, false);
+    }
 }

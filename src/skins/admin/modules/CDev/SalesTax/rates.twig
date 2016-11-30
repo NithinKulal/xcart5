@@ -1,0 +1,28 @@
+{##
+ # Tax edit page : Rates template
+ #}
+
+<div class="{{ this.getDialogCSSClasses() }}">
+
+  <div id="main-rates">
+    <div class="title">{{ t('General tax rates') }}</div>
+    {{ widget('XLite\\Module\\CDev\\SalesTax\\View\\ItemsList\\Model\\Rate') }}
+  </div>
+
+  {% if not this.isShippingRatesDisplayed() %}
+    <div id="items-list-switcher">
+      <span>{{ t('Click here to specify tax rates that will apply only to shipping charges') }}</span>
+      <i class="fa fa-caret-right"></i>
+    </div>
+  {% endif %}
+
+  <div id="shipping-rates"{% if not this.isShippingRatesDisplayed() %} class="hidden"{% endif %}>
+    <div class="title">{{ t('Tax rates on shipping cost') }}</div>
+    {{ widget('XLite\\Module\\CDev\\SalesTax\\View\\ItemsList\\Model\\ShippingRate') }}
+  </div>
+
+  <div class="buttons">
+    {{ widget('\\XLite\\View\\Button\\Submit', label=t('Save changes'), style=' regular-main-button action') }}
+  </div>
+
+</div>

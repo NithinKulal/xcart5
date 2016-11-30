@@ -21,9 +21,9 @@ abstract class DefaultProductSortOrder extends \XLite\View\FormField\Select\Defa
     protected function getDefaultOptions()
     {
         return parent::getDefaultOptions()
-            + array(
-                'bought'  => static::t('Sales'),
-            );
+        + [
+            'bought' => static::t('Sales'),
+        ];
     }
 
 }

@@ -1,0 +1,9 @@
+{##
+ # Modified files page
+ #}
+
+{% if this.isCheckProcessNotFinished() %}
+    {{ widget('\\XLite\\View\\IntegrityCheck\\Progress') }}
+{% else %}
+    {{ widget('\\XLite\\View\\IntegrityCheck\\Result') }}
+{% endif %}

@@ -8,6 +8,8 @@
 
 namespace XLite\Module\CDev\GoogleAnalytics\View\Header;
 
+use XLite\Module\CDev\GoogleAnalytics;
+
 /**
  * Header declaration (Traditional)
  *
@@ -48,7 +50,9 @@ class Traditional extends \XLite\Module\CDev\GoogleAnalytics\View\Header\AHeader
 
         $controller = \XLite::getController();
 
-        if ($this->isEcommercePartEnabled() && $controller instanceof \XLite\Controller\Customer\CheckoutSuccess) {
+        if (\XLite\Module\CDev\GoogleAnalytics\Main::isECommerceEnabled()
+            && $controller instanceof \XLite\Controller\Customer\CheckoutSuccess
+        ) {
             $orders = \XLite\Core\Session::getInstance()->gaProcessedOrders;
             if (!is_array($orders)) {
                 $orders = array();
@@ -105,6 +109,6 @@ class Traditional extends \XLite\Module\CDev\GoogleAnalytics\View\Header\AHeader
     protected function isVisible()
     {
         return parent::isVisible()
-            && !$this->useUniversalAnalytics();
+            && !GoogleAnalytics\Main::useUniversalAnalytics();
     }
 }

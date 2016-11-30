@@ -1,0 +1,7 @@
+Version 5.3.2.0
+
+Improvements
+2016-10-19 - [Change] Improvement of the Google Analytics module; Enhanced Ecommerce support implemented. #XCN-6519 (Michael Lipinski) #GoogleAnalytics
+
+Fixes
+2016-11-21 - [Bug] search do_search event was sent to Google Analytics with an empty string when the home page was opened. Now it is sent only when a search is done. #BUG-4133 (Michael Lipinski) #GoogleAnalytics

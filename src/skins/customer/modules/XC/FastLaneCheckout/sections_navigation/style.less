@@ -7,9 +7,18 @@
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
 .checkout_fastlane_navigation {
-	.tab + .tab {
-    	margin-left: 5px;
-	}
+    @media(min-width: @screen-sm-min) {
+    	.tab + .tab {
+        	margin-left: 5px;
+    	}
+    }
+
+    @media(max-width: @screen-xs-max) {
+        .tab {
+            width: 100%;
+            text-align: left;
+        }
+    }
 
 	.tab {
 		cursor: pointer;

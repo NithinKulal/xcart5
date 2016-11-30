@@ -7,11 +7,57 @@
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
 
-#sub-section {
-  position: absolute;
-  top: 34px;
-  right: 0;
-  width: 275px;
+.taxes-top-block {
+  display: table-row;
+}
+
+.taxes-top-block .taxes-top-block-left,
+.taxes-top-block .taxes-top-block-right {
+  display: table-cell;
+  vertical-align: top;
+}
+
+.taxes-top-block .taxes-top-block-left {
+  padding-right: 30px;
+  min-width: 500px;
+  width: 100%;
+}
+
+.taxes-top-block .taxes-top-block-right {
+  min-width: 250px;
+}
+
+.taxes-help-section {
+  margin-left: 10px;
+  padding: 0px 16px 0px 20px;
+  max-width: 300px;
+  border-left: 1px solid #d6d9dc;
+}
+
+.taxes-help-section .title {
+  font-size: 18px;
+}
+
+.taxes-help-section svg {
+  width: 24px;
+  height: 24px;
+  fill: #6ac3f9;
+}
+
+.taxes-help-section span {
+  font-weight: 600;
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 5px;
+}
+
+.taxes-help-section ul.howto-links li {
+  padding: 15px 0;
+  border-bottom: 1px dotted #d6d9dc;
+}
+
+.taxes-help-section ul.howto-links li:last-child {
+  border-bottom: none;
 }
 
 .tax-banner {
@@ -75,8 +121,4 @@
 
 .tax-banner .subbox.marketplace h2 {
   color: #e69b09;
-}
-
-.tabbed-content-wrapper {
-  margin-right: 282px;
 }

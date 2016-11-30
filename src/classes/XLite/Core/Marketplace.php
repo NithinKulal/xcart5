@@ -104,6 +104,7 @@ class Marketplace extends \XLite\Base\Singleton
     const FIELD_VERSION_API           = 'versionAPI';
     const FIELD_LANDING               = 'landing';
     const FIELD_XB_PRODUCT_ID         = 'xbProductId';
+    const FIELD_PRIVATE               = 'private';
     const FIELD_IS_REQUEST_FOR_UPGRADE_SENT = 'isRequestForUpgradeSent';
     const FIELD_AFFILIATE_ID          = 'affiliateId';
     const FIELD_TRIAL                 = 'trial';
@@ -180,18 +181,23 @@ class Marketplace extends \XLite\Base\Singleton
     const TTL_TEST_MP = 300; // 5 minutes
 
     /**
+     * PurchaseURL host
+     */
+    const PURCHASE_URL_HOST = 'market.x-cart.com';
+
+    /**
      * Last error code
      *
      * @var string
      */
-    protected static $lastErrorCode = null;
+    protected static $lastErrorCode;
 
     /**
      * Error message
      *
      * @var mixed
      */
-    protected $error = null;
+    protected $error;
 
 
     /**
@@ -204,22 +210,18 @@ class Marketplace extends \XLite\Base\Singleton
      */
     public static function getPurchaseURL($id = 0, $params = array(), $ignoreId = false)
     {
-        if (!$ignoreId && 0 == intval($id)) {
-            $id = 391;
-        }
-
         $commonParams = array(
-            'area'      => 'purchase_services',
-            'target'    => 'generate_invoice',
-            'action'    => 'buy',
+            'target'    => 'cart',
+            'action'    => 'add',
             'store_url' => \XLite\Core\URLManager::getShopURL(\XLite\Core\Converter::buildURL()),
             'email'     => \XLite\Core\Auth::getInstance()->getProfile()->getLogin(),
         );
 
         if (!$ignoreId) {
-            $commonParams['add_' . $id] = $id;
+            $commonParams['xbid'] = (int) $id !== 0
+                ? $id
+                : 391; // XC Business Edition xbid = 391
         }
-
         $params = array_merge($commonParams, $params);
 
         $urlParams = array();
@@ -227,7 +229,10 @@ class Marketplace extends \XLite\Base\Singleton
             $urlParams[] = $k . '=' . urlencode($v);
         }
 
-        return \XLite::getXCartURL('https://www.x-cart.com/order?' . implode('&', $urlParams));
+        return \XLite::getXCartURL(
+            'https://' . static::PURCHASE_URL_HOST . '/?' . implode('&', $urlParams)
+        );
+
     }
 
     /**
@@ -278,7 +283,7 @@ class Marketplace extends \XLite\Base\Singleton
     }
 
     /**
-     * Get last error message from bouncer
+     * Get last error message from bouncer (already translated)
      *
      * @return mixed
      */
@@ -288,7 +293,7 @@ class Marketplace extends \XLite\Base\Singleton
     }
 
     /**
-     * Set the error message
+     * Set the error message (must be already translated)
      *
      * @param mixed $error
      *
@@ -310,7 +315,7 @@ class Marketplace extends \XLite\Base\Singleton
     {
         list($cellTTL, $cellData) = $this->getActionCacheVars(static::ACTION_UPDATE_PM);
 
-        $ttl = !is_null($ttl) ? $ttl : static::TTL_LONG;
+        $ttl = null !== $ttl ? $ttl : static::TTL_LONG;
 
         // Check if expired
         if (!$this->checkTTL($cellTTL, $ttl)) {
@@ -319,7 +324,7 @@ class Marketplace extends \XLite\Base\Singleton
 
             if ($url) {
                 $suffix = sprintf('/sites/default/files/pm-%s.json', \XLite::getInstance()->getMajorVersion());
-                $url = preg_replace('/\/[^\/]+$/USs', $suffix, str_replace('https://', 'http://', $url));
+                $url = preg_replace('/\/[^\/]+$/US', $suffix, str_replace('https://', 'http://', $url));
                 $request = new \XLite\Core\HTTP\Request($url);
                 $response = $request->sendRequest();
 
@@ -354,7 +359,7 @@ class Marketplace extends \XLite\Base\Singleton
     {
         list($cellTTL,) = $this->getActionCacheVars(static::ACTION_UPDATE_SHM);
 
-        $ttl = !is_null($ttl) ? $ttl : static::TTL_LONG;
+        $ttl = null !== $ttl ? $ttl : static::TTL_LONG;
 
         // Check if expired
         if (!$this->checkTTL($cellTTL, $ttl)) {
@@ -362,7 +367,7 @@ class Marketplace extends \XLite\Base\Singleton
 
             if ($url) {
                 $suffix = sprintf('/sites/default/files/shm-%s.json', \XLite::getInstance()->getMajorVersion());
-                $url = preg_replace('/\/[^\/]+$/USs', $suffix, str_replace('https://', 'http://', $url));
+                $url = preg_replace('/\/[^\/]+$/US', $suffix, str_replace('https://', 'http://', $url));
                 $request = new \XLite\Core\HTTP\Request($url);
                 $response = $request->sendRequest();
 
@@ -492,7 +497,7 @@ class Marketplace extends \XLite\Base\Singleton
 
                 if (empty($data)) {
 
-                    if (static::ACTION_CHECK_ADDON_KEY == $action) {
+                    if (static::ACTION_CHECK_ADDON_KEY === $action) {
                         // Exclude check_addon_key action if there are no keys to check
                         unset($actions[$action]);
                         continue;
@@ -582,13 +587,13 @@ class Marketplace extends \XLite\Base\Singleton
 
                     $saveInTmpVars = true;
 
-                    if (static::ACTION_GET_ADDONS_LIST == $action) {
+                    if (static::ACTION_GET_ADDONS_LIST === $action) {
                         if (is_array($actionResult)) {
                             $this->saveAddonsList($actionResult);
                         }
                         $saveInTmpVars = false;
 
-                    } elseif (static::ACTION_CHECK_ADDON_KEY == $action) {
+                    } elseif (static::ACTION_CHECK_ADDON_KEY === $action) {
                         if (is_array($actionResult)) {
                             $this->updateLicenseKeys($actionResult);
                         }
@@ -727,7 +732,7 @@ class Marketplace extends \XLite\Base\Singleton
         $result = array();
 
         foreach (\XLite\Core\Database::getRepo('XLite\Model\ModuleKey')->findAll() as $key) {
-            if ('Core' == $key->getName() && 'CDev' == $key->getAuthor()) {
+            if ('Core' === $key->getName() && 'CDev' === $key->getAuthor()) {
                 // Core key - ignore this
 
             } else {
@@ -1139,7 +1144,7 @@ class Marketplace extends \XLite\Base\Singleton
      *
      * @param string $email
      *
-     * @return type
+     * @return mixed
      */
     public function activateFreeLicense($email)
     {
@@ -1453,6 +1458,7 @@ class Marketplace extends \XLite\Base\Singleton
                     'editionState'    => $this->getField($module, static::FIELD_EDITION_STATE),
                     'editions'        => (array) $this->getField($module, static::FIELD_EDITIONS),
                     'xbProductId'     => $this->getField($module, static::FIELD_XB_PRODUCT_ID),
+                    'private'         => $this->getField($module, static::FIELD_PRIVATE),
                 );
 
                 $result[$key] = array_merge($result[$key], $this->adjustResponseItemForGetAddonsAction($module));
@@ -1671,6 +1677,10 @@ class Marketplace extends \XLite\Base\Singleton
                 'filter'  => FILTER_VALIDATE_INT,
                 'options' => array('min_range' => 0),
             ),
+            static::FIELD_PRIVATE => array(
+                'filter'  => FILTER_VALIDATE_INT,
+                'options' => array('min_range' => 0),
+            ),
         );
     }
 
@@ -1845,7 +1855,7 @@ class Marketplace extends \XLite\Base\Singleton
 
         foreach ($data as $key => $value) {
             $result = $result
-                && is_integer($key)
+                && is_int($key)
                 && is_string($value);
         }
 
@@ -1918,7 +1928,7 @@ class Marketplace extends \XLite\Base\Singleton
         // Make request to the marketplace
         $result = $this->performActionWithTTL($ttl, static::ACTION_CHECK_ADDON_KEY, array(), false);
 
-        if (!is_null($result) && static::TTL_NOT_EXPIRED !== $result) {
+        if (null !== $result && static::TTL_NOT_EXPIRED !== $result) {
             $this->updateLicenseKeys($result);
 
         } else {
@@ -1954,7 +1964,7 @@ class Marketplace extends \XLite\Base\Singleton
 
                 foreach ($result[$keyValue] as $info) {
 
-                    if ('CDev' == $info['author'] && 'Core' == $info['name']) {
+                    if ('CDev' === $info['author'] && 'Core' === $info['name']) {
                         // Entity is core
                         $isValid = true;
 
@@ -2283,8 +2293,6 @@ class Marketplace extends \XLite\Base\Singleton
 
     /**
      * @param \XLite\Model\Module $module Module to check
-     *
-     * @return boolean
      */
     public function markAsUpgradeRequested(\XLite\Model\Module $module)
     {
@@ -2391,7 +2399,7 @@ class Marketplace extends \XLite\Base\Singleton
         $coreVersion    = \XLite\Upgrade\Cell::getInstance()->getCoreVersion();
         if ($messages) {
             foreach ($messages as $message) {
-                if ($message['type'] == 'module') {
+                if ($message['type'] === 'module') {
                     $result[] = $message;
                 }
             }
@@ -2517,14 +2525,14 @@ class Marketplace extends \XLite\Base\Singleton
      * @param string $action Name of the action
      * @param array  $data   Custom data to send in request OPTIONAL
      *
-     * @return string NULL-result means that nothing was received from Marketplace
-     *                (the most often reason is the connection timeout)
+     * @return mixed|null NULL-result means that nothing was received from Marketplace
+     *                     (the most often reason is the connection timeout)
      */
     protected function sendRequestToMarketplace($action, array $data = array())
     {
         $result = null;
 
-        $skipRequest = (!in_array($action, array(static::ACTION_TEST_MARKETPLACE, static::ACTION_RESEND_KEY)))
+        $skipRequest = (!in_array($action, array(static::ACTION_TEST_MARKETPLACE, static::ACTION_RESEND_KEY), true))
             && \XLite\Core\Session::getInstance()->mpServerError
             && \XLite\Core\Converter::time() < (\XLite\Core\Session::getInstance()->mpServerError + static::ERROR_REQUEST_TTL);
 
@@ -2586,7 +2594,7 @@ class Marketplace extends \XLite\Base\Singleton
      */
     protected function isDisplayErrorTopMessage($action)
     {
-        return static::ACTION_GET_DATASET != $action;
+        return static::ACTION_GET_DATASET !== $action;
     }
 
     /**
@@ -2789,8 +2797,6 @@ class Marketplace extends \XLite\Base\Singleton
      * Clearing the temporary cache for a given marketplace action
      *
      * @param string|array $action Marketplace action OPTIONAL
-     *
-     * @return mixed
      */
     public function clearActionCache($action = null)
     {
@@ -2832,13 +2838,15 @@ class Marketplace extends \XLite\Base\Singleton
             static::ACTION_GET_WAVES,
             static::ACTION_UPDATE_PM,
             static::INACTIVE_KEYS,
+            static::ACTION_UPDATE_PM,
+            static::ACTION_UPDATE_SHM,
         );
     }
 
     /**
      * Get all marketplace actions list
      *
-     * @return integer
+     * @return array
      */
     protected function getMarketplaceActions()
     {
@@ -2908,7 +2916,7 @@ class Marketplace extends \XLite\Base\Singleton
         // Do not schedule action if $ttl = 0
         $schedule = $schedule && 0 !== $ttl;
 
-        $ttl = !is_null($ttl) ? $ttl : static::TTL_LONG;
+        $ttl = null !== $ttl ? $ttl : static::TTL_LONG;
 
         list($cellTTL, $cellData) = $this->getActionCacheVars($action);
 
@@ -2922,13 +2930,13 @@ class Marketplace extends \XLite\Base\Singleton
                 }
             }
 
-            if (static::ACTION_CHECK_ADDON_KEY == $action && empty($data)) {
+            if (static::ACTION_CHECK_ADDON_KEY === $action && empty($data)) {
                 // Skip check_addon_key with empty data
                 $saveInTmpVars = false;
 
             } else {
 
-                if ($schedule) {
+                if ($schedule && \XLite\Core\TmpVars::getInstance()->$cellData) {
                     $this->scheduleAction($action, $data);
                     $saveInTmpVars = false;
 
@@ -3255,7 +3263,7 @@ class Marketplace extends \XLite\Base\Singleton
             $result = array();
         }
 
-        $ttl = !is_null($ttl) ? $ttl : static::TTL_LONG;
+        $ttl = null !== $ttl ? $ttl : static::TTL_LONG;
 
         // Check if TTL has expired
         if (!$this->checkTTL($cellTTL, $ttl)) {
@@ -3325,7 +3333,7 @@ class Marketplace extends \XLite\Base\Singleton
      */
     protected function logError($action, $message, array $args = array(), array $data = array())
     {
-        $this->setError($message);
+        $this->setError(static::t($message, $args));
 
         $this->logCommon('Error', $action, $message, $args, $data);
     }

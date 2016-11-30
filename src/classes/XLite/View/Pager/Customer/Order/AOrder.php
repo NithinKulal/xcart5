@@ -20,6 +20,6 @@ abstract class AOrder extends \XLite\View\Pager\Customer\ACustomer
      */
     protected function getItemsPerPageDefault()
     {
-        return intval(\XLite\Core\Config::getInstance()->General->orders_per_page);
+        return (int) \XLite\Core\Config::getInstance()->General->orders_per_page;
     }
 }

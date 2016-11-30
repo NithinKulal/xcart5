@@ -212,9 +212,7 @@ class Pilibaba extends \XLite\Model\Payment\Base\CreditCard
 
         $order = new \PilipayOrder();
 
-        $order->orderNo     = $this->getSetting('orderPrefix')
-            ? $this->getSetting('orderPrefix') . '_' . $transactionId
-            : $transactionId;
+        $order->orderNo     = $transactionId;
         $order->merchantNo  = $this->getSetting('merchantNO');
 
         $url = '';
@@ -243,9 +241,7 @@ class Pilibaba extends \XLite\Model\Payment\Base\CreditCard
 
         $order = new \PilipayOrder();
 
-        $order->orderNo     = $this->getSetting('orderPrefix')
-            ? $this->getSetting('orderPrefix') . '_' . $transactionId
-            : $transactionId;
+        $order->orderNo     = $transactionId;
         $order->merchantNo  = $this->getSetting('merchantNO');
         $order->appSecret   = $this->getSetting('secretKey');
 
@@ -293,7 +289,13 @@ class Pilibaba extends \XLite\Model\Payment\Base\CreditCard
     protected function doInitialPayment()
     {
         $this->initPilipay();
-        $this->refreshPaymentTransaction();
+
+        if ($this->transaction
+            && $this->transaction->getStatus() === \XLite\Model\Payment\Transaction::STATUS_INPROGRESS
+            && $this->transaction->getPaymentMethod()->getServiceName() === 'Pilibaba'
+        ) {
+            $this->refreshPaymentTransaction();
+        }
 
         $order = $this->getOrder();
 
@@ -319,10 +321,6 @@ class Pilibaba extends \XLite\Model\Payment\Base\CreditCard
             'merchantNO'    => $this->getSetting('merchantNO'),
             'secretKey'     => $this->getSetting('secretKey'),
         );
-
-        if ($this->getSetting('orderPrefix')) {
-            $options['orderPrefix'] = $this->getSetting('orderPrefix');
-        }
 
         $status = static::PROLONGATION;
         try{

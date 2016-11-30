@@ -23,6 +23,7 @@ abstract class CommonResources extends \XLite\View\CommonResources implements \X
             $list[static::RESOURCE_JS][] = 'js/utils.js';
             $list[static::RESOURCE_JS][] = 'js/header.js';
             $list[static::RESOURCE_JS][] = 'js/footer.js';
+            $list[static::RESOURCE_CSS][] = 'css/lazy-load.css';
         }
 
         return $list;

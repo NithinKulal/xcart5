@@ -52,8 +52,8 @@ class SwitcherType extends AType
             'value'       => '1',
             'empty_data'  => $emptyData,
             'compound'    => false,
-            'on_caption'  => 'YES',
-            'off_caption' => 'NO',
+            'on_caption'  => static::t('Switcher YES'),
+            'off_caption' => static::t('Switcher NO'),
         ]);
     }
 }

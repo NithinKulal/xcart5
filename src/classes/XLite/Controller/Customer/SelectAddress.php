@@ -28,7 +28,7 @@ class SelectAddress extends \XLite\Controller\Customer\Cart
      */
     public function getTitle()
     {
-        return static::t('Pick address from address book');
+        return static::t('Address book');
     }
 
     /**
@@ -84,119 +84,7 @@ class SelectAddress extends \XLite\Controller\Customer\Cart
             ? true
             : false;
 
-        if (\XLite\Model\Address::SHIPPING != $atype && \XLite\Model\Address::BILLING != $atype) {
-            $this->valid = false;
-            \XLite\Core\TopMessage::addError('Address type has wrong value');
-
-        } elseif (!$addressId) {
-            $this->valid = false;
-            \XLite\Core\TopMessage::addError('Address is not selected');
-
-        } else {
-            $address = \XLite\Core\Database::getRepo('XLite\Model\Address')->find($addressId);
-
-            if (!$address) {
-                // Address not found
-                $this->valid = false;
-                \XLite\Core\TopMessage::addError('Address not found');
-
-            } elseif (
-                \XLite\Model\Address::SHIPPING == $atype
-                && $this->getCart()->getProfile()->getShippingAddress()
-                && $address->getAddressId() == $this->getCart()->getProfile()->getShippingAddress()->getAddressId()
-            ) {
-                if ($hasEmptyFields) {
-                    \XLite\Core\Event::updateCart(
-                        array(
-                            'shippingAddressId' => $address->getAddressId(),
-                        )
-                    );
-                }
-                // This shipping address is already selected
-                $this->silenceClose = true;
-
-            } elseif (
-                \XLite\Model\Address::BILLING == $atype
-                && $this->getCart()->getProfile()->getBillingAddress()
-                && $address->getAddressId() == $this->getCart()->getProfile()->getBillingAddress()->getAddressId()
-            ) {
-
-                if ($hasEmptyFields) {
-                    \XLite\Core\Event::updateCart(
-                        array(
-                            'billingAddressId' => $address->getAddressId(),
-                        )
-                    );
-                }
-                // This billing address is already selected
-                $this->silenceClose = true;
-
-            } else {
-                if (\XLite\Model\Address::SHIPPING == $atype) {
-                    $old = $this->getCart()->getProfile()->getShippingAddress();
-                    $andAsBilling = false;
-                    if ($old) {
-                        $old->setIsShipping(false);
-                        $andAsBilling = $old->getIsBilling();
-                        if ($old->getIsWork()) {
-                            $this->getCart()->getProfile()->getAddresses()->removeElement($old);
-                            \XLite\Core\Database::getEM()->remove($old);
-
-                        } elseif ($andAsBilling) {
-                            $old->setIsBilling(false);
-                        }
-
-                    } elseif (!$this->getCart()->getProfile()->getBillingAddress()) {
-                        $andAsBilling = true;
-                    }
-
-                    $address->setIsShipping(true);
-                    if ($andAsBilling) {
-                        $address->setIsBilling($andAsBilling);
-                    }
-
-                } else {
-                    $old = $this->getCart()->getProfile()->getBillingAddress();
-                    $andAsShipping = false;
-                    if ($old) {
-                        $old->setIsBilling(false);
-                        $andAsShipping = $old->getIsShipping();
-                        if ($old->getIsWork()) {
-                            $this->getCart()->getProfile()->getAddresses()->removeElement($old);
-                            \XLite\Core\Database::getEM()->remove($old);
-
-                        } elseif ($andAsShipping) {
-                            $old->setIsShipping(false);
-                        }
-
-                    } elseif (!$this->getCart()->getProfile()->getShippingAddress()) {
-                        $andAsShipping = true;
-                    }
-
-                    $address->setIsBilling(true);
-                    if ($andAsShipping) {
-                        $address->setIsShipping($andAsShipping);
-                    }
-                }
-
-                \XLite\Core\Session::getInstance()->same_address = $this->getCart()->getProfile()->isEqualAddress();
-
-                \XLite\Core\Event::selectCartAddress(
-                    array(
-                        'type'      => $atype,
-                        'addressId' => $address->getAddressId(),
-                        'same'      => $this->getCart()->getProfile()->isSameAddress(),
-                        'fields'    => $address->serialize()
-                    )
-                );
-
-                \XLite\Core\Database::getEM()->flush();
-
-                $this->updateCart();
-
-                $this->silenceClose = true;
-            }
-        }
+        $this->selectCartAddress($atype, $addressId, $hasEmptyFields);
     }
 
     /**

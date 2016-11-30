@@ -101,4 +101,3 @@ class Invoice extends \XLite\View\APdfPage
         return 'order/invoice/page.twig';
     }
 }
-

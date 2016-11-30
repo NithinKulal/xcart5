@@ -1,0 +1,12 @@
+{##
+ # Price or percent inline view
+ #}
+
+{% if this.currency.getPrefix() %}
+  <span class="symbol prefix hidden">{{ this.currency.getPrefix()|raw }}</span>
+{% endif %}
+<span class="value">{{ this.getViewValue(this.singleField)|raw }}</span>
+{% if this.currency.getSuffix() %}
+  <span class="symbol suffix hidden">{{ this.currency.getSuffix()|raw }}</span>
+{% endif %}
+

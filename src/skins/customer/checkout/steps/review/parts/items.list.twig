@@ -7,7 +7,7 @@
 <div class="list" style="display: none;" v-bind:style="itemsList">
 
   <ul>
-    {% for item in this.cart.getItems() %}
+    {% for item in this.getItems() %}
       <li>
         <a href="{{ item.getURL() }}">{{ item.getName() }}<img src="{{ asset('images/spacer.gif') }}" alt="" class="fade" /></a>
         <div>

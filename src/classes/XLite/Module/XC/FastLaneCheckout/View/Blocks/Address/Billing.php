@@ -26,6 +26,14 @@ class Billing extends FastLaneCheckout\View\Blocks\Address
     }
 
     /**
+     * @return void
+     */
+    protected function getEditAddressTitle()
+    {
+        return static::t('Edit billing address');
+    }
+
+    /**
      * Check - email field is visible or not
      *
      * @return boolean
@@ -45,5 +53,27 @@ class Billing extends FastLaneCheckout\View\Blocks\Address
         $profile = $this->getCart()->getProfile();
 
         return $profile ? $profile->getBillingAddress() : null;
+    }
+
+    /**
+     * Check - shipping and billing addrsses are same or not
+     *
+     * @return boolean
+     */
+    protected function isSameAddress()
+    {
+        return is_null(\XLite\Core\Session::getInstance()->same_address)
+            ? !$this->getCart()->getProfile() || $this->getCart()->getProfile()->isEqualAddress()
+            : \XLite\Core\Session::getInstance()->same_address;
+    }
+
+    /**
+     * Checks if same address mark can be displayed
+     * 
+     * @return boolean
+     */
+    protected function isSameAddressVisible()
+    {
+        return $this->isShippingNeeded();
     }
 }

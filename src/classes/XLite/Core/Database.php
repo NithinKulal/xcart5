@@ -366,6 +366,8 @@ class Database extends \XLite\Base\Singleton
         $this->configuration->addCustomStringFunction('findInSet', '\\XLite\\Core\\Doctrine\\FindInSetFunction');
         $this->configuration->addCustomStringFunction('castChar', '\\XLite\\Core\\Doctrine\\CastCharFunction');
         $this->configuration->addCustomStringFunction('collate', '\\XLite\\Core\\Doctrine\\CollateFunction');
+        $this->configuration->addCustomStringFunction('least', '\\XLite\\Core\\Doctrine\\LeastFunction');
+        $this->configuration->addCustomStringFunction('greatest', '\\XLite\\Core\\Doctrine\\GreatestFunction');
 
         $this->tablePrefix = trim(\XLite::getInstance()->getOptions(array('database_details', 'table_prefix')));
 

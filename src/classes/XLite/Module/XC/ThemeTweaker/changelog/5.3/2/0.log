@@ -1,0 +1,7 @@
+Version 5.3.2.0
+
+Improvements
+2016-10-12 - [Change] CSS styles can now be edited without reloading the page with Layout editor enabled. #XCN-6271 (Eugene Dementjev) #Core #ThemeTweaker
+
+Fixes
+2016-08-05 - [Bug] Theme Tweaker can now override templates from the skins/common folder (in manual mode when the templates are added to the folder theme_tweaker). #BUG-3683 (Michael Lipinski) #ThemeTweaker

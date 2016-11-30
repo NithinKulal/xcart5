@@ -20,7 +20,17 @@ class Table extends \XLite\View\Form\ItemsList\ProductSelection\Table
      */
     protected function getDefaultTarget()
     {
-        return 'u_product_selections';
+        return 'upselling_products';
+    }
+
+    /**
+     * Return default value for the "action" parameter
+     *
+     * @return string
+     */
+    protected function getDefaultAction()
+    {
+        return 'add';
     }
 
     /**

@@ -13,68 +13,22 @@ namespace XLite\Module\CDev\GoSocial\View\Button;
  *
  * @ListChild (list="buttons.share", weight="400")
  */
-class Pinterest extends \XLite\View\AView
+class Pinterest extends \XLite\Module\CDev\GoSocial\View\Button\ASocialButton
 {
     /**
-     * Button URL
-     */
-    const BUTTON_URL = '//pinterest.com/pin/create/button/?';
-
-    /**
-     * Return widget default template
-     *
-     * @return string
-     */
-    protected function getDefaultTemplate()
-    {
-        return 'modules/CDev/GoSocial/button/pinterest.twig';
-    }
-
-    /**
-     * Get button attributes
+     * Define button attributes
      *
      * @return array
      */
-    protected function getButtonAttributes()
+    protected function defineButtonParams()
     {
-        return array();
-    }
+        $list = array();
 
-    /**
-     * Get button URL (query  part)
-     *
-     * @return array
-     */
-    protected function getButtonURL()
-    {
-        $query = array();
-        foreach ($this->getButtonURLQuery() as $name => $value) {
-            if ($name == 'description') {
-                $value = urlencode(htmlspecialchars_decode($value));
-                $value = preg_replace('/\+/', '%20', $value);
-                $query[] = $name . '=' . $value;
-            } else {
-                $query[] = $name . '=' . urlencode($value);
-            }
-        }
-
-        return static::BUTTON_URL . implode('&amp;', $query);
-    }
-
-    /**
-     * Get button URL (query  part)
-     *
-     * @return array
-     */
-    protected function getButtonURLQuery()
-    {
         $image = $this->getModelObject()->getImage();
+        $list['data-media'] = isset($image) ? $image->getFrontURL() : null;
+        $list['data-description'] = $this->getModelObject()->getName();
 
-        return array(
-            'url'         => \XLite::getInstance()->getShopURL($this->getURL()),
-            'media'       => isset($image) ? $image->getFrontURL() : null,
-            'description' => $this->getModelObject()->getName(),
-        );
+        return $list;
     }
 
     /**
@@ -90,5 +44,25 @@ class Pinterest extends \XLite\View\AView
             && isset($image)
             && $image->isExists()
             && \XLite\Core\Config::getInstance()->CDev->GoSocial->pinterest_use;
+    }
+
+    /**
+     * Get button type
+     *
+     * @return string
+     */
+    function getButtonType()
+    {
+        return self::BUTTON_CLASS_PINTEREST;
+    }
+
+    /**
+     * Get button type
+     *
+     * @return string
+     */
+    function getButtonLabel()
+    {
+        return static::t('Pin');
     }
 }

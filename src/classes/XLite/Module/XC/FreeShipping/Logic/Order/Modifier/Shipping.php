@@ -117,6 +117,7 @@ class Shipping extends \XLite\Logic\Order\Modifier\Shipping implements \XLite\Ba
                     $doUnset = true;
 
                 } else {
+                    $rates[$k]->setBaseRate(0);
                     // Add fixed fee value to the base rate value
                     $rates[$k]->setBaseRate($rate->getBaseRate() + $fixedFee);
                 }

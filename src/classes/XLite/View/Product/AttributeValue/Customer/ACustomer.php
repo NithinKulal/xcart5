@@ -8,15 +8,19 @@
 
 namespace XLite\View\Product\AttributeValue\Customer;
 
+use XLite\Core\Cache\ExecuteCachedTrait;
+
 /**
  * Abstract attribute value (customer)
  */
 abstract class ACustomer extends \XLite\View\Product\AttributeValue\AAttributeValue
 {
+    use ExecuteCachedTrait;
+
     /**
      * Widget param names
      */
-    const PARAM_ORDER_ITEM = 'orderItem';
+    const PARAM_ORDER_ITEM  = 'orderItem';
     const PARAM_NAME_PREFIX = 'namePrefix';
     const PARAM_NAME_SUFFIX = 'nameSuffix';
 
@@ -34,12 +38,12 @@ abstract class ACustomer extends \XLite\View\Product\AttributeValue\AAttributeVa
      */
     protected function getName()
     {
-        return $this->getParam(static::PARAM_NAME_PREFIX)
-            . 'attribute_values'
-            . $this->getParam(static::PARAM_NAME_SUFFIX)
-            . '['
-            . $this->getAttribute()->getId()
-            . ']';
+        return sprintf(
+            '%sattribute_values%s[%d]',
+            $this->getParam(static::PARAM_NAME_PREFIX),
+            $this->getParam(static::PARAM_NAME_SUFFIX),
+            $this->getAttribute()->getId()
+        );
     }
 
     /**
@@ -51,8 +55,8 @@ abstract class ACustomer extends \XLite\View\Product\AttributeValue\AAttributeVa
     {
         parent::defineWidgetParams();
 
-        $this->widgetParams += array(
-            static::PARAM_ORDER_ITEM => new \XLite\Model\WidgetParam\TypeObject(
+        $this->widgetParams += [
+            static::PARAM_ORDER_ITEM  => new \XLite\Model\WidgetParam\TypeObject(
                 'Order item', null, false, 'XLite\Model\OrderItem'
             ),
             static::PARAM_NAME_PREFIX => new \XLite\Model\WidgetParam\TypeString(
@@ -61,7 +65,7 @@ abstract class ACustomer extends \XLite\View\Product\AttributeValue\AAttributeVa
             static::PARAM_NAME_SUFFIX => new \XLite\Model\WidgetParam\TypeString(
                 'Field name suffix', '', false
             ),
-        );
+        ];
     }
 
     /**
@@ -81,29 +85,9 @@ abstract class ACustomer extends \XLite\View\Product\AttributeValue\AAttributeVa
      */
     protected function getSelectedIds()
     {
-        if (!isset($this->selectedIds)) {
-            $this->selectedIds = array();
-            if (
-                method_exists($this, 'getSelectedAttributeValuesIds')
-                || method_exists(\XLite::getController(), 'getSelectedAttributeValuesIds')
-            ) {
-                $this->selectedIds = $this->getSelectedAttributeValuesIds();
-
-            } else {
-
-                $item = $this->getOrderItem();
-
-                if (
-                    $item
-                    && $item->getProduct()
-                    && $item->hasAttributeValues()
-                ) {
-                    $this->selectedIds = $item->getAttributeValuesPlain();
-                }
-            }
-        }
-
-        return $this->selectedIds;
+        return $this->executeCachedRuntime(function () {
+            return $this->defineSelectedIds();
+        });
     }
 
     /**
@@ -111,24 +95,19 @@ abstract class ACustomer extends \XLite\View\Product\AttributeValue\AAttributeVa
      *
      * @return array
      */
-    protected function getSelectedAttributeValuesIds()
+    protected function defineSelectedIds()
     {
-        $result = array();
-
+        $result     = [];
         $attrValues = $this->getProduct()->getAttrValues();
 
-        if (!empty($attrValues) && \XLite\Model\Attribute::TYPE_TEXT != $this->getAttributeType()) {
-
-            $result = array();
-
+        if (!empty($attrValues) && \XLite\Model\Attribute::TYPE_TEXT !== $this->getAttributeType()) {
             foreach ($attrValues as $k => $attributeValue) {
-
                 $actualAttributeValue = null;
 
-                if ($attributeValue instanceOf \XLite\Model\OrderItem\AttributeValue) {
+                if ($attributeValue instanceof \XLite\Model\OrderItem\AttributeValue) {
                     $actualAttributeValue = $attributeValue->getAttributeValue();
 
-                } elseif ($attributeValue instanceOf \XLite\Model\AttributeValue\AAttributeValue) {
+                } elseif ($attributeValue instanceof \XLite\Model\AttributeValue\AAttributeValue) {
                     $actualAttributeValue = $attributeValue;
 
                 } else {
@@ -136,7 +115,8 @@ abstract class ACustomer extends \XLite\View\Product\AttributeValue\AAttributeVa
                 }
 
                 if ($actualAttributeValue) {
-                    if ($actualAttributeValue instanceOf \XLite\Model\AttributeValue\AttributeValueText) {
+                    if ($actualAttributeValue instanceof \XLite\Model\AttributeValue\AttributeValueText) {
+                        /** @see \XLite\Model\AttributeValue\AttributeValueTextTranslation */
                         $value = $actualAttributeValue->getValue();
 
                     } else {
@@ -150,7 +130,8 @@ abstract class ACustomer extends \XLite\View\Product\AttributeValue\AAttributeVa
             ksort($result);
 
         } elseif (method_exists(\XLite::getController(), 'getSelectedAttributeValuesIds')) {
-            $result = parent::getSelectedAttributeValuesIds();
+            /** @see \XLite\Controller\Customer\ChangeAttributeValues */
+            $result = \XLite::getController()->getSelectedAttributeValuesIds();
         }
 
         return $result;

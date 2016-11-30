@@ -133,6 +133,17 @@ class Language extends \XLite\Model\Base\I18n
     }
 
     /**
+     * Return true if current language is set as a default for customer interface
+     *
+     * @return boolean
+     */
+    public function getDefaultAuth()
+    {
+        return (!\XLite\Core\Auth::getInstance()->isAdmin() && $this->getDefaultCustomer())
+        || (\XLite\Core\Auth::getInstance()->isAdmin() && $this->getDefaultAdmin());
+    }
+
+    /**
      * Get flag URL
      *
      * @return string|void

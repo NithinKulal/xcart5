@@ -168,6 +168,21 @@ abstract class Autoloader
         self::$classCacheAutoloader->register();
     }
 
+    /**
+     * Reinitialize autoloader if needed
+     * For example, after module uninstalled
+     * More convenient way could be dynamic dependency
+     * of Autoload\DevClassAutoLoader on modules list, but KISS
+     *
+     * @return void
+     */
+    public static function reinitializeIfNeeded()
+    {
+        if (LC_DEVELOPER_MODE) {
+            static::registerClassCacheDevelopmentAutoloader();
+        }
+    }
+
     public static function unregisterClassCacheAutoloader()
     {
         if (self::$classCacheAutoloader !== null) {

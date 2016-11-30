@@ -76,80 +76,96 @@ class Orders extends \XLite\Logic\Export\Step\AStep
      */
     protected function defineColumns()
     {
-        $columns = array(
-            'orderNumber'                           => array(),
-            static::CUSTOMER_PREFIX . 'Email'       => array(),
-            static::CUSTOMER_PREFIX . 'Anonymous'   => array(),
-            static::CUSTOMER_PREFIX . 'AddressSame' => array(),
-        );
+        $columns = [
+            'orderNumber'                           => [
+                static::COLUMN_ID => true
+            ],
+            static::CUSTOMER_PREFIX . 'Email'       => [],
+            static::CUSTOMER_PREFIX . 'Anonymous'   => [],
+            static::CUSTOMER_PREFIX . 'AddressSame' => [],
+        ];
 
         foreach(\XLite\Core\Database::getRepo('XLite\Model\AddressField')->findAllEnabled() as $field) {
             $name = ucfirst(\XLite\Core\Converter::convertToCamelCase($field->getServiceName()));
-            $columns[static::CUSTOMER_PREFIX . $name . 'Billing' . static::ADDRESS_FIELD_SUFFIX] = array(
+            $columns[static::CUSTOMER_PREFIX . $name . 'Billing' . static::ADDRESS_FIELD_SUFFIX] = [
                 static::COLUMN_GETTER    => 'getBillingAddressFieldValue',
                 static::COLUMN_FORMATTER => 'formatBillingAddressFieldValue',
                 'service_name'           => $field->getServiceName(),
-            );
+            ];
         }
 
         foreach(\XLite\Core\Database::getRepo('XLite\Model\AddressField')->findAllEnabled() as $field) {
             $name = ucfirst(\XLite\Core\Converter::convertToCamelCase($field->getServiceName()));
-            $columns[static::CUSTOMER_PREFIX . $name . 'Shipping' . static::ADDRESS_FIELD_SUFFIX] = array(
+            $columns[static::CUSTOMER_PREFIX . $name . 'Shipping' . static::ADDRESS_FIELD_SUFFIX] = [
                 static::COLUMN_GETTER    => 'getShippingAddressFieldValue',
                 static::COLUMN_FORMATTER => 'formatShippingAddressFieldValue',
                 'service_name'           => $field->getServiceName(),
-            );
+            ];
         }
 
-        $columns += array(
-            static::ITEM_PREFIX . 'Name'            => array(static::COLUMN_MULTIPLE => true),
-            static::ITEM_PREFIX . 'SKU'             => array(static::COLUMN_MULTIPLE => true),
-            static::ITEM_PREFIX . 'Attributes'      => array(static::COLUMN_MULTIPLE => true),
-            static::ITEM_PREFIX . 'Price'           => array(static::COLUMN_MULTIPLE => true),
-            static::ITEM_PREFIX . 'Quantity'        => array(static::COLUMN_MULTIPLE => true),
-            static::ITEM_PREFIX . 'Subtotal'        => array(static::COLUMN_MULTIPLE => true),
-        );
+        $columns += [
+            static::ITEM_PREFIX . 'Name'            => [static::COLUMN_MULTIPLE => true],
+            static::ITEM_PREFIX . 'SKU'             => [static::COLUMN_MULTIPLE => true],
+            static::ITEM_PREFIX . 'Attributes'      => [static::COLUMN_MULTIPLE => true],
+            static::ITEM_PREFIX . 'Price'           => [static::COLUMN_MULTIPLE => true],
+            static::ITEM_PREFIX . 'Quantity'        => [static::COLUMN_MULTIPLE => true],
+            static::ITEM_PREFIX . 'Subtotal'        => [static::COLUMN_MULTIPLE => true],
+        ];
 
         foreach ($this->getOrderItemSurchargeTypes() as $type) {
-            $columns[$type['name'] . ' (item surcharge)'] = array(
+            $name = $type['code'] . ' (item surcharge)';
+
+            if ($type['include']) {
+                $name .= '[include]';
+            }
+
+            $columns[$name] = [
                 'type'                  => $type,
                 static::COLUMN_GETTER   => 'getOrderItemSurchargeColumnValue',
                 static::COLUMN_MULTIPLE => true,
-            );
+            ];
         }
 
-        $columns += array(
-            static::ITEM_PREFIX . 'Total'           => array(static::COLUMN_MULTIPLE => true),
-            'subtotal'                              => array(),
-        );
+        $columns += [
+            static::ITEM_PREFIX . 'Total'           => [static::COLUMN_MULTIPLE => true],
+            'subtotal'                              => [],
+        ];
 
         foreach ($this->getOrderSurchargeTypes() as $type) {
-            $columns[$type['name'] . ' (surcharge)'] = array(
+            $name = $type['code'] . ' (surcharge)';
+
+            if ($type['include']) {
+                $name .= '[include]';
+            }
+
+            $columns[$name] = [
                 'type'                  => $type,
                 static::COLUMN_GETTER   => 'getOrderSurchargeColumnValue',
-            );
+            ];
         }
 
-        $columns += array(
-            'total'                                 => array(),
-            'currency'                              => array(),
-            'shippingMethod'                        => array(),
-            'trackingNumber'                        => array(),
-            static::PAYMENT_TRANSACTION_PREFIX . 'Method' => array(static::COLUMN_MULTIPLE => true),
-            static::PAYMENT_TRANSACTION_PREFIX . 'Status' => array(static::COLUMN_MULTIPLE => true),
-            static::PAYMENT_TRANSACTION_PREFIX . 'Value'  => array(static::COLUMN_MULTIPLE => true),
-            static::PAYMENT_TRANSACTION_PREFIX . 'Note'   => array(static::COLUMN_MULTIPLE => true),
-            static::PAYMENT_TRANSACTION_PREFIX . 'Type'   => array(static::COLUMN_MULTIPLE => true),
-            static::PAYMENT_TRANSACTION_PREFIX . 'Id'     => array(static::COLUMN_MULTIPLE => true),
-            'date'                                  => array(),
-            'paymentStatus'                         => array(),
-            'shippingStatus'                        => array(),
-            'notes'                                 => array(),
-            'adminNotes'                            => array(),
-            'detailCode'                            => array(static::COLUMN_MULTIPLE => true),
-            'detailLabel'                           => array(static::COLUMN_MULTIPLE => true),
-            'detailValue'                           => array(static::COLUMN_MULTIPLE => true),
-        );
+        $columns += [
+            'total'                                 => [],
+            'currency'                              => [],
+            'shippingMethod'                        => [],
+            'trackingNumber'                        => [],
+            static::PAYMENT_TRANSACTION_PREFIX . 'Method' => [static::COLUMN_MULTIPLE => true],
+            static::PAYMENT_TRANSACTION_PREFIX . 'Status' => [static::COLUMN_MULTIPLE => true],
+            static::PAYMENT_TRANSACTION_PREFIX . 'Value'  => [static::COLUMN_MULTIPLE => true],
+            static::PAYMENT_TRANSACTION_PREFIX . 'Note'   => [static::COLUMN_MULTIPLE => true],
+            static::PAYMENT_TRANSACTION_PREFIX . 'Type'   => [static::COLUMN_MULTIPLE => true],
+            static::PAYMENT_TRANSACTION_PREFIX . 'Id'     => [static::COLUMN_MULTIPLE => true],
+            static::PAYMENT_TRANSACTION_PREFIX . 'Currency' => [static::COLUMN_MULTIPLE => true],
+            'date'                                  => [],
+            'recent'                                => [],
+            'paymentStatus'                         => [],
+            'shippingStatus'                        => [],
+            'notes'                                 => [],
+            'adminNotes'                            => [],
+            'detailCode'                            => [static::COLUMN_MULTIPLE => true],
+            'detailLabel'                           => [static::COLUMN_MULTIPLE => true],
+            'detailValue'                           => [static::COLUMN_MULTIPLE => true],
+        ];
 
         return $columns;
     }
@@ -167,7 +183,7 @@ class Orders extends \XLite\Logic\Export\Step\AStep
     /**
      * Get order item surcharge types
      *
-     * @return void
+     * @return array
      */
     protected function getOrderItemSurchargeTypes()
     {
@@ -225,7 +241,7 @@ class Orders extends \XLite\Logic\Export\Step\AStep
      */
     protected function getTrackingNumberColumnValue(array $dataset, $name, $i)
     {
-        $trackingNumbers = array();
+        $trackingNumbers = [];
         foreach ($dataset['model']->getTrackingNumbers() as $number) {
             $trackingNumbers[] = $number->getValue();
         }
@@ -259,6 +275,20 @@ class Orders extends \XLite\Logic\Export\Step\AStep
     protected function formatDateColumnValue($value, array $dataset, $name)
     {
         return $this->formatTimestamp($value);
+    }
+
+    /**
+     * Get column value for 'recent' column
+     *
+     * @param array   $dataset Dataset
+     * @param string  $name    Column name
+     * @param integer $i       Subcolumn index
+     *
+     * @return boolean
+     */
+    protected function getRecentColumnValue(array $dataset, $name, $i)
+    {
+        return $dataset['model']->getRecent();
     }
 
     /**
@@ -578,7 +608,7 @@ class Orders extends \XLite\Logic\Export\Step\AStep
      */
     protected function getItemAttributesColumnValue(array $dataset, $name, $i)
     {
-        $result = array();
+        $result = [];
 
         if (isset($dataset['item']) && $dataset['item'] ) {
             foreach ($dataset['item']->getAttributeValues() as $av) {
@@ -670,6 +700,7 @@ class Orders extends \XLite\Logic\Export\Step\AStep
                 if (
                     $surcharge->getCode() == $column['type']['code']
                     && $surcharge->getType() == $column['type']['type']
+                    && $surcharge->getAvailable()
                 ) {
                     $sum += $surcharge->getValue();
                 }
@@ -698,6 +729,7 @@ class Orders extends \XLite\Logic\Export\Step\AStep
             if (
                 $surcharge->getCode() == $column['type']['code']
                 && $surcharge->getType() == $column['type']['type']
+                && $surcharge->getAvailable()
             ) {
                 $sum += $surcharge->getValue();
             }
@@ -802,6 +834,23 @@ class Orders extends \XLite\Logic\Export\Step\AStep
             : $this->getColumnValueByName($dataset['paymentTransaction'], 'public_id');
     }
 
-    // }}}
+    /**
+     * Get column value for 'paymentTransactionCurrency' column
+     *
+     * @param array   $dataset Dataset
+     * @param string  $name    Column name
+     * @param integer $i       Subcolumn index
+     *
+     * @return string
+     */
+    protected function getPaymentTransactionCurrencyColumnValue(array $dataset, $name, $i)
+    {
+        $currency = !empty($dataset['paymentTransaction']) ? $this->getColumnValueByName($dataset['paymentTransaction'], 'currency') : null;
 
+        return $currency
+            ? $currency->getCode()
+            : '';
+    }
+
+    // }}}
 }

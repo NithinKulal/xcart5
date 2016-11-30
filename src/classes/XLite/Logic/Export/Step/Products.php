@@ -61,10 +61,11 @@ class Products extends \XLite\Logic\Export\Step\Base\I18n
             'date'                      => array(),
             'updateDate'                => array(),
             'categories'                => array(),
-            'inCategoriesPosition'       => array(),
+            'inCategoriesPosition'      => array(),
             'inventoryTrackingEnabled'  => array(),
             'stockLevel'                => array(),
             'lowLimitEnabled'           => array(),
+            'lowLimitEnabledCustomer'   => array(),
             'lowLimitLevel'             => array(),
             'cleanURL'                  => array(),
             'useSeparateBox'            => array(),
@@ -527,6 +528,20 @@ class Products extends \XLite\Logic\Export\Step\Base\I18n
     protected function getLowLimitEnabledColumnValue(array $dataset, $name, $i)
     {
         return $dataset['model']->getLowLimitEnabled();
+    }
+
+    /**
+     * Get column value for 'lowLimitEnabledCustomer' column
+     *
+     * @param array   $dataset Dataset
+     * @param string  $name    Column name
+     * @param integer $i       Subcolumn index
+     *
+     * @return string
+     */
+    protected function getLowLimitEnabledCustomerColumnValue(array $dataset, $name, $i)
+    {
+        return $dataset['model']->getLowLimitEnabledCustomer();
     }
 
     /**

@@ -120,7 +120,7 @@ class Carriers extends \XLite\View\ItemsList\Model\Table
             ),
             'handlingFee' => array(
                 static::COLUMN_NAME      => static::t('Handling fee'),
-                static::COLUMN_CLASS     => 'XLite\View\FormField\Inline\Input\Text\Price',
+                static::COLUMN_CLASS     => 'XLite\View\FormField\Inline\Input\PriceOrPercent',
                 static::COLUMN_TEMPLATE  => 'items_list/model/table/shipping/carriers/cell.handlingFee.restriction.twig',
                 static::COLUMN_ORDERBY   => 300,
             ),
@@ -252,39 +252,7 @@ class Carriers extends \XLite\View\ItemsList\Model\Table
             $actions[] = 'items_list/model/table/shipping/carriers/action.create.twig';
         }
 
-        $actions[] = 'items_list/model/table/shipping/carriers/automate_routine.button.twig';
-
         return $actions;
-    }
-
-    /**
-     * Get icon for automate shipping routine link
-     *
-     * @return string
-     */
-    protected function getAutomateRoutineIcon()
-    {
-        return \XLite\Core\Layout::getInstance()->getResourceWebPath('items_list/model/table/shipping/carriers/print-labels.svg');
-    }
-
-    /**
-     * Get text for automate shipping routine link
-     *
-     * @return string
-     */
-    protected function getAutomateRoutineText()
-    {
-        return static::t('Automate shipping');
-    }
-
-    /**
-     * Get automate shipping routine link
-     *
-     * @return string
-     */
-    protected function getAutomateRoutineLink()
-    {
-        return $this->buildURL('automate_shipping_routine');
     }
 
     /**

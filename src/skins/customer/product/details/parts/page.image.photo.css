@@ -21,6 +21,11 @@ table.product-photo-box td
   padding: 0;
 }
 
+.cloud-zoom-lens {
+  background-repeat: no-repeat !important;
+}
+
 .cloud-zoom-big {
+  background-repeat: no-repeat;
   background-color: #fff;
 }

@@ -40,6 +40,13 @@ class SitemapGenerator extends \XLite\Base\Singleton
     protected $emptyFile = false;
 
     /**
+     * Is page has alternative language url
+     *
+     * @var boolean
+     */
+    protected $hasAlternateLangUrls;
+
+    /**
      * Get file prefix for generated sitemaps
      *
      * @return string
@@ -237,11 +244,45 @@ class SitemapGenerator extends \XLite\Base\Singleton
             }
             $counter++;
         }
+
+        if ($this->hasAlternateLangUrls()) {
+            foreach (\XLite\Core\Router::getInstance()->getActiveLanguagesCodes() as $code) {
+                $counter = 1;
+                foreach ($this->getIterator($code) as $record) {
+                    if (!empty($record)) {
+                        $this->recordsChunk .= $this->assembleRecord($record);
+                    }
+                    if ($counter > static::RECORDS_CHUNK_SIZE) {
+                        $this->writeRecord($this->recordsChunk);
+                        $this->recordsChunk = '';
+                        $counter = 0;
+                    }
+                    $counter++;
+                }
+            }
+        }
         if (!empty($this->recordsChunk)) {
             $this->writeRecord($this->recordsChunk);
             $this->recordsChunk = '';
         }
         $this->finalizeWrite();
+    }
+
+    /**
+     * Check if store has alternative language url
+     *
+     * @return bool
+     */
+    public function hasAlternateLangUrls()
+    {
+        if (null === $this->hasAlternateLangUrls) {
+            $router = \XLite\Core\Router::getInstance();
+            $this->hasAlternateLangUrls = LC_USE_CLEAN_URLS
+                && $router->isUseLanguageUrls()
+                && count($router->getActiveLanguagesCodes()) > 1;
+        }
+
+        return $this->hasAlternateLangUrls;
     }
 
     /**
@@ -274,8 +315,8 @@ class SitemapGenerator extends \XLite\Base\Singleton
      */
     protected function getHead()
     {
-        return '<' . '?xml version="1.0" encoding="UTF-8" ?' . '>' . PHP_EOL
-            . '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL;
+        return '<?xml version="1.0" encoding="UTF-8" ?>' . PHP_EOL
+        . '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">' . PHP_EOL;
     }
 
     /**
@@ -297,13 +338,16 @@ class SitemapGenerator extends \XLite\Base\Singleton
      */
     protected function assembleRecord(array $record)
     {
-        $record['loc'] = \XLite::getInstance()->getShopURL($this->buildLoc($record['loc']));
         $time = $record['lastmod'];
         $record['lastmod'] = date('Y-m-d', $time) . 'T' . date('H:i:s', $time) . 'Z';
 
         $string = '<url>';
-        foreach ($record as $name => $value) {
-            $string .= '<' . $name . '>' . htmlentities($value) . '</' . $name . '>';
+        foreach ($record as $tag => $value) {
+            if (!empty($value)) {
+                $string .= '<' . $tag . '>' . htmlentities($value) . '</' . $tag . '>';
+            } else {
+                $string .= '<' . $tag . ' />';
+            }
         }
 
         return $string . '</url>';
@@ -326,12 +370,14 @@ class SitemapGenerator extends \XLite\Base\Singleton
 
     /**
      * Get iterator 
-     * 
+     *
+     * @param string $languageCode Language code
+     *
      * @return \XLite\Module\CDev\XMLSitemap\Logic\SitemapIterator
      */
-    protected function getIterator()
+    protected function getIterator($languageCode = null)
     {
-        return new \XLite\Module\CDev\XMLSitemap\Logic\SitemapIterator;
+        return new \XLite\Module\CDev\XMLSitemap\Logic\SitemapIterator($languageCode);
     }
 
     /**

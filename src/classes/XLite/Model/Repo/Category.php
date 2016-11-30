@@ -8,11 +8,15 @@
 
 namespace XLite\Model\Repo;
 
+use XLite\Core\Cache\ExecuteCachedTrait;
+
 /**
  * Category repository class
  */
 class Category extends \XLite\Model\Repo\Base\I18n
 {
+    use ExecuteCachedTrait;
+
     /**
      * Allowable search params
      */
@@ -43,12 +47,6 @@ class Category extends \XLite\Model\Repo\Base\I18n
     protected static $rootCategory;
 
     /**
-     * Categories dtos
-     * @var array|null
-     */
-    protected $runtimeDtosCache = null;
-
-    /**
      * Return the reserved ID of root category
      *
      * @param boolean $override Override flag OPTIONAL
@@ -67,7 +65,7 @@ class Category extends \XLite\Model\Repo\Base\I18n
     /**
      * Return the reserved ID of root category
      *
-     * @return integer
+     * @return integer|null
      */
     public function getRootCategoryId()
     {
@@ -648,7 +646,7 @@ class Category extends \XLite\Model\Repo\Base\I18n
     {
         $expr = new \Doctrine\ORM\Query\Expr();
 
-        return $this->createPureQueryBuilder('c', false)
+        return $this->createPureQueryBuilder('c')
             ->update($this->_entityName, 'c')
             ->set('c.' . $index, 'c.' . $index . ' + :offset')
             ->andWhere($expr->gt('c.' . $index, ':relatedIndex'))
@@ -730,7 +728,7 @@ class Category extends \XLite\Model\Repo\Base\I18n
         $alias = $alias ?: $this->getDefaultAlias();
 
         $queryBuilder->andWhere($alias . '.category_id <> :rootId')
-            ->setParameter('rootId', intval($value));
+            ->setParameter('rootId', (int) $value);
     }
 
     /**
@@ -814,7 +812,7 @@ class Category extends \XLite\Model\Repo\Base\I18n
      */
     protected function prepareCategoryId($categoryId)
     {
-        return abs(intval($categoryId)) ?: null;
+        return abs((int) $categoryId) ?: null;
     }
 
     /**
@@ -925,7 +923,16 @@ class Category extends \XLite\Model\Repo\Base\I18n
             $changeset = $uow->getEntityChangeSet($entity);
         }
 
-        if (isset($changeset['enabled'][0]) && isset($changeset['enabled'][1])
+        if (!$changeset && $entity->_getPreviousState()->enabled !== null) {
+            $changeset = [
+                'enabled' => [
+                    (bool) $entity->_getPreviousState()->enabled,
+                    $entity->getEnabled(),
+                ]
+            ];
+        }
+
+        if (isset($changeset['enabled'][0], $changeset['enabled'][1])
             && $entity->getParent()
             && ($changeset['enabled'][0] xor ((bool) $changeset['enabled'][1]))
         ) {
@@ -991,7 +998,12 @@ class Category extends \XLite\Model\Repo\Base\I18n
         array $assocs = array()
     ) {
         /** @var \XLite\Model\Category $entity */
-        $this->performInsert($entity);
+        if ($entity->isPersistent() && $this->find($entity->getCategoryId())) {
+            $this->performUpdate($entity);
+
+        } else {
+            $this->performInsert($entity);
+        }
 
         parent::loadRawFixture($entity, $record, $regular, $assocs);
     }
@@ -1039,7 +1051,7 @@ class Category extends \XLite\Model\Repo\Base\I18n
     protected function prepareCndParent(\Doctrine\ORM\QueryBuilder $queryBuilder, $value)
     {
         if ($value && !is_object($value)) {
-            $value = \XLite\Core\Database::getRepo('XLite\Model\Category')->find(intval($value));
+            $value = \XLite\Core\Database::getRepo('XLite\Model\Category')->find((int) $value);
         }
 
         if ($value) {
@@ -1102,7 +1114,7 @@ class Category extends \XLite\Model\Repo\Base\I18n
                 $query = 'UPDATE ' . $this->getTableName()
                     . ' SET ' . implode(', ', array_map(function($v) { return $v . ' = ?'; }, array_keys($d)))
                     . ' WHERE category_id = ?';
-                array_push($d, $catId);
+                $d[]   = $catId;
                 \XLite\Core\Database::getEM()->getConnection()->executeUpdate($query, array_values($d));
             }
         }
@@ -1189,18 +1201,91 @@ class Category extends \XLite\Model\Repo\Base\I18n
 
     // }}}
 
+    // {{{
+
     /**
-     * Get categories as dtos wtih runtime cache
+     * Get categories as dtos with runtime cache
+     *
+     * @return array
+     */
+    public function getAllCategoriesAsDTO()
+    {
+        return $this->executeCachedRuntime(function () {
+            $categories = $this->getAllCategoriesAsDTOQueryBuilder()->getResult();
+            array_walk($categories, function (array &$category) {
+                if (!$category['name']) {
+                    $category['name'] = $this->getFirstTranslatedName($category['id']);
+                }
+            });
+
+            $rootId = $this->getRootCategoryId();
+            array_walk($categories, function (array &$category) use ($categories, $rootId) {
+                $result = [$category['name']];
+                $parentId = (int) $category['parent_id'];
+                while ($parentId !== $rootId) {
+                    foreach ($categories as $tmpCategory) {
+                        if ((int) $tmpCategory['id'] === (int) $parentId) {
+                            $parentId = (int) $tmpCategory['parent_id'];
+                            $result[] = $tmpCategory['name'];
+                            break;
+                        }
+                    }
+                }
+
+                $category['fullName'] = implode('/', array_reverse($result));
+            });
+
+            return $categories;
+        });
+    }
+
+    /**
+     * Get categories as dtos queryBuilder
+     *
+     * @return \XLite\Model\QueryBuilder\AQueryBuilder
+     */
+    public function getAllCategoriesAsDTOQueryBuilder()
+    {
+        $queryBuilder = $this->createQueryBuilder();
+
+        $queryBuilder->select('c.category_id as id');
+
+        if ($this->getTranslationCode() !== \XLite::getDefaultLanguage()) {
+            // Add additional join to translations with default language code
+            $this->addDefaultTranslationJoins(
+                $queryBuilder,
+                $this->getMainAlias($queryBuilder),
+                'defaults',
+                \XLite::getDefaultLanguage()
+            );
+            $queryBuilder->addSelect('(CASE WHEN translations.name IS NOT NULL THEN translations.name ELSE defaults.name END) as name');
+        } else {
+            $queryBuilder->addSelect('translations.name');
+        }
+
+        $queryBuilder->addSelect('IDENTITY(c.parent) as parent_id');
+        $queryBuilder->addSelect('c.depth as depth');
+
+        $queryBuilder->linkLeft('c.children', 'conditional_children');
+
+        $queryBuilder->addGroupBy('c.category_id');
+        $queryBuilder->orderBy('c.lpos');
+
+        return $queryBuilder;
+    }
+
+    // }}}
+
+    /**
+     * Get categories as dtos with runtime cache
      *
      * @return array
      */
     public function getCategoriesAsDTO()
     {
-        if (null === $this->runtimeDtosCache) {
-            $this->runtimeDtosCache = $this->getCategoriesAsDTOQueryBuilder()->getResult();
-        }
-
-        return $this->runtimeDtosCache;
+        return $this->executeCachedRuntime(function () {
+            return $this->getCategoriesAsDTOQueryBuilder()->getResult();
+        });
     }
 
     /**
@@ -1214,7 +1299,7 @@ class Category extends \XLite\Model\Repo\Base\I18n
 
         $queryBuilder->select('c.category_id as id');
 
-        if ($this->getTranslationCode() != \XLite::getDefaultLanguage()) {
+        if ($this->getTranslationCode() !== \XLite::getDefaultLanguage()) {
             // Add additional join to translations with default language code
             $this->addDefaultTranslationJoins(
                 $queryBuilder,
@@ -1222,7 +1307,7 @@ class Category extends \XLite\Model\Repo\Base\I18n
                 'defaults',
                 \XLite::getDefaultLanguage()
             );
-            $queryBuilder->addSelect('(CASE WHEN translations.name IS NOT NULL WHEN translations.name ELSE defaults.name END) as name');
+            $queryBuilder->addSelect('(CASE WHEN translations.name IS NOT NULL THEN translations.name ELSE defaults.name END) as name');
         } else {
             $queryBuilder->addSelect('translations.name');
         }
@@ -1257,7 +1342,7 @@ class Category extends \XLite\Model\Repo\Base\I18n
             /** @var \XLite\Model\QueryBuilder\AQueryBuilder $qb */
             $qb = $this->searchState['queryBuilder'];
 
-            if ($this->getTranslationCode() != \XLite::getDefaultLanguage()) {
+            if ($this->getTranslationCode() !== \XLite::getDefaultLanguage()) {
                 // Add additional join to translations with default language code
                 $this->addDefaultTranslationJoins(
                     $qb,
@@ -1316,7 +1401,7 @@ class Category extends \XLite\Model\Repo\Base\I18n
             ->select('translations.name')
             ->linkLeft('c.translations')
             ->where('translations.name IS NOT NULL')
-            ->where('c.category_id = :category_id')
+            ->andWhere('c.category_id = :category_id')
             ->setParameter('category_id', $categoryId)
             ->getSingleScalarResult();
 
@@ -1336,6 +1421,7 @@ class Category extends \XLite\Model\Repo\Base\I18n
     {
         $qb = $this->createPureQueryBuilder();
         $qb->andWhere($this->getMainAlias($qb) . '.depth = 0');
+
         return $qb;
     }
 }

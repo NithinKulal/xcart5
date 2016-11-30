@@ -14,6 +14,7 @@ namespace XLite\View\FormField\Select;
 class LayoutType extends \XLite\View\FormField\Select\Regular
 {
     const PARAM_AVAILABLE_TYPES = 'availableTypes';
+    const PARAM_LAYOUT_GROUP = 'layoutGroup';
 
     /**
      * Get a list of CSS files required to display the widget properly
@@ -101,6 +102,10 @@ class LayoutType extends \XLite\View\FormField\Select\Regular
                 array(),
                 false
             ),
+            self::PARAM_LAYOUT_GROUP => new \XLite\Model\WidgetParam\TypeString(
+                'Layout group',
+                \XLite\Core\Layout::LAYOUT_GROUP_DEFAULT
+            ),
         );
     }
 
@@ -120,6 +125,11 @@ class LayoutType extends \XLite\View\FormField\Select\Regular
         }
 
         return $result;
+    }
+
+    protected function getLayoutGroup()
+    {
+        return $this->getParam(static::PARAM_LAYOUT_GROUP);
     }
 
     /**

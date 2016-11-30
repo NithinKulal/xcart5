@@ -34,6 +34,56 @@ class Select extends \XLite\View\Product\AttributeValue\Customer\ACustomer
     }
 
     /**
+     * @return boolean
+     */
+    protected function showPlaceholderOption()
+    {
+        if (\XLite\Core\Config::getInstance()->General->force_choose_product_options === 'quicklook') {
+
+            return \XLite::getController()->getTarget() !== 'product';
+
+        } elseif (\XLite\Core\Config::getInstance()->General->force_choose_product_options === 'product_page') {
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getPlaceholderOptionLabel()
+    {
+        return static::t('Please select option');
+    }
+
+    /**
+     * @return array
+     */
+    protected function getPlaceholderOptionAttributes()
+    {
+        return [
+            'hidden'   => 'hidden',
+            'disabled' => 'disabled',
+            'selected' => 'selected',
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    protected function getSelectAttributes()
+    {
+        $result = [];
+        if ($this->showPlaceholderOption()) {
+            $result['required'] = 'required';
+        }
+
+        return $result;
+    }
+
+    /**
      * Return option title
      *
      * @param \XLite\Model\AttributeValue\AttributeValueSelect $value Value
@@ -54,10 +104,10 @@ class Select extends \XLite\View\Product\AttributeValue\Customer\ACustomer
      */
     protected function getModifierTitle(\XLite\Model\AttributeValue\AttributeValueSelect $value)
     {
-        $result = array();
-        foreach ($value::getModifiers() as $field => $v) {
+        $result = [];
+        foreach ($value::getModifiers() as $field => $options) {
             $modifier = $value->getAbsoluteValue($field);
-            if (0 != $modifier) {
+            if (0.0 !== $modifier) {
                 $result[] = \XLite\Model\AttributeValue\AttributeValueSelect::formatModifier($modifier, $field);
             }
         }
@@ -68,25 +118,25 @@ class Select extends \XLite\View\Product\AttributeValue\Customer\ACustomer
     }
 
     /**
-     * Get option attributes 
-     * 
+     * Get option attributes
+     *
      * @param \XLite\Model\AttributeValue\AttributeValueSelect $value Value
-     *  
+     *
      * @return array
      */
     protected function getOptionAttributes(\XLite\Model\AttributeValue\AttributeValueSelect $value)
     {
-        $result = array(
+        $result = [
             'value' => $value->getId(),
-        );
+        ];
 
         if ($this->isSelectedValue($value)) {
             $result['selected'] = 'selected';
         }
 
-        foreach ($value::getModifiers() as $field => $v) {
+        foreach ($value::getModifiers() as $field => $options) {
             $modifier = $value->getAbsoluteValue($field);
-            if (0 != $modifier) {
+            if (0 !== $modifier) {
                 $result['data-modifier-' . $field] = $modifier;
             }
         }
@@ -104,9 +154,24 @@ class Select extends \XLite\View\Product\AttributeValue\Customer\ACustomer
     protected function isSelectedValue(\XLite\Model\AttributeValue\AttributeValueSelect $value)
     {
         $selectedIds = $this->getSelectedIds();
+        $id = $value->getAttribute()->getId();
 
-        return isset($selectedIds[$value->getAttribute()->getId()])
-            ? $selectedIds[$value->getAttribute()->getId()] == $value->getId()
+        $default = $this->showPlaceholderOption()
+            ? false
             : $value->isDefault();
+
+        $selected = isset($selectedIds[$id])
+            ? (int) $selectedIds[$id] === $value->getId()
+            : $default;
+
+        return $selected;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getOptionTemplate()
+    {
+        return 'product/attribute_value/select/option.twig';
     }
 }

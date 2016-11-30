@@ -27,10 +27,10 @@ class SaleBlock extends \XLite\Module\CDev\Sale\View\SaleBlock implements \XLite
     {
         $cnd = parent::getSearchConditions($cnd);
 
-        if ($this->getCategoryId() && 'product' == $this->getTarget()) {
+        if ($this->getCategoryId() && 'product' === $this->getTarget()) {
             $cnd->{\XLite\Model\Repo\Product::P_CATEGORY_ID} = $this->getCategoryId();
         }
 
         return $cnd;
     }
-} 
+}

@@ -45,8 +45,8 @@ class Check extends \XLite\Model\Payment\Processor\Offline
             'check_routing_number' => 'ABA routing number',
             'check_acct_number'    => 'Bank Account Number',
             'check_type'           => 'Type of Account',
-            'check_bank_name'      => 'Name of bank at which account is maintained',
-            'check_acct_name'      => 'Name under which the account is maintained at the bank',
+            'check_bank_name'      => 'Bank name',
+            'check_acct_name'      => 'Name of account holder',
             'check_number'         => 'Check number',
         );
     }

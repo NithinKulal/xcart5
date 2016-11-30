@@ -93,10 +93,22 @@ TableItemsList.prototype.listeners.form = function(handler)
     }
   );
   form.bind(
+      'more-action-enabled',
+      function () {
+        handler.processFormChanged(jQuery(this));
+      }
+  );
+  form.bind(
     'state-initial',
     function () {
       handler.processFormUndo(jQuery(this));
     }
+  );
+  form.bind(
+      'more-action-initial',
+      function () {
+        handler.processFormUndo(jQuery(this));
+      }
   );
 
 };

@@ -56,10 +56,11 @@ class Template extends \XLite\View\Form\AForm
 
         if (\XLite\Core\Request::getInstance()->template) {
             $params['template'] = \XLite\Core\Request::getInstance()->template;
+            $params['interface'] = \XLite\Core\Request::getInstance()->interface;
+            $params['innerInterface'] = \XLite\Core\Request::getInstance()->innerInterface;
             $params['isCreate'] = true;
         }
 
         return $params;
     }
-
 }

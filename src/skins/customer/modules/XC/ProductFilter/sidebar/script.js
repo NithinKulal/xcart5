@@ -12,19 +12,23 @@
  */
 function ProductFilterView(base)
 {
+  this.listenToHash = core.getCommentedData(base, 'listenToHash');
+  this.listenToHashPrefix = core.getCommentedData(base, 'listenToHashPrefix');
+
   this.callSupermethod('constructor', arguments);
 
   this.widgetParams = core.getCommentedData(base, 'widgetParams');
 
   this.ajaxEvents = this.widgetParams.ajax_events;
 
+  
   var o = this;
 
   if (this.ajaxEvents) {
     core.bind(
       'list.products.loaded',
       function(event, data){
-        if (jQuery(data.base).hasClass('filtered-products')) {
+        if (jQuery(data.base).hasClass('filtered-products') && jQuery.isEmptyObject(hash.get())) {
           o.productsListView = data;
           _.once(o.load());
         };

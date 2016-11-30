@@ -8,17 +8,18 @@
 
 namespace XLite\View\Button\Dropdown;
 
+use XLite\Core\Cache\ExecuteCachedTrait;
+
 /**
  * Abstract dropdown button
  */
 class ADropdown extends \XLite\View\Button\AButton
 {
-    /**
-     * Additional buttons (cache)
-     *
-     * @var array
-     */
-    protected $additionalButtons;
+    use ExecuteCachedTrait;
+
+    const PARAM_DROP_DIRECTION   = 'dropDirection';
+    const PARAM_SHOW_CARET       = 'showCaret';
+    const PARAM_USE_CARET_BUTTON = 'useCaretButton';
 
     /**
      * Get a list of JavaScript files required to display the widget properly
@@ -47,6 +48,22 @@ class ADropdown extends \XLite\View\Button\AButton
     }
 
     /**
+     * Define widget parameters
+     *
+     * @return void
+     */
+    protected function defineWidgetParams()
+    {
+        parent::defineWidgetParams();
+
+        $this->widgetParams += [
+            self::PARAM_DROP_DIRECTION   => new \XLite\Model\WidgetParam\TypeString('Drop direction', $this->getDefaultDropDirection()),
+            self::PARAM_SHOW_CARET       => new \XLite\Model\WidgetParam\TypeBool('Show caret', $this->getDefaultShowCaret()),
+            self::PARAM_USE_CARET_BUTTON => new \XLite\Model\WidgetParam\TypeBool('Use caret button', $this->getDefaultUseCaretButton()),
+        ];
+    }
+
+    /**
      * Return widget default template
      *
      * @return string
@@ -57,17 +74,63 @@ class ADropdown extends \XLite\View\Button\AButton
     }
 
     /**
+     * @return string
+     */
+    protected function getDefaultDropDirection()
+    {
+        return '';
+    }
+
+    /**
+     * @return string
+     */
+    protected function getDropDirection()
+    {
+        return $this->getParam(self::PARAM_DROP_DIRECTION);
+    }
+
+    /**
+     * @return boolean
+     */
+    protected function getDefaultShowCaret()
+    {
+        return true;
+    }
+
+    /**
+     * @return boolean
+     */
+    protected function getShowCaret()
+    {
+        return $this->getParam(self::PARAM_SHOW_CARET);
+    }
+
+    /**
+     * @return boolean
+     */
+    protected function getDefaultUseCaretButton()
+    {
+        return true;
+    }
+
+    /**
+     * @return boolean
+     */
+    protected function getUseCaretButton()
+    {
+        return $this->getParam(self::PARAM_USE_CARET_BUTTON) && $this->getShowCaret();
+    }
+
+    /**
      * Get additional buttons
      *
      * @return array
      */
     protected function getAdditionalButtons()
     {
-        if (!isset($this->additionalButtons)) {
-            $this->additionalButtons = $this->defineAdditionalButtons();
-        }
-
-        return $this->additionalButtons;
+        return $this->executeCachedRuntime(function () {
+            return $this->prepareAdditionalButtons($this->defineAdditionalButtons());
+        });
     }
 
     /**
@@ -77,18 +140,45 @@ class ADropdown extends \XLite\View\Button\AButton
      */
     protected function defineAdditionalButtons()
     {
-        return array();
+        return [];
     }
 
     /**
-     * Get style 
-     * 
+     * @param array $additionalButtons
+     *
+     * @return array
+     */
+    protected function prepareAdditionalButtons($additionalButtons)
+    {
+        uasort($additionalButtons, function ($a, $b) {
+            $a = $a['position'];
+            $b = $b['position'];
+
+            if ($a === $b) {
+                return 0;
+            }
+
+            return ($a < $b) ? -1 : 1;
+        });
+
+        $result = [];
+        foreach ($additionalButtons as $name => $additionalButton) {
+            $result[$name] = $this->getWidget(
+                $additionalButton['params'],
+                isset($additionalButton['class']) ? $additionalButton['class'] : 'XLite\View\Button\Regular'
+            );
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get style
+     *
      * @return string
      */
-    protected function getStyle()
+    protected function getClass()
     {
-        return 'dropdown'
-            . ($this->getAdditionalButtons() ? ' not-round' : '')
-            . ($this->getParam(self::PARAM_STYLE) ? ' ' . $this->getParam(self::PARAM_STYLE) : '');
+        return parent::getClass() . ($this->getUseCaretButton() ? ' trigger-first-item' : '');
     }
 }

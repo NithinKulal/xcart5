@@ -13,47 +13,47 @@ namespace XLite\Module\XC\CrispWhiteSkin\Core;
  */
 class Layout extends \XLite\Core\Layout implements \XLite\Base\IDecorator
 {
-    /**
-     * @return array
-     */
-    protected function getSidebarFirstHiddenTargets()
-    {
-        return array_merge(
-            parent::getSidebarFirstHiddenTargets(),
-            [
-                'main',
-                'search',
-                'contact_us',
-                'page',
-                'order_list',
-                'address_book',
-                'profile',
-                'messages',
-                'login',
-                'recover_password',
-            ]
-        );
-    }
+    // /**
+    //  * @return array
+    //  */
+    // protected function getSidebarFirstHiddenTargets()
+    // {
+    //     return array_merge(
+    //         parent::getSidebarFirstHiddenTargets(),
+    //         [
+    //             'main',
+    //             'search',
+    //             'contact_us',
+    //             'page',
+    //             'order_list',
+    //             'address_book',
+    //             'profile',
+    //             'messages',
+    //             'login',
+    //             'recover_password',
+    //         ]
+    //     );
+    // }
 
-    /**
-     * @return array
-     */
-    protected function getSidebarSecondHiddenTargets()
-    {
-        return array_merge(
-            parent::getSidebarSecondHiddenTargets(),
-            [
-                'main',
-                'search',
-                'contact_us',
-                'page',
-                'order_list',
-                'address_book',
-                'profile',
-                'messages',
-                'login',
-                'recover_password',
-            ]
-        );
-    }
+    // /**
+    //  * @return array
+    //  */
+    // protected function getSidebarSecondHiddenTargets()
+    // {
+    //     return array_merge(
+    //         parent::getSidebarSecondHiddenTargets(),
+    //         [
+    //             'main',
+    //             'search',
+    //             'contact_us',
+    //             'page',
+    //             'order_list',
+    //             'address_book',
+    //             'profile',
+    //             'messages',
+    //             'login',
+    //             'recover_password',
+    //         ]
+    //     );
+    // }
 }

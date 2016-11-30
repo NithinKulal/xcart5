@@ -437,6 +437,99 @@ class Profile extends \XLite\Model\AEntity
         return $this->getAddressByType(\XLite\Model\Address::SHIPPING);
     }
 
+
+    /**
+     * Switches current billing address to a new one
+     * 
+     * @param \XLite\Model\Address $new
+     */
+    public function setBillingAddress($new)
+    {
+        $current = $this->getBillingAddress();
+
+        if ($current && $current->getUniqueIdentifier() == $new->getUniqueIdentifier()) {
+            return;
+        }
+
+        $this->setAddress('billing', $new);
+    }
+
+    /**
+     * Switches current shipping address to a new one
+     * 
+     * @param \XLite\Model\Address $new
+     */
+    public function setShippingAddress($new)
+    {
+        $current = $this->getShippingAddress();
+
+        if ($current && $current->getUniqueIdentifier() == $new->getUniqueIdentifier()) {
+            return;
+        }
+
+        $this->setAddress('shipping', $new);
+    }
+
+    /**
+     * Set current address by type
+     * 
+     * @param string $type    
+     * @param \XLite\Model\Address $new  
+     */
+    protected function setAddress($type, $new)
+    {
+        $current = ($type == 'shipping')
+            ? $this->getShippingAddress()
+            : $this->getBillingAddress();
+
+        if ($current && $current->getUniqueIdentifier() == $new->getUniqueIdentifier()) {
+            return;
+        }
+
+        $useAsOtherType = null;
+
+        // Disable current address
+        if ($current) {
+            if ($current->getIsWork()) {                
+                $this->getAddresses()->removeElement($current);
+                \XLite\Core\Database::getEM()->remove($current);
+            }
+
+            $useAsOtherType = ($type == 'shipping') 
+                ? $current->getIsBilling() 
+                : $current->getIsShipping();
+
+            $current->setIsShipping(false);
+            $current->setIsBilling(false);
+        }
+
+        // Check if new address is not assigned to this profile
+        $addToProfile = true;
+
+        foreach ($this->getAddresses() as $profileAddress) {
+            if ($profileAddress->getUniqueIdentifier() == $new->getUniqueIdentifier()) {
+                $addToProfile = false;
+            }
+        }
+
+        if ($addToProfile) {
+            $this->addAddresses($new);
+            $new->setProfile($this);
+        }
+
+        if ($type == 'shipping') {
+            $new->setIsShipping(true);
+            if ($useAsOtherType !== null) {
+                $new->setIsBilling($useAsOtherType);
+            }
+        } else {
+            $new->setIsBilling(true);
+            if ($useAsOtherType !== null) {
+                $new->setIsShipping($useAsOtherType);
+            }
+        }
+    }
+
     /**
      * Returns first available address
      *
@@ -1567,5 +1660,30 @@ class Profile extends \XLite\Model\AEntity
     public function getRoles()
     {
         return $this->roles;
+    }
+
+    /**
+     * Logoff profile from sessions
+     *
+     * @param bool $exceptCurrent
+     * @param bool $flush
+     */
+    public function logoffSessions($exceptCurrent = true, $flush = true)
+    {
+        $currentSid = $exceptCurrent ? \XLite\Core\Session::getInstance()->getID() : null;
+        $sessionCells = \XLite\Core\Database::getRepo('XLite\Model\SessionCell')->findBy([
+            'name' => 'profile_id',
+            'value' => $this->getProfileId()
+        ]);
+
+        foreach ($sessionCells as $sessionCell) {
+            $session = $sessionCell->getSession();
+            if (!$exceptCurrent || $session->getSid() !== $currentSid) {
+                $session->logoff();
+            }
+        }
+        if ($flush) {
+            \XLite\Core\Database::getEM()->flush();
+        }
     }
 }

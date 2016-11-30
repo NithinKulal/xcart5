@@ -1,0 +1,12 @@
+{##
+ # Checkbox
+ #
+ # @ListChild (list="upgrade.step.ready_to_install.buttons.sections.left", weight="150")
+ #}
+
+{% if this.hasDisabledModulesHooks() %}
+  <div class="alert agree-remove">
+    <input type="checkbox" id="agree_remove" name="agree_remove" />
+    <label for="agree_remove">{{ t('I understand that the following disabled modules will be removed.')|raw }}</label>
+  </div>
+{% endif %}

@@ -7,6 +7,7 @@
  */
 
 namespace XLite\Model\Shipping;
+use XLite\View\FormField\Input\PriceOrPercent;
 
 /**
  * Shipping method model
@@ -153,6 +154,15 @@ class Method extends \XLite\Model\Base\I18n
      * @Column (type="decimal", precision=14, scale=4)
      */
     protected $handlingFee = 0;
+
+    /**
+     * Handling fee type(absolute or percent)
+     *
+     * @var string
+     *
+     * @Column (type="string", length=1)
+     */
+    protected $handlingFeeType = \XLite\View\FormField\Select\AbsoluteOrPercent::TYPE_ABSOLUTE;
 
     /**
      * Constructor
@@ -346,9 +356,36 @@ class Method extends \XLite\Model\Base\I18n
      */
     public function getHandlingFee()
     {
+        return [
+            PriceOrPercent::PRICE_VALUE => $this->getHandlingFeeValue(),
+            PriceOrPercent::TYPE_VALUE => $this->getHandlingFeeType()
+        ];
+    }
+
+    /**
+     * Returns handling fee
+     *
+     * @return float
+     */
+    public function getHandlingFeeValue()
+    {
         $parentMethod = $this->getParentMethod();
 
-        return $parentMethod ? $parentMethod->getHandlingFee() : $this->handlingFee;
+        return $parentMethod ? $parentMethod->getHandlingFeeValue() : $this->handlingFee;
+    }
+
+    /**
+     * Returns handling fee
+     *
+     * @param float
+     *
+     * @return float
+     */
+    public function setHandlingFeeValue($value)
+    {
+        $this->handlingFee = $value;
+
+        return $this;
     }
 
     /**
@@ -562,12 +599,49 @@ class Method extends \XLite\Model\Base\I18n
     /**
      * Set handlingFee
      *
-     * @param decimal $handlingFee
+     * @param array $handlingFee
      * @return Method
      */
     public function setHandlingFee($handlingFee)
     {
-        $this->handlingFee = $handlingFee;
+        $this->setHandlingFeeValue(
+            isset($handlingFee[PriceOrPercent::PRICE_VALUE])
+                ? $handlingFee[PriceOrPercent::PRICE_VALUE]
+                : 0
+        );
+
+        $this->setHandlingFeeType(
+            isset($handlingFee[PriceOrPercent::TYPE_VALUE])
+                ? $handlingFee[PriceOrPercent::TYPE_VALUE]
+                : \XLite\View\FormField\Select\AbsoluteOrPercent::TYPE_ABSOLUTE
+        );
+
+        return $this;
+    }
+
+    /**
+     * Return handling fee type, possible values:
+     * \XLite\View\FormField\Select\AbsoluteOrPercent::TYPE_ABSOLUTE
+     * \XLite\View\FormField\Select\AbsoluteOrPercent::TYPE_PERCENT
+     *
+     * @return string
+     */
+    public function getHandlingFeeType()
+    {
+        $parentMethod = $this->getParentMethod();
+
+        return $parentMethod ? $parentMethod->getHandlingFeeType() : $this->handlingFeeType;
+    }
+
+    /**
+     * Set shipping handling fee type (% or absolute)
+     *
+     * @param string $handlingFeeType
+     * @return $this
+     */
+    public function setHandlingFeeType($handlingFeeType)
+    {
+        $this->handlingFeeType = $handlingFeeType;
         return $this;
     }
 

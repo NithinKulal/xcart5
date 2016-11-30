@@ -97,7 +97,7 @@ abstract class ThemeTweaker extends \XLite\Controller\Admin\AAdmin
 
         \XLite\Core\Database::getRepo('XLite\Model\Config')->update(
             $setting,
-            array('value' => isset(\XLite\Core\Request::getInstance()->use))
+            array('value' => \XLite\Core\Request::getInstance()->use ? '1' : '')
         );
 
         $data = \XLite\Core\Request::getInstance()->getNonFilteredData();

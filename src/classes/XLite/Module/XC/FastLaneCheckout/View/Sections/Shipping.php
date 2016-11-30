@@ -64,4 +64,29 @@ class Shipping extends \XLite\View\AView
     {
         return static::t('Proceed to payment');
     }
+
+    protected function isEmailFieldVisible()
+    {
+        return !FastLaneCheckout\View\Sections::isAddressSectionNeeded();
+    }
+
+    protected function hasNonTemporaryAddress()
+    {
+        $profile = $this->getCart()->getProfile();
+
+        if ($profile) {
+            foreach ($profile->getAddresses() as $address) {
+                if (false == $address->getIsWork()) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    protected function isAddressBookVisible()
+    {
+        return $this->isLogged() && $this->hasNonTemporaryAddress();
+    }
 }

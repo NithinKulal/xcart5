@@ -224,6 +224,7 @@
 .items-list-table.order-items tbody td.cell.price .restore-orig-price {
   top: -45px;
   right: -5px;
+  text-align: right;
   position: relative;
   height: 0;
 }

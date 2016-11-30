@@ -30,7 +30,7 @@ class AustraliaPost extends \XLite\Model\Shipping\Processor\AProcessor
     protected $apiRequestTypes = array(
 
         'DomesticLetterService' => array(
-            'uri'  => '/api/postage/letter/domestic/service',
+            'uri'  => '/postage/letter/domestic/service',
             'validation' => array(
                 'length'    => 260, // mm
                 'width'     => 360, // mm
@@ -40,11 +40,11 @@ class AustraliaPost extends \XLite\Model\Shipping\Processor\AProcessor
         ),
 
         'DomesticParcelService' => array(
-            'uri'  => '/api/postage/parcel/domestic/service',
+            'uri'  => '/postage/parcel/domestic/service',
         ),
 
         'InternationalLetterService' => array(
-            'uri'  => '/api/postage/letter/international/service',
+            'uri'  => '/postage/letter/international/service',
             'validation' => array(
                 'country_code' => 1,   // Compare with list of allowed countries
                 'weight'       => 500, // g
@@ -52,25 +52,25 @@ class AustraliaPost extends \XLite\Model\Shipping\Processor\AProcessor
         ),
 
         'InternationalParcelService' => array(
-            'uri'  => '/api/postage/parcel/international/service',
+            'uri'  => '/postage/parcel/international/service',
             'validation' => array(
                 'country_code' => 1,   // Compare with list of allowed countries
             ),
         ),
 
         'DomesticLetterPostage' => array(
-            'uri'  => '/api/postage/letter/domestic/calculate',
+            'uri'  => '/postage/letter/domestic/calculate',
             'validation' => array(
                 'weight' => 500, // g
             ),
         ),
 
         'DomesticParcelPostage' => array(
-            'uri'  => '/api/postage/parcel/domestic/calculate',
+            'uri'  => '/postage/parcel/domestic/calculate',
         ),
 
         'InternationalLetterPostage' => array(
-            'uri'  => '/api/postage/letter/international/calculate',
+            'uri'  => '/postage/letter/international/calculate',
             'validation' => array(
                 'country_code' => 1,   // Compare with list of allowed countries
                 'weight'       => 500, // g
@@ -78,7 +78,7 @@ class AustraliaPost extends \XLite\Model\Shipping\Processor\AProcessor
         ),
 
         'InternationalParcelPostage' => array(
-            'uri'  => '/api/postage/parcel/international/calculate',
+            'uri'  => '/postage/parcel/international/calculate',
             'validation' => array(
                 'country_code' => 1,     // Compare with list of allowed countries
                 'weight'       => 20000, // 20 kg
@@ -86,47 +86,47 @@ class AustraliaPost extends \XLite\Model\Shipping\Processor\AProcessor
         ),
 
         'Country' => array(
-            'uri'     => '/api/postage/country',
+            'uri'     => '/postage/country',
             'service' => true,
         ),
 
         'DomesticLetterThickness' => array(
-            'uri'     => '/api/postage/letter/domestic/thickness',
+            'uri'     => '/postage/letter/domestic/thickness',
             'service' => true,
         ),
 
         'DomesticLetterWeight' => array(
-            'uri'     => '/api/postage/letter/domestic/weight',
+            'uri'     => '/postage/letter/domestic/weight',
             'service' => true,
         ),
 
         'DomesticLetterEnvelopeSize' => array(
-            'uri'     => '/api/postage/letter/domestic/size',
+            'uri'     => '/postage/letter/domestic/size',
             'service' => true,
         ),
 
         'InternationalLetterWeight' => array(
-            'uri'     => '/api/postage/letter/international/weight',
+            'uri'     => '/postage/letter/international/weight',
             'service' => true,
         ),
 
         'InternationalParcelWeight' => array(
-            'uri'     => '/api/postage/parcel/international/weight',
+            'uri'     => '/postage/parcel/international/weight',
             'service' => true,
         ),
 
         'DomesticParcelWeight' => array(
-            'uri'     => '/api/postage/parcel/domestic/weight',
+            'uri'     => '/postage/parcel/domestic/weight',
             'service' => true,
         ),
 
         'DomesticParcelBoxType' => array(
-            'uri'     => '/api/postage/parcel/domestic/type',
+            'uri'     => '/postage/parcel/domestic/type',
             'service' => true,
         ),
 
         'DomesticParcelBoxSize' => array(
-            'uri'     => '/api/postage/parcel/domestic/size',
+            'uri'     => '/postage/parcel/domestic/size',
             'service' => true,
         ),
     );
@@ -243,8 +243,8 @@ class AustraliaPost extends \XLite\Model\Shipping\Processor\AProcessor
     public function getApiURL()
     {
         return $this->isTestMode()
-            ? 'https://test.npe.auspost.com.au'
-            : 'https://auspost.com.au';
+            ? 'https://test.npe.auspost.com.au/api'
+            : 'https://digitalapi.auspost.com.au';
     }
 
     // {{{ Rates

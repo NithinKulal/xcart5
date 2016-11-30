@@ -32,7 +32,17 @@ class Shipping extends FastLaneCheckout\View\Blocks\AddressForm
      */
     protected function isPasswordVisible()
     {
-        return $this->isAnonymous();
+        return false;
+    }
+
+    /**
+     * Check - create profile checkbox is visible or not
+     *
+     * @return boolean
+     */
+    protected function isCreateVisible()
+    {
+        return false;
     }
 
     /**

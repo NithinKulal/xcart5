@@ -142,8 +142,19 @@ class UpsellingProduct extends \XLite\View\ItemsList\Model\Table
                 static::COLUMN_CLASS    => 'XLite\View\FormField\Inline\Input\Checkbox\Simple',
                 static::COLUMN_NO_WRAP  => true,
                 static::COLUMN_ORDERBY  => 500,
+                static::COLUMN_HEAD_HELP  => $this->getMutualHeadHelp(),
             ),
         );
+    }
+
+    /**
+     * Return bidirectional links help
+     * 
+     * @return string
+     */
+    protected function getMutualHeadHelp()
+    {
+        return static::t('Mutual link head help');
     }
 
     /**

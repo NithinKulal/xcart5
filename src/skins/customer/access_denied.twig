@@ -1,5 +1,19 @@
 {##
  # Access denied block
  #}
-<div class="head-h3">{{ t('Access denied!') }}</div>
-{{ t('You are not allowed to access this resource!') }}
+
+{% if this.isPageTitleVisible() or this.getTitle() is empty %}
+  <div class="head-h3">{{ this.getTitle() ?: this.getDefaultPageTitle() }}</div>
+{% endif %}
+
+<p>
+  {{ t('Unfortunately, you don\'t have permissions to access this page.') }}
+</p>
+<p>
+{% if this.isLogged() %}
+  {{ t('Please, contact administrator', {'contact_link':this.getContactLinkContent()})|raw }}
+{% else %}
+  {{ t('To continue, please, sign in', {'singin':this.getLoginLinkContent()})|raw }}
+{% endif %}
+</p>
+

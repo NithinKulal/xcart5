@@ -57,7 +57,9 @@ class Settings extends \XLite\View\Model\AModel
     public function getJSFiles()
     {
         $list = parent::getJSFiles();
-        $list[] = 'settings/summary/controller.js';
+        if (\XLite\Core\Request::getInstance()->page == 'CleanURL') {
+            $list[] = 'settings/clean_url/controller.js';
+        }
 
         return $list;
     }
@@ -377,6 +379,26 @@ class Settings extends \XLite\View\Model\AModel
                     \XLite\View\Button\Regular::PARAM_JS_CODE => 'self.location=\'' . $url . '\'',
                 )
             );
+
+            $url = $this->buildURL('cache_management', 'clear_cache');
+            $result['clear_cache'] = new \XLite\View\Button\Tooltip(
+                array(
+                    \XLite\View\Button\AButton::PARAM_LABEL => 'Clear cache',
+                    \XLite\View\Button\AButton::PARAM_STYLE => 'action always-enabled',
+                    \XLite\View\Button\Tooltip::PARAM_SEPARATE_TOOLTIP => static::t('Clear cache help text'),
+                    \XLite\View\Button\Regular::PARAM_JS_CODE => 'self.location=\'' . $url . '\'',
+                )
+            );
+
+            $url = $this->buildURL('cache_management', 'rebuild_view_lists');
+            $result['rebuild_view_lists'] = new \XLite\View\Button\Tooltip(
+                array(
+                    \XLite\View\Button\AButton::PARAM_LABEL => 'Rebuild view lists',
+                    \XLite\View\Button\AButton::PARAM_STYLE => 'action always-enabled',
+                    \XLite\View\Button\Tooltip::PARAM_SEPARATE_TOOLTIP => static::t('Rebuild view lists help text'),
+                    \XLite\View\Button\Regular::PARAM_JS_CODE => 'self.location=\'' . $url . '\'',
+                )
+            );
         }
 
         return $result;
@@ -548,6 +570,37 @@ class Settings extends \XLite\View\Model\AModel
     }
 
     /**
+     * Preprocess option - attach_pdf_invoices
+     *
+     * @param \XLite\Model\Config $option Option entity
+     *
+     * @return boolean
+     */
+    protected function preprocessAttachPdfInvoicesOption($option)
+    {
+        if (!$option->getNewValue()) {
+            return true;
+        }
+
+        $requiredExtensions = ['DOM', 'GD'];
+        $missedExtensions = [];
+
+        foreach ($requiredExtensions as $extension) {
+            if (!extension_loaded($extension)) {
+                $missedExtensions[] = $extension;
+            }
+        }
+
+        if (empty($missedExtensions)) {
+            return true;
+        }
+
+        $this->addErrorMessage('attach_pdf_invoices', static::t('Required php extensions is not loaded: X', ['extensions' => implode(', ', $missedExtensions)]));
+
+        return false;
+    }
+
+    /**
      * Get editable options
      *
      * @return array
@@ -555,7 +608,7 @@ class Settings extends \XLite\View\Model\AModel
     protected function getEditableOptions()
     {
         $options = $this->getOptions();
-        $exclude = array('separator', 'hidden');
+        $exclude = $this->getNotEditableOptionTypes();
         foreach ($options as $key => $option) {
             if (in_array($option->getType(), $exclude, true)) {
                 unset($options[$key]);
@@ -563,6 +616,20 @@ class Settings extends \XLite\View\Model\AModel
         }
 
         return $options;
+    }
+
+    /**
+     * Get editable options
+     *
+     * @return array
+     */
+    protected function getNotEditableOptionTypes()
+    {
+        return [
+            'separator',
+            'hidden',
+            'XLite\View\FormField\Label\TranslationLabel'
+        ];
     }
 
     /**
@@ -612,7 +679,7 @@ class Settings extends \XLite\View\Model\AModel
         $name = $option->getName();
 
         $validationMethod = 'sanitize'
-            . \Includes\Utils\Converter::convertToCamelCase($category)
+            . str_replace("\\", '', \Includes\Utils\Converter::convertToCamelCase($category))
             . \Includes\Utils\Converter::convertToCamelCase($name);
 
         if (method_exists($this, $validationMethod)) {

@@ -1,25 +1,18 @@
 {##
  # Checkout : order review step : selected state : items
  #}
-<address inline-template >
-  <div class="address-box" v-data='{ "type": "{{ this.getAddressType() }}" }' v-cloak>
-    <div class="address-header">
-      {% verbatim %}
-        {{ title }}: {{ person }}
-      {% endverbatim %}
-    </div>
 
-    <div v-if="!same_address">
+<address inline-template>
+  <div class="checkout_fastlane_address_wrapper {{ this.getDisplayType() }}" v-bind:class="classes">
+    {% if this.isSameAddress() and this.isSameAddressVisible() %}
+      <div class="is-same-address-text">{{ t('The same as shipping') }}</div>
+    {% endif %}
+    <div class="address-box" v-data='{ "type": "{{ this.getAddressType() }}", "addressId": "{{ this.getAddressId() }}", "fieldsDefault": {{ this.serializeFormSchema() }}, "display": "{{ this.getDisplayType() }}" }'>
       {% for fieldName, fieldData in this.getAddressFields() %}
         <span class="address-field address-field_{{ fieldName }}" v-text="{{'fields.' ~ fieldName }}">{{ fieldData.value }}</span>
-
       {% endfor %}
     </div>
+
+    {{ widget('XLite\\Module\\XC\\FastLaneCheckout\\View\\Button\\AddressModify', label=t('Edit'), style='checkout_fastlane_address_edit_link always-reload', type=this.getAddressType(), widgetTitle=this.getEditAddressTitle(), attributes={'v-bind:title': 'btnTitle'}) }}
   </div>
-  {% if this.getAddressType() == 'billing' %}
-    <script type="application/javascript">
-      window.countryNames = {{ this.buildCountryNamesObject() | raw }};
-      window.stateNames = {{ this.buildStateNamesObject() | raw }};
-    </script>
-  {% endif %}
 </address>

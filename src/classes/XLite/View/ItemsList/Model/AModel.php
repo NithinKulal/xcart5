@@ -57,18 +57,11 @@ abstract class AModel extends \XLite\View\ItemsList\AItemsList
     protected $requestData;
 
     /**
-     * Inline fields
+     * Entities created by $this::processCreate
      *
      * @var array
      */
-    protected $inlineFields;
-
-    /**
-     * Dump entity
-     *
-     * @var \XLite\Model\AEntity
-     */
-    protected $dumpEntity;
+    protected $createdEntities = [];
 
     /**
      * Set widget params
@@ -81,7 +74,7 @@ abstract class AModel extends \XLite\View\ItemsList\AItemsList
     {
         parent::setWidgetParams($params);
 
-        if (in_array($this->getSortableType(), [static::SORT_TYPE_MOVE, static::SORT_TYPE_INPUT])) {
+        if (in_array($this->getSortableType(), [static::SORT_TYPE_MOVE, static::SORT_TYPE_INPUT], true)) {
             unset($this->widgetParams[static::PARAM_SORT_BY]);
         }
     }
@@ -129,6 +122,16 @@ abstract class AModel extends \XLite\View\ItemsList\AItemsList
     }
 
     /**
+     * Return list of created entities
+     *
+     * @return array
+     */
+    public function getCreatedEntities()
+    {
+        return $this->createdEntities;
+    }
+
+    /**
      * Get self
      *
      * @return \XLite\View\ItemsList\Model\AModel
@@ -149,12 +152,13 @@ abstract class AModel extends \XLite\View\ItemsList\AItemsList
      */
     abstract protected function getFieldObjects();
 
-    /**
-     * Define repository name
-     *
-     * @return string
-     */
-    abstract protected function defineRepositoryName();
+    /** @todo: remove before commit */
+    ///**
+    // * Define repository name
+    // *
+    // * @return string
+    // */
+    //abstract protected function defineRepositoryName();
 
     /**
      * Quick process
@@ -170,7 +174,6 @@ abstract class AModel extends \XLite\View\ItemsList\AItemsList
         $this->process();
     }
 
-
     /**
      * Process
      *
@@ -183,16 +186,6 @@ abstract class AModel extends \XLite\View\ItemsList\AItemsList
         $this->processCreate();
 
         \XLite\Core\Database::getEM()->flush();
-    }
-
-    /**
-     * Get repository
-     *
-     * @return \XLite\Model\Repo\ARepo
-     */
-    protected function getRepository()
-    {
-        return \XLite\Core\Database::getRepo($this->defineRepositoryName());
     }
 
     // {{{ Create
@@ -227,6 +220,7 @@ abstract class AModel extends \XLite\View\ItemsList\AItemsList
                     if ($this->prevalidateNewEntity($entity)) {
                         $this->insertNewEntity($entity);
                         $this->postprocessInsertedEntity($entity, $line);
+                        $this->createdEntities[] = $entity;
                         $count++;
 
                     } else {
@@ -347,7 +341,7 @@ abstract class AModel extends \XLite\View\ItemsList\AItemsList
      */
     protected function getCreateMessage($count)
     {
-        return \XLite\Core\Translation::lbl('X entities has been created', array('count' => $count));
+        return static::t('X entities has been created', array('count' => $count));
     }
 
     /**
@@ -369,11 +363,9 @@ abstract class AModel extends \XLite\View\ItemsList\AItemsList
      */
     protected function getDumpEntity()
     {
-        if (null === $this->dumpEntity) {
-            $this->dumpEntity = $this->createEntity();
-        }
-
-        return $this->dumpEntity;
+        return $this->executeCachedRuntime(function () {
+            return $this->createEntity();
+        });
     }
 
     /**
@@ -694,8 +686,9 @@ abstract class AModel extends \XLite\View\ItemsList\AItemsList
      */
     protected function isDefaultEntity(\XLite\Model\AEntity $entity)
     {
-        return isset($this->requestData['defaultValue'])
-            && $this->requestData['defaultValue'] == $entity->getUniqueIdentifier();
+        $requestData = $this->getRequestData();
+
+        return isset($requestData['defaultValue']) && (int) $requestData['defaultValue'] === $entity->getUniqueIdentifier();
     }
 
     /**
@@ -765,11 +758,9 @@ abstract class AModel extends \XLite\View\ItemsList\AItemsList
      */
     protected function prepareInlineFields()
     {
-        if (null === $this->inlineFields) {
-            $this->inlineFields = $this->defineInlineFields();
-        }
-
-        return $this->inlineFields;
+        return $this->executeCachedRuntime(function () {
+            return $this->defineInlineFields();
+        });
     }
 
     /**
@@ -1270,28 +1261,11 @@ abstract class AModel extends \XLite\View\ItemsList\AItemsList
     /**
      * Get panel class
      *
-     * @return \XLite\View\Base\FormStickyPanel
+     * @return string|\XLite\View\Base\FormStickyPanel
      */
     protected function getPanelClass()
     {
         return 'XLite\View\StickyPanel\ItemsListForm';
-    }
-
-    // }}}
-
-    // {{{ Data
-
-    /**
-     * Return entities list
-     *
-     * @param \XLite\Core\CommonCell $cnd       Search condition
-     * @param boolean                $countOnly Return items list or only its size OPTIONAL
-     *
-     * @return array|integer
-     */
-    protected function getData(\XLite\Core\CommonCell $cnd, $countOnly = false)
-    {
-        return $this->getRepository()->search($cnd, $countOnly);
     }
 
     // }}}

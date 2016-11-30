@@ -2,6 +2,12 @@
  # Social Login sign-in button
  #}
 
+{% if this.getSeparatorPosition() == 'before' %}
+<div class="or-separator">
+  <span class="or-separator-text">{{ this.getSeparatorText() }}</span>
+</div>
+{% endif %}
+
 {% if this.getTextBefore() %}
   <div class="social-login-note note-before">
     {{ this.getTextBefore() }}
@@ -22,6 +28,8 @@
   </div>
 {% endif %}
 
+{% if this.getSeparatorPosition() == 'after' %}
 <div class="or-separator">
-  <span class="or-separator-text">{{ t('or') }}</span>
+  <span class="or-separator-text">{{ this.getSeparatorText() }}</span>
 </div>
+{% endif %}

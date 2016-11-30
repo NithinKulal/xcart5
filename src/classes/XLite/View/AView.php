@@ -96,7 +96,17 @@ abstract class AView extends \XLite\Core\Handler
      */
     public static function getAllowedTargets()
     {
-        return array();
+        return [];
+    }
+
+    /**
+     * Return list of disallowed targets
+     *
+     * @return string[]
+     */
+    public static function getDisallowedTargets()
+    {
+        return [];
     }
 
     /**
@@ -320,7 +330,7 @@ abstract class AView extends \XLite\Core\Handler
 
             array_pop(static::$viewsTail);
 
-            $this->finalizeTemplateDisplay($template, $profilerData);
+            $this->finalizeTemplateDisplay($templatePath, $profilerData);
 
         } else if ($this->getDefaultTemplate() !== null) {
             \XLite\Logger::getInstance()->log(
@@ -351,13 +361,24 @@ abstract class AView extends \XLite\Core\Handler
 
     /**
      * Check for current target
-     * @todo: must be static
      *
      * @param array $targets List of allowed targets
      *
      * @return boolean
      */
     public static function isDisplayRequired(array $targets)
+    {
+        return in_array(\XLite\Core\Request::getInstance()->target, $targets, true);
+    }
+
+    /**
+     * Check for current target
+     *
+     * @param array $targets List of disallowed targets
+     *
+     * @return boolean
+     */
+    public static function isDisplayRestricted(array $targets)
     {
         return in_array(\XLite\Core\Request::getInstance()->target, $targets, true);
     }
@@ -559,7 +580,7 @@ abstract class AView extends \XLite\Core\Handler
     {
         $targets = static::getAllowedTargets();
 
-        return !((bool) $targets) || static::isDisplayRequired($targets);
+        return (!((bool)$targets) || static::isDisplayRequired($targets)) && !static::isDisplayRestricted(static::getDisallowedTargets());
     }
 
     /**
@@ -1943,6 +1964,16 @@ abstract class AView extends \XLite\Core\Handler
     }
 
     /**
+     * Get apple icon
+     *
+     * @return string
+     */
+    public function getAppleIcon()
+    {
+        return \XLite\Core\Layout::getInstance()->getAppleIcon();
+    }
+
+    /**
      * Get invoice logo
      *
      * @return string
@@ -1988,7 +2019,7 @@ abstract class AView extends \XLite\Core\Handler
                 default:
             }
 
-            if ($addressFieldValue || $showEmpty) {
+            if (strlen($addressFieldValue) || $showEmpty) {
                 $result[$field->getServiceName()] = array(
                     'css_class' => $cssFieldName,
                     'title'     => $field->getName(),
@@ -2142,6 +2173,7 @@ abstract class AView extends \XLite\Core\Handler
         return array(
             \Includes\Utils\URLManager::isHTTPS(),
             \XLite\Core\Session::getInstance()->getLanguage()->getCode(),
+            \XLite\Core\Config::getInstance()->General->default_language,
             substr(get_called_class(), 6),
         );
     }
@@ -2333,6 +2365,9 @@ abstract class AView extends \XLite\Core\Handler
     /** @var RenderingContextInterface */
     protected $renderingContext;
 
+    /**
+     * @return RenderingContextInterface
+     */
     protected function getRenderingContext()
     {
         if ($this->renderingContext === null) {

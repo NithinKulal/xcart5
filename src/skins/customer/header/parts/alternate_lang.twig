@@ -1,0 +1,11 @@
+{##
+ # Alternate languages links
+ #
+ # @ListChild (list="head", weight="3")
+ #}
+
+{% if this.hasAlternateLangUrls() %}
+  {% for code, url in this.getAlternateLangUrls() %}
+    <link rel="alternate" hreflang="{{ code }}" href="{{ url }}"/>
+  {% endfor %}
+{% endif %}

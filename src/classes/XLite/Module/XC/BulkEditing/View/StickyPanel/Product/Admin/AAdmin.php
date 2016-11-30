@@ -14,17 +14,24 @@ namespace XLite\Module\XC\BulkEditing\View\StickyPanel\Product\Admin;
 abstract class AAdmin extends \XLite\View\StickyPanel\Product\Admin\AAdmin implements \XLite\Base\IDecorator
 {
     /**
-     * Define buttons widgets
+     * Define additional buttons
      *
      * @return array
      */
-    protected function defineButtons()
+    protected function defineAdditionalButtons()
     {
-        $list = parent::defineButtons();
-        $list['bulk_edit'] = $this->getWidget(
-            [],
-            'XLite\Module\XC\BulkEditing\View\Button\Product'
-        );
+        $list = parent::defineAdditionalButtons();
+        $list['bulk_edit'] = [
+            'class'    => 'XLite\Module\XC\BulkEditing\View\Button\Product',
+            'params'   => [
+                'style'          => 'more-action always-enabled',
+                'useCaretButton' => false,
+                'dropDirection'  => 'dropup',
+            ],
+            'position' => 50,
+        ];
+
+        unset($list['delete']);
 
         return $list;
     }

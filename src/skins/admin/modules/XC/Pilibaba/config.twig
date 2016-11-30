@@ -2,12 +2,16 @@
  # Pilibaba configuration page
  #}
 
+<div class="method-status">
+    {{ widget('\\XLite\\View\\Payment\\MethodStatus', method=this.getPaymentMethod()) }}
+</div>
+
 {% include 'modules/XC/Pilibaba/info_block.twig' %}
 
 <h3>Your account settings</h3>
 {% form '\\XLite\\View\\Form\\Payment\\Method\\Admin\\Settings' with {formParams: {'method_id': this.paymentMethod.getMethodId()}} %}
 
-  <table cellspacing="1" cellpadding="5" class="settings-table pilibaba-settings">
+  <table cellspacing="1" cellpadding="5" class="settings-table model-properties pilibaba-settings">
     <tr>
         <td class="setting-name"><label for="settings_merchant_no">{{ t('Merchant NO') }}</label></td>
         <td>
@@ -28,7 +32,7 @@
 
     <tr>
         <td class="setting-name"><label for="settings_order_prefix">{{ t('Order prefix') }}</label></td>
-        <td><input type="text" id="settings_order_prefix" name="settings[orderPrefix]" value="{{ this.paymentMethod.getSetting('orderPrefix') }}" /></td>
+        <td><input type="text" id="settings_order_prefix" name="settings[prefix]" value="{{ this.paymentMethod.getSetting('prefix') }}" /></td>
         <td></td>
     </tr>
 
@@ -36,10 +40,12 @@
       <td class="setting-name"><label for="settings_shipping_fee">{{ t('Shipping fee') }}</label></td>
       <td>
         {{ widget('\\XLite\\View\\FormField\\Input\\Text\\FloatInput', fieldId='settings_shipping_fee', fieldName='settings[shippingFee]', fieldOnly='true', min='0', value=this.paymentMethod.getSetting('shippingFee')) }}
-
-        {{ widget('\\XLite\\View\\Tooltip', isImageTag='true', className='help-icon', text='The shipping cost from your warehouse to Pilibaba warehouse') }}
       </td>
-      <td></td>
+      <td>
+        <div class="help-wrapper">
+          {{ widget('\\XLite\\View\\Tooltip', isImageTag='true', className='help-icon', text='The shipping cost from your warehouse to Pilibaba warehouse') }}
+        </div>
+      </td>
     </tr>
 
     <tr>

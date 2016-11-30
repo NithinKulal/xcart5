@@ -12,7 +12,6 @@ use XLite\View\CacheableTrait;
 
 /**
  * Abstract widget class for widgets 'Customers who ... this product also bought' widget
- *
  */
 abstract class ABought extends \XLite\View\ItemsList\Product\Customer\ACustomer
 {
@@ -23,6 +22,7 @@ abstract class ABought extends \XLite\View\ItemsList\Product\Customer\ACustomer
      */
     const WIDGET_TARGET_PRODUCT = 'product';
 
+    const PARAM_PRODUCT_ID = 'product_id';
 
     /**
      * Get max count of items
@@ -39,30 +39,17 @@ abstract class ABought extends \XLite\View\ItemsList\Product\Customer\ACustomer
     abstract protected function isBlockEnabled();
 
     /**
-     * Return params list to use for search
-     *
-     * @param \XLite\Core\CommonCell $cnd       Search condition
-     * @param boolean                $countOnly Return items list or only its size OPTIONAL
-     *
-     * @return \XLite\Core\CommonCell
-     */
-    abstract protected function getSearchConditions(\XLite\Core\CommonCell $cnd, $countOnly = false);
-
-
-    /**
      * Return list of targets allowed for this widget
      *
      * @return array
      */
     public static function getAllowedTargets()
     {
-        $result = parent::getAllowedTargets();
-
+        $result   = parent::getAllowedTargets();
         $result[] = static::getWidgetTarget();
 
         return $result;
     }
-
 
     /**
      * Return target to retrieve this widget from AJAX
@@ -74,19 +61,17 @@ abstract class ABought extends \XLite\View\ItemsList\Product\Customer\ACustomer
         return self::WIDGET_TARGET_PRODUCT;
     }
 
-
     /**
      * Define and set widget attributes; initialize widget
      *
      * @param array $params Widget params OPTIONAL
      */
-    public function __construct(array $params = array())
+    public function __construct(array $params = [])
     {
         parent::__construct($params);
 
         unset($this->sortByModes[static::SORT_BY_MODE_AMOUNT]);
     }
-
 
     /**
      * Initialize widget (set attributes)
@@ -114,7 +99,7 @@ abstract class ABought extends \XLite\View\ItemsList\Product\Customer\ACustomer
     {
         $list = parent::getWidgetParameters();
 
-        $list['product_id'] = $this->getProductId();
+        $list[self::PARAM_PRODUCT_ID] = $this->getParam(self::PARAM_PRODUCT_ID);
 
         return $list;
     }
@@ -127,6 +112,13 @@ abstract class ABought extends \XLite\View\ItemsList\Product\Customer\ACustomer
     protected function defineWidgetParams()
     {
         parent::defineWidgetParams();
+
+        $this->widgetParams += [
+            self::PARAM_PRODUCT_ID => new \XLite\Model\WidgetParam\ObjectId\Product(
+                'Product ID',
+                \XLite\Core\Request::getInstance()->product_id
+            ),
+        ];
 
         $this->widgetParams[self::PARAM_WIDGET_TYPE]->setValue(self::WIDGET_TYPE_CENTER);
         $this->widgetParams[self::PARAM_DISPLAY_MODE]->setValue(self::DISPLAY_MODE_GRID);
@@ -143,21 +135,7 @@ abstract class ABought extends \XLite\View\ItemsList\Product\Customer\ACustomer
      */
     protected function getPagerClass()
     {
-        return '\XLite\Module\CDev\ProductAdvisor\View\Pager\Customer\ControllerPager';
-    }
-
-    /**
-     * Return products list
-     *
-     * @param \XLite\Core\CommonCell $cnd       Search condition
-     * @param boolean                $countOnly Return items list or only its size OPTIONAL
-     *
-     * @return mixed
-     */
-    protected function getData(\XLite\Core\CommonCell $cnd, $countOnly = false)
-    {
-        return \XLite\Core\Database::getRepo('XLite\Model\Product')
-            ->search($this->getSearchConditions($cnd, $countOnly), $countOnly);
+        return 'XLite\Module\CDev\ProductAdvisor\View\Pager\Customer\ControllerPager';
     }
 
     /**
@@ -167,7 +145,7 @@ abstract class ABought extends \XLite\View\ItemsList\Product\Customer\ACustomer
      */
     protected function getProductId()
     {
-        return intval(\XLite\Core\Request::getInstance()->product_id);
+        return (int) \XLite\Core\Request::getInstance()->product_id;
     }
 
     /**
@@ -179,9 +157,8 @@ abstract class ABought extends \XLite\View\ItemsList\Product\Customer\ACustomer
     protected function getTemplate()
     {
         $template = parent::getTemplate();
-
-        if ($template == $this->getDefaultTemplate()
-            && self::WIDGET_TYPE_SIDEBAR == $this->getParam(self::PARAM_WIDGET_TYPE)
+        if ($template === $this->getDefaultTemplate()
+            && self::WIDGET_TYPE_SIDEBAR === $this->getParam(self::PARAM_WIDGET_TYPE)
         ) {
             $template = self::TEMPLATE_SIDEBAR;
         }
@@ -200,17 +177,14 @@ abstract class ABought extends \XLite\View\ItemsList\Product\Customer\ACustomer
     }
 
     /**
-     * Get cache parameters
+     * Register the widget/request parameters that will be used as the widget cache parameters.
+     * In other words changing these parameters by customer effects on widget content
      *
      * @return array
      */
-    protected function getCacheParameters()
+    protected function defineCachedParams()
     {
-        $list = parent::getCacheParameters();
-
-        $list[] = $this->getProductId();
-
-        return $list;
+        return array_merge(parent::defineCachedParams(), [self::PARAM_PRODUCT_ID]);
     }
 
     /**

@@ -1,0 +1,21 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Price or percent inline styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.inline-price-or-percent .input-price-or-percent .input-group-btn button {
+    padding: 4px 8px;
+    min-height: 32px;
+}
+
+.items-list-table .inline-field.inline-price-or-percent .table-value .input-price-or-percent .table-value {
+    float: left;
+}
+
+.inline-field.inline-price-or-percent .table-value .input-price-or-percent {
+    margin-top: 7px;
+}

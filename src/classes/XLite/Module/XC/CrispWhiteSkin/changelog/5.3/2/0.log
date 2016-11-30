@@ -1,0 +1,24 @@
+Version 5.3.2.0
+
+Improvements
+2016-11-30 - [Change] Fast Lane Checkout module code and UI improvement. #XCN-7165 (Eugene Dementjev) #FastLaneCheckout #CrispWhiteSkin
+2016-10-21 - [Change] Full-featured item list interface with pagination was added for the orders page in the Customer area. #XCN-6307 (Maxim Kuznetsov) #Core #CrispWhiteSkin #MultiCurrency #VendorMessages
+
+Fixes
+2016-11-18 - [Bug] In Crisp White skin, the last product could not be removed from the comparison list as the user was redirected to the home page when removing the last but one. #BUG-3894 (Sergey Elmanov) #Core #ProductComparison #CrispWhiteSkin
+2016-10-21 - [Bug] Layout improvement for One step checkout in Crisp White skin. #BUG-3842 (Michael Lipinski) #CrispWhiteSkin
+2016-10-18 - [Bug] Visual bug in Firefox browser in the Customer area header in Crisp White skin when the Thai language is enabled. Fixed. #BUG-3977 (Michael Lipinski) #CrispWhiteSkin
+2016-09-27 - [Bug] Multiple small layout bugs fixed for Crisp White skin. #BUG-3906 (Michael Lipinski) #CrispWhiteSkin
+2016-08-30 - [Bug] Optimization of Crisp White styles and LessParser.php code to reduce memory usage when compiling less files to css. #BUG-3473 (Michael Lipinski) #Core #CrispWhiteSkin
+2016-08-26 - [Bug] The login/registration popup in the Crisp White skin got closed if an error occurred during login/registration. #BUG-3774 (Michael Lipinski) #CrispWhiteSkin
+2016-08-19 - [Bug] Now a grey placeholder can be displayed for images on page load. Implemented for Crisp White skin. #BUG-3491 (Sergey Elmanov) #Core #ProductAdvisor #CrispWhiteSkin
+2016-08-12 - [Bug] During registration in the process of checkout in Crisp White skin, customer was redirected to the address book page. Now the customer remains on the checkout page. #BUG-3711 (Sergey Elmanov) #CrispWhiteSkin
+2016-08-11 - [Bug] The category block on the home page in mobile view in Crisp White skin was displaying in a wrong way. #BUG-3642 (Michael Lipinski) #CrispWhiteSkin
+2016-08-11 - [Bug] Layout problems in the Shipping methods section at checkout in Crisp White skin. Fixed. #BUG-3708 (Michael Lipinski) #CrispWhiteSkin
+2016-08-09 - [Bug] Layout improvement for the tags block in Crisp White skin. #BUG-3536 (Sergey Elmanov) #CrispWhiteSkin #ProductTags
+2016-08-09 - [Bug] Billing Address section layout improvement for Fast Lane Checkout in Crisp White skin. #BUG-3650 (Sergey Elmanov) #CrispWhiteSkin
+2016-08-09 - [Bug] Added the Display mode setting for the Recently Viewed block, with possible values including text links and icons. #BUG-3483 (Sergey Elmanov) #Core #ProductAdvisor #CrispWhiteSkin
+2016-08-08 - [Bug] Look and feel improvement for the Search page and the Advanced options block on that page in Crisp White skin. #BUG-3533 (Sergey Elmanov) #Core #CrispWhiteSkin
+2016-08-08 - [Bug] Layout improvement related to the filters block on category pages in Crisp White skin. #BUG-3481 (Michael Lipinski) #CrispWhiteSkin
+2016-08-08 - [Bug] Improvement related to the tabs on the product details page. #BUG-3663 (Michael Lipinski) #CrispWhiteSkin
+2016-08-01 - [Bug] Uniform styles implemented for social buttons (The library https://github.com/ilyabirman/Likely is used.) #BUG-3490 (Sergey Elmanov) #Core #GoSocial #CrispWhiteSkin

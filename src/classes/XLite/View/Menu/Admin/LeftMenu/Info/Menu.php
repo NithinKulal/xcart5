@@ -137,7 +137,11 @@ class Menu extends \XLite\View\Menu\Admin\AAdmin
             'upgrade' => array(
                 static::ITEM_WEIGHT     => 300,
                 static::ITEM_WIDGET     => 'XLite\View\Menu\Admin\LeftMenu\Info\Upgrade',
-            )
+            ),
+            'speedUp' => array(
+                static::ITEM_WEIGHT     => 400,
+                static::ITEM_WIDGET     => 'XLite\View\Menu\Admin\LeftMenu\Info\SpeedUp',
+            ),
         );
     }
 

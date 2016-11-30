@@ -8,20 +8,8 @@
 
   <div class="content">
     {% form 'XLite\\View\\Form\\Import' with {formAction: 'cancel'} %}
-      <div class="subcontent">
-        {{ widget('XLite\\View\\EventTaskProgress', event=this.getEventName()) }}
-        {{ widget('XLite\\View\\Button\\Submit', label=t('Cancel')) }}
-        <div class="rows-processed">{{ t('Initializing...') }}</div>
-      </div>
-      <div class="help">
-        <i class="fa fa-exclamation-triangle"></i>
-        <p>
-          {% if this.isBlocking() %}
-            {{ t('The process of import may take much time. You may close the page, the operation will be in progress as background. If the operation takes long enough, we will send you a notification when it is complete.') }}
-          {% else %}
-            {{ t('The process of import may take much time. Please do not close this page until the import is complete') }}
-          {% endif %}
-        </p>
+      <div class="subcontent clearfix">
+        {{ widget('XLite\\View\\EventTaskProgress', event=this.getEventName(), message=this.getProgressMessage() ) }}
       </div>
     {% endform %}
   </div>

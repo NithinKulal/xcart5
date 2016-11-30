@@ -16,8 +16,15 @@ var PopupButtonAddressBook = PopupButton.extend({
 
   callback: function () {
     PopupButtonAddressBook.superclass.callback.apply(this, arguments);
+    
+    core.autoload(PopupButtonAddAddress);
 
     var form = jQuery('form.select-address').eq(0);
+    jQuery(form).commonController(
+      'enableBackgroundSubmit',
+      _.bind(this.onBeforeSubmit, this),
+      _.bind(this.onAfterSubmit, this)
+    );
     jQuery('.select-address .addresses > li').click(
       function() {
         form.get(0).elements.namedItem('addressId').value = $(this).data('address-id');
@@ -25,4 +32,10 @@ var PopupButtonAddressBook = PopupButton.extend({
       }
     );
   },
+
+  onBeforeSubmit: function() {},
+
+  onAfterSubmit: function() {
+    popup.destroy();
+  }
 });

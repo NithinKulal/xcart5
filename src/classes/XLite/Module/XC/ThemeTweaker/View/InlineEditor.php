@@ -20,13 +20,12 @@ class InlineEditor extends \XLite\View\AView
      */
     protected function getCommonFiles()
     {
-        $list = parent::getCommonFiles();
+        $list = array();
 
-        if ($this->isInInlineEditingMode()) {
-            $list[static::RESOURCE_JS][]    = 'js/content-tools/content-tools.js';
-            $list[static::RESOURCE_CSS][]   = 'css/content-tools/content-tools.min.css';
-            $list[static::RESOURCE_JS][]    = $this->getEditorLanguageResource();
-        }
+        $list[static::RESOURCE_JS][]    = 'froala-editor/js/froala_editor.pkgd.min.js';
+        $list[static::RESOURCE_JS][]    = 'froala-editor/js/froala_editor.activate.js';
+        $list[static::RESOURCE_CSS][]   = 'froala-editor/css/froala_editor.pkgd.min.css';
+        $list[static::RESOURCE_JS][]    = $this->getEditorLanguageResource();
 
         return $list;
     }
@@ -36,11 +35,10 @@ class InlineEditor extends \XLite\View\AView
      */
     public function getCSSFiles()
     {
-        $list = parent::getCSSFiles();
+        $list = array();
 
-        if ($this->isInInlineEditingMode()) {
-            $list[] = 'modules/XC/ThemeTweaker/inline_editable/editor_style.css';
-        }
+        $list[] = 'modules/XC/ThemeTweaker/inline_editable/panel_style.css';
+        $list[] = 'modules/XC/ThemeTweaker/inline_editable/editor_style.css';
 
         return $list;
     }
@@ -50,12 +48,10 @@ class InlineEditor extends \XLite\View\AView
      */
     public function getJSFiles()
     {
-        $list = parent::getJSFiles();
+        $list = array();
 
-        if ($this->isInInlineEditingMode()) {
-            $list[] = 'modules/XC/ThemeTweaker/inline_editable/controller.js';
-            $list[] = 'modules/XC/ThemeTweaker/inline_editable/image_uploader.js';
-        }
+        $list[] = 'modules/XC/ThemeTweaker/inline_editable/inline_editable_controller.js';
+        $list[] = 'modules/XC/ThemeTweaker/inline_editable/panel_controller.js';
 
         return $list;
     }
@@ -83,9 +79,33 @@ class InlineEditor extends \XLite\View\AView
      */
     protected function getEditorLanguageFile()
     {
-        return 'js/content-tools/translations/'
-            . $this->getCurrentLanguage()->getCode()
+        return 'froala-editor/js/languages/'
+            . $this->getCurrentLanguageCode()
             . '.js';
+    }
+
+    /**
+     * Gets current language code and fixes it in case of en-GB and similar.
+     *
+     * @return string
+     */
+    protected function getCurrentLanguageCode()
+    {
+        $code = $this->getCurrentLanguage()->getCode();
+
+        switch ($code) {
+            case 'en':
+                return 'en_gb';
+
+            case 'pt':
+                return 'pt_pt';
+
+            case 'zh':
+                return 'zh_cn';
+            
+            default:
+                return $code;
+        }
     }
 
     /**
@@ -93,7 +113,7 @@ class InlineEditor extends \XLite\View\AView
      *
      * @return boolean
      */
-    protected function isInInlineEditingMode()
+    public static function isInPreviewMode()
     {
         $controller = \XLite::getController();
         return $controller instanceof \XLite\Controller\Customer\Product
@@ -102,12 +122,71 @@ class InlineEditor extends \XLite\View\AView
     }
 
     /**
-     * Restrict template rendering
+     * Enables inline editing mode if current page is a product preview.
+     *
+     * @return boolean
+     */
+    public static function isInlineEditorAvailable()
+    {
+        return !static::isTinyMceEnabled();
+    }
+
+    /**
+     * Determines if incompatible TinyMCE module is enabled
+     *
+     * @return boolean
+     */
+    public static function isTinyMceEnabled()
+    {
+        return \XLite\Core\Database::getRepo('XLite\Model\Module')->isModuleEnabled('CDev\TinyMCE');
+    }
+
+    /**
+     * Checks if widget should be rendered
+     * 
+     * @return boolean
+     */
+    protected function isVisible()
+    {
+        return parent::isVisible() && static::isInPreviewMode();
+    }
+
+    /**
+     * Return widget default template
      *
      * @return string
      */
     protected function getDefaultTemplate()
     {
-        return null;
+        return 'modules/XC/ThemeTweaker/inline_editable/panel.twig';
+    }
+
+    /**
+     * Get preloaded labels
+     *
+     * @return array
+     */
+    protected function getPreloadedLabels()
+    {
+        $list = array(
+            'Enable',
+            'Disable',
+            'Save changes',
+            'Exit product preview',
+            'Exiting...',
+            'Changes were successfully saved',
+            'Unable to save changes',
+            'You are now in preview mode',
+            'You have unsaved changes. Are you really sure to exit the preview?',
+            'Inline editor is unavailable due to TinyMCE',
+            'Changes may be incompatible with TinyMCE. Are you sure to proceed?'
+        );
+
+        $data = array();
+        foreach ($list as $name) {
+            $data[$name] = static::t($name);
+        }
+
+        return $data;
     }
 }

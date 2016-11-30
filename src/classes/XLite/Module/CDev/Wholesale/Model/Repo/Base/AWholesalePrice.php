@@ -264,14 +264,31 @@ class AWholesalePrice extends \XLite\Model\Repo\ARepo
     // }}}
 
     /**
+     * Excluded search conditions
+     *
+     * @return array
+     */
+    protected function getExcludedConditions()
+    {
+        return array_merge(
+            parent::getExcludedConditions(),
+            [
+                static::P_ORDER_BY_MEMBERSHIP  => static::EXCLUDE_FROM_ANY,
+            ]
+        );
+    }
+
+    /**
      * Prepare conditions for search
      *
      * @return void
      */
     protected function processConditions()
     {
+        $cnd = $this->searchState['currentSearchCnd'];
+
         $membershipRelation = false;
-        foreach ($this->searchState['currentSearchCnd'] as $key => $value) {
+        foreach ($cnd as $key => $value) {
             if (in_array($key, array(self::P_MEMBERSHIP, self::P_ORDER_BY_MEMBERSHIP), true)) {
                 $membershipRelation = true;
             }
@@ -286,9 +303,36 @@ class AWholesalePrice extends \XLite\Model\Repo\ARepo
         $expr->add('w.membership IS NOT NULL');
         $this->searchState['queryBuilder']->andWhere($expr);
 
+        if ($cnd->{self::P_ORDER_BY_MEMBERSHIP}) {
+            $cnd->{static::P_ORDER_BY} = $this->getOrderByWithMembership(
+                $cnd->{self::P_ORDER_BY_MEMBERSHIP},
+                $cnd->{static::P_ORDER_BY}
+            );
+        }
+        
         parent::processConditions();
     }
 
+    /**
+     * @param $orderByMembership
+     * @param $currentOrderBy
+     *
+     * @return array
+     */
+    protected function getOrderByWithMembership($orderByMembership, $currentOrderBy)
+    {
+        $cndToAdd = [ 'membership.membership_id', $orderByMembership ? 'ASC' : 'DESC' ];
+
+        if ($currentOrderBy && is_array($currentOrderBy)) {
+            $currentOrderBy = is_array($currentOrderBy[0]) ? $currentOrderBy : array($currentOrderBy);
+            array_unshift($currentOrderBy, $cndToAdd);
+        } else {
+            $currentOrderBy = [ $cndToAdd ];
+        }
+
+        return $currentOrderBy;
+    }
+    
     /**
      * Prepare certain search condition
      *
@@ -355,20 +399,6 @@ class AWholesalePrice extends \XLite\Model\Repo\ARepo
 
         $queryBuilder->andWhere($cnd)
             ->setParameter('minQty', $value);
-    }
-
-    /**
-     * Prepare certain search condition
-     *
-     * @param \Doctrine\ORM\QueryBuilder $queryBuilder Query builder to prepare
-     * @param array                      $value        Condition data
-     * @param boolean                    $countOnly    "Count only" flag. Do not need to add "order by" clauses if only count is needed.
-     *
-     * @return void
-     */
-    protected function prepareCndOrderByMembership(\Doctrine\ORM\QueryBuilder $queryBuilder, $value, $countOnly)
-    {
-        $this->prepareCndOrderBy($queryBuilder, array('membership.membership_id', $value ? 'ASC' : 'DESC'), $countOnly);
     }
 
     // }}}

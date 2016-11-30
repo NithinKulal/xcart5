@@ -14,6 +14,16 @@ namespace XLite\Module\CDev\Coupons\View\ItemsList;
 class Coupons extends \XLite\View\ItemsList\Model\Table
 {
     /**
+     * Description for blank items list
+     *
+     * @return string
+     */
+    protected function getBlankItemsListDescription()
+    {
+        return static::t('There are currently no coupons.');
+    }
+
+    /**
      * Get a list of CSS files required to display the widget properly
      *
      * @return array

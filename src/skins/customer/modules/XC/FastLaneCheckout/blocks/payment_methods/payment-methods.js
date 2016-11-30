@@ -6,9 +6,14 @@
  * Copyright (c) 2001-present Qualiteam software Ltd. All rights reserved.
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
-Checkout.define('Checkout.PaymentMethods', [], function() {
+define(
+  'checkout_fastlane/blocks/payment_methods',
+ ['vue/vue',
+  'vue/vue.loadable',
+  'checkout_fastlane/sections/payment'],
+  function(Vue, VueLoadableMixin, PaymentSection) {
 
-  Checkout.PaymentMethods = Vue.extend({
+  var PaymentMethods = Vue.extend({
     mixins: [VueLoadableMixin],
     name: 'payment-methods',
     replace: false,
@@ -171,4 +176,7 @@ Checkout.define('Checkout.PaymentMethods', [], function() {
     }
   });
 
+  Vue.registerComponent(PaymentSection, PaymentMethods);
+
+  return PaymentMethods;
 });

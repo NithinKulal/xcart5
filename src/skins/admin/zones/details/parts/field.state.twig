@@ -4,4 +4,11 @@
  # @ListChild (list="zones.zone.details", weight="200")
  #}
 
-{{ widget('\\XLite\\View\\FormField\\Listbox\\State', fieldName='zone_states', label='States', labelFrom='All states', labelTo='Selected states', value=this.zone.getZoneStates(), wrapperClass='zone-states') }}
+{{ widget('\\XLite\\View\\FormField\\Listbox\\State',
+    labelHelp=t('The countries to which the selected states belong will be added to the zone automatically.'),
+    fieldName='zone_states',
+    label='States',
+    labelFrom='All states',
+    labelTo='Selected states',
+    value=this.zone.getZoneStates(),
+    wrapperClass='zone-states') }}

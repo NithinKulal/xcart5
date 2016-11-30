@@ -112,10 +112,12 @@ class AttributeValue extends \XLite\Model\AEntity
     /**
      * Get attribute value
      *
-     * @return mixed
+     * @return \XLite\Model\AttributeValue\AAttributeValue
      */
     public function getAttributeValue()
     {
+        $value = null;
+
         if ($this->getAttributeValueS()) {
             $value = $this->getAttributeValueS();
 
@@ -124,9 +126,6 @@ class AttributeValue extends \XLite\Model\AEntity
 
         } elseif ($this->getAttributeValueT()) {
             $value = $this->getAttributeValueT();
-
-        } else {
-            $value = null;
         }
 
         return $value;
@@ -135,10 +134,11 @@ class AttributeValue extends \XLite\Model\AEntity
     /**
      * Clone attribute value of order item
      *
-     * @return \XLite\Model\OrderItem\AttributeValue
+     * @return static
      */
     public function cloneEntity()
     {
+        /** @var static $new */
         $new = parent::cloneEntity();
 
         if ($this->getAttributeValue()) {
@@ -151,7 +151,7 @@ class AttributeValue extends \XLite\Model\AEntity
     /**
      * Get order
      *
-     * @return void
+     * @return \XLite\Model\Order
      */
     public function getOrder()
     {
@@ -171,13 +171,14 @@ class AttributeValue extends \XLite\Model\AEntity
             $attribute = $this->getAttributeValue()->getAttribute();
         }
 
-        if (
-            !$attribute
+        if (!$attribute
             && $this->getAttributeId()
         ) {
+            /** @var \XLite\Model\Attribute $attribute */
             $attribute = \XLite\Core\Database::getRepo('\XLite\Model\Attribute')->find($this->getAttributeId());
         }
 
+        /** @see \XLite\Model\AttributeTranslation */
         return $attribute
             ? $attribute->getName()
             : $this->getName();
@@ -192,7 +193,7 @@ class AttributeValue extends \XLite\Model\AEntity
     {
         $value = $this->getAttributeValue();
 
-        return $value && !$value instanceOf \XLite\Model\AttributeValue\AttributeValueText
+        return $value && !$value instanceof \XLite\Model\AttributeValue\AttributeValueText
             ? $value->asString()
             : $this->getValue();
     }
@@ -206,7 +207,7 @@ class AttributeValue extends \XLite\Model\AEntity
     {
         $value = $this->getAttributeValue();
 
-        return $value && !$value instanceOf \XLite\Model\AttributeValue\AttributeValueText
+        return $value && !$value instanceof \XLite\Model\AttributeValue\AttributeValueText
             ? $value->getId()
             : null;
     }
@@ -214,7 +215,7 @@ class AttributeValue extends \XLite\Model\AEntity
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -236,7 +237,7 @@ class AttributeValue extends \XLite\Model\AEntity
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -258,7 +259,7 @@ class AttributeValue extends \XLite\Model\AEntity
     /**
      * Get value
      *
-     * @return string 
+     * @return string
      */
     public function getValue()
     {
@@ -280,7 +281,7 @@ class AttributeValue extends \XLite\Model\AEntity
     /**
      * Get attributeId
      *
-     * @return integer 
+     * @return integer
      */
     public function getAttributeId()
     {
@@ -302,7 +303,7 @@ class AttributeValue extends \XLite\Model\AEntity
     /**
      * Get orderItem
      *
-     * @return \XLite\Model\OrderItem 
+     * @return \XLite\Model\OrderItem
      */
     public function getOrderItem()
     {
@@ -324,7 +325,7 @@ class AttributeValue extends \XLite\Model\AEntity
     /**
      * Get attributeValueC
      *
-     * @return \XLite\Model\AttributeValue\AttributeValueCheckbox 
+     * @return \XLite\Model\AttributeValue\AttributeValueCheckbox
      */
     public function getAttributeValueC()
     {
@@ -346,7 +347,7 @@ class AttributeValue extends \XLite\Model\AEntity
     /**
      * Get attributeValueS
      *
-     * @return \XLite\Model\AttributeValue\AttributeValueSelect 
+     * @return \XLite\Model\AttributeValue\AttributeValueSelect
      */
     public function getAttributeValueS()
     {
@@ -368,7 +369,7 @@ class AttributeValue extends \XLite\Model\AEntity
     /**
      * Get attributeValueT
      *
-     * @return \XLite\Model\AttributeValue\AttributeValueText 
+     * @return \XLite\Model\AttributeValue\AttributeValueText
      */
     public function getAttributeValueT()
     {

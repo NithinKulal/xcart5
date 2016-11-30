@@ -71,6 +71,6 @@ jQuery(function () {
 
   var unresolvedDependencies = CoreAMD.getUnresolvedDependencies();
   if (unresolvedDependencies.length) {
-    console.warn('Unresolved dependecies', unresolvedDependencies);
+    console.warn('Unresolved dependencies', unresolvedDependencies);
   }
 });

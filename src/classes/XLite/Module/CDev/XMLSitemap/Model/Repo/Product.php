@@ -14,6 +14,39 @@ namespace XLite\Module\CDev\XMLSitemap\Model\Repo;
 abstract class Product extends \XLite\Model\Repo\Product implements \XLite\Base\IDecorator
 {
     /**
+     * Define sitemap generation iterator query builder
+     *
+     * @param integer $position Position
+     *
+     * @return \XLite\Model\QueryBuilder\AQueryBuilder
+     */
+    protected function defineSitemapGenerationQueryBuilder($position)
+    {
+        $qb = parent::defineSitemapGenerationQueryBuilder($position);
+
+        $qb->select($qb->getMainAlias() . '.product_id')
+            ->andWhere($qb->getMainAlias() . '.enabled = :enabled')
+            ->setParameter('enabled', true);
+
+        $this->addCleanURLCondition($qb);
+
+        return $qb;
+    }
+
+    /**
+     * Add clean url if applicable
+     *
+     * @param \XLite\Model\QueryBuilder\AQueryBuilder $qb
+     */
+    protected function addCleanURLCondition(\XLite\Model\QueryBuilder\AQueryBuilder $qb)
+    {
+        if (\XLite\Module\CDev\XMLSitemap\Logic\Sitemap\Step\Products::isSitemapCleanUrlConditionApplicable()) {
+            $qb->addSelect('cu.cleanURL')
+                ->leftJoin('XLite\Model\CleanURL', 'cu', \Doctrine\ORM\Query\Expr\Join::WITH, 'cu.product = ' . $qb->getMainAlias());
+        }
+    }
+
+    /**
      * Count products as sitemaps links
      *
      * @return integer

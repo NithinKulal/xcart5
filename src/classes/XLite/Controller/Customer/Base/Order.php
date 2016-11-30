@@ -99,7 +99,29 @@ abstract class Order extends \XLite\Controller\Customer\ACustomer
      */
     protected function checkAccess()
     {
-        return parent::checkAccess() && $this->getOrder() && ($this->checkOrderAccess() || $this->isLastAnonymousOrder());
+        return parent::checkAccess()
+            && $this->getOrder()
+            && ($this->checkOrderAccess() || $this->isLastAnonymousOrder() || $this->checkAccessControls());
+    }
+
+    /**
+     * Return Access control entities for controller as [key => entity]
+     *
+     * @return \XLite\Model\AEntity[]
+     */
+    public function getAccessControlEntities()
+    {
+        return [$this->getOrder()];
+    }
+
+    /**
+     * Return Access control zones for controller
+     *
+     * @return \XLite\Model\AEntity[]
+     */
+    public function getAccessControlZones()
+    {
+        return ['order'];
     }
 
     /**

@@ -183,12 +183,9 @@ class Order extends \XLite\Controller\Admin\AAdmin
 
         if ($order) {
             // Get temporary order as a clone
-            $newOrder = $order->cloneEntity();
+            $newOrder = $order->cloneOrderAsTemporary();
 
             if ($newOrder) {
-                $newOrder->setOrderNumber(null);
-                $newOrder->setIsNotificationsAllowedFlag(false);
-
                 // Save cloned order in the database
                 \XLite\Core\Database::getEM()->persist($newOrder);
                 \XLite\Core\Database::getEM()->flush();
@@ -879,8 +876,9 @@ class Order extends \XLite\Controller\Admin\AAdmin
         foreach (array('paymentStatus', 'shippingStatus') as $status) {
             $method = 'get' . \XLite\Core\Converter::convertToCamelCase($status);
             // Call assembled $method: getPaymentStatus() or getShippingStatus()
-            $oldStatus = $order->$method()->getId();
-            if (!empty($data[$status]) && $oldStatus != $data[$status]) {
+            $oldStatus = $order->$method();
+            $oldStatusId = $oldStatus ? $oldStatus->getId() : null;
+            if (!empty($data[$status]) && (!$oldStatus || $oldStatusId != $data[$status])) {
                 $updateRecent = true;
             }
         }

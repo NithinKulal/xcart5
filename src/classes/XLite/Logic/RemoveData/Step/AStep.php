@@ -9,124 +9,10 @@
 namespace XLite\Logic\RemoveData\Step;
 
 
-abstract class AStep extends \XLite\Base implements \SeekableIterator, \Countable
+abstract class AStep extends \XLite\Logic\ARepoStep
 {
-    /**
-     * Position
-     *
-     * @var integer
-     */
-    protected $position = 0;
-
-    /**
-     * Items iterator
-     *
-     * @var \Doctrine\ORM\Internal\Hydration\IterableResult
-     */
-    protected $items;
-
-    /**
-     * Count (cached)
-     *
-     * @var integer
-     */
-    protected $countCache;
-
-    /**
-     * Generator
-     *
-     * @var \XLite\Logic\RemoveData\Generator
-     */
-    protected $generator;
-
-    /**
-     * Constructor
-     *
-     * @param \XLite\Logic\RemoveData\Generator $generator Generator OPTIONAL
-     */
-    public function __construct(\XLite\Logic\RemoveData\Generator $generator = null)
-    {
-        $this->generator = $generator;
-    }
-
-    /**
-     * Finalize
-     *
-     * @return void
-     */
-    public function finalize()
-    {
-    }
 
     // {{{ SeekableIterator, Countable
-
-    /**
-     * \SeekableIterator::seek
-     *
-     * @param integer $position Position
-     *
-     * @return void
-     */
-    public function seek($position)
-    {
-        if ($this->position != $position) {
-            if ($position < $this->count()) {
-                $this->position = $position;
-                $this->getItems(true);
-            }
-        }
-    }
-
-    /**
-     * \SeekableIterator::current
-     *
-     * @return \XLite\Logic\RemoveData\Step\AStep
-     */
-    public function current()
-    {
-        return $this;
-    }
-
-    /**
-     * \SeekableIterator::key
-     *
-     * @return integer
-     */
-    public function key()
-    {
-        return $this->position;
-    }
-
-    /**
-     * \SeekableIterator::next
-     *
-     * @return void
-     */
-    public function next()
-    {
-        $this->position++;
-        $this->getItems()->next();
-    }
-
-    /**
-     * \SeekableIterator::rewind
-     *
-     * @return void
-     */
-    public function rewind()
-    {
-        $this->seek(0);
-    }
-
-    /**
-     * \SeekableIterator::valid
-     *
-     * @return boolean
-     */
-    public function valid()
-    {
-        return $this->getItems()->valid();
-    }
 
     /**
      * \Countable::count
@@ -188,13 +74,6 @@ abstract class AStep extends \XLite\Base implements \SeekableIterator, \Countabl
     // }}}
 
     // {{{ Data
-
-    /**
-     * Get repository
-     *
-     * @return \XLite\Model\Repo\ARepo
-     */
-    abstract protected function getRepository();
 
     /**
      * Get items iterator

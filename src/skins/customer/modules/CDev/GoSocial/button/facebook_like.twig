@@ -2,4 +2,4 @@
  # Facebook Like button
  #}
 
-<div class="fb-like"{% for k, v in this.getButtonAttributes() %} data-{{ k }}="{{ v }}"{% endfor %}></div>
+<div class="fb-like layout-{{ this.getLayoutStyle() }}"{% for k, v in this.getButtonAttributes() %} data-{{ k }}="{{ v }}"{% endfor %}></div>

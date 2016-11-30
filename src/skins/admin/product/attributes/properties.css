@@ -1,0 +1,19 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Attributes
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.itemslist-attributeproperty.items-list-table table.list tbody.lines tr.line td {
+  min-height: 59px;
+  height: 59px;
+  vertical-align: top;
+}
+
+.itemslist-attributeproperty.items-list-table table.list tbody.lines td.actions,
+.itemslist-attributeproperty.items-list-table table.list tbody.lines td.name {
+  padding-top: 18px;
+}

@@ -7,11 +7,13 @@
   <a href="#">{{ t('Review it.') }}</a>
 </div>
 <div id="code_backup">
-  {% form '\\XLite\\Module\\XC\\ThemeTweaker\\View\\Form\\Backup' %}
+  {% form '\\XLite\\Module\\XC\\ThemeTweaker\\View\\Form\\Backup' with {className: 'custom-code-form'} %}
   
-    {{ widget('\\XLite\\View\\FormField\\Textarea\\Simple', fieldName='backup', cols='140', rows='20', fieldId='backup', value=this.getBackupContent(), readOnly='true', fieldOnly='true') }}
+    <div class="formfield-backup">
+        {{ widget('\\XLite\\View\\FormField\\Textarea\\Simple', fieldName='backup', cols='140', rows='20', fieldId='backup', value=this.getBackupContent(), readOnly='true', fieldOnly='true') }}
+    </div>
 
-    <div class="buttons">
+    <div class="buttons model-form-buttons">
       {{ widget('\\XLite\\View\\Button\\Submit', style='action', label=t('Restore this version')) }}
       <a class="hide-button" href="#">{{ t('Hide') }}</a>
     </div>

@@ -1,0 +1,44 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.multiple-refund .table-value {
+    display: inline-block;
+    vertical-align: bottom;
+    padding: 0;
+}
+
+.multiple-refund span.input-text-refundamount.input {
+    display: inline-block;
+    width: 120px;
+    vertical-align: bottom;
+}
+
+.multiple-refund .input-text-refundamount input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    box-shadow: none;
+    border-right: 0;
+}
+
+.multiple-refund > button {
+    display: inline-block;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-left: -4px;
+    z-index: 5;
+    position: relative;
+}
+
+.multiple-refund > button.input-focus {
+    border-left: 1px solid #66afe9;
+}
+
+.multiple-refund > button.validation-error {
+    border-left: 1px solid #e72831 !important;
+}

@@ -20,16 +20,6 @@ abstract class LeftMenu extends \XLite\View\Menu\Admin\LeftMenu implements \XLit
      */
     public function __construct(array $params = array())
     {
-        if (!isset($this->relatedTargets['layout'])
-            || empty($this->relatedTargets['layout'])
-        ) {
-            $this->relatedTargets['layout'] = array();
-        }
-
-        if (!in_array('logo_favicon', $this->relatedTargets['layout'])) {
-            $this->relatedTargets['layout'][] = 'logo_favicon';
-        }
-
         if (!isset($this->relatedTargets['menus'])) {
             $this->relatedTargets['menus'] = array('menu');
         }
@@ -74,6 +64,16 @@ abstract class LeftMenu extends \XLite\View\Menu\Admin\LeftMenu implements \XLit
                 static::ITEM_WEIGHT     => 200,
             ),
         );
+
+        if (isset($items['css_js'][static::ITEM_CHILDREN]) && is_array($items['css_js'][static::ITEM_CHILDREN])) {
+            $items['css_js'][static::ITEM_CHILDREN] = array_merge($items['css_js'][static::ITEM_CHILDREN], [
+                'logo_favicon' => [
+                    static::ITEM_TITLE      => static::t('Logo & Favicon'),
+                    static::ITEM_TARGET     => 'logo_favicon',
+                    static::ITEM_WEIGHT     => 200,
+                ],
+            ]);
+        }
 
         return $items;
     }

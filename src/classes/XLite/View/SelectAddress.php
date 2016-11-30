@@ -36,8 +36,19 @@ class SelectAddress extends \XLite\View\Dialog
     }
 
     /**
+     * Returns widget stylesheet files
+     * 
+     * @return array
+     */
+    public function getCSSFiles()
+    {
+        return array(
+            'select_address/style.css'
+        );
+    }
+
+    /**
      * Get a list of JS files required to display the widget properly
-     * FIXME - decompose these files
      *
      * @return array
      */
@@ -158,5 +169,4 @@ class SelectAddress extends \XLite\View\Dialog
     {
         return $address->getIsBilling();
     }
-
 }

@@ -36,21 +36,29 @@
       {% if not this.displayOnlyContractedOptions(parcel) %}
         <label for="is-document-{{ parcelIdx }}">
           {{ widget('\\XLite\\View\\FormField\\Input\\Checkbox', fieldId='is-document-' ~ parcelIdx, fieldName='parcelsData[' ~ parcel.getId() ~ '][isDocument]', fieldOnly='true', value='1', isChecked=parcel.getIsDocument()) }}
-          {{ t('Document') }}
+          <span class="value-label">
+            {{ t('Document') }}
+          </span>
         </label>
       {% endif %}
       <label for="is-unpackaged-{{ parcelIdx }}">
         {{ widget('\\XLite\\View\\FormField\\Input\\Checkbox', fieldId='is-unpackaged-' ~ parcelIdx, fieldName='parcelsData[' ~ parcel.getId() ~ '][isUnpackaged]', fieldOnly='true', value='1', isChecked=parcel.getIsUnpackaged()) }}
-        {{ t('Unpackaged') }}
+        <span class="value-label">
+          {{ t('Unpackaged') }}
+        </span>
       </label>
       <label for="is-mailing-tube-{{ parcelIdx }}">
         {{ widget('\\XLite\\View\\FormField\\Input\\Checkbox', fieldId='is-mailing-tube-' ~ parcelIdx, fieldName='parcelsData[' ~ parcel.getId() ~ '][isMailingTube]', fieldOnly='true', value='1', isChecked=parcel.getIsMailingTube()) }}
-        {{ t('Mailing tube') }}
+        <span class="value-label">
+          {{ t('Mailing tube') }}
+        </span>
       </label>
       {% if this.displayOnlyContractedOptions(parcel) %}
         <label for="is-oversized-{{ parcelIdx }}">
           {{ widget('\\XLite\\View\\FormField\\Input\\Checkbox', fieldId='is-oversized-' ~ parcelIdx, fieldName='parcelsData[' ~ parcel.getId() ~ '][isOversized]', fieldOnly='true', value='1', isChecked=parcel.getIsOversized()) }}
-          {{ t('Oversized') }}
+          <span class="value-label">
+            {{ t('Oversized') }}
+          </span>
         </label>
       {% endif %}
     </td>
@@ -61,15 +69,21 @@
     <td class="inline-options">
       <label for="notify-on-shipment-{{ parcelIdx }}">
         {{ widget('\\XLite\\View\\FormField\\Input\\Checkbox', fieldId='notify-on-shipment-' ~ parcelIdx, fieldName='parcelsData[' ~ parcel.getId() ~ '][notifyOnShipment]', fieldOnly='true', value='1', isChecked=this.isNotifyOnShipment(parcel)) }}
-        {{ t('On shipment') }}
+        <span class="value-label">
+          {{ t('On shipment') }}
+        </span>
       </label>
       <label for="notify-on-exception-{{ parcelIdx }}">
         {{ widget('\\XLite\\View\\FormField\\Input\\Checkbox', fieldId='notify-on-exception-' ~ parcelIdx, fieldName='parcelsData[' ~ parcel.getId() ~ '][notifyOnException]', fieldOnly='true', value='1', isChecked=parcel.getNotifyOnException()) }}
-        {{ t('On exception') }}
+        <span class="value-label">
+          {{ t('On exception') }}
+        </span>
       </label>
       <label for="notify-on-delivery-{{ parcelIdx }}">
         {{ widget('\\XLite\\View\\FormField\\Input\\Checkbox', fieldId='notify-on-delivery-' ~ parcelIdx, fieldName='parcelsData[' ~ parcel.getId() ~ '][notifyOnDelivery]', fieldOnly='true', value='1', isChecked=parcel.getNotifyOnDelivery()) }}
-        {{ t('On delivery') }}
+        <span class="value-label">
+          {{ t('On delivery') }}
+        </span>
       </label>
     </td>
   </tr>

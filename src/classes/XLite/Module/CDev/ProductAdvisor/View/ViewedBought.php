@@ -16,6 +16,18 @@ namespace XLite\Module\CDev\ProductAdvisor\View;
 class ViewedBought extends \XLite\Module\CDev\ProductAdvisor\View\ABought
 {
     /**
+     * Return search parameters.
+     *
+     * @return array
+     */
+    public static function getSearchParams()
+    {
+        return [
+            \XLite\Model\Repo\Product::P_VIEWED_PRODUCT_ID => self::PARAM_PRODUCT_ID,
+        ];
+    }
+
+    /**
      * Returns CSS classes for the container element
      *
      * @return string
@@ -25,7 +37,6 @@ class ViewedBought extends \XLite\Module\CDev\ProductAdvisor\View\ABought
         return parent::getListCSSClasses() . ' viewed-bought-products';
     }
 
-
     /**
      * Get title
      *
@@ -33,17 +44,17 @@ class ViewedBought extends \XLite\Module\CDev\ProductAdvisor\View\ABought
      */
     protected function getHead()
     {
-        return \XLite\Core\Translation::getInstance()->translate('Customers who viewed this product bought');
+        return static::t('Customers who viewed this product bought');
     }
 
     /**
      * Define widget parameters
      *
-     * @return void
+     * @return integer
      */
     protected function getMaxCount()
     {
-        return intval(\XLite\Core\Config::getInstance()->CDev->ProductAdvisor->cvb_max_count_in_block);
+        return (int) \XLite\Core\Config::getInstance()->CDev->ProductAdvisor->cvb_max_count_in_block;
     }
 
     /**
@@ -57,26 +68,30 @@ class ViewedBought extends \XLite\Module\CDev\ProductAdvisor\View\ABought
     }
 
     /**
-     * Return params list to use for search
-     *
-     * @param \XLite\Core\CommonCell $cnd       Search condition
-     * @param boolean                $countOnly Return items list or only its size OPTIONAL
-     *
      * @return \XLite\Core\CommonCell
      */
-    protected function getSearchConditions(\XLite\Core\CommonCell $cnd, $countOnly = false)
+    protected function getLimitCondition()
     {
-        $cnd->{\XLite\Module\CDev\ProductAdvisor\Model\Repo\Product::P_VIEWED_PRODUCT_ID} = $this->getProductId();
-
-        if (!$this->getParam(self::PARAM_SHOW_SORT_BY_SELECTOR)) {
-            $cnd->{\XLite\Module\CDev\ProductAdvisor\Model\Repo\Product::P_ORDER_BY} = array('bp.count', 'DESC');
-        }
-
+        $cnd = $this->getSearchCondition();
         if (!$this->getParam(\XLite\View\Pager\APager::PARAM_SHOW_ITEMS_PER_PAGE_SELECTOR)) {
-            $cnd->{\XLite\Module\CDev\ProductAdvisor\Model\Repo\Product::P_LIMIT}
-                = array(0, $this->getParam(\XLite\View\Pager\APager::PARAM_MAX_ITEMS_COUNT));
+            return $this->getPager()->getLimitCondition(
+                0,
+                $this->getParam(\XLite\View\Pager\APager::PARAM_MAX_ITEMS_COUNT),
+                $cnd
+            );
         }
 
         return $cnd;
+    }
+
+    /**
+     * Return 'Order by' array.
+     * array(<Field to order>, <Sort direction>)
+     *
+     * @return array|null
+     */
+    protected function getOrderBy()
+    {
+        return ['bp.count', static::SORT_ORDER_DESC];
     }
 }

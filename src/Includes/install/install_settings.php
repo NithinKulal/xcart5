@@ -15,7 +15,7 @@ if (!defined('XLITE_INSTALL_MODE')) {
 }
 
 // Current X-Cart version
-define('LC_VERSION', '5.3.1.4');
+define('LC_VERSION', '5.3.2');
 
 // Minimum PHP version supported
 define('LC_PHP_VERSION_MIN', '5.4.0');
@@ -85,6 +85,14 @@ $lcSettings = array(
             'sql' . LC_DS . 'xlite_demo_reviews.sql',
             'sql' . LC_DS . 'xlite_menu.yaml',
 
+        ) : XLITE_EDITION_LNG === 'zh' ? array(
+            'sql' . LC_DS . 'xlite_demo_zh.yaml',
+            'sql' . LC_DS . 'xlite_data_zh.yaml',
+            'sql' . LC_DS . 'product_attributes_zh.sql',
+            'sql' . LC_DS . 'xlite_menu_zh.yaml',
+            'sql' . LC_DS . 'xlite_demo_sale_zh.yaml',
+            'sql' . LC_DS . 'xlite_demo_orders_zh.yaml',
+
         ) : array(
             'sql' . LC_DS . 'xlite_demo.yaml',
             'sql' . LC_DS . 'xlite_demo_featured.yaml',
@@ -111,7 +119,6 @@ $lcSettings = array(
             'Sale',
             'SimpleCMS',
             'SocialLogin',
-            'TinyMCE',
             'TwoCheckout',
             'UserPermissions',
             'XMLSitemap',
@@ -128,7 +135,9 @@ $lcSettings = array(
             'NewsletterSubscriptions',
             'CrispWhiteSkin',
             'FastLaneCheckout',
-            'BulkEditing'
+            'BulkEditing',
+            'FroalaEditor',
+            'MailChimp',
         ),
         'QSL' => array(
             'CloudSearch',
@@ -153,12 +162,15 @@ if (XLITE_EDITION_LNG === 'ru') {
                 'Qiwi',
                 'Webmoney',
                 'YandexMoney'
-            ),
-            'UnisenderInc' => array(
-                'Integration'
-            ),
-            'PayU' => array(
-                'PayU'
+            )
+        )
+    );
+} elseif (XLITE_EDITION_LNG === 'zh') {
+    $lcSettings['enable_modules'] = array_merge_recursive(
+        $lcSettings['enable_modules'],
+        array(
+            'XC' => array(
+                'ZhTranslation'
             )
         )
     );

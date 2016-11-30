@@ -13,7 +13,6 @@ namespace XLite\Module\CDev\SimpleCMS\View\ItemsList\Model;
  */
 class Menu extends \XLite\View\ItemsList\Model\Table
 {
-
     /**
      * Should itemsList be wrapped with form
      *

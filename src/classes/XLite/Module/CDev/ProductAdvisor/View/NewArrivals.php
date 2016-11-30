@@ -35,11 +35,23 @@ class NewArrivals extends \XLite\Module\CDev\ProductAdvisor\View\ANewArrivals
      */
     public static function getAllowedTargets()
     {
-        $result = parent::getAllowedTargets();
+        $result   = parent::getAllowedTargets();
         $result[] = 'main';
         $result[] = 'category';
 
         return $result;
+    }
+
+    /**
+     * Return search parameters.
+     *
+     * @return array
+     */
+    public static function getSearchParams()
+    {
+        return [
+            \XLite\Model\Repo\Product::P_CATEGORY_ID => static::PARAM_CATEGORY_ID,
+        ];
     }
 
     /**
@@ -53,8 +65,10 @@ class NewArrivals extends \XLite\Module\CDev\ProductAdvisor\View\ANewArrivals
     {
         parent::setWidgetParams($params);
 
-        unset($this->widgetParams[\XLite\View\Pager\APager::PARAM_SHOW_ITEMS_PER_PAGE_SELECTOR]);
-        unset($this->widgetParams[\XLite\View\Pager\APager::PARAM_ITEMS_PER_PAGE]);
+        unset(
+            $this->widgetParams[\XLite\View\Pager\APager::PARAM_SHOW_ITEMS_PER_PAGE_SELECTOR],
+            $this->widgetParams[\XLite\View\Pager\APager::PARAM_ITEMS_PER_PAGE]
+        );
     }
 
     /**
@@ -66,13 +80,13 @@ class NewArrivals extends \XLite\Module\CDev\ProductAdvisor\View\ANewArrivals
     {
         parent::defineWidgetParams();
 
-        $this->widgetParams += array(
-            self::PARAM_USE_NODE => new \XLite\Model\WidgetParam\TypeCheckbox(
+        $this->widgetParams += [
+            self::PARAM_USE_NODE             => new \XLite\Model\WidgetParam\TypeCheckbox(
                 'Show products only for current category',
                 \XLite\Core\Config::getInstance()->CDev->ProductAdvisor->na_from_current_category,
                 true
             ),
-            self::PARAM_ROOT_ID => new \XLite\Model\WidgetParam\ObjectId\Category(
+            self::PARAM_ROOT_ID              => new \XLite\Model\WidgetParam\ObjectId\Category(
                 'Root category Id',
                 0,
                 true,
@@ -84,40 +98,64 @@ class NewArrivals extends \XLite\Module\CDev\ProductAdvisor\View\ANewArrivals
                 true,
                 true
             ),
-        );
+        ];
 
         $this->widgetParams[self::PARAM_WIDGET_TYPE]->setValue(self::WIDGET_TYPE_SIDEBAR);
 
-        unset($this->widgetParams[self::PARAM_SHOW_DISPLAY_MODE_SELECTOR]);
-        unset($this->widgetParams[self::PARAM_SHOW_SORT_BY_SELECTOR]);
+        unset(
+            $this->widgetParams[self::PARAM_SHOW_DISPLAY_MODE_SELECTOR],
+            $this->widgetParams[self::PARAM_SHOW_SORT_BY_SELECTOR]
+        );
     }
-    
+
     /**
-     * Returns search products conditions
+     * Default search conditions
      *
-     * @param \XLite\Core\CommonCell $cnd Initial search conditions
+     * @param  \XLite\Core\CommonCell $searchCase Search case
      *
      * @return \XLite\Core\CommonCell
      */
-    protected function getSearchConditions(\XLite\Core\CommonCell $cnd)
+    protected function postprocessSearchCase(\XLite\Core\CommonCell $searchCase)
     {
-        $cnd = parent::getSearchConditions($cnd);
+        $searchCase = parent::postprocessSearchCase($searchCase);
 
         $categoryId = $this->getRootId();
+        if ($this->countAllNewProducts || !$categoryId) {
+            unset(
+                $searchCase->{\XLite\Model\Repo\Product::P_CATEGORY_ID},
+                $searchCase->{\XLite\Model\Repo\Product::P_SEARCH_IN_SUBCATS}
+            );
 
-        if (!$this->countAllNewProducts && $categoryId) {
-            $cnd->{\XLite\Model\Repo\Product::P_CATEGORY_ID} = $categoryId;
-            $cnd->{\XLite\Model\Repo\Product::P_SEARCH_IN_SUBCATS} = true;
+        } elseif ($categoryId) {
+            $searchCase->{\XLite\Model\Repo\Product::P_CATEGORY_ID}       = $categoryId;
+            $searchCase->{\XLite\Model\Repo\Product::P_SEARCH_IN_SUBCATS} = true;
         }
 
-        if (!$this->countAllNewProducts && $this->getMaxItemsCount()) {
-            $cnd->{\XLite\Model\Repo\Product::P_LIMIT} = array(
-                0,
-                $this->getMaxItemsCount()
-            );
+        return $searchCase;
+    }
+
+    /**
+     * @return \XLite\Core\CommonCell
+     */
+    protected function getLimitCondition()
+    {
+        $cnd = $this->getSearchCondition();
+        if ($this->countAllNewProducts) {
+
+            return $this->getPager()->getLimitCondition(0, $this->getMaxItemsCount(), $cnd);
         }
 
         return $cnd;
+    }
+
+    /**
+     * getSidebarMaxItems
+     *
+     * @return integer
+     */
+    protected function getSidebarMaxItems()
+    {
+        return $this->getMaxItemsCount();
     }
 
     /**
@@ -138,7 +176,7 @@ class NewArrivals extends \XLite\Module\CDev\ProductAdvisor\View\ANewArrivals
     protected function getRootId()
     {
         return $this->getParam(self::PARAM_USE_NODE)
-            ? intval(\XLite\Core\Request::getInstance()->category_id)
+            ? (int) \XLite\Core\Request::getInstance()->category_id
             : $this->getParam(self::PARAM_ROOT_ID);
     }
 
@@ -151,9 +189,8 @@ class NewArrivals extends \XLite\Module\CDev\ProductAdvisor\View\ANewArrivals
     protected function getTemplate()
     {
         $template = parent::getTemplate();
-
-        if ($template == $this->getDefaultTemplate()
-            && self::WIDGET_TYPE_SIDEBAR == $this->getParam(self::PARAM_WIDGET_TYPE)
+        if ($template === $this->getDefaultTemplate()
+            && self::WIDGET_TYPE_SIDEBAR === $this->getParam(self::PARAM_WIDGET_TYPE)
         ) {
             $template = self::TEMPLATE_SIDEBAR;
         }
@@ -168,9 +205,8 @@ class NewArrivals extends \XLite\Module\CDev\ProductAdvisor\View\ANewArrivals
      */
     protected function isVisible()
     {
-        return static::getWidgetTarget() != \XLite\Core\Request::getInstance()->target
-            && parent::isVisible()
-            && 0 < $this->getItemsCount();
+        return static::getWidgetTarget() !== \XLite\Core\Request::getInstance()->target
+        && parent::isVisible();
     }
 
     /**
@@ -182,7 +218,7 @@ class NewArrivals extends \XLite\Module\CDev\ProductAdvisor\View\ANewArrivals
     {
         $this->countAllNewProducts = true;
 
-        $result = ($this->getData(new \XLite\Core\CommonCell, true) > $this->getMaxItemsCount());
+        $result = $this->getItemsCount() > $this->getMaxItemsCount();
 
         $this->countAllNewProducts = false;
 

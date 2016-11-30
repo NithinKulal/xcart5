@@ -100,7 +100,7 @@ input[type="checkbox"] {
       & + span {
         display: inline-block;
         white-space: normal;
-        vertical-align: top;
+        font-size: 14px;
       }
     }
   }
@@ -123,6 +123,10 @@ input[type="checkbox"] {
 
     .input-wrapper {
       .flex(1 0px);
+
+      .table-value {
+        display: block;
+      }
     }
 
     .help-wrapper {
@@ -138,10 +142,18 @@ input[type="checkbox"] {
     }
   }
 
+  select[multiple="multiple"] {
+    height: 140px;
+  }
+
   .symbol-row .input-widget {
     input {
       min-width: 80px;
     }
+  }
+
+  .form-row.textarea-advanced-row > .input-widget {
+    float: none;
   }
 
   .caption {

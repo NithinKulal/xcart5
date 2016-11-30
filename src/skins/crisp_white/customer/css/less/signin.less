@@ -11,6 +11,26 @@
   button.signin {
       display: none;
   }
+
+  .signin-login-wrapper .login-form {
+    button.submit {
+      margin-top: @rhythmic-unit;
+    }
+
+    .create-account-link {
+      display: none;
+    }
+
+    .forgot {
+      float: none;
+    }
+
+    tr:last-of-type {
+      td {
+        text-align: center;
+      }
+    }
+  }
 }
 
 .target-recover-password, .target-login, .unauthorized.target-profile {
@@ -162,7 +182,7 @@ form.login-form, form.recovery-form {
   margin-bottom: 60px;
 }
 
-table.login-form, table.recover-password-form {
+table.login-form, table.recover-password-form, table.continue-as-guest-form {
   width: 100%;
   margin: 0 auto;
   td, li.input {
@@ -199,7 +219,6 @@ table.login-form, table.recover-password-form {
 
   button.submit {
     .btn-lg;
-    .main-button-style;
     font-size: @font-size-large;
     width: 100%;
     margin-top: (2 * @rhythmic-unit);
@@ -208,6 +227,12 @@ table.login-form, table.recover-password-form {
   .create-account-link, .popup-login {
     display: inline-block;
     font-size: @font-size-base;
+  }
+}
+
+table.continue-as-guest-form {
+  button.submit.anonymous-continue-button {
+    margin-top: 0px;
   }
 }
 
@@ -227,6 +252,15 @@ button.force-notice {
 
 .signin-header {
   text-align: center;
+}
+
+.signin-wrapper-heading {
+  text-align: center;
+  margin-bottom: 20px;
+
+  .heading {
+    margin-bottom: 10px;
+  }
 }
 
 .signin-login-wrapper {
@@ -275,8 +309,11 @@ button.force-notice {
   max-width: 366px;
   margin: 0 auto;
   .social-login {
-    .social-net-element {
+    .social-net-element + .social-net-element {
+      margin-top: 20px;
+    }
 
+    .social-net-element {
       &:hover {
         opacity: .8;
       }
@@ -287,12 +324,55 @@ button.force-notice {
 .signin-anonymous-wrapper {
   padding-top: (@rhythmic-unit);
 
-  .anonymous-continue-button {
-    .btn-lg;
-    width: 100%;
+  form {
+    padding-top: 0px !important;
+  }
 
-    @media(max-width: @screen-sm-max) {
-      margin-top: @rhythmic-unit;
+  .social-login {
+    .flex-display();
+    .flex-wrap(wrap);
+    .justify-content(center);
+
+    margin-left: -2px;
+    margin-right: -2px;
+
+    .social-net-element {
+      flex: 1 1 33%;
+      padding-left: 2px;
+      padding-right: 2px;
+      padding-bottom: 20px;
+
+      a {
+        padding: 8px 0 9px 0;
+      }
+
+      .provider-name {
+        font-size: 14px;
+      }
+
+      .fa {
+        font-size: 20px;
+        line-height: 20px;
+        vertical-align: middle;
+        display: inline-block;
+      }
+
+      .action-label {
+        display: none;
+      }
+    }
+
+    .social-net-element + .social-net-element {
+      margin-top: 0px;
+    }
+
+    .social-net-Amazon {
+      flex: 3 0 100%;
+
+      div > img {
+        height: 40px;
+        width: 195px;
+      }
     }
   }
 }

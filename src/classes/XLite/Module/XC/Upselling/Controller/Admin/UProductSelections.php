@@ -61,4 +61,15 @@ class UProductSelections extends \XLite\Controller\Admin\ProductSelections
             ? 'fa-ban'
             : parent::getStyleExcludedProduct($productId);
     }
+
+    /**
+     * Get itemsList class
+     *
+     * @return string
+     */
+    public function getItemsListClass()
+    {
+        return \XLite\Core\Request::getInstance()->itemsList
+            ?: '\XLite\Module\XC\Upselling\View\ItemsList\Model\ProductSelection';
+    }
 }

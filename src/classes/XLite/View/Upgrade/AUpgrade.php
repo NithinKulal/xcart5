@@ -74,6 +74,26 @@ abstract class AUpgrade extends \XLite\View\Dialog
     }
 
     /**
+     * Return list of modules and/or core to upgrade that hotfix only updates
+     *
+     * @return array
+     */
+    protected function getHotfixUpgradeEntries()
+    {
+        return \XLite\Upgrade\Cell::getInstance()->getHotfixEntries();
+    }
+
+    /**
+     * Return list of modules and/or core to upgrade that not hotfix only updates
+     *
+     * @return array
+     */
+    protected function getNewFeaturesUpgradeEntries()
+    {
+        return \XLite\Upgrade\Cell::getInstance()->getNewFeaturesEntries();
+    }
+
+    /**
      * Return list of modules and/or core to upgrade
      *
      * @return integer

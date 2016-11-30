@@ -21,7 +21,6 @@ class Cart extends \XLite\Model\Order
      */
     const RENEW_PERIOD = 3600;
 
-
     /**
      * Array of instances for all derived classes
      *
@@ -102,6 +101,10 @@ class Cart extends \XLite\Model\Order
                     $cart->calculate();
                 }
 
+                if ($cart->getPaymentMethod() && !$cart->getPaymentMethod()->isEnabled()) {
+                    $cart->renewPaymentMethod();
+                }
+
                 $cart->renewSoft();
 
                 \XLite\Core\Session::getInstance()->order_id = $cart->getOrderId();
@@ -109,6 +112,67 @@ class Cart extends \XLite\Model\Order
         }
 
         return static::$instances[$className];
+    }
+
+    /**
+     * Add item to order
+     *
+     * @param \XLite\Model\OrderItem $newItem Item to add
+     *
+     * @return boolean
+     */
+    public function addItem(\XLite\Model\OrderItem $newItem)
+    {
+        $this->renewUpdatedTime();
+        return parent::addItem($newItem);
+    }
+
+    /**
+     * Check if recently updated
+     *
+     * @return boolean
+     */
+    public function isRecentlyUpdated()
+    {
+        return (bool)$this->getUpdatedTime();
+    }
+
+    /**
+     * Check if given payment method can be applied to the order
+     * 
+     * @param  \XLite\Model\Payment\Method  $method
+     * @return boolean
+     */
+    protected function isPaymentMethodIsApplicable($method)
+    {
+        return parent::isPaymentMethodIsApplicable($method)
+            && $method->isEnabled();
+    }
+
+    /**
+     * Return updated time
+     *
+     * @return integer
+     */
+    public function getUpdatedTime()
+    {
+        return \XLite\Core\Session::getInstance()->cartUpdatedTime;
+    }
+
+    /**
+     * Renew updated time
+     */
+    public function renewUpdatedTime()
+    {
+        \XLite\Core\Session::getInstance()->cartUpdatedTime = \XLite\Core\Converter::getInstance()->time();
+    }
+
+    /**
+     * Set updated time to 0
+     */
+    public function unsetUpdatedTime()
+    {
+        \XLite\Core\Session::getInstance()->cartUpdatedTime = 0;
     }
 
     /**
@@ -234,7 +298,7 @@ class Cart extends \XLite\Model\Order
     {
         if (!$this->getOrderNumber()) {
             $this->setOrderNumber(
-                \XLite\Core\Database::getRepo('XLite\Model\Order')->findNextOrderNumber(false)
+                \XLite\Core\Database::getRepo('XLite\Model\Order')->findNextOrderNumber()
             );
 
             if ($this->isFlushOnOrderNumberAssign()) {
@@ -433,23 +497,38 @@ class Cart extends \XLite\Model\Order
     }
 
     /**
+     * Returns the list of session vars that must be cleared on logoff
+     *
+     * @return array
+     */
+    public function getSessionVarsToClearOnLogoff()
+    {
+        return [
+            'same_address',
+            'order_id'
+        ];
+    }
+
+    /**
+     * Clear some session variables on logout
+     *
+     * @return void
+     */
+    protected function clearSessionVarsOnLogoff()
+    {
+        foreach ($this->getSessionVarsToClearOnLogoff() as $name) {
+            unset(\XLite\Core\Session::getInstance()->$name);
+        }
+    }
+
+    /**
      * Logoff operation
      *
      * @return void
      */
     public function logoff()
     {
-        if (\XLite\Core\Config::getInstance()->General->logoff_clear_cart) {
-            if ($this->getProfile() && !$this->getProfile()->getOrder()) {
-                $this->setProfile(null);
-            }
-            \XLite\Core\Database::getEM()->remove($this);
-        }
-
-        \XLite\Core\Session::getInstance()->unsetBatch(
-            'same_address',
-            'order_id'
-        );
+        $this->clearSessionVarsOnLogoff();
     }
 
     /**

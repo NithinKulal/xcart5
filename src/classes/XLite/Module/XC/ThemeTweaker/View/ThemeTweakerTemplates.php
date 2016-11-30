@@ -10,9 +10,21 @@ namespace XLite\Module\XC\ThemeTweaker\View;
 
 /**
  * Theme tweaker templates page view
+ *
+ * @ListChild (list="admin.center", zone="admin")
  */
 class ThemeTweakerTemplates extends \XLite\View\AView
 {
+    /**
+     * Return list of allowed targets
+     *
+     * @return array
+     */
+    public static function getAllowedTargets()
+    {
+        return array_merge(parent::getAllowedTargets(), ['theme_tweaker_templates']);
+    }
+
     /**
      * Return widget default template
      *

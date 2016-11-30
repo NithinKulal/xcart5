@@ -16,11 +16,23 @@ namespace XLite\Module\CDev\ProductAdvisor\View;
 class BoughtBought extends \XLite\Module\CDev\ProductAdvisor\View\ABought
 {
     /**
+     * Return search parameters.
+     *
+     * @return array
+     */
+    public static function getSearchParams()
+    {
+        return [
+            \XLite\Model\Repo\Product::P_EXCL_PRODUCT_ID => self::PARAM_PRODUCT_ID,
+        ];
+    }
+
+    /**
      * Runtime cache for profile ids
      *
      * @var array
      */
-    protected $profileIds = array();
+    protected $profileIds = [];
 
     /**
      * Returns CSS classes for the container element
@@ -39,17 +51,17 @@ class BoughtBought extends \XLite\Module\CDev\ProductAdvisor\View\ABought
      */
     protected function getHead()
     {
-        return \XLite\Core\Translation::getInstance()->translate('Customers who bought this product also bought');
+        return static::t('Customers who bought this product also bought');
     }
 
     /**
-     * Define widget parameters
+     * Get max count of items
      *
-     * @return void
+     * @return integer
      */
     protected function getMaxCount()
     {
-        return intval(\XLite\Core\Config::getInstance()->CDev->ProductAdvisor->cbb_max_count_in_block);
+        return (int) \XLite\Core\Config::getInstance()->CDev->ProductAdvisor->cbb_max_count_in_block;
     }
 
     /**
@@ -63,32 +75,51 @@ class BoughtBought extends \XLite\Module\CDev\ProductAdvisor\View\ABought
     }
 
     /**
-     * Return params list to use for search
+     * Default search conditions
      *
-     * @param \XLite\Core\CommonCell $cnd       Search condition
-     * @param boolean                $countOnly Return items list or only its size OPTIONAL
+     * @param  \XLite\Core\CommonCell $searchCase Search case
      *
      * @return \XLite\Core\CommonCell
      */
-    protected function getSearchConditions(\XLite\Core\CommonCell $cnd, $countOnly = false)
+    protected function postprocessSearchCase(\XLite\Core\CommonCell $searchCase)
     {
-        $productId = $this->getProductId();
+        $searchCase = parent::postprocessSearchCase($searchCase);
 
-        $cnd->{\XLite\Module\CDev\ProductAdvisor\Model\Repo\Product::P_PROFILE_ID} = $this->getProfilesIds($productId);
+        $productId = $this->getParam(self::PARAM_PRODUCT_ID);
 
-        $cnd->{\XLite\Model\Repo\Product::P_EXCL_PRODUCT_ID} = $productId;
+        $searchCase->{\XLite\Module\CDev\ProductAdvisor\Model\Repo\Product::P_PROFILE_ID}
+                                                                    = $this->getProfilesIds($productId);
+        $searchCase->{\XLite\Model\Repo\Product::P_EXCL_PRODUCT_ID} = $productId;
 
-        if (!$countOnly) {
-            $cnd->{\XLite\Module\CDev\ProductAdvisor\Model\Repo\Product::P_ORDER_BY} = array('cnt', 'DESC');
-            $cnd->{\XLite\Module\CDev\ProductAdvisor\Model\Repo\Product::P_PA_GROUP_BY} = 'p.product_id';
-        }
+        return $searchCase;
+    }
 
+    /**
+     * @return \XLite\Core\CommonCell
+     */
+    protected function getLimitCondition()
+    {
+        $cnd = $this->getSearchCondition();
         if (!$this->getParam(\XLite\View\Pager\APager::PARAM_SHOW_ITEMS_PER_PAGE_SELECTOR)) {
-            $cnd->{\XLite\Module\CDev\ProductAdvisor\Model\Repo\Product::P_LIMIT}
-                = array(0, $this->getParam(\XLite\View\Pager\APager::PARAM_MAX_ITEMS_COUNT));
+            return $this->getPager()->getLimitCondition(
+                0,
+                $this->getParam(\XLite\View\Pager\APager::PARAM_MAX_ITEMS_COUNT),
+                $cnd
+            );
         }
 
         return $cnd;
+    }
+
+    /**
+     * Return 'Order by' array.
+     * array(<Field to order>, <Sort direction>)
+     *
+     * @return array|null
+     */
+    protected function getOrderBy()
+    {
+        return ['cnt', static::SORT_ORDER_DESC];
     }
 
     /**
@@ -100,9 +131,11 @@ class BoughtBought extends \XLite\Module\CDev\ProductAdvisor\View\ABought
      */
     protected function getProfilesIds($productId)
     {
-        if (empty($this->profileIds[$productId])) {
-            $this->profileIds[$productId] = \XLite\Core\Database::getRepo('XLite\Model\Order')->findUsersBoughtProduct($productId);
-        }
-        return $this->profileIds[$productId];
+        return $this->executeCachedRuntime(
+            function () use ($productId) {
+                return \XLite\Core\Database::getRepo('XLite\Model\Order')->findUsersBoughtProduct($productId);
+            },
+            ['getProfilesIds', $productId]
+        );
     }
 }

@@ -96,13 +96,13 @@ class Order extends \XLite\Model\Repo\ARepo
     /**
      * Find all expired temporary orders
      *
-     * @return \Doctrine\Common\Collections\ArrayCollection
+     * @return null | \Iterator
      */
     public function findAllExpiredTemporaryOrders()
     {
         return $this->getOrderTTL()
-            ? $this->defineAllExpiredTemporaryOrdersQuery()->getResult()
-            : array();
+            ? $this->defineAllExpiredTemporaryOrdersQuery()->iterate()
+            : null;
     }
 
     /**
@@ -180,21 +180,32 @@ class Order extends \XLite\Model\Repo\ARepo
     public function collectGarbage()
     {
         // Remove old temporary orders
-        $list = $this->findAllExpiredTemporaryOrders();
-        if (count($list)) {
-            foreach ($list as $order) {
+        $result = $this->findAllExpiredTemporaryOrders();
+        if ($result) {
+            $count = 0;
+
+            foreach ($result as $item) {
+                $order = $item[0];
+
                 \XLite\Core\Database::getEM()->remove($order);
+                $count++;
+
+                if (!($count % 100)) {
+                    \XLite\Core\Database::getEM()->flush();
+                }
             }
 
-            \XLite\Core\Database::getEM()->flush();
+            if ($count > 0) {
+                \XLite\Core\Database::getEM()->flush();
 
-            // Log operation only in debug mode
-            \XLite\Logger::getInstance()->log(
-                \XLite\Core\Translation::getInstance()->translate(
-                    'X expired shopping cart(s) have been successfully removed',
-                    array('count' => count($list))
-                )
-            );
+                // Log operation only in debug mode
+                \XLite\Logger::getInstance()->log(
+                    \XLite\Core\Translation::getInstance()->translate(
+                        'X expired shopping cart(s) have been successfully removed',
+                        array('count' => $count)
+                    )
+                );
+            }
         }
     }
 
@@ -359,32 +370,49 @@ class Order extends \XLite\Model\Repo\ARepo
      * The next order number is used only for orders.
      * This generator checks the  field for independent ID for orders only
      *
-     * @param boolean   $flushByDefault  Should we flush change in order number   OPTIONAL
-     *
      * @return integer
      */
-    public function findNextOrderNumber($flushByDefault = true)
+    public function findNextOrderNumber()
     {
         if (!\XLite\Core\Config::getInstance()->General->order_number_counter) {
             $this->initializeNextOrderNumber();
         }
 
-        $orderNumber = \XLite\Core\Database::getRepo('XLite\Model\Config')
-            ->findOneBy(array('name' => 'order_number_counter', 'category' => 'General'));
+        $em   = \XLite\Core\Database::getEM();
+        $conn = $em->getConnection();
 
-        $value = $orderNumber->getValue();
+        $conn->beginTransaction();
 
-        $lastOrderNumber = $this->getMaxOrderNumber();
+        try {
+            $orderNumber = $em->createQueryBuilder()
+                ->select(['c.config_id', 'c.value'])
+                ->from('XLite\Model\Config', 'c')
+                ->where('c.name = :name')
+                ->andWhere('c.category = :category')
+                ->setParameter('name', 'order_number_counter')
+                ->setParameter('category', 'General')
+                ->getQuery()
+                ->setLockMode(\Doctrine\DBAL\LockMode::PESSIMISTIC_WRITE)
+                ->getSingleResult();
 
-        if ($lastOrderNumber) {
-            $value = max($value, $lastOrderNumber + 1);
+            $value = max($orderNumber['value'], $this->getMaxOrderNumber() + 1);
+
+            $qb = $em->createQueryBuilder();
+
+            $qb
+                ->update('XLite\Model\Config', 'c')
+                ->set('c.value', $qb->expr()->literal($value + 1))
+                ->where('c.config_id = :config_id')
+                ->setParameter('config_id', $orderNumber['config_id'])
+                ->getQuery()
+                ->execute();
+
+            $conn->commit();
+        } catch (\Exception $e) {
+            $conn->rollback();
+
+            throw $e;
         }
-
-        \XLite\Core\Database::getRepo('XLite\Model\Config')->update(
-            $orderNumber,
-            array('value' => $value + 1),
-            $flushByDefault
-        );
 
         return $value;
     }

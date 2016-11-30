@@ -52,4 +52,14 @@ class DisabledModulesHooks extends \XLite\View\Upgrade\Step\ReadyToInstall\ARead
     {
         return \XLite\Upgrade\Cell::getInstance()->getDisabledModulesHooks();
     }
+
+    /**
+     * Return url to disabled modules list
+     *
+     * @return array
+     */
+    protected function getDisabledModulesListLink()
+    {
+        return $this->buildURL('addons_list_installed', '', ['state' => \XLite\View\FormField\Select\ModuleState::DISABLED]);
+    }
 }

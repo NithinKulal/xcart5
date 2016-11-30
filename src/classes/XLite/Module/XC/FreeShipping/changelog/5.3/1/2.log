@@ -1,0 +1,4 @@
+Version 5.3.1.2
+
+Fixes
+2016-11-07 - [Bug] A wrong order total was displayed on the place order button if the product had a fixed shipping fee. #BUG-4076 (Michael Lipinski) #Core #FreeShiping

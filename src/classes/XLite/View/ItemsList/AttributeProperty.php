@@ -14,20 +14,52 @@ namespace XLite\View\ItemsList;
 class AttributeProperty extends \XLite\View\ItemsList\Model\Table
 {
     /**
+     * @return array
+     */
+    public function getCSSFiles()
+    {
+        $list = parent::getCSSFiles();
+        $list[] = 'product/attributes/properties.css';
+
+        return $list;
+    }
+
+
+    /**
      * Define columns structure
      *
      * @return array
      */
     protected function defineColumns()
     {
-        return array(
-            'name' => array(
-                static::COLUMN_CLASS        => 'XLite\View\FormField\Inline\Label',
-                static::COLUMN_MAIN         => true,
-                static::COLUMN_ORDERBY      => 100,
-            ),
-        );
+        return [
+            'name'    => [
+                static::COLUMN_CLASS   => 'XLite\View\FormField\Inline\Label',
+                static::COLUMN_MAIN    => false,
+                static::COLUMN_ORDERBY => 100,
+            ],
+            'options' => [
+                static::COLUMN_CLASS   => 'XLite\View\FormField\Inline\Select\AttributeValue\Select',
+                static::COLUMN_MAIN    => true,
+                static::COLUMN_ORDERBY => 200,
+            ],
+        ];
     }
+
+    /**
+     * The columns are ordered according the static::COLUMN_ORDERBY values
+     *
+     * @return array
+     */
+    protected function prepareColumns()
+    {
+        $columns = parent::prepareColumns();
+
+        $columns['options'][static::COLUMN_PARAMS]['product'] = $this->getProduct();
+
+        return $columns;
+    }
+
 
     /**
      * Define repository name
@@ -58,7 +90,7 @@ class AttributeProperty extends \XLite\View\ItemsList\Model\Table
      */
     protected function getPagerClass()
     {
-        return '\XLite\View\Pager\Infinity';
+        return 'XLite\View\Pager\Infinity';
     }
 
     /**
@@ -82,7 +114,7 @@ class AttributeProperty extends \XLite\View\ItemsList\Model\Table
     }
 
     /**
-     * Defines the position of attribute in the current product 
+     * Defines the position of attribute in the current product
      *
      * @param \XLite\Model\Attribute $attribute
      *
@@ -106,5 +138,48 @@ class AttributeProperty extends \XLite\View\ItemsList\Model\Table
     protected function getData(\XLite\Core\CommonCell $cnd, $countOnly = false)
     {
         return $this->getProduct()->getEditableAttributes();
+    }
+
+    /**
+     * @return \XLite\Model\Product
+     */
+    protected function getProduct()
+    {
+        return \XLite::getController()->getProduct();
+    }
+
+    /**
+     * @param array                                       $column
+     * @param \XLite\Model\Attribute|\XLite\Model\AEntity $entity
+     *
+     * @return array
+     */
+    protected function preprocessFieldParams(array $column, \XLite\Model\AEntity $entity)
+    {
+        $list = parent::preprocessFieldParams($column, $entity);
+
+        if ($column['code'] === 'options') {
+            /** @var \XLite\Model\AttributeValue\AttributeValueSelect[] $options */
+            $options       = $entity->getAttributeValue($this->getProduct());
+            $list['value'] = $options;
+        }
+
+        return $list;
+    }
+
+    /**
+     * @param array                                       $column
+     * @param \XLite\Model\Attribute|\XLite\Model\AEntity $entity
+     *
+     * @return boolean
+     */
+    protected function isClassColumnVisible(array $column, \XLite\Model\AEntity $entity)
+    {
+        $result = parent::isClassColumnVisible($column, $entity);
+        if ($column[self::COLUMN_CODE] === 'options') {
+            $result = $entity->getType() === \XLite\Model\Attribute::TYPE_SELECT;
+        }
+
+        return $result;
     }
 }

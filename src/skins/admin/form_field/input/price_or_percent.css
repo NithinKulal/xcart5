@@ -1,0 +1,31 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Price or percent styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.input-price-or-percent {
+    min-width: 150px;
+}
+
+.input-price-or-percent div.table-value {
+    position: relative;
+    float: left;
+}
+
+.input-price-or-percent div.table-value .select-absolute-or-percent {
+    padding: 0;
+}
+
+.input-price-or-percent div.table-value .select-absolute-or-percent button {
+    width: 45px;
+}
+
+.input-price-or-percent div.table-value .input-text-floatinput input {
+    width: 100px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}

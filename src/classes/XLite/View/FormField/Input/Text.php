@@ -14,6 +14,7 @@ namespace XLite\View\FormField\Input;
 class Text extends \XLite\View\FormField\Input\Base\StringInput
 {
     const PARAM_SELECT_ON_FOCUS = 'selectOnFocus';
+    const PARAM_DO_NOT_TRIM = 'doNotTrim';
 
     /**
      * Return field type
@@ -47,7 +48,7 @@ class Text extends \XLite\View\FormField\Input\Base\StringInput
      */
     public function prepareRequestData($value)
     {
-        return trim(parent::prepareRequestData($value));
+        return $this->getParam(static::PARAM_DO_NOT_TRIM) ? parent::prepareRequestData($value) : trim(parent::prepareRequestData($value));
     }
 
     /**
@@ -61,6 +62,7 @@ class Text extends \XLite\View\FormField\Input\Base\StringInput
 
         $this->widgetParams += array(
             static::PARAM_SELECT_ON_FOCUS => new \XLite\Model\WidgetParam\TypeBool('Select on focus', $this->getDefaultSelectOnFocus()),
+            static::PARAM_DO_NOT_TRIM => new \XLite\Model\WidgetParam\TypeBool('Do not trim', false),
         );
     }
 

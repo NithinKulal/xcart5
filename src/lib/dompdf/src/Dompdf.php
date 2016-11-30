@@ -442,7 +442,7 @@ class Dompdf
                 if (isset($matches[1])) {
                     $encoding = strtoupper($matches[1]);
                 } else {
-                    $encoding = 'auto';
+                    $encoding = mb_detect_encoding($str); //cause of symfony polyfill can't handle 'auto'
                 }
             }
 

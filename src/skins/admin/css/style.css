@@ -46,6 +46,11 @@ h1 a {
   z-index: 10000;
 }
 
+ul.styled {
+  list-style: disc;
+  padding-left: 40px;
+}
+
 /**
  * Form elements styles
  */
@@ -232,22 +237,23 @@ span.input-text-attributeoption .wait-overlay-progress
   margin-right: 15px;
   width: 26px;
   height: 26px;
-  -webkit-animation: spin 0.5s infinite linear;
-  -moz-animation: spin 0.5s infinite linear;
-  -ms-animation: spin 0.5s infinite linear;
-  -o-animation: spin 0.5s infinite linear;
-  animation: spin 0.5s infinite linear;
 }
 
 .spinner .box {
   width: 15px;
   height: 15px;
   overflow: hidden;
+  -webkit-animation: rotateGear 0.5s infinite linear;
+  -moz-animation: rotateGear 0.5s infinite linear;
+  -ms-animation: rotateGear 0.5s infinite linear;
+  -o-animation: rotateGear 0.5s infinite linear;
+  animation: rotateGear 0.5s infinite linear;
 }
 
 .spinner .subbox {
   border-radius: 12px;
   border: 3px solid #1abdc4;
+  border-bottom-color: #aaf8fb;
   width: 20px;
   height: 20px;
 }
@@ -1244,31 +1250,6 @@ td div.table-value {
   padding: 0px;
 }
 
-/* These styles are obsolete. TO REMOVE
-
-.product-modify-form .name-attribute
-{
-  width: 120px;
-}
-
-.product-modify-inventory td button[type="submit"] {
-  margin-top: 30px;
-}
-
-.product-modify-inventory td {
-  padding: 6px;
-  font-size: 14px;
-}
-
-.product-modify-form .add-product-notification {
-  padding-top: 12px;
-  font-size: 12px;
-  font-family: Arial;
-  font-style: italic;
-  color: #92999d;
-}
-*/
-
 .model-properties input#meta-tags,
 .model-properties input#meta-desc,
 .model-properties .input-text-cleanurl .cleanurl-value .input-group {
@@ -1280,6 +1261,8 @@ td.star
   width: 10px;
   text-align: center;
 }
+
+
 
 /**
  * Order statistics
@@ -1515,6 +1498,18 @@ div.model-form-buttons {
   background-image: none;
 }
 
+.model-properties ul.table > li.textarea-advanced .table-label {
+  min-width: 250px;
+}
+
+.model-properties ul.table > li.textarea-advanced .table-value {
+  width: 100%;
+}
+
+.model-properties ul.table > li > * {
+  white-space: nowrap;
+}
+
 div.table-label {
   display: table-cell;
   padding-top: 10px;
@@ -1531,6 +1526,7 @@ div.table-label .tooltip-main {
 div.table-label.root-category-look-label {
   padding-right: 3px;
 }
+
 
 .model-properties ul.table li.itemslist div.table-value {
   width: 100%;
@@ -1627,6 +1623,10 @@ div.table-value input[type="checkbox"] {
   vertical-align: middle;
   width: 14px;
   height: 14px;
+}
+
+div.table-value label > input[type="checkbox"] {
+  display: inline-block;
 }
 
 div.table-value .checkbox-list {
@@ -1797,9 +1797,19 @@ form.list-form {
 
 .sticky-panel .panel-cell {
   display: inline-block;
-  padding: 0px;
-  margin-right: 10px;
-  margin-top:3px;
+  margin: 0 5px;
+}
+
+.sticky-panel .panel-cell:first-child {
+  margin-left: 0;
+}
+
+.sticky-panel .panel-cell:last-child {
+  margin-right: 0;
+}
+
+.sticky-panel .panel-cell .icon-only {
+  min-width: 35px;
 }
 
 .sticky-panel div.cancel,
@@ -1824,52 +1834,60 @@ form.list-form {
   cursor: text;
 }
 
-.sticky-panel.has-add-buttons .additional .additional-buttons .menu {
-  display: inline;
-}
+/*.sticky-panel.has-add-buttons .additional .additional-buttons .menu {*/
+  /*display: inline;*/
+/*}*/
 
-.sticky-panel.has-add-buttons .additional .additional-buttons {
-  position: relative;
-  top: 0px;
-  left: -13px;
-}
+/*.sticky-panel.has-add-buttons .additional .additional-buttons {*/
+  /*position: relative;*/
+  /*top: 0px;*/
+  /*left: -13px;*/
+/*}*/
 
-.sticky-panel.has-add-buttons .additional .additional-buttons span.or {
+.sticky-panel.has-add-buttons .additional div.or {
   font-size: 16px;
-  margin: 0 15px;
+  margin: 0 5px 0 10px;
   color: #999;
-}
-
-.sticky-panel.has-add-buttons .additional .additional-buttons span.more-actions,
-  .sticky-panel.has-add-buttons .additional .additional-buttons span.more-actions *
-{
-  font-size: 16px;
-  text-decoration: underline;
-  color: #154e9c;
-}
-
-.sticky-panel.has-add-buttons .additional .additional-buttons span.more-actions {
-  background: transparent url(../images/more_actions.png) right 8px no-repeat;
-  padding-right: 15px;
-}
-
-.sticky-panel.has-add-buttons .additional .additional-buttons div.more {
   display: inline-block;
-  width: 100%;
-  margin-top: 8px;
-  padding-top: 8px;
-  border-top: 1px solid #eaeaea;
+  vertical-align: middle;
+  line-height: 35px;
 }
 
-.sticky-panel.has-add-buttons .additional .additional-buttons span.more-actions,
-.sticky-panel.has-add-buttons .additional .additional-buttons span.more-actions *
-{
-  text-decoration: none;
+.sticky-panel.has-add-buttons .additional .additional-buttons > .btn-group > :first-child {
+  margin-left: 10px;
 }
 
-.sticky-panel.has-add-buttons .additional .additional-buttons .panel-subcell button {
-  height: 30px;
-}
+
+/*.sticky-panel.has-add-buttons .additional .additional-buttons span.more-actions,*/
+  /*.sticky-panel.has-add-buttons .additional .additional-buttons span.more-actions **/
+/*{*/
+  /*font-size: 16px;*/
+  /*text-decoration: underline;*/
+  /*color: #154e9c;*/
+/*}*/
+
+/*.sticky-panel.has-add-buttons .additional .additional-buttons span.more-actions {*/
+  /*background: transparent url(../images/more_actions.png) right 8px no-repeat;*/
+  /*padding-right: 15px;*/
+/*}*/
+
+/*.sticky-panel.has-add-buttons .additional .additional-buttons div.more {*/
+  /*display: inline-block;*/
+  /*width: 100%;*/
+  /*margin-top: 8px;*/
+  /*padding-top: 8px;*/
+  /*border-top: 1px solid #eaeaea;*/
+/*}*/
+
+/*.sticky-panel.has-add-buttons .additional .additional-buttons span.more-actions,*/
+/*.sticky-panel.has-add-buttons .additional .additional-buttons span.more-actions **/
+/*{*/
+  /*text-decoration: none;*/
+/*}*/
+
+/*.sticky-panel.has-add-buttons .additional .additional-buttons .panel-subcell button {*/
+  /*height: 30px;*/
+/*}*/
 
 .sticky-panel.has-add-buttons .additional .additional-buttons .modules-not-selected {
   font-size: 14px;
@@ -2214,10 +2232,6 @@ button.link.disabled span
   cursor: default;
 }
 
-.ui-progressbar .ui-progressbar-value {
-  background: transparent url(../images/progress_blue.gif);
-}
-
 form div.table-value.xcart-form-id-value {
   position: absolute;
   width: 0px;
@@ -2369,10 +2383,6 @@ ol.ordered-list {
 
 .items-list.products table.list tbody.lines td input.price {
   width: 90px;
-}
-
-.fa-percent:before {
-  content: "%";
 }
 
 button i.button-icon.state-off {

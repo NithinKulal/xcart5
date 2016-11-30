@@ -11,7 +11,7 @@ namespace XLite\View;
 /**
  * Tax banner alert widget
  *
- * @ListChild (list="admin.center", zone="admin", weight="10")
+ * @ListChild (list="taxes.top.section", zone="admin", weight="10")
  */
 class TaxBannerAlert extends \XLite\View\ModuleBanner
 {
@@ -26,6 +26,7 @@ class TaxBannerAlert extends \XLite\View\ModuleBanner
         $result[] = 'tax_classes';
         $result[] = 'sales_tax';
         $result[] = 'vat_tax';
+        $result[] = 'canadian_taxes';
 
         return $result;
     }

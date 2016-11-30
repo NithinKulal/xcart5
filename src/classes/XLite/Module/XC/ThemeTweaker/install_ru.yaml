@@ -18,7 +18,7 @@ XLite\Model\LanguageLabel:
   - { name: 'Webmaster mode', translations: [{ code: ru, label: 'Режим веб-мастера' }] }
   - { name: 'Template', translations: [{ code: ru, label: 'Шаблон' }] }
   - { name: 'Back to templates list', translations: [{ code: ru, label: 'Вернуться к списку шаблонов' }] }
-  - { name: 'Webmaster Mode allows you to change the storefront design in click-and-edit mode', translations: [{ code: ru, label: 'Режим веб-мастера позволяет редактировать внешний вид сайта по месту.<br /><br />Если после внесения изменений клиентская зона выглядит неправильно, попробуйте откатить изменения в секции "Измененные шаблоны". Больше информации об изменении дизайна сайта на X-Cart - в <a href="http://kb.x-cart.com/pages/viewpage.action?pageId=8224814">Базе знаний X-Cart</a>.' }] }
+  - { name: 'Webmaster Mode allows you to change the storefront design in click-and-edit mode', translations: [{ code: ru, label: 'Режим веб-мастера позволяет редактировать внешний вид сайта по месту.<br /><br />Если после внесения изменений клиентская зона выглядит неправильно, попробуйте откатить изменения в секции "Измененные шаблоны". Больше информации об изменении дизайна сайта на X-Cart - в <a href="http://devs.x-cart.com/en/design_changes/basic_guide_to_theme_creation.html">Базе знаний X-Cart</a>.' }] }
   - { name: 'Webmaster mode is enabled', translations: [{ code: ru, label: 'Режим веб-мастера включен' }] }
   - { name: 'Webmaster mode is disabled', translations: [{ code: ru, label: 'Режим веб-мастера отключен' }] }
   - { name: 'The template has been updated', translations: [{ code: ru, label: 'Шаблон обновлён' }] }
@@ -27,6 +27,11 @@ XLite\Model\LanguageLabel:
   - { name: 'webmasterMode.Disabled', translations: [{ code: ru, label: 'Выкл' }] }
   - { name: 'New images', translations: [{ code: ru, label: 'Новые картинки' }] }
   - { name: 'You are now in layout editing mode', translations: [{ code: ru, label: 'Здесь можно <b>перетаскивать блоки</b>, меняя их порядок.' }] }
+  - { name: 'You are now in preview mode', translations: [{ code: ru, label: 'Режим предпросмотра продукта. Здесь можно <b>редактировать описание</b> продукта.' }] }
+  - { name: 'Exit product preview', translations: [{ code: ru, label: 'Вернуться' }] }
+  - { name: 'You have unsaved changes. Are you really sure to exit the preview?', translations: [{ code: ru, label: 'У вас есть несохраненные изменения. Вы точно хотите выйти из режима предпросмотра?' }] }
+  - { name: 'Inline editor is unavailable due to TinyMCE', translations: [{ code: ru, label: '<i class="fa fa-exclamation-triangle inline-editor-message_icon"></i>Здесь можно <b>редактировать описание</b> продукта. Изменения могут быть <span style="font-weight: bold; color: orange;">несовместимы</span> с редактором TinyMCE.' }] }
+  - { name: 'Changes may be incompatible with TinyMCE. Are you sure to proceed?', translations: [{ code: ru, label: 'Изменения могут быть несовместимы с редактором TinyMCE. Вы точно хотите их сохранить?' }] }
   - { name: 'Layout editor', translations: [{ code: ru, label: 'Режим разметки' }] }
   - { name: 'Layout editor is', translations: [{ code: ru, label: 'Режим разметки' }] }
   - { name: 'disabled blocks', translations: [{ code: ru, label: 'блоков отключено' }] }
@@ -55,3 +60,12 @@ XLite\Model\LanguageLabel:
   - { name: 'Failure to convert flexy-template. Check for syntax errors', translations: [{ code: ru, label: 'Не удалось сконвертировать Flexy-шаблон. Проверьте его содержание на предмет синтаксических ошибок' }]}
   - { name: 'Back to Webmaster mode', translations: [{ code: ru, label: 'Вернуться на страницу "Режим веб-мастера"' }]}
   - { name: 'Flexy-to-twig converter warning', translations: [{ code: ru, label: 'Сконвертированные файлы не всегда могут работать корректно поскольку не все изменения могут быть правильно выполнены при автоматической конвертации. Проверьте ваши сконвертированные файлы вручную, чтобы убедиться, что все изменения перенесены верно. Больше информации о Flexy-to-Twig конверторе доступно здесь: <a href="http://xcart.github.io/flexy-to-twig/" target="_blank">http://xcart.github.io/flexy-to-twig</a>' }]}
+
+  - { name: 'Edit via Webmaster mode', translations: [{ code: ru, label: 'Редактировать в Режиме веб-мастера' }] }
+  - { name: 'Preview template', translations: [{ code: ru, label: 'Предпросмотр шаблона' }] }
+  - { name: 'No orders available. Please create at least one order.', translations: [{ code: ru, label: 'Нет ни одного заказа. Пожалуйста, создайте по крайней мере один заказ.' }] }
+  - { name: 'Back to notification settings', translations: [{ code: ru, label: 'Назад к настройкам уведомлений' }] }
+  - { name: 'Edit template based on', translations: [{ code: ru, label: 'Редактировать шаблон на основе' }] }
+  - { name: 'The test email notification has been sent to X', translations: [{ code: ru, label: 'Тестовое уведомление было послано на адрес {{email}}' }] }
+  - { name: 'Failure sending test email to X', translations: [{ code: ru, label: 'Ошибка отправки тестового уведомления на адрес {{email}}' }] }
+  - { name: 'Enter Order number', translations: [{ code: ru, label: 'Введите номер заказа' }] }

@@ -15,6 +15,8 @@ XLite\Model\Payment\Method:
   - { service_name: 'Moneybookers.MAE', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: C, orderby: 1070, countries: [GB], translations: [{ code: en, name: 'Skrill Maestro' }] }
   - { service_name: 'Moneybookers.SLO', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: C, orderby: 1080, countries: [GB], translations: [{ code: en, name: 'Skrill Solo' }] }
   - { service_name: 'Moneybookers.AMX', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: C, orderby: 1090, countries: [US], translations: [{ code: en, name: 'Skrill American Express' }] }
+  - { service_name: 'Moneybookers.DIN', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: C, orderby: 1100, countries: [US, CA, GB, IE], translations: [{ code: en, name: 'Skrill Diners' }] }
+  - { service_name: 'Moneybookers.JCB', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: C, orderby: 1110, countries: [JP], translations: [{ code: en, name: 'Skrill JCB' }] }
   - { service_name: 'Moneybookers.LSR', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: C, orderby: 1120, countries: [IE], translations: [{ code: en, name: 'Skrill Laser' }] }
   - { service_name: 'Moneybookers.GCB', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: C, orderby: 1130, countries: [FR], translations: [{ code: en, name: 'Skrill Carte Bleue' }] }
   - { service_name: 'Moneybookers.DNK', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: C, orderby: 1140, countries: [DK], translations: [{ code: en, name: 'Skrill Dankort' }] }

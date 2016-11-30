@@ -16,8 +16,8 @@ class Checkbox extends \XLite\View\FormField\Input\AInput
     /**
      * Widget param names
      */
-
     const PARAM_IS_CHECKED = 'isChecked';
+    const PARAM_CAPTION    = 'caption';
 
     /**
      * Return field type
@@ -38,9 +38,10 @@ class Checkbox extends \XLite\View\FormField\Input\AInput
     {
         parent::defineWidgetParams();
 
-        $this->widgetParams += array(
+        $this->widgetParams += [
             self::PARAM_IS_CHECKED => new \XLite\Model\WidgetParam\TypeBool('Is checked', false),
-        );
+            self::PARAM_CAPTION    => new \XLite\Model\WidgetParam\TypeString('Caption', '', false),
+        ];
     }
 
     /**
@@ -60,7 +61,7 @@ class Checkbox extends \XLite\View\FormField\Input\AInput
      */
     protected function checkSavedValue()
     {
-        $savedValue = $this->callFormMethod('getSavedData', array($this->getName()));
+        $savedValue = $this->callFormMethod('getSavedData', [$this->getName()]);
 
         return null !== $savedValue && false !== $savedValue;
     }
@@ -75,7 +76,6 @@ class Checkbox extends \XLite\View\FormField\Input\AInput
     protected function prepareAttributes(array $attrs)
     {
         $attrs = parent::prepareAttributes($attrs);
-
         if ($this->isChecked()) {
             $attrs['checked'] = 'checked';
         }
@@ -91,6 +91,16 @@ class Checkbox extends \XLite\View\FormField\Input\AInput
     protected function getDefaultValue()
     {
         return parent::getDefaultValue() ?: '1';
+    }
+
+    /**
+     * Get default value
+     *
+     * @return string
+     */
+    protected function getDefaultHiddenValue()
+    {
+        return '';
     }
 
     /**

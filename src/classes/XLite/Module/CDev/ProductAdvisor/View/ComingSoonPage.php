@@ -22,7 +22,7 @@ class ComingSoonPage extends \XLite\Module\CDev\ProductAdvisor\View\AComingSoon
      */
     public static function getAllowedTargets()
     {
-        $result = parent::getAllowedTargets();
+        $result   = parent::getAllowedTargets();
         $result[] = self::WIDGET_TARGET_COMING_SOON;
 
         return $result;
@@ -49,7 +49,7 @@ class ComingSoonPage extends \XLite\Module\CDev\ProductAdvisor\View\AComingSoon
      */
     protected function getPagerClass()
     {
-        return '\XLite\Module\CDev\ProductAdvisor\View\Pager\Customer\ControllerPager';
+        return 'XLite\Module\CDev\ProductAdvisor\View\Pager\Customer\ControllerPager';
     }
 
     /**
@@ -69,7 +69,7 @@ class ComingSoonPage extends \XLite\Module\CDev\ProductAdvisor\View\AComingSoon
      */
     protected function isVisible()
     {
-        return static::getWidgetTarget() == \XLite\Core\Request::getInstance()->target
-            && parent::isVisible();
+        return static::getWidgetTarget() === \XLite\Core\Request::getInstance()->target
+        && parent::isVisible();
     }
 }

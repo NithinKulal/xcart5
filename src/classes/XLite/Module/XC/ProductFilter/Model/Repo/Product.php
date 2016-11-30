@@ -20,6 +20,7 @@ abstract class Product extends \XLite\Model\Repo\Product implements \XLite\Base\
     const P_ATTRIBUTE = 'attribute';
     const P_FILTER    = 'filter';
     const P_IN_STOCK  = 'inStock';
+    const P_QUICK_DATA_MEMBERSHIP = 'QuickDataMembership';
 
     /**
      * Allowable search modes
@@ -31,6 +32,7 @@ abstract class Product extends \XLite\Model\Repo\Product implements \XLite\Base\
      */
     const P_SCALAR_FUNCTION = 'scalarFunction';
     const P_SCALAR_PROPERTY = 'scalarProperty';
+    const P_SCALAR_SELECT = 'scalarSelect';
 
     /**
      * Get default property for scalar search
@@ -75,6 +77,7 @@ abstract class Product extends \XLite\Model\Repo\Product implements \XLite\Base\
             array(
                 static::P_SCALAR_FUNCTION => static::EXCLUDE_FROM_ANY,
                 static::P_SCALAR_PROPERTY => static::EXCLUDE_FROM_ANY,
+                static::P_SCALAR_SELECT => static::EXCLUDE_FROM_ANY,
             )
         );
     }
@@ -89,12 +92,16 @@ abstract class Product extends \XLite\Model\Repo\Product implements \XLite\Base\
         $queryBuilder = $this->searchState['queryBuilder'];
         $cnd = $this->searchState['currentSearchCnd'];
 
-        $property = $cnd->{static::P_SCALAR_PROPERTY} ?: $this->getDefaultScalarModeProperty();
+        if ($cnd->{static::P_SCALAR_SELECT}) {
+            $select = $cnd->{static::P_SCALAR_SELECT};
+        } else {
+            $property = $cnd->{static::P_SCALAR_PROPERTY} ?: $this->getDefaultScalarModeProperty();
 
-        $key = $this->getMainAlias($queryBuilder) . '.' . $property;
-        $function = $cnd->{static::P_SCALAR_FUNCTION} ?: $this->getDefaultScalarModeFunction();
+            $key = $this->getMainAlias($queryBuilder) . '.' . $property;
+            $function = $cnd->{static::P_SCALAR_FUNCTION} ?: $this->getDefaultScalarModeFunction();
 
-        $select = sprintf('%s(DISTINCT %s)', $function, $key);
+            $select = sprintf('%s(DISTINCT %s)', $function, $key);
+        }
 
         $queryBuilder = $queryBuilder
             ->select($select)
@@ -218,6 +225,26 @@ abstract class Product extends \XLite\Model\Repo\Product implements \XLite\Base\
         if ($value) {
             $this->prepareCndInventory($queryBuilder, static::INV_IN);
             $this->prepareCndArrivalDate($queryBuilder, array(\XLite\Core\Converter::getDayEnd(\XLite\Base\SuperClass::getUserTime())));
+        }
+    }
+
+    /**
+     * Prepare quick data membership search condition
+     *
+     * @param \XLite\Model\QueryBuilder\AQueryBuilder $queryBuilder Query builder to prepare
+     * @param array                                   $value        Condition data
+     *
+     * @return void
+     */
+    protected function prepareCndQuickDataMembership(\XLite\Model\QueryBuilder\AQueryBuilder $queryBuilder, $value)
+    {
+        $queryBuilder->linkLeft($this->getMainAlias($queryBuilder) . '.quickData', 'qdm');
+
+        if ($value) {
+            $queryBuilder->andWhere('qdm.membership = :membership')
+                ->setParameter('membership', $value);
+        } else {
+            $queryBuilder->andWhere('qdm.membership IS NULL');
         }
     }
 }

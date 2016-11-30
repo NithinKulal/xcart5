@@ -1,0 +1,12 @@
+{##
+ # Switcher button
+ #}
+
+<div class="standalone-switch">
+    {{ this.displayCommentedData(this.getCommentedData()) }}
+    {{ widget('XLite\\View\\FormField\\Input\\Checkbox\\OnOff', 
+        label=this.getParam('label'),
+        labelHelp=this.getParam('labelHelp'),
+        value=this.getValue()) }}
+</div>
+

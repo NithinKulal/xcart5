@@ -7,7 +7,7 @@
 {% endif %}
 {% include this.getDir() ~ '/header.twig' %}
 
-  {% form this.getFormClass() %}
+  {% form this.getFormClass() with this.getFormWidgetParams() %}
 
     <div class="{{ this.getContainerClass() }}">
       {% include this.getDir() ~ '/form_content.twig' %}

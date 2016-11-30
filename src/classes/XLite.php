@@ -22,7 +22,7 @@ class XLite extends \XLite\Base
     /**
      * Core version
      */
-    const XC_VERSION = '5.3.1.4';
+    const XC_VERSION = '5.3.2';
 
     /**
      * Endpoints
@@ -646,6 +646,10 @@ class XLite extends \XLite\Base
      */
     public function processRequest()
     {
+        if (!static::isAdminZone()) {
+            \XLite\Core\Router::getInstance()->processCleanUrls();
+        }
+
         $this->runController();
 
         static::getController()->processRequest();
@@ -797,12 +801,22 @@ class XLite extends \XLite\Base
             $web_dir = rtrim(\XLite::getInstance()->getOptions(array('host_details', 'web_dir')), '/');
             $selfURI = strtok(\Includes\Utils\URLManager::getSelfURI(),'?');
 
+            if (LC_USE_CLEAN_URLS && \XLite\Core\Router::getInstance()->isUseLanguageUrls()) {
+                $language = \XLite\Core\Session::getInstance()->getLanguage();
+                if (!$language->getDefaultAuth()) {
+                    $noLangRedirectUrl = $redirectUrl;
+                    $redirectUrl = $language->getCode() . '/' . $redirectUrl;
+                }
+            }
+
             if (($web_dir . '/' . $redirectUrl) !== $selfURI) {
 
                 \XLite\Core\Operator::redirect(
                     \XLite\Core\URLManager::getShopURL($redirectUrl),
                     false,
-                    301
+                    isset($noLangRedirectUrl) && ($web_dir . '/' . $noLangRedirectUrl) !== $selfURI
+                        ? 301
+                        : 302
                 );
             }
         }
@@ -824,7 +838,8 @@ class XLite extends \XLite\Base
     protected static function isCheckForCleanURL()
     {
         $tmp = \XLite\Core\Request::getInstance();
-        $query = implode('/', array($tmp->rest, $tmp->last, $tmp->url . $tmp->ext));
+        $parts = [$tmp->rest, $tmp->last, $tmp->url . $tmp->ext];
+        $query = implode('/', array_filter($parts));
 
         return static::CLEAN_URL_CHECK_QUERY == $query;
     }
@@ -964,6 +979,16 @@ class XLite extends \XLite\Base
     final public function checkMinorVersion($version, $operator)
     {
         return version_compare($this->getMinorVersion(), $version, $operator);
+    }
+
+    /**
+     * Get last cache rebuild time
+     *
+     * @return integer Timestamp
+     */
+    public static function getLastRebuildTimestamp()
+    {
+        return \XLite\Core\Database::getRepo('XLite\Model\TmpVar')->getVar(\XLite::CACHE_TIMESTAMP);
     }
 
     // }}}

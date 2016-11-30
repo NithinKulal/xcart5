@@ -1,0 +1,11 @@
+{##
+ # Fastlane checkout address metadata
+ #}
+
+<script type='application/javascript'>
+    if ('undefined' === typeof(window.WidgetData)) { window.WidgetData = {}; }
+    window.WidgetData["{{ this.getClassName() ~ '-address-form' }}"] = {{ this.serializeFormSchema()|raw }};
+    {% if this.getClassName() == 'billing' %}
+      window.WidgetData["same_address"] = {{ this.isSameAddress() ? '1' : '0' }};
+    {% endif %}
+</script>

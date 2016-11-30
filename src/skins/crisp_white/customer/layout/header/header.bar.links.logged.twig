@@ -4,7 +4,7 @@
  # @ListChild (list="layout.header.bar", weight="100")
  #}
 
-{% if this.isLogged() %}
+{% if this.isLogged() and not this.isCheckoutLayout() %}
   <div class="dropdown header_bar-my_account">
     <a data-toggle="dropdown" data-target="#">{{ t('My account') }}</a>
     <ul class="account-links dropdown-menu">

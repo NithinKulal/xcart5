@@ -264,7 +264,19 @@ abstract class Image extends \XLite\Model\Base\Storage
      */
     public function prepareSizes()
     {
-        $this->doResizeAll(\XLite\Logic\ImageResize\Generator::getModelImageSizes(get_class($this)));
+        $this->doResizeAll($this->getAllSizes());
+    }
+
+    /**
+     * Get all defined sizes
+     *
+     * @return array
+     */
+    protected function getAllSizes()
+    {
+        return \XLite\Logic\ImageResize\Generator::getModelImageSizes(
+            get_class($this)
+        );
     }
 
     /**
@@ -403,6 +415,60 @@ abstract class Image extends \XLite\Model\Base\Storage
     }
 
     // }}}
+
+    /**
+     * Remove file
+     *
+     * @param string $path Path OPTIONAL
+     *
+     * @return void
+     */
+    public function removeFile($path = null)
+    {
+        parent::removeFile($path);
+
+        $this->removeResizedImages($path);
+    }
+
+    /**
+     * Postprocess file by temporary file
+     *
+     * @param \XLite\Model\TemporaryFile $temporaryFile
+     */
+    public function postprocessByTemporary(\XLite\Model\TemporaryFile $temporaryFile)
+    {
+    }
+
+    /**
+     * Prepare image before remove operation
+     *
+     * @param string $path Path OPTIONAL
+     */
+    public function removeResizedImages($path = null)
+    {
+        $path = $path ?: $this->getPath();
+
+        $sizes = $this->getAllSizes();
+
+        $name = $this->isURL()
+            ? pathinfo($path, \PATHINFO_FILENAME) . '.' . $this->getExtension()
+            : $path;
+
+        foreach ($sizes as $size) {
+            list($width, $height) = $size;
+
+            $size = ($width ?: 'x') . '.' . ($height ?: 'x');
+            $path = $this->getResizedPath($size, $name);
+
+            if (\Includes\Utils\FileManager::isExists($path)) {
+                $isDeleted = \Includes\Utils\FileManager::deleteFile($path);
+
+                if (!$isDeleted) {
+                    \XLite\Logger::getInstance()->log('Can\'t delete resized image ' . $path, LOG_DEBUG);
+                }
+            }
+        }
+    }
 
     /**
      * Set width

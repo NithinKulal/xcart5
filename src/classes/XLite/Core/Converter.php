@@ -8,6 +8,9 @@
 
 namespace XLite\Core;
 
+use Includes\ClassPathResolver;
+use Includes\Reflection\StaticReflectorFactory;
+
 /**
  * Miscellaneous conversion routines
  */
@@ -167,21 +170,26 @@ class Converter extends \XLite\Base\Singleton
             ? static::$cacheControllers[$zone . '.' . $target]
             : null;
 
-        if (!$class) {
+        if (!$class
+            || !\XLite\Core\Operator::isClassExists($class)
+            || !file_exists(LC_DIR_CLASSES . str_replace('\\', LC_DS, $class) . '.php')
+        ) {
             // Detect
             $prefix = 'Controller\\' . $zone . '\\' . static::convertToCamelCase($target);
             $class = 'XLite\\' . $prefix;
 
             // If common controller
-            if (!\XLite\Core\Operator::isClassExists($class)) {
+            if (!\XLite\Core\Operator::isClassExistsInClassesOrCache($class)) {
                 $prefix = 'Controller\\' . static::convertToCamelCase($target);
                 $class = 'XLite\\' . $prefix;
             }
 
             // If non core controller
-            if (!\XLite\Core\Operator::isClassExists($class)) {
+            if (!\XLite\Core\Operator::isClassExistsInClassesOrCache($class)) {
                 $class = null;
-                $base = LC_DIR_CACHE_CLASSES;
+                $base = LC_DEVELOPER_MODE
+                    ? LC_DIR_CLASSES
+                    : LC_DIR_CACHE_CLASSES;
                 $path = $base . 'XLite' . LC_DS
                     . 'Module' . LC_DS
                     . '*' . LC_DS
@@ -192,14 +200,29 @@ class Converter extends \XLite\Base\Singleton
 
                 $list = glob($path);
                 if ($list) {
-                    $length = strlen(LC_DIR_CACHE_CLASSES);
+                    $length = strlen($base);
                     foreach ($list as $path) {
                         $preclass = str_replace(LC_DS, '\\', substr($path, $length, -4));
-                        $reflection = new \ReflectionClass($preclass);
-                        // Check - decorator or not
-                        if (!$reflection->isAbstract()) {
-                            $class = $preclass;
-                            break;
+                        if (!LC_DEVELOPER_MODE
+                            || \XLite\Core\Operator::isClassExists($preclass)
+                            || class_exists($preclass, LC_DEVELOPER_MODE)
+                        ) {
+                            $reflection = new \ReflectionClass($preclass);
+                            // Check - decorator or not
+                            if (!$reflection->isAbstract()) {
+                                $class = $preclass;
+                                break;
+                            }
+
+                        } elseif (\XLite\Core\Operator::isClassExistsInClassesOrCache($preclass)) {
+                            $sourceStaticReflectorFactory = new StaticReflectorFactory(
+                                new ClassPathResolver(LC_DIR_CLASSES)
+                            );
+
+                            if (!$sourceStaticReflectorFactory->reflectClass($preclass)->isDecorator()) {
+                                $class = $preclass;
+                                break;
+                            }
                         }
                     }
                 }
@@ -209,6 +232,15 @@ class Converter extends \XLite\Base\Singleton
                 static::$cacheControllers[$zone . '.' . $target] = $class;
                 static::getSystemCacheDriver()->save('controllers', static::$cacheControllers);
             }
+        }
+
+        if (LC_DEVELOPER_MODE
+            && isset(static::$cacheControllers[$zone . '.' . $target])
+            && !file_exists(LC_DIR_CLASSES . str_replace('\\', LC_DS, $class) . '.php')
+        ) {
+            unset(static::$cacheControllers[$zone . '.' . $target]);
+            static::getSystemCacheDriver()->save('controllers', static::$cacheControllers);
+            $class = null;
         }
 
         return $class;
@@ -274,6 +306,13 @@ class Converter extends \XLite\Base\Singleton
             }
         }
 
+        if (LC_USE_CLEAN_URLS && \XLite\Core\Router::getInstance()->isUseLanguageUrls() && ($interface == \XLite::CART_SELF || !\XLite::isAdminZone())) {
+            $language = \XLite\Core\Session::getInstance()->getLanguage();
+            if (!$language->getDefaultAuth() && !preg_match('/^https?:\/\//Ss', $result)) {
+                $result = $language->getCode() . '/' . $result;
+            }
+        }
+
         return $result;
     }
 
@@ -291,6 +330,32 @@ class Converter extends \XLite\Base\Singleton
     public static function buildFullURL($target = '', $action = '', array $params = array(), $interface = null, $forceCuFlag = null)
     {
         return \XLite::getInstance()->getShopURL(static::buildURL($target, $action, $params, $interface, false, $forceCuFlag));
+    }
+
+    /**
+     * Compose URL from target, action and additional params
+     *
+     * @param \XLite\Model\AccessControlCell $acc
+     * @param string                         $target    Page identifier
+     * @param string                         $action    Action to perform
+     * @param array                          $params    Additional params
+     * @param string                         $interface Interface script OPTIONAL
+     *
+     * @return string
+     */
+    public static function buildPersistentAccessURL(\XLite\Model\AccessControlCell $acc, $target = '', $action = '', array $params = array(), $interface = null)
+    {
+        $returnData = [
+            'target' => $target,
+            'action' => $action,
+            'params' => $params
+        ];
+        
+        $acc->mergeReturnData($returnData);
+        
+        \XLite\Core\Database::getEM()->flush($acc);
+
+        return static::buildFullURL('access_control', '', ['key' => $acc->getHash()], $interface);
     }
 
     /**
@@ -354,7 +419,7 @@ class Converter extends \XLite\Base\Singleton
      */
     public static function getCleanURLAllowedCharsPattern($getAllowedPattern = true)
     {
-        return $getAllowedPattern ? '[\w_\-]+' : '[^\w_\-]';
+        return $getAllowedPattern ? '[.\w_\-]+' : '[^.\w_\-]';
     }
 
     // }}}
@@ -544,10 +609,10 @@ class Converter extends \XLite\Base\Singleton
 
     /**
      * Parse from js format
-     * 
+     *
      * @param string $value Date value
      * @param string $format Date format in strftime format OPTIONAL
-     * 
+     *
      * @return integer
      */
     public static function parseFromJsFormat($value, $format = null)
@@ -569,9 +634,9 @@ class Converter extends \XLite\Base\Singleton
 
     /**
      * Get appropriate formats by strftime format
-     * 
+     *
      * @param string $format Date format in strftime format OPTIONAL
-     * 
+     *
      * @return array
      */
     public static function getDateFormatsByStrftimeFormat($format = null)
@@ -587,41 +652,41 @@ class Converter extends \XLite\Base\Singleton
 
     /**
      * Allowed date formats
-     * 
+     *
      * @return array
      */
     public static function getAvailableDateFormats()
     {
         return array(
-            '%m/%d/%Y' => array(    
+            '%m/%d/%Y' => array(
                 'jsFormat'  => 'mm/dd/yy',
                 'phpFormat'  => 'm/d/Y',
             ),
-            '%m-%d-%Y' => array(    
+            '%m-%d-%Y' => array(
                 'jsFormat'  => 'mm-dd-yy',
                 'phpFormat'  => 'm-d-Y',
             ),
-            '%d.%m.%Y' => array(    
+            '%d.%m.%Y' => array(
                 'jsFormat'  => 'dd.mm.yy',
                 'phpFormat'  => 'd.m.Y',
             ),
-            '%d-%m-%Y' => array(    
+            '%d-%m-%Y' => array(
                 'jsFormat'  => 'dd-mm-yy',
                 'phpFormat'  => 'd-m-Y',
             ),
-            '%d/%m/%Y' => array(    
+            '%d/%m/%Y' => array(
                 'jsFormat'  => 'dd/mm/yy',
                 'phpFormat'  => 'd/m/Y',
             ),
-            '%Y-%m-%d' => array(    
+            '%Y-%m-%d' => array(
                 'jsFormat'  => 'yy-mm-dd',
                 'phpFormat'  => 'Y-m-d',
             ),
-            '%b %e, %Y' => array(    
+            '%b %e, %Y' => array(
                 'jsFormat'  => 'M d, yy',
                 'phpFormat'  => 'M d, Y',
             ),
-            '%A, %B %e, %Y' => array(    
+            '%A, %B %e, %Y' => array(
                 'jsFormat'  => 'DD, MM d, yy',
                 'phpFormat'  => 'l, F d, Y',
             )
@@ -999,6 +1064,32 @@ class Converter extends \XLite\Base\Singleton
         }
 
         return $locales;
+    }
+
+    /**
+     * Return locale by language code
+     *
+     * @param string $code    Language code
+     *
+     * @return string
+     */
+    public static function langToLocale($code)
+    {
+        $predefinedLocales = static::getPredefinedLanguageLocales();
+
+        return isset($predefinedLocales[$code]) ? $predefinedLocales[$code] : $code;
+    }
+
+    /**
+     * Return predefined locales list
+     *
+     * @return array
+     */
+    public static function getPredefinedLanguageLocales()
+    {
+        return [
+            'gb' => 'en-GB'
+        ];
     }
 
     /**

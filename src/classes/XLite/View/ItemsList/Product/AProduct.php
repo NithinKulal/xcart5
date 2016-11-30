@@ -21,7 +21,6 @@ abstract class AProduct extends \XLite\View\ItemsList\AItemsList
     const SORT_BY_MODE_SKU    = 'p.sku';
     const SORT_BY_MODE_AMOUNT = 'p.amount';
 
-
     /**
      * Return current display mode
      *
@@ -34,8 +33,6 @@ abstract class AProduct extends \XLite\View\ItemsList\AItemsList
      * Define and set widget attributes; initialize widget
      *
      * @param array $params Widget params OPTIONAL
-     *
-     * @return void
      */
     public function __construct(array $params = array())
     {
@@ -97,7 +94,7 @@ abstract class AProduct extends \XLite\View\ItemsList\AItemsList
     protected function getListName()
     {
         return parent::getListName() . '.product'
-            . (is_null($this->getDisplayMode()) ?: '.' . $this->getDisplayMode());
+            . (null === $this->getDisplayMode() ?: '.' . $this->getDisplayMode());
     }
 
     /**
@@ -132,18 +129,13 @@ abstract class AProduct extends \XLite\View\ItemsList\AItemsList
     }
 
     /**
-     * Return params list to use for search
+     * Define repository name
      *
-     * @return \XLite\Core\CommonCell
+     * @return string
      */
-    protected function getSearchCondition()
+    protected function defineRepositoryName()
     {
-        $result = parent::getSearchCondition();
-
-        // We initialize structure to define order (field and sort direction) in search query.
-        $result->{\XLite\Model\Repo\Product::P_ORDER_BY} = $this->getOrderBy();
-
-        return $result;
+        return 'XLite\Model\Product';
     }
 
     /**

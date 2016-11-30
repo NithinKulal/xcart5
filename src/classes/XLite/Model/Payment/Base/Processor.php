@@ -136,20 +136,29 @@ abstract class Processor extends \XLite\Base
 
             $methodName = 'do' . \XLite\Core\Converter::convertToCamelCase($transactionType);
 
-            if (method_exists($this, $methodName)) {
-                $this->transaction = $transaction;
-                $txn = $transaction->createBackendTransaction($transactionType);
-                $this->$methodName($txn);
+            try {
+                if (method_exists($this, $methodName)) {
+                    $this->transaction = $transaction;
+                    $txn = $transaction->createBackendTransaction($transactionType);
 
-                \XLite\Core\DatabasE::getEM()->flush();
+                    if ($txn->hasCustomAmount()) {
+                        $txn->setCustomAmount(\XLite\Core\Request::getInstance()->amount);
+                    }
 
-                if ($transaction->getOrder()->renewPaymentStatus()) {
-                    // Reset 'recent' property of order if payment status has been changed
-                    $transaction->getOrder()->setRecent(0);
-                    \XLite\Core\DatabasE::getEM()->flush();
+                    $this->$methodName($txn);
+
+                    \XLite\Core\Database::getEM()->flush();
+
+                    if ($transaction->getOrder()->renewPaymentStatus()) {
+                        // Reset 'recent' property of order if payment status has been changed
+                        $transaction->getOrder()->setRecent(0);
+                        \XLite\Core\Database::getEM()->flush();
+                    }
+
+                    $txn->registerTransactionInOrderHistory();
                 }
-                
-                $txn->registerTransactionInOrderHistory();
+            } catch (\XLite\Core\Exception\IncorrectValueException $e) {
+                \XLite\Core\TopMessage::addError($e->getMessage());
             }
         }
     }

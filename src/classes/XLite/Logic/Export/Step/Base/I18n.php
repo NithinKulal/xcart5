@@ -14,6 +14,16 @@ namespace XLite\Logic\Export\Step\Base;
 abstract class I18n extends \XLite\Logic\Export\Step\AStep
 {
     /**
+     * Get translation repository
+     *
+     * @return \XLite\Model\Repo\Base\Translation
+     */
+    protected function getTranslationRepository()
+    {
+        return $this->getRepository()->getTranslationRepository();
+    }
+
+    /**
      * Assign i18n columns 
      * 
      * @param array $columns Base columns
@@ -24,7 +34,7 @@ abstract class I18n extends \XLite\Logic\Export\Step\AStep
     {
         $result = array();
 
-        foreach ($this->getRepository()->getTranslationRepository()->getUsedLanguageCodes() as $code) {
+        foreach ($this->getTranslationRepository()->getUsedLanguageCodes() as $code) {
             foreach ($columns as $name => $column) {
                 if (!isset($column[static::COLUMN_GETTER])) {
                     $column[static::COLUMN_GETTER] = 'getTranslationColumnValue';

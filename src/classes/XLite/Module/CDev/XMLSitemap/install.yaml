@@ -66,6 +66,11 @@ XLite\Model\LanguageLabel:
   - { name: "Site map successfully registred on X", translations: [{ code: en, label: "Site map successfully registered in {{engine}}." }] }
   - { name: "XML sitemap URL: X", translations: [{ code: en, label: "XML sitemap URL: <a href=\"{{url}}\">{{url}}</a>" }] }
   - { name: "Generate sitemap", translations: [{ code: en, label: "Generate sitemap" }] }
+  - { name: 'Generate XML-Sitemap', translations: [{ code: en, label: 'Generate XML Sitemap' }] }
+  - { name: "Sitemap generation...", translations: [{ code: en, label: "Sitemap generation..." }] }
+  - { name: 'Sitemap generation has been completed successfully.', translations: [{ code: en, label: 'Sitemap generation has been completed successfully.' }] }
+  - { name: 'Sitemap generation has been stopped.', translations: [{ code: en, label: 'Sitemap generation has been stopped.' }] }
+  - { name: "The process of sitemap generation may take a while to complete. Please do not close this page until the process is fully completed.", translations: [{ code: en, label: "The process of sitemap generation may take a while to complete. Please do not close this page until the process is fully completed." }] }
 
 XLite\Model\Task:
   - owner: XLite\Module\CDev\XMLSitemap\Core\Task\GenerateSitemap

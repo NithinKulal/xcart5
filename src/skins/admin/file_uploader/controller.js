@@ -159,16 +159,28 @@ FileUploader.prototype.postprocess = function (isSuccess) {
         if (viaUrlPopup.data('multiple')) {
           var area = jQuery('textarea.urls', viaUrlPopup);
           var urls = area.val().split('\n');
-          for (var x in urls) {
-            if (urls[x]) {
-              formData.append('url', urls[x]);
-              o.request(formData, true);
+
+          urls.forEach(function (url) {
+            url = url.replace(/^:?\/\//, '');
+
+            if (!/^https?:\/\//i.test(url)) {
+              url = 'http://' + url;
             }
-          }
+
+            formData.append('uploadedUrl', url);
+            o.request(formData, true);
+          });
+
           area.val('');
 
         } else if (jQuery('input.url', viaUrlPopup).val()) {
-          formData.append('url', jQuery('input.url', viaUrlPopup).val());
+          var url = jQuery('input.url', viaUrlPopup).val();
+          url = url.replace(/^:?\/\//, '');
+
+          if (!/^https?:\/\//i.test(url)) {
+            url = 'http://' + url;
+          }
+          formData.append('uploadedUrl', url);
           o.request(formData, false);
         }
       }

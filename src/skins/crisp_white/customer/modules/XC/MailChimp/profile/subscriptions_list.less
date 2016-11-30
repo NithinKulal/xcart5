@@ -1,0 +1,114 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Powered by widget style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+@rhythmic-unit: 20px;
+
+table.subscriptions-list tr.subscriptions-line td {
+  vertical-align: middle;
+  font-size: 14px;
+}
+
+table.subscriptions-list td {
+  border: 0px !important;
+}
+
+table.subscriptions-list tr.subscriptions-line,
+table.subscriptions-list tr.interests {
+
+  td div.table-value span.input-field-wrapper {
+    display: inline;
+  }
+}
+
+table.subscriptions-list tr.subscriptions-line td.subscriptions-checkbox {
+  width: 10px;
+}
+
+table.subscriptions-list tr.subscriptions-line td.subscriptions-submit button {
+  margin-top: 14px;
+}
+
+.subscriptions-list-container {
+
+  .input-checkbox {
+    padding-left: 0;
+  }
+
+  input.form-control[type="checkbox"] {
+    margin-top: 0;
+    margin-left: 0;
+
+    width: @rhythmic-unit - 2px;
+    height: @rhythmic-unit - 2px;
+  }
+
+  .subscriptions-list-header {
+    margin-bottom: @rhythmic-unit;
+  }
+
+  tr.subscriptions-line {
+    td.subscriptions-name {
+      font-weight: bold;
+      padding-left: @rhythmic-unit / 2;
+    }
+    &.select-box {
+      td.subscriptions-name {
+        width: 1%;
+      }
+    }
+  }
+
+  tr.interests {
+    & > td {
+      padding: 0;
+      padding-bottom: @rhythmic-unit;
+    }
+
+    &.select-box > td {
+      padding-left: @rhythmic-unit;
+      .group-title,
+      .group-names {
+        display: none;
+      }
+    }
+
+    &.checkboxes > td {
+      padding-left: @rhythmic-unit * 3;
+    }
+
+    .group-names {
+      margin-top: @rhythmic-unit;
+
+      & + .group-title {
+        display: inline-block;
+        margin-top: @rhythmic-unit / 2;
+      }
+
+      .group-name {
+        line-height: @rhythmic-unit;
+        max-height: @rhythmic-unit;
+        margin-bottom: @rhythmic-unit / 2;
+      }
+
+      .group-name-checkbox,
+      .group-name-name {
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .group-name-checkbox {
+        margin-right: @rhythmic-unit;
+
+        input.form-control[type="checkbox"] {
+          margin-top: 0;
+        }
+      }
+    }
+  }
+}

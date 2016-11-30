@@ -100,4 +100,63 @@ class AccessDenied extends \XLite\View\AView
     {
         return 'access_denied.twig';
     }
+
+    /**
+     * Return sing in <a> tag
+     *
+     * @return string
+     */
+    protected function getLoginLinkContent()
+    {
+        $widget = $this->getChildWidget('\XLite\View\Button\PopupLoginLink', ['label' => 'please sign in']);
+
+        return $widget->getContent();
+    }
+
+    /**
+     * Return sing in <a> tag
+     *
+     * @return string
+     */
+    protected function getContactLinkContent()
+    {
+        if (\XLite\Core\Database::getRepo('XLite\Model\Module')->isModuleEnabled('CDev\ContactUs')) {
+            $location = $this->buildURL('contact_us');
+        } else {
+            $email = \XLite\Core\Config::getInstance()->Company->site_administrator;
+            $location = 'mailto:' . $email;
+        }
+
+        return $location;
+    }
+
+    /**
+     * Is title visible
+     *
+     * @return bool
+     */
+    protected function isPageTitleVisible()
+    {
+        return false;
+    }
+
+    /**
+     * Checks whether user is logged
+     *
+     * @return bool
+     */
+    protected function isLogged()
+    {
+        return \XLite\Core\Auth::getInstance()->isLogged();
+    }
+
+    /**
+     * Return default page title
+     *
+     * @return string
+     */
+    protected function getDefaultPageTitle()
+    {
+        return static::t('Access denied');
+    }
 }

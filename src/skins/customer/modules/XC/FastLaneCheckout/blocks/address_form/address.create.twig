@@ -6,9 +6,6 @@
   {{ t('There is already an account with your email address. You can sign in or continue as guest', {'URL': url('login')})|raw }}
 </p>
 
-<div class="subbox create checkbox">
-  <label>
-    <input type="checkbox" id="create_profile" name="create_profile" value="1" {% if this.isCreateProfile() %} checked="checked" {% endif %} v-model="create_profile"/>
-    {{ t('Create an account for later use') }}
-  </label>
-</div>
+<p class="subbox subnote create">
+  {{ t('You can continue as guest or create an account', {'URL': url('profile', '', {'mode': 'register'}) })|raw }}
+</p>

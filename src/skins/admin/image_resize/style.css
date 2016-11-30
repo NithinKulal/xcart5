@@ -10,7 +10,7 @@
 /**
  * Export
  */
-div.dialog-block.resize-box {
+.resize-box {
   width: 902px;
   min-width: 902px;
   display: block;
@@ -25,7 +25,7 @@ div.dialog-block.resize-box {
   font-weight: normal;
 }
 
-div.dialog-block.resize-box .subcontent {
+.resize-box .subcontent {
   padding: 20px;
 }
 
@@ -40,316 +40,24 @@ div.dialog-block.resize-box .subcontent {
 }
 
 /**
- * Export (begin)
- */
-/*
-div.dialog-block.export-begin {
-  margin-bottom: 0px;
-}
-
-div.dialog-block.export-begin .subcontent {
-  padding: 0px;
-}
-
-.export-begin .subcontent .parts {
-  float: left;
-  width: 50%;
-  padding: 10px 19px;
-  border-right: 1px solid #d8d8d8;
-}
-
-.export-begin .subcontent .parts ul {
-  padding: 10px;
-}
-
-.export-begin .subcontent .parts li {
-  font-size: 14px;
-  line-height: 20px;
-  padding: 5px 5px 4px 0px;
-  min-width: 50%;
-  float: left;
-}
-
-.export-begin .subcontent .parts li label.disabled {
-  color: #c3c3c3;
-}
-
-.export-begin .subcontent .options {
-  padding: 10px 10px 10px 30px;
-  float: left;
-  margin-left: -1px;
-  border-left: 1px solid #d8d8d8;
-  width: 50%;
-}
-
-.export-begin .subcontent .options ul {
-  padding-top: 9px;
-  min-width: 540px;
-}
-
-.export-begin .subcontent .options li {
-  padding: 5px 0px;
-}
-
-.export-begin .subcontent .options .table-label {
-  float: none;
-  padding: 0px;
-  padding-top: 6px;
-  padding-left: 2px;
-  width: 200px;
-}
-
-.export-begin .subcontent .options .table-value {
-  padding: 0 0 0 10px;
-}
-
-.export-begin .subcontent .options label {
-  font-size: 14px;
-}
-
-.export-begin .subcontent .options .star {
-  display: none;
-}
-*/
-/**
  * Export (progress)
  */
 
-div.dialog-block.resize-progress .subcontent {
-  padding: 40px;
+.resize-progress .subcontent {
+  padding: 20px 0;
   padding-bottom: 12px;
 }
 
-div.dialog-block.resize-progress div.content {
-  width: 900px;
-}
-
-.resize-progress .subcontent .progress-bar {
-  float: left;
-  margin-right: 20px;
-}
-
-.resize-progress .subcontent .bar {
+.resize-progress div.content {
   width: 650px;
 }
 
-.resize-progress .subcontent button {
-  padding: 1px 17px 2px 17px;
-  float: right;
-  min-height: 24px;
-}
-
-.resize-progress .subcontent .time {
-  font-size: 14px;
-  text-align: center;
-  color: #44769d;
-  height: 20px;
-  margin-top: 27px;
-}
-
-.resize-progress .help {
-  padding-left: 49px;
-  padding-top: 6px;
-  min-height: 38px;
-  line-height: 20px;
-}
-
-.resize-progress .help i {
-  color: #b9b9b9;
-  font-size: 36px;
-  float: left;
-}
-
-.resize-progress .help p {
-  font-size: 14px;
-  margin-left: 51px;
-}
-
-/**
- * Export (completed)
- */
-/*
-div.dialog-block.export-completed .subcontent {
-  padding-bottom: 49px;
-}
-
-.download-box .subcontent .files {
-  padding: 22px 10px 10px 39px;
-}
-
-.download-box .subcontent .files h3 {
-  color: #44769d;
-  font-size: 18px;
-  margin-bottom: 9px;
-}
-
-.download-box .subcontent .files ul {
-  position: relative;
-  padding-right: 60px;
-  padding-left: 1px;
-}
-
-.download-box .subcontent .files li.file:first-child {
-  border-top: 1px solid #dbdbdb;
-}
-
-.download-box .subcontent .files li.file {
-  border-bottom: 1px solid #dbdbdb;
-  line-height: 20px;
-  padding: 10px 0px 9px;
-  font-size: 14px;
-  width: 380px;
-}
-
-.download-box .subcontent .files li.file i {
-  padding-left: 1px;
-  padding-right: 2px;
-}
-
-.download-box .subcontent .files li.file a {
-  text-decoration: underline;
-}
-
-.download-box .subcontent .files li.file .size {
-  float: right;
-  color: #999;
-}
-
-.download-box .subcontent .files li.sum {
-  position: absolute;
-  left: 421px;
-  top: 0px;
-  width: 40px;
-  height: 100%;
-}
-
-.download-box .subcontent .files li.sum .bracket {
-  -moz-border-radius: 0px 10px 10px 0px;
-  -webkit-border-radius: 0px 10px 10px 0px;
-  border-radius: 0px 10px 10px 0px;
-  border-right: 3px solid #abcfe6;
-  border-top: 3px solid #abcfe6;
-  border-bottom: 3px solid #abcfe6;
-  height: 95%;
-  width: 11px;
-  margin-left: 10px;
-}
-
-.download-box .subcontent .files li.sum .icon {
-  position: absolute;
-  border: 3px solid #abcfe6;
-  width: 40px;
-  height: 40px;
-  top: 50%;
-  left: 0px;
-  margin-top: -20px;
-  -moz-border-radius: 100px;
-  -webkit-border-radius: 100px;
-  border-radius: 100px;
-  background: #fff url(images/icon-pack.png) no-repeat 8px 10px;
-}
-
-.download-box .subcontent .large p {
-  font-size: 14px;
-  padding-top: 5px;
-  padding-bottom: 11px;
-}
-
-.download-box .subcontent .pack {
-  position: absolute;
-  top: 50%;
-  left: 60px;
-  margin-top: -40px;
-  height: 100px;
-  width: 300px;
-}
-
-.download-box .subcontent .pack h4 {
-  font-size: 16px;
-  margin-bottom: 4px;
-  font-weight: normal;
-}
-
-.download-box .subcontent .pack p {
-  color: #999;
-}
-
-.download-box .subcontent .pack ul {
-  padding-top: 11px;
-}
-
-.download-box .subcontent .pack li {
-  display: inline;
-  padding-right: 7px;
-}
-
-.download-box .subcontent .pack li button {
-  padding: 2px 12px 3px 12px;
-  min-height: 20px;
-}
-
-.download-box .subcontent .pack li button span {
-  font-size: 12px;
-}
-
-.download-box .subcontent .pack li span {
-  text-transform: uppercase;
-}
-
-.download-box.begin-download {
-  background: -moz-linear-gradient(top, #f2f2f2 0px, #fff 4px);
-  background: -webkit-linear-gradient(top, #f2f2f2 0px, #fff 4px);
-  background: -o-linear-gradient(top, #f2f2f2 0px, #fff 4px);
-  background: -ms-linear-gradient(top, #f2f2f2 0px, #fff 4px);
-  background: linear-gradient(to bottom, #f2f2f2 0px, #fff 4px);
-  width: 898px;
-  position: relative;
-  border-left: 1px solid #dfe5e8;
-  border-right: 1px solid #dfe5e8;
-  border-bottom: 1px solid #dfe5e8;
-  padding: 0px;
-  margin-left: auto;
-  margin-right: auto;
-  -moz-border-radius: 0px 0px 3px 3px;
-  -webkit-border-radius: 0px 0px 3px 3px;
-  border-radius: 0px 0px 3px 3px;
-}
-
-.download-box.begin-download .subcontent .files h3 {
-  color: #999;
-}
-
-.begin-download .delete-all {
-  position: absolute;
-  top: 26px;
-  right: 19px;
-}
-
-.begin-download .delete-all a {
-  text-decoration: none;
-}
-
-.begin-download .delete-all a i {
-  font-size: 16px;
-  color: #999;
-}
-
-.begin-download .delete-all a span {
-  text-decoration: underline;
-  color: #06528f;
-  font-size: 14px;
-}
-
-.begin-download.download-box .subcontent .files {
-  padding-top: 10px;
-  padding-bottom: 33px;
-}
 */
 /**
  * Export failed
  */
 
-div.dialog-block.export-failed .header h2,
+.export-failed .header h2,
 .export-failed h3
 {
   color: #b94a48;

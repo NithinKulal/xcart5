@@ -46,10 +46,6 @@
   font-size: 14px;
 }
 
-.order-info .title .placed-customer {
-  margin-top: 12px;
-}
-
 .order-info div.title .date,
 .order-info div.title span.name
 {
@@ -382,6 +378,11 @@ div.line-2 .box .address strong {
   font-size: 16px;
   font-weight: normal;
   display: block;
+}
+
+.box .address ul.address-section li.address-field {
+  word-break: break-all;
+  white-space: normal;
 }
 
 div.line-2 .box .address ul.address-section {
@@ -973,4 +974,44 @@ img.truck {
 
 .ui-dialog .order-payment-data-dialog ul {
   margin-bottom: 20px;
+}
+
+.profile-login {
+  display: inline-block;
+}
+
+.profile-login .inline-field.has-view.edit-open-mark .field {
+  display: inline-block;
+  vertical-align: middle;
+  height: 38px;
+  margin-top: 2px;
+}
+
+.profile-login .inline-field.has-view.edit-open-mark .field .subfield {
+  margin-top: -1px;
+}
+
+.profile-login .inline-field.editable .view {
+  margin-left: -1px;
+  height: 38px;
+  vertical-align: middle;
+}
+
+.profile-login .table-value {
+  padding: 0;
+}
+
+.order-address-dialog .profile-login.inline-field.has-view.edit-open-mark .field {
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: -2px;
+}
+
+.order-address-dialog .profile-login.inline-field.has-view.edit-open-mark .field input {
+  font-size: 12px;
+}
+
+.order-address-dialog .profile-login.inline-field.editable .view {
+  margin-left: -1px;
+  margin-bottom: 2px;
 }

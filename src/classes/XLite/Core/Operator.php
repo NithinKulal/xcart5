@@ -69,6 +69,20 @@ class Operator extends \XLite\Base\Singleton
     }
 
     /**
+     * Check if class exists
+     *
+     * @param string $name Name of class to check
+     *
+     * @return boolean
+     */
+    public static function isClassExistsInClassesOrCache($name)
+    {
+        return class_exists($name, false)
+            || file_exists(LC_DIR_CLASSES . str_replace('\\', LC_DS, $name) . '.php')
+            || static::isClassExists($name);
+    }
+
+    /**
      * Try to make HEAD request and check if resource is available. Returns headers if request is successful.
      *
      * @param string $url URL

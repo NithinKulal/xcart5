@@ -85,7 +85,8 @@ jQuery(document).ready(function () {
 
         jQuery(".info", clone).html(arg.id);
         jQuery(".module-name", clone).html(arg.moduleName);
-        $this.append(clone);
+        // $this.append(clone);
+        jQuery('ul', $this).append(clone);
 
         jQuery('.remove-action', $this).unbind('click').bind('click', function (event, arg) {
           event.stopImmediatePropagation();
@@ -100,11 +101,11 @@ jQuery(document).ready(function () {
       );
 
       if (jQuery('.module-box', $this).length > 1) {
-        $this.removeClass('hide-selected');
-        jQuery('.modules-not-selected', $this.parent()).addClass('hide-selected');
+        // $this.removeClass('hide-selected');
+        jQuery('.modules-not-selected', $this).addClass('hide-selected');
       } else {
-        $this.addClass('hide-selected');
-        jQuery('.modules-not-selected', $this.parent()).removeClass('hide-selected');
+        // $this.addClass('hide-selected');
+        jQuery('.modules-not-selected', $this).removeClass('hide-selected');
       }
 
       return false;

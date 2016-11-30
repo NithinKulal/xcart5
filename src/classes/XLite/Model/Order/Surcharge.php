@@ -159,7 +159,7 @@ class Surcharge extends \XLite\Model\Base\Surcharge
     /**
      * Get value
      *
-     * @return decimal 
+     * @return float
      */
     public function getValue()
     {

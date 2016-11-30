@@ -613,8 +613,11 @@ class Mailer extends \XLite\View\AView
         // replace layout with mailer skinned
         /** @var \XLite\Core\Layout $layout */
         $layout = \XLite\Core\Layout::getInstance();
-        $commonSkin = $layout->getSkin();
-        $commonInterface = $layout->getInterface();
+
+        $baseSkin = $layout->getSkin();
+        $baseInterface = $layout->getInterface();
+        $baseInnerInterface = $layout->getInnerInterface();
+
         $layout->setMailSkin($interface);
 
         $this->widgetParams[static::PARAM_TEMPLATE]->setValue($template);
@@ -628,7 +631,7 @@ class Mailer extends \XLite\View\AView
         }
 
         // restore old skin
-        switch ($commonInterface) {
+        switch ($baseInterface) {
             default:
             case \XLite::ADMIN_INTERFACE:
                 $layout->setAdminSkin();
@@ -643,11 +646,11 @@ class Mailer extends \XLite\View\AView
                 break;
 
             case \XLite::MAIL_INTERFACE:
-                $layout->setMailSkin();
+                $layout->setMailSkin($baseInnerInterface);
                 break;
         }
 
-        $layout->setSkin($commonSkin);
+        $layout->setSkin($baseSkin);
 
         return $text;
     }

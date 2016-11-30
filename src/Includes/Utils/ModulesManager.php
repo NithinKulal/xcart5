@@ -312,6 +312,7 @@ abstract class ModulesManager extends \Includes\Utils\AUtils
             'isLanding'       => 0,
             'landingPosition' => 0,
             'xbProductId'     => 0,
+            'private'         => 0,
         );
 
         return array_replace_recursive($result, $additionalData);

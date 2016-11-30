@@ -1,0 +1,30 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Froala editor widget specific styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.froala-widget {
+    max-width: 800px;
+}
+
+.froala-widget .fr-quick-insert {
+    display: none;
+}
+
+.froala-widget .textarea.has-error .fr-box {
+    -webkit-transition: box-shadow ease-in-out .15s;
+    transition: box-shadow ease-in-out .15s;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 6px #f18489;
+       -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 6px #f18489;
+            box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 6px #f18489;
+}
+
+.froala-widget .textarea.has-error .fr-box .fr-toolbar.fr-top {
+    -webkit-transition: border-color ease-in-out .15s;
+    transition: border-color ease-in-out .15s;
+    border-color: #e72831;
+}

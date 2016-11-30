@@ -33,7 +33,7 @@ class ThemeTweakerTemplates extends \XLite\Controller\Admin\AAdmin
      */
     public function getTitle()
     {
-        return static::t('Look & Feel');
+        return static::t('Webmaster mode');
     }
 
     /**

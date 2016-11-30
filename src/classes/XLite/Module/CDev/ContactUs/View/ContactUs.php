@@ -25,7 +25,7 @@ class ContactUs extends \XLite\View\AView
         return array_merge(parent::getAllowedTargets(), array('contact_us'));
     }
 
-   /**
+    /**
      * Get a list of CSS files required to display the widget properly
      *
      * @return array
@@ -46,18 +46,7 @@ class ContactUs extends \XLite\View\AView
      */
     protected function getCaptcha()
     {
-        $config = \XLite\Core\Config::getInstance()->CDev->ContactUs;
-        $result = '';
-
-        if (
-            $config->recaptcha_private_key
-            && $config->recaptcha_public_key
-        ) {
-            require_once LC_DIR_MODULES . '/CDev/ContactUs/recaptcha/recaptchalib.php';
-            $result = recaptcha_get_html($config->recaptcha_public_key);
-        }
-
-        return $result;
+        return \XLite\Module\CDev\ContactUs\Core\ReCaptcha::getInstance()->getWidget();
     }
 
     /**

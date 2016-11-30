@@ -13,15 +13,4 @@ namespace XLite\Model\QueryBuilder;
  */
 class Product extends \XLite\Model\QueryBuilder\AQueryBuilder
 {
-    /**
-     * getResult
-     *
-     * @return mixed
-     */
-    public function getResult()
-    {
-        $this->hasJoinedInventory = false;
-
-        return parent::getResult();
-    }
 }

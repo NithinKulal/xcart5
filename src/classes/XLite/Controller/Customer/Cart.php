@@ -337,15 +337,6 @@ class Cart extends \XLite\Controller\Customer\ACustomer
     {
         if ($item) {
             $cart = $this->getCart();
-            $newItem = $cart->getItemByItem($item);
-
-            $warningText = $item->getAmountWarning(
-                ($newItem ? $newItem->getAmount() : 0) + $this->getCurrentAmount()
-            );
-
-            if ('' !== $warningText) {
-                \XLite\Core\TopMessage::addWarning($warningText);
-            }
 
             if (!$cart->isPersistent()) {
                 \XLite\Core\Database::getEM()->persist($cart);
@@ -448,7 +439,7 @@ class Cart extends \XLite\Controller\Customer\ACustomer
     protected function doActionAdd()
     {
         if (!\XLite\Core\Request::getInstance()->attribute_values
-            && \XLite\Core\Config::getInstance()->General->force_choose_product_options
+            && \XLite\Core\Config::getInstance()->General->force_choose_product_options !== ''
             && $this->getCurrentProduct()
             && $this->getCurrentProduct()->hasEditableAttributes()
         ) {
@@ -615,6 +606,7 @@ class Cart extends \XLite\Controller\Customer\ACustomer
      */
     protected function doActionClear()
     {
+        $this->getCart()->unsetUpdatedTime();
         if (!$this->getCart()->isEmpty()) {
             // Clear cart
             $this->getCart()->clear();
@@ -635,6 +627,10 @@ class Cart extends \XLite\Controller\Customer\ACustomer
      */
     protected function doNoAction()
     {
+        if (!$this->isAJAX()) {
+            $this->getCart()->unsetUpdatedTime();
+        }
+
         $this->updateCart();
     }
 }

@@ -1,0 +1,24 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Data
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: ecommerce_enabled
+    category: CDev\GoogleAnalytics
+    type: 'XLite\View\FormField\Input\Checkbox\OnOff'
+    orderby: 400
+    value: Y
+    translations:
+      - code: en
+        option_name: 'Enabled eCommerce Google Analytics'
+  - name: purchase_only_on_paid
+    category: CDev\GoogleAnalytics
+    type: 'XLite\View\FormField\Input\Checkbox\OnOff'
+    orderby: 400
+    value: N
+    translations:
+      - code: en
+        option_name: 'Register purchase only on Paid status change'

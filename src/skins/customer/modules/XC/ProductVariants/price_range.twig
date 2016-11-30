@@ -1,0 +1,11 @@
+{##
+ # Price widget
+ #}
+
+<div class="product-price {{ this.getFingerprint() }}">
+  <ul class="product-price product-price-range">
+    <li class="product-price-base"><span class="price product-price min-of-range">{{ this.formatPrice(this.getMinListPrice(), this.null, 1)|raw }}</span></li>
+    <li class="product-price-base"><span class="price product-price range-delimiter">{{ this.getPriceRangeDelimiter() }}</span></li>
+    <li class="product-price-base"><span class="price product-price max-of-range">{{ this.formatPrice(this.getMaxListPrice(), this.null, 1)|raw }}</span></li>
+  </ul>
+</div>

@@ -29,6 +29,7 @@ abstract class AProcessor extends \XLite\Base implements \SeekableIterator, \Cou
     const COLUMN_IS_MULTICOLUMN  = 'isMulticolumn';
     const COLUMN_IS_MULTILINGUAL = 'isMultilingual';
     const COLUMN_IS_TAGS_ALLOWED = 'isTagsAllowed';
+    const COLUMN_IS_IMPORT_EMPTY = 'isImportEmpty';
     const COLUMN_IS_TRUSTED      = 'isTrusted';
     const COLUMN_PROPERTY        = 'property';
     const COLUMN_LENGTH          = 'fieldLength';
@@ -1285,7 +1286,18 @@ abstract class AProcessor extends \XLite\Base implements \SeekableIterator, \Cou
      */
     protected function isUpdateMode()
     {
-        return (bool) $this->importer->getOptions()->updateOnly;
+        return $this->importer->getOptions()->importMode === \XLite\View\Import\Begin::MODE_UPDATE_ONLY;
+    }
+
+    /**
+     * Return true if import run in create-only mode
+     *
+     * @return boolean
+     */
+    protected function isCreateMode()
+    {
+        // TODO remove false when create mode will be available for all processors
+        return false && $this->importer->getOptions()->importMode === \XLite\View\Import\Begin::MODE_CREATE_ONLY;
     }
 
     /**
@@ -1299,7 +1311,7 @@ abstract class AProcessor extends \XLite\Base implements \SeekableIterator, \Cou
     {
         $model = $this->detectModel($data);
 
-        if ($model) {
+        if ($model && !$this->isCreateMode()) {
             $this->setMetaData('updateCount', ((int) $this->getMetaData('updateCount')) + 1);
         }
 
@@ -1310,6 +1322,9 @@ abstract class AProcessor extends \XLite\Base implements \SeekableIterator, \Cou
                 $this->setMetaData('addCount', ((int) $this->getMetaData('addCount')) + 1);
                 \XLite\Core\Database::getEM()->persist($model);
             }
+        } elseif ($model && $this->isCreateMode()) {
+            $model = null;
+            $modelSkip = true;
         }
 
         if ($model) {
@@ -1324,10 +1339,12 @@ abstract class AProcessor extends \XLite\Base implements \SeekableIterator, \Cou
             }
 
         } else {
-            // Model does not exist - do not create this, just skip
-            $this->importer->getOptions()->warningsAccepted = true;
-            $this->setMetaData('failedCount', ((int) $this->getMetaData('failedCount')) + 1);
-            $this->addNoEntityFoundMessage($this->getModelKeyFieldValues($data));
+            if (!isset($modelSkip)) {
+                // Model does not exist - do not create this, just skip
+                $this->importer->getOptions()->warningsAccepted = true;
+                $this->setMetaData('failedCount', ((int) $this->getMetaData('failedCount')) + 1);
+                $this->addNoEntityFoundMessage($this->getModelKeyFieldValues($data));
+            }
             $result = true;
         }
 
@@ -1864,6 +1881,19 @@ abstract class AProcessor extends \XLite\Base implements \SeekableIterator, \Cou
     }
 
     /**
+     * Verify value as currency code
+     *
+     * @param mixed @value Value
+     *
+     * @return boolean
+     */
+    protected function verifyValueAsCurrencyCode($value)
+    {
+        return preg_match('/^[a-z]{3}$/Si', $value)
+        && 0 < \XLite\Core\Database::getRepo('XLite\Model\Currency')->countBy(array('code' => $value));
+    }
+
+    /**
      * Verify value as unsigned integer
      *
      * @param mixed @value Value
@@ -2099,43 +2129,45 @@ abstract class AProcessor extends \XLite\Base implements \SeekableIterator, \Cou
     /**
      * Returns image comparing closure
      *
-     * @param string $name  Image name
+     * @param \XLite\Model\Image\Product\Image $image  Image
      *
      * @return \Closure
      */
-    protected function getImageFilter($name)
+    protected function getImageFilter($image)
     {
-        return function ($element) use ($name) {
-            $filename = $element->getFileName() ?: basename($element->getPath());
-            return $filename === basename($name);
+        /**
+         * @param \XLite\Model\Image\Product\Image $element
+         *
+         * @return boolean
+         */
+        return function ($element) use ($image) {
+            if (
+                in_array($element->getStorageType(), [
+                    \XLite\Model\Base\Storage::STORAGE_RELATIVE,
+                    \XLite\Model\Base\Storage::STORAGE_ABSOLUTE
+                ])
+                && (!$element->checkImageHash() || !$element->getHash())
+            ) {
+                $element->renewStorage();
+            }
+
+            return $image->getHash() === $element->getHash();
         };
     }
 
     /**
      * Returns image rejecting closure (Rejects any images in DB which are not present in parameter array)
      *
-     * @param array $images  Array of imported images
+     * @param \XLite\Model\Image\Product\Image[] $images  Array of imported images
      *
      * @return \Closure
      */
-    protected function getImageRejectFilter($images)
+    protected function getImageRejectFilter(array $images)
     {
         return function ($element) use ($images) {
-            $filename = $element->getFileName() ?: basename($element->getPath());
-
-            $pathinfo = pathinfo($filename);
-            $name = preg_quote(preg_replace("/_[0-9]+$/", '', $pathinfo['filename']), '/');
-            $ext = $pathinfo['extension'] ? preg_quote('.' . $pathinfo['extension'], '/') : '';
-
-            $pattern = "/^{$name}(_[0-9]*)?{$ext}$/";
-
-            $result = preg_grep($pattern, array_map(function ($image) {
-                return \Includes\Utils\FileManager::sanitizeFilename(
-                    \Includes\Utils\Converter::convertToTranslit(basename($image))
-                );
+            return !in_array($element->getHash(), array_map(function ($image) {
+                return $image->getHash();
             }, $images));
-
-            return empty($result);
         };
     }
 
@@ -2235,6 +2267,24 @@ abstract class AProcessor extends \XLite\Base implements \SeekableIterator, \Cou
                     $result = \XLite\Core\Database::getEM()->merge($result);
                 }
             }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Normalize value as currency
+     *
+     * @param mixed @value Value
+     *
+     * @return \XLite\Model\Currency
+     */
+    protected function normalizeValueAsCurrency($value)
+    {
+        $result = null;
+
+        if ($value) {
+            $result = \XLite\Core\Database::getRepo('XLite\Model\Currency')->findOneBy(['code' => $value]);
         }
 
         return $result;
@@ -2692,6 +2742,18 @@ abstract class AProcessor extends \XLite\Base implements \SeekableIterator, \Cou
     }
 
     /**
+     * Check - column need to process empty values
+     *
+     * @param array $column Column info
+     *
+     * @return boolean
+     */
+    protected function isColumnImportEmpty(array $column)
+    {
+        return isset($column[static::COLUMN_IS_IMPORT_EMPTY]);
+    }
+
+    /**
      * Check - column is multirow or not
      *
      * @param array $column Column info
@@ -2780,7 +2842,7 @@ abstract class AProcessor extends \XLite\Base implements \SeekableIterator, \Cou
             foreach ($headers as $name => $idx) {
                 if (isset($row[$idx])) {
                     $value = trim($row[$idx]);
-                    if (0 < strlen($value)) {
+                    if (0 < strlen($value) || $this->isColumnImportEmpty($column)) {
                         if ($this->isColumnMultilingual($column)
                             && preg_match('/^' . $column['name'] . '(_([a-z]{2}))?$/iSs', $name, $m)
                         ) {

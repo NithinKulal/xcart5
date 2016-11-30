@@ -4,6 +4,6 @@
 
 {% if this.hasAttributes() %}
   <div class="editable-attributes {{ this.getFingerprint() }}">
-    {{ widget('\\XLite\\View\\Product\\Details\\Customer\\AttributesModify', product=this.product) }}
+    {{ widget('\\XLite\\View\\Product\\Details\\Customer\\AttributesModify', product=this.getProduct(), attribute_values=this.getAttributeValues()) }}
   </div>
 {% endif %}

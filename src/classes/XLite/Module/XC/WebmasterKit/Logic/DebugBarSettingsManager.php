@@ -16,15 +16,27 @@ class DebugBarSettingsManager
     const WIDGETS_SQL_QUERY_STACKTRACES_ENABLED = 'widgetsSqlQueryStacktracesEnabled';
     const WIDGETS_TAB_ENABLED                   = 'widgetsTabEnabled';
     const WIDGETS_DETAILED_MODE_ENABLED         = 'databaseDetailedModeEnabled';
+    const SQL_QUERY_STACKTRACES_ENABLED         = 'sqlQueryStacktracesEnabled';
 
     public function areWidgetsSqlQueryStacktracesEnabled()
     {
-        return (bool)$this->getSettings()[self::WIDGETS_SQL_QUERY_STACKTRACES_ENABLED];
+        return $this->areWidgetsTabEnabled()
+            && (bool)$this->getSettings()[self::WIDGETS_SQL_QUERY_STACKTRACES_ENABLED];
     }
 
     public function setWidgetsSqlQueryStacktracesEnabled($areEnabled)
     {
         $this->updateSetting(self::WIDGETS_SQL_QUERY_STACKTRACES_ENABLED, (bool) $areEnabled);
+    }
+
+    public function areSqlQueryStacktracesEnabled()
+    {
+        return (bool)($this->getSettings()[self::SQL_QUERY_STACKTRACES_ENABLED]);
+    }
+
+    public function setSqlQueryStacktracesEnabled($areEnabled)
+    {
+        $this->updateSetting(self::SQL_QUERY_STACKTRACES_ENABLED, (bool) $areEnabled);
     }
 
     public function areWidgetsTabEnabled()
@@ -63,7 +75,7 @@ class DebugBarSettingsManager
         $request = \XLite\Core\Request::getInstance();
 
         foreach ($this->getSettingKeys() as $key) {
-            $request->setCookie($key, $settingsMerged[$key]);
+            $request->setCookie($key, $settings[$key]);
         }
     }
 
@@ -78,6 +90,7 @@ class DebugBarSettingsManager
     {
         return [
             self::WIDGETS_SQL_QUERY_STACKTRACES_ENABLED,
+            self::SQL_QUERY_STACKTRACES_ENABLED,
             self::WIDGETS_TAB_ENABLED,
             self::WIDGETS_DETAILED_MODE_ENABLED
         ];

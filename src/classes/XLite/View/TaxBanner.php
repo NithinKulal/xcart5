@@ -11,7 +11,7 @@ namespace XLite\View;
 /**
  * Tax banner page
  *
- * @ListChild (list="admin.main.page.content.sub_section", zone="admin")
+ * @ListChild (list="taxes.help.section", zone="admin", weight=10)
  */
 class TaxBanner extends \XLite\View\AView
 {
@@ -26,6 +26,7 @@ class TaxBanner extends \XLite\View\AView
         $result[] = 'tax_classes';
         $result[] = 'sales_tax';
         $result[] = 'vat_tax';
+        $result[] = 'canadian_taxes';
 
         return $result;
     }
@@ -51,6 +52,44 @@ class TaxBanner extends \XLite\View\AView
     protected function getDefaultTemplate()
     {
         return 'tax_banner/body.twig';
+    }
+
+    /**
+     * Define list of help links
+     *
+     * @return array
+     */
+    protected function defineHelpLinks()
+    {
+        $links = array();
+        $links[] = array(
+            'title' => 'Setting up VAT / GST',
+            'url'   => '//kb.x-cart.com/en/taxes/setting_up_vat_gst.html',
+        );
+        $links[] = array(
+            'title' => 'Setting up sales tax',
+            'url'   => '//kb.x-cart.com/en/taxes/setting_up_sales_tax.html',
+        );
+        $links[] = array(
+            'title' => 'Setting up Canadian taxes',
+            'url'   => '//kb.x-cart.com/en/taxes/setting_up_canadian_taxes.html',
+        );
+        $links[] = array(
+            'title' => 'Setting up tax classes',
+            'url'   => '//kb.x-cart.com/en/taxes/setting_up_tax_classes.html',
+        );
+
+        return $links;
+    }
+
+    /**
+     * Get list of help links
+     *
+     * @return array
+     */
+    protected function getHelpLinks()
+    {
+        return $this->defineHelpLinks();
     }
 
     /**

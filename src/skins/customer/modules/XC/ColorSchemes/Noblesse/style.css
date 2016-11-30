@@ -226,6 +226,7 @@ div.list-header .sort-box label {
   font-weight: 400;
   text-transform: uppercase;
   font-size: 30px;
+  line-height: 30px;
 }
 
 .product-details span.product-price, .product-quicklook span.product-price {
@@ -823,4 +824,16 @@ ul.account-links .language-selector li.current a {
   #header
 {
   top: 0px !important;
+}
+
+.tabs-container .page-tabs .tabs-selector .selected {
+  color: #ffffff;
+}
+
+.tabs-container .page-tabs .tabs-selector .tabs ul li a {
+  color: #d0061e;
+}
+
+.tabs-container .page-tabs .tabs-selector .dropdown-toggle svg {
+  fill: #d0061e;
 }

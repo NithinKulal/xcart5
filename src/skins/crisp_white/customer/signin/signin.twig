@@ -3,12 +3,10 @@
  #
  # @ListChild (list="signin.main", weight="10")
  #}
-<div class="signin-header">
-  <h1>{{ this.getSigninTitle() }}</h1>
-</div>
 <div class="{{ this.getWrapperStyleClass() }}">
 
   <div class="signin-login-wrapper">
+    {% include 'signin/parts/login.heading.twig' %}
     {% if not this.isRegisterMode() %}
     <div class="login-box">
       {{ widget('XLite\\Module\\XC\\CrispWhiteSkin\\View\\CheckoutAuthorization') }}
@@ -28,6 +26,7 @@
   </div>
 
   <div class="signin-anonymous-wrapper">
+    {% include 'signin/parts/anonymous.heading.twig' %}
     <div class="signin-anonymous-box">{{ widget_list('signin-anonymous-title') }}</div>
   </div>
 

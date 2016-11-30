@@ -8,11 +8,15 @@
 
 namespace XLite\View\Pager;
 
+use XLite\Core\Cache\ExecuteCachedTrait;
+
 /**
  * Abstract pager class
  */
 abstract class APager extends \XLite\View\RequestHandler\ARequestHandler
 {
+    use ExecuteCachedTrait;
+
     /**
      * Widget parameter names
      */
@@ -40,13 +44,6 @@ abstract class APager extends \XLite\View\RequestHandler\ARequestHandler
      * @var integer
      */
     protected $currentPageId;
-
-    /**
-     * pagesCount
-     *
-     * @var integer
-     */
-    protected $pagesCount;
 
     /**
      * Cached pages
@@ -105,15 +102,15 @@ abstract class APager extends \XLite\View\RequestHandler\ARequestHandler
      * @param integer                $count Number of items per page OPTIONAL
      * @param \XLite\Core\CommonCell $cnd   Search condition OPTIONAL
      *
-     * @return array|\Doctrine\ORM\PersistentCollection
+     * @return \XLite\Core\CommonCell
      */
     public function getLimitCondition($start = null, $count = null, \XLite\Core\CommonCell $cnd = null)
     {
-        if (!isset($start)) {
+        if (null === $start) {
             $start = $this->getStartItem();
         }
 
-        if (!isset($count)) {
+        if (null === $count) {
             $count = $this->getItemsPerPage();
         }
 
@@ -137,11 +134,9 @@ abstract class APager extends \XLite\View\RequestHandler\ARequestHandler
      */
     public function getPagesCount()
     {
-        if (!isset($this->pagesCount)) {
-            $this->pagesCount = ceil($this->getItemsTotal() / $this->getItemsPerPage());
-        }
-
-        return $this->pagesCount;
+        return $this->executeCachedRuntime(function () {
+            return ceil($this->getItemsTotal() / $this->getItemsPerPage());
+        });
     }
 
     /**
@@ -220,7 +215,7 @@ abstract class APager extends \XLite\View\RequestHandler\ARequestHandler
      */
     protected function getMaxItemsCount()
     {
-        return intval($this->getParam(static::PARAM_MAX_ITEMS_COUNT));
+        return (int) $this->getParam(static::PARAM_MAX_ITEMS_COUNT);
     }
 
     /**
@@ -431,7 +426,7 @@ abstract class APager extends \XLite\View\RequestHandler\ARequestHandler
             $num = isset($page['num']) ? $page['num'] : null;
             $type = $page['type'];
 
-            $isItem = isset($num) && (in_array($type, array('item', 'first-page', 'last-page')));
+            $isItem = isset($num) && (in_array($type, array('item', 'first-page', 'last-page'), true));
 
             $isOmittedItems = 'more-pages' === $type;
             $isSpecialItem = !$isItem && !$isOmittedItems;
@@ -487,7 +482,7 @@ abstract class APager extends \XLite\View\RequestHandler\ARequestHandler
                 }
             }
 
-            $this->pages[$k]['classes'] = join(' ', $css);
+            $this->pages[$k]['classes'] = implode(' ', $css);
         }
     }
 
@@ -672,7 +667,7 @@ abstract class APager extends \XLite\View\RequestHandler\ARequestHandler
      */
     protected function isSearchTotalVisible()
     {
-        return 'order_list' == \XLite\Core\Request::getInstance()->target;
+        return 'order_list' === \XLite\Core\Request::getInstance()->target;
     }
 
     /**
@@ -749,7 +744,7 @@ abstract class APager extends \XLite\View\RequestHandler\ARequestHandler
     {
         $result = null;
 
-        if ($this->isSavedPageId() || static::PARAM_PAGE_ID != $param) {
+        if (static::PARAM_PAGE_ID !== $param || $this->isSavedPageId()) {
             $result = parent::getSavedRequestParam($param);
         }
 

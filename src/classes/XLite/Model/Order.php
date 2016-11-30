@@ -197,7 +197,7 @@ class Order extends \XLite\Model\Base\SurchargeOwner
     /**
      * Order items
      *
-     * @var \Doctrine\Common\Collections\Collection
+     * @var \Doctrine\Common\Collections\Collection|\XLite\Model\OrderItem[]
      *
      * @OneToMany (targetEntity="XLite\Model\OrderItem", mappedBy="order", cascade={"all"})
      */
@@ -345,6 +345,29 @@ class Order extends \XLite\Model\Base\SurchargeOwner
     protected $xcPendingExport = false;
 
     /**
+     * If entity temporary
+     *
+     * @var bool
+     */
+    protected $temporary = false;
+
+    /**
+     * @return boolean
+     */
+    public function isTemporary()
+    {
+        return $this->temporary;
+    }
+
+    /**
+     * @param boolean $temporary
+     */
+    public function setTemporary($temporary)
+    {
+        $this->temporary = $temporary;
+    }
+
+    /**
      * Add item to order
      *
      * @param \XLite\Model\OrderItem $newItem Item to add
@@ -361,14 +384,24 @@ class Order extends \XLite\Model\Base\SurchargeOwner
 
             $item = $this->getItemByItem($newItem);
 
+            $warningText = '';
+
             if ($item) {
                 $item->setAmount($item->getAmount() + $newItem->getAmount());
+
+                $warningText = $item->getAmountWarning(
+                    $item->getAmount() + $newItem->getAmount()
+                );
 
             } else {
                 $this->addItems($newItem);
             }
 
-            $result = true;
+            $result = '' === $warningText;
+
+            if ('' !== $warningText) {
+                \XLite\Core\TopMessage::addWarning($warningText);
+            }
 
         } else {
             $this->addItemError = self::NOT_VALID_ERROR;
@@ -693,6 +726,24 @@ class Order extends \XLite\Model\Base\SurchargeOwner
     // {{{ Clone
 
     /**
+     * clone Order as temporary
+     *
+     * @return \XLite\Model\Order
+     */
+    public function cloneOrderAsTemporary()
+    {
+        $isTemporary = $this->isTemporary();
+        $this->setTemporary(true);
+        $result = $this->cloneEntity();
+        $result->setOrderNumber(null);
+        $result->setIsNotificationsAllowedFlag(null);
+        $result->setTemporary(true);
+        $this->setTemporary($isTemporary);
+
+        return $result;
+    }
+
+    /**
      * Clone order and all related data
      * TODO: Decompose this method into several methods
      *
@@ -703,9 +754,9 @@ class Order extends \XLite\Model\Base\SurchargeOwner
         // Clone order
         $newOrder = parent::cloneEntity();
 
-        if ($this->getOrderNumber()) {
+        if ($this->getOrderNumber() && !$this->isTemporary()) {
             $newOrder->setOrderNumber(
-                \XLite\Core\Database::getRepo('XLite\Model\Order')->findNextOrderNumber(false)
+                \XLite\Core\Database::getRepo('XLite\Model\Order')->findNextOrderNumber()
             );
         }
         
@@ -808,6 +859,18 @@ class Order extends \XLite\Model\Base\SurchargeOwner
         $paymentMethod = $this->getPaymentMethod();
 
         return $paymentMethod ? $paymentMethod->getName() : $this->payment_method_name;
+    }
+
+    /**
+     * Get payment method name
+     *
+     * @return string
+     */
+    public function getPaymentMethodId()
+    {
+        $paymentMethod = $this->getPaymentMethod();
+
+        return $paymentMethod ? $paymentMethod->getMethodId() : null;
     }
 
     /**
@@ -982,6 +1045,8 @@ class Order extends \XLite\Model\Base\SurchargeOwner
             'paymentMethodsHash',
             'shippingAddressId',
             'billingAddressId',
+            'shippingAddressFields',
+            'billingAddressFields',
             'sameAddress',
         );
     }
@@ -1146,6 +1211,36 @@ class Order extends \XLite\Model\Base\SurchargeOwner
             : 0;
     }
 
+
+    /**
+     * Get fingerprint by 'shippingAddressId' key
+     *
+     * @return integer
+     */
+    protected function getFingerprintByShippingAddressFields()
+    {
+        if ($this->getProfile() && $this->getProfile()->getShippingAddress()) {
+            return $this->getProfile()->getShippingAddress()->serialize();
+        }
+
+        return '';
+    }
+
+    /**
+     * Get fingerprint by 'billingAddressId' key
+     *
+     * @return integer
+     */
+    protected function getFingerprintByBillingAddressFields()
+    {
+        if ($this->getProfile() && $this->getProfile()->getBillingAddress()) {
+            return $this->getProfile()->getBillingAddress()->serialize();
+        }
+
+        return '';
+    }
+
+
     /**
      * Get fingerprint by 'sameAddress' key
      *
@@ -1174,7 +1269,22 @@ class Order extends \XLite\Model\Base\SurchargeOwner
     }
 
     /**
+     * Get detail value
+     *
+     * @param string $name Details cell name
+     *
+     * @return mixed
+     */
+    public function getDetailValue($name)
+    {
+        $detail = $this->getDetail($name);
+
+        return $detail ? $detail->getValue() : null;
+    }
+
+    /**
      * Set detail cell
+     * To unset detail cell the value should be null
      *
      * @param string $name  Cell code
      * @param mixed  $value Cell value
@@ -1186,17 +1296,25 @@ class Order extends \XLite\Model\Base\SurchargeOwner
     {
         $detail = $this->getDetail($name);
 
-        if (!$detail) {
-            $detail = new \XLite\Model\OrderDetail();
+        if (is_null($value)) {
+            if ($detail) {
+                $this->getDetails()->removeElement($detail);
+                \XLite\Core\Database::getEM()->remove($detail);
+            }
 
-            $detail->setOrder($this);
-            $this->addDetails($detail);
+        } else {
+            if (!$detail) {
+                $detail = new \XLite\Model\OrderDetail();
 
-            $detail->setName($name);
+                $detail->setOrder($this);
+                $this->addDetails($detail);
+
+                $detail->setName($name);
+            }
+
+            $detail->setValue($value);
+            $detail->setLabel($label);
         }
-
-        $detail->setValue($value);
-        $detail->setLabel($label);
     }
 
     /**
@@ -1243,6 +1361,37 @@ class Order extends \XLite\Model\Base\SurchargeOwner
 
         // Transform attributes
         $this->transformItemsAttributes();
+
+        $this->sendOrderCreatedIfNeeded();
+    }
+
+    /**
+     * Send order created notification if needed
+     */
+    public function sendOrderCreatedIfNeeded()
+    {
+        if ($this->getPaymentStatus()
+            && in_array(
+                $this->getPaymentStatus()->getCode(),
+                $this->getValidStatusesForCreateNotification(),
+                true
+            )
+        ) {
+            \XLite\Core\Mailer::getInstance()->sendOrderCreated($this);
+        }
+    }
+
+
+    /**
+     * Valid not paid statuses
+     *
+     * @return array
+     */
+    public function getValidStatusesForCreateNotification()
+    {
+        return [
+            \XLite\Model\Order\Status\Payment::STATUS_QUEUED,
+        ];
     }
 
     /**
@@ -1356,7 +1505,7 @@ class Order extends \XLite\Model\Base\SurchargeOwner
         if ($this->isPaymentMethodRequired()) {
             $method = $this->getPaymentMethod();
 
-            if ($method && $method->getProcessor() && $method->getProcessor()->isApplicable($this, $method)) {
+            if ($this->isPaymentMethodIsApplicable($method)) {
                 $this->setPaymentMethod($method);
 
             } else {
@@ -1397,6 +1546,19 @@ class Order extends \XLite\Model\Base\SurchargeOwner
     {
         return 0 < $this->getOpenTotal()
             && ($this instanceof \XLite\Model\Cart || $this->getOrderNumber() === null);
+    }
+
+    /**
+     * Check if given payment method can be applied to the order
+     * 
+     * @param  \XLite\Model\Payment\Method  $method
+     * @return boolean
+     */
+    protected function isPaymentMethodIsApplicable($method)
+    {
+        return $method 
+            && $method->getProcessor() 
+            && $method->getProcessor()->isApplicable($this, $method);
     }
 
     /**
@@ -1633,12 +1795,27 @@ class Order extends \XLite\Model\Base\SurchargeOwner
         $total = $this->getCurrency()->roundValue($this->getTotal());
         $totalAsSurcharges = $this->getCurrency()->roundValue($this->getSurchargesTotal());
 
+        $totalsPaid = $this->getPaidTotals();
+
+        return max(
+            $total - $totalsPaid['total'],
+            $totalAsSurcharges - $totalsPaid['totalAsSurcharges']
+        );
+    }
+
+    public function getPaidTotals()
+    {
+        $total = $totalAsSurcharges = 0;
+
         foreach ($this->getPaymentTransactions() as $t) {
-            $total -= $this->getCurrency()->roundValue($t->getChargeValueModifier());
-            $totalAsSurcharges -= $this->getCurrency()->roundValue($t->getChargeValueModifier());
+            $total += $this->getCurrency()->roundValue($t->getChargeValueModifier());
+            $totalAsSurcharges += $this->getCurrency()->roundValue($t->getChargeValueModifier());
         }
 
-        return max($total, $totalAsSurcharges);
+        return array(
+            'total'             => $total,
+            'totalAsSurcharges' => $totalAsSurcharges,
+        );
     }
 
     /**
@@ -1648,13 +1825,12 @@ class Order extends \XLite\Model\Base\SurchargeOwner
      */
     public function getPaidTotal()
     {
-        $total = 0;
+        $totals = $this->getPaidTotals();
 
-        foreach ($this->getPaymentTransactions() as $t) {
-            $total += $this->getCurrency()->roundValue($t->getChargeValueModifier());
-        }
-
-        return $total;
+        return max(
+            $totals['total'],
+            $totals['totalAsSurcharges']
+        );
     }
 
     /**
@@ -2786,9 +2962,15 @@ class Order extends \XLite\Model\Base\SurchargeOwner
         $newCode = $newStatus->getCode();
         $statusHandlers = $class::getStatusHandlers();
 
-        return $oldCode && $newCode && isset($statusHandlers[$oldCode]) && isset($statusHandlers[$oldCode][$newCode])
-            ? $statusHandlers[$oldCode][$newCode]
-            : array();
+        $result = [];
+        
+        if ($oldCode && $newCode && isset($statusHandlers[$oldCode]) && isset($statusHandlers[$oldCode][$newCode])) {
+            $result = is_array($statusHandlers[$oldCode][$newCode])
+                ? array_unique($statusHandlers[$oldCode][$newCode])
+                : $statusHandlers[$oldCode][$newCode];
+        }
+
+        return $result;
     }
 
     /**
@@ -3719,7 +3901,7 @@ class Order extends \XLite\Model\Base\SurchargeOwner
     /**
      * Set orderNumber
      *
-     * @param text $orderNumber
+     * @param string $orderNumber
      * @return Order
      */
     public function setOrderNumber($orderNumber)
@@ -3923,7 +4105,7 @@ class Order extends \XLite\Model\Base\SurchargeOwner
     /**
      * Get items
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \XLite\Model\OrderItem[]
      */
     public function getItems()
     {
@@ -3989,7 +4171,7 @@ class Order extends \XLite\Model\Base\SurchargeOwner
     /**
      * Get currency
      *
-     * @return \XLite\Model\Currency 
+     * @return \XLite\Model\Currency
      */
     public function getCurrency()
     {

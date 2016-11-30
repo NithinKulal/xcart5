@@ -1,0 +1,18 @@
+{##
+ # Common bootstrap selector
+ #}
+
+<div class="input-group {{ this.getWrapperClass() }}">
+  <div class="input-group-btn">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <span class="main-label">{{ this.getOptionLabel() }}</span>
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      {% for optionValue, optionLabel in this.getOptions() %}
+        <li><a href="" data-value="{{ optionValue }}">{{ optionLabel }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  <input type="hidden" class="bootstrap-select-value" name="{{ this.getName() }}" value="{{ this.getValue() }}"/>
+</div>

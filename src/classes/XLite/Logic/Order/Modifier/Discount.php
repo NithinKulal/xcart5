@@ -83,7 +83,7 @@ abstract class Discount extends \XLite\Logic\Order\Modifier\ADiscount
             $discountValue = $currency->roundValue(($item->getSubtotal() / $subtotal) * $discountTotal);
 
             // Set discounted subtotal for item
-            $item->setDiscountedSubtotal($item->getSubtotal() - $discountValue);
+            $item->setDiscountedSubtotal($item->getDiscountedSubtotal() - $discountValue);
 
             // Update distributed discount value
             $distributedSum += $discountValue;

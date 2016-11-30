@@ -11,14 +11,6 @@ jQuery().ready(
   function() {
     jQuery('.export-progress .bar')
       .bind(
-        'changePercent',
-        function(event, data) {
-          if (data && 'undefined' != typeof(data.timeLabel)) {
-            jQuery('.export-progress .time').html(data.timeLabel);
-          }
-        }
-      )
-      .bind(
         'error',
         function() {
           this.errorState = true;

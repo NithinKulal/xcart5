@@ -11,28 +11,72 @@ namespace XLite\View\Button\Addon;
 /**
  * Show modules to install
  */
-class InstallModulesSelected extends \XLite\View\Button\AButton
+class InstallModulesSelected extends \XLite\View\Button\Dropdown\ADropdown
 {
     /**
      * Return JS files for the widget
-     * 
+     *
      * @return array
      */
     public function getJSFiles()
     {
         $list = parent::getJSFiles();
         $list[] = 'modules_manager/js/install_modules_selected.js';
-        
+
         return $list;
     }
 
     /**
-     * Return widget default template
+     * Define additional buttons
      *
+     * @return array
+     */
+    protected function defineAdditionalButtons()
+    {
+        $list = parent::defineAdditionalButtons();
+        $position = 0;
+        $modules = \XLite::getController()->getModulesToInstall();
+
+        $list['module-empty'] = [
+            'params'   => [
+                'style'    => 'link list-action modules-not-selected',
+                'template' => 'button/addon/install_module_not_selected.twig',
+                'disabled' => true,
+            ],
+            'position' => $position += 100,
+        ];
+
+        $list['module-0'] = [
+            'params'   => [
+                'template' => 'button/addon/install_module_selected.twig',
+                'style' => 'module-box clone',
+            ],
+            'position' => $position += 100,
+        ];
+
+        foreach ($modules as $moduleId) {
+            $list['module-' . $moduleId] = [
+                'params'   => [
+                    // 'label' => \XLite::getController()->getModuleName($moduleId),
+                    'style'    => 'always-enabled module-box',
+                    'template' => 'button/addon/install_module_selected.twig',
+                    'moduleId' => $moduleId,
+                ],
+                'position' => $position += 100,
+            ];
+        }
+
+        return $list;
+    }
+
+    /**
      * @return string
      */
-    protected function getDefaultTemplate()
+    protected function getDefaultLabel()
     {
-        return 'button/addon/install_modules_selected.twig';
+        return static::t(
+            'X module(s) selected',
+            ['count' => \XLite::getController()->countModulesSelected()]
+        );
     }
 }

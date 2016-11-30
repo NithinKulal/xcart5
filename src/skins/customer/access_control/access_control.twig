@@ -1,0 +1,36 @@
+{##
+ # Access cntrol block
+ #}
+
+{% if this.isAccessLocked() %}
+  <div class="access-control-locked" data-time-left="{{ this.getTimeLeftToUnlock() }}">
+    <p>
+      {{ t('Access is locked out') }}
+    </p>
+    <p>
+    <div class="timer">
+      <div class="timer-content-wrapper">
+      {{ t('Time left') }}: <span id="timer"></span>
+      </div>
+    </div>
+    </p>
+  </div>
+{% else %}
+  {% if this.getTitle() is empty %}
+    <div class="head-h3">{{ this.getTitle() ?: this.getDefaultPageTitle() }}</div>
+  {% endif %}
+
+  <div class="access-control">
+    <p>
+      {{ t('Your access link has been expired') }}
+    </p>
+    <p>
+      {% if this.isResendMethodExist() %}
+        {{ widget('\\XLite\\View\\Button\\Link', location=this.getResendUrl(), label=t('Resend secret link to renew the access')) }}
+      {% endif %}
+    </p>
+  </div>
+{% endif %}
+
+
+

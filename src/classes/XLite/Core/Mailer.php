@@ -33,6 +33,7 @@ class Mailer extends \XLite\Base\Singleton
     const TYPE_ORDER_SHIPPED_CUSTOMER           = 'siteAdmin'; // todo: check
     const TYPE_ORDER_FAILED_ADMIN               = 'siteAdmin'; // todo: check
     const TYPE_ORDER_CANCELED_ADMIN             = 'siteAdmin'; // todo: check
+    const TYPE_ACCESS_LINK_CUSTOMER             = 'siteAdmin'; // todo: check
 
     const TYPE_SAFE_MODE_ACCESS_KEY             = 'siteAdmin';
     const TYPE_UPGRADE_SAFE_MODE_ACCESS_KEY     = 'siteAdmin';
@@ -512,7 +513,7 @@ class Mailer extends \XLite\Base\Singleton
         $result = static::compose(
             static::TYPE_ORDER_CREATED_CUSTOMER,
             static::getOrdersDepartmentMail(),
-            $order->getProfile()->getLogin(),
+            \XLite\Core\Session::getInstance()->checkoutEmail ?: $order->getProfile()->getLogin(),
             'order_created',
             array(),
             true,
@@ -1076,6 +1077,46 @@ class Mailer extends \XLite\Base\Singleton
 
     // }}}
 
+    // {{{ Access control
+
+    /**
+     * Send changed order mail to Customer
+     *
+     * @param \XLite\Model\Profile           $profile Order model
+     * @param \XLite\Model\AccessControlCell $acc     Order model
+     *
+     * @return void
+     */
+    public static function sendAccessLinkCustomer(\XLite\Model\Profile $profile, \XLite\Model\AccessControlCell $acc)
+    {
+        $returnData = $acc->getReturnData();
+
+        $link = \XLite\Core\Converter::buildPersistentAccessURL(
+            $acc,
+            isset($returnData['target']) ? $returnData['target'] : '',
+            isset($returnData['action']) ? $returnData['action'] : '',
+            isset($returnData['params']) ? $returnData['params'] : [],
+            \XLite::getCustomerScript()
+        );
+
+        static::register('access_link', $link);
+        static::register('profile', $profile);
+        static::register('recipientName', $profile->getName());
+
+        static::compose(
+            static::TYPE_ACCESS_LINK_CUSTOMER,
+            static::getSiteAdministratorMail(),
+            $profile->getLogin(),
+            'access_link',
+            array(),
+            true,
+            \XLite::CUSTOMER_INTERFACE,
+            static::getMailer()->getLanguageCode(\XLite::CUSTOMER_INTERFACE, $profile->getLanguage())
+        );
+    }
+
+    // }}}
+
     // {{{ Safe mode access key
 
     /**
@@ -1115,10 +1156,6 @@ class Mailer extends \XLite\Base\Singleton
      */
     public static function sendUpgradeSafeModeAccessKeyNotification()
     {
-        // Register variables
-        static::register('hard_reset_url', \Includes\SafeMode::getResetURL());
-        static::register('soft_reset_url', \Includes\SafeMode::getResetURL(true));
-
         static::compose(
             static::TYPE_UPGRADE_SAFE_MODE_ACCESS_KEY,
             static::getSiteAdministratorMail(),
@@ -1410,23 +1447,25 @@ class Mailer extends \XLite\Base\Singleton
      * @param boolean $doSend        Flag: if true - send email immediately OPTIONAL
      * @param string  $interface     Interface to compile mail templates (skin name: customer, admin or mail) OPTIONAL
      * @param string  $languageCode  Language code OPTIONAL
+     * @param bool    $force         Force email send OPTIONAL
      *
-     * @return boolean
+     * @return bool
      */
     protected static function compose(
-        $type,
+        $type, // todo: remove
         $from,
         $to,
         $dir,
         array $customHeaders = array(),
         $doSend = true,
         $interface = \XLite::CUSTOMER_INTERFACE,
-        $languageCode = ''
+        $languageCode = '',
+        $force = false
     ) {
         $result = false;
         static::$errorMessage = null;
 
-        if (static::isNotificationEnabled($dir, $interface)) {
+        if (static::isNotificationEnabled($dir, $interface) || $force) {
             static::getMailer()->compose(
                 static::prepareFrom($type, $from),
                 static::prepareTo($type, $to),
@@ -1465,7 +1504,7 @@ class Mailer extends \XLite\Base\Singleton
      */
     protected static function checkMailRegistry($func, $from, $to)
     {
-        return in_array(static::getMailRegistryKey($func, $from, $to), static::$mailRegistry);
+        return in_array(static::getMailRegistryKey($func, $from, $to), static::$mailRegistry, true);
     }
 
     /**

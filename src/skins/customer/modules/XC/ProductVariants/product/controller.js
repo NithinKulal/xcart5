@@ -15,21 +15,24 @@ core.bind(
   'update-product-page',
   function (event, productId)
   {
-    jQuery('div.product-details').get(0).controller.block.loadVariantsImages(productId);
+    if (jQuery('div.product-details').length > 0 && 'undefined' !== typeof(jQuery('div.product-details').get(0).controller)) {
+      jQuery('div.product-details').get(0).controller.block.loadVariantsImages(productId);
+    }
   }
 );
 
-jQuery(window).ready(
+jQuery(document).ready(
   function()
   {
     core.bind(
       'update-product-page',
       function (event, productId)
       {
-        jQuery('div.product-details').get(0).controller.block.loadVariantsImages(productId);
+        if (jQuery('div.product-details').length > 0 && 'undefined' !== typeof(jQuery('div.product-details').get(0).controller)) {
+          jQuery('div.product-details').get(0).controller.block.loadVariantsImages(productId);
+        }
       }
     );
-
 
     var use = jQuery('div.product-details').data('use-widgets-collection');
     var productId = jQuery('input[name="product_id"]', form).val();
@@ -49,7 +52,9 @@ jQuery(window).ready(
       jQuery("ul.attribute-values input[type='checkbox']").unbind('change').change(handler);
       jQuery("ul.attribute-values select").unbind('change').change(handler);
     }
-    jQuery('div.product-details').get(0).controller.block.loadVariantsImages(productId);
+    if (jQuery('div.product-details').length > 0 &&'undefined' !== typeof(jQuery('div.product-details').get(0).controller)) {
+      jQuery('div.product-details').get(0).controller.block.loadVariantsImages(productId);
+    }
   }
 );
 

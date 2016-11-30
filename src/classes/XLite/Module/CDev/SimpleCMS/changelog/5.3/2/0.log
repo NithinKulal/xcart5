@@ -1,0 +1,9 @@
+Version 5.3.2.0
+
+Improvements
+2016-10-27 - [Change] Added support for the tags rel="alternate" hreflang="x" when using multiple languages. Also added these tags to sitemap.xml. #XCN-7129 (Sergey Elmanov) #Core #SimpleCMS #XMLSitemap
+2016-10-11 - [Change] Optimization of the generation of the sitemap xml file from the Admin area on a large number of products/categories/static pages. #XCN-6805 (Sergey Elmanov) #SimpleCMS #XMLSitemap
+2016-10-03 - [Change] Added special meta tags for mobile browsers: apple-mobile-web-app-capable and mobile-web-app-capable. Now it is possible to upload apple-touch-icon/icon on the Logo & Favicon page. #XCN-6055 (Michael Lipinski) #SimpleCMS
+
+Fixes
+2016-11-21 - [Bug] Added more precise information as to what the module does to the module description. #BUG-4080 (Sergey Elmanov) #SimpleCMS

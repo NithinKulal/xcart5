@@ -20,7 +20,7 @@ abstract class Details extends \XLite\View\Product\Details\Customer\Page\APage i
      */
     public function getCSSFiles()
     {
-        $list = parent::getCSSFiles();
+        $list   = parent::getCSSFiles();
         $list[] = 'modules/CDev/ProductAdvisor/style.css';
 
         return $list;

@@ -20,7 +20,7 @@ abstract class AProduct extends \XLite\View\Pager\Customer\ACustomer
      */
     protected function getItemsPerPageDefault()
     {
-        return (integer) \XLite\Core\Config::getInstance()->General->products_per_page;
+        return (int) \XLite\Core\Config::getInstance()->General->products_per_page;
     }
 
     /**
@@ -30,6 +30,6 @@ abstract class AProduct extends \XLite\View\Pager\Customer\ACustomer
      */
     protected function getItemsPerPageMax()
     {
-        return (integer) \XLite\Core\Config::getInstance()->General->products_per_page_max ?: parent::getItemsPerPageMax();
+        return (int) \XLite\Core\Config::getInstance()->General->products_per_page_max ?: parent::getItemsPerPageMax();
     }
 }

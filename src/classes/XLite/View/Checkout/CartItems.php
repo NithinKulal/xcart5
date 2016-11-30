@@ -67,6 +67,18 @@ class CartItems extends \XLite\View\AView
     }
 
     /**
+     * Get cart items
+     *
+     * @return array
+     */
+    public function getItems()
+    {
+        return $this->getCart()
+            ? $this->getCart()->getItems()
+            : [];
+    }
+
+    /**
      * Get surcharge class name
      *
      * @param string $type      Surcharge type

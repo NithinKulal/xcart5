@@ -78,7 +78,7 @@ class Importer extends \XLite\Base
             'rowsCount'        => isset($options['rowsCount']) ? $options['rowsCount'] : 0,
             'warningsAccepted' => isset($options['warningsAccepted']) ? $options['warningsAccepted'] : false,
             'target'           => isset($options['target']) ? $options['target'] : static::getDefaultTarget(),
-            'updateOnly'       => isset($options['updateOnly']) ? $options['updateOnly'] : false,
+            'importMode'       => isset($options['importMode']) ? $options['importMode'] : \XLite\View\Import\Begin::MODE_UPDATE_AND_CREATE,
             // 'calculateAllQuickData' => isset($options['calculateAllQuickData']) ? $options['calculateAllQuickData'] : false,
         ) + $options;
 
@@ -364,7 +364,8 @@ class Importer extends \XLite\Base
      */
     public function isNextStepAllowed()
     {
-        return $this->getStep()->isStepDone()
+        return $this->getStep()
+            && $this->getStep()->isStepDone()
             && !static::hasErrors()
             && (!static::hasWarnings() || $this->getOptions()->warningsAccepted)
             && empty($this->getOptions()->commonData['finalize'])
@@ -432,7 +433,7 @@ class Importer extends \XLite\Base
             'ignoreFileChecking',
             'charset',
             'delimiter',
-            'updateOnly',
+            'importMode',
         );
     }
 

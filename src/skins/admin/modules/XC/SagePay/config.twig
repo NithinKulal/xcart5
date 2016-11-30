@@ -24,7 +24,22 @@
     <label for="settings_key">{{ t('Sage Pay password') }}</label>
     </td>
     <td>
-      {{ widget('\\XLite\\View\\FormField\\Input\\Text', fieldName='settings[password]', fieldOnly='true', value=this.paymentMethod.getSetting('password'), required=true, help=t('Please enter your encryption password (This is different from your merchant password). More info on encryption passwords is available <here>', { 'link': this.paymentMethod.getHelpPasswordLink() }) ) }}
+      {{ widget('\\XLite\\View\\FormField\\Input\\Text', fieldName='settings[password]', fieldOnly='true', value=this.paymentMethod.getSetting('password'), required=true ) }}
+    </td>
+    <td style="padding-left: 10px;">
+      {{ widget('\\XLite\\View\\Tooltip', id='password-helper', text=t('Please enter your encryption password (This is different from your merchant password). More info on encryption passwords is available <here>', { 'link': this.paymentMethod.getHelpPasswordLink() }), isImageTag='true', className='help-wrapper') }}
+    </td>
+  </tr>
+
+  <tr>
+    <td class="setting-name">
+      <label for="settings_type">{{ t('Transaction type') }}</label>
+    </td>
+    <td>
+      <select id="settings_type" name="settings[type]">
+        <option value="sale" {% if this.isSelected(this.paymentMethod.getSetting('type'), 'sale') %} selected="selected" {% endif %}>Payment</option>
+        <option value="auth" {% if this.isSelected(this.paymentMethod.getSetting('type'), 'auth') %} selected="selected" {% endif %}>Deferred</option>
+      </select>
     </td>
   </tr>
 

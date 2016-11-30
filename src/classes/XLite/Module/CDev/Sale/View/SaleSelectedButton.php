@@ -35,7 +35,7 @@ class SaleSelectedButton extends \XLite\View\Button\APopupButton
     {
         return array(
             'target' => 'sale_selected',
-            'widget' => '\XLite\Module\CDev\Sale\View\SaleSelectedDialog',
+            'widget' => 'XLite\Module\CDev\Sale\View\SaleSelectedDialog',
         );
     }
 
@@ -56,6 +56,6 @@ class SaleSelectedButton extends \XLite\View\Button\APopupButton
      */
     protected function getClass()
     {
-        return parent::getClass() . ' action link sale-selected-button list-action';
+        return parent::getClass() . ' sale-selected-button';
     }
 }

@@ -42,3 +42,9 @@
   height: 45px;
   width: 200px;
 }
+
+.checkout_fastlane_container #payWithAmazonDiv_co_btn {
+  margin-left: 0;
+  margin-top: 20px;
+  float: none;
+}

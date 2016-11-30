@@ -1,0 +1,14 @@
+{##
+ # Just a template for settings. We need it since we do not implement decorator for modules now
+ #}
+
+<div class="admin-welcome root mailchimp-welcome">
+  <div class="mailchimp-logo" align="center">
+    <a href="https://login.mailchimp.com/signup?source=website&pid=xcart" target="_blank">
+      <img src="skins/admin/{{ this.getDir() }}/images/logo.png" alt="{{ t('MailChimp') }}" class="logo" />
+    </a>
+  </div>
+  <div class="mailchimp-options-header">
+    {{ t('You will need a valid and working MailChimp Account in order to be able to use this module.') }} {{ t('You can register MailChimp account') }} <a href="https://login.mailchimp.com/signup?source=website&pid=xcart" target="_blank">{{ t('here') }}</a>.
+  </div>
+</div>

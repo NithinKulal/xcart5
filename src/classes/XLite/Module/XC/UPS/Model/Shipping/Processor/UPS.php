@@ -352,8 +352,10 @@ class UPS extends \XLite\Model\Shipping\Processor\AProcessor
                         $r->getMethod()->getName();
                     }
                 }
-                $this->saveDataInCache($cacheKey, $rates);
             }
+
+            // Save in cache received rates (we should save empty rates to avoid duplicate requests)
+            $this->saveDataInCache($cacheKey, $rates ?: array());
         }
 
         return $rates;

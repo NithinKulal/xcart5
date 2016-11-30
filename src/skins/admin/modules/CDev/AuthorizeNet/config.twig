@@ -3,8 +3,23 @@
  #}
 
 <style>
-  #settings_prefix{
-    width: 175px;
+  .settings-table td {
+    position: relative;
+  }
+
+  .settings-table td:nth-child(2) {
+    min-width: 250px;
+  }
+
+  .settings-table input + .tooltip-main {
+    position: absolute;
+    right: -30px;
+    top: 10px;
+  }
+
+  .settings-table input + .tooltip-main li {
+    list-style: disc;
+    margin-left: 20px;
   }
 </style>
 
@@ -24,20 +39,18 @@
     <label for="settings_key">{{ t('Transaction key') }}</label>
     </td>
     <td>
-    <input type="text" id="settings_key" name="settings[key]" value="{{ this.paymentMethod.getSetting('key') }}" class="validate[required,maxSize[255]]" />
+    <input type="text" id="settings_key" class="setting-with-help" name="settings[key]" value="{{ this.paymentMethod.getSetting('key') }}" class="validate[required,maxSize[255]]" />
+    {{ widget('XLite\\View\\Tooltip', id='settings_key_help', text=t('authorize_key_help')|raw, caption='', isImageTag='true', className='help-icon') }}
     </td>
   </tr>
 
   <tr>
-    <td colspan="2" class="note">
-To obtain the transaction key from the Merchant Interface, do the following:
-<ol>
-  <li>Log into the Merchant Interface</li>
-  <li>Select Settings from the Main Menu</li>
-  <li>Click on Obtain Transaction Key in the Security section</li>
-  <li>Type in the answer to the secret question configured on setup</li>
-  <li>Click Submit</li>
-</ol>
+    <td class="setting-name">
+    <label for="settings_md5_key">{{ t('MD5 Hash protection') }}</label>
+    </td>
+    <td>
+    <input type="text" id="settings_md5_key" class="setting-with-help" name="settings[md5_key]" value="{{ this.paymentMethod.getSetting('md5_key') }}" class="validate[required,maxSize[255]]" />
+    {{ widget('XLite\\View\\Tooltip', id='settings_prefix_help', text=t('authorize_md5_key_help')|raw, caption='', isImageTag='true', className='help-icon') }}
     </td>
   </tr>
 
@@ -70,7 +83,7 @@ To obtain the transaction key from the Merchant Interface, do the following:
     <label for="settings_prefix">{{ t('Invoice number prefix') }}</label>
     </td>
     <td>
-    <input type="text" id="settings_prefix" value="{{ this.paymentMethod.getSetting('prefix') }}" name="settings[prefix]" />
+    <input type="text" id="settings_prefix" class="setting-with-help" value="{{ this.paymentMethod.getSetting('prefix') }}" name="settings[prefix]" />
     {{ widget('XLite\\View\\Tooltip', id='settings_prefix_help', text=t('It\'s recommended to limit the length of invoice prefix to 9 characters'), caption='', isImageTag='true', className='help-icon') }}
     </td>
   </tr>

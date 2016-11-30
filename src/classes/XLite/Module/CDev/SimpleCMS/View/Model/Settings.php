@@ -18,7 +18,7 @@ abstract class Settings extends \XLite\View\Model\Settings implements \XLite\Bas
      *
      * @var array
      */
-    static protected $logoFaviconFields = array('logo', 'favicon');
+    static protected $logoFaviconFields = array('logo', 'favicon', 'appleIcon');
 
     /**
      * Logo & Favicon validation flag
@@ -145,8 +145,13 @@ abstract class Settings extends \XLite\View\Model\Settings implements \XLite\Bas
             $path = null;
 
             $realName = preg_replace('/([^a-zA-Z0-9_\-\.]+)/', '_', $_FILES[$imageType]['name']);
+            $realName = $imageType . '_' . $realName;
 
-            if ($this->isImage($_FILES[$imageType]['tmp_name'], $realName)) {
+            $validImage = $imageType === 'appleIcon'
+                ? $this->isValidAppleIcon($_FILES[$imageType]['tmp_name'], $realName)
+                : $this->isImage($_FILES[$imageType]['tmp_name'], $realName);
+
+            if ($validImage) {
 
                 if (!\Includes\Utils\FileManager::isDir($dir)) {
                     \Includes\Utils\FileManager::mkdirRecursive($dir);
@@ -167,7 +172,7 @@ abstract class Settings extends \XLite\View\Model\Settings implements \XLite\Bas
                     );
 
                     if ($path) {
-                        if ($optionValue && 'favicon' !== $imageType && basename($optionValue) != $realName) {
+                        if ($optionValue && 'logo' === $imageType && basename($optionValue) != $realName) {
                             // Remove old image file
                             \Includes\Utils\FileManager::deleteFile($dir . basename($optionValue));
                         }
@@ -185,13 +190,23 @@ abstract class Settings extends \XLite\View\Model\Settings implements \XLite\Bas
 
             } else {
                 $this->logoFaviconValidation = false;
-                \XLite\Core\TopMessage::addError(
-                    'The "{{file}}" file is not allowed image and was not uploaded. Allowed images are: {{extensions}}',
-                    array(
-                        'file' => $realName,
-                        'extensions' => implode(', ', $this->getImageExtensions()),
-                    )
-                );
+
+                if ($imageType === 'appleIcon') {
+                    \XLite\Core\TopMessage::addError(
+                        'The AppleIcon image could not be uploaded (Unallowed image type. Must be a .png image with the resolution of 192x192 px)',
+                        array(
+                            'file' => $realName,
+                        )
+                    );
+                } else {
+                    \XLite\Core\TopMessage::addError(
+                        'The "{{file}}" file is not allowed image and was not uploaded. Allowed images are: {{extensions}}',
+                        array(
+                            'file' => $realName,
+                            'extensions' => implode(', ', $this->getImageExtensions()),
+                        )
+                    );
+                }
             }
 
         } elseif (\XLite\Core\Request::getInstance()->useDefaultImage[$imageType]) {
@@ -219,6 +234,36 @@ abstract class Settings extends \XLite\View\Model\Settings implements \XLite\Bas
             && \Includes\Utils\FileManager::isImage($path);
     }
 
+    /**
+     * Check if file is valid image
+     *
+     * @param string $path Temporary uploaded file path
+     * @param string $name Real file name
+     *
+     * @return boolean
+     */
+    protected function isValidAppleIcon($path, $name)
+    {
+        return $this->hasImageName($name)
+            && strtolower(pathinfo($name, PATHINFO_EXTENSION)) === 'png'
+            && \Includes\Utils\FileManager::isImage($path)
+            && $this->isValidResolution($path, '192x192');
+    }
+
+    /**
+     * @param $path
+     * @param $resolution
+     *
+     * @return bool
+     */
+    protected function isValidResolution($path, $resolution)
+    {
+        $data = @getimagesize($path);
+
+        return is_array($data)
+            ? $data[0] . 'x' . $data[1] === $resolution
+            : true;
+    }
     /**
      * Return true if file has non-empty name
      *

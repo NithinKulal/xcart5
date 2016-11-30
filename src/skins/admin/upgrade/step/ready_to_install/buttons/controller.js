@@ -22,12 +22,19 @@ var UpgradeButtonsBox = function(submitFormFlag)
     }
   );
 
-  jQuery('.ready-to-install-actions .alert.agree input[type="checkbox"]').change(
+  jQuery('.ready-to-install-actions .alert.agree input[type="checkbox"], .ready-to-install-actions .alert.agree-remove input[type="checkbox"]').change(
     function () {
-      var state = jQuery(this).is(':checked');
+      var agrees = $('.ready-to-install-actions .alert.agree input[type="checkbox"], .ready-to-install-actions .alert.agree-remove input[type="checkbox"]');
+      var state = true;
+
+      agrees.each(function () {
+        if (!$(this).is(':checked')) {
+          state = false;
+        }
+      });
+
       var button = jQuery('.ready-to-install-actions button.submit').eq(0);
       if (button) {
-        var box = jQuery('.ready-to-install-actions .alert');
         if (state) {
           jQuery(button).removeClass('disabled');
           jQuery(button).prop('disabled', false);

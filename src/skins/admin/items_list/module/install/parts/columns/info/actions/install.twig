@@ -10,5 +10,5 @@
     name="selectToInstall[{{ this.module.getModuleId() }}]"
     {% if this.isModuleSelected(this.module.getModuleId()) %}checked="checked"{% endif %}
     class="install-module-action" />
-  {{ t('Install') }}
+  <span class="text">{{ t('Install') }}</span>
 </label>

@@ -8,6 +8,9 @@
 
 namespace XLite\Module\CDev\SimpleCMS\Logic;
 
+use XLite\Core\Converter;
+use XLite\Core\Config;
+
 /**
  * Sitemap links iterator
  *
@@ -70,12 +73,35 @@ class SitemapIterator extends \XLite\Module\CDev\XMLSitemap\Logic\SitemapIterato
      */
     protected function assemblePageData(\XLite\Module\CDev\SimpleCMS\Model\Page $page)
     {
-        return array(
-            'loc'        => array('target' => 'page', 'id' => $page->getId()),
-            'lastmod'    => \XLite\Core\Converter::time(),
-            'changefreq' => \XLite\Core\Config::getInstance()->CDev->XMLSitemap->page_changefreq,
-            'priority'   => $this->processPriority(\XLite\Core\Config::getInstance()->CDev->XMLSitemap->page_priority),
-        );
+        $_url = Converter::buildURL('page', '', ['id' => $page->getId()], \XLite::getCustomerScript(), false, true);
+        $url = \XLite::getInstance()->getShopURL($_url);
+
+        $result = [
+            'loc' => $url,
+            'lastmod' => Converter::time(),
+            'changefreq' => Config::getInstance()->CDev->XMLSitemap->page_changefreq,
+            'priority' => $this->processPriority(Config::getInstance()->CDev->XMLSitemap->page_priority),
+        ];
+
+        if ($this->hasAlternateLangUrls()) {
+            if ($this->languageCode) {
+                $result['loc'] = \Includes\Utils\URLManager::getShopURL($this->languageCode . '/' . $_url);
+            }
+
+            foreach (\XLite\Core\Router::getInstance()->getActiveLanguagesCodes() as $code) {
+                $langUrl = $_url;
+                $langUrl = $code . '/' . $langUrl;
+                $locale = Converter::langToLocale($code);
+
+                $tag = 'xhtml:link rel="alternate" hreflang="' . $locale . '" href="' . \Includes\Utils\URLManager::getShopURL($langUrl) . '"';
+                $result[$tag] = null;
+            }
+
+            $tag = 'xhtml:link rel="alternate" hreflang="x-default" href="' . $url . '"';
+            $result[$tag] = null;
+
+        }
+        return $result;
     }
 
 }

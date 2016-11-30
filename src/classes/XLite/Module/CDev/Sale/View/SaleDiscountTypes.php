@@ -32,7 +32,6 @@ class SaleDiscountTypes extends \XLite\View\AView
     public function getJSFiles()
     {
         $list = parent::getJSFiles();
-
         $list[] = 'modules/CDev/Sale/sale_discount_types/js/script.js';
 
         return $list;
@@ -46,7 +45,6 @@ class SaleDiscountTypes extends \XLite\View\AView
     public function getCSSFiles()
     {
         $list = parent::getCSSFiles();
-
         $list[] = 'modules/CDev/Sale/sale_discount_types/css/style.css';
 
         return $list;
@@ -69,7 +67,7 @@ class SaleDiscountTypes extends \XLite\View\AView
      */
     protected function getPercentOffValue()
     {
-        return intval($this->getParam('salePriceValue'));
+        return (int) $this->getParam('salePriceValue');
     }
 
     /**

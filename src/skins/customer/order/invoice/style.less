@@ -219,15 +219,48 @@
       }
     }
     .after-totals {
-      border-top: 1px solid #e2e2e2;
-      margin-top: 20px;
-      padding-top: 30px;
-      margin-bottom: 0px;
+      &:before {
+        width: auto;
+      }
       .total .title {
         display: none;
       }
       .total .value {
         font-size: 30px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: @screen-xs-max) {
+  body .invoice-box {
+    .subhead-wrapper {
+      display: block;
+      .subhead-line {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+      }
+      .left-adresses-part,
+      .right-adresses-part {
+        display: block;
+        width: 100%;
+      }
+      .left-adresses-part {
+        -webkit-box-ordinal-group: 3;
+        -ms-flex-order: 2;
+        order: 2;
+      }
+      .right-adresses-part {
+        -webkit-box-ordinal-group: 2;
+        -ms-flex-order: 1;
+        order: 1;
+        width: 100%;
       }
     }
   }

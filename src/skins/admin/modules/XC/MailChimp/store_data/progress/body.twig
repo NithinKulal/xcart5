@@ -1,0 +1,14 @@
+{##
+ # Progress section
+ #}
+<div class="uploading-data-box uploading-data-progress">
+
+    <div class="content">
+        {% form 'XLite\\View\\Form\\SimpleForm' with {formTarget: 'mailchimp_store_data', formAction: 'cancel'} %}
+        <div class="subcontent">
+            {{ widget('XLite\\View\\EventTaskProgress', event=this.getEventName(), message=this.getProgressMessage() ) }}
+        </div>
+        {% endform %}
+    </div>
+
+</div>

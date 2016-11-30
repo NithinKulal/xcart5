@@ -298,7 +298,7 @@ class State extends \XLite\View\ItemsList\Model\Table
         parent::defineWidgetParams();
 
         $this->widgetParams += array(
-            static::PARAM_COUNTRY_CODE  => new \XLite\Model\WidgetParam\TypeString('Country', ''),
+            static::PARAM_COUNTRY_CODE  => new \XLite\Model\WidgetParam\TypeString('Country', $this->getCountryCode()),
         );
     }
 
@@ -370,5 +370,19 @@ class State extends \XLite\View\ItemsList\Model\Table
     protected function getPanelClass()
     {
         return 'XLite\View\StickyPanel\State\Admin\Search';
+    }
+
+    /**
+     * Get URL common parameters
+     *
+     * @return array
+     */
+    protected function getCommonParams()
+    {
+        $result = parent::getCommonParams();
+
+        $result['country_code'] = $this->getCountryCode();
+
+        return $result;
     }
 }

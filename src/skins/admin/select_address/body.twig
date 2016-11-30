@@ -6,7 +6,7 @@
 
   {% if this.hasAddresses() %}
 
-    <ul class="addresses">
+    <ul class="addresses clearfix">
       {% for address in this.getAddresses() %}
         <li class="{{ this.getItemClassName(address, loop.index) }}">
           {{ widget(template='select_address/address.twig', address=address) }}

@@ -6,10 +6,15 @@
  * Copyright (c) 2001-present Qualiteam software Ltd. All rights reserved.
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
-Checkout.define('Checkout.PaymentSection', ['Checkout.SectionMixin', 'Checkout.PaymentMethods', 'Checkout.Address', 'Checkout.CartItems', 'Checkout.OrderNotes', 'Checkout.PlaceOrder'], function(){
+define(
+  'checkout_fastlane/sections/payment', 
+  ['vue/vue',
+   'checkout_fastlane/sections',
+   'checkout_fastlane/sections/section_mixin'],
+  function(Vue, Sections, SectionMixin){
 
-  Checkout.PaymentSection = Vue.extend({
-    mixins: [Checkout.SectionMixin],
+  var PaymentSection = Vue.extend({
+    mixins: [SectionMixin],
     name: 'payment-section',
     replace: false,
 
@@ -32,9 +37,14 @@ Checkout.define('Checkout.PaymentSection', ['Checkout.SectionMixin', 'Checkout.P
       }
     },
 
-    components: {
-      PaymentMethods: Checkout.PaymentMethods,
-      PlaceOrder: Checkout.PlaceOrder,
-    }
+    ready: function() {
+      if (!_.isUndefined(window.PopupButtonAddressBook)) {
+        core.autoload(PopupButtonAddressBook);
+      }
+    },
   });
+
+  Vue.registerComponent(Sections, PaymentSection);
+
+  return PaymentSection;
 });

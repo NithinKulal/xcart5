@@ -69,6 +69,18 @@ class AccountOrderPinCodes extends \XLite\View\AView
     }
 
     /**
+     * Get cart items
+     *
+     * @return return
+     */
+    public function getItems()
+    {
+        return $this->getParam(self::PARAM_ORDER)
+            ? $this->getParam(self::PARAM_ORDER)->getItems()
+            : [];
+    }
+
+    /**
      * getOrderUrl 
      *
      * @return string

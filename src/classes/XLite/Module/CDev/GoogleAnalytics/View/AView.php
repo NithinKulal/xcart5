@@ -8,11 +8,40 @@
 
 namespace XLite\Module\CDev\GoogleAnalytics\View;
 
+use XLite\Module\CDev\GoogleAnalytics;
+
 /**
  * Abstract widget
  */
 abstract class AView extends \XLite\View\AView implements \XLite\Base\IDecorator
 {
+    /**
+     * Register files from common repository
+     *
+     * @return array
+     */
+    protected function getCommonFiles()
+    {
+        $list = parent::getCommonFiles();
+
+        if  ((GoogleAnalytics\Main::useUniversalAnalytics() && !\XLite::isAdminZone())
+            || (\XLite\Module\CDev\GoogleAnalytics\Main::isECommerceEnabled() && \XLite::isAdminZone())
+        ) {
+            $list[static::RESOURCE_JS][] = 'modules/CDev/GoogleAnalytics/universal/ga-core.js';
+            $list[static::RESOURCE_JS][] = 'modules/CDev/GoogleAnalytics/universal/ga-event.js';
+
+            if (\XLite\Module\CDev\GoogleAnalytics\Main::isECommerceEnabled()) {
+                // eCommerce files
+                $list[static::RESOURCE_JS][] = 'modules/CDev/GoogleAnalytics/universal/action/ecommerce/ga-ec-full-refund.js';
+                $list[static::RESOURCE_JS][] = 'modules/CDev/GoogleAnalytics/universal/action/ecommerce/ga-ec-purchase.js';
+                $list[static::RESOURCE_JS][] = 'modules/CDev/GoogleAnalytics/universal/action/ecommerce/ga-ec-core.js';
+                $list[static::RESOURCE_JS][] = 'modules/CDev/GoogleAnalytics/universal/action/ecommerce/ga-ec-change-item.js';
+            }
+        }
+
+        return $list;
+    }
+
     /**
      * Register JS files
      *
@@ -25,8 +54,17 @@ abstract class AView extends \XLite\View\AView implements \XLite\Base\IDecorator
         if ($this->isIncludeController()) {
             $list[] = 'modules/CDev/GoogleAnalytics/drupal.js';
 
-        } else {
-            $list[] = 'modules/CDev/GoogleAnalytics/common.js';
+        } elseif (\XLite\Module\CDev\GoogleAnalytics\Main::isECommerceEnabled()) {
+
+            // eCommerce files
+            $list[] = 'modules/CDev/GoogleAnalytics/universal/action/ecommerce/ga-ec-impressions.js';
+            $list[] = 'modules/CDev/GoogleAnalytics/universal/action/ecommerce/ga-ec-product-click.js';
+            $list[] = 'modules/CDev/GoogleAnalytics/universal/action/ecommerce/ga-ec-product-details-shown.js';
+
+            $list[] = 'modules/CDev/GoogleAnalytics/universal/action/ecommerce/ga-ec-checkout-step.js';
+            $list[] = 'modules/CDev/GoogleAnalytics/universal/action/ecommerce/ga-ec-checkout-fastlane.js';
+            $list[] = 'modules/CDev/GoogleAnalytics/universal/action/ecommerce/ga-change-shipping.js';
+            $list[] = 'modules/CDev/GoogleAnalytics/universal/action/ecommerce/ga-change-payment.js';
         }
 
         return $list;
@@ -40,6 +78,7 @@ abstract class AView extends \XLite\View\AView implements \XLite\Base\IDecorator
     public function getCSSFiles()
     {
         $list = parent::getCSSFiles();
+
         if ('module' == $this->getTarget()) {
             $list[] = 'modules/CDev/GoogleAnalytics/style.css';
         }
@@ -56,18 +95,8 @@ abstract class AView extends \XLite\View\AView implements \XLite\Base\IDecorator
     {
         return \XLite\Core\Operator::isClassExists('\XLite\Module\CDev\DrupalConnector\Handler')
             && \XLite\Module\CDev\DrupalConnector\Handler::getInstance()->checkCurrentCMS()
-            && !$this->useUniversalAnalytics()
+            && !GoogleAnalytics\Main::useUniversalAnalytics()
             && function_exists('googleanalytics_theme');
 
-    }
-
-    /**
-     * Use Universal Analytics
-     *
-     * @return boolean
-     */
-    protected function useUniversalAnalytics()
-    {
-        return 'U' == \XLite\Core\Config::getInstance()->CDev->GoogleAnalytics->ga_code_version;
     }
 }

@@ -9,6 +9,7 @@
 namespace XLite\Controller;
 
 use XLite\Core\DependencyInjection\ContainerAwareTrait;
+use XLite\View\FormField\Select\ObjectNameInPageTitleOrder;
 
 /**
  * Abstract controller
@@ -538,6 +539,9 @@ abstract class AController extends \XLite\Core\Handler
         } elseif ($this->needSecure()) {
             $this->redirectToSecure();
 
+        } elseif (!$this->checkLanguage()) {
+            $this->redirectToCurrentLanguage();
+
         } else {
             $this->run();
         }
@@ -612,7 +616,7 @@ abstract class AController extends \XLite\Core\Handler
         }
         $option = \XLite::getInstance()->getOptions(array('other', 'x_frame_options'));
         if (isset($option) && 'disabled' !== $option) {
-            header('X-Frame-Options:'.$option);
+            header('X-Frame-Options:' . $option);
         }
 
         foreach ($additional as $header => $value) {
@@ -697,6 +701,53 @@ abstract class AController extends \XLite\Core\Handler
      * @return string
      */
     public function getPageTitle()
+    {
+        $config = \XLite\Core\Config::getInstance();
+        $title = [];
+
+        if ($config->CleanURL->company_name) {
+            $title[] = $this->getTitleCompanyNamePart();
+        }
+
+        if ($config->CleanURL->parent_category_path) {
+            $title[] = $this->getTitleParentPart();
+        }
+        
+        if ($config->CleanURL->object_name_in_page_title_order == ObjectNameInPageTitleOrder::OPTION_FIRST) {
+            $title = array_merge([$this->getTitleObjectPart()], $title);
+        } else {
+            $title[] = $this->getTitleObjectPart();
+        }
+
+        return implode(static::t('title-delimiter'), array_filter($title));
+    }
+
+    /**
+     * Return the page title company name part (for the <title> tag)
+     *
+     * @return string
+     */
+    public function getTitleCompanyNamePart()
+    {
+        return \XLite\Core\Config::getInstance()->Company->company_name;
+    }
+
+    /**
+     * Return the page title parent category part (for the <title> tag)
+     *
+     * @return string
+     */
+    public function getTitleParentPart()
+    {
+        return '';
+    }
+
+    /**
+     * Return the page title (for the <title> tag)
+     *
+     * @return string
+     */
+    public function getTitleObjectPart()
     {
         return $this->getMainTitle();
     }
@@ -975,7 +1026,17 @@ abstract class AController extends \XLite\Core\Handler
      */
     public function getKeywords()
     {
-        return null;
+        return $this->getDefaultKeywords();
+    }
+
+    /**
+     * Get default meta keywords
+     *
+     * @return string
+     */
+    public function getDefaultKeywords()
+    {
+        return static::t('default-meta-keywords') != 'default-meta-keywords' ? static::t('default-meta-keywords') : '';
     }
 
     /**
@@ -1019,6 +1080,83 @@ abstract class AController extends \XLite\Core\Handler
     protected function checkAccess()
     {
         return \XLite\Core\Auth::getInstance()->isAuthorized($this);
+    }
+
+    /**
+     * Check all controller access controls
+     *
+     * @return bool
+     */
+    public function checkAccessControls()
+    {
+        $ace = $this->getAccessControlEntities();
+        $acz = $this->getAccessControlZones();
+        return (empty($ace) || $this->checkAccessByACE()) && (empty($acz) || $this->checkAccessByACZ()) && $this->checkAccessControlsNotEmpty();
+    }
+
+    /**
+     * Check if at least one of access controls not empty
+     *
+     * @return bool
+     */
+    public function checkAccessControlsNotEmpty()
+    {
+        $ace = $this->getAccessControlEntities();
+        $acz = $this->getAccessControlZones();
+        return !empty($ace) || !empty($acz);
+    }
+
+    /**
+     * Return Access control entities for controller
+     *
+     * @return \XLite\Model\AEntity[]
+     */
+    public function getAccessControlEntities()
+    {
+        return [];
+    }
+
+    /**
+     * Check access by Access Control Entities
+     * 
+     * @return boolean
+     */
+    protected function checkAccessByACE()
+    {
+        foreach ($this->getAccessControlEntities() as $accessControlEntity) {
+            if (is_object($accessControlEntity) && \XLite\Core\Auth::getInstance()->checkACEAccess($accessControlEntity)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Return Access control zones for controller
+     *
+     * @return \XLite\Model\AEntity[]
+     */
+    public function getAccessControlZones()
+    {
+        return [];
+    }
+
+    /**
+     * Check access by Access Control Zones
+     *
+     * @return boolean
+     */
+    protected function checkAccessByACZ()
+    {
+        $zones = $this->getAccessControlZones();
+        foreach ($zones as $accessControlZone) {
+            if (\XLite\Core\Auth::getInstance()->checkACZAccess($accessControlZone)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -1622,11 +1760,21 @@ abstract class AController extends \XLite\Core\Handler
         echo (
             '<div'
             . ' class="' . $class . '"'
-            . ' title="' . func_htmlspecialchars(static::t($this->getTitle())) . '">' . PHP_EOL
+            . ' title="' . func_htmlspecialchars(static::t($this->getTitle())) . '"'
+            . ' ' . $this->printAJAXAttributes() . ' >' . PHP_EOL
             . $this->printAJAXResources() . PHP_EOL
             . $content
             . '</div>'
         );
+    }
+
+    /**
+     * Returns AJAX output attributes of container box.
+     * @return string
+     */
+    protected function printAJAXAttributes()
+    {
+        return '';
     }
 
     /**
@@ -1899,6 +2047,40 @@ RES;
         $this->redirect($this->getShopURL($this->getURL(), true));
     }
 
+    /**
+     * Check - need to redirect
+     *
+     * @return boolean
+     */
+    public function checkLanguage()
+    {
+        if (
+            !LC_USE_CLEAN_URLS
+            || !\XLite\Core\Request::getInstance()->isGet()
+            || \XLite::isAdminZone()
+            || !\XLite\Core\Router::getInstance()->isUseLanguageUrls()
+        ) {
+            return true;
+        }
+
+        $language = \XLite\Core\Session::getInstance()->getLanguage();
+
+        return !(!$language->getDefaultAuth() && \XLite\Core\Request::getInstance()->getLanguageCode() != $language->getCode());
+    }
+
+    /**
+     * Redirect to current language protocol
+     *
+     * @return void
+     */
+    protected function redirectToCurrentLanguage()
+    {
+        $this->setHardRedirect();
+        $this->assignAJAXResponseStatus();
+
+        $this->redirect($this->getShopURL($this->getURL()));
+    }
+
     // }}}
 
     // {{{ Language-related routines
@@ -1922,19 +2104,36 @@ RES;
     {
         $code = strval(\XLite\Core\Request::getInstance()->language);
 
+        $referrerUrl = $this->getReferrerURL();
+
         if (!empty($code)) {
             $language = \XLite\Core\Database::getRepo('\XLite\Model\Language')->findOneByCode($code);
 
             if (isset($language) && $language->getEnabled()) {
+                $pattern = '#^[/]*(' . \XLite\Core\Session::getInstance()->getCurrentLanguage() . ')(?:/|$)#i';
+
                 \XLite\Core\Session::getInstance()->setLanguage($language->getCode());
                 if (\XLite\Core\Auth::getInstance()->isLogged()) {
                     \XLite\Core\Auth::getInstance()->getProfile()->setLanguage($language->getCode());
                     \XLite\Core\Database::getEM()->flush();
                 }
+
+                if (\XLite\Core\Router::getInstance()->isUseLanguageUrls()) {
+                    $subReferrerUrl = substr($referrerUrl, strlen(\Includes\Utils\URLManager::getShopURL()));
+
+                    if (preg_match($pattern, $subReferrerUrl, $matches, PREG_OFFSET_CAPTURE)) {
+                        $referrerUrl = substr_replace(
+                            $referrerUrl,
+                            $language->getDefaultAuth() ? '' : $language->getCode(),
+                            strlen(\Includes\Utils\URLManager::getShopURL()) + $matches[0][0],
+                            min($language->getDefaultAuth() ? 3 : 2, strlen($subReferrerUrl))
+                        );
+                    }
+                }
             }
         }
 
-        $this->setReturnURL($this->getReferrerURL());
+        $this->setReturnURL($referrerUrl);
     }
 
     // }}}

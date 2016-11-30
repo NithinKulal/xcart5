@@ -198,14 +198,23 @@ ProductDetailsView.prototype.postprocess = function(isSuccess, initial)
             jQuery(this).data('zoom').destroy();
           }
 
+          var baseRel = _.object(_.map(jQuery(this).data('rel-base').split(','), function (value, key, list) {
+            return _.map(_.trim(value).split(':'), function (value) {return _.trim(value);});
+          }));
           jQuery(this).attr('data-rel', jQuery(this).data('rel-base'));
 
           // adjust zoom width and height for current image
           var img = jQuery('img', this);
 
+          if (typeof jQuery(this).CloudZoom !== "undefined") {
+            jQuery(this).CloudZoom();
+          };
+
           rel = core.getRelArray(jQuery(this));
-          rel.zoomWidth = img.width();
-          rel.zoomHeight = img.height();
+          rel.zoomWidth = Math.min(img.width(), baseRel.zoomWidth);
+          rel.zoomHeight = Math.min(img.height(), baseRel.zoomHeight);
+          rel.adjustX  = intval(img.offset().left - jQuery(this).offset().left);
+
           core.setRelArray(jQuery(this), rel);
 
           if (typeof jQuery(this).CloudZoom !== "undefined") {

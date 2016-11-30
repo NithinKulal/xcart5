@@ -53,9 +53,13 @@ abstract class ARequestHandler extends \XLite\View\AView
         return '';
     }
 
-
     /**
      * Return list of the "request" parameter names
+     * @todo: use ExecuteCachedTrait; add process requestPrams after definition
+     *      return $this->executeCachedRuntime(function () {
+     *              return $this->processRequestParams($this->defineRequestParams());
+     *          });
+     *      to avoid initialisation check in children implementations
      *
      * @return array
      */
@@ -87,7 +91,7 @@ abstract class ARequestHandler extends \XLite\View\AView
      */
     public function setWidgetParams(array $params)
     {
-        if ($this->checkRequestParams() && !$this->isCloned) {
+        if (!$this->isCloned && $this->checkRequestParams()) {
             $this->setWidgetRequestParamValues($params);
         }
 
@@ -143,7 +147,7 @@ abstract class ARequestHandler extends \XLite\View\AView
     {
         return array(
             static::W_CLASS                     => $this->getWidgetClass(),
-            static::W_TARGET                    => $this->getWidgetTarget(),
+            static::W_TARGET                    => static::getWidgetTarget(),
             static::W_PARAMS                    => $this->getWidgetParameters(),
             static::W_LISTEN_TO_HASH            => $this->getListenToHash(),
             static::W_LISTEN_TO_HASH_PREFIX     => $this->getListenToHashPrefix(),
@@ -163,9 +167,9 @@ abstract class ARequestHandler extends \XLite\View\AView
     /**
      * Defines the #hash prefix of the data for the widget
      * @TODO implement!
-     * 
+     *
      * @return string
-     */    
+     */
     protected function getListenToHashPrefix()
     {
         return '';
@@ -220,6 +224,7 @@ abstract class ARequestHandler extends \XLite\View\AView
 
     /**
      * Define the "request" parameters
+     * @todo: must return array of request params unlike to write to $this->requestParams
      *
      * @return void
      */
@@ -323,19 +328,6 @@ abstract class ARequestHandler extends \XLite\View\AView
         }
 
         return $value;
-    }
-
-    /**
-     * Return true if html tags are allowed in the param value
-     * @TODO: Remove after 5.2.6
-     *
-     * @param string $name Param name
-     *
-     * @return boolean
-     */
-    protected function isParamAllowsTags($name)
-    {
-        return false;
     }
 
     /**

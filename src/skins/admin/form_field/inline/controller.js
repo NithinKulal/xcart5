@@ -271,6 +271,7 @@ CommonForm.elementControllers.push(
           jQuery('.inline-field', this).each(
             function () {
               this.saveField();
+              jQuery(this).removeClass('edit-mark');
             }
           );
           jQuery(this).removeClass('edit-open-mark');

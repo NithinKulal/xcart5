@@ -92,6 +92,7 @@ OrderAddressView.prototype.handleFormSubmit = function(event)
       billing:  false
     };
     this.getBox().find('form :input').each(_.bind(this.syncField, this));
+    this.getBox().find('form .profile-login :input').each(_.bind(this.syncLoginField, this));
     if (this.changeCount > 0) {
       jQuery(this.lastForm).change();
     }
@@ -183,6 +184,30 @@ OrderAddressView.prototype.syncField = function(i, field)
         this.syncFieldValue(from, to, placeholder);
       }
 
+    }
+  }
+}
+
+OrderAddressView.prototype.syncLoginField = function(i, field)
+{
+  if (this.isElementChanged(field)) {
+    var $field = jQuery(field);
+    var parts = field.name.split('_');
+    var prefix = parts.shift();
+    var name = parts.join('-');
+    var fieldPattern = 'input[name="'+name+'"]';
+
+    if (0 < jQuery(fieldPattern).length) {
+      this.changeCount++;
+
+      var from = $field;
+      var to = jQuery(fieldPattern).eq(0);
+      var placeholder = jQuery(fieldPattern).closest('.inline-field').find('.view').eq(0);
+
+      to.val(from.val());
+      this.lastForm = to.get(0).form;
+
+      placeholder.html(from.val());
     }
   }
 }

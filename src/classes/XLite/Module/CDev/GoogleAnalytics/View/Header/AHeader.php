@@ -15,16 +15,6 @@ namespace XLite\Module\CDev\GoogleAnalytics\View\Header;
 abstract class AHeader extends \XLite\View\AView
 {
     /**
-     * Return true if ecommerce part of Google Analytics is enabled
-     *
-     * @return boolean
-     */
-    protected function isEcommercePartEnabled()
-    {
-        return true;
-    }
-
-    /**
      * Get GA options list
      *
      * @return array
@@ -47,7 +37,9 @@ abstract class AHeader extends \XLite\View\AView
 
         $controller = \XLite::getController();
 
-        if ($this->isEcommercePartEnabled() && $controller instanceof \XLite\Controller\Customer\CheckoutSuccess) {
+        if (\XLite\Module\CDev\GoogleAnalytics\Main::isECommerceEnabled()
+            && $controller instanceof \XLite\Controller\Customer\CheckoutSuccess
+        ) {
             $orders = \XLite\Core\Session::getInstance()->gaProcessedOrders;
             if (!is_array($orders)) {
                 $orders = array();

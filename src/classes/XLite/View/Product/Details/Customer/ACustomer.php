@@ -37,4 +37,19 @@ abstract class ACustomer extends \XLite\View\Product\Details\ADetails
     {
         return parent::isVisible() && $this->getProduct();
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getCSSFiles()
+    {
+        return array_merge(
+            parent::getCSSFiles(),
+            [
+                'labels/style.css'
+            ]
+        );
+    }
+
+
 }

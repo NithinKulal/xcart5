@@ -38,6 +38,23 @@ class Account extends \XLite\View\Tabs\ATabs
     }
 
     /**
+     * Get a list of CSS files required to display the widget properly
+     *
+     * @return array
+     */
+    public function getCSSFiles()
+    {
+        $list = parent::getCSSFiles();
+        $list[] = [
+            'file'  => 'account/style.less',
+            'media' => 'screen',
+            'merge' => 'bootstrap/css/bootstrap.less',
+        ];
+
+        return $list;
+    }
+
+    /**
      * getProfile
      *
      * @return \XLite\Model\Profile
@@ -78,6 +95,16 @@ class Account extends \XLite\View\Tabs\ATabs
                 'template' => 'account/account.twig',
             ],
         ];
+    }
+
+    /**
+     * Returns the default widget template
+     *
+     * @return string
+     */
+    protected function getDefaultTemplate()
+    {
+        return 'account/tabs.twig';
     }
 
     /**

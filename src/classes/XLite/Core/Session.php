@@ -454,6 +454,8 @@ class Session extends \XLite\Base\Singleton
 
             $this->__set('language', $code);
             $this->language = null;
+
+            \XLite\Core\Request::getInstance()->setLanguageCode($language);
         }
     }
 
@@ -759,11 +761,19 @@ class Session extends \XLite\Base\Singleton
             $code = array();
         }
 
+        if (LC_USE_CLEAN_URLS && \XLite\Core\Router::getInstance()->isUseLanguageUrls() && \XLite\Core\Request::getInstance()->getLanguageCode()) {
+            $code = array_merge($code, ['customer' => \XLite\Core\Request::getInstance()->getLanguageCode()]);
+        }
+
         if (!empty($code[$zone])) {
             $language = \XLite\Core\Database::getRepo('XLite\Model\Language')->findOneByCode($code[$zone]);
 
             if (!isset($language) || !$language->getAdded() || !$language->getEnabled()) {
                 unset($code[$zone]);
+            } elseif (LC_USE_CLEAN_URLS && \XLite\Core\Router::getInstance()->isUseLanguageUrls() && \XLite\Core\Request::getInstance()->getLanguageCode()) {
+                $lang = $this->__get('language') ?: [];
+                $lang['customer'] = \XLite\Core\Request::getInstance()->getLanguageCode();
+                $this->__set('language', $lang);
             }
         }
 
@@ -882,4 +892,40 @@ class Session extends \XLite\Base\Singleton
 
     // }}}
 
+    /**
+     * Return array of \XLite\Model\AccessControlCell belongs to this session
+     *
+     * @return \XLite\Model\AccessControlCell[]
+     */
+    public function getAccessControlCells()
+    {
+        $cells = [];
+        $hashes = (array)$this->access_control_cells;
+        
+        if (!empty($hashes)) {
+            $cells = \XLite\Core\Database::getRepo('\XLite\Model\AccessControlCell')->findByHashes($hashes);
+            
+            foreach ($cells as $key => $cell) {
+                if (!is_object($cell)) {
+                    unset($cells[$key]);
+                }
+            }
+        }
+        
+        return $cells;
+    }
+
+    /**
+     * @param string $hash
+     *
+     * @return $this
+     */
+    public function addAccessControlCellHash($hash)
+    {
+        $hashes = (array)$this->access_control_cells;
+        $hashes[] = $hash;
+        $this->access_control_cells = array_unique($hashes);
+
+        return $this;
+    }
 }

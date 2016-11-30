@@ -26,6 +26,17 @@ class Membership extends \XLite\View\ItemsList\Model\Table
     }
 
     /**
+     * Check if widget is visible
+     *
+     * @return boolean
+     */
+    protected function isVisible()
+    {
+        return parent::isVisible() && !\XLite::getController()->isCalculationNotFinished();
+    }
+
+
+    /**
      * Should itemsList be wrapped with form
      *
      * @return boolean

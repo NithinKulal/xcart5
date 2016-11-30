@@ -1,0 +1,24 @@
+{##
+ # Fastlane checkout address section
+ #}
+
+<div class="popup_address_form popup_address_form--{{ this.getType() }}">
+    {% form '\\XLite\\View\\Form\\Checkout\\UpdateProfile' with {className: 'address-dialog ' ~ this.getType()} %}
+      {{ widget_list(this.getListName() ~ '.before', address=this.getAddressInfo()) }}
+      <ul class="form default-table clearfix">
+        {% for fieldName, fieldData in this.getAddressSchemaFields() %}
+          <li class="item-{{ fieldName }} {{ fieldData.additionalClass }} clearfix form-group">
+            {{ this.displayCommentedData(this.getFieldCommentedData(fieldData)) }}
+            {{ fieldData.widget.display() }}
+            {{ widget_list(this.getListName(fieldName), address=this.getAddressInfo(), fieldName=fieldName, fieldData=fieldData) }}
+          </li>
+        {% endfor %}
+        {{ widget_list(this.getListName(), address=this.getAddressInfo()) }}
+      </ul>
+
+      <div class="form-buttons">
+        {{ widget('XLite\\View\\Button\\Submit', label=t('Save changes')) }}
+        {{ widget_list(this.getListName() ~ '.buttons', address=this.getAddressInfo()) }}
+      </div>
+    {% endform %}
+</div>

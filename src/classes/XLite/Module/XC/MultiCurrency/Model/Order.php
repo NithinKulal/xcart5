@@ -47,18 +47,28 @@ class Order extends \XLite\Model\Order implements \XLite\Base\IDecorator
             static::ACTION_UPDATE == $type
             && !isset($this->selectedMultiCurrency)
         ) {
-            $selectedCurrency = MultiCurrency::getInstance()->getSelectedMultiCurrency();
-
-            if (
-                isset($selectedCurrency)
-                && !$selectedCurrency->isDefaultCurrency()
-            ) {
-                $this->setSelectedMultiCurrency($selectedCurrency->getCurrency());
-                $this->setSelectedMultiCurrencyRate($selectedCurrency->getRate());
-            }
+            $this->updateMultiCurrency(
+                MultiCurrency::getInstance()->getSelectedMultiCurrency()
+            );
         }
 
         parent::prepareEntityBeforeCommit($type);
+    }
+
+    /**
+     * Update multicurrency
+     *
+     * @param ActiveCurrency $currency
+     */
+    public function updateMultiCurrency(\XLite\Module\XC\MultiCurrency\Model\ActiveCurrency $currency)
+    {
+        if (
+            isset($currency)
+            && !$currency->isDefaultCurrency()
+        ) {
+            $this->setSelectedMultiCurrency($currency->getCurrency());
+            $this->setSelectedMultiCurrencyRate($currency->getRate());
+        }
     }
 
     /**

@@ -51,10 +51,6 @@ class Checkout extends \XLite\View\Dialog
             $list[] = 'back_from_payment/style.css';
         }
 
-        if (!$this->isCheckoutAvailable()) {
-            $list[] = 'checkout/css/signin.css';
-        }
-
         return $list;
     }
 
@@ -75,10 +71,6 @@ class Checkout extends \XLite\View\Dialog
             && \XLite\Core\Request::getInstance()->checkoutCanceled
         ) {
             $list[] = 'back_from_payment/controller.js';
-        }
-
-        if (!$this->isCheckoutAvailable()) {
-            $list[] = 'checkout/js/login.js';
         }
 
         return $list;

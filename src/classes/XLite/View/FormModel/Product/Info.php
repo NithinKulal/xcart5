@@ -64,7 +64,7 @@ class Info extends \XLite\View\FormModel\AFormModel
      */
     protected function defineFields()
     {
-        $skuMaxLength = \XLite\Core\Database::getRepo('XLite\Model\Product')->getFieldInfo('sku', 'length');
+        $skuMaxLength  = \XLite\Core\Database::getRepo('XLite\Model\Product')->getFieldInfo('sku', 'length');
         $nameMaxLength = \XLite\Core\Database::getRepo('XLite\Model\ProductTranslation')->getFieldInfo('name', 'length');
 
         $memberships = [];
@@ -101,10 +101,10 @@ class Info extends \XLite\View\FormModel\AFormModel
             );
         }
 
-        $currency = \XLite::getInstance()->getCurrency();
+        $currency       = \XLite::getInstance()->getCurrency();
         $currencySymbol = $currency->getCurrencySymbol(false);
 
-        $weightFormat = \XLite\Core\Config::getInstance()->Units->weight_format;
+        $weightFormat           = \XLite\Core\Config::getInstance()->Units->weight_format;
         $weightFormatDelimiters = \XLite\View\FormField\Select\FloatFormat::getDelimiters($weightFormat);
 
         $inventoryTrackingDescription = $this->getDataObject()->default->identity ? $this->getWidget([
@@ -112,7 +112,7 @@ class Info extends \XLite\View\FormModel\AFormModel
         ])->getContent() : '';
 
         $product = \XLite\Core\Database::getRepo('XLite\Model\Product')->find($this->getDataObject()->default->identity);
-        $images = [];
+        $images  = [];
         if ($product) {
             $images = $product->getImages();
         }
@@ -129,7 +129,7 @@ class Info extends \XLite\View\FormModel\AFormModel
                         'XLite\Core\Validator\Constraints\MaxLength'       => [
                             'length'  => $nameMaxLength,
                             'message' =>
-                                static::t('Name length must be less then {{length}}', ['length' => $nameMaxLength]),
+                                static::t('Name length must be less then {{length}}', ['length' => $nameMaxLength + 1]),
                         ],
                     ],
                     'position'    => 100,
@@ -140,7 +140,7 @@ class Info extends \XLite\View\FormModel\AFormModel
                         'XLite\Core\Validator\Constraints\MaxLength' => [
                             'length'  => $skuMaxLength,
                             'message' =>
-                                static::t('SKU length must be less then {{length}}', ['length' => $skuMaxLength]),
+                                static::t('SKU length must be less then {{length}}', ['length' => $skuMaxLength + 1]),
                         ],
                     ],
                     'position'    => 200,
@@ -153,10 +153,31 @@ class Info extends \XLite\View\FormModel\AFormModel
                     'position'     => 300,
                 ],
                 'category'           => [
-                    'label'    => static::t('Category'),
-                    'type'     => 'XLite\View\FormModel\Type\ProductCategoryType',
-                    'multiple' => true,
-                    'position' => 400,
+                    'label'       => static::t('Category'),
+                    'description' => static::t('Switch to Category tree'),
+                    'type'        => 'XLite\View\FormModel\Type\ProductCategoryType',
+                    'multiple'    => true,
+                    'show_when' => [
+                        'default' => [
+                            'category_widget_type' => 'search',
+                        ],
+                    ],
+                    'position'    => 400,
+                ],
+                'category_tree'      => [
+                    'label'       => static::t('Category'),
+                    'description' => static::t('Switch to Category search'),
+                    'type'        => 'XLite\View\FormModel\Type\ProductCategoryTreeType',
+                    'multiple'    => true,
+                    'show_when' => [
+                        'default' => [
+                            'category_widget_type' => 'tree',
+                        ],
+                    ],
+                    'position'    => 450,
+                ],
+                'category_widget_type' => [
+                    'type' => 'Symfony\Component\Form\Extension\Core\Type\HiddenType',
                 ],
                 'description'        => [
                     'label'    => static::t('Description'),
@@ -194,10 +215,10 @@ class Info extends \XLite\View\FormModel\AFormModel
                     'type'        => 'XLite\View\FormModel\Type\SymbolType',
                     'symbol'      => $currencySymbol,
                     'pattern'     => [
-                        'alias'          => 'xcdecimal',
-                        'prefix'         => '',
-                        'rightAlign'     => false,
-                        'digits'         => $currency->getE(),
+                        'alias'      => 'xcdecimal',
+                        'prefix'     => '',
+                        'rightAlign' => false,
+                        'digits'     => $currency->getE(),
                     ],
                     'constraints' => [
                         'Symfony\Component\Validator\Constraints\GreaterThanOrEqual' => [
@@ -319,13 +340,23 @@ class Info extends \XLite\View\FormModel\AFormModel
                     'position'          => 100,
                 ],
                 'meta_description'      => [
-                    'type'      => 'Symfony\Component\Form\Extension\Core\Type\TextareaType',
-                    'show_when' => [
+                    'label'              => ' ',
+                    'type'               => 'XLite\View\FormModel\Type\MetaDescriptionType',
+                    'required'           => true,
+                    'constraints'        => [
+                        'XLite\Core\Validator\Constraints\MetaDescription' => [
+                            'message'          => static::t('This field is required'),
+                            'dependency'       => 'form.marketing.meta_description_type',
+                            'dependency_value' => 'C',
+                        ],
+                    ],
+                    'validation_trigger' => 'form.marketing.meta_description_type',
+                    'show_when'          => [
                         'marketing' => [
                             'meta_description_type' => 'C',
                         ],
                     ],
-                    'position'  => 200,
+                    'position'           => 200,
                 ],
                 'meta_keywords'         => [
                     'label'    => static::t('Meta keywords'),
@@ -358,10 +389,10 @@ class Info extends \XLite\View\FormModel\AFormModel
      */
     protected function getFormButtons()
     {
-        $result = parent::getFormButtons();
+        $result   = parent::getFormButtons();
         $identity = $this->getDataObject()->default->identity;
 
-        $label = $identity ? 'Update product' : 'Add product';
+        $label            = $identity ? 'Update product' : 'Add product';
         $result['submit'] = new \XLite\View\Button\Submit(
             [
                 \XLite\View\Button\AButton::PARAM_LABEL    => $label,
@@ -371,7 +402,7 @@ class Info extends \XLite\View\FormModel\AFormModel
         );
 
         if ($identity) {
-            $url = $this->buildURL(
+            $url                     = $this->buildURL(
                 'product',
                 'clone',
                 ['product_id' => $identity]
@@ -384,7 +415,7 @@ class Info extends \XLite\View\FormModel\AFormModel
                 ]
             );
 
-            $url = \XLite\Core\Converter::buildURL(
+            $url                       = \XLite\Core\Converter::buildURL(
                 'product',
                 'preview',
                 ['product_id' => $identity],

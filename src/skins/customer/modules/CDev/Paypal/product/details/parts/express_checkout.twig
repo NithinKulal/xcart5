@@ -6,4 +6,5 @@
  # @ListChild (list="product.details.page.info.buttons.cart-buttons", weight="30")
  # @ListChild (list="product.details.quicklook.info.buttons.cart-buttons", weight="30")
  #}
-{{ widget('\\XLite\\Module\\CDev\\Paypal\\View\\Button\\Product\\ExpressCheckout') }}
+{{ widget('\\XLite\\Module\\CDev\\Paypal\\View\\Product\\ExpressCheckoutButton', product=this.product) }}
+

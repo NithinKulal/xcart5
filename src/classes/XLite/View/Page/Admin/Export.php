@@ -162,7 +162,7 @@ class Export extends \XLite\View\AView
      */
     protected function getExportCancelFlagVarName()
     {
-        return \XLite\Logic\Export\Generator::getExportCancelFlagVarName();
+        return \XLite\Logic\Export\Generator::getCancelFlagVarName();
     }
 }
 

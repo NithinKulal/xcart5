@@ -22,11 +22,9 @@ class Settings extends \XLite\View\Model\Settings implements \XLite\Base\IDecora
     {
         $result = parent::getFormButtons();
 
-        if (('cache_management' === $this->getTarget()
-                || ('module' === $this->getTarget()
-                    && $this->getModule()
-                    && 'XC\ProductFilter' === $this->getModule()->getActualName()
-                )
+        if (('module' === $this->getTarget()
+                && $this->getModule()
+                && 'XC\ProductFilter' === $this->getModule()->getActualName()
             )
             && \XLite\Core\Config::getInstance()->XC->ProductFilter->attributes_filter_by_category
             && \XLite\Core\Config::getInstance()->XC->ProductFilter->attributes_filter_cache_mode

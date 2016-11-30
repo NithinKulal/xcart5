@@ -368,7 +368,7 @@ class LessParser extends \XLite\Base\Singleton
             $url = stripslashes(substr($url, 1, -1));
         }
 
-        if (strpos($url, $rootURL) === 0) {
+        if ($rootURL && strpos($url, $rootURL) === 0) {
             $url = str_replace(LC_DS, '/', \Includes\Utils\FileManager::makeRelativePath($file, LC_DIR_ROOT . substr($url, strlen($rootURL))));
         }
 
@@ -410,7 +410,6 @@ class LessParser extends \XLite\Base\Singleton
     protected function getLessParserOptions()
     {
         return array(
-            'cache_dir' => LC_DIR_DATACACHE,
             'compress'  => true,
             'root_dir'  => LC_DIR_ROOT,
         );

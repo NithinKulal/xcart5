@@ -7,6 +7,7 @@
  */
 
 namespace XLite\Module\XC\ThemeTweaker\View\ItemsList\Model;
+
 use XLite\Core\Templating\CacheManagerInterface;
 
 /**

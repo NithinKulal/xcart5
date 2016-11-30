@@ -444,38 +444,26 @@ class Categories extends \XLite\Logic\Import\Processor\AProcessor
 
             $file = $this->verifyValueAsLocalURL($path) ? $this->getLocalPathFromURL($path) : $path;
 
-            if ($image) {
-                $compare = $this->getImageFilter($file);
-                $image = $compare($image) ? $image : null;
-                $readable = \Includes\Utils\FileManager::isReadable(LC_DIR_ROOT . $file);
+            if (!$image) {
+                /* @var \XLite\Model\Image\Category\Image $newImage */
+                $image = \XLite\Core\Database::getRepo('\XLite\Model\Image\Category\Image')->insert(null, false);
             }
 
-            if (!$image || !$readable) {
-                $image = new \XLite\Model\Image\Category\Image();
+            $success = $this->verifyValueAsURL($file)
+                ? $image->loadFromURL($path, true)
+                : $image->loadFromLocalFile(LC_DIR_ROOT . $file);
 
-                if ($this->verifyValueAsURL($file)) {
-                    $success = $image->loadFromURL($file, true);
+            if ($success) {
+                $image->setNeedProcess(1);
+                $image->setCategory($model);
+                $model->setImage($image);
+            } else {
+                \XLite\Core\Database::getEM()->remove($image);
 
-                } else {
-                    $success = $image->loadFromLocalFile(LC_DIR_ROOT . $file);
-                }
-
-                if (!$success) {
-                    if ($image->getLoadError() === 'unwriteable') {
-                        $this->addError('CATEGORY-IMG-LOAD-FAILED', array('column' => $column, 'value' => $path));
-                    } elseif ($image->getLoadError()) {
-                        $this->addWarning('CATEGORY-IMG-URL-LOAD-FAILED', array('column' => $column, 'value' => $path));
-                    }
-
-                } else {
-                    if ($model->getImage()) {
-                        \XLite\Core\Database::getEM()->remove($model->getImage());
-                        \XLite\Core\Database::getEM()->flush();
-                    }
-                    $image->setNeedProcess(1);
-                    $image->setCategory($model);
-                    $model->setImage($image);
-                    \XLite\Core\Database::getEM()->persist($image);
+                if ($image->getLoadError() === 'unwriteable') {
+                    $this->addError('CATEGORY-IMG-LOAD-FAILED', array('column' => $column, 'value' => $path));
+                } elseif ($this->verifyValueAsURL($value) && !$this->verifyValueAsFile($value)) {
+                    $this->addWarning('CATEGORY-IMG-URL-LOAD-FAILED', array('column' => $column, 'value' => $value));
                 }
             }
         } elseif ($value && $this->verifyValueAsURL($value) && !$this->verifyValueAsFile($value)) {
@@ -508,38 +496,26 @@ class Categories extends \XLite\Logic\Import\Processor\AProcessor
 
             $file = $this->verifyValueAsLocalURL($path) ? $this->getLocalPathFromURL($path) : $path;
 
-            if ($image) {
-                $compare = $this->getImageFilter($file);
-                $image = $compare($image) ? $image : null;
-                $readable = \Includes\Utils\FileManager::isReadable(LC_DIR_ROOT . $file);
+            if (!$image) {
+                /* @var \XLite\Model\Image\Category\Banner $newImage */
+                $image = \XLite\Core\Database::getRepo('\XLite\Model\Image\Category\Banner')->insert(null, false);
             }
 
-            if (!$image || !$readable) {
-                $image = new \XLite\Model\Image\Category\Banner();
+            $success = $this->verifyValueAsURL($file)
+                ? $image->loadFromURL($path, true)
+                : $image->loadFromLocalFile(LC_DIR_ROOT . $file);
 
-                if ($this->verifyValueAsURL($file)) {
-                    $success = $image->loadFromURL($file, true);
+            if ($success) {
+                $image->setNeedProcess(1);
+                $image->setCategory($model);
+                $model->setBanner($image);
+            } else {
+                \XLite\Core\Database::getEM()->remove($image);
 
-                } else {
-                    $success = $image->loadFromLocalFile(LC_DIR_ROOT . $file);
-                }
-
-                if (!$success) {
-                    if ($image->getLoadError() === 'unwriteable') {
-                        $this->addError('CATEGORY-BANNER-LOAD-FAILED', array('column' => $column, 'value' => $path));
-                    } elseif ($image->getLoadError()) {
-                        $this->addWarning('CATEGORY-BANNER-URL-LOAD-FAILED', array('column' => $column, 'value' => $path));
-                    }
-
-                } else {
-                    if ($model->getBanner()) {
-                        \XLite\Core\Database::getEM()->remove($model->getBanner());
-                        \XLite\Core\Database::getEM()->flush();
-                    }
-                    $image->setNeedProcess(1);
-                    $image->setCategory($model);
-                    $model->setBanner($image);
-                    \XLite\Core\Database::getEM()->persist($image);
+                if ($image->getLoadError() === 'unwriteable') {
+                    $this->addError('CATEGORY-BANNER-LOAD-FAILED', array('column' => $column, 'value' => $path));
+                } elseif ($this->verifyValueAsURL($value) && !$this->verifyValueAsFile($value)) {
+                    $this->addWarning('CATEGORY-BANNER-URL-LOAD-FAILED', array('column' => $column, 'value' => $value));
                 }
             }
         } elseif ($value && $this->verifyValueAsURL($value) && !$this->verifyValueAsFile($value)) {

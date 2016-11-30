@@ -145,13 +145,7 @@ class Sales extends Base\Countable
         $this->serviceTime += (microtime(true) - $this->timeMark);
         $generator->getOptions()->time += $this->serviceTime;
 
-
         $this->record['options'] = $generator->getOptions()->getArrayCopy();
-        $timeLabel = Core\Translation::formatTimePeriod($generator->getTimeRemain());
-        $this->record['touchData'] = array();
-        if ($timeLabel) {
-            $this->record['touchData']['timeLabel'] = static::t('About X remaining', array('time' => $timeLabel));
-        }
 
         parent::finishStep();
     }
@@ -169,6 +163,19 @@ class Sales extends Base\Countable
 
         $this->getItems()->finalize();
     }
+
+    /**
+     * Writes some data into $this->record['touchData'] after step/task finish.
+     */
+    protected function compileTouchData()
+    {
+        $timeLabel = \XLite\Core\Translation::formatTimePeriod($this->getItems()->getTimeRemain());
+        $this->record['touchData'] = array();
+        if ($timeLabel) {
+            $this->record['touchData']['message'] = static::t('About X remaining', array('time' => $timeLabel));
+        }
+    }
+
 
     /**
      * Check - step is success or not

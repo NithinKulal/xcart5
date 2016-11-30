@@ -41,7 +41,7 @@ class ExpressCheckout extends \XLite\Module\CDev\Paypal\Model\Payment\Processor\
      *
      * @var string
      */
-    protected $knowledgeBasePageURL = 'http://kb.x-cart.com/pages/viewpage.action?pageId=7505722';
+    protected $knowledgeBasePageURL = 'http://kb.x-cart.com/en/payments/paypal/setting_up_paypal_express_checkout.html';
 
     /**
      * Error message
@@ -95,7 +95,7 @@ class ExpressCheckout extends \XLite\Module\CDev\Paypal\Model\Payment\Processor\
      */
     public function getAllowedMerchantCountries()
     {
-        return array('US', 'CA', 'AU', 'NZ');
+        return ['US', 'CA', 'AU', 'NZ'];
     }
 
     /**
@@ -181,7 +181,7 @@ class ExpressCheckout extends \XLite\Module\CDev\Paypal\Model\Payment\Processor\
 
         } else {
             $url = \XLite::getInstance()->getShopURL(
-                \XLite\Core\Converter::buildURL('checkout', 'express_checkout_return', array('cancel' => 1)),
+                \XLite\Core\Converter::buildURL('checkout', 'express_checkout_return', ['cancel' => 1]),
                 \XLite\Core\Config::getInstance()->Security->customer_security
             );
         }
@@ -329,11 +329,11 @@ HTML;
      *
      * @return string
      */
-    public function getRedirectURL($params = array())
+    public function getRedirectURL($params = [])
     {
         $postURL = $this->getExpressCheckoutPostURL();
 
-        $postData = array();
+        $postData = [];
 
         foreach ($params as $k => $v) {
             $postData[] = sprintf('%s=%s', $k, $v);
@@ -351,9 +351,9 @@ HTML;
      */
     public function getPostParams($token)
     {
-        $params = array(
+        $params = [
             'token' => $token,
-        );
+        ];
 
         if (!\XLite\Core\Request::getInstance()->inContext) {
             $params['cmd'] = '_express-checkout';
@@ -511,7 +511,7 @@ HTML;
      */
     public function doGetExpressCheckoutDetails(\XLite\Model\Payment\Method $method)
     {
-        $data = array();
+        $data = [];
 
         if (!isset($this->transaction)) {
             $this->transaction = new \XLite\Model\Payment\Transaction();
@@ -643,7 +643,7 @@ HTML;
      */
     protected function isSuccessResponse($response)
     {
-        $result = in_array($response['PENDINGREASON'], array('none', 'completed'));
+        $result = in_array(strtolower($response['PENDINGREASON']), ['none', 'completed']);
 
         if (!$result) {
             $result = (
@@ -689,8 +689,8 @@ HTML;
                 ->findOneByCountryAndState($country->getCode(), $stateCode)
             : null;
 
-        $data = array(
-            'shippingAddress' => array(
+        $data = [
+            'shippingAddress' => [
                 'name' => $paypalData['SHIPTONAME'],
                 'street' => $paypalData['SHIPTOSTREET'] . (!empty($paypalData['SHIPTOSTREET2']) ? ' ' . $paypalData['SHIPTOSTREET2'] : ''),
                 'country' => $country ?: '',
@@ -698,8 +698,8 @@ HTML;
                 'city' => $paypalData['SHIPTOCITY'],
                 'zipcode' => $paypalData['SHIPTOZIP'],
                 'phone' => isset($paypalData['PHONENUM']) ? $paypalData['PHONENUM'] : '',
-            ),
-        );
+            ],
+        ];
 
         return $data;
     }
@@ -727,13 +727,13 @@ HTML;
     {
         return array_merge(
             parent::getAllowedCurrencies($method),
-            array(
+            [
                 'USD', 'CAD', 'EUR', 'GBP', 'AUD',
                 'CHF', 'JPY', 'NOK', 'NZD', 'PLN',
                 'SEK', 'SGD', 'HKD', 'DKK', 'HUF',
                 'CZK', 'BRL', 'ILS', 'MYR', 'MXN',
                 'PHP', 'TWD', 'THB',
-            )
+            ]
         );
     }
 

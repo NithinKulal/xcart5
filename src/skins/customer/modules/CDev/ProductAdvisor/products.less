@@ -1,0 +1,92 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.recently-viewed-products.center {
+  .products {
+    overflow: visible;
+
+    li.product-cell {
+      display: inline-block;
+      width: 120px;
+      height: 120px;
+      margin: 20px 20px 0 0;
+      padding-left: 0;
+      padding-right: 0;
+      overflow: visible;
+      float: none;
+
+      .product {
+        background: @body-bg;
+        position: absolute;
+        left: 0;
+        top: 0;
+        padding: 0;
+        width: 120px;
+        max-height: 120px;
+        min-height: 120px;
+        overflow: hidden;
+        transition: max-height 100ms cubic-bezier(0.645, 0.045, 0.355, 1);
+
+        .drag-n-drop-handle, .added-to-cart {
+          display: none;
+        }
+
+        .product-photo {
+          max-width: 99px;
+          max-height: 116px;
+          margin: 0 auto;
+          border: none;
+          padding: 0;
+
+          img {
+            max-width: 99px;
+            max-height: 116px;
+            object-fit: contain;
+          }
+        }
+
+        .labels {
+          display: none;
+        }
+
+        @media (min-width: @screen-xs-max) {
+          &:hover {
+            transition: max-height 600ms cubic-bezier(0.645, 0.045, 0.355, 1);
+            max-height: 500px;
+
+            .recently-viewed-product-details {
+              margin-top: 10px;
+              padding: 0 5px;
+              display: block;
+            }
+
+            .product-photo a {
+              opacity: 1;
+            }
+          }
+        }
+
+        & > .details {
+          display: none;
+        }
+
+        .recently-viewed-product-details {
+          display: none;
+          text-align: center;
+          margin-bottom: 10px;
+
+          a {
+            font-style: normal;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+}

@@ -29,8 +29,16 @@ function slidebar(){
     });
 }
 
+if (jQuery('#slidebar').length > 0) {
+  // Preload language labels
+  core.loadLanguageHash(core.getCommentedData(jQuery('#slidebar')));
+}
+
 slidebar.prototype.options = {
     extensions: ['pagedim-black'],
+    navbar: {
+      title: core.t('Menu')
+    },
     offCanvas: {
         pageSelector: "#page-wrapper"
     }

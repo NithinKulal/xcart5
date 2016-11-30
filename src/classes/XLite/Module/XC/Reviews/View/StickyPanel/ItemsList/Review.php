@@ -20,39 +20,28 @@ class Review extends \XLite\View\StickyPanel\ItemsListForm
      */
     protected function defineAdditionalButtons()
     {
-        $list = parent::defineAdditionalButtons();
-
-        $list[] = $this->getWidget(
-            array(
-                'disabled'   => true,
-                'label'      => 'Approve',
-                'style'      => 'more-action',
-                'icon-style' => 'fa fa-check state-on',
-            ),
-            'XLite\Module\XC\Reviews\View\Button\Admin\ApproveSelectedReviews'
-        );
-
-        $list[] = $this->getWidget(
-            array(
-                'disabled'   => true,
-                'label'      => 'Reject',
-                'style'      => 'more-action',
-                'icon-style' => 'fa fa-check state-off',
-            ),
-            'XLite\Module\XC\Reviews\View\Button\Admin\UnapproveSelectedReviews'
-        );
-
-        $list[] = $this->getWidget(
-            array(
-                'disabled'   => true,
-                'label'      => 'Delete',
-                'style'      => 'more-action',
-                'icon-style' => 'fa fa-trash-o',
-            ),
-            'XLite\Module\XC\Reviews\View\Button\Admin\DeleteSelectedReviews'
-        );
-
-        return $list;
+        return [
+            'state'  => [
+                'class' => 'XLite\Module\XC\Reviews\View\Button\Admin\ReviewStatus',
+                'params' => [
+                    'label'         => '',
+                    'style'         => 'more-action icon-only hide-on-disable hidden',
+                    'icon-style'    => 'fa fa-check',
+                    'showCaret'     => false,
+                    'dropDirection' => 'dropup',
+                ],
+                'position' => 100,
+            ],
+            'delete' => [
+                'class'    => 'XLite\View\Button\DeleteSelected',
+                'params'   => [
+                    'label'      => '',
+                    'style'      => 'more-action icon-only hide-on-disable hidden',
+                    'icon-style' => 'fa fa-trash-o',
+                ],
+                'position' => 200,
+            ],
+        ];
     }
 
     /**
@@ -64,9 +53,10 @@ class Review extends \XLite\View\StickyPanel\ItemsListForm
     {
         $list = parent::defineButtons();
         $list['export'] = $this->getWidget(
-            array(),
+            [],
             'XLite\Module\XC\Reviews\View\Button\ItemsExport\Reviews'
         );
+
         return $list;
     }
 }

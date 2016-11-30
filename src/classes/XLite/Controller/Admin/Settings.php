@@ -17,12 +17,12 @@ class Settings extends \XLite\Controller\Admin\AAdmin
     /**
      * Clean URL article url
      */
-    const CLEAN_URL_ARTICLE_URL = 'http://kb.x-cart.com/pages/viewpage.action?pageId=7505785';
+    const CLEAN_URL_ARTICLE_URL = 'http://kb.x-cart.com/en/general_setup/setting_up_seo-friendly_urls.html';
 
     /**
      * Installation directory article url
      */
-    const INSTALLATION_DIRECTORY_ARTICLE_URL = 'http://kb.x-cart.com/display/XDD/Moving+X-Cart+to+another+location';
+    const INSTALLATION_DIRECTORY_ARTICLE_URL = 'http://devs.x-cart.com/en/migration_guides/moving_x-cart_to_another_location.html';
 
     /**
      * Values to use for $page identification
@@ -34,6 +34,7 @@ class Settings extends \XLite\Controller\Admin\AAdmin
     const PERFORMANCE_PAGE  = 'Performance';
     const UNITS_PAGE        = 'Units';
     const LAYOUT_PAGE       = 'Layout';
+    const CLEAN_URL         = 'CleanURL';
 
     /**
      * Params
@@ -135,6 +136,7 @@ class Settings extends \XLite\Controller\Admin\AAdmin
         $list[static::COMPANY_PAGE]     = static::t('Store info');
         $list[static::EMAIL_PAGE]       = static::t('Email settings');
         $list[static::ENVIRONMENT_PAGE] = static::t('Environment');
+        $list[static::CLEAN_URL]        = static::t('Clean URLs');
 
         return $list;
     }
@@ -153,6 +155,7 @@ class Settings extends \XLite\Controller\Admin\AAdmin
         }
 
         $list[static::ENVIRONMENT_PAGE] = 'settings/summary/body.twig';
+        $list[static::CLEAN_URL] = 'settings/clean_url/body.twig';
 
         return $list;
     }

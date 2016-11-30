@@ -18,13 +18,13 @@ abstract class ACustomer extends \XLite\View\ItemsList\Product\Customer\ACustome
      *
      * @param array $params Widget params OPTIONAL
      */
-    public function __construct(array $params = array())
+    public function __construct(array $params = [])
     {
         parent::__construct($params);
 
-        $this->sortByModes += array(
+        $this->sortByModes += [
             static::SORT_BY_MODE_BOUGHT => 'Sales sort',
-        );
+        ];
     }
 
     /**
@@ -35,9 +35,9 @@ abstract class ACustomer extends \XLite\View\ItemsList\Product\Customer\ACustome
     protected function getSortByFields()
     {
         $fields = parent::getSortByFields();
-        $fields += array(
+        $fields += [
             'bought' => static::SORT_BY_MODE_BOUGHT,
-        );
+        ];
 
         return $fields;
     }
@@ -51,7 +51,7 @@ abstract class ACustomer extends \XLite\View\ItemsList\Product\Customer\ACustome
     protected function getSingleOrderSortByFields()
     {
         return parent::getSingleOrderSortByFields() + [
-            static::SORT_BY_MODE_BOUGHT => static::SORT_ORDER_DESC
+            static::SORT_BY_MODE_BOUGHT => static::SORT_ORDER_DESC,
         ];
     }
 }

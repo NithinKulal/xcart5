@@ -3,8 +3,8 @@
  #
  # @ListChild (list="invoice.base.totals.after", weight="20")
  #}
-{% if this.order.getItemsIncludeSurchargesTotals() %}  
-    {% for row in this.order.getItemsIncludeSurchargesTotals() %}
+{% if this.getItemsIncludeSurchargesTotals() %}
+    {% for row in this.getItemsIncludeSurchargesTotals() %}
       <tr class='included-surcharge'>
         <td class="name">{{ t('Including X', {'name': row.surcharge.getName()}) }}:</td>
         <td class="value">{{ widget('XLite\\View\\Surcharge', surcharge=row.cost, currency=this.order.getCurrency()) }}</td>

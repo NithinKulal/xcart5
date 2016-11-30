@@ -30,7 +30,6 @@ class ExportCSV extends \XLite\View\Button\APopupButton
         return array_merge(
             parent::getJSFiles(),
             array(
-                'event_task_progress/controller.js',
                 'export/controller_popup.js',
                 'button/js/export_csv.js',
             )

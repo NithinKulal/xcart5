@@ -1,0 +1,15 @@
+To allow dots in Clean URLs, edit the .htaccess file located in the root of your X-Cart directory to insert the required configuration directives:
+1. In the .htaccess file, find the below code block:
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^((([/_a-z0-9-]+)/)?([_a-z0-9-]+)/)?([_a-z0-9-]+)(/?)(\.([_a-z0-9-]+))?$ cart.php?url=$5&last=$4&rest=$3&ext=$7 [NC,L,QSA]
+
+2. Replace it with the following code block:
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ cart.php?url=$1 [NC,L,QSA]
+
+If you are using nginx, please make changes to nginx.conf according to the recommendations in the article
+http://kb.x-cart.com/en/general_setup/setting_up_seo-friendly_urls.html#setting-up-nginx

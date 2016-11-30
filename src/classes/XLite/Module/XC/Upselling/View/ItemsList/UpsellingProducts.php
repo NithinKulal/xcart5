@@ -24,6 +24,19 @@ class UpsellingProducts extends \XLite\View\ItemsList\Product\Customer\ACustomer
      */
     const WIDGET_TARGET_PRODUCT = 'product';
 
+    const PARAM_PRODUCT_ID = 'product_id';
+
+    /**
+     * Return search parameters.
+     *
+     * @return array
+     */
+    public static function getSearchParams()
+    {
+        return [
+            \XLite\Module\XC\Upselling\Model\Repo\UpsellingProduct::SEARCH_PARENT_PRODUCT_ID => self::PARAM_PRODUCT_ID,
+        ];
+    }
 
     /**
      * Return target to retrive this widget from AJAX
@@ -42,21 +55,7 @@ class UpsellingProducts extends \XLite\View\ItemsList\Product\Customer\ACustomer
      */
     protected function getHead()
     {
-        return \XLite\Core\Translation::lbl('Related products');
-    }
-
-    /**
-     * Return params list to use for search
-     *
-     * @return \XLite\Core\CommonCell
-     */
-    protected function getSearchCondition()
-    {
-        $cnd = parent::getSearchCondition();
-        $cnd->{\XLite\Module\XC\Upselling\Model\Repo\UpsellingProduct::SEARCH_PARENT_PRODUCT_ID}
-            = $this->getProductId();
-
-        return $cnd;
+        return static::t('Related products');
     }
 
     /**
@@ -66,7 +65,7 @@ class UpsellingProducts extends \XLite\View\ItemsList\Product\Customer\ACustomer
      */
     protected function getWidgetParameters()
     {
-        $list = parent::getWidgetParameters();
+        $list               = parent::getWidgetParameters();
         $list['product_id'] = $this->getProductId();
 
         return $list;
@@ -80,6 +79,13 @@ class UpsellingProducts extends \XLite\View\ItemsList\Product\Customer\ACustomer
     protected function defineWidgetParams()
     {
         parent::defineWidgetParams();
+
+        $this->widgetParams += [
+            static::PARAM_PRODUCT_ID => new \XLite\Model\WidgetParam\ObjectId\Product(
+                'Product ID',
+                \XLite\Core\Request::getInstance()->product_id
+            ),
+        ];
 
         $this->widgetParams[self::PARAM_WIDGET_TYPE]->setValue(self::WIDGET_TYPE_CENTER);
         $this->widgetParams[self::PARAM_DISPLAY_MODE]->setValue(self::DISPLAY_MODE_GRID);
@@ -96,7 +102,17 @@ class UpsellingProducts extends \XLite\View\ItemsList\Product\Customer\ACustomer
      */
     protected function getPagerClass()
     {
-        return '\XLite\View\Pager\Infinity';
+        return 'XLite\View\Pager\Infinity';
+    }
+
+    /**
+     * Define repository name
+     *
+     * @return string
+     */
+    protected function defineRepositoryName()
+    {
+        return 'XLite\Module\XC\Upselling\Model\UpsellingProduct';
     }
 
     /**
@@ -109,20 +125,16 @@ class UpsellingProducts extends \XLite\View\ItemsList\Product\Customer\ACustomer
      */
     protected function getData(\XLite\Core\CommonCell $cnd, $countOnly = false)
     {
-        if (!isset($this->upsellingProducts) && $this->checkTarget()) {
-            $products = array();
-            $up = \XLite\Core\Database::getRepo('XLite\Module\XC\Upselling\Model\UpsellingProduct')
-               ->search($cnd, false);
-            foreach ($up as $product) {
-                $products[] = $product->getProduct();
-            }
+        $result = parent::getData($cnd, $countOnly);
 
-            $this->upsellingProducts = $products;
+        if (!$countOnly) {
+            return array_map(function ($item) {
+                /** @var \XLite\Module\XC\Upselling\Model\UpsellingProduct $item  */
+                return $item->getProduct();
+            }, $result);
         }
 
-        return true === $countOnly
-            ? count($this->upsellingProducts)
-            : $this->upsellingProducts;
+        return $result;
     }
 
     /**
@@ -132,29 +144,27 @@ class UpsellingProducts extends \XLite\View\ItemsList\Product\Customer\ACustomer
      */
     protected function getProductId()
     {
-        return intval(\XLite\Core\Request::getInstance()->product_id);
+        return $this->getParam(self::PARAM_PRODUCT_ID);
     }
 
     /**
-     * Get cache parameters
+     * Register the widget/request parameters that will be used as the widget cache parameters.
+     * In other words changing these parameters by customer effects on widget content
      *
      * @return array
      */
-    protected function getCacheParameters()
+    protected function defineCachedParams()
     {
-        $list = parent::getCacheParameters();
-        $list[] = $this->getProductId();
-
-        return $list;
+        return array_merge(parent::defineCachedParams(), [self::PARAM_PRODUCT_ID]);
     }
 
-    /** 
+    /**
      * Returns CSS classes for the container element
      *
      * @return string
      */
     public function getListCSSClasses()
-    {   
+    {
         return parent::getListCSSClasses() . ' upselling-products';
-    }   
+    }
 }

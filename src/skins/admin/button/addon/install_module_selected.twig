@@ -1,0 +1,14 @@
+{##
+ # Regular button
+ #}
+{% if this.moduleId %}
+<div class="{{ this.getParam('style') }}" id="module-box-{{ this.moduleId }}">
+  <div class="remove-action"><span class="info">{{ this.moduleId }}</span></div>
+  <span class="module-name">{{ this.getModuleName(this.moduleId) }}</span>
+</div>
+{% else %}
+  <div class="{{ this.getParam('style') }}">
+    <div class="remove-action"><span class="info"></span></div>
+    <span class="module-name"></span>
+  </div>
+{% endif %}

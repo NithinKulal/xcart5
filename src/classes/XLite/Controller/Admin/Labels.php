@@ -13,6 +13,23 @@ namespace XLite\Controller\Admin;
  */
 class Labels extends \XLite\Controller\Admin\AAdmin
 {
+    /**
+     * Controller parameters
+     * FIXME: to remove
+     *
+     * @var string
+     */
+    protected $params = array('target', 'code');
+
+    /**
+     * Define the actions with no secure token
+     *
+     * @return array
+     */
+    public static function defineFreeFormIdActions()
+    {
+        return array_merge(parent::defineFreeFormIdActions(), array('searchItemsList'));
+    }
 
     /**
      * Return the current page title (for the content area)
@@ -23,14 +40,6 @@ class Labels extends \XLite\Controller\Admin\AAdmin
     {
         return static::t('Language labels');
     }
-
-    /**
-     * Controller parameters
-     * FIXME: to remove
-     *
-     * @var string
-     */
-    protected $params = array('target', 'code');
 
     /**
      * Get return URL
@@ -266,4 +275,20 @@ class Labels extends \XLite\Controller\Admin\AAdmin
         
         \XLite\Core\Database::getRepo('\XLite\Model\LanguageLabel')->updateInBatch($list);
     }
+
+    protected function doNoAction()
+    {
+        $sessionCellName = \XLite\View\ItemsList\Model\Translation\Labels::getSearchSessionCellName();
+        $sessionCell = \XLite\Core\Session::getInstance()->{$sessionCellName};
+
+        if ($sessionCell && \XLite\Core\Request::getInstance()->substring) {
+            $sessionCell['substring'] = \XLite\Core\Request::getInstance()->substring;
+
+            \XLite\Core\Session::getInstance()->{$sessionCellName} = $sessionCell;
+        }
+
+        parent::doNoAction();
+    }
+
+
 }

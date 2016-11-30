@@ -217,13 +217,18 @@ class Checkout extends \XLite\Controller\Customer\Cart
     public function isCheckoutAvailable()
     {
         return \XLite\Core\Config::getInstance()->General->force_login_before_checkout
-            ? $this->isLogged()
-                || (
-                    $this->getCart()->getProfile()
-                    && $this->getCart()->getProfile()->getAnonymous()
-                    && $this->getCheckoutAvailable()
-                )
+            ? $this->isLoggedOrAllowedAnonymous()
             : true;
+    }
+
+    public function isLoggedOrAllowedAnonymous()
+    {
+        return $this->isLogged()
+            || (
+                $this->getCart()->getProfile()
+                && $this->getCart()->getProfile()->getAnonymous()
+                && $this->getCheckoutAvailable()
+            );
     }
 
     /**
@@ -424,20 +429,18 @@ class Checkout extends \XLite\Controller\Customer\Cart
         } else {
             if ($cart->isPayed()) {
                 $paymentStatus = $paymentStatusCode ?: \XLite\Model\Order\Status\Payment::STATUS_PAID;
+                $cart->setPaymentStatus($paymentStatus);
                 $this->processSucceed();
 
             } elseif ($transaction && $transaction->isFailed()) {
                 $paymentStatus = \XLite\Model\Order\Status\Payment::STATUS_DECLINED;
+                $cart->setPaymentStatus($paymentStatus);
+                \XLite\Core\Database::getEM()->flush();
 
             } else {
                 $paymentStatus = \XLite\Model\Order\Status\Payment::STATUS_QUEUED;
-                $this->processSucceed();
-                \XLite\Core\Mailer::getInstance()->sendOrderCreated($cart);
-            }
-
-            if ($paymentStatus) {
                 $cart->setPaymentStatus($paymentStatus);
-                \XLite\Core\Database::getEM()->flush();
+                $this->processSucceed();
             }
 
             \XLite\Core\TopMessage::getInstance()->clearTopMessages();
@@ -600,7 +603,8 @@ class Checkout extends \XLite\Controller\Customer\Cart
             'order_create_profile',
             'saveShippingAsNew',
             'createProfilePassword',
-            'lastLoginUnique'
+            'lastLoginUnique',
+            static::CHECKOUT_AVAIL_FLAG
         );
 
         // Commented out in connection with E:0041438
@@ -876,6 +880,10 @@ class Checkout extends \XLite\Controller\Customer\Cart
         }
 
         $this->updateCart();
+
+        if (\XLite\Core\Request::getInstance()->isGet() && !$this->getReturnURL()) {
+            $this->setReturnURL($this->buildURL('checkout'));
+        }
     }
 
     /**
@@ -975,11 +983,7 @@ class Checkout extends \XLite\Controller\Customer\Cart
 
         $profile = $this->getCartProfile();
 
-        $address = $profile->getShippingAddress();
-
-        if ($address) {
-            \XLite\Core\Database::getEM()->refresh($address);
-        }
+        $address = $this->prepareShippingAddress();
 
         if (is_array($data) || !$this->getAddressFields()) {
             $data = is_array($data) ? $data : array();
@@ -988,44 +992,25 @@ class Checkout extends \XLite\Controller\Customer\Cart
 
             $andAsBilling = false;
 
-            $current = new \XLite\Model\Address;
-            $current->map($this->prepareAddressData($data, 'shipping'));
+            $new = new \XLite\Model\Address;
+            $new->map($this->prepareAddressData($data, 'shipping'));
             $equal = null;
-            foreach ($profile->getAddresses() as $addressEqual) {
-                if ($addressEqual->isEqualAddress($current)
-                    && (!$address || $address->getAddressId() != $addressEqual->getAddressId())
+            foreach ($profile->getAddresses() as $profileAddress) {
+                if ($profileAddress->isEqualAddress($new)
+                    && (!$address || $address->getAddressId() != $profileAddress->getAddressId())
                 ) {
-                    $equal = $addressEqual;
+                    $equal = $profileAddress;
                     break;
                 }
             }
 
             if ($equal) {
-                if ($address->getIsWork()) {
-                    $profile->getAddresses()->removeElement($address);
-                    \XLite\Core\Database::getEM()->remove($address);
-                }
-
-                if ($address) {
-                    $andAsBilling = $address->getIsBilling();
-                    $address->setIsShipping(false);
-
-                    if ($andAsBilling) {
-                        $address->setIsBilling(false);
-                    }
-                }
-
-                $address = $equal;
-                $address->setIsShipping(true);
-
-                if ($andAsBilling) {
-                    $address->setIsBilling($andAsBilling);
-                }
-
+                $profile->setShippingAddress($equal);
                 $noAddress = false;
             }
 
-            if ($noAddress || (!$address->getIsWork() && !$address->isEqualAddress($current))) {
+            if ($noAddress || (!$address->getIsWork() && !$address->isEqualAddress($new))) {
+
                 if (!$noAddress) {
                     $andAsBilling = $address->getIsBilling();
                     $address->setIsBilling(false);
@@ -1082,13 +1067,18 @@ class Checkout extends \XLite\Controller\Customer\Cart
             \XLite\Core\Session::getInstance()->same_address = (bool)$this->requestData['same_address'];
         }
 
-        if ($this->requestData['same_address']) {
+        if ($this->requestData['same_address'] && !$profile->isEqualAddress()) {
             // Shipping and billing are same addresses
             $address = $profile->getBillingAddress();
 
             if ($address) {
                 // Unselect old billing address
                 $address->setIsBilling(false);
+
+                if ($address->getIsWork()) {
+                    $profile->getAddresses()->removeElement($address);
+                    \XLite\Core\Database::getEM()->remove($address);
+                }
             }
 
             $address = $profile->getShippingAddress();
@@ -1099,32 +1089,27 @@ class Checkout extends \XLite\Controller\Customer\Cart
             }
 
         } elseif (isset($this->requestData['same_address'])
-            && !$this->requestData['same_address']
+            && !$this->requestData['same_address'] && $profile->isEqualAddress()
         ) {
-            // Unlink shipping and billing addresses
-            $address = $profile->getShippingAddress();
-
-            if ($address && $address->getIsBilling()) {
-                $address->setIsBilling(false);
-            }
+            $this->unlinkShippingFromBilling();
         }
 
         if (is_array($data) && !$this->requestData['same_address']) {
             // Save separate billing address
             $address = $profile->getBillingAddress();
 
-            if ($address) {
+            if ($address && $address->isPersistent()) {
                 \XLite\Core\Database::getEM()->refresh($address);
             }
 
             $andAsShipping = false;
 
-            $current = new \XLite\Model\Address;
-            $current->map($this->prepareAddressData($data, 'billing'));
+            $new = new \XLite\Model\Address;
+            $new->map($this->prepareAddressData($data, 'billing'));
             $equal = null;
 
             foreach ($profile->getAddresses() as $addressEqual) {
-                if ($addressEqual->isEqualAddress($current)
+                if ($addressEqual->isEqualAddress($new)
                     && (!$address || $address->getAddressId() != $addressEqual->getAddressId())
                 ) {
                     $equal = $addressEqual;
@@ -1133,28 +1118,10 @@ class Checkout extends \XLite\Controller\Customer\Cart
             }
 
             if ($equal) {
-                if ($address && $address->getIsWork()) {
-                    $profile->getAddresses()->removeElement($address);
-                    \XLite\Core\Database::getEM()->remove($address);
-                }
-
-                if ($address) {
-                    $andAsShipping = $address->getIsShipping();
-                    $address->setIsBilling(false);
-                    if ($andAsShipping) {
-                        $address->setIsShipping(false);
-                    }
-                }
-
-                $address = $equal;
-                $address->setIsBilling(true);
-
-                if ($andAsShipping) {
-                    $address->setIsShipping($andAsShipping);
-                }
+                $profile->setBillingAddress($equal);
             }
 
-            if (!$address || (!$address->getIsWork() && !$address->isEqualAddress($current))) {
+            if (!$address || (!$address->getIsWork() && !$address->isEqualAddress($new))) {
                 if ($address) {
                     $andAsShipping = $address->getIsShipping();
                     $address->setIsBilling(false);
@@ -1182,6 +1149,37 @@ class Checkout extends \XLite\Controller\Customer\Cart
 
         if ($noAddress) {
             \XLite\Core\Event::createBillingAddress(array('id' => $address->getAddressId()));
+        }
+    }
+
+    /**
+     * Prepares shipping address to update
+     * 
+     * @return \XLite\Model\Address
+     */
+    protected function prepareShippingAddress()
+    {
+        $profile = $this->getCartProfile();
+
+        $address = $profile->getShippingAddress();
+
+        if ($address && $address->isPersistent()) {
+            \XLite\Core\Database::getEM()->refresh($address);
+        }
+
+        return $address;
+    }
+
+    /**
+     * Separate shipping and billing addresses
+     */
+    protected function unlinkShippingFromBilling()
+    {
+        $profile = $this->getCartProfile();
+        $address = $profile->getShippingAddress();
+
+        if ($address && $address->getIsBilling()) {
+            $address->setIsBilling(false);
         }
     }
 

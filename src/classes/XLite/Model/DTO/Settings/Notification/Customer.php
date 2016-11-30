@@ -45,7 +45,7 @@ class Customer extends ANotification
     {
         parent::populateTo($object, $rawData);
 
-        if ($object->getAvailableForCustomer()) {
+        if ($object->getAvailableForCustomer() || $object->getEnabledForCustomer()) {
             $object->setEnabledForCustomer($this->settings->status);
             $object->setCustomerSubject($this->settings->subject);
 
@@ -64,14 +64,17 @@ class Customer extends ANotification
     protected function getBodyPath($object)
     {
         $layout = \XLite\Core\Layout::getInstance();
-        $commonSkin = $layout->getSkin();
-        $commonInterface = $layout->getInterface();
+
+        $baseSkin = $layout->getSkin();
+        $baseInterface = $layout->getInterface();
+        $baseInnerInterface = $layout->getInnerInterface();
+
         $layout->setMailSkin(\XLite::CUSTOMER_INTERFACE);
 
         $path = $layout->getResourceFullPath($object->getTemplatesDirectory() . '/body.twig');
 
         // restore old skin
-        switch ($commonInterface) {
+        switch ($baseInterface) {
             default:
             case \XLite::ADMIN_INTERFACE:
                 $layout->setAdminSkin();
@@ -86,11 +89,11 @@ class Customer extends ANotification
                 break;
 
             case \XLite::MAIL_INTERFACE:
-                $layout->setMailSkin();
+                $layout->setMailSkin($baseInnerInterface);
                 break;
         }
 
-        $layout->setSkin($commonSkin);
+        $layout->setSkin($baseSkin);
 
         return $path;
     }

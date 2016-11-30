@@ -40,6 +40,12 @@ class Layout extends \XLite\Base\Singleton
     const LAYOUT_ONE_COLUMN        = 'one';
 
     /**
+     * Layout groups
+     */
+    const LAYOUT_GROUP_DEFAULT = 'default';
+    const LAYOUT_GROUP_HOME = 'home';
+
+    /**
      * Widgets resources collector
      *
      * @var array
@@ -153,6 +159,22 @@ class Layout extends \XLite\Base\Singleton
 
         return $url
             ?: $this->getResourceWebPath('images/logo.png', static::WEB_PATH_OUTPUT_URL, \XLite::CUSTOMER_INTERFACE);
+    }
+
+    /**
+     * Get apple icon
+     *
+     * @return string
+     */
+    public function getAppleIcon()
+    {
+        $color = $this->getLayoutColor();
+
+        $image = 'images/icon192x192' . ($color ? ('_' . $color) : '') . '.png';
+        $url = $this->getResourceWebPath($image, static::WEB_PATH_OUTPUT_URL, \XLite::COMMON_INTERFACE);
+
+        return $url
+            ?: $this->getResourceWebPath('images/icon192x192.png', static::WEB_PATH_OUTPUT_URL, \XLite::COMMON_INTERFACE);
     }
 
     // {{{ Layout changers methods
@@ -564,6 +586,23 @@ class Layout extends \XLite\Base\Singleton
     }
 
     /**
+     * Returns layout groups and their targets,
+     *
+     * Default layout group is omitted because it is applicable to any target 
+     * and will be considered as fallback.
+     *
+     * @return array
+     */
+    public function getLayoutGroups()
+    {
+        return array(
+            static::LAYOUT_GROUP_HOME => array(
+                'main'
+            )
+        );
+    }
+
+    /**
      * Returns available layout types
      *
      * @return array
@@ -573,23 +612,76 @@ class Layout extends \XLite\Base\Singleton
         $module = \XLite\Core\Database::getRepo('XLite\Model\Module')->getCurrentSkinModule();
 
         return $module
-            ? array_intersect($module->callModuleMethod('getLayoutTypes', array()), $this->getLayoutTypes())
-            : $this->getLayoutTypes();
+            ? $this->getModuleLayoutTypes($module)
+            : array(
+                static::LAYOUT_GROUP_DEFAULT => $this->getLayoutTypes(),
+                static::LAYOUT_GROUP_HOME => $this->getLayoutTypes(),
+            );
+    }
+
+    /**
+     * Returns layout types, defined in module
+     * @param  \XLite\Module\AModule $module 
+     * @return array
+     */
+    public function getModuleLayoutTypes($module)
+    {
+        $validTypes = $this->getLayoutTypes();
+        $types = $module->callModuleMethod('getLayoutTypes', array());
+
+        if (count($types) > 0 && is_array(array_values($types)[0])) {
+            array_walk($types, function(&$group) use ($validTypes) {
+                $group = array_intersect($group, $validTypes);
+            });
+
+            return $types;
+        } else {
+            return array(static::LAYOUT_GROUP_DEFAULT => array_intersect($types, $validTypes));
+        }
     }
 
     /**
      * Returns current layout type
-     *
+     * @param string $group Layout group name (by default - current displayed group)
      * @return string
      */
-    public function getLayoutType()
+    public function getLayoutType($group = null)
     {
-        $layoutType = \XLite\Core\Config::getInstance()->Layout->layout_type;
+        $group = $group ?: $this->getCurrentLayoutGroup();
+        $layoutType = $this->getLayoutTypeByGroup($group);
+        $availableTypes = $this->getAvailableLayoutTypes();
+        $groupAvailableTypes = isset($availableTypes[$group]) ? $availableTypes[$group] : array();
 
-        return in_array($layoutType, $this->getAvailableLayoutTypes(), true)
+        return in_array($layoutType, $groupAvailableTypes, true)
             ? $layoutType
-            : static::LAYOUT_TWO_COLUMNS_LEFT;
+            : \XLite\Core\Config::getInstance()->Layout->layout_type;
+    }
 
+    /**
+     * Returns configured layout type value 
+     * @param  string $group Layout group name
+     * @return string
+     */
+    public function getLayoutTypeByGroup($group)
+    {
+        $group = ($group == static::LAYOUT_GROUP_DEFAULT ? '' : '_' . $group);
+
+        return \XLite\Core\Config::getInstance()->Layout->{'layout_type' . $group};
+    }
+
+    /**
+     * Returns layout group type option name 
+     * @param  string $group Layout group name
+     * @return string
+     */
+    public function getLayoutTypeLabelByGroup($group)
+    {
+        $group = ($group == static::LAYOUT_GROUP_DEFAULT ? '' : '_' . $group);
+
+        $option = \XLite\Core\Database::getRepo('XLite\Model\Config')
+            ->findOneBy(array('name' => 'layout_type' . $group, 'category' => 'Layout'));
+
+        return $option ? $option->getOptionName() : '';
     }
 
     /**
@@ -784,7 +876,7 @@ class Layout extends \XLite\Base\Singleton
 
         $key = $this->prepareResourceKey($shortPath, $interface);
         if (!isset($this->resourcesCache[$key])) {
-            foreach ($this->getSkinPaths($interface, $this->getResourceModulePath($shortPath)) as $path) {
+            foreach ($this->getSkinPaths($interface) as $path) {
                 $fullPath = $path['fs'] . LC_DS . $shortPath;
                 if (file_exists($fullPath)) {
                     $this->resourcesCache[$key] = $path;
@@ -813,7 +905,7 @@ class Layout extends \XLite\Base\Singleton
         $key = $interface . '.' . $shortPath;
 
         if (!isset($this->resourcesCache[$key])) {
-            foreach ($this->getSkinPaths($interface, $this->getResourceModulePath($shortPath)) as $path) {
+            foreach ($this->getSkinPaths($interface) as $path) {
                 $fullPath = $path['fs'] . LC_DS . $shortPath;
                 if (file_exists($fullPath)) {
                     $this->resourcesCache[$key] = $path;
@@ -852,7 +944,7 @@ class Layout extends \XLite\Base\Singleton
      */
     public function prepareSkinURL($shortPath, $outputType = self::WEB_PATH_OUTPUT_SHORT)
     {
-        $skins = $this->getSkinPaths($this->currentInterface, $this->getResourceModulePath($shortPath));
+        $skins = $this->getSkinPaths($this->currentInterface);
         $path = array_pop($skins);
 
         return $this->prepareResourceURL($path['web'] . '/' . $shortPath, $outputType);
@@ -876,124 +968,65 @@ class Layout extends \XLite\Base\Singleton
      * Get skin paths (file system and web)
      *
      * @param string  $interface          Interface code OPTIONAL
-     * @param string  $resourceModulePath Resource module path OPTIONAL
      * @param boolean $reset              Local cache reset flag OPTIONAL
      * @param boolean $baseSkins          Use base skins only flag OPTIONAL
+     * @param boolean $allInnerInterfaces
      *
      * @return array
      *
      * TODO: refactor
      */
-    public function getSkinPaths($interface = null, $resourceModulePath = '', $reset = false, $baseSkins = false)
+    public function getSkinPaths($interface = null, $reset = false, $baseSkins = false, $allInnerInterfaces = false)
     {
         $interface = $interface ?: $this->currentInterface;
 
-        $key = \XLite::MAIL_INTERFACE === $interface || \XLite::PDF_INTERFACE === $interface
-            ? $interface . '-' . $this->getInnerInterface()
-            : $interface;
+        if (\XLite::MAIL_INTERFACE === $interface || \XLite::PDF_INTERFACE === $interface) {
+            $innerInterface = $this->getInnerInterface();
+            $key = $interface . '-' . $innerInterface;
+            $innerInterfaces = $allInnerInterfaces
+                ? [\XLite::CUSTOMER_INTERFACE, \XLite::COMMON_INTERFACE, \XLite::ADMIN_INTERFACE]
+                : [$innerInterface, \XLite::COMMON_INTERFACE];
 
-        $key .= $resourceModulePath;
-        $isModuleResource = (bool) $resourceModulePath;
+        } else {
+            $innerInterface = null;
+            $key = $interface;
+            $innerInterfaces = [$innerInterface];
+        }
 
         if ($reset || !isset($this->skinPaths[$key])) {
-            $this->skinPaths[$key] = array();
-
+            $this->skinPaths[$key] = [];
             $locales = $this->getLocalesQuery($interface);
-
-            $commonInterface = \XLite::MAIL_INTERFACE === $interface || \XLite::PDF_INTERFACE === $interface
-                ? $this->getInnerInterface()
-                : null;
 
             $skins = $baseSkins ? $this->getBaseSkinByInterface($interface) : $this->getSkins($interface);
 
-            if (\XLite::MAIL_INTERFACE === $interface) {
+            foreach ($innerInterfaces as $workInnerInterface) {
                 foreach ($skins as $skin) {
+                    $webSkin = str_replace(LC_DS, '/', $skin);
+
                     foreach ($locales as $locale) {
-                        $localeFsPath = $locale && $locale != 'en' ? '_' . $locale : '';
+                        $localeFsPath = $locale && $locale !== 'en' ? '_' . $locale : '';
                         $localeWebPath = $localeFsPath;
 
-                        if ($commonInterface) {
-                            $innerCommonFsPath = $interface . LC_DS;
-                            $innerCommonWebPath = $interface . '/';
+                        $skinPath = [
+                            'name'   => $skin,
+                            'fs'     => LC_DIR_SKINS . $skin . $localeFsPath,
+                            'web'    => static::PATH_SKIN . '/' . $webSkin . $localeWebPath,
+                            'locale' => $locale,
+                        ];
 
-                            if ($isModuleResource) {
-                                $innerCommonFsPath
-                                    = LC_DS . str_replace('/', LC_DS, $resourceModulePath) . $innerCommonFsPath;
-                                $innerCommonWebPath = '/' . $resourceModulePath . $innerCommonWebPath;
-                            }
-
-                            foreach ($this->getSkins($commonInterface) as $commonSkin) {
-                                $webCommonSkin = str_replace(LC_DS, '/', $commonSkin);
-                                if ($commonSkin == self::PATH_MAIL) {
-                                    $this->skinPaths[$key][] = array(
-                                        'name' => $commonSkin,
-                                        'fs' => LC_DIR_SKINS . $commonSkin . $localeFsPath . LC_DS . 'common' . $innerCommonFsPath,
-                                        'web' => static::PATH_SKIN . $webCommonSkin . $localeWebPath . '/' . $innerCommonWebPath,
-                                        'locale' => $locale,
-                                    );
-                                } else {
-                                    $this->skinPaths[$key][] = array(
-                                        'name' => $commonSkin,
-                                        'fs' => LC_DIR_SKINS . $innerCommonFsPath . $commonSkin . $localeFsPath,
-                                        'web' => static::PATH_SKIN . '/' . $innerCommonWebPath . $webCommonSkin . $localeWebPath,
-                                        'locale' => $locale,
-                                    );
-                                }
-                            }
-                        }
-
-                        if ($skin == self::PATH_MAIL) {
-                            $this->skinPaths[$key][] = array(
-                                'name' => $skin,
-                                'fs' => LC_DIR_SKINS . $skin . LC_DS . $localeFsPath . 'common',
-                                'web' => static::PATH_SKIN . '/' . $skin . $localeWebPath . '/' . 'common',
+                        if ($workInnerInterface) {
+                            $webCommonSkin = str_replace(LC_DS, '/', $workInnerInterface);
+                            $this->skinPaths[$key][] = [
+                                'name'   => $skin . '/' . $workInnerInterface,
+                                'fs'     => LC_DIR_SKINS . $skin . LC_DS . $workInnerInterface . $localeFsPath,
+                                'web'    => static::PATH_SKIN . '/' . $webSkin . '/' . $webCommonSkin . $localeWebPath,
                                 'locale' => $locale,
-                            );
+                            ];
+
                         } else {
-                            $this->skinPaths[$key][] = array(
-                                'name' => $skin,
-                                'fs' => LC_DIR_SKINS . $skin . $localeFsPath,
-                                'web' => static::PATH_SKIN . '/' . $skin . $localeWebPath,
-                                'locale' => $locale,
-                            );
+                            $this->skinPaths[$key][] = $skinPath;
                         }
                     }
-                }
-            }
-
-            foreach ($skins as $skin) {
-                foreach ($locales as $locale) {
-                    $localeFsPath = $locale && $locale != 'en' ? '_' . $locale : '';
-                    $localeWebPath = $localeFsPath;
-
-                    if ($commonInterface) {
-                        $innerCommonFsPath = LC_DS . $interface;
-                        $innerCommonWebPath = '/' . $interface;
-
-                        if ($isModuleResource) {
-                            $innerCommonFsPath
-                                = LC_DS . str_replace('/', LC_DS, $resourceModulePath) . $innerCommonFsPath;
-                            $innerCommonWebPath = '/' . $resourceModulePath . $innerCommonWebPath;
-                        }
-
-                        foreach ($this->getSkins($commonInterface) as $commonSkin) {
-                            $webCommonSkin = str_replace(LC_DS, '/', $commonSkin);
-                            $this->skinPaths[$key][] = array(
-                                'name' => $commonSkin,
-                                'fs' => LC_DIR_SKINS . $commonSkin . $localeFsPath . $innerCommonFsPath,
-                                'web' => static::PATH_SKIN . '/' . $webCommonSkin . $localeWebPath . $innerCommonWebPath,
-                                'locale' => $locale,
-                            );
-                        }
-                    }
-
-                    $webSkin = str_replace(LC_DS, '/', $skin);
-                    $this->skinPaths[$key][] = array(
-                        'name' => $skin,
-                        'fs' => LC_DIR_SKINS . $skin . $localeFsPath,
-                        'web' => static::PATH_SKIN . '/' . $webSkin . $localeWebPath,
-                        'locale' => $locale,
-                    );
                 }
             }
         }
@@ -1008,7 +1041,7 @@ class Layout extends \XLite\Base\Singleton
      *
      * @return string
      */
-    protected function getResourceModulePath($shortPath)
+    public function getResourceModulePath($shortPath)
     {
         $result = '';
         if (0 === strpos($shortPath, 'modules')) {
@@ -1074,16 +1107,16 @@ class Layout extends \XLite\Base\Singleton
 
             default:
                 $options = \XLite::getInstance()->getOptions('skin_details');
-                $skin = $options['skin'] == 'default' ? 'customer' : $options['skin'];
+                $skin = $options['skin'] === 'default' ? 'customer' : $options['skin'];
         }
 
         $result = array($skin);
 
-        foreach ($this->getLocalesQuery($interface) as $locale) {
-            if (is_dir(LC_DIR_SKINS . $skin . '_' . $locale)) {
-                $result[] = $skin . '_' . $locale;
-            }
-        }
+        // foreach ($this->getLocalesQuery($interface) as $locale) {
+        //     if (is_dir(LC_DIR_SKINS . $skin . '_' . $locale)) {
+        //         $result[] = $skin . '_' . $locale;
+        //     }
+        // }
 
         return $result;
     }
@@ -1177,11 +1210,15 @@ class Layout extends \XLite\Base\Singleton
     /**
      * Set current skin as the pdf one
      *
+     * @param string $interface Interface to use after MAIL one OPTIONAL
+     *
      * @return void
      */
-    public function setPdfSkin()
+    public function setPdfSkin($interface = \XLite::CUSTOMER_INTERFACE)
     {
         $this->currentInterface = \XLite::PDF_INTERFACE;
+
+        $this->innerInterface = $interface;
 
         $this->setSkin(static::PATH_PDF);
     }
@@ -1223,7 +1260,7 @@ class Layout extends \XLite\Base\Singleton
     {
         $options = \XLite::getInstance()->getOptions('skin_details');
         
-        if (isset($options['skin']) && $options['skin'] == 'default') {
+        if (isset($options['skin']) && $options['skin'] === 'default') {
             $options['skin'] = 'customer';
         }
 
@@ -1774,6 +1811,27 @@ class Layout extends \XLite\Base\Singleton
 
 
     // {{{ Sidebars
+
+    /**
+     * Returns current layout group based on best-first target
+     * @return string
+     */
+    public function getCurrentLayoutGroup()
+    {
+        $target = \XLite\Core\Request::getInstance()->target;
+        $groups = $this->getLayoutGroups();
+
+        $current = static::LAYOUT_GROUP_DEFAULT;
+
+        foreach ($groups as $name => $targets) {
+            if (in_array($target, $targets, true)) {
+                $current = $name;
+                break;
+            }
+        }
+
+        return $current;
+    }
 
     /**
      * Is Sidebar Single

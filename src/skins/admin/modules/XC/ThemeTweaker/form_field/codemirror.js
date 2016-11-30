@@ -7,30 +7,26 @@
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
 
-jQuery(
-  function() {
-    jQuery('textarea.codemirror').each(function () {
-      var self = this;
-      var element = jQuery(self);
-      var mode = jQuery(this).data('codemirrorMode');
+function CodeMirrorWidget(base) {
+  var element = base;
+  var mode = element.data('codemirrorMode');
 
-      var width = element.outerWidth();
-      var height = element.outerHeight();
+  var width = element.outerWidth();
+  var height = element.outerHeight();
 
-      var editor = CodeMirror.fromTextArea(
-        self,
-        {
-          mode: mode,
-          lineNumbers : true,
-          viewportMargin: Infinity
-        }
-      );
-      editor.setSize(width, height);
+  var editor = CodeMirror.fromTextArea(
+    element.get(0),
+    {
+      mode: mode,
+      lineNumbers : true,
+      viewportMargin: Infinity
+    }
+  );
+  editor.setSize(width, height);
 
-      editor.on('change', function (editor) {
-        jQuery(self).text(editor.doc.getValue()).trigger('change');
-      });
+  editor.on('change', function (editor) {
+    element.text(editor.doc.getValue()).val(editor.doc.getValue()).trigger('change');
+  });
+}
 
-    });
-  }
-);
+core.autoload(CodeMirrorWidget, 'textarea.codemirror.autoloadable');

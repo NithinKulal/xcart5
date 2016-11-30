@@ -40,6 +40,7 @@ class SettingsDataCollector extends DataCollector implements Renderable
 
         return [
             'widgetsSqlQueryStacktracesEnabled' => $settingsMgr->areWidgetsSqlQueryStacktracesEnabled(),
+            'sqlQueryStacktracesEnabled'        => $settingsMgr->areSqlQueryStacktracesEnabled(),
             'widgetsTabEnabled'                 => $settingsMgr->areWidgetsTabEnabled(),
             'databaseDetailedModeEnabled'       => $settingsMgr->areDatabaseDetailedModeEnabled(),
         ];

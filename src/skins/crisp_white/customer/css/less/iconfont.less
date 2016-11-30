@@ -26,7 +26,7 @@
   font-weight: normal;
   font-variant: normal;
   text-transform: none;
-  line-height: 20px;
+  line-height: 1em;
   font-size: 16px;
 
   vertical-align: middle;
@@ -38,6 +38,7 @@
 .icon-menu {
   &:before {
     .iconfont;
+    line-height: 1em;
     font-size: 20px;
     content: "\e907";
   }
@@ -305,5 +306,37 @@
   &:before {
     .iconfont;
     content: "\e920";
+  }
+}
+
+.icon-close {
+  width: @rhythmic-unit;
+  height: @rhythmic-unit;
+  border: none;
+  background: transparent;
+  margin: 0;
+  color: #000;
+
+  &:before,
+  &:after {
+    position: absolute;
+    left: 10px;
+    top: -4px;
+    content: ' ';
+    height: 29px;
+    width: 1px;
+    background-color: #000;
+  }
+  &:before {
+    transform: rotate(45deg);
+  }
+  &:after {
+    transform: rotate(-45deg);
+  }
+  &:hover {
+    &:before,
+    &:after {
+      background-color: @color-hover;
+    }
   }
 }

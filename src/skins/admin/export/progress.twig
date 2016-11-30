@@ -4,25 +4,10 @@
 
 <div class="export-box export-progress">
 
-  <div class="header clearfix">
-    <h2>{{ t('Exporting data...') }}</h2>
-  </div>
-
   <div class="content">
     {% form 'XLite\\View\\Form\\Export' with {formAction: 'cancel'} %}
       <div class="subcontent clearfix">
-        {{ widget('XLite\\View\\EventTaskProgress', event=this.getEventName()) }}
-        {{ widget('XLite\\View\\Button\\Submit', label=t('Cancel')) }}
-      </div>
-      <div class="help">
-        <i class="fa fa-exclamation-triangle"></i>
-        <p>
-          {% if this.isBlocking() %}
-            {{ t('The process of export may take much time. You may close the page, the operation will be in progress as background. If the operation takes long enough, we will send you a notification when it is complete.') }}
-          {% else %}
-            {{ t('The process of export may take much time. Please do not close this page until the export is complete') }}
-          {% endif %}
-        </p>
+        {{ widget('XLite\\View\\EventTaskProgress', event=this.getEventName(), message=this.getProgressMessage() ) }}
       </div>
     {% endform %}
   </div>

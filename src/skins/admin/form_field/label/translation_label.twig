@@ -1,0 +1,10 @@
+{##
+ # Translation label
+ #}
+
+<span{{ this.getAttributesCode()|raw }}>
+  {{ this.getLabelValue()|raw }}
+  {% if this.getValue() %}
+    <a href="{{ this.getLabelEditURL() }}">{{ t('[Edit]') }}</a>
+  {% endif %}
+</span>

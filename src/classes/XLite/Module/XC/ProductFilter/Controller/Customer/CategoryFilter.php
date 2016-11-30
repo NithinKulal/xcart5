@@ -44,7 +44,7 @@ class CategoryFilter extends \XLite\Controller\Customer\Category
 
         $data['filter'] = \XLite\Core\Request::getInstance()->filter;
 
-        $filters = \Includes\Utils\ArrayManager::filterMultidimensional($data['filter']);
+        $filters = \Includes\Utils\ArrayManager::filterMultidimensional(is_array($data['filter']) ? $data['filter'] : []);
 
         if (!$this->isAJAX()) {
             $sessionCell = \XLite\Module\XC\ProductFilter\View\ItemsList\Product\Customer\Category\CategoryFilter::getSessionCellName();

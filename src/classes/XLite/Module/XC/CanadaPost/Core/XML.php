@@ -141,7 +141,7 @@ class XML extends \XLite\Core\XML
      *
      * @return bool
      */
-    public function isMultipleXmlElemsContainer($parsedXmlElem)
+    public static function isMultipleXmlElemsContainer($parsedXmlElem)
     {
         return (
             is_array($parsedXmlElem[0]['#'])

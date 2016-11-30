@@ -57,7 +57,8 @@ class Version extends \XLite\Controller\Customer\ACustomer
         $result .= $this->getVersionMessage() . LC_EOL;
         $result .= $this->getLicenseMessage() . LC_EOL;
         $result .= $this->getInstallationMessage() . LC_EOL;
-        $result .= $this->getModulesMessage() . LC_EOL;
+        $result .= LC_EOL . $this->getPrivateModulesMessage() . LC_EOL;
+        $result .= LC_EOL . $this->getPublicModulesMessage() . LC_EOL;
 
         return $result;
     }
@@ -99,21 +100,23 @@ class Version extends \XLite\Controller\Customer\ACustomer
     }
 
     /**
-     * Return info about installed modules
+     * Return info about public installed modules
      *
      * @return string
      */
-    protected function getModulesMessage()
+    protected function getPublicModulesMessage()
     {
         $result = array();
 
-        foreach (\Includes\Utils\ModulesManager::getActiveModules() as $data) {
-            $result[] = array(
-                $data['authorName'],
-                $data['moduleName'],
-                $data['majorVersion'],
-                $data['minorVersion'],
-            );
+        foreach ($this->getActiveModules() as $module) {
+            if (!$module->isCustom() && !$module->isPrivate()) {
+                $result[] = array(
+                    $module->getAuthorName(),
+                    $module->getModuleName(),
+                    $module->getMajorVersion(),
+                    $module->getFullMinorVersion(),
+                );
+            }
         }
 
         usort(
@@ -130,7 +133,57 @@ class Version extends \XLite\Controller\Customer\ACustomer
             $result
         );
 
-        return 'Installed modules:' . LC_EOL . ($list ? implode(LC_EOL, $list) : static::t('None'));
+        return 'Public installed modules:' . LC_EOL . ($list ? implode(LC_EOL, $list) : static::t('None'));
+    }
+
+    /**
+     * Return info about private & custom installed modules
+     *
+     * @return string
+     */
+    protected function getPrivateModulesMessage()
+    {
+        $result = array();
+
+        foreach ($this->getActiveModules() as $module) {
+            if ($module->isCustom() || $module->isPrivate()) {
+                $result[] = array(
+                    $module->getAuthorName(),
+                    $module->getModuleName(),
+                    $module->getMajorVersion(),
+                    $module->getFullMinorVersion(),
+                );
+            }
+        }
+
+        usort(
+            $result,
+            function ($a, $b) {
+                return strcasecmp($a[1], $b[1]);
+            }
+        );
+
+        $list = array_map(
+            function ($a) {
+                return vsprintf('(%s): %s (v.%s.%s)', $a);
+            },
+            $result
+        );
+
+        return 'Private and custom modules:' . LC_EOL . ($list ? implode(LC_EOL, $list) : static::t('None'));
+    }
+
+    /**
+     * Returns enabled modules
+     *
+     * @return \XLite\Model\Module[]
+     */
+    protected function getActiveModules()
+    {
+        $cnd = new \XLite\Core\CommonCell();
+        $cnd->active = true;
+
+        return \XLite\Core\Database::getRepo('XLite\Model\Module')->search($cnd);
     }
 
     /**

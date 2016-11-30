@@ -22,4 +22,17 @@ abstract class Minicart extends \XLite\View\Minicart implements \XLite\Base\IDec
     {
         return 'mini_cart/horizontal/body.twig';
     }
+
+    public function getCSSFiles()
+    {
+        $list = parent::getCSSFiles();
+
+        $list[] = [
+            'file'  => 'css/less/minicart.less',
+            'media' =>  'screen',
+            'merge' =>  'bootstrap/css/bootstrap.less',
+        ];
+
+        return $list;
+    }
 }

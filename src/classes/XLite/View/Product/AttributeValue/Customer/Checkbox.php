@@ -35,15 +35,26 @@ class Checkbox extends \XLite\View\Product\AttributeValue\Customer\ACustomer
 
     /**
      * Return values
+     * @bc: remove in 5.4
      *
      * @return array
      */
     protected function getAttrValues()
     {
+        return $this->getAttributeValue();
+    }
 
-        $result = array();
-        foreach ($this->getAttrValue() as $v) {
-            $result[intval($v->getValue())] = $v;
+    /**
+     * @return mixed|null
+     */
+    protected function defineAttributeValue()
+    {
+        $result = [];
+
+        /** @var \XLite\Model\AttributeValue\AttributeValueCheckbox[] $attributeValue */
+        $attributeValue = parent::defineAttributeValue();
+        foreach ($attributeValue as $value) {
+            $result[(int) $value->getValue()] = $value;
         }
 
         ksort($result);

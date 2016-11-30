@@ -8,23 +8,20 @@
 
 namespace XLite\View\Product\AttributeValue;
 
+use XLite\Core\Cache\ExecuteCachedTrait;
+
 /**
  * Abstract attribute value
  */
 abstract class AAttributeValue extends \XLite\View\Product\AProduct
 {
+    use ExecuteCachedTrait;
+
     /**
      * Common params
      */
     const PARAM_ATTRIBUTE = 'attribute';
     const PARAM_PRODUCT   = 'product';
-
-    /**
-     * Attribute value
-     *
-     * @var mixed
-     */
-    protected $attributeValue;
 
     /**
      * Get attribute type
@@ -44,20 +41,36 @@ abstract class AAttributeValue extends \XLite\View\Product\AProduct
     }
 
     /**
-     * Return field value
-     *
+     * @bc: remove in 5.4
      * @return mixed
      */
     protected function getAttrValue()
     {
-        if (
-            !isset($this->attributeValue)
-            && $this->getAttribute()
-        ) {
-            $this->attributeValue = $this->getAttribute()->getAttributeValue($this->getProduct());
-        }
+        return $this->getAttributeValue();
+    }
 
-        return $this->attributeValue;
+    /**
+     * Return field value
+     *
+     * @return mixed|null
+     */
+    protected function getAttributeValue()
+    {
+        return $this->getAttribute()
+            ? $this->executeCachedRuntime(function () {
+                return $this->defineAttributeValue();
+            }, 'getAttributeValue_' . $this->getAttribute()->getId())
+            : null;
+    }
+
+    /**
+     * @return mixed|null
+     */
+    protected function defineAttributeValue()
+    {
+        return $this->getAttribute()
+            ? $this->getAttribute()->getAttributeValue($this->getProduct())
+            : null;
     }
 
     /**
@@ -102,6 +115,9 @@ abstract class AAttributeValue extends \XLite\View\Product\AProduct
             . ($this->isMultiple() ? ' multiple' : '');
     }
 
+    /**
+     * @return \XLite\Model\Product
+     */
     protected function getProduct()
     {
         return $this->getParam(static::PARAM_PRODUCT) ?: \XLite::getController()->getProduct();
@@ -120,7 +136,7 @@ abstract class AAttributeValue extends \XLite\View\Product\AProduct
     /**
      * Get style
      *
-     * @param mixed  $attributeValue Aattribute value
+     * @param mixed  $attributeValue Attribute value
      * @param string $field          Field
      *
      * @return string
@@ -135,11 +151,12 @@ abstract class AAttributeValue extends \XLite\View\Product\AProduct
     /**
      * Is default flag
      *
-     * @param mixed $attributeValue Aattribute value
+     * @param mixed $attributeValue Attribute value
      *
      * @return boolean
      */
-    protected function isDefault($attributeValue) {
+    protected function isDefault($attributeValue)
+    {
         return $attributeValue
             && is_object($attributeValue)
             && $attributeValue->getDefaultValue();

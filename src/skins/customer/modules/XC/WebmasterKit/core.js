@@ -12,8 +12,12 @@
 
   core.trigger = function(name, params)
   {
+    var message = this.isReady
+        ? 'Fire \'' + name + '\' mediator\'s event' 
+        : 'Postponed \'' + name + '\' mediator\'s event until ready';
+
     if ('undefined' != typeof(console.groupCollapsed) && (params || 'undefined' != typeof(console.trace))) {
-      console.groupCollapsed('Fire \'' + name + '\' mediator\'s event');
+      console.groupCollapsed(message);
       if (params) {
         console.log(params);
       }
@@ -23,10 +27,9 @@
       console.groupEnd();
 
     } else {
-      console.log('Fire \'' + name + '\' mediator\'s event');
+      console.log(message);
     }
 
     return tmp.apply(this, arguments);
   }
 })();
-

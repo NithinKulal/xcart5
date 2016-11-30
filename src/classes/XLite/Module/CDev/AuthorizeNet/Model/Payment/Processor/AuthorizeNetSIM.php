@@ -265,37 +265,58 @@ class AuthorizeNetSIM extends \XLite\Model\Payment\Base\WebBased
 
         $status = $this->getStatusBasedOnXResponseCode($request->x_response_code);
 
-        if (isset($request->x_response_reason_text)) {
-            $this->setDetail('response', $request->x_response_reason_text, 'Response');
-            $this->transaction->setNote($request->x_response_reason_text);
+        $request_verified = true;
 
-        } elseif (isset($this->err[$request->x_response_reason_code])) {
-            $this->setDetail('response', $this->err[$request->x_response_reason_code], 'Response');
-            $this->transaction->setNote($this->err[$request->x_response_reason_code]);
+        // Stop processing if configured md5 key and request md5 key don't match.
+        if ($this->isMD5Protected($transaction)) {
+            if ( $this->calculateMD5Hash($transaction) !== $request->x_MD5_Hash ) {
+
+                $this->setDetail(
+                    'status',
+                    'Could not verify the payment gateway request, MD5 Hash mismatch',
+                    'Status'
+                );
+                $this->transaction->setNote('Could not verify the payment gateway request, MD5 Hash mismatch');
+                $status = \XLite\Model\Payment\Transaction::STATUS_FAILED;
+
+                $request_verified = false;
+            }
         }
 
-        if ($request->x_auth_code) {
-            $this->setDetail('authCode', $request->x_auth_code, 'Auth code');
-        }
+        if ($request_verified) {
 
-        if ($request->x_trans_id) {
-            $this->setDetail('transId', $request->x_trans_id, 'Transaction ID');
-        }
+            if (isset($request->x_response_reason_text)) {
+                $this->setDetail('response', $request->x_response_reason_text, 'Response');
+                $this->transaction->setNote($request->x_response_reason_text);
 
-        if ($request->x_response_subcode) {
-            $this->setDetail('responseSubcode', $request->x_response_subcode, 'Response subcode');
-        }
+            } elseif (isset($this->err[$request->x_response_reason_code])) {
+                $this->setDetail('response', $this->err[$request->x_response_reason_code], 'Response');
+                $this->transaction->setNote($this->err[$request->x_response_reason_code]);
+            }
 
-        if (isset($request->x_avs_code) && isset($this->avserr[$request->x_avs_code])) {
-            $this->setDetail('avs', $this->avserr[$request->x_avs_code], 'AVS status');
-        }
+            if ($request->x_auth_code) {
+                $this->setDetail('authCode', $request->x_auth_code, 'Auth code');
+            }
 
-        if (isset($request->x_CVV2_Resp_Code) && isset($this->cvverr[$request->x_CVV2_Resp_Code])) {
-            $this->setDetail('cvv', $this->cvverr[$request->x_CVV2_Resp_Code], 'CVV status');
-        }
+            if ($request->x_trans_id) {
+                $this->setDetail('transId', $request->x_trans_id, 'Transaction ID');
+            }
 
-        if (!$this->checkTotal($request->x_amount)) {
-            $status = $transaction::STATUS_FAILED;
+            if ($request->x_response_subcode) {
+                $this->setDetail('responseSubcode', $request->x_response_subcode, 'Response subcode');
+            }
+
+            if (isset($request->x_avs_code) && isset($this->avserr[$request->x_avs_code])) {
+                $this->setDetail('avs', $this->avserr[$request->x_avs_code], 'AVS status');
+            }
+
+            if (isset($request->x_CVV2_Resp_Code) && isset($this->cvverr[$request->x_CVV2_Resp_Code])) {
+                $this->setDetail('cvv', $this->cvverr[$request->x_CVV2_Resp_Code], 'CVV status');
+            }
+
+            if (!$this->checkTotal($request->x_amount)) {
+                $status = $transaction::STATUS_FAILED;
+            }
         }
 
         $this->transaction->setStatus($status);
@@ -395,6 +416,40 @@ class AuthorizeNetSIM extends \XLite\Model\Payment\Base\WebBased
         $maxPrefix = max(0, 20 - strlen($id));
 
         return substr($prefix, 0, $maxPrefix) . $id;
+    }
+
+    /**
+     * Check - if transaction is md5 protected or not
+     *
+     * @param \XLite\Model\Payment\Transaction $transaction Transaction
+     *
+     * @return boolean
+     */
+    public function isMD5Protected(\XLite\Model\Payment\Transaction $transaction)
+    {
+        $key = $transaction->getPaymentMethod()->getSetting('md5_key');
+
+        return (boolean) $key;
+    }
+
+    /**
+     * Generates Authorize.net comparable md5 hash string from request and method data.
+     * 
+     * @param  \XLite\Model\Payment\Transaction $transaction 
+     * @return string
+     */
+    public function calculateMD5Hash(\XLite\Model\Payment\Transaction $transaction)
+    {
+        $request = \XLite\Core\Request::getInstance();
+
+        $parts = array(
+            $transaction->getPaymentMethod()->getSetting('md5_key'),
+            $transaction->getPaymentMethod()->getSetting('login'),
+            $request->x_trans_id,
+            $request->x_amount
+        );
+
+        return strtoupper(md5(join('', $parts)));
     }
 
     /**

@@ -6,9 +6,14 @@
  * Copyright (c) 2001-present Qualiteam software Ltd. All rights reserved.
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
-Checkout.define('Checkout.ShippingMethods', [], function() {
+define(
+  'checkout_fastlane/blocks/shipping_methods', 
+ ['vue/vue',
+  'vue/vue.loadable',
+  'checkout_fastlane/sections/shipping'],
+  function(Vue, VueLoadableMixin, ShippingSection) {
 
-  Checkout.ShippingMethods = Vue.extend({
+  var ShippingMethods = Vue.extend({
     mixins: [VueLoadableMixin],
     name: 'shipping-methods',
     replace: false,
@@ -61,6 +66,7 @@ Checkout.define('Checkout.ShippingMethods', [], function() {
     watch: {
       methodId: function(value, oldValue){
         if (oldValue !== null) {
+          this.$reloading = true;
           this.$root.$broadcast('reloadingBlock', 1);
         }
         this.triggerUpdate({
@@ -72,6 +78,9 @@ Checkout.define('Checkout.ShippingMethods', [], function() {
     events: {
       sectionPersist: function(data) {
         this.$root.$broadcast('reloadingUnblock', 1);
+      },
+      global_createshippingaddress: function(data) {
+        this.$reload();
       },
       global_updatecart: function(data) {
         var shippingKeys = ['shippingMethodsHash', 'shippingMethodId'];
@@ -113,4 +122,7 @@ Checkout.define('Checkout.ShippingMethods', [], function() {
     }
   });
 
+  Vue.registerComponent(ShippingSection, ShippingMethods);
+
+  return ShippingMethods;
 });

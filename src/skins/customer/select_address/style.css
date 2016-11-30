@@ -1,0 +1,51 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * address book popup style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+form.select-address {
+  width: 650px;
+}
+
+form.select-address .address-text-label,
+form.select-address .address-text-comma
+{
+  display: none;
+}
+
+form.select-address ul.address-box > li {
+  padding-right: 2px;
+  float: left;
+  clear: left;
+}
+
+form.select-address ul.address-box li ul li {
+  float: left;
+  clear: none;
+}
+
+form.select-address ul.address-box li.address-text-lastname,
+  form.select-address ul.address-box li.address-text-firstname,
+  form.select-address ul.address-box li.address-text-state_id,
+  form.select-address ul.address-box li.address-text-zipcode
+{
+  clear: none;
+}
+
+form.select-address ul.address-box li.address-text-city .address-text-comma,
+  form.select-address ul.address-box li.address-text-state_id .address-text-comma,
+  form.select-address ul.address-box li.address-text-country_code .address-text-comma,
+  form.select-address ul.address-box li.address-text-type .address-text-label,
+  form.select-address ul.address-box li.address-text-phone .address-text-label
+{
+  display: inherit;
+}
+
+form.select-address .add-new-address-button > * {
+  display: inline-block;
+  vertical-align: middle;
+}

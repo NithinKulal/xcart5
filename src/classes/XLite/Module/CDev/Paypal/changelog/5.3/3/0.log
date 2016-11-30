@@ -1,0 +1,12 @@
+Version 5.3.3.0
+
+Improvements
+2016-10-03 - [Change] For the module "Not Finished Orders", a new setting was added: "The order will be created" (possible values - "by payment callback (Failed + Cancel)' (the only option that was available previously) and 'by pressing “Place order” button' #XCN-6892 (Vladimir Semyonov) #Paypal #MultiVendor #NotFinishedOrders
+2016-09-13 - [Change] Added support for multiple & partial refunds to core. Implemented for PayPal payment method. #XCN-5352 (Sergey Elmanov) #Core #Paypal
+
+Fixes
+2016-11-29 - [Bug] An anonymous user could not go to pay for their order via PayPal Express Checkout from any page, except for checkout. #BUG-4208 (Michael Lipinski) #Paypal
+2016-08-30 - [Bug] The 'LOCALECODE' parameter was not passed when using PayPal Express Checkout. #BUG-3787 (Maxim Kuznetsov) #Paypal
+2016-08-26 - [Bug] When the module Add to cart popup was disabled (not active), the message "Product has been added to your cart" was displayed all the same when adding a product to cart. #BUG-3776 (Michael Lipinski) #Paypal
+2016-08-26 - [Bug] The button PayPal buy now was displayed for a variant even if it was out of stock. #BUG-3768 (Michael Lipinski) #Paypal
+2016-08-25 - [Bug] A few typos in the code of PayPal payment method. Fixed. #BUG-3765 (Michael Lipinski) #Paypal

@@ -205,6 +205,46 @@ abstract class ACustomer extends \XLite\Controller\AController
     }
 
     /**
+     * Check if page has alternative language url
+     *
+     * @return bool
+     */
+    public function hasAlternateLangUrls()
+    {
+        $router = \XLite\Core\Router::getInstance();
+
+        return LC_USE_CLEAN_URLS && \XLite\Core\Router::getInstance()->isUseLanguageUrls() && count($router->getActiveLanguagesCodes()) > 1;
+    }
+
+    /**
+     * Return page alternative language urls
+     *
+     * @return bool
+     */
+    public function getAlternateLangUrls()
+    {
+        $request = \XLite\Core\Request::getInstance();
+        $result = [];
+
+        list($target, $params) = \XLite\Core\Converter::parseCleanUrl($request->url, $request->last, $request->rest, $request->ext);
+
+        $url = \XLite\Core\Database::getRepo('XLite\Model\CleanURL')->buildURL($target, $params);
+        $url = strtok($url, '?');
+
+        foreach (\XLite\Core\Database::getRepo('XLite\Model\Language')->findActiveLanguages() as $language) {
+            $langUrl = $language->getCode() . '/' . $url;
+
+            $result[\XLite\Core\Converter::langToLocale($language->getCode())] = \Includes\Utils\URLManager::getShopURL($langUrl);
+
+        }
+
+        $result['x-default'] = \Includes\Utils\URLManager::getShopURL($url);
+
+
+        return $result;
+    }
+
+    /**
      * Controller marks the cart calculation.
      * In some cases we do not need to recalculate the cart.
      * We need it mainly on the checkout page.
@@ -368,17 +408,32 @@ abstract class ACustomer extends \XLite\Controller\AController
     /**
      * Recalculates the shopping cart
      *
-     * @return void
+     * @param boolean $silent
+     *
+     * @throws \Exception
      */
     protected function updateCart($silent = false)
     {
+        $em = \XLite\Core\Database::getEM();
+        $em->getConnection()->beginTransaction();
+
         $cart = $this->getCart();
+        try {
+            if ($cart->isManaged()) {
+                $em->lock($cart, \Doctrine\DBAL\LockMode::PESSIMISTIC_WRITE);
+            }
 
-        if ($this->markCartCalculate()) {
-            $cart->updateOrder();
+            if ($this->markCartCalculate()) {
+                $cart->updateOrder();
+            }
+
+            \XLite\Core\Database::getRepo('XLite\Model\Cart')->update($cart);
+            $em->getConnection()->commit();
+        } catch (\Exception $e) {
+            $em->getConnection()->rollback();
+
+            throw $e;
         }
-
-        \XLite\Core\Database::getRepo('XLite\Model\Cart')->update($cart);
 
         if (!$silent) {
             $this->assembleEvent();
@@ -399,11 +454,23 @@ abstract class ACustomer extends \XLite\Controller\AController
             $this->getCart()->getEventFingerprint($this->getCartFingerprintExclude())
         );
 
+        $postponeCellName = 'initialCartFingerprintPostponed' . $this->getCart()->getOrderId();
+        $actualDiff = [];
+
         if ($diff) {
             $actualDiff = $this->posprocessCartFingerprintDifference($diff);
             if ($actualDiff) {
-                \XLite\Core\Event::updateCart($actualDiff);
+                if (!$this->isAJAX()) {
+                    \XLite\Core\Session::getInstance()->{$postponeCellName} = $actualDiff;
+                }
             }
+        } elseif (\XLite\Core\Session::getInstance()->{$postponeCellName} && $this->isAJAX()) {
+            $actualDiff = \XLite\Core\Session::getInstance()->{$postponeCellName};
+            \XLite\Core\Session::getInstance()->{$postponeCellName} = null;
+        }
+        
+        if ($actualDiff) {
+            \XLite\Core\Event::updateCart($actualDiff);
         }
 
         return (bool)$diff;
@@ -461,6 +528,8 @@ abstract class ACustomer extends \XLite\Controller\AController
             'paymentMethodId',
             'shippingAddressId',
             'billingAddressId',
+            'shippingAddressFields',
+            'billingAddressFields',
             'sameAddress',
             'shippingMethodsHash',
             'paymentMethodsHash',
@@ -555,13 +624,34 @@ abstract class ACustomer extends \XLite\Controller\AController
     {
         $profile = $this->getCart()->getProfile();
 
-        if (!$profile) {
+        if (!$profile && $this->getCart()->isManaged()) {
+            $cart = $this->getCart();
+
             $profile = new \XLite\Model\Profile;
             $profile->setLogin('');
-            $profile->setOrder($this->getCart());
+            $profile->setOrder($cart);
             $profile->setAnonymous(true);
-            $this->getCart()->setProfile($profile);
-            $profile->create();
+
+            try {
+                \XLite\Core\Database::getEM()->transactional(function($em) use (&$profile, &$cart) {
+                    if ($cart->isManaged()) {
+                        $em->lock($cart, \Doctrine\DBAL\LockMode::PESSIMISTIC_WRITE);
+                    }
+
+                    $cart->setProfile($profile);
+                    $em->persist($profile);
+                });
+            } catch (\Exception $e) {
+                \XLite\Logger::getInstance()->log(
+                    'Failure to create anonymous profile for cart ' . 
+                    $this->getCart()->getUniqueIdentifier() . PHP_EOL . 
+                    $e->getMessage() . PHP_EOL . 
+                    $e->getTraceAsString(), LOG_ERR);
+
+                // TODO: check if this is appropriate way to handle the concurrency problem
+                sleep(3);
+                $profile = $this->getCart()->getProfile();
+            }
         }
 
         return $profile;
@@ -585,7 +675,7 @@ abstract class ACustomer extends \XLite\Controller\AController
      */
     protected function isFullCustomerSecurity()
     {
-        return false;
+        return \XLite\Core\Config::getInstance()->Security->customer_security && \XLite\Core\Config::getInstance()->Security->force_customers_to_https;
     }
 
     // {{{ Clean URLs related routines
@@ -600,6 +690,7 @@ abstract class ACustomer extends \XLite\Controller\AController
         parent::doNoAction();
 
         if (LC_USE_CLEAN_URLS
+            && !\XLite::isCleanURL()
             && !$this->isAJAX()
             && !$this->isRedirectNeeded()
             && $this->isRedirectToCleanURLNeeded()
@@ -621,10 +712,11 @@ abstract class ACustomer extends \XLite\Controller\AController
      */
     protected function isRedirectToCleanURLNeeded()
     {
-        return preg_match(
-            '/\/cart\.php/Si',
-            \Includes\Utils\ArrayManager::getIndex(\XLite\Core\Request::getInstance()->getServerData(), 'REQUEST_URI')
-        );
+        return isset(\XLite\Model\Repo\CleanURL::getConfigCleanUrlAliases()[$this->getTarget()])
+            || preg_match(
+                '/\/cart\.php/Si',
+                \Includes\Utils\ArrayManager::getIndex(\XLite\Core\Request::getInstance()->getServerData(), 'REQUEST_URI')
+            );
     }
 
     /**
@@ -817,5 +909,126 @@ abstract class ACustomer extends \XLite\Controller\AController
 
         // $resizeData[0] - width, $resizeData[1] - height
         return isset($resizeData[$id]) ? $resizeData[$id] : 0;
+    }
+
+
+    /**
+     * Makes given address as selected on current cart.
+     * Throws core events "selectCartAddress" and "updateCart".
+     * 
+     * @param  [type]  $atype               Address type (billing\shipping) short tag
+     * @param  [type]  $addressId           Address id
+     * @param  boolean $hasEmptyFields      If true, sends updateCart event even if addressId hasn't changed
+     * @param  boolean $preserveSameAddress If true and shipping\billing addresses are the same, new address will be applied to both addresses; if false, only the address of given type will change.
+     */
+    protected function selectCartAddress($atype, $addressId, $hasEmptyFields = false, $preserveSameAddress = true)
+    {
+        if (\XLite\Model\Address::SHIPPING != $atype && \XLite\Model\Address::BILLING != $atype) {
+            $this->valid = false;
+            \XLite\Core\TopMessage::addError('Address type has wrong value');
+
+        } elseif (!$addressId) {
+            $this->valid = false;
+            \XLite\Core\TopMessage::addError('Address is not selected');
+
+        } else {
+            $address = \XLite\Core\Database::getRepo('XLite\Model\Address')->find($addressId);
+
+            if (!$address) {
+                // Address not found
+                $this->valid = false;
+                \XLite\Core\TopMessage::addError('Address not found');
+
+            } elseif (
+                \XLite\Model\Address::SHIPPING == $atype
+                && $this->getCart()->getProfile()->getShippingAddress()
+                && $address->getAddressId() == $this->getCart()->getProfile()->getShippingAddress()->getAddressId()
+            ) {
+                if ($hasEmptyFields) {
+                    \XLite\Core\Event::updateCart(
+                        array(
+                            'shippingAddressId' => $address->getAddressId(),
+                        )
+                    );
+                }
+
+            } elseif (
+                \XLite\Model\Address::BILLING == $atype
+                && $this->getCart()->getProfile()->getBillingAddress()
+                && $address->getAddressId() == $this->getCart()->getProfile()->getBillingAddress()->getAddressId()
+            ) {
+
+                if ($hasEmptyFields) {
+                    \XLite\Core\Event::updateCart(
+                        array(
+                            'billingAddressId' => $address->getAddressId(),
+                        )
+                    );
+                }
+
+            } else {
+                if (\XLite\Model\Address::SHIPPING == $atype) {
+                    $old = $this->getCart()->getProfile()->getShippingAddress();
+                    $andAsBilling = false;
+                    if ($old) {
+                        $old->setIsShipping(false);
+                        $andAsBilling = $old->getIsBilling();
+                        if ($old->getIsWork() && !$andAsBilling) {
+                            $this->getCart()->getProfile()->getAddresses()->removeElement($old);
+                            \XLite\Core\Database::getEM()->remove($old);
+
+                        } elseif ($andAsBilling && $preserveSameAddress) {
+                            $old->setIsBilling(false);
+                        }
+
+                    } elseif (!$this->getCart()->getProfile()->getBillingAddress()) {
+                        $andAsBilling = true;
+                    }
+
+                    $address->setIsShipping(true);
+                    if ($andAsBilling && $preserveSameAddress) {
+                        $address->setIsBilling($andAsBilling);
+                    }
+
+                } else {
+                    $old = $this->getCart()->getProfile()->getBillingAddress();
+                    $andAsShipping = false;
+                    if ($old) {
+                        $old->setIsBilling(false);
+                        $andAsShipping = $old->getIsShipping();
+                        if ($old->getIsWork() && !$andAsShipping) {
+                            $this->getCart()->getProfile()->getAddresses()->removeElement($old);
+                            \XLite\Core\Database::getEM()->remove($old);
+
+                        } elseif ($andAsShipping && $preserveSameAddress) {
+                            $old->setIsShipping(false);
+                        }
+
+                    } elseif (!$this->getCart()->getProfile()->getShippingAddress()) {
+                        $andAsShipping = true;
+                    }
+
+                    $address->setIsBilling(true);
+                    if ($andAsShipping && $preserveSameAddress) {
+                        $address->setIsShipping($andAsShipping);
+                    }
+                }
+
+                \XLite\Core\Session::getInstance()->same_address = $this->getCart()->getProfile()->isEqualAddress();
+
+                \XLite\Core\Event::selectCartAddress(
+                    array(
+                        'type'      => $atype,
+                        'addressId' => $address->getAddressId(),
+                        'same'      => $this->getCart()->getProfile()->isSameAddress(),
+                        'fields'    => $address->serialize()
+                    )
+                );
+
+                \XLite\Core\Database::getEM()->flush();
+
+                $this->updateCart();
+            }
+        }
     }
 }

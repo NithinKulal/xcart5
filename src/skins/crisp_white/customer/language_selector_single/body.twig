@@ -1,0 +1,16 @@
+{##
+ # Language selector
+ #}
+
+<div class="single-language-selector">
+  <ul>
+    <li>
+      <label class="selected" data-href="{{ this.getChangeLanguageLink(this.currentLanguage) }}">{{ this.currentLanguage.name }}</label>
+    </li>
+    {% for language in this.getActiveLanguages() %}
+      <li>
+        <label data-href="{{ this.getChangeLanguageLink(language) }}">{{ language.name }}</label>
+      </li>
+    {% endfor %}
+  </ul>
+</div>

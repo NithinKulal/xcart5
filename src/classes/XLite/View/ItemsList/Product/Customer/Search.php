@@ -51,8 +51,6 @@ class Search extends \XLite\View\ItemsList\Product\Customer\ACustomer
      * Define and set widget attributes; initialize widget
      *
      * @param array $params Widget params OPTIONAL
-     *
-     * @return void
      */
     public function __construct(array $params = array())
     {
@@ -80,7 +78,7 @@ class Search extends \XLite\View\ItemsList\Product\Customer\ACustomer
      *
      * @return array
      */
-    static public function getSearchParams()
+    public static function getSearchParams()
     {
         return array(
             \XLite\Model\Repo\Product::P_SUBSTRING   => self::PARAM_SUBSTRING,
@@ -97,12 +95,12 @@ class Search extends \XLite\View\ItemsList\Product\Customer\ACustomer
      *
      * @return array
      */
-    static public function getBasicSearchParams()
+    public static function getBasicSearchParams()
     {
         return array(
-            \XLite\Model\Repo\Product::P_SUBSTRING   => self::PARAM_SUBSTRING,
-            \XLite\Model\Repo\Product::P_INCLUDING   => self::PARAM_INCLUDING,
-            \XLite\Model\Repo\Product::P_SEARCH_IN_SUBCATS   => self::PARAM_SEARCH_IN_SUBCATS,
+            \XLite\Model\Repo\Product::P_SUBSTRING         => self::PARAM_SUBSTRING,
+            \XLite\Model\Repo\Product::P_INCLUDING         => self::PARAM_INCLUDING,
+            \XLite\Model\Repo\Product::P_SEARCH_IN_SUBCATS => self::PARAM_SEARCH_IN_SUBCATS,
         );
     }
 
@@ -147,9 +145,7 @@ class Search extends \XLite\View\ItemsList\Product\Customer\ACustomer
     public function getCSSFiles()
     {
         $list = parent::getCSSFiles();
-
-        // Static call of the non-static function
-        $list[] = parent::getDir() . '/search/search.css';
+        $list[] = $this->getDir() . '/search/search.css';
 
         return $list;
     }
@@ -162,9 +158,7 @@ class Search extends \XLite\View\ItemsList\Product\Customer\ACustomer
     public function getJSFiles()
     {
         $list = parent::getJSFiles();
-
-        // Static call of the non-static function
-        $list[] = parent::getDir() . '/search/controller.js';
+        $list[] = $this->getDir() . '/search/controller.js';
 
         return $list;
     }
@@ -246,7 +240,7 @@ class Search extends \XLite\View\ItemsList\Product\Customer\ACustomer
      */
     protected function getPagerClass()
     {
-        return '\XLite\View\Pager\Customer\Product\Search';
+        return 'XLite\View\Pager\Customer\Product\Search';
     }
 
     /**
@@ -321,7 +315,7 @@ class Search extends \XLite\View\ItemsList\Product\Customer\ACustomer
     {
         $result = parent::getSearchCondition();
 
-        if ('directLink' != \XLite\Core\Config::getInstance()->General->show_out_of_stock_products) {
+        if ('directLink' !== \XLite\Core\Config::getInstance()->General->show_out_of_stock_products) {
             $result->{\XLite\Model\Repo\Product::P_INVENTORY} = false;
         }
 
@@ -368,7 +362,7 @@ class Search extends \XLite\View\ItemsList\Product\Customer\ACustomer
      */
     protected function getSavedRequestParam($param)
     {
-        return \XLite\View\Pager\APager::PARAM_PAGE_ID != $param ? parent::getSavedRequestParam($param) : null;
+        return \XLite\View\Pager\APager::PARAM_PAGE_ID !== $param ? parent::getSavedRequestParam($param) : null;
     }
 
     /**

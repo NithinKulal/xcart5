@@ -20,22 +20,17 @@ class Rate extends \XLite\View\ItemsList\Model\Table
      */
     protected function defineColumns()
     {
-        return array(
-            'taxClass' => array(
-                static::COLUMN_NAME          => static::t('Tax class'),
-                static::COLUMN_CLASS         => 'XLite\View\Taxes\Inline\TaxClass',
+        $columns = array(
+            'zone' => array(
+                static::COLUMN_NAME          => static::t('Zone'),
+                static::COLUMN_CLASS         => 'XLite\View\Taxes\Inline\Zone',
                 static::COLUMN_ORDERBY       => 100,
+                static::COLUMN_HEAD_TEMPLATE => 'modules/CDev/SalesTax/zone_head.twig',
             ),
             'membership' => array(
                 static::COLUMN_NAME          => static::t('User membership'),
                 static::COLUMN_CLASS         => 'XLite\View\FormField\Inline\Select\Membership',
-                static::COLUMN_ORDERBY       => 200,
-            ),
-            'zone' => array(
-                static::COLUMN_NAME          => static::t('Zone'),
-                static::COLUMN_CLASS         => 'XLite\View\Taxes\Inline\Zone',
                 static::COLUMN_ORDERBY       => 300,
-                static::COLUMN_HEAD_TEMPLATE => 'modules/CDev/SalesTax/zone_head.twig',
             ),
             'taxableBase' => array(
                 static::COLUMN_NAME          => static::t('Taxable base'),
@@ -51,6 +46,18 @@ class Rate extends \XLite\View\ItemsList\Model\Table
                 static::COLUMN_ORDERBY       => 400,
             ),
         );
+
+        $isDefinedTaxClasses = (bool)\XLite\Core\Database::getRepo('XLite\Model\TaxClass')->findAll();
+
+        if ($isDefinedTaxClasses) {
+            $columns['taxClass'] = array(
+                static::COLUMN_NAME          => static::t('Tax class'),
+                static::COLUMN_CLASS         => 'XLite\View\Taxes\Inline\TaxClass',
+                static::COLUMN_ORDERBY       => 200,
+            );
+        }
+
+        return $columns;
     }
 
     /**

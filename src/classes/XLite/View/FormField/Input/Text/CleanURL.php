@@ -34,7 +34,9 @@ class CleanURL extends \XLite\View\FormField\Input\Text
      */
     public function prepareRequestData($value)
     {
-        $data = preg_replace('/\.' . $this->getExtension() . '$/', '', parent::prepareRequestData($value));
+        $data = $this->getExtension()
+            ? preg_replace('/\.' . $this->getExtension() . '$/', '', parent::prepareRequestData($value)) 
+            : parent::prepareRequestData($value) ;
 
         return $data ? ($data . ($this->getExtension() ? '.' . $this->getExtension() : '')) : '';
     }

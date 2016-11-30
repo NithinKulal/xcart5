@@ -13,12 +13,7 @@ namespace XLite\View\StickyPanel;
  */
 class ItemsListForm extends \XLite\View\StickyPanel\ItemForm
 {
-    /**
-     * Additional buttons (cache)
-     *
-     * @var array
-     */
-    protected $additionalButtons;
+    use \XLite\Core\Cache\ExecuteCachedTrait;
 
     /**
      * Register JS files
@@ -28,7 +23,6 @@ class ItemsListForm extends \XLite\View\StickyPanel\ItemForm
     public function getJSFiles()
     {
         $list = parent::getJSFiles();
-
         $list[] = 'js/stickyPanelModelList.js';
 
         return $list;
@@ -37,7 +31,7 @@ class ItemsListForm extends \XLite\View\StickyPanel\ItemForm
     /**
      * Check panel has more actions buttons
      *
-     * @return boolean 
+     * @return boolean
      */
     protected function hasMoreActionsButtons()
     {
@@ -47,7 +41,7 @@ class ItemsListForm extends \XLite\View\StickyPanel\ItemForm
     /**
      * Should more actions buttons be disabled?
      *
-     * @return boolean 
+     * @return boolean
      */
     protected function isMoreActionsDisabled()
     {
@@ -65,9 +59,9 @@ class ItemsListForm extends \XLite\View\StickyPanel\ItemForm
 
         if ($this->getAdditionalButtons()) {
             $list['additional'] = $this->getWidget(
-                array(
+                [
                     'template' => 'items_list/model/additional_buttons.twig',
-                )
+                ]
             );
         }
 
@@ -95,39 +89,56 @@ class ItemsListForm extends \XLite\View\StickyPanel\ItemForm
     }
 
     /**
-     * Returns "more actions" specific label for bubble context window
-     *
-     * @return string
-     */
-    protected function getMoreActionsPopupText()
-    {
-        return static::t('More actions for selected');
-    }
-
-    /**
      * Get additional buttons
      *
      * @return array
      */
     protected function getAdditionalButtons()
     {
-        if (!isset($this->additionalButtons)) {
-            $this->additionalButtons = $this->defineAdditionalButtons();
-        }
-
-        return $this->additionalButtons;
+        return $this->executeCachedRuntime(function () {
+            return $this->prepareAdditionalButtons($this->defineAdditionalButtons());
+        });
     }
 
     /**
      * Define additional buttons
      * These buttons will be composed into dropup menu.
-     * The divider button is also available: \XLite\View\Button\Divider
+     * The divider button is also available: \XLite\View\Button\Dropdown\Divider
      *
      * @return array
      */
     protected function defineAdditionalButtons()
     {
-        return array();
+        return [];
+    }
+
+    /**
+     * @param array $additionalButtons
+     *
+     * @return array
+     */
+    protected function prepareAdditionalButtons($additionalButtons)
+    {
+        uasort($additionalButtons, function ($a, $b) {
+            $a = $a['position'];
+            $b = $b['position'];
+
+            if ($a === $b) {
+                return 0;
+            }
+
+            return $a > $b;
+        });
+
+        $result = [];
+        foreach ($additionalButtons as $name => $additionalButton) {
+            $result[$name] = $this->getWidget(
+                $additionalButton['params'],
+                isset($additionalButton['class']) ? $additionalButton['class'] : 'XLite\View\Button\Regular'
+            );
+        }
+
+        return $result;
     }
 
     /**
@@ -138,11 +149,10 @@ class ItemsListForm extends \XLite\View\StickyPanel\ItemForm
     protected function getClass()
     {
         $class = parent::getClass();
-
-        $class = trim($class . ' model-list');
+        $class = trim($class) . ' model-list';
 
         if ($this->getAdditionalButtons()) {
-            $class = trim($class . ' has-add-buttons');
+            $class .= ' has-add-buttons';
         }
 
         return $class;

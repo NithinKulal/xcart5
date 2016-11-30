@@ -122,6 +122,9 @@
     {% if v_validate is not empty %}
         initial="off" v-validate:{{ v_validate_path }}="{{ v_validate }}"
     {% endif %}
+    {% if v_validate_trigger is not empty %}
+        v-xlite-validate-trigger="{{ v_validate_trigger }}"
+    {% endif %}
 {%- endblock widget_validation -%}
 
 {# field set #}

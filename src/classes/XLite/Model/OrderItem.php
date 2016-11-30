@@ -153,8 +153,6 @@ class OrderItem extends \XLite\Model\Base\SurchargeOwner
      * Constructor
      *
      * @param array $data Entity properties OPTIONAL
-     *
-     * @return void
      */
     public function __construct(array $data = array())
     {
@@ -178,8 +176,6 @@ class OrderItem extends \XLite\Model\Base\SurchargeOwner
      * Set order
      *
      * @param \XLite\Model\Order $order Order OPTIONAL
-     *
-     * @return void
      */
     public function setOrder(\XLite\Model\Order $order = null)
     {
@@ -440,7 +436,7 @@ class OrderItem extends \XLite\Model\Base\SurchargeOwner
      */
     public function hasImage()
     {
-        return !is_null($this->getImage()) && (bool)$this->getImage()->getId();
+        return null !== $this->getImage() && (bool) $this->getImage()->getId();
     }
 
     /**
@@ -577,7 +573,7 @@ class OrderItem extends \XLite\Model\Base\SurchargeOwner
         foreach ($this->getAttributeValues() as $attributeValue) {
             $actualAttributeValue = $attributeValue->getAttributeValue();
             if ($actualAttributeValue) {
-                if ($actualAttributeValue instanceOf \XLite\Model\AttributeValue\AttributeValueText) {
+                if ($actualAttributeValue instanceof \XLite\Model\AttributeValue\AttributeValueText) {
                     $value = $attributeValue->getValue();
 
                 } else {
@@ -587,6 +583,7 @@ class OrderItem extends \XLite\Model\Base\SurchargeOwner
                 $result[$actualAttributeValue->getAttribute()->getId()] = $value;
             }
         }
+
         ksort($result);
 
         return $result;
@@ -663,7 +660,7 @@ class OrderItem extends \XLite\Model\Base\SurchargeOwner
      */
     public function isValid()
     {
-        $result = 0 < $this->getAmount();
+        $result = $this->getProduct()->getEnabled() && 0 < $this->getAmount();
 
         if (
             $result
@@ -764,7 +761,7 @@ class OrderItem extends \XLite\Model\Base\SurchargeOwner
     {
         $this->price = $price;
 
-        if (!isset($this->itemNetPrice)) {
+        if (null === $this->itemNetPrice) {
             $this->setItemNetPrice($price);
         }
     }
@@ -844,7 +841,7 @@ class OrderItem extends \XLite\Model\Base\SurchargeOwner
             } else {
                 $this->setPrice($product->getDisplayPrice());
                 $this->setName($product->getName());
-                $this->setSKU($product->getSKU());
+                $this->setSku($product->getSku());
             }
         }
 
@@ -945,12 +942,10 @@ class OrderItem extends \XLite\Model\Base\SurchargeOwner
      */
     public function calculateNetSubtotal()
     {
-        if ($this->isOrderOpen() || is_null($this->getItemNetPrice())) {
+        if ($this->isOrderOpen() || null === $this->getItemNetPrice()) {
             $this->setItemNetPrice($this->defineNetPrice());
         }
 
-        // FIXME: Check if supposed solution works and remove commented line (see XCN-1002)
-        // return $this->getOrder()->getCurrency()->roundValue($this->getItemNetPrice()) * $this->getAmount();
         return $this->getItemNetPrice() * $this->getAmount();
     }
 
@@ -1013,8 +1008,7 @@ class OrderItem extends \XLite\Model\Base\SurchargeOwner
      */
     protected function getDeletedProduct()
     {
-        if (!isset($this->dumpProduct)) {
-
+        if (null === $this->dumpProduct) {
             $this->dumpProduct = new \XLite\Model\Product();
 
             $this->dumpProduct->setPrice($this->getItemPrice());
@@ -1076,7 +1070,7 @@ class OrderItem extends \XLite\Model\Base\SurchargeOwner
     /**
      * Get item_id
      *
-     * @return integer 
+     * @return integer
      */
     public function getItemId()
     {
@@ -1110,7 +1104,7 @@ class OrderItem extends \XLite\Model\Base\SurchargeOwner
     /**
      * Get sku
      *
-     * @return string 
+     * @return string
      */
     public function getSku()
     {
@@ -1120,7 +1114,7 @@ class OrderItem extends \XLite\Model\Base\SurchargeOwner
     /**
      * Get price
      *
-     * @return float 
+     * @return float
      */
     public function getPrice()
     {
@@ -1130,7 +1124,7 @@ class OrderItem extends \XLite\Model\Base\SurchargeOwner
     /**
      * Set itemNetPrice
      *
-     * @param decimal $itemNetPrice
+     * @param float $itemNetPrice
      * @return OrderItem
      */
     public function setItemNetPrice($itemNetPrice)
@@ -1142,7 +1136,7 @@ class OrderItem extends \XLite\Model\Base\SurchargeOwner
     /**
      * Set discountedSubtotal
      *
-     * @param decimal $discountedSubtotal
+     * @param float $discountedSubtotal
      * @return OrderItem
      */
     public function setDiscountedSubtotal($discountedSubtotal)
@@ -1154,7 +1148,7 @@ class OrderItem extends \XLite\Model\Base\SurchargeOwner
     /**
      * Get discountedSubtotal
      *
-     * @return decimal 
+     * @return float
      */
     public function getDiscountedSubtotal()
     {
@@ -1164,7 +1158,7 @@ class OrderItem extends \XLite\Model\Base\SurchargeOwner
     /**
      * Get amount
      *
-     * @return integer 
+     * @return integer
      */
     public function getAmount()
     {
@@ -1174,7 +1168,7 @@ class OrderItem extends \XLite\Model\Base\SurchargeOwner
     /**
      * Get total
      *
-     * @return decimal 
+     * @return float
      */
     public function getTotal()
     {
@@ -1184,7 +1178,7 @@ class OrderItem extends \XLite\Model\Base\SurchargeOwner
     /**
      * Get subtotal
      *
-     * @return decimal 
+     * @return float
      */
     public function getSubtotal()
     {
@@ -1194,7 +1188,7 @@ class OrderItem extends \XLite\Model\Base\SurchargeOwner
     /**
      * Get object
      *
-     * @return \XLite\Model\Product 
+     * @return \XLite\Model\Product
      */
     public function getObject()
     {
@@ -1204,7 +1198,7 @@ class OrderItem extends \XLite\Model\Base\SurchargeOwner
     /**
      * Get order
      *
-     * @return \XLite\Model\Order 
+     * @return \XLite\Model\Order
      */
     public function getOrder()
     {
@@ -1226,7 +1220,7 @@ class OrderItem extends \XLite\Model\Base\SurchargeOwner
     /**
      * Get surcharges
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getSurcharges()
     {
@@ -1248,7 +1242,7 @@ class OrderItem extends \XLite\Model\Base\SurchargeOwner
     /**
      * Get attributeValues
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection|\XLite\Model\OrderItem\AttributeValue[]
      */
     public function getAttributeValues()
     {

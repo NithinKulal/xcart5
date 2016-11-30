@@ -1,0 +1,80 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Product image gallery visible styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+div div.product-details .product-details-info {
+  @media (min-width: @screen-sm-min) {
+    width: percentage((5 / @grid-columns));
+  }
+}
+
+div.product-details div.product-image-gallery{
+  &.mobile {
+    display: none;
+    width: 100%;
+    height: 90px;
+    text-align: center;
+    margin-bottom: 20px;
+
+    .product-image-gallery-navigation {
+      height: 90px;
+      width: 20px;
+
+      &:before {
+        position: absolute;
+        top: 32px;
+      }
+    }
+
+    #product-image-gallery-prev-mobile {
+      float: left;
+
+      &:before {
+        transform: rotate(90deg);
+      }
+    }
+
+    #product-image-gallery-next-mobile {
+      float: right;
+
+      &:before {
+        transform: rotate(270deg);
+      }
+    }
+
+    .slides {
+      margin: 0 20px;
+      overflow: hidden;
+    }
+
+    ul {
+      height: 90px !important;
+      margin: 0 auto;
+
+      li {
+        width: 75px;
+        height: 90px;
+        margin: 0 7px;
+      }
+
+      &:not(.cycle-slide) {
+        li {
+          display: inline-block;
+        }
+      }
+    }
+  }
+
+  @media(max-width: @screen-xs-max) {
+    display: none;
+
+    &.mobile {
+      display: block;
+    }
+  }
+}

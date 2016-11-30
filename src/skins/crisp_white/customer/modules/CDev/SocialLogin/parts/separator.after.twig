@@ -1,0 +1,11 @@
+{##
+ # SocialLogin widget's following elements
+ #
+ # @ListChild (list="social.login", weight="9999")
+ #}
+
+{% if this.getSeparatorPosition() == 'after' %}
+<div class="or-separator">
+    <span class="or-separator-text">{{ this.getSeparatorText() }}</span>
+</div>
+{% endif %}

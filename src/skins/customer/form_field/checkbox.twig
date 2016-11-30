@@ -3,6 +3,6 @@
  #}
 <span class="input-field-wrapper {{ this.getWrapperClass() }}">
   {{ this.displayCommentedData(this.getCommentedData()) }}
-  <input type="hidden" name="{{ this.getName() }}" value="" />
+  <input type="hidden" name="{{ this.getName() }}" value="{{ this.getDefaultHiddenValue() }}" />
   <input{{ this.getAttributesCode()|raw }} />
 </span>

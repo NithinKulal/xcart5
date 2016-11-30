@@ -1,0 +1,4 @@
+Version 5.3.2.0
+
+Fixes
+2016-08-22 - [Bug] Fixed the styles for the names of options on the product page in the Noblesse theme. #BUG-3747 (Michael Lipinski) #ColorSchemes

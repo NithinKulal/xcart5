@@ -1,27 +1,12 @@
 {##
  # Calculate quick data progress section
  #}
-<div class="dialog-block remove-data-box remove-data-progress">
-
-  <div class="header clearfix">
-    <h2>{{ t('Removing data...') }}</h2>
-  </div>
+<div class="remove-data-box remove-data-progress">
 
   <div class="content">
     {% form 'XLite\\View\\Form\\RemoveData' with {formAction: 'removeDataCancel'} %}
     <div class="subcontent">
-      {{ widget('XLite\\View\\EventTaskProgress', event=this.getEventName()) }}
-      {{ widget('XLite\\View\\Button\\Submit', label=t('Cancel')) }}
-      <div class="time">{{ t('About X remaining', {'time': this.getTimeLabel()}) }}</div>
-    </div>
-    <div class="help">
-      <i class="icon-info-sign"></i>
-      <p>
-        {% if this.isBlocking() %}
-        {% else %}
-        {{ t('The process of data removal may take a while to complete. Please do not close this page until the process is fully completed.') }}
-        {% endif %}
-      </p>
+      {{ widget('XLite\\View\\EventTaskProgress', event=this.getEventName(), message=this.getProgressMessage() ) }}
     </div>
     {% endform %}
   </div>

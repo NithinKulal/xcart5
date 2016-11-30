@@ -140,22 +140,32 @@ class CategoryFilter extends \XLite\View\ItemsList\Product\Customer\Category\ACa
     }
 
     /**
-     * Return products list
-     *
-     * @param \XLite\Core\CommonCell $cnd       Search condition
-     * @param boolean                $countOnly Return items list or only its size OPTIONAL
-     *
-     * @return array|void
+     * @inheritdoc
      */
-    protected function getData(\XLite\Core\CommonCell $cnd, $countOnly = false)
+    public static function getSearchParams()
     {
-        if (null === $cnd) {
-            $cnd = new \XLite\Core\CommonCell();
-        }
+        return array_merge(
+            parent::getSearchParams(),
+            [
+                'filter' => static::PARAM_FILTER,
+            ]
+        );
+    }
 
-        $cnd->filter = $this->getParam(self::PARAM_FILTER);
-    
-        return parent::getData($cnd, $countOnly);
+    /**
+     * Get search values storage
+     *
+     * @param boolean $forceFallback Force fallback to session storage
+     *
+     * @return \XLite\View\ItemsList\ISearchValuesStorage
+     */
+    public static function getSearchValuesStorage($forceFallback = false)
+    {
+        $requestData = \XLite\Core\Request::getInstance()->getData();
+        
+        return new \XLite\View\ItemsList\RequestSearchValuesStorage(
+            $requestData
+        );
     }
 
     /**

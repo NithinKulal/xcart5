@@ -60,7 +60,6 @@ XLite\Model\Category:
 
     children:
       - pos: 30
-        show_title: false
         cleanURLs: [{ cleanURL: igoods }]
         image: { path: igoods.png, mime: image/png, width: 434, height: 555, size: 265767, date: 1394109447 }
         banner: { path: banner_igoods_clean.jpg, mime: image/jpeg, width: 2720, height: 800, size: 125253, date: 1394109447 }
@@ -95,7 +94,6 @@ XLite\Model\Category:
           - { product: { sku: '12011' }, orderby: 120 }
 
       - cleanURLs: [{ cleanURL: apparel }]
-        show_title: false
         pos: 10
         image: { path: 1814_star_trek_command_cycle_jersey.jpeg, mime: image/jpeg, width: 600, height: 640, size: 56283, date: 1278412215 }
         banner: { path: banner_apparel_clean.jpg, mime: image/jpeg, width: 2720, height: 800, size: 122998, date: 1394109447 }
@@ -115,7 +113,6 @@ XLite\Model\Category:
           - { product: { sku: '100ewl' }, orderby: 0 }
 
       - cleanURLs: [{ cleanURL: toys }]
-        show_title: false
         pos: 40
         image: { path: ijrm_back_to_the_future_vinyl_idols.png,  mime: image/png, width: 600, height: 590, size: 276157 }
         banner: { path: banner_toys_clean.jpg, mime: image/jpeg, width: 2720, height: 800, size: 124298, date: 1394109447 }
@@ -180,6 +177,7 @@ XLite\Model\Config:
   - { name: time_zone, category: General, value: Europe/Moscow }
   - { name: order_number_counter, category: General, value: 6 }
   - { name: checkout_type, category: General, value: 'one-page' }
+  - { name: layout_type_home, category: Layout, value: 'one' }
 
 XLite\Model\Zone:
   - { zone_name: 'All Addresses (default zone)' }
@@ -190,7 +188,7 @@ XLite\Model\Zone:
 XLite\Model\Shipping\Method:
   - { processor: offline, code: courier, added: true, enabled: true, tableType: S, position: 10, translations: [{ code: en, name: Courier, deliveryTime: 2 - 4 days }, { code: ru, name: Доставка курьером, deliveryTime: 2 - 4 дня }], shipping_markups: [{ zone: { zone_name: United States }, min_weight: 0, max_weight: 999999999, min_total: 0, max_total: 999999999, min_items: 0, max_items: 999999999, markup_flat: 2.45, markup_percent: 1.5, markup_per_item: 0, markup_per_weight: 0 }, { zone: { zone_name: 'North of United States & Canada' }, min_weight: 0, max_weight: 999999999, min_total: 0, max_total: 999999999, min_items: 0, max_items: 999999999, markup_flat: 2.5, markup_percent: 1.5, markup_per_item: 0, markup_per_weight: 0 }, { zone: { zone_name: All Addresses (default zone) }, min_weight: 0, max_weight: 999999999, min_total: 0, max_total: 999999999, min_items: 0, max_items: 999999999, markup_flat: 5.5, markup_percent: 1.75, markup_per_item: 0, markup_per_weight: 0 }] }
   - { processor: offline, added: true, enabled: true, tableType: S, position: 20, translations: [{ code: en, name: Local shipping, deliveryTime: up to one week }, { code: ru, name: Местная доставка, deliveryTime: до одной недели }], shipping_markups: [{ zone: { zone_name: United States }, min_weight: 0, max_weight: 999999999, min_total: 0, max_total: 999999999, min_items: 0, max_items: 999999999, markup_flat: 3.45, markup_percent: 1.75, markup_per_item: 0, markup_per_weight: 0 }, { zone: { zone_name: 'North of United States & Canada' }, min_weight: 0, max_weight: 999999999, min_total: 0, max_total: 999999999, min_items: 0, max_items: 999999999, markup_flat: 3.5, markup_percent: 1.75, markup_per_item: 0, markup_per_weight: 0 }, { zone: { zone_name: All Addresses (default zone) }, min_weight: 0, max_weight: 999999999, min_total: 0, max_total: 999999999, min_items: 0, max_items: 999999999, markup_flat: 6.5, markup_percent: 1.85, markup_per_item: 0, markup_per_weight: 0 }] }
-  - { processor: offline, added: true, enabled: true, tableType: S, position: 30, translations: [{ code: en, name: One day shipping, deliveryTime: 1 day }, { code: ru, name: Эксперсс доставка, deliveryTime: 1 день }], shipping_markups: [{ zone: { zone_name: United States }, min_weight: 0, max_weight: 999999999, min_total: 0, max_total: 999999999, min_items: 0, max_items: 999999999, markup_flat: 100, markup_percent: 10, markup_per_item: 0, markup_per_weight: 0 }] }
+  - { processor: offline, added: true, enabled: true, tableType: S, position: 30, translations: [{ code: en, name: One day shipping, deliveryTime: 1 day }, { code: ru, name: Экспресс доставка, deliveryTime: 1 день }], shipping_markups: [{ zone: { zone_name: United States }, min_weight: 0, max_weight: 999999999, min_total: 0, max_total: 999999999, min_items: 0, max_items: 999999999, markup_flat: 100, markup_percent: 10, markup_per_item: 0, markup_per_weight: 0 }] }
   - { processor: offline, added: true, enabled: true, tableType: S, position: 40, translations: [{ code: en, name: Local pickup }, { code: ru, name: Самовывоз }], shipping_markups: [{ zone: { zone_name: All Addresses (default zone) }, min_weight: 0, max_weight: 999999999, min_total: 0, max_total: 999999999, min_items: 0, max_items: 999999999, markup_flat: 0, markup_percent: 0, markup_per_item: 0, markup_per_weight: 0 }] }
 
 XLite\Model\BannerRotationSlide:

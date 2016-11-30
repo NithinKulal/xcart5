@@ -6,8 +6,15 @@
  * Copyright (c) 2001-present Qualiteam software Ltd. All rights reserved.
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
-Checkout.define('Checkout.ShippingAddressForm', ['Checkout.AddressForm', 'Checkout.AddressSection'], function(){
-  Checkout.ShippingAddressForm = Checkout.AddressForm.extend({
+
+define(
+  'checkout_fastlane/blocks/address_form/shipping',
+  ['vue/vue', 
+   'checkout_fastlane/blocks/address_form', 
+   'checkout_fastlane/sections/address'], 
+  function(Vue, AddressForm, AddressSection) {
+
+  var ShippingAddressForm = AddressForm.extend({
     name: 'shipping-address-form',
 
     vuex: {
@@ -23,6 +30,7 @@ Checkout.define('Checkout.ShippingAddressForm', ['Checkout.AddressForm', 'Checko
 
     created: function() {
       this.shortType = 's';
+      this.fullType = 'shipping';
       this.shippingCalculationInProgress = false;
       this.blockers = [];
     },
@@ -70,14 +78,12 @@ Checkout.define('Checkout.ShippingAddressForm', ['Checkout.AddressForm', 'Checko
 
       triggerUpdate: function(options) {
         this.updateShippingAddress(this.toDataObject());
-        Checkout.ShippingAddressForm.super.options.methods.triggerUpdate.apply(this, arguments);
+        ShippingAddressForm.super.options.methods.triggerUpdate.apply(this, arguments);
       },
     },
   });
 
-  Checkout.AddressSection = Checkout.AddressSection.extend({
-    components: _.extend(Checkout.AddressSection.options.components, {
-      ShippingAddressForm: Checkout.ShippingAddressForm,
-    })
-  });
+  Vue.registerComponent(AddressSection, ShippingAddressForm);
+
+  return ShippingAddressForm;
 });

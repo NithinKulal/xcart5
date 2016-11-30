@@ -1,0 +1,4 @@
+Version 5.3.2.0
+
+Fixes
+2016-09-15 - [Bug] Added md5 hash verification for Authorize.Net SIM payment method. #BUG-3851 (Eugene Dementjev) #AuthorizeNet

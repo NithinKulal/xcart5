@@ -4,6 +4,12 @@
 
 <tr class="product-cell {{ this.getProductCellClass() }}">
   {% for column in this.getViewList(this.getInheritedListName('columns'), {'product': this.product}) %}
-    <td>{{ column.display() }}</td>
+    <td>
+      {{ widget_list('column.before', type='inherited', product=this.product) }}
+
+      {{ column.display() }}
+
+      {{ widget_list('column.after', type='inherited', product=this.product) }}
+    </td>
   {% endfor %}
 </tr>

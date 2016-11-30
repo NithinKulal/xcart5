@@ -8,6 +8,8 @@
 
 namespace XLite\Module\XC\CrispWhiteSkin;
 
+use \XLite\Core\Layout;
+
 /**
  * Development module that simplifies the process of implementing design changes
  *
@@ -51,7 +53,7 @@ abstract class Main extends \XLite\Module\AModuleSkin
      */
     public static function getMinorVersion()
     {
-        return '1';
+        return '2';
     }
 
     /**
@@ -61,7 +63,17 @@ abstract class Main extends \XLite\Module\AModuleSkin
      */
     public static function getBuildVersion()
     {
-        return '4';
+        return '0';
+    }
+
+    /**
+     * Get minor core version which is required for the module activation
+     *
+     * @return string
+     */
+    public static function getMinorRequiredCoreVersion()
+    {
+        return '2';
     }
 
     /**
@@ -85,6 +97,19 @@ abstract class Main extends \XLite\Module\AModuleSkin
     }
 
     /**
+     * Returns supported layout types
+     *
+     * @return array
+     */
+    public static function getLayoutTypes()
+    {
+        return [
+            Layout::LAYOUT_GROUP_DEFAULT => Layout::getInstance()->getLayoutTypes(),
+            Layout::LAYOUT_GROUP_HOME => Layout::getInstance()->getLayoutTypes()
+        ];
+    }
+
+    /**
      * The following pathes are defined as substitutional skins:
      *
      * admin interface:     skins/custom_skin/admin/en/
@@ -104,186 +129,185 @@ abstract class Main extends \XLite\Module\AModuleSkin
     {
         $templates = [
             'authorization/parts/field.links.twig' => [
-                static::TO_ADD    => [
+                static::TO_ADD => [
                     ['customer.signin.popup.fields', 500, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'layout/content/main.location.twig'                             => [
+            'layout/content/main.location.twig' => [
                 static::TO_DELETE => [
                     ['layout.main', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
-                static::TO_ADD    => [
+                static::TO_ADD => [
                     ['center.top', 1000, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'layout/content/product.location.twig'                                      => [
+            'layout/content/product.location.twig' => [
                 static::TO_ADD => [
                     ['product.details.page.info', 5, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'layout/header/top_menu.twig'                                               => [
+            'layout/header/top_menu.twig' => [
                 static::TO_DELETE => [
                     ['layout.main', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
-                static::TO_ADD    => [
+                static::TO_ADD => [
                     ['layout.header', 300, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'layout/header/header.right.twig'                                           => [
+            'layout/header/header.right.twig' => [
                 static::TO_DELETE => [
                     ['layout.header', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
-                static::TO_ADD    => [
+                static::TO_ADD => [
                     ['header.menu.after', 100, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'layout/header/header.bar.search.twig'                                      => [
+            'layout/header/header.bar.search.twig' => [
                 static::TO_DELETE => [
                     ['layout.header.bar', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
-                static::TO_ADD    => [
+                static::TO_ADD => [
                     ['layout.header.bar', 50, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'layout/header/mobile_header_parts/account_menu.twig'                       => [
+            'layout/header/mobile_header_parts/account_menu.twig' => [
                 static::TO_DELETE => [
                     ['layout.header.mobile.menu', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'layout/header/mobile_header_parts/language_menu.twig'                      => [
+            'layout/header/mobile_header_parts/language_menu.twig' => [
                 static::TO_DELETE => [
                     ['layout.header.mobile.menu', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'layout/header/mobile_header_parts/search_menu.twig'                        => [
+            'layout/header/mobile_header_parts/search_menu.twig' => [
                 static::TO_DELETE => [
                     ['layout.header.mobile.menu', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'layout/header/mobile_header_parts/slidebar_menu.twig'                      => [
+            'layout/header/mobile_header_parts/slidebar_menu.twig' => [
                 static::TO_DELETE => [
                     ['layout.header.mobile.menu', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
-                static::TO_ADD    => [
+                static::TO_ADD => [
                     ['layout.header.mobile.menu', 2000, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'mini_cart/horizontal/parts/mobile.icon.twig'                               => [
+            'mini_cart/horizontal/parts/mobile.icon.twig' => [
                 static::TO_DELETE => [
                     ['minicart.horizontal.children', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'items_list/product/parts/common.labels.twig'                               => [
+            'items_list/product/parts/common.labels.twig' => [
                 static::TO_DELETE => [
                     ['itemsList.product.small_thumbnails.customer.details', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
-                static::TO_ADD    => [
+                static::TO_ADD => [
                     ['itemsList.product.small_thumbnails.customer.info.photo', 30, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
-                    ['product.details.page.image', 17, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ['product.details.quicklook.image', 17, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'shopping_cart/parts/item.remove.twig'                                      => [
+            'shopping_cart/parts/item.remove.twig' => [
                 static::TO_DELETE => [
                     ['cart.item', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
-                static::TO_ADD    => [
+                static::TO_ADD => [
                     ['cart.item', 100, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'shopping_cart/parts/item.info.weight.twig'                                 => [
+            'shopping_cart/parts/item.info.weight.twig' => [
                 static::TO_DELETE => [
                     ['cart.item.info', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
-                static::TO_ADD    => [
+                static::TO_ADD => [
                     ['cart.item.info', 15, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'items_list/product/parts/common.drag-n-drop-handle.twig'                   => [
+            'items_list/product/parts/common.drag-n-drop-handle.twig' => [
                 static::TO_DELETE => [
                     ['itemsList.product.grid.customer.info', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ['itemsList.product.list.customer.info', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ['itemsList.product.small_thumbnails.customer.info', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'product/details/stock/label.twig'                                          => [
+            'product/details/stock/label.twig' => [
                 static::TO_DELETE => [
                     ['itemsList.product.grid.customer.info', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ['itemsList.product.list.customer.info', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
-                static::TO_ADD    => [
+                static::TO_ADD => [
                     ['itemsList.product.grid.customer.info', 18, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ['itemsList.product.list.customer.info', 32, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'items_list/product/parts/common.sort-options.twig'                         => [
+            'items_list/product/parts/common.sort-options.twig' => [
                 static::TO_DELETE => [
                     ['itemsList.product.grid.customer.header', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ['itemsList.product.list.customer.header', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ['itemsList.product.table.customer.header', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
-                static::TO_ADD    => [
+                static::TO_ADD => [
                     ['itemsList.product.grid.customer.header', 10, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ['itemsList.product.list.customer.header', 10, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ['itemsList.product.table.customer.header', 10, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'items_list/product/parts/common.display-modes.twig'                        => [
+            'items_list/product/parts/common.display-modes.twig' => [
                 static::TO_DELETE => [
                     ['itemsList.product.grid.customer.header', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ['itemsList.product.list.customer.header', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ['itemsList.product.table.customer.header', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
-                static::TO_ADD    => [
+                static::TO_ADD => [
                     ['itemsList.product.grid.customer.header', 20, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ['itemsList.product.list.customer.header', 20, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ['itemsList.product.table.customer.header', 20, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'items_list/product/parts/common.product-name.twig'                         => [
+            'items_list/product/parts/common.product-name.twig' => [
                 static::TO_DELETE => [
                     ['itemsList.product.list.customer.info', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'items_list/product/center/list/parts/common.product-name.twig'             => [
+            'items_list/product/center/list/parts/common.product-name.twig' => [
                 static::TO_ADD => [
                     ['itemsList.product.list.customer.info', 20, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'items_list/product/parts/common.field-select-product.twig'                 => [
+            'items_list/product/parts/common.field-select-product.twig' => [
                 static::TO_DELETE => [
                     ['itemsList.product.table.customer.columns', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'items_list/product/parts/table.captions.field-select-all.twig'             => [
+            'items_list/product/parts/table.captions.field-select-all.twig' => [
                 static::TO_DELETE => [
                     ['itemsList.product.table.customer.captions', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'items_list/product/parts/common.added-mark.twig'                           => [
+            'items_list/product/parts/common.added-mark.twig' => [
                 static::TO_DELETE => [
                     ['itemsList.product.grid.customer.info', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ['itemsList.product.list.customer.photo', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ['itemsList.product.small_thumbnails.customer.info', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ['itemsList.product.big_thumbnails.customer.info', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
-                static::TO_ADD    => [
+                static::TO_ADD => [
                     ['itemsList.product.grid.customer.marks', 100, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ['itemsList.product.list.customer.marks', 100, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ['itemsList.product.table.customer.marks', 100, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'product/details/parts/common.image-next.twig'                              => [
+            'product/details/parts/common.image-next.twig' => [
                 static::TO_DELETE => [
                     ['product.details.page.image.photo', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'product/details/parts/common.image-previous.twig'                          => [
+            'product/details/parts/common.image-previous.twig' => [
                 static::TO_DELETE => [
                     ['product.details.page.image.photo', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'product/details/parts/common.loupe.twig'                              => [
+            'product/details/parts/common.loupe.twig' => [
                 static::TO_DELETE => [
                     ['product.details.page.image', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
@@ -291,67 +315,75 @@ abstract class Main extends \XLite\Module\AModuleSkin
                     ['product.details.page.image.photo', 100, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'product/details/parts/common.briefDescription.twig'                        => [
+            'product/details/parts/common.briefDescription.twig' => [
                 static::TO_DELETE => [
                     ['product.details.page.info', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
-                static::TO_ADD    => [
+                static::TO_ADD => [
                     ['product.details.page.info', 18, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'product/details/parts/common.stock.twig'                                   => [
+            'product/details/parts/common.stock.twig' => [
                 static::TO_DELETE => [
                     ['product.details.page.info', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
-                static::TO_ADD    => [
+                static::TO_ADD => [
                     ['product.details.page.info', 16, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'product/details/parts/common.product-editable-attributes.twig'             => [
+            'product/details/parts/common.product-editable-attributes.twig' => [
                 static::TO_DELETE => [
                     ['product.details.page.info', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ['product.details.quicklook.info', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
-                static::TO_ADD    => [
+                static::TO_ADD => [
                     ['product.details.page.info', 35, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ['product.details.quicklook.info', 30, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'product/details/parts/common.more-info-link.twig'                          => [
+            'product/details/parts/common.more-info-link.twig' => [
                 static::TO_DELETE => [
                     ['product.details.quicklook.info', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
-                static::TO_ADD    => [
+                static::TO_ADD => [
                     ['product.details.quicklook.image', 30, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'items_list/product/parts/grid.button-add2cart-wrapper.twig'                => [
+            'items_list/product/parts/grid.button-add2cart-wrapper.twig' => [
                 static::TO_DELETE => [
                     ['itemsList.product.grid.customer.tail', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
-                static::TO_ADD    => [
+                static::TO_ADD => [
                     ['itemsList.product.grid.customer.info.photo', 998, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'product/details/parts/common.product-added.twig'                           => [
+            'product/details/parts/common.product-added.twig' => [
                 static::TO_DELETE => [
                     ['product.details.page.info.buttons-added', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ['product.details.quicklook.info.buttons-added', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
-                static::TO_ADD    => [
+                static::TO_ADD => [
                     ['product.details.page.image', 10, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ['product.details.quicklook.image', 5, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
+                ],
+            ],
+            'checkout/steps/shipping/parts/address.billing.same.twig' => [
+                static::TO_DELETE => [
+                    ['checkout.payment.address.after', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
+                ],
+                static::TO_ADD => [
+                    ['checkout.payment.address.before', 10, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
         ];
 
         if (static::isModuleEnabled('CDev\GoSocial')) {
             $templates += [
-                'modules/CDev/GoSocial/product/details/parts/common.share.twig'             => [
+                'modules/CDev/GoSocial/product/details/parts/common.share.twig' => [
                     static::TO_DELETE => [
                         ['product.details.page.info', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ],
-                    static::TO_ADD    => [
+                    static::TO_ADD => [
                         ['product.details.page.image', 20, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ],
                 ],
@@ -360,11 +392,11 @@ abstract class Main extends \XLite\Module\AModuleSkin
 
         if (static::isModuleEnabled('XC\FreeShipping')) {
             $templates += [
-                'modules/XC/FreeShipping/free_ship.label.twig'                              => [
+                'modules/XC/FreeShipping/free_ship.label.twig' => [
                     static::TO_DELETE => [
                         ['product.details.page.info', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ],
-                    static::TO_ADD    => [
+                    static::TO_ADD => [
                         ['product.details.page.info', 17, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ],
                 ],
@@ -388,12 +420,12 @@ abstract class Main extends \XLite\Module\AModuleSkin
 
         if (static::isModuleEnabled('XC\FastLaneCheckout')) {
             $templates += [
-                'modules/XC/FastLaneCheckout/checkout_fastlane/header/back_button.twig'      => [
+                'modules/XC/FastLaneCheckout/checkout_fastlane/header/back_button.twig' => [
                     static::TO_DELETE => [
                         ['checkout_fastlane.header.left', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ],
                 ],
-                'modules/XC/FastLaneCheckout/checkout_fastlane/header/title.twig'      => [
+                'modules/XC/FastLaneCheckout/checkout_fastlane/header/title.twig' => [
                     static::TO_DELETE => [
                         ['checkout_fastlane.header.left', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ],
@@ -408,7 +440,7 @@ abstract class Main extends \XLite\Module\AModuleSkin
                         ['itemsList.product.grid.customer.info', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                         ['itemsList.product.list.customer.info', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ],
-                    static::TO_ADD    => [
+                    static::TO_ADD => [
                         ['itemsList.product.grid.customer.info', 16, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                         ['itemsList.product.list.customer.info', 35, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ],
@@ -427,8 +459,8 @@ abstract class Main extends \XLite\Module\AModuleSkin
                     static::TO_DELETE => [
                         ['product.plain_price.tail', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ],
-                    static::TO_ADD    => [
-                        ['product.plain_price', 10, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
+                    static::TO_ADD => [
+                        ['product.plain_price', 15, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ],
                 ],
                 'modules/CDev/Sale/details/price.twig' => [
@@ -440,7 +472,7 @@ abstract class Main extends \XLite\Module\AModuleSkin
                     static::TO_DELETE => [
                         ['product.plain_price.tail.sale_price.text', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ],
-                    static::TO_ADD    => [
+                    static::TO_ADD => [
                         ['product.plain_price.sale_price.text', 100, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ],
                 ],
@@ -448,7 +480,7 @@ abstract class Main extends \XLite\Module\AModuleSkin
                     static::TO_DELETE => [
                         ['product.plain_price.tail.sale_price.text', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ],
-                    static::TO_ADD    => [
+                    static::TO_ADD => [
                         ['product.plain_price.sale_price.text', 200, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ],
                 ],
@@ -456,8 +488,23 @@ abstract class Main extends \XLite\Module\AModuleSkin
                     static::TO_DELETE => [
                         ['product.plain_price.tail.sale_price.text', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ],
-                    static::TO_ADD    => [
+                    static::TO_ADD => [
                         ['product.plain_price', 30, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
+                    ],
+                ],
+            ];
+        }
+
+        if (static::isModuleEnabled('CDev\VAT')) {
+            $templates += [
+                'modules/CDev/VAT/price.twig' => [
+                    static::TO_DELETE => [
+                        ['product.plain_price_only', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
+                        ['product.plain_price', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
+                    ],
+                    static::TO_ADD => [
+                        ['product.plain_price_only', 13, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
+                        ['product.plain_price', 13, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ],
                 ],
             ];
@@ -469,7 +516,7 @@ abstract class Main extends \XLite\Module\AModuleSkin
                     ['customer.checkout.signin', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
                 static::TO_ADD    => [
-                    ['signin-anonymous-title', 5, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
+                    ['signin-anonymous-title', 300, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ];
         }
@@ -480,7 +527,7 @@ abstract class Main extends \XLite\Module\AModuleSkin
                     ['product.details.page', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ['product.details.quicklook', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
-                static::TO_ADD    => [
+                static::TO_ADD => [
                     ['product.details.page.info', 11, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ['product.details.quicklook.info', 11, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
@@ -493,7 +540,18 @@ abstract class Main extends \XLite\Module\AModuleSkin
                     ['customer.checkout.signin', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
                 static::TO_ADD    => [
-                    ['signin-anonymous-title', 5, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
+                    ['signin-anonymous-title', 300, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
+                ],
+            ];
+        }
+
+        if (static::isModuleEnabled('CDev\Paypal')) {
+            $templates['modules/CDev/Paypal/login/signin/signin.checkout.paypal.twig'] = [
+                static::TO_DELETE => [
+                    ['customer.checkout.signin', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
+                ],
+                static::TO_ADD    => [
+                    ['signin-anonymous-title', 300, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ];
         }
@@ -516,36 +574,36 @@ abstract class Main extends \XLite\Module\AModuleSkin
                 ['product.details.page.image', 5, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
             ],
 
-            'XLite\View\LanguageSelector\Customer'                                                  => [
+            'XLite\View\LanguageSelector\Customer' => [
                 static::TO_DELETE => [
                     ['layout.header.bar.links.newby', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ['layout.header.bar.links.logged', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'XLite\View\TopContinueShopping'                                                        => [
+            'XLite\View\TopContinueShopping' => [
                 static::TO_DELETE => [
                     ['layout.main.breadcrumb', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'XLite\View\Product\Details\Customer\Gallery'                                           => [
+            'XLite\View\Product\Details\Customer\Gallery' => [
                 static::TO_DELETE => [
                     ['product.details.page.image', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
-                static::TO_ADD    => [
+                static::TO_ADD => [
                     ['product.details.page', 15, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ['product.details.quicklook', 15, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'XLite\View\ShippingEstimator\ShippingEstimateBox'                                      => [
+            'XLite\View\ShippingEstimator\ShippingEstimateBox' => [
                 static::TO_DELETE => [
                     ['cart.panel.box', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
-            'XLite\View\BannerRotation\BannerRotation'                                             => [
+            'XLite\View\BannerRotation\BannerRotation' => [
                 static::TO_DELETE => [
                     ['center', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
-                static::TO_ADD    => [
+                static::TO_ADD => [
                     ['layout.main', 350, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
@@ -556,7 +614,7 @@ abstract class Main extends \XLite\Module\AModuleSkin
                 static::TO_DELETE => [
                     ['checkout.review.selected', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
-                static::TO_ADD    => [
+                static::TO_ADD => [
                     ['checkout.review.selected', 200, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ];
@@ -573,7 +631,7 @@ abstract class Main extends \XLite\Module\AModuleSkin
                 static::TO_DELETE => [
                     ['layout.header.mobile.menu', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
-                static::TO_ADD    => [
+                static::TO_ADD => [
                     ['slidebar.settings', 0, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ];
@@ -584,7 +642,7 @@ abstract class Main extends \XLite\Module\AModuleSkin
                 static::TO_DELETE => [
                     ['product.details.page.info', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
-                static::TO_ADD    => [
+                static::TO_ADD => [
                     ['product.details.page.image', 0, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ];
@@ -595,7 +653,7 @@ abstract class Main extends \XLite\Module\AModuleSkin
                 static::TO_DELETE => [
                     ['layout.main.footer', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
-                static::TO_ADD    => [
+                static::TO_ADD => [
                     ['layout.main.footer.before', 10, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ];
@@ -626,7 +684,7 @@ abstract class Main extends \XLite\Module\AModuleSkin
                 static::TO_DELETE => [
                     ['itemsList.product.grid.customer.info', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
-                static::TO_ADD    => [
+                static::TO_ADD => [
                     ['itemsList.product.grid.customer.marks', 200, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ['itemsList.product.list.customer.marks', 200, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                     ['itemsList.product.table.customer.marks', 200, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
@@ -654,7 +712,8 @@ abstract class Main extends \XLite\Module\AModuleSkin
         return [
             \XLite\Logic\ImageResize\Generator::MODEL_PRODUCT => [
                 'SBSmallThumbnail' => [100, 120],
-                'XSThumbnail'      => [58, 70],
+                'XSThumbnail' => [58, 70],
+                'MSThumbnail' => [75, 90],
             ],
         ];
     }
@@ -668,4 +727,20 @@ abstract class Main extends \XLite\Module\AModuleSkin
     {
         return \XLite\Core\Database::getRepo('XLite\Model\Module')->isModuleEnabled($name);
     }
+
+    /**
+     * @inheritDoc
+     */
+    public static function callInstallEvent()
+    {
+        parent::callInstallEvent();
+
+        \XLite\Core\Database::getRepo('XLite\Model\Config')->createOption([
+            'category' => 'Layout',
+            'name' => 'layout_type_' . \XLite\Core\Layout::LAYOUT_GROUP_HOME,
+            'value' => \XLite\Core\Layout::LAYOUT_ONE_COLUMN,
+        ]);
+    }
+
+
 }

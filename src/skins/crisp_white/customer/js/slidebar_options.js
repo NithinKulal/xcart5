@@ -12,10 +12,10 @@ slidebar.prototype.options = _.extend(slidebar.prototype.options, {
     position: "right",
     zposition: "front"
   }),
-  navbar: {
+  navbar: _.extend(slidebar.prototype.options.navbar, {
     add: true,
     title: '',
-  },
+  }),
   navbars: [
     {
       position: "top",

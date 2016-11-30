@@ -153,7 +153,7 @@ class AuctionInc extends \XLite\Model\Shipping\Processor\AProcessor
                 ? $inputData->getOrder()->getProfile()->getShippingAddress()
                 : null;
 
-            $type = $shippingAddress && $shippingAddress->getType()
+            $type = $shippingAddress && $shippingAddress->getType() && $shippingAddress->getFieldValue('type')->getAddressField()->getEnabled()
                 ? $shippingAddress->getType()
                 : $config->destinationType;
 
@@ -216,7 +216,7 @@ class AuctionInc extends \XLite\Model\Shipping\Processor\AProcessor
         $rates = array();
         $config = $this->getConfiguration();
 
-        $key = $this->getConfigurationFingerPrint() . serialize($data);
+        $key = md5($this->getConfigurationFingerPrint() . serialize($data) . serialize($config));
 
         $cachedResponse = null;
         if (!$ignoreCache) {

@@ -35,4 +35,29 @@ class Home extends \XLite\View\Location\Node
         $this->widgetParams[self::PARAM_NAME]->setValue(static::t('Home'));
         $this->widgetParams[self::PARAM_LINK]->setValue($this->buildURL());
     }
+
+    /**
+     * Get SVG image
+     *
+     * @param string $path Path
+     * @param string $interface Interface code OPTIONAL
+     *
+     * @return string
+     */
+    protected function getSVGImage($path, $interface = null)
+    {
+        $content = parent::getSVGImage($path, $interface);
+
+        if ($content) {
+            $content = str_replace(
+                '<title></title>',
+                '<title>' . $this->getName() . '</title>',
+                $content
+            );
+        } else {
+            return $this->getName();
+        }
+
+        return $content;
+    }
 }

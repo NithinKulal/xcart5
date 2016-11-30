@@ -26,7 +26,7 @@ class ProductAddedToCartCellClass extends \XLite\View\AView implements DynamicWi
     protected function doDisplay($template = null)
     {
         if ($this->getCart()->isProductAdded($this->getParam(static::PARAM_PRODUCT_ID))) {
-            echo ' product-added';
+            echo 'product-added';
         }
     }
 

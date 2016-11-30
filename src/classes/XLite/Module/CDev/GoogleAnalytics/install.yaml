@@ -30,6 +30,31 @@ XLite\Model\Config:
     translations:
       - code: en
         option_name: 'Google Analytics code version'
+  - name: ecommerce_enabled
+    category: CDev\GoogleAnalytics
+    type: 'XLite\View\FormField\Input\Checkbox\OnOff'
+    orderby: 400
+    value: Y
+    translations:
+      - code: en
+        option_name: 'Enable eCommerce Google Analytics'
+  - name: purchase_only_on_paid
+    category: CDev\GoogleAnalytics
+    type: 'XLite\View\FormField\Input\Checkbox\OnOff'
+    orderby: 400
+    value: Y
+    translations:
+      - code: en
+        option_name: 'Register purchase only on Paid status change'
+  - name: debug_mode
+    category: CDev\GoogleAnalytics
+    type: 'XLite\View\FormField\Input\Checkbox\OnOff'
+    orderby: 500
+    value: N
+    translations:
+      - code: en
+        option_name: 'Debug mode'
+
 XLite\Model\LanguageLabel:
   - { name: "Advanced statistics with Google Analytics", translations: [{ code: en, label: "Advanced statistics with Google Analytics" }] }
   - { name: "Configure the Google Analytics module to view the advanced statistics", translations: [{ code: en, label: "Configure the Google Analytics module to view the advanced statistics" }] }

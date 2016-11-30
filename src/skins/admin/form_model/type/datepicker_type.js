@@ -20,17 +20,25 @@
       $el.datepicker({
         dateFormat: this.params.format,
         onSelect: function (date) {
-          vm.$set(model, '' + $(this).datepicker('getDate') / 1000);
+          vm.$set(model, '' + $(this).datepicker('getDate'));
 
           // DateRange validator is detached from change/blur field event
           // so trigger validation
           vm.$validate(true);
         }
       });
+
+      $el.change(function(){
+        vm.$set(model, '' + $(this).datepicker('getDate'));
+
+        // DateRange validator is detached from change/blur field event
+        // so trigger validation
+        vm.$validate(true);
+      });
     },
     update: function (val) {
       if ('' !== val) {
-        $(this.el).datepicker('setDate', new Date(val * 1000));
+        $(this.el).datepicker('setDate', new Date(val));
       }
     }
   });

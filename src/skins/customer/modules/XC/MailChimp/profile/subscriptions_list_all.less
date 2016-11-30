@@ -1,0 +1,69 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Powered by widget style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.cart-items div.subscriptions-list-container {
+  display: none;
+}
+
+div.subscriptions-list-container {
+  padding-left: 0px;
+
+  table{
+    margin-top: 7px;
+    margin-bottom: 25px;
+  }
+}
+
+.checkout_fastlane_container {
+  div.subscriptions-list-container table{
+    margin-top: 0;
+    margin-bottom: 12px;
+  }
+
+  table.subscriptions-list {
+    td:first-of-type {
+      width: 20px;
+      padding-top: 0;
+      padding-left: 0;
+    }
+
+    td:last-of-type {
+      padding-top: 2px;
+    }
+  }
+}
+
+table.subscriptions-list {
+  td {
+    padding-bottom: 0;
+    padding-left: 4px;
+    padding-right: 8px;
+
+    &:first-of-type {
+      padding-top: 11px;
+    }
+  }
+
+  td ~ td {
+    padding: 12px 0;
+    padding-bottom: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  form.place div.subscriptions-list-container {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .checkout_fastlane_cart div.subscriptions-list-container {
+    display: none;
+  }
+}

@@ -17,9 +17,11 @@ class EventTaskProgress extends \XLite\View\AView
      * Widget parameter names
      */
     const PARAM_EVENT             = 'event';
+    const PARAM_MESSAGE           = 'message';
     const PARAM_TITLE             = 'title';
     const PARAM_BLOCKING_NOTE     = 'blockingNote';
     const PARAM_NON_BLOCKING_NOTE = 'nonBlockingNote';
+    const PARAM_SHOW_CANCEL       = 'showCancel';
 
     /**
      * Register JS files
@@ -60,9 +62,11 @@ class EventTaskProgress extends \XLite\View\AView
 
         $this->widgetParams += array(
             static::PARAM_EVENT             => new \XLite\Model\WidgetParam\TypeString('Event name', null),
+            static::PARAM_MESSAGE           => new \XLite\Model\WidgetParam\TypeString('Event message', ''),
             static::PARAM_TITLE             => new \XLite\Model\WidgetParam\TypeString('Progress bar title', null),
             static::PARAM_BLOCKING_NOTE     => new \XLite\Model\WidgetParam\TypeString('Blocking note', null),
             static::PARAM_NON_BLOCKING_NOTE => new \XLite\Model\WidgetParam\TypeString('Non-blocking note', null),
+            static::PARAM_SHOW_CANCEL       => new \XLite\Model\WidgetParam\TypeBool('Show cancel button', true),
         );
     }
 
@@ -120,6 +124,16 @@ class EventTaskProgress extends \XLite\View\AView
     }
 
     /**
+     * Get event name
+     * 
+     * @return string
+     */
+    protected function getMessage()
+    {
+        return $this->getParam(static::PARAM_MESSAGE);
+    }
+
+    /**
      * Get percent
      * 
      * @return integer
@@ -128,7 +142,70 @@ class EventTaskProgress extends \XLite\View\AView
     {
         $rec = $this->getTmpVar();
 
-        return 0 < $rec['position'] ? min(100, floor($rec['position'] / $rec['length'] * 100)) : 0;
+        return 0 < $rec['position'] ? min(100, floor(($rec['position']) / $rec['length'] * 100)) : 0;
+    }
+
+    /**
+     * Returns css classes for progress bar container
+     * @return array
+     */
+    protected function getCSSClasses()
+    {
+        return array(
+            $this->getControllerClass(),
+        );
+    }
+
+
+    /**
+     * Returns css classes for progress bar container
+     * @return array
+     */
+    protected function getProgressBarContainerClasses()
+    {
+        return array(
+            'progress-bar-container',
+            'progress',
+            'active',
+            'progress-striped',
+            ($this->isBlockingDriver() ? 'blocking' : 'noblocking')
+        );
+    }
+
+    /**
+     * Returns css class used in js-controller
+     * @return string
+     */
+    protected function getControllerClass()
+    {
+        return 'event-task-progress';
+    }
+
+    /**
+     * Returns css classes for progress bar
+     * @return array
+     */
+    protected function getProgressBarClasses()
+    {
+        return array(
+            'progress-bar',
+        );
+    }
+
+    /**
+     * Returns css classes for progress bar status message
+     * @return array
+     */
+    protected function getMessageClasses()
+    {
+        return array(
+            'progress-message',
+        );
+    }
+
+    protected function showCancelButton()
+    {
+        return $this->getParam(static::PARAM_SHOW_CANCEL);
     }
 
     /**
@@ -148,7 +225,7 @@ class EventTaskProgress extends \XLite\View\AView
      */
     protected function getBlockingNote()
     {
-        return $this->getParam(static::PARAM_BLOCKING_NOTE);
+        return $this->getParam(static::PARAM_BLOCKING_NOTE) ?: static::t('The process of export may take much time. You may close the page, the operation will be in progress as background. If the operation takes long enough, we will send you a notification when it is complete.');
     }
 
     /**
@@ -158,10 +235,8 @@ class EventTaskProgress extends \XLite\View\AView
      */
     protected function getNonBlockingNote()
     {
-        return $this->getParam(static::PARAM_NON_BLOCKING_NOTE);
+        return $this->getParam(static::PARAM_NON_BLOCKING_NOTE) ?: static::t('This process may take much time. Please do not close this page until the task is complete');
     }
 
     // }}}
-
 }
-

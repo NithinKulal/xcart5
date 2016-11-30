@@ -21,7 +21,6 @@ abstract class AComingSoon extends \XLite\View\ItemsList\Product\Customer\ACusto
     /**
      * Widget parameter names
      */
-
     const PARAM_ROOT_ID     = 'rootId';
     const PARAM_USE_NODE    = 'useNode';
     const PARAM_CATEGORY_ID = 'category_id';
@@ -74,7 +73,7 @@ abstract class AComingSoon extends \XLite\View\ItemsList\Product\Customer\ACusto
      */
     protected function getHead()
     {
-        return \XLite\Core\Translation::getInstance()->translate('Coming soon');
+        return static::t('Coming soon');
     }
 
     /**
@@ -84,42 +83,38 @@ abstract class AComingSoon extends \XLite\View\ItemsList\Product\Customer\ACusto
      */
     protected function getPagerClass()
     {
-        return '\XLite\Module\CDev\ProductAdvisor\View\Pager\Pager';
+        return 'XLite\Module\CDev\ProductAdvisor\View\Pager\Pager';
     }
 
     /**
-     * Return params list to use for search
+     * Default search conditions
      *
-     * @param \XLite\Core\CommonCell $cnd Initial search conditions
+     * @param  \XLite\Core\CommonCell $searchCase Search case
      *
      * @return \XLite\Core\CommonCell
      */
-    protected function getSearchConditions(\XLite\Core\CommonCell $cnd)
+    protected function postprocessSearchCase(\XLite\Core\CommonCell $searchCase)
     {
-        $currentDate = \XLite\Core\Converter::getDayEnd(\XLite\Base\SuperClass::getUserTime());
+        $searchCase = parent::postprocessSearchCase($searchCase);
 
-        $cnd->{\XLite\Module\CDev\ProductAdvisor\Model\Repo\Product::P_ARRIVAL_DATE} = array(
+        $currentDate = \XLite\Core\Converter::getDayEnd(\XLite\Base\SuperClass::getUserTime());
+        $searchCase->{\XLite\Module\CDev\ProductAdvisor\Model\Repo\Product::P_ARRIVAL_DATE} = array(
             $currentDate,
             null
         );
 
-        $cnd->{\XLite\Model\Repo\Product::P_ORDER_BY} = array('p.arrivalDate', 'ASC');
-
-        return $cnd;
+        return $searchCase;
     }
 
     /**
-     * Return products list
+     * Return 'Order by' array.
+     * array(<Field to order>, <Sort direction>)
      *
-     * @param \XLite\Core\CommonCell $cnd       Search condition
-     * @param boolean                $countOnly Return items list or only its size OPTIONAL
-     *
-     * @return mixed
+     * @return array|null
      */
-    protected function getData(\XLite\Core\CommonCell $cnd, $countOnly = false)
+    protected function getOrderBy()
     {
-        return \XLite\Core\Database::getRepo('XLite\Model\Product')
-            ->search($this->getSearchConditions($cnd), $countOnly);
+        return [static::SORT_BY_MODE_DATE, static::SORT_ORDER_DESC];
     }
 
     /**
@@ -129,7 +124,9 @@ abstract class AComingSoon extends \XLite\View\ItemsList\Product\Customer\ACusto
      */
     protected function isVisible()
     {
-        return \XLite\Core\Config::getInstance()->CDev->ProductAdvisor->cs_enabled && parent::isVisible();
+        return \XLite\Core\Config::getInstance()->CDev->ProductAdvisor->cs_enabled
+            && parent::isVisible()
+            && $this->hasResults();
     }
 
     /**
@@ -149,7 +146,7 @@ abstract class AComingSoon extends \XLite\View\ItemsList\Product\Customer\ACusto
      */
     protected function getMaxCountInBlock()
     {
-        return intval(\XLite\Core\Config::getInstance()->CDev->ProductAdvisor->cs_max_count_in_block) ?: 3;
+        return (int) \XLite\Core\Config::getInstance()->CDev->ProductAdvisor->cs_max_count_in_block ?: 3;
     }
 
     /**

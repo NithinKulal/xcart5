@@ -12,6 +12,7 @@ use XLite\View\CacheableTrait;
 
 /**
  * Featured products widget
+ * @move class to \XLite\Module\CDev\FeaturedProducts\View\ItemsList\Product\Customer\Category\
  *
  * @ListChild (list="center.bottom", zone="customer", weight="300")
  */
@@ -20,11 +21,31 @@ class FeaturedProducts extends \XLite\View\ItemsList\Product\Customer\Category\A
     use CacheableTrait;
 
     /**
-     * Featured products
-     *
-     * @var mixed
+     * Allowed sort criterions
      */
-    protected $featuredProducts;
+    const SORT_BY_MODE_DEFAULT = 'featuredProducts.orderBy';
+
+    /**
+     * Return search parameters.
+     *
+     * @return array
+     */
+    public static function getSearchParams()
+    {
+        return [
+            \XLite\Model\Repo\Product::SEARCH_FEATURED_CATEGORY_ID => static::PARAM_CATEGORY_ID,
+        ];
+    }
+
+    /**
+     * Get default sort order value
+     *
+     * @return string
+     */
+    protected function getDefaultSortOrderValue()
+    {
+        return \XLite\Core\Config::getInstance()->General->default_search_sort_order;
+    }
 
     /**
      * Initialize widget (set attributes)
@@ -38,8 +59,13 @@ class FeaturedProducts extends \XLite\View\ItemsList\Product\Customer\Category\A
         parent::setWidgetParams($params);
 
         $this->widgetParams[static::PARAM_DISPLAY_MODE]->setValue($this->getDisplayMode());
-        $this->widgetParams[\XLite\View\Pager\APager::PARAM_SHOW_ITEMS_PER_PAGE_SELECTOR]->setValue(false);
-        $this->widgetParams[\XLite\View\Pager\APager::PARAM_ITEMS_COUNT]->setValue(5);
+
+        if (isset($this->widgetParams[\XLite\View\Pager\APager::PARAM_SHOW_ITEMS_PER_PAGE_SELECTOR])) {
+            $this->widgetParams[\XLite\View\Pager\APager::PARAM_SHOW_ITEMS_PER_PAGE_SELECTOR]->setValue(false);
+        }
+        if (isset($this->widgetParams[\XLite\View\Pager\APager::PARAM_ITEMS_COUNT])) {
+            $this->widgetParams[\XLite\View\Pager\APager::PARAM_ITEMS_COUNT]->setValue(5);
+        }
     }
 
     /**
@@ -71,7 +97,7 @@ class FeaturedProducts extends \XLite\View\ItemsList\Product\Customer\Category\A
      */
     protected function getPagerClass()
     {
-        return '\XLite\View\Pager\Infinity';
+        return 'XLite\View\Pager\Infinity';
     }
 
     /**
@@ -85,35 +111,10 @@ class FeaturedProducts extends \XLite\View\ItemsList\Product\Customer\Category\A
 
         $this->widgetParams[static::PARAM_GRID_COLUMNS]->setValue(3);
 
-        unset($this->widgetParams[static::PARAM_SHOW_DISPLAY_MODE_SELECTOR]);
-        unset($this->widgetParams[static::PARAM_SHOW_SORT_BY_SELECTOR]);
-    }
-
-    /**
-     * Return products list
-     *
-     * @param \XLite\Core\CommonCell $cnd       Condition
-     * @param boolean                $countOnly Count only flag
-     *
-     * @return array
-     */
-    protected function getData(\XLite\Core\CommonCell $cnd, $countOnly = false)
-    {
-        if (null === $this->featuredProducts) {
-            $products = array();
-            $fp = \XLite\Core\Database::getRepo('XLite\Module\CDev\FeaturedProducts\Model\FeaturedProduct')
-                ->getFeaturedProducts($this->getCategoryId());
-
-            foreach ($fp as $product) {
-                $products[] = $product->getProduct();
-            }
-
-            $this->featuredProducts = $products;
-        }
-
-        return true === $countOnly
-            ? count($this->featuredProducts)
-            : $this->featuredProducts;
+        unset(
+            $this->widgetParams[static::PARAM_SHOW_DISPLAY_MODE_SELECTOR],
+            $this->widgetParams[static::PARAM_SHOW_SORT_BY_SELECTOR]
+        );
     }
 
     /**

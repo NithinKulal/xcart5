@@ -402,12 +402,10 @@ div.dialog-block.product-class {
 }
 
 div.panel-cell.saveMode {
-  float: left;
-  margin-right: 20px;
-}
-
-div.panel-cell.saveMode .save-mode-value {
-  padding: 0px 0px 5px 0px;    
+  -webkit-order: -1;
+  -moz-order: -1;
+  -ms-order: -1;
+  order: -1;
 }
 
 form.changed.view-changes li.create-line div.modifiers,
@@ -441,9 +439,6 @@ form.changed.view-changes li.value.is-changed .input-text-attributeoption input 
 
 div.save-mode-localy,
 div.save-mode-globaly {
-  position: absolute;
-  left: 25px;
-  top: 52px;
   font-size: 10px;
   width: 250px;
 }

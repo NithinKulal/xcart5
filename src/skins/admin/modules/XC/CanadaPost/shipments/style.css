@@ -45,22 +45,16 @@ div.parcel-settings div.box.border {
   font-weight: 400;
 }
 
-.capost-shipments input[type=text],
-.capost-shipments input[type=password]
-{
-  height: auto !important;
-}
-
 div.capost-shipments div.table-value {
   line-height: normal;
 }
 
 .inline-options .table-value {
-  display: inline !important;
+  display: inline;
 }
 
 .parcel-dimensions input[type=text] {
-  width: 70px !important; 
+  width: 70px !important;
 }
 
 .shipment-info .shipment-info-part {
@@ -70,4 +64,11 @@ div.capost-shipments div.table-value {
 
 .parcel-warnings ul li {
   font-style: italic;
+}
+
+.inline-options .table-value .input-checkbox {
+  display: inline-block;
+  position: relative;
+  padding: 0;
+  min-height: inherit;
 }

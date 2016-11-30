@@ -26,6 +26,13 @@ class Login extends \XLite\Controller\Customer\ACustomer
     protected $params = array('target', 'mode');
 
     /**
+     * Profile found by login (without password check)
+     *
+     * @var \XLite\Model\Profile
+     */
+    protected $foundProfile;
+
+    /**
      * Profile
      *
      * @var \XLite\Model\Profile|integer
@@ -143,13 +150,35 @@ class Login extends \XLite\Controller\Customer\ACustomer
         $data = \XLite\Core\Request::getInstance()->getData();
         $token = empty($data[self::SECURE_TOKEN]) ? null : $data[self::SECURE_TOKEN];
 
-        $profile = \XLite\Core\Database::getRepo('XLite\Model\Profile')->findByLogin($data['login']);
+        $this->foundProfile = \XLite\Core\Database::getRepo('XLite\Model\Profile')->findByLogin($data['login']);
 
-        $isAdmin = $profile && $profile->isAdmin();
+        if ($this->isLoginDisabled($this->foundProfile)) {
+            // Log in is impossible: return 'ACCESS DENIED' message
+            $result = \XLite\Core\Auth::RESULT_ACCESS_DENIED;
+            $this->foundProfile = null;
 
-        return $isAdmin
-            ? \XLite\Core\Auth::RESULT_ACCESS_DENIED
-            :\XLite\Core\Auth::getInstance()->login($data['login'], $data['password'], $token);
+        } elseif ($this->foundProfile && $this->foundProfile->isAdmin()) {
+            $result = \XLite\Core\Auth::getInstance()->loginAdministrator($data['login'], $data['password']);
+
+        } else {
+            // Try to log in
+            $result = \XLite\Core\Auth::getInstance()->login($data['login'], $data['password'], $token);
+        }
+
+        return $result;
+    }
+
+    /**
+     * Return true if $profile is an administrator's profile
+     * Administrator can not to log in via customer zone
+     *
+     * @param \XLite\Model\Profile $profile User profile
+     *
+     * @return boolean
+     */
+    protected function isLoginDisabled($profile)
+    {
+        return $profile && $profile->isAdmin();
     }
 
     /**
@@ -207,10 +236,23 @@ class Login extends \XLite\Controller\Customer\ACustomer
         $this->profile = $this->performLogin();
 
         if (!($this->profile instanceof \XLite\Model\Profile)) {
-            $this->set('valid', false);
+
             $this->addLoginFailedMessage(\XLite\Core\Auth::RESULT_ACCESS_DENIED);
+
             \XLite\Logger::getInstance()
                 ->log(sprintf('Log in action is failed (%s)', \XLite\Core\Request::getInstance()->login), LOG_WARNING);
+
+            if ($this->isNeedFailureRedirect()) {
+                // Redirect to admin login page is needed if founcProfile is an administrator profile
+                $url = \XLite\Core\URLManager::getShopURL(
+                    \XLite\Core\Converter::buildURL('login', '', array(), \XLite::getAdminScript())
+                );
+                $this->setReturnURL($url);
+                $this->setHardRedirect(true);
+
+            } else {
+                $this->set('valid', false);
+            }
 
         } else {
             if (\XLite\Core\Request::getInstance()->returnURL) {
@@ -241,6 +283,16 @@ class Login extends \XLite\Controller\Customer\ACustomer
                 \XLite\Core\Event::getInstance()->exclude('updateCart');
             }
         }
+    }
+
+    /**
+     * Return true if profile was found by login but password does not match and founc profile is an administrator's profile
+     *
+     * @return boolean
+     */
+    protected function isNeedFailureRedirect()
+    {
+        return $this->foundProfile && $this->foundProfile->isAdmin();
     }
 
     /**

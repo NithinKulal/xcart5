@@ -1,0 +1,5 @@
+Version 5.3.1.1
+
+Fixes
+2016-10-24 - [Bug] Sometimes the invoice did not show the currency chosen by the buyer. #BUG-4015 (Michael Lipinski) #MultiCurrency
+2016-10-24 - [Bug] Fatal error on order creation if the module MultiCurrency is active and the option "Send the PDF version of invoices in the attachments" is enabled. #BUG-4016 (Michael Lipinski) #MultiCurrency

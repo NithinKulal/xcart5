@@ -333,6 +333,20 @@ input[type="checkbox"],
   }
 }
 
+.has-success.has-success-mark {
+  position: relative;
+}
+
+.has-success.has-success-mark:before {
+  .glyphicon;
+  content: "\e013";
+  position: absolute;
+  color: green;
+  right: 10px;
+  transform: translateY(-50%);
+  top: 50%;
+}
+
 // Tooltips
 .tooltip-box {
   z-index: 1000000;

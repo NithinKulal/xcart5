@@ -8,7 +8,7 @@
     {% if subcategory.hasAvailableMembership() %}
       <li>
         <a href="{{ url('category', '', {'category_id': subcategory.category_id}) }}">
-          <span class="subcategory-icon">
+          <span class="subcategory-icon lazy-load">
             {{ widget('\\XLite\\View\\Image', image=subcategory.image, maxWidth=this.getIconWidth(), maxHeight=this.getIconHeight(), centerImage='1', alt=this.getAlt(subcategory.image)) }}
           </span>
           <span class="subcategory-name">{{ subcategory.name }}</span>

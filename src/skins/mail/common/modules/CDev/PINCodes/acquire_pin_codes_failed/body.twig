@@ -2,7 +2,7 @@
  # Acquire pin codes failed email body (to admin)
  #}
 <p>
-{% for index, item in this.order.getItems() %}
+{% for index, item in this.items %}
   {% if item.countMissingPinCodes() %}
     <div>
       {{ item.product.name|raw }} : {{ t('X PIN Codes were not assigned.', {'count': item.countMissingPinCodes()}) }}

@@ -22,6 +22,7 @@ class Module extends \XLite\Model\Repo\ARepo
     const P_PRICE_FILTER     = 'priceFilter';
     const P_INSTALLED        = 'installed';
     const P_ISSYSTEM         = 'isSystem';
+    const P_ACTIVE           = 'active';
     const P_INACTIVE         = 'inactive';
     const P_CORE_VERSION     = 'coreVersion';
     const P_FROM_MARKETPLACE = 'fromMarketplace';
@@ -402,6 +403,19 @@ class Module extends \XLite\Model\Repo\ARepo
      * Prepare certain search condition
      *
      * @param \Doctrine\ORM\QueryBuilder $queryBuilder Query builder to prepare
+     *
+     * @return void
+     */
+    protected function prepareCndActive(\Doctrine\ORM\QueryBuilder $queryBuilder)
+    {
+        $queryBuilder->andWhere('m.enabled = :enabled')
+            ->setParameter('enabled', true);
+    }
+
+    /**
+     * Prepare certain search condition
+     *
+     * @param \Doctrine\ORM\QueryBuilder $queryBuilder Query builder to prepare
      * @param string                     $value        Condition
      *
      * @return void
@@ -486,6 +500,14 @@ class Module extends \XLite\Model\Repo\ARepo
 
         // Add new modules
         $this->insertInBatch($data, false);
+        $this->updateModulesCache = null;
+
+        if (\XLite::getController()->getTarget() === 'addons_list_marketplace'
+            && (!\XLite::getController()->getAction()
+                || \XLite::getController()->getAction() === 'clear_cache')
+        ) {
+            $this->flushChanges();
+        }
     }
 
     // }}}
@@ -1410,6 +1432,10 @@ class Module extends \XLite\Model\Repo\ARepo
                     'dirs' => implode(', ', $nonWritableDirs),
                 )
             );
+        }
+
+        if ($result) {
+            \Includes\Autoloader::reinitializeIfNeeded();
         }
 
         return $result;

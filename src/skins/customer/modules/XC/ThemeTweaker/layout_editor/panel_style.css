@@ -37,6 +37,10 @@
 	color: #555;
 }
 
+.layout-editor--initial > * {
+	display: none;
+}
+
 .layout-editor-toggle {
 	margin-right: 20px;
 }
@@ -112,8 +116,12 @@
 	border-bottom:1px dashed #0F9DCC;
 }
 
-@media (max-width: 991px) {
+@media (max-width: 1200px) {
 	.layout-editor-message {
-		display: none;
+		display: none !important;
+	}
+	
+	.layout-editor-toggle {
+		margin-right: auto;
 	}
 }

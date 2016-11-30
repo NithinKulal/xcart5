@@ -13,12 +13,12 @@ namespace XLite\Module\XC\ThemeTweaker\Controller\Admin;
  */
 class ThemeTweakerTemplate extends \XLite\Controller\Admin\AAdmin
 {
-    /**
-     * Controller parameters
-     *
-     * @var array
-     */
-    protected $params = array('target', 'id', 'template');
+    public function __construct(array $params)
+    {
+        parent::__construct($params);
+
+        $this->params = array_merge($this->params, ['id', 'template']);
+    }
 
     /**
      * Return the current page title (for the content area)

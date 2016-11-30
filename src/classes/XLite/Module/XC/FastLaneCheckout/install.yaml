@@ -16,17 +16,25 @@ XLite\Model\Config:
         option_name: 'Checkout type'
 
 XLite\Model\LanguageLabel:
-  - { name: 'Any special needs?', translations: [{ code: en, label: 'Any special needs?' }]}
-  - { name: 'Choose shipping', translations: [{ code: en, label: 'Choose shipping' }]}
-  - { name: 'Fast Lane checkout', translations: [{ code: en, label: 'Fast Lane checkout' }]}
-  - { name: 'Firstname', translations: [{ code: en, label: 'Firstname' }]}
-  - { name: 'Lastname', translations: [{ code: en, label: 'Lastname' }]}
-  - { name: 'One Page checkout', translations: [{ code: en, label: 'One Page checkout' }]}
-  - { name: 'Order note. Any special needs?', translations: [{ code: en, label: 'Order note. Any special needs?' }]}
-  - { name: 'Proceed to payment', translations: [{ code: en, label: 'Proceed to payment' }]}
-  - { name: 'Street address', translations: [{ code: en, label: 'Street address' }]}
-  - { name: 'Zipcode', translations: [{ code: en, label: 'Zipcode' }]}
-  - { name: 'Click to finish your order', translations: [{ code: en, label: 'Click to finish your order' }]}
-  - { name: 'Order cannot be placed because some steps are not completed', translations: [{ code: en, label: 'Order cannot be placed because some steps are not completed' }]}
-  - { name: 'Click to proceed to the next step', translations: [{ code: en, label: 'Click to proceed to the next step' }]}
-  - { name: 'Some of the required fields were not completed. Please check the form and try again', translations: [{ code: en, label: 'Some of the required fields were not completed. Please check the form and try again' }]}
+  - { name: 'Any special needs?', translations: [{ code: en, label: 'Any special needs?' }, { code: ru, label: 'Укажите информацию для продавца' }]}
+  - { name: 'Choose shipping', translations: [{ code: en, label: 'Choose shipping' }, { code: ru, label: 'Выберите метод доставки' }]}
+  - { name: 'Fast Lane checkout', translations: [{ code: en, label: 'Fast Lane checkout' }, { code: ru, label: 'Пошаговый' }]}
+  - { name: 'Checkout type', translations: [{ code: en, label: 'Checkout type' }, { code: ru, label: 'Тип страницы оплаты' }]}
+  - { name: 'Firstname', translations: [{ code: en, label: 'Firstname' }, { code: ru, label: 'Имя' }]}
+  - { name: 'Lastname', translations: [{ code: en, label: 'Lastname' }, { code: ru, label: 'Фамилия' }]}
+  - { name: 'Return to cart', translations: [{ code: en, label: 'Return to cart' }, { code: ru, label: 'Вернуться к корзине' }]}
+  - { name: 'Edit address', translations: [{ code: en, label: 'Edit address' }, { code: ru, label: 'Редактировать' }]}
+  - { name: 'Edit email', translations: [{ code: en, label: 'Edit email' }, { code: ru, label: 'Редактировать' }]}
+  - { name: 'One Page checkout', translations: [{ code: en, label: 'One Page checkout' }, { code: ru, label: 'Одностраничный' }]}
+  - { name: 'Order note. Any special needs?', translations: [{ code: en, label: 'Order note. Any special needs?' }, { code: ru, label: 'Укажите информацию для продавца' }]}
+  - { name: 'Proceed to payment', translations: [{ code: en, label: 'Proceed to payment' }, { code: ru, label: 'Перейти к оплате' }]}
+  - { name: 'Street address', translations: [{ code: en, label: 'Street address' }, { code: ru, label: 'Адрес' }]}
+  - { name: 'Zipcode', translations: [{ code: en, label: 'Zipcode' }, { code: ru, label: 'Индекс' }]}
+  - { name: 'Click to finish your order', translations: [{ code: en, label: 'Click to finish your order' }, { code: ru, label: 'Нажмите для завершения заказа' }]}
+  - { name: 'Order cannot be placed because some steps are not completed', translations: [{ code: en, label: 'Order cannot be placed because some steps are not completed' }, { code: ru, label: 'Заказ не может быть завершен, пока есть незаполненные поля' }]}
+  - { name: 'Click to proceed to the next step', translations: [{ code: en, label: 'Click to proceed to the next step' }, { code: ru, label: 'Нажмите для перехода на следующий шаг' }]}
+  - { name: 'Check shipping info', translations: [{ code: en, label: 'Check shipping info' }, { code: ru, label: 'Доставка' }]}
+  - { name: 'Choose another address', translations: [{ code: en, label: 'Choose another address' }, { code: ru, label: 'Выбрать другой адрес' }]}
+  - { name: 'Delivery method', translations: [{ code: en, label: 'Delivery method' }, { code: ru, label: 'Способ доставки' }]}
+  - { name: 'Addresses', translations: [{ code: en, label: 'Addresses' }, { code: ru, label: 'Адреса' }]}
+  - { name: 'Your order details will be sent to your email address', translations: [{ code: en, label: 'Your order details will be sent to your email address' }, { code: ru, label: 'Детали ордера будут отправлены на данный адрес' }]}

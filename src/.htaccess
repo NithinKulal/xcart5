@@ -33,7 +33,7 @@ FileETag none
 
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule ^((([/_a-z0-9-]+)/)?([_a-z0-9-]+)/)?([_a-z0-9-]+)(/?)(\.([_a-z0-9-]+))?$ cart.php?url=$5&last=$4&rest=$3&ext=$7 [NC,L,QSA]
+  RewriteRule ^(.*)$ cart.php?url=$1 [NC,L,QSA]
 
   #RewriteBase ____WEB_DIR____
 </IfModule>

@@ -228,10 +228,11 @@ class PayflowAPI extends \XLite\Module\CDev\Paypal\Core\AAPI
             'INSURANCEAMT'      => 0,
             'NOSHIPPING'        => null === $shippingCost ? '1' : '0',
             'ALLOWNOTE'         => 1,
+            'LOCALECODE'        => strtoupper(\XLite\Core\Session::getInstance()->getLanguage()->getCode()),
         );
 
         if (\XLite\Core\Config::getInstance()->Security->customer_security) {
-            $postData['HDRIMG'] = urldecode(\XLite\Module\CDev\Paypal\Main::getLogo());
+            $params['HDRIMG'] = urldecode(\XLite\Module\CDev\Paypal\Main::getLogo());
         }
 
         $items = $this->getItems($order);
@@ -252,7 +253,7 @@ class PayflowAPI extends \XLite\Module\CDev\Paypal\Core\AAPI
         $profile = $order->getProfile();
 
         if (\XLite\Module\CDev\Paypal\Model\Payment\Processor\ExpressCheckout::EC_TYPE_SHORTCUT == $type) {
-            $postData['REQCONFIRMSHIPPING'] = 0;
+            $params['REQCONFIRMSHIPPING'] = 0;
         }
 
         if ($profile && $profile->getLogin()) {
@@ -267,7 +268,11 @@ class PayflowAPI extends \XLite\Module\CDev\Paypal\Core\AAPI
             );
         }
 
-        if (null !== $shippingCost && $profile && $profile->getShippingAddress()) {
+        if (null !== $shippingCost
+            && $profile
+            && $profile->getShippingAddress()
+            && $profile->getShippingAddress()->isCompleted(\XLite\Model\Address::SHIPPING)
+        ) {
             /** @var \XLite\Model\Address $address */
             $address = $profile->getShippingAddress();
 
@@ -276,6 +281,28 @@ class PayflowAPI extends \XLite\Module\CDev\Paypal\Core\AAPI
         }
 
         return $params;
+    }
+
+    /**
+     * @param string $language
+     *
+     * @return string
+     */
+    protected function getLocaleCode($language)
+    {
+        $locales = array(
+            'zh' => 'CN',
+            'de' => 'DE',
+            'es' => 'ES',
+            'fr' => 'FR',
+            'it' => 'IT',
+            'jp' => 'JP',
+            'nl' => 'NL',
+            'pl' => 'PL',
+            'en' => 'US',
+        );
+
+        return isset($locales[$language]) ? $locales[$language] : 'US';
     }
 
     // }}}
@@ -291,14 +318,22 @@ class PayflowAPI extends \XLite\Module\CDev\Paypal\Core\AAPI
      */
     protected function getConfirmedShippingAddress(\XLite\Model\Address $address)
     {
+        $countryCode = $address->getCountry()
+            ? $address->getCountry()->getCode()
+            : '';
+
+        $stateCode = $address->getState()
+            ? ($address->getState()->getCode() ?: $address->getState()->getState())
+            : '';
+
         return array(
             'SHIPTONAME'    => trim($address->getFirstname() . ' ' . $address->getLastname()),
             'SHIPTOSTREET'  => $address->getStreet(),
             'SHIPTOSTREET2' => '',
             'SHIPTOCITY'    => $address->getCity(),
-            'SHIPTOSTATE'   => $address->getState()->getCode() ?: $address->getState()->getState(),
+            'SHIPTOSTATE'   => $stateCode,
             'SHIPTOZIP'     => $address->getZipcode(),
-            'SHIPTOCOUNTRY' => $address->getCountry()->getCode(),
+            'SHIPTOCOUNTRY' => $countryCode,
         );
     }
 
@@ -367,7 +402,10 @@ class PayflowAPI extends \XLite\Module\CDev\Paypal\Core\AAPI
         /** @var \XLite\Model\Profile $profile */
         $profile = $order->getProfile();
 
-        if ($profile && $profile->getShippingAddress()) {
+        if ($profile
+            && $profile->getShippingAddress()
+            && $profile->getShippingAddress()->isCompleted(\XLite\Model\Address::SHIPPING)
+        ) {
             $params += $this->getConfirmedShippingAddress(
                 $profile->getShippingAddress()
             );

@@ -13,6 +13,8 @@ namespace XLite\Module\XC\BulkEditing\View;
  */
 class Progress extends \XLite\View\AView
 {
+    use \XLite\View\EventTaskProgressProviderTrait;
+
     /**
      * Register CSS files
      *
@@ -50,34 +52,12 @@ class Progress extends \XLite\View\AView
     }
 
     /**
-     * Get time label
-     *
-     * @return string
+     * Returns processing unit
+     * 
+     * @return mixed
      */
-    protected function getTimeLabel()
+    protected function getProcessor()
     {
-        $generator = \XLite::getController()->getGenerator();
-
-        return \XLite\Core\Translation::formatTimePeriod($generator->getTimeRemain());
-    }
-
-    /**
-     * Check - current event driver is blocking or not
-     *
-     * @return boolean
-     */
-    protected function isBlocking()
-    {
-        return \XLite\Core\EventTask::getInstance()->getDriver()->isBlocking();
-    }
-
-    /**
-     * Get export event name
-     *
-     * @return string
-     */
-    protected function getEventName()
-    {
-        return \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Generator::getEventName();
+        return \XLite::getController()->getGenerator();
     }
 }

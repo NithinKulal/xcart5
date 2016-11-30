@@ -151,6 +151,25 @@ class Membership extends \XLite\Model\Repo\Base\I18n
     // }}}
 
     /**
+     * Delete single entity
+     *
+     * @param \XLite\Model\AEntity $entity Entity to detach
+     *
+     * @return void
+     */
+    protected function performDelete(\XLite\Model\AEntity $entity)
+    {
+        $alias = 'qd';
+        $qb = \XLite\Core\Database::getEM()->createQueryBuilder();
+        $qb->delete('XLite\Model\QuickData', $alias)
+            ->andWhere($qb->expr()->eq("{$alias}.membership", ':membership'))
+            ->setParameter('membership', $entity);
+        $qb->getQuery()->getResult();
+
+        parent::performDelete($entity);
+    }
+
+    /**
      * Insert single entity
      *
      * @param \XLite\Model\AEntity|array $entity Data to insert OPTIONAL

@@ -1,0 +1,19 @@
+{##
+ # Tax edit page
+ #}
+
+<div class="taxes-top-block">
+
+  <div class="taxes-top-block-left">
+
+    {{ widget_list('taxes.top.section') }}
+
+    {{ widget('\\XLite\\View\\ItemsList\\Model\\TaxClass') }}
+
+  </div>
+
+  <div class="taxes-top-block-right">
+    {{ widget_list('taxes.help.section') }}
+  </div>
+
+</div>

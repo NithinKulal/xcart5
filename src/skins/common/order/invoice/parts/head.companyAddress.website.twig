@@ -1,0 +1,11 @@
+{##
+ # Invoice : header : Company address box : website
+ #
+ # @ListChild (list="invoice.subhead.companyAddress", weight="500")
+ #}
+
+{% if this.company.company_website %}
+<p class="url">
+  <a href="{{ this.company.company_website }}">{{ this.company.company_website }}</a>
+</p>
+{% endif %}

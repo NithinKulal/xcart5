@@ -2,17 +2,30 @@
  # Regular button
  #}
 
+{% if this.getButtonTooltip() %}
 <div class="button-tooltip-wrapper">
-<div class="{{ this.getWrapperClass() }}">
+    <div
+            data-toggle="popover"
+            data-trigger="hover"
+            data-placement="{{ this.getParam('placement') }}"
+            data-content="{{ this.getButtonTooltip()|raw }}"
+            data-html="true"
+            data-help-id="{{ this.getHelpId() }}"
+            data-delay="{{ this.getDelay() }}"
+            v-xlite-tooltip
+            class="tooltip-main">
 
-  {% include 'button/regular.twig' %}
-
-  {% if this.getButtonTooltip() %}
-    <div class="help-text" style="display: none;">{{ this.getButtonTooltip()|raw }}</div>
-  {% endif %}
+        {% include 'button/regular.twig' %}
+    </div>
 </div>
-{% if this.getSeparateTooltip() %}
-  {{ widget('\\XLite\\View\\Tooltip', text=this.getSeparateTooltip(), isImageTag='true', className='help-icon') }}
 {% endif %}
 
+{% if this.getSeparateTooltip() %}
+<div class="button-tooltip-wrapper">
+    <div class="button-tooltip">
+        {% include 'button/regular.twig' %}
+    </div>
+    {{ widget('\\XLite\\View\\Tooltip', text=this.getSeparateTooltip(), isImageTag='true', className='help-icon') }}
 </div>
+{% endif %}
+

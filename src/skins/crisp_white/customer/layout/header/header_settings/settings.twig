@@ -4,23 +4,22 @@
  # @ListChild (list="slidebar.additional-menu", weight="390")
  #}
 
+{% if this.getViewList('slidebar.settings') %}
   <li class="settings">
     <div>
       <a href="#settings-panel" class="item-title">
         <span>{{ t('Settings') }}</span>
         <span class="mm-next"></span>
       </a>
-
-      {% if this.getViewList('slidebar.settings') %}
-        <div class="Panel" id="settings-panel">
-          <ul class="Inset">
-            {% for index, w in this.getViewList('slidebar.settings') %}
-              {% if w.isVisible() %}
-                <li>{{ w.display() }}</li>
-              {% endif %}
-            {% endfor %}
-          </ul>
-        </div>
-      {% endif %}
+      <div class="Panel" id="settings-panel">
+        <ul class="Inset">
+          {% for index, w in this.getViewList('slidebar.settings') %}
+            {% if w.isVisible() %}
+              <li>{{ w.display() }}</li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
     </div>
   </li>
+{% endif %}

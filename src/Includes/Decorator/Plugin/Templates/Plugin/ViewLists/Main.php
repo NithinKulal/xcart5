@@ -196,7 +196,18 @@ class Main extends \Includes\Decorator\Plugin\Templates\Plugin\APlugin
 
         foreach (\XLite\Core\Layout::getInstance()->getSkinsAll() as $interface => $path) {
             $skins[$interface] = \XLite\Core\Layout::getInstance()->getSkins($interface);
-
+            
+            if (\XLite::MAIL_INTERFACE === $interface || \XLite::PDF_INTERFACE === $interface) {
+                $skins[$interface] = [];
+                foreach (\XLite\Core\Layout::getInstance()->getSkins($interface) as $skin) {
+                    foreach ([\XLite::ADMIN_INTERFACE, \XLite::COMMON_INTERFACE, \XLite::CUSTOMER_INTERFACE] as $innerInterface) {
+                        $skins[$interface][] = $skin . LC_DS . $innerInterface;
+                    }
+                }
+            } else {
+                $skins[$interface] = \XLite\Core\Layout::getInstance()->getSkins($interface);
+            }
+            
             if (!$hasSubstSkins) {
                 $hasSubstSkins = 1 < count($skins[$interface]);
             }

@@ -97,6 +97,16 @@ abstract class AButton extends \XLite\View\AView
     }
 
     /**
+     * getDefaultStyle
+     *
+     * @return string
+     */
+    protected function getDefaultButtonClass()
+    {
+        return 'btn';
+    }
+
+    /**
      * getDefaultDisableState
      *
      * @return boolean
@@ -236,7 +246,7 @@ abstract class AButton extends \XLite\View\AView
      */
     protected function getClass()
     {
-        return 'btn '
+        return $this->getDefaultButtonClass() . ' '
             . $this->getParam(static::PARAM_BTN_SIZE) . ' '
             . $this->getParam(static::PARAM_BTN_TYPE) . ' '
             . $this->getParam(static::PARAM_STYLE)

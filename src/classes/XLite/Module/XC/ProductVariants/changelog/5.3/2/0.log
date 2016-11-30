@@ -1,0 +1,10 @@
+Version 5.3.2.0
+
+Improvements
+2016-11-14 - [Change] Now option values for which there are no existing variants are marked as disabled and cannot be selected on the product page. #XCN-7269 (Maxim Kuznetsov) #Core #Wholesale #ProductVariants
+2016-11-03 - [Change] Added a new setting - "How to show variant prices in product lists" - with the options Default variant price / Price range. #XCN-7267 (Sergey Elmanov) #ProductVariants
+
+Fixes
+2016-11-22 - [Bug] For products with variants and a relative discount, a wrong old price was displayed; instead of the variant price, the product price was shown. #BUG-4156 (Sergey Elmanov) #Sale #ProductVariants
+2016-08-31 - [Bug] In a product listing, a product was showing as Out of stock if its default variant was Out of stock, and the other variants were In stock. Now the product is showing as Out of stock only if all its variants are Out of stock. #BUG-3788 (Maxim Kuznetsov) #ProductVariants
+2016-08-26 - [Bug] The maximum quantity available for purchase for variants was taken from the qty field of the default variant, not the variant chosen by customer. Fixed. #BUG-3777 (Michael Lipinski) #ProductVariants

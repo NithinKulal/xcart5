@@ -1,0 +1,39 @@
+{##
+ # Automate shipping returns
+ #}
+<div class="seventy-one-pounds-promo">
+    <div class="promo-video">
+        <iframe id="ytplayer" type="text/html" width="640" height="360"
+                src="https://www.youtube.com/embed/Wu7ijfzw1_U"
+                frameborder="0"></iframe>
+    </div>
+
+    <div class="promo-body">
+        <div>
+            <h2>Key Features</h2>
+            <ul class="styled features">
+                <li>Pay only for the shipping services you purchase</li>
+                <li>Optimize your shipping spend with automated claims process</li>
+                <li>Reduce the resources dedicated to collecting your due refunds</li>
+            </ul>
+        </div>
+        <p>Did you know FedEx and UPS shipments come with a money-back guarantee if delivered late by 60 seconds or more? Yet, an estimated $2 billion goes unclaimed annually due to the lengthy, overly-complicated process of claiming refunds. 71lbs proactively monitors your shipping accounts, identifies late deliveries, and files the claims on your behalf.</p>
+        <p>Refunds are credited directly to your account with the shipping carrier, and our fee is 50% of the collected refunds. No start-up cost. No monthly fee. No contract.</p>
+        <p>Customers receive an easy-to-use dashboard on our website to view reports detailing your shipments, refunds, and more - all to assist with shipping expense management. With an estimated 5% of shipped packages arriving late, monitoring the activity on your account with your carrier is important to your practice’s bottom line. </p>
+        <p>For more information or to sign up, visit <a href="http://www.71lbs.com/xcart" target="_blank">http://www.71lbs.com/xcart</a> and install below module in your X-Cart!</p>
+    </div>
+
+    <div class="promo-module">
+        {% if this.isModuleInstalled() %}
+            {{ widget('XLite\\View\\Button\\Link',
+                location=this.getConfigureLink(),
+                label=t('Configure'),
+                style='regular-main-button') }}
+        {% else %}
+            {{ widget('XLite\\View\\Button\\Link',
+                location=this.getEnableLink(),
+                label=t('Enable module'),
+                style='regular-main-button') }}
+        {% endif %}
+    </div>
+</div>

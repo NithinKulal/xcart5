@@ -1,0 +1,22 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Demo store (menu) ZH
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Module\CDev\SimpleCMS\Model\Menu:
+  - { link: 'shipping.html', type: P, position: 100, translations: [{ code: zh, name: '关于运输' }]}
+  - { link: '{new arrivals}', type: P, position: 200, translations: [{ code: zh, name: '新品上线' }]}
+  - { link: '{bestsellers}', type: P, position: 200, translations: [{ code: zh, name: '热卖商品' }]}
+  - { link: '{contact us}', type: P, position: 400, translations: [{ code: zh, name: '联系我们' }]}
+
+  - { type: F, position: 100, translations: [{ code: zh, name: '分类' }], children: [{ link: 'home-and-office', type: F, position: 100, translations: [{ code: zh, name: '办公用品' }]}, { link: 'toys', type: F, position: 200, translations: [{ code: zh, name: '玩具' }]}, { link: 'apparel', type: F, position: 300, translations: [{ code: zh, name: '服饰' }]}, { link: 'igoods', type: F, position: 400, translations: [{ code: zh, name: '电子产品' }]}]}
+
+  - { type: F, position: 200, translations: [{ code: en, name: 'Offers' }, { code: zh, name: '促销' }], children: [{ link: '{sale}', type: F, position: 100, translations: [{ code: en, name: 'Sale' }, { code: zh, name: '特卖' }]}, { link: '{coming soon}', type: F, position: 200, translations: [{ code: en, name: 'Coming soon' }, { code: zh, name: '即将上线' }]}, { link: '{new arrivals}', type: F, position: 300, translations: [{ code: en, name: 'New!' }, { code: zh, name: '新货！' }]}]}
+
+  - { type: F, position: 300, translations: [{ code: en, name: 'Info links' }, { code: zh, name: '信息' }], children: [{ link: 'shipping.html', type: F, position: 100, translations: [{ code: en, name: 'Shipping' }, { code: zh, name: '快递' }]},{ link: '?target=map', type: F, position: 200, translations: [{ code: en, name: 'Sitemap' }, { code: zh, name: '网站地图' }]}, { link: 'terms-and-conditions.html', type: F, position: 300, translations: [{ code: en, name: 'Terms & Conditions' }, { code: zh, name: '条款和条件' }]}]}
+
+  - { type: F, position: 400, translations: [{ code: en, name: 'Services' }, { code: zh, name: '服务' }], children: [{ link: 'shipping.html', type: F, position: 100, translations: [{ code: en, name: 'Shipping info' }, { code: zh, name: '配送信息' }]}, { link: '{contact us}', type: F, position: 200, translations: [{ code: en, name: 'Contact us' }, { code: zh, name: '联系我们' }]}]}
+
+  - { visibleFor: L, type: F, position: 500, translations: [{ code: en, name: 'My X-Cart' }, { code: zh, name: 'X-Cart' }], children: [{ visibleFor: L, link: '?target=address_book', type: F, position: 100, translations: [{ code: en, name: 'Address book' }, { code: zh, name: '地址簿' }]}, { visibleFor: L, link: '?target=order_list', type: F, position: 200, translations: [{ code: en, name: 'Order list' }, { code: zh, name: '订单（复数）' }]}, { visibleFor: L, link: '?target=profile', type: F, position: 300, translations: [{ code: en, name: 'Account details' }, { code: zh, name: '帐户详细资料' }]}]}

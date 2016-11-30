@@ -1,0 +1,7 @@
+{##
+ # Invoice : header : Company address box : Phone and Fax
+ #
+ # @ListChild (list="invoice.subhead.companyAddress", weight="400")
+ #}
+
+{% if this.company.company_fax %}<p>{{ t('Fax') }}: {{ this.company.company_fax }}</p>{% endif %}

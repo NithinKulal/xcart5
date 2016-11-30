@@ -62,7 +62,9 @@ class Files extends \XLite\Controller\Admin\AAdmin
      */
     protected function doActionUploadFromFile()
     {
-        $file = new \XLite\Model\TemporaryFile();
+        $file = \XLite\Core\Request::getInstance()->register
+            ? new \XLite\Model\Image\Content()
+            : new \XLite\Model\TemporaryFile();
         $message = '';
         if ($file->loadFromRequest('file')) {
             $this->checkFile($file);
@@ -84,9 +86,11 @@ class Files extends \XLite\Controller\Admin\AAdmin
      */
     protected function doActionUploadFromURL()
     {
-        $file = new \XLite\Model\TemporaryFile();
+        $file = \XLite\Core\Request::getInstance()->register
+            ? new \XLite\Model\Image\Content()
+            : new \XLite\Model\TemporaryFile();
         $message = '';
-        if ($file->loadFromURL(\XLite\Core\Request::getInstance()->url, \XLite\Core\Request::getInstance()->copy)) {
+        if ($file->loadFromURL(\XLite\Core\Request::getInstance()->uploadedUrl, \XLite\Core\Request::getInstance()->copy)) {
             $this->checkFile($file);
             \XLite\Core\Database::getEM()->persist($file);
             \XLite\Core\Database::getEM()->flush();
@@ -196,14 +200,22 @@ class Files extends \XLite\Controller\Admin\AAdmin
      */
     protected function getSuccessResponseData($file)
     {
+        $url = \XLite\Core\Request::getInstance()->register
+            ? str_replace(\XLite\Core\URLManager::getShopURL(), '', $file->getFrontURL())
+            : $file->getFrontURL();
+
         $response = array(
             'size'    => $file->getSize(),
             'width'   => $file->getWidth(),
             'height'  => $file->getHeight(),
-            'url'     => $file->getFrontURL(),
+            'url'     => $url,
             'id'      => $file->getId(),
             'message' => static::t('File was successfully uploaded'),
         );
+
+        if (\XLite\Core\Request::getInstance()->url_param_name) {
+            $response[\XLite\Core\Request::getInstance()->url_param_name] = $url;
+        }
 
         return $response;
     }

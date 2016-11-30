@@ -14,20 +14,6 @@ namespace XLite\Module\XC\CrispWhiteSkin\View\Button;
 class PopupLogin extends \XLite\View\Button\PopupLogin implements \XLite\Base\IDecorator
 {
     /**
-     * getJSFiles
-     *
-     * @return array
-     */
-    public function getJSFiles()
-    {
-        $list = parent::getJSFiles();
-
-        $list[] = 'button/js/login.js';
-
-        return $list;
-    }
-
-    /**
      * Return URL parameters to use in AJAX popup
      *
      * @return array

@@ -186,6 +186,22 @@ abstract class Handler extends \XLite\Base
     }
 
     /**
+     * Compose URL from target, action and additional params
+     *
+     * @param \XLite\Model\AccessControlCell $acc
+     * @param string                         $resendMethod resend method name in \XLite\Controller\Customer\AccessControl
+     * @param string  $target      Page identifier
+     * @param string  $action      Action to perform
+     * @param array   $params      Additional params
+     *
+     * @return string
+     */
+    public function buildPersistentAccessURL(\XLite\Model\AccessControlCell $acc, $target = '', $action = '', array $params = array())
+    {
+        return \XLite\Core\Converter::buildPersistentAccessURL($acc, $target, $action, $params);
+    }
+
+    /**
      * Compose complete URL from target, action and additional params
      *
      * @param string $target Page identifier OPTIONAL

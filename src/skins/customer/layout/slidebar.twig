@@ -3,6 +3,7 @@
  #}
 
 <nav id="slidebar">
+    {{ this.displayCommentedData(this.getPreloadedLabels()) }}
     <ul>
         <li class="slidebar-categories">
             <span data-toggle="dropdown">{{ t('Categories') }}</span>

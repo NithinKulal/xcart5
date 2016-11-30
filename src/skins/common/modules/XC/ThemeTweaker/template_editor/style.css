@@ -1,0 +1,249 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Templates debugg styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+.tpl-debug-canvas {
+  position: absolute;
+  display: block;
+  z-index: 1000000;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.tpl-debug-tpl-canvas,
+.tpl-debug-list-canvas
+{
+  border: 1px dashed #d6ab89;
+}
+
+.tpl-debug-current {
+  opacity: 0.2;
+  background-color: #ee6800;
+}
+
+#themeTweaker_wrapper {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  overflow: hidden;
+  height: 100% !important;
+  width: 300px;
+  background-color: #FFF;
+  z-index: 10000000;
+  padding-right: 6px;
+}
+
+#themeTweaker_tree {
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+}
+
+#themeTweaker_tree > ul {
+  clear:right;
+}
+
+#themeTweaker_tree.jstree-default .jstree-icon.jstree-themeicon {
+  background: none;
+  display: inline-block;
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 18px;
+  padding-top: 4px;
+  color: #EEDC54;
+}
+
+#themeTweaker_tree.jstree-default .jstree-disabled>.jstree-icon {
+  opacity: 1;
+  filter: none;
+  -webkit-filter: none;
+}
+
+#themeTweaker_tree.jstree-default .jstree-open>a>.jstree-icon.jstree-themeicon {
+  padding-left: 3px;
+}
+
+#themeTweaker_tree.jstree-default .jstree-icon.jstree-themeicon:after {
+  content: '\f07b';
+}
+
+#themeTweaker_tree.jstree-default .jstree-open>a>.jstree-icon.jstree-themeicon:after {
+  content: '\f07c';
+}
+
+#themeTweaker_tree.jstree-default .jstree-disabled>.jstree-icon.jstree-themeicon:after {
+  content: '\f114';
+}
+
+#themeTweaker_tree.jstree-default .jstree-open>a.jstree-disabled>.jstree-icon.jstree-themeicon:after {
+  content: '\f115';
+}
+
+body, body.target-notification-editor {
+  margin-left: 300px;
+}
+
+div.single-progress-mark {
+  z-index: 20000;
+  position: fixed;
+}
+
+#themeTweaker_wrapper .ui-resizable-e {
+  border-right: 1px solid #ddd;
+  right: 0;
+}
+
+#themeTweaker_wrapper .ui-resizable-handle.ui-resizable-e:after {
+  content: '';
+  display: block;
+  width: 3px;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  height: 100px;
+  margin: auto;
+  top: 50%;
+  position: relative;
+  margin-top: -50px;
+  box-shadow: 2px 0 0 -1px #ddd, -2px 0 0 -1px #ddd;
+  background: #ddd;
+}
+
+#themeTweaker_wrapper .themeTweaker-control-panel {
+  padding: 10px;
+  padding-top: 5px;
+  min-width: 277px;
+}
+
+
+#themeTweaker_wrapper .themeTweaker-title {
+  font-size: 24px;
+}
+
+#themeTweaker_wrapper .themeTweaker-label {
+  display: inline-block;
+  max-width: 200px;
+}
+
+#themeTweaker_wrapper .themeTweaker-onoffswitch {
+  display: inline-block;
+  float: right;
+  min-width: 54px;
+  text-align: right;
+  margin-top: -5px;
+}
+
+#themeTweaker_wrapper .themeTweaker-onoffswitch input[type=checkbox] + label .fa {
+  padding: 4px;
+  width: 54px;
+  height: 30px;
+  background-color: #ccc;
+  border-radius: 30px;
+  transition: background 0.4s;
+  color: #9d9d9d;
+  font-size: 14px;
+  vertical-align: middle;
+}
+#themeTweaker_wrapper .themeTweaker-onoffswitch input[type=checkbox] + label .fa:before,
+#themeTweaker_wrapper .themeTweaker-onoffswitch input[type=checkbox] + label .fa:after {
+  position: absolute;
+}
+#themeTweaker_wrapper .themeTweaker-onoffswitch input[type=checkbox] + label .fa:before {
+  padding: 4px;
+  transition: margin 0.4s, color 0.4s;
+  z-index: 1;
+}
+#themeTweaker_wrapper .themeTweaker-onoffswitch input[type=checkbox] + label .fa:after {
+  top: 4px;
+  bottom: 4px;
+  width: 22px;
+  border-radius: 30px;
+  transition: margin 0.4s, background 0.4s;
+  background-color: #fff;
+  content: "";
+}
+#themeTweaker_wrapper .themeTweaker-onoffswitch input[type=checkbox] + label .themeTweaker-on-label,
+#themeTweaker_wrapper .themeTweaker-onoffswitch input[type=checkbox] + label .themeTweaker-off-label {
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0 2px;
+  transition: color 0.4s;
+  display: inline-block;
+  vertical-align: middle;
+}
+#themeTweaker_wrapper .themeTweaker-onoffswitch input[type=checkbox] + label .themeTweaker-on-label {
+  color: #ccc;
+  text-align: left;
+}
+#themeTweaker_wrapper .themeTweaker-onoffswitch input[type=checkbox] + label .themeTweaker-off-label {
+  color: #9d9d9d;
+  text-align: right;
+}
+#themeTweaker_wrapper .themeTweaker-onoffswitch input[type=checkbox]:checked + label .fa {
+  background-color: #51b962;
+  color: #51b962;
+}
+#themeTweaker_wrapper .themeTweaker-onoffswitch input[type=checkbox]:checked + label .fa:before,
+#themeTweaker_wrapper .themeTweaker-onoffswitch input[type=checkbox]:checked + label .fa:after {
+  margin-left: 24px;
+}
+#themeTweaker_wrapper .themeTweaker-onoffswitch input[type=checkbox]:checked + label .themeTweaker-on-label {
+  color: #51b962;
+}
+#themeTweaker_wrapper .themeTweaker-onoffswitch input[type=checkbox]:checked + label .themeTweaker-off-label {
+  color: #ccc;
+}
+#themeTweaker_wrapper .themeTweaker-onoffswitch input[type=checkbox]:disabled + label {
+  opacity: .1;
+}
+
+#themeTweaker_wrapper .themeTweaker-onoffswitch input[type=checkbox] {
+  position: absolute;
+  margin-left: -9999px;
+  visibility: hidden;
+}
+#themeTweaker_wrapper .themeTweaker-onoffswitch input[type=checkbox] + label {
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  text-align: left;
+  position: relative;
+}
+
+#themeTweaker_wrapper .themeTweaker-back {
+  margin-bottom: 20px;
+}
+
+#themeTweaker_wrapper .themeTweaker-order {
+  padding-bottom: 20px;
+}
+
+#themeTweaker_wrapper .themeTweaker-control-panel {
+  border-bottom: 1px solid #dcdcdc;
+}
+
+#themeTweaker_wrapper .themeTweaker-order-title {
+  font-size: 24px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+#themeTweaker_wrapper .themeTweaker-order-change {
+  display: inline-block;
+}
+
+#themeTweaker_wrapper .themeTweaker-order-change-input {
+  display: none;
+}
+

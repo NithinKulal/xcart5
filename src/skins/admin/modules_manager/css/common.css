@@ -33,11 +33,12 @@ table.data-table.modules-list tr.module-item td.module-main-section a.fa {
   font-size: 12px;
   text-decoration: none;
   margin-left: 3px;
-  display: none;
+  display: inline;
+  visibility: hidden;
 }
 
 table.data-table.modules-list tr.module-item td.module-main-section .name:hover a.fa {
-  display: inline-block;
+  visibility: visible;
 }
 
 table.data-table.modules-list tr.module-item td.module-main-section a.module-name.no-link,
@@ -106,13 +107,25 @@ table.data-table.modules-list tr.module-item td.module-main-section a.module-nam
   height: 26px;
   white-space: nowrap;
   vertical-align: top;
-  line-height: 19px;
-  padding: 3px 0 0 13px;
-  min-width: 89px;
+  padding: 0 13px;
   font-size: 14px;
   color: #0e55a6;
   background-color: #eff8fe;
   cursor: pointer;
+
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.modules-list tr td.module-main-section .install label.install-module-button input[type="checkbox"]{
+  margin-right: 10px;
 }
 
 .modules-list .name {
@@ -420,14 +433,15 @@ table.data-table td .module-tags-list li a:hover {
 }
 
 .main-text .no-modules-found {
-  font-size: 24px;
-
+  font-size: 16px;
+  text-align: left;
+  font-weight: 600;
 }
 
 .main-text .clarify-text {
-  margin: 15px 0 0 0;
+  margin: 5px 0 0 0;
   font-size: 16px;
-  color: #51799a;
+  text-align: left;
 }
 
 .target-addons-list-installed .list-pager {

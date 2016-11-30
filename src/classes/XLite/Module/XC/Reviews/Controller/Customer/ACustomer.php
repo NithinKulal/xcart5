@@ -92,18 +92,6 @@ abstract class ACustomer extends \XLite\Controller\Customer\ACustomer implements
     }
 
     /**
-     * Is addReviewMessage should be a link
-     *
-     * @return boolean
-     */
-    public function isShouldBeALink()
-    {
-        return $this->getTarget() !== 'product_reviews'
-            && (($this->getProduct() && 0 < $this->getProduct()->getReviewsCount()) || $this->isProductReviewedByUser())
-            && (bool)\XLite\Core\Config::getInstance()->XC->Reviews->disablePendingReviews;
-    }
-
-    /**
      * Return message instead of 'Add review' button if customer is not allowed to add review
      *
      * @return string

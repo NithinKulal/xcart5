@@ -11,3 +11,4 @@ XLite\Model\LanguageLabel:
   - { name: 'The product tab has been updated', translations: [{ code: en, label: 'The product tab has been updated' }, {code: ru, label: 'Вкладка обновлена'}] }
   - { name: 'The product tab has been added', translations: [{ code: en, label: 'The product tab has been added' }, {code: ru, label: 'Вкладка добавлена'}] }
   - { name: 'Product tabs', translations: [{ code: en, label: 'Product tabs' }, {code: ru, label: 'Вкладки страницы продукта' }] }
+  - { name: 'Tabs imported', translations: [{ code: en, label: 'Tabs imported' }, {code: ru, label: 'Импорт вкладок завершен' }] }

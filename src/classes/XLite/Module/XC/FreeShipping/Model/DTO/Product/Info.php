@@ -20,6 +20,11 @@ class Info extends \XLite\Model\DTO\Product\Info implements \XLite\Base\IDecorat
     {
         parent::init($object);
 
+        $this->initFreeShipping($object);
+    }
+    
+    protected function initFreeShipping($object)
+    {
         static::compose(
             $this,
             [
@@ -41,12 +46,17 @@ class Info extends \XLite\Model\DTO\Product\Info implements \XLite\Base\IDecorat
      */
     public function populateTo($object, $rawData = null)
     {
-        $freeShipping = static::deCompose($this, 'shipping', 'requires_shipping', 'free_shipping');
-        $object->setFreeShip($freeShipping);
-
-        $fixedShippingFreight = static::deCompose($this, 'shipping', 'requires_shipping', 'fixed_shipping_freight');
-        $object->setFreightFixedFee($fixedShippingFreight);
+        $this->populateToFreeShipping($object);
 
         parent::populateTo($object, $rawData);
+    }
+    
+    protected function populateToFreeShipping($object)
+    {
+        $freeShipping = static::deCompose($this, 'shipping', 'requires_shipping', 'free_shipping');
+        $object->setFreeShip((boolean) $freeShipping);
+
+        $fixedShippingFreight = static::deCompose($this, 'shipping', 'requires_shipping', 'fixed_shipping_freight');
+        $object->setFreightFixedFee((float) $fixedShippingFreight);
     }
 }

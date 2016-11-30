@@ -40,7 +40,7 @@ abstract class Main extends \XLite\Module\AModule
      */
     public static function getMinorVersion()
     {
-        return '1';
+        return '2';
     }
 
     /**
@@ -50,7 +50,7 @@ abstract class Main extends \XLite\Module\AModule
      */
     public static function getBuildVersion()
     {
-        return '2';
+        return '0';
     }
 
     /**
@@ -103,7 +103,17 @@ abstract class Main extends \XLite\Module\AModule
      */
     public static function isTargetAllowed()
     {
-        return !in_array(\XLite\Core\Request::getInstance()->target, array('image'));
+        return !in_array(\XLite\Core\Request::getInstance()->target, ['image'], true);
+    }
+
+    /**
+     * Check target allowed
+     *
+     * @return boolean
+     */
+    public static function isAdminTargetAllowed()
+    {
+        return in_array(\XLite\Core\Request::getInstance()->target, ['notification_editor'], true);
     }
 
     /**
@@ -127,16 +137,49 @@ abstract class Main extends \XLite\Module\AModule
     {
         parent::runBuildCacheHandler();
 
-        $overrides = \XLite\Core\Database::getRepo('\XLite\Model\ViewList')->findOverridden();
+        $overrides = \XLite\Core\Database::getRepo('XLite\Model\ViewList')->findOverridden();
 
         if ($overrides) {
             foreach ($overrides as $override) {
-                $entity = \XLite\Core\Database::getRepo('\XLite\Model\ViewList')->findEqual($override, true);
+                $entity = \XLite\Core\Database::getRepo('XLite\Model\ViewList')->findEqual($override, true);
 
                 if ($entity) {
                     $entity->mapOverrides($override);
                 }
             }
         }
+    }
+
+    public static function getDumpOrder()
+    {
+        $orderId = \XLite\Core\TmpVars::getInstance()->themeTweakerDumpOrderId;
+        $order = \XLite\Core\Database::getRepo('XLite\Model\Order')->find($orderId);
+
+        if (null === $order) {
+            $order = \XLite\Core\Database::getRepo('XLite\Model\Order')->findDumpOrder();
+            if ($order) {
+                \XLite\Core\TmpVars::getInstance()->themeTweakerDumpOrderId = $order->getOrderId();
+            }
+        }
+
+        return $order;
+    }
+
+    public static function isOrderNotification($templateDirectory)
+    {
+        return in_array(
+            $templateDirectory,
+            [
+                'order_advanced_changed',
+                'order_canceled',
+                'order_changed',
+                'order_created',
+                'order_failed',
+                'order_processed',
+                'order_shipped',
+                'order_tracking_information',
+            ],
+            true
+        );
     }
 }

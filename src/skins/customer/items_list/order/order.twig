@@ -1,0 +1,89 @@
+{##
+ # Orders list item
+ #}
+<div class="order-body-item">
+
+  <div class="title">
+
+    <ul class="order-spec-wrapper-list">
+      <li class="order-spec-wrapper">{#order number, date, total, num items#}
+        <ul class="order-spec">
+          {{ widget_list('orders.children.spec') }}
+        </ul>
+      </li>
+
+      <li class="order-part-wrapper">
+
+        <div class="order-statuses payment-{{ this.order.paymentStatus.code }} shipping-{{ this.order.shippingStatus.code }}">
+          <ul class="statuses">
+            <li class="order-payment-status">
+              {{ widget('\\XLite\\View\\OrderStatus\\Payment', order=this.order, useWrapper='true') }}
+            </li>
+            <li class="order-shipping-status">
+              {{ widget('\\XLite\\View\\OrderStatus\\Shipping', order=this.order, useWrapper='true') }}
+            </li>
+          </ul>
+        </div>
+
+        <div class="order-spec-separator"></div>
+
+        <div class="order-actions">
+          <ul class="actions-list">
+            {% if this.showReorder(this.order) %}
+              <li class="reorder">
+                {{ widget('\\XLite\\View\\Button\\Link', label='Re-order', location=url('cart', 'add_order', {'order_number': this.order.orderNumber})) }}
+              </li>
+            {% endif %}
+          </ul>
+        </div>
+
+      </li>
+    </ul>
+
+  </div> {#End of title#}
+
+  <div id="order-{{ this.order.orderId }}" class="order-body-items-list collapse">
+    <div class="shipping-method-spec">
+      <ul class="shipping-method-name">
+        <li class="shipping-method-wrapper">
+          <span class="shipping-method-label">{{ t('Shipping method') }}:</span><span
+                  class="shipping-method-name">{{ this.order.getShippingMethodName()|raw }}</span>
+        </li>
+        {% if not this.order.trackingNumbers.isEmpty() %}
+          <li class="tracking-number-wrapper">
+            <span class="tracking-number-label">{{ t('Tracking numbers') }}:</span>
+
+            <div class="tracking-number-box">
+              {% for number in this.order.trackingNumbers %}
+
+                <span class="tracking-item">
+                {% if this.order.getTrackingInformationURL(number.value) %}
+                  {% if this.order.isTrackingInformationForm(number.value) %}
+                    <form method="{{ this.order.getTrackingInformationMethod(number.value)|raw }}"
+                          action="{{ this.order.getTrackingInformationURL(number.value) }}" target="_blank">
+                  {% for name, value in this.order.getTrackingInformationParams(number.value) %}
+                    <input type="hidden" name="{{ name }}" value="{{ value }}"/>
+                  {% endfor %}
+                      <span>{{ number.value }} - </span>
+                  <button type="submit">{{ t('Track package') }}</button>
+                </form>
+                {% else %}
+                    <span>{{ number.value }} - </span>
+                    <a href="{{ this.order.getTrackingInformationURL(number.value) }}"
+                       target="_blank">{{ t('Track package') }}</a>
+                  {% endif %}
+                {% else %}
+                  {{ number.value }}
+                {% endif %}
+                </span><br/>
+
+              {% endfor %}
+            </div>
+          </li>
+        {% endif %}
+
+      </ul>
+    </div>
+    {{ widget('\\XLite\\View\\Order\\ListItem\\Items', full='true', order=this.order) }}
+  </div>
+</div>

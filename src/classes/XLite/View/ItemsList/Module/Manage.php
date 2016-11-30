@@ -96,6 +96,18 @@ class Manage extends \XLite\View\ItemsList\Module\AModule
     }
 
     /**
+     * State search getter
+     *
+     * @return string
+     */
+    protected function getState()
+    {
+        $state = method_exists(\XLite::getController(), 'getState') ? \XLite::getController()->getState() : null;
+
+        return $state ?:  $this->getParam(static::PARAM_STATE);
+    }
+
+    /**
      * Return params list to use for search
      *
      * @return \XLite\Core\CommonCell
@@ -110,6 +122,14 @@ class Manage extends \XLite\View\ItemsList\Module\AModule
             $result->{\XLite\Model\Repo\Module::P_ISSYSTEM}  = false;
             if (!isset(\XLite\Core\Request::getInstance()->clearCnd)) {
                 $result->{\XLite\Model\Repo\Module::P_SUBSTRING} = $this->getSubstring();
+                
+                if ($this->getState()) {
+                    $result->{
+                    $this->getState() === \XLite\View\FormField\Select\ModuleState::ENABLED
+                        ? \XLite\Model\Repo\Module::P_ACTIVE
+                        : \XLite\Model\Repo\Module::P_INACTIVE
+                    } = true;
+                }
             }
         }
 

@@ -34,6 +34,13 @@
       border: none;
     }
 
+    &.item { // to override rhythm.less @media
+      & > span,
+      & > a {
+        line-height: (2 * @rhythmic-unit);
+      }
+    }
+
     &.selected {
       > a,
       > span {

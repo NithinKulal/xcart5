@@ -1397,9 +1397,20 @@ XML;
      */
     public static function adjustStringValue($value, $max)
     {
-        return ($max < static::getStringLength($value))
+        $value = htmlspecialchars(htmlspecialchars_decode($value));
+
+        $value =  ($max < static::getStringLength($value))
             ? static::subString($value, 0, $max)
             : $value;
+
+        if (static::getStringLength($value) == $max) {
+            //check if HTML entity(&[some_code];) is truncated - remove it
+            if (preg_match('/(&[^;]++)(?!;)$/', $value)) {
+                $value = static::subString($value, 0, $max - ($max - strrpos($value, '&') - 1));
+            }
+        }
+
+        return $value;
     }
 
     /**

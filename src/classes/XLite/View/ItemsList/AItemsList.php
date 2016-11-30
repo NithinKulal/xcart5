@@ -8,16 +8,20 @@
 
 namespace XLite\View\ItemsList;
 
+use XLite\Core\Cache\ExecuteCachedTrait;
+
 /**
  * Base class for all lists
  */
 abstract class AItemsList extends \XLite\View\Container
 {
+    use ExecuteCachedTrait;
+
     /**
      * Widget param names
      */
-    const PARAM_SORT_BY      = 'sortBy';
-    const PARAM_SORT_ORDER   = 'sortOrder';
+    const PARAM_SORT_BY    = 'sortBy';
+    const PARAM_SORT_ORDER = 'sortOrder';
 
     /**
      * SQL orderby directions
@@ -40,25 +44,21 @@ abstract class AItemsList extends \XLite\View\Container
     protected $commonParams;
 
     /**
-     * pager
-     *
-     * @var \XLite\View\Pager\APager
-     */
-    protected $pager;
-
-    /**
-     * itemsCount
-     *
-     * @var integer
-     */
-    protected $itemsCount;
-
-    /**
      * sortByModes
      *
      * @var array
      */
     protected $sortByModes = array();
+
+    protected function getSortByModesField()
+    {
+        return $this->sortByModes;
+    }
+
+    protected function setSortByModesField($value)
+    {
+        $this->sortByModes = $value;
+    }
 
     /**
      * sortOrderModes
@@ -69,13 +69,6 @@ abstract class AItemsList extends \XLite\View\Container
         self::SORT_ORDER_ASC  => 'Ascending',
         self::SORT_ORDER_DESC => 'Descending',
     );
-
-    /**
-     * Cached getPageData() result
-     *
-     * @var array
-     */
-    protected $pageData;
 
     /**
      * Sorting widget IDs list
@@ -99,6 +92,30 @@ abstract class AItemsList extends \XLite\View\Container
     abstract protected function getPagerClass();
 
     /**
+     * Define repository name
+     *
+     * @return string
+     */
+    protected function defineRepositoryName()
+    {
+        return '';
+    }
+
+    /**
+     * Get repository
+     *
+     * @return \XLite\Model\Repo\ARepo|null
+     */
+    protected function getRepository()
+    {
+        $repositoryName = $this->defineRepositoryName();
+
+        return $repositoryName
+            ? \XLite\Core\Database::getRepo($repositoryName)
+            : null;
+    }
+
+    /**
      * Return products list
      *
      * @param \XLite\Core\CommonCell $cnd       Search condition
@@ -106,7 +123,12 @@ abstract class AItemsList extends \XLite\View\Container
      *
      * @return array|integer
      */
-    abstract protected function getData(\XLite\Core\CommonCell $cnd, $countOnly = false);
+    protected function getData(\XLite\Core\CommonCell $cnd, $countOnly = false)
+    {
+        $repository = $this->getRepository();
+
+        return $repository ? $repository->search($cnd, $countOnly) : 0;
+    }
 
     /**
      * Get processed session cell name for the certain list items widget
@@ -230,20 +252,18 @@ abstract class AItemsList extends \XLite\View\Container
     /**
      * Return number of items in products list
      *
-     * @return array
+     * @return integer
      */
     protected function getItemsCount()
     {
-        if (!isset($this->itemsCount)) {
+        return $this->executeCachedRuntime(function () {
             $cacheParams   = $this->getCacheParameters();
             $cacheParams[] = 'getItemsCount';
 
-            $this->itemsCount = $this->executeCached(function () {
+            return $this->executeCached(function () {
                 return $this->getData($this->getSearchCondition(), true);
             }, $cacheParams);
-        }
-
-        return $this->itemsCount;
+        });
     }
 
     /**
@@ -276,7 +296,7 @@ abstract class AItemsList extends \XLite\View\Container
      */
     protected function preparePagerCSSFiles($list)
     {
-        return array_merge($list, self::getPager()->getCSSFiles());
+        return array_merge($list, $this->getPager()->getCSSFiles());
     }
 
     /**
@@ -286,7 +306,6 @@ abstract class AItemsList extends \XLite\View\Container
      */
     protected function getBody()
     {
-        // Static call of the non-static function
         return self::getDir() . LC_DS . $this->getBodyTemplate();
     }
 
@@ -322,6 +341,66 @@ abstract class AItemsList extends \XLite\View\Container
     }
 
     /**
+     * Description for blank items list
+     *
+     * @return string
+     */
+    protected function getBlankItemsListDescription()
+    {
+        return null;
+    }
+
+    /**
+     * Check if list blank(no products in store for products list)
+     *
+     * @return boolean
+     */
+    protected function isListBlank()
+    {
+        return $this->getRepository() ? !$this->getRepository()->count() : false;
+    }
+
+    /**
+     * Check if blank items list descriptions should be displayed
+     *
+     * @return bool
+     */
+    protected function isDisplayBlankItemsListDescription()
+    {
+        return $this->getBlankItemsListDescription() && $this->isListBlank();
+    }
+
+    /**
+     * Return blank list template
+     *
+     * @return string
+     */
+    protected function getBlankListTemplate()
+    {
+        return $this->getBlankListDir() . LC_DS . $this->getBlankListFile();
+    }
+
+    /**
+     * Return "blank list" template
+     *
+     * @return string
+     */
+    protected function getBlankListDir()
+    {
+        return $this->getDir();
+    }
+
+    /**
+     * getEmptyListFile
+     *
+     * @return string
+     */
+    protected function getBlankListFile()
+    {
+        return 'blank.twig';
+    }
+
+    /**
      * getEmptyListTemplate
      *
      * @return string
@@ -338,7 +417,7 @@ abstract class AItemsList extends \XLite\View\Container
      */
     protected function getEmptyListDir()
     {
-        return self::getDir();
+        return $this->getDir();
     }
 
     /**
@@ -381,11 +460,9 @@ abstract class AItemsList extends \XLite\View\Container
      */
     protected function getPager()
     {
-        if (!isset($this->pager)) {
-            $this->pager = $this->getWidget($this->getPagerParams(), $this->getPagerClass());
-        }
-
-        return $this->pager;
+        return $this->executeCachedRuntime(function () {
+            return $this->getWidget($this->getPagerParams(), $this->getPagerClass());
+        });
     }
 
     // {{{ SEARCH REGION
@@ -561,15 +638,14 @@ abstract class AItemsList extends \XLite\View\Container
      */
     protected function getPageData()
     {
-        if (!isset ($this->pageData)) {
+        return $this->executeCachedRuntime(function () {
             if ($this->isExportable()) {
-                \XLite\Core\Session::getInstance()->{$this->getConditionCellName()} = $this->getExportSearchCondition();
+                \XLite\Core\Session::getInstance()->{static::getConditionCellName()}
+                    = $this->getExportSearchCondition();
             }
 
-            $this->pageData = $this->getData($this->getLimitCondition());
-        }
-
-        return $this->pageData;
+            return $this->getData($this->getLimitCondition());
+        });
     }
 
     /**
@@ -625,7 +701,7 @@ abstract class AItemsList extends \XLite\View\Container
         $paramSortBy = $this->getParam(static::PARAM_SORT_BY);
 
         if (empty($paramSortBy)
-            || !in_array($paramSortBy, array_keys($this->sortByModes))
+            || !in_array($paramSortBy, array_keys($this->sortByModes), true)
         ) {
             $paramSortBy = $this->getSortByModeDefault();
         }
@@ -645,7 +721,8 @@ abstract class AItemsList extends \XLite\View\Container
         if (empty($paramSortOrder)
             || !in_array(
                 $paramSortOrder,
-                array(static::SORT_ORDER_DESC, static::SORT_ORDER_ASC)
+                [static::SORT_ORDER_DESC, static::SORT_ORDER_ASC],
+                true
             )
         ) {
             $paramSortOrder = $this->getSortOrderModeDefault();
@@ -693,6 +770,11 @@ abstract class AItemsList extends \XLite\View\Container
 
     /**
      * Get URL common parameters
+     * @todo: decompose to defineCommonParams, processCommonParams and getCommonParams; use ExecuteCachedTrait
+     *      return $this->executeCachedRuntime(function () {
+     *              return $this->processCommonParams($this->defineCommonParams());
+     *          });
+     *      to avoid initialisation check in children implementations
      *
      * @return array
      */
@@ -727,7 +809,7 @@ abstract class AItemsList extends \XLite\View\Container
      */
     protected function getURLParams()
     {
-        return array('target' => \XLite\Core\Request::getInstance()->target) + $this->getCommonParams();
+        return ['target' => \XLite\Core\Request::getInstance()->target] + $this->getCommonParams();
     }
 
     /**
@@ -785,7 +867,7 @@ abstract class AItemsList extends \XLite\View\Container
      */
     protected function isSortByModeSelected($sortByMode)
     {
-        return $this->getSortBy() == $sortByMode;
+        return $this->getSortBy() === $sortByMode;
     }
 
     /**
@@ -797,7 +879,7 @@ abstract class AItemsList extends \XLite\View\Container
      */
     protected function isSortOrderAsc($sortOrder = null)
     {
-        return static::SORT_ORDER_ASC == ($sortOrder ?: $this->getSortOrder());
+        return static::SORT_ORDER_ASC === ($sortOrder ?: $this->getSortOrder());
     }
 
     /**

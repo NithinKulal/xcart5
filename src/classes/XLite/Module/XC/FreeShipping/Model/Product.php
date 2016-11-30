@@ -40,7 +40,7 @@ class Product extends \XLite\Model\Product implements \XLite\Base\IDecorator
      */
     public function setFreeShip($freeShip)
     {
-        $this->freeShip = $freeShip;
+        $this->freeShip = (boolean) $freeShip;
         return $this;
     }
 
@@ -57,19 +57,19 @@ class Product extends \XLite\Model\Product implements \XLite\Base\IDecorator
     /**
      * Set freightFixedFee
      *
-     * @param decimal $freightFixedFee
+     * @param float $freightFixedFee
      * @return Product
      */
     public function setFreightFixedFee($freightFixedFee)
     {
-        $this->freightFixedFee = $freightFixedFee;
+        $this->freightFixedFee = (float) $freightFixedFee;
         return $this;
     }
 
     /**
      * Get freightFixedFee
      *
-     * @return decimal 
+     * @return float
      */
     public function getFreightFixedFee()
     {

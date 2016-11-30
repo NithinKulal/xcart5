@@ -1,0 +1,48 @@
+{##
+ # Register form template
+ #}
+
+<div class="subscriptions-list-container">
+  <div class="subscriptions-list-header">
+    {{ t('Sign up for news and updates from your favorite store. Be the first to know about exclusive sales, offers and deals.') }}
+  </div>
+  <table class="data-table subscriptions-list">
+    {% if this.isSelectBoxElement() %}
+      <tr class="subscriptions-line select-box">
+        <td class="subscriptions-name">
+          {{ t('Subscription') }}
+        </td>
+        <td>
+          {{ widget('\\XLite\\Module\\XC\\MailChimp\\View\\FormField\\Select\\MailChimpSubscription', fieldOnly='true', fieldName=this.getSelectBoxName(), firldId=this.getSelectBoxId(), profile=this.profile) }}
+        </td>
+      </tr>
+      <tr class="interests select-box">
+        <td colspan="2">
+          {{ widget(template='modules/XC/MailChimp/profile/subscriptions_groups.twig', groups=this.getGroupsForSelectBox()) }}
+        </td>
+      </tr>
+    {% else %}
+      {% for list in this.getData() %}
+        <tr class="subscriptions-line">
+          <td class="subscriptions-checkbox">
+            {{ widget('\\XLite\\View\\FormField\\Input\\Checkbox', value='1', fieldOnly='1', fieldName=this.getCheckboxName(list), fieldId=this.getCheckboxId(list), isChecked=this.checkIfSubscribed(list, this.profile)) }}
+          </td>
+          <td class="subscriptions-name">
+            {{ list.getName() }}
+          </td>
+        </tr>
+        <tr class="interests checkboxes">
+          <td colspan="2">
+            {{ widget(template='modules/XC/MailChimp/profile/subscriptions_groups.twig', groups=list.getEnabledGroups()) }}
+          </td>
+        </tr>
+      {% endfor %}
+    {% endif %}
+
+    <tr class="subscriptions-line">
+      <td class="subscriptions-submit" colspan="2">
+        {{ widget('\\XLite\\View\\Button\\Submit', label='Update', style='regular-main-button') }}
+      </td>
+    </tr>
+  </table>
+</div>

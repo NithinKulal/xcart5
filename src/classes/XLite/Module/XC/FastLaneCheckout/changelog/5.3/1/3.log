@@ -1,0 +1,5 @@
+Version 5.3.1.3
+
+Fixes
+2016-11-02 - [Bug] The place order button remained disabled in Fast Lane checkout if an invalid email was entered and then replaced with a valid email. #BUG-4059 (Sergey Elmanov) #Core #FastLaneCheckout
+2016-10-27 - [Bug] Fatal error in logs if using Fast Lane checkout with the option "Ask anonymous users to create an account or sign in before checkout" disabled. #BUG-3988 (Eugene Dementjev) #Core #FastLaneCheckout

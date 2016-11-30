@@ -7,18 +7,18 @@
 <td class="left-adresses-part">
   <table cellspacing="0" class="addresses{% if this.order.isShippingSectionVisible() %} S{% endif %}{% if this.order.isPaymentSectionVisible() %} B{% endif %}">
     <tr>
-      {% if this.order.isPaymentSectionVisible() %}
-        <td class="address payment{% if this.order.isShippingSectionVisible() %} payment-wrapping{% endif %}">
-          <div class="wrapper">
-          {{ widget_list('invoice.bottom.address.billing', baddress=this.order.profile.billing_address, saddress=this.order.profile.shipping_address) }}
-          </div>
-        </td>
-      {% endif %}
-
       {% if this.order.isShippingSectionVisible() %}
         <td class="address shipping">
           <div class="wrapper{% if not this.order.trackingNumbers.isEmpty() %} tracking-info-section-included{% endif %}">
           {{ widget_list('invoice.bottom.address.shipping', baddress=this.order.profile.billing_address, saddress=this.order.profile.shipping_address) }}
+          </div>
+        </td>
+      {% endif %}
+
+      {% if this.order.isPaymentSectionVisible() %}
+        <td class="address payment{% if this.order.isShippingSectionVisible() %} payment-wrapping{% endif %}">
+          <div class="wrapper">
+          {{ widget_list('invoice.bottom.address.billing', baddress=this.order.profile.billing_address, saddress=this.order.profile.shipping_address) }}
           </div>
         </td>
       {% endif %}

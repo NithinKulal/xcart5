@@ -22,8 +22,7 @@ class SalePage extends \XLite\Module\CDev\Sale\View\ASale
      */
     public static function getAllowedTargets()
     {
-        $result = parent::getAllowedTargets();
-
+        $result   = parent::getAllowedTargets();
         $result[] = self::WIDGET_TARGET_SALE_PRODUCTS;
 
         return $result;
@@ -36,7 +35,7 @@ class SalePage extends \XLite\Module\CDev\Sale\View\ASale
      */
     protected function getPagerClass()
     {
-        return '\XLite\Module\CDev\Sale\View\Pager\Customer\ControllerPager';
+        return 'XLite\Module\CDev\Sale\View\Pager\Customer\ControllerPager';
     }
 
     /**
@@ -57,7 +56,6 @@ class SalePage extends \XLite\Module\CDev\Sale\View\ASale
     protected function isVisible()
     {
         return parent::isVisible()
-            && static::getWidgetTarget() == \XLite\Core\Request::getInstance()->target;
+        && static::getWidgetTarget() === \XLite\Core\Request::getInstance()->target;
     }
-
 }

@@ -60,7 +60,7 @@ abstract class Main extends \XLite\Module\AModule
      */
     public static function getMinorVersion()
     {
-        return '1';
+        return '2';
     }
 
     /**
@@ -70,7 +70,7 @@ abstract class Main extends \XLite\Module\AModule
      */
     public static function getBuildVersion()
     {
-        return '2';
+        return '0';
     }
 
     /**
@@ -101,5 +101,21 @@ abstract class Main extends \XLite\Module\AModule
     public static function isFastlaneEnabled()
     {
         return 'fast-lane' === \XLite\Core\Config::getInstance()->General->checkout_type;
+    }
+
+    /**
+     * @return array
+     */
+    protected static function moveClassesInLists()
+    {
+        $classes = [];
+
+        $classes['XLite\View\AllInOneSolutions'] = [
+            static::TO_ADD => [
+                ['checkout_fastlane.header.top', 100, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
+            ]
+        ];
+
+        return $classes;
     }
 }

@@ -33,7 +33,7 @@ class LogoFavicon extends \XLite\Controller\Admin\Settings
      */
     public function getTitle()
     {
-        return static::t('Look & Feel');
+        return static::t('Logo & Favicon');
     }
 
     /**

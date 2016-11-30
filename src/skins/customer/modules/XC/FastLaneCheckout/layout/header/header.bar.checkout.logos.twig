@@ -1,0 +1,13 @@
+{##
+ # Header bar account links
+ #
+ # @ListChild (list="layout.header", weight="190")
+ # @ListChild (list="layout.header.right.mobile", weight="1100")
+ # @ListChild (list="checkout_fastlane.header.top", weight="100")
+ #}
+
+{% if this.isCheckoutLayout() and this.isFastlaneEnabled() %}
+  <div class="header-checkout_logos">
+    <img src="{{ asset('images/checkout_logos.png') }}" title="Safe & Secure checkout">
+  </div>
+{% endif %}

@@ -25,7 +25,7 @@ class Price extends \XLite\View\Price implements \XLite\Base\IDecorator
      */
     public function getJSFiles()
     {
-        $list = parent::getJSFiles();
+        $list   = parent::getJSFiles();
         $list[] = 'modules/CDev/Wholesale/wholesale_product_page.js';
 
         return $list;
@@ -38,11 +38,10 @@ class Price extends \XLite\View\Price implements \XLite\Base\IDecorator
      */
     protected function getProduct()
     {
-        if (!$this->product) {
-            parent::getProduct();
-        }
-        $this->product->setWholesaleQuantity($this->getParam(static::PARAM_QUANTITY));
-        return $this->product;
+        $product = parent::getProduct();
+        $product->setWholesaleQuantity($this->getParam(static::PARAM_QUANTITY));
+
+        return $product;
     }
 
     /**
@@ -54,8 +53,8 @@ class Price extends \XLite\View\Price implements \XLite\Base\IDecorator
     {
         parent::defineWidgetParams();
 
-        $this->widgetParams += array(
+        $this->widgetParams += [
             static::PARAM_QUANTITY => new \XLite\Model\WidgetParam\TypeInt('Product quantity', 1),
-        );
+        ];
     }
 }

@@ -44,7 +44,7 @@ class Admin extends ANotification
     {
         parent::populateTo($object, $rawData);
 
-        if ($object->getAvailableForAdmin()) {
+        if ($object->getAvailableForAdmin() || $object->getEnabledForAdmin()) {
             $object->setEnabledForAdmin($this->settings->status);
             $object->setAdminSubject($this->settings->subject);
 
@@ -63,14 +63,17 @@ class Admin extends ANotification
     protected function getBodyPath($object)
     {
         $layout = \XLite\Core\Layout::getInstance();
-        $commonSkin = $layout->getSkin();
-        $commonInterface = $layout->getInterface();
+
+        $baseSkin = $layout->getSkin();
+        $baseInterface = $layout->getInterface();
+        $baseInnerInterface = $layout->getInnerInterface();
+
         $layout->setMailSkin(\XLite::ADMIN_INTERFACE);
 
         $path = $layout->getResourceFullPath($object->getTemplatesDirectory() . '/body.twig');
 
         // restore old skin
-        switch ($commonInterface) {
+        switch ($baseInterface) {
             default:
             case \XLite::ADMIN_INTERFACE:
                 $layout->setAdminSkin();
@@ -85,11 +88,11 @@ class Admin extends ANotification
                 break;
 
             case \XLite::MAIL_INTERFACE:
-                $layout->setMailSkin();
+                $layout->setMailSkin($baseInnerInterface);
                 break;
         }
 
-        $layout->setSkin($commonSkin);
+        $layout->setSkin($baseSkin);
 
         return $path;
     }

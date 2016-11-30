@@ -33,11 +33,31 @@ class ListItem extends \XLite\View\Product\ListItem implements \XLite\Base\IDeco
     {
         parent::defineWidgetParams();
 
-        $this->widgetParams += array(
+        $this->widgetParams += [
             self::PARAM_PAGE_ID          => new TypeInt('Page id'),
             self::PARAM_POSITION_ON_PAGE => new TypeInt('Position on page'),
             self::PARAM_ITEM_LIST_CLASS  => new TypeString('Item list class'),
-        );
+        ];
+    }
+
+    /**
+     * Return class attribute for the product cell
+     *
+     * @return string
+     */
+    public function getProductCellClass()
+    {
+        $result = parent::getProductCellClass();
+
+        $disabledLists = [
+            'XLite\Module\XC\Add2CartPopup\View\Products'
+        ];
+
+        if (in_array($this->getParam(self::PARAM_ITEM_LIST_CLASS), $disabledLists, true)) {
+            $result .= ' next-previous-disabled';
+        }
+
+        return $this->getSafeValue($result);
     }
 
     /**
@@ -57,40 +77,11 @@ class ListItem extends \XLite\View\Product\ListItem implements \XLite\Base\IDeco
      */
     protected function defineDataForDataString()
     {
-        return array(
+        return [
             'class'      => $this->getParam(self::PARAM_ITEM_LIST_CLASS),
             'pageId'     => $this->getParam(self::PARAM_PAGE_ID),
             'position'   => $this->getParam(self::PARAM_POSITION_ON_PAGE),
-            'parameters' => array(),
-        );
-    }
-
-    /**
-     * Get cookie path
-     *
-     * @return string
-     */
-    protected function getCookiePath()
-    {
-        $result = null;
-
-        if (
-            LC_USE_CLEAN_URLS
-            && (bool)\XLite::getInstance()->getOptions(array('clean_urls', 'use_canonical_urls_only'))
-        ) {
-            // Get store URL
-            $url = \XLite\Core\Request::getInstance()->isHTTPS()
-                ? 'http://' . \XLite::getInstance()->getOptions(array('host_details', 'http_host'))
-                : 'https://' . \XLite::getInstance()->getOptions(array('host_details', 'https_host'));
-
-            $url .= \XLite::getInstance()->getOptions(array('host_details', 'web_dir'));
-
-            $urlParts = parse_url($url);
-
-            // Result is path to store
-            $result = isset($urlParts['path']) ? $urlParts['path'] : '/';
-        }
-
-        return $result;
+            'parameters' => [],
+        ];
     }
 }

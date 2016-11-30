@@ -94,4 +94,17 @@ class AttributeValueSelect extends \XLite\Model\Repo\AttributeValue\Multiple
 
         return $qb;
     }
+
+    /**
+     * @param \XLite\Model\AttributeOption $option
+     */
+    public function updatePositionByOption($option)
+    {
+        $qb = $this->createPureQueryBuilder('a')->update($this->_entityName, 'a');
+
+        $qb->set('a.position', ':position')->setParameter('position', $option->getPosition());
+        $qb->where('a.attribute_option = :option')->setParameter('option', $option);
+
+        $qb->execute();
+    }
 }

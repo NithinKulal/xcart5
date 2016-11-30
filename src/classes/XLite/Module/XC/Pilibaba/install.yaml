@@ -15,7 +15,7 @@ XLite\Model\Payment\Method:
     settings:
       - name: merchantNO
       - name: secretKey
-      - name: orderPrefix
+      - name: prefix
       - name: warehouse
       - name: currency
       - name: shippingFee
@@ -54,3 +54,6 @@ XLite\Model\LanguageLabel:
   - { name: 'Select warehouse', translations: [{ code: en, label: 'Select warehouse' }]}
   - { name: 'Shipping fee', translations: [{ code: en, label: 'Shipping fee' }]}
   - { name: 'Start accepting CNY payment and take orders from 1.3 Billion shoppers in China. Support all Chinese debit/credit cards and give merchants the flexibility to convert CNY payment into either USD,EUR or 12 supported currencies.', translations: [{ code: en, label: 'Start accepting CNY payment and take orders from 1.3 Billion shoppers in China. Support all Chinese debit/credit cards and give merchants the flexibility to convert CNY payment into either USD,EUR or 12 supported currencies.' }]}
+
+  - { name: "Can't get allowed currencies from Pilibaba. Please, try again later", translations: [{ code: en, label: "Can't get allowed currencies from Pilibaba. Please, try again later" }] }
+  - { name: "Can't get warehouse address list from Pilibaba. Please, try again later", translations: [{ code: en, label: "Can't get warehouse address list from Pilibaba. Please, try again later" }] }

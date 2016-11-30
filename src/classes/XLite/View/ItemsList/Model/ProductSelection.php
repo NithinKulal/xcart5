@@ -296,8 +296,6 @@ class ProductSelection extends \XLite\View\ItemsList\Model\Table
     protected function postprocessSearchCase(\XLite\Core\CommonCell $cnd)
     {
         $cnd = parent::postprocessSearchCase($cnd);
-
-        $cnd->{\XLite\Model\Repo\Product::P_ORDER_BY} = $this->getOrderBy();
         $cnd->{static::PARAM_SEARCH_IN_SUBCATS} = true;
 
         return $cnd;

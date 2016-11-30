@@ -13,12 +13,7 @@ namespace XLite\View\StickyPanel;
  */
 class ImagesSettings extends \XLite\View\StickyPanel\ItemForm
 {
-    /**
-     * Cached list of additional buttons
-     *
-     * @var array
-     */
-    protected $additionalButtons;
+    use \XLite\Core\Cache\ExecuteCachedTrait;
 
     /**
      * Define buttons widgets
@@ -27,9 +22,7 @@ class ImagesSettings extends \XLite\View\StickyPanel\ItemForm
      */
     protected function defineButtons()
     {
-        $list = parent::defineButtons() + $this->getAdditionalButtons();
-
-        return $list;
+        return parent::defineButtons() + $this->getAdditionalButtons();
     }
 
     /**
@@ -39,40 +32,36 @@ class ImagesSettings extends \XLite\View\StickyPanel\ItemForm
      */
     protected function getAdditionalButtons()
     {
-        if (!isset($this->additionalButtons)) {
-            $this->additionalButtons = $this->defineAdditionalButtons();
-        }
-
-        return $this->additionalButtons;
+        return $this->executeCachedRuntime(function () {
+            return $this->defineAdditionalButtons();
+        });
     }
 
     /**
      * Define additional buttons
      * These buttons will be composed into dropup menu.
-     * The divider button is also available: \XLite\View\Button\Divider
+     * The divider button is also available: \XLite\View\Button\Dropdown\Divider
      *
      * @return array
      */
     protected function defineAdditionalButtons()
     {
-        $list = array();
-
         $url = $this->buildURL('images', 'image_resize');
 
-        $list[] = $this->getWidget(
-            array(
-                \XLite\View\Button\AButton::PARAM_LABEL            => 'Generate resized images',
-                \XLite\View\Button\AButton::PARAM_STYLE            => 'action always-enabled',
-                \XLite\View\Button\Tooltip::PARAM_SEPARATE_TOOLTIP => static::t('Generate resized images help text'),
-                \XLite\View\Button\Regular::PARAM_JS_CODE          => 'void(0);',
-                \XLite\View\Button\AButton::PARAM_ATTRIBUTES       => array(
-                    'data-url' => $url,
-                ),
+        return [
+            $this->getWidget(
+                [
+                    \XLite\View\Button\AButton::PARAM_LABEL            => 'Generate resized images',
+                    \XLite\View\Button\AButton::PARAM_STYLE            => 'action always-enabled',
+                    \XLite\View\Button\Tooltip::PARAM_SEPARATE_TOOLTIP => static::t('Generate resized images help text'),
+                    \XLite\View\Button\Regular::PARAM_JS_CODE          => 'void(0);',
+                    \XLite\View\Button\AButton::PARAM_ATTRIBUTES       => [
+                        'data-url' => $url,
+                    ],
+                ],
+                'XLite\View\Button\Tooltip'
             ),
-            '\XLite\View\Button\Tooltip'
-        );
-
-        return $list;
+        ];
     }
 
     /**
@@ -82,10 +71,6 @@ class ImagesSettings extends \XLite\View\StickyPanel\ItemForm
      */
     protected function getClass()
     {
-        $class = parent::getClass();
-
-        $class = trim($class . ' images-settings-panel');
-
-        return $class;
+        return trim(parent::getClass()) . ' images-settings-panel';
     }
 }

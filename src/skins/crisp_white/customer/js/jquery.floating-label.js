@@ -35,15 +35,14 @@
   function assignHandlers(element) {
     if (!element.floatingLabel) {
       element.floatingLabel = true;
-      // $(element).off('focus blur change', handler);
-      $(element).on('focus blur change', handler)
+      $(element).on('focus blur change', handler);
     }
   }
 
   function handler(e) {
     var item = findParent(this);
     if (item && item.length > 0) {
-        item.toggleClass('focused', ((e && e.type === 'focus') || this === document.activeElement || this.value.length > 0 || (typeof(this.selectedIndex) !== 'undefined' && this.selectedIndex !== false) ));
+        item.toggleClass('focused', ((e && e.type === 'focus') || this.value.length > 0 || (typeof(this.selectedIndex) !== 'undefined' && this.selectedIndex !== false) ));
     }
   }
 

@@ -70,6 +70,11 @@ abstract class URLManager extends \Includes\Utils\AUtils
             $hostDetails = static::getOptions('host_details');
             $host = $hostDetails[$protocol . '_host'];
 
+            if (!$host && !\Includes\Utils\ConfigParser::getOptions(array('database_details', 'database'))) {
+                $phpSelf = rtrim(dirname($_SERVER["PHP_SELF"]), '/');
+                $host = $_SERVER['HTTP_HOST'] . $phpSelf;
+            }
+
             if ($host) {
                 if ('/' != substr($url, 0, 1)) {
                     $url = $hostDetails['web_dir_wo_slash'] . '/' . $url;
@@ -173,7 +178,8 @@ abstract class URLManager extends \Includes\Utils\AUtils
      */
     public static function getCurrentURL()
     {
-        return 'http' . (static::isHTTPS() ? 's' : '') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+        return 'http' . (static::isHTTPS() ? 's' : '') . '://' . $_SERVER['HTTP_HOST']
+        . (isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '');
     }
 
     /**

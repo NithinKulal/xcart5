@@ -26,8 +26,15 @@ table.comparison-table td
 #compare {
   width: auto;
   overflow-x: auto;
+  overflow-y: hidden;
   margin: 0;
   padding: 0;
+}
+
+#compare .empty-notice {
+  color: #4a4a4a;
+  font-size: 14px;
+  line-height: 20px;
 }
 
 table.comparison-table tr.names,
@@ -36,6 +43,10 @@ table.comparison-table tbody.header td,
 table.comparison-table tbody.header tr
 {
   border-bottom: 0;
+}
+
+table.comparison-table tr.names > td > div {
+  text-align: center;
 }
 
 table.comparison-table td:first-child

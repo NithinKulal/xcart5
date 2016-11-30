@@ -8,6 +8,8 @@
 
 namespace XLite\Module\XC\ColorSchemes;
 
+use \XLite\Core\Layout;
+
 /**
  * Module description
  *
@@ -52,7 +54,7 @@ abstract class Main extends \XLite\Module\AModuleSkin
      */
     public static function getMinorVersion()
     {
-        return '1';
+        return '2';
     }
 
     /**
@@ -62,7 +64,7 @@ abstract class Main extends \XLite\Module\AModuleSkin
      */
     public static function getBuildVersion()
     {
-        return '2';
+        return '0';
     }
 
     /**
@@ -83,6 +85,19 @@ abstract class Main extends \XLite\Module\AModuleSkin
     public static function showSettingsForm()
     {
         return false;
+    }
+
+    /**
+     * Returns supported layout types
+     *
+     * @return array
+     */
+    public static function getLayoutTypes()
+    {
+        return array(
+            Layout::LAYOUT_GROUP_DEFAULT => Layout::getInstance()->getLayoutTypes(),
+            Layout::LAYOUT_GROUP_HOME => Layout::getInstance()->getLayoutTypes()
+        );
     }
 
     /**
@@ -123,7 +138,7 @@ abstract class Main extends \XLite\Module\AModuleSkin
      */
     public static function getSkinName()
     {
-        return \XLite\Core\Layout::getInstance()->getLayoutColor();
+        return Layout::getInstance()->getLayoutColor();
     }
 
     /**
@@ -153,6 +168,6 @@ abstract class Main extends \XLite\Module\AModuleSkin
      */
     public static function isDefaultColorScheme()
     {
-        return !\XLite\Core\Layout::getInstance()->getLayoutColor();
+        return !Layout::getInstance()->getLayoutColor();
     }
 }

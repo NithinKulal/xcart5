@@ -2,7 +2,7 @@
  # Product quantity widget (for customer area)
  #}
 <span class="{{ this.getCSSClass() }} {{ this.getFingerprint() }}">
-{% if not this.isOutOfStock() %}
-  {{ t('Qty') }}: {{ widget('\\XLite\\View\\Product\\QuantityBox', fieldValue=this.getQuantity(), product=this.getProduct(), maxValue=this.getMaxQuantity()) }}
-{% endif %}
+  {% if not this.isOutOfStock() and this.isProductAvailableForSale() %}
+    {{ t('Qty') }}: {{ widget('\\XLite\\View\\Product\\QuantityBox', fieldValue=this.getQuantity(), product=this.getProduct(), maxValue=this.getMaxQuantity()) }}
+  {% endif %}
 </span>

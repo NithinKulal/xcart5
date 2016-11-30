@@ -6,8 +6,8 @@
  * Copyright (c) 2001-present Qualiteam software Ltd. All rights reserved.
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
-Checkout.define('Checkout.SectionMixin', [], function(){
-  Checkout.SectionMixin = {
+define('checkout_fastlane/sections/section_mixin', [], function(){
+  return {
     data: function() {
       return {
         name: '',
@@ -38,9 +38,6 @@ Checkout.define('Checkout.SectionMixin', [], function(){
         toggleComplete: function(state, value) {
           state.dispatch('TOGGLE_COMPLETE', this.name, value);
         },
-        updateFields: function(state, data) {
-          state.dispatch('UPDATE_SECTION_FIELDS', this.name, data);
-        },
       }
     },
 
@@ -52,30 +49,36 @@ Checkout.define('Checkout.SectionMixin', [], function(){
       switchTo: function(target) {
         this.dispatchSwitch(target);
       },
-      persist: function(fields, force) {
+      persist: function(fields, force, sender) {
         if ((force || this.complete) && !_.isEmpty(fields)) {
+          this.$broadcast('beforeSectionPersist', {sender: sender});
+          
           var data = JSON.parse(JSON.stringify(fields));
           data[xliteConfig.form_id_name] = xliteConfig.form_id;
 
-          core.post(
-            this.endpoint,
-            null,
-            data,
-            this.request_options
-          )
-          .done(
-            _.bind(function(data){
-              core.trigger('checkout.sections.' + this.name + '.persist', {status: true, data: data});
-              this.$broadcast('sectionPersist', {status: true, data: data});
-            }, this)
-          )
-          .fail(
-            _.bind(function(data){
-              core.showError('Server connection error. Please check your Internet connection.');
-              core.trigger('checkout.sections.' + this.name + '.persist', {status: false, data: null});
-              this.$broadcast('sectionPersist', {status: false, data: data});
-            }, this)
-          );
+          $.when(this.xhr).then(_.bind(function(){
+
+            this.xhr = core.post(
+              this.endpoint,
+              null,
+              data,
+              this.request_options
+            )
+            .done(
+              _.bind(function(data){
+                core.trigger('checkout.sections.' + this.name + '.persist', {status: true, data: data, sender: sender});
+                this.$broadcast('sectionPersist', {status: true, data: data, sender: sender});
+              }, this)
+            )
+            .fail(
+              _.bind(function(data){
+                core.showError('Server connection error. Please check your Internet connection.');
+                core.trigger('checkout.sections.' + this.name + '.persist', {status: false, data: null, sender: sender});
+                this.$broadcast('sectionPersist', {status: false, data: data, sender: sender});
+              }, this)
+            );
+
+          }, this));
         }
       },
     },
@@ -90,12 +93,10 @@ Checkout.define('Checkout.SectionMixin', [], function(){
           this.toggleComplete(isComplete);
         }
 
-        // this.updateFields(event.fields);
-
         this.$root.$broadcast('sectionUpdate', this.name);
 
         if (!event.silent) {
-          this.persist(event.fields, event.force);
+          this.persist(event.fields, event.force, event.sender);
         }
       },
     },

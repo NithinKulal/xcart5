@@ -1,0 +1,9 @@
+{##
+ # Progress section
+ #}
+
+{% if this.isCheckProcessNotFinished() %}
+  {{ widget('\\XLite\\Module\\XC\\MailChimp\\View\\StoreData\\Progress') }}
+{% else %}
+  {{ widget('\\XLite\\Module\\XC\\MailChimp\\View\\StoreData\\Main', useBodyTemplate='1') }}
+{% endif %}

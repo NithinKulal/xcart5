@@ -503,8 +503,16 @@ div .safe-mode-link .copy-link {
   width: 100px;
 }
 
+.disabled-modules tr td.disabled-module-action select:disabled {
+  background-color: #f3f3f3;
+}
+
+.ready-to-install-actions .submit {
+  display: block;
+}
+
 .ready-to-install-actions .alert {
-  display: inline-block;
+  display: block;
   max-width: 705px;
   padding: 7px 10px 6px 10px;
   margin: 0;

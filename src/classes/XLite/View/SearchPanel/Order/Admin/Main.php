@@ -121,7 +121,7 @@ class Main extends \XLite\View\SearchPanel\Order\Admin\AAdmin
             ),
             'recent' => array(
                 static::CONDITION_CLASS => 'XLite\View\FormField\Input\Checkbox',
-                \XLite\View\FormField\AFormField::PARAM_LABEL => static::t('Recent orders only'),
+                \XLite\View\FormField\AFormField::PARAM_LABEL => static::t('Only orders awaiting processing'),
                 \XLite\View\FormField\Input\Checkbox::PARAM_IS_CHECKED => $this->getCondition('recent'),
                 \XLite\View\FormField\Input\Checkbox::PARAM_VALUE => '1',
             ),
@@ -164,7 +164,7 @@ class Main extends \XLite\View\SearchPanel\Order\Admin\AAdmin
         if ($count) {
             $recentOrdersFilter = new \XLite\Model\SearchFilter();
             $recentOrdersFilter->setId('recent');
-            $recentOrdersFilter->setName(static::t('Recent orders'));
+            $recentOrdersFilter->setName(static::t('Orders awaiting processing'));
             $recentOrdersFilter->setSuffix(sprintf('(%d)', $count));
             $result = array('recent' => $recentOrdersFilter) + $result;
         }

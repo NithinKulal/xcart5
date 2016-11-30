@@ -86,4 +86,16 @@ class Taxes extends \XLite\View\AView
 
         return 0 < $ratesCount;
     }
+
+    /**
+     * Return true if common tax settings should be displayed as expanded section
+     *
+     * @return boolean
+     */
+    protected function isCommonOptionsExpanded()
+    {
+        $value = \XLite\Core\Config::getInstance()->CDev->SalesTax->common_settings_expanded;
+
+        return !is_null($value) ? $value : true;
+    }
 }

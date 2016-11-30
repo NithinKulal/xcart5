@@ -68,8 +68,7 @@ XLite\Model\Order:
     paymentStatus: { code: P }
     shippingStatus: { code: D }
     orderNumber: 1
-    shipping_method_name: Courier
-    shipping_id: 1
+    shipping: { processor: offline, code: Courier }
     recent: 0
     note: 'Упакуйте, пожалуйста, в подарочную упаковку, это подарок'
     adminNote: 'Хороший клиент'
@@ -157,8 +156,7 @@ XLite\Model\Order:
     paymentStatus: { code: P }
     shippingStatus: { code: D }
     orderNumber: 2
-    shipping_method_name: Courier
-    shipping_id: 1
+    shipping: { processor: offline, code: Courier }
     payment_transactions:
       - method_name: MoneyOrdering
         method_local_name: 'Money Ordering'
@@ -238,8 +236,7 @@ XLite\Model\Order:
     paymentStatus: { code: P }
     shippingStatus: { code: D }
     orderNumber: 3
-    shipping_method_name: Courier
-    shipping_id: 1
+    shipping: { processor: offline, code: Courier }
     payment_transactions:
       - method_name: MoneyOrdering
         method_local_name: 'Money Ordering'
@@ -330,8 +327,7 @@ XLite\Model\Order:
     shippingStatus: { code: WND }
     payment_method_name: Simplify Commerce Hosted Payments
     orderNumber: 4
-    shipping_method_name: Courier
-    shipping_id: 1
+    shipping: { processor: offline, code: Courier }
     payment_transactions:
       - method_name: SimplifyCommerceHP
         method_local_name: 'Simplify Commerce Hosted Payments'
@@ -486,8 +482,7 @@ XLite\Model\Order:
     paymentStatus: { code: P }
     shippingStatus: { code: D }
     orderNumber: 5
-    shipping_method_name: Courier
-    shipping_id: 1
+    shipping: { processor: offline, code: Courier }
     recent: 0
     payment_transactions:
       - method_name: MoneyOrdering

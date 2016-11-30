@@ -82,7 +82,6 @@ XLite\Model\LanguageLabel:
   - { name: 'How do you rate this item?', translations: [{ code: 'en', label: 'How do you rate this item?' }] }
   - { name: 'Write your review', translations: [{ code: 'en', label: 'Write your review' }] }
   - { name: 'Your review', translations: [{ code: 'en', label: 'Your review' }] }
-  - { name: 'There are no reviews for this product yet', translations: [{ code: 'en', label: 'There are no reviews for this product yet' }] }
   - { name: 'Back to product details', translations: [{ code: 'en', label: 'Back to product details' }] }
   - { name: 'Customer reviews', translations: [{ code: 'en', label: 'Customer reviews' }] }
   - { name: 'On moderation', translations: [{ code: 'en', label: 'On moderation' }] }
@@ -107,11 +106,36 @@ XLite\Model\LanguageLabel:
   - { name: 'Selected reviews have been updated', translations: [{ code: en, label: 'Selected reviews have been updated' }] }
   - { name: 'Reviews about product', translations: [{ code: en, label: 'Reviews about product' }] }
   - { name: 'New product reviews', translations: [{ code: en, label: 'New product reviews' }] }
-
   - { name: 'Ratings and Reviews of X', translations: [{ code: 'en', label: 'Ratings and Reviews of {{product}}' }] }
   - { name: 'reviewMetaDescription', translations: [{ code: 'en', label: 'Rating: {{rating}} out of {{maxRating}}. Review by {{reviewerName}}: {{review}}' }] }
   - { name: 'SEO', translations: [{ code: 'en', label: 'SEO' }] }
   - { name: 'Select the review that should be included into the rich snippet shown for the page of this product when the page appears in search results by Google and other major search engines', translations: [{ code: 'en', label: 'Select the review that should be included into the rich snippet shown for the page of this product when the page appears in search results by Google and other major search engines. More info: <a href="https://support.google.com/webmasters/answer/146750" target="_blank">https://support.google.com/webmasters/answer/146750</a>' }] }
   - { name: 'Anonymous reviewer', translations: [{ code: en, label: 'Anonymous reviewer' }] }
-
   - { name: 'Reject', translations: [{ code: 'en', label: 'Reject' }] }
+  - { name: 'There are no comments yet. Be the first to leave a comment', translations: [{ code: 'en', label: 'There are no comments yet. Be the first to leave a comment' }] }
+  - { name: 'A new review has been submitted for the product "{{name}}".', translations: [{ code: 'en', label: 'A new review has been submitted for the product "{{name}}".' }] }
+  - { name: 'Go to see the review [in the Admin area]', translations: [{ code: 'en', label: 'Go to see the review <a href="{{link}}">in the Admin area</a>' }] }
+
+XLite\Model\Notification:
+  - templatesDirectory: modules/XC/Reviews/new_review
+    availableForAdmin: true
+    availableForCustomer: false
+    enabledForAdmin: true
+    enabledForCustomer: false
+    adminHeaderEnabled: true
+    adminGreetingEnabled: false
+    adminSignatureEnabled: true
+    customerHeaderEnabled: false
+    customerGreetingEnabled: false
+    customerSignatureEnabled: false
+    translations:
+      - code: en
+        name: New product review submitted - (Product Reviews module)
+        description: "This message is used to notify the administrator when a customer submits a new product review."
+        adminSubject: "A new review has been submitted"
+        adminText: ""
+      - code: ru
+        name: Получен новый отзыв о товаре - (модуль Product Reviews)
+        description: "Данное сообщение используется для уведомления администратора о том, что клиент оставил отзыв о каком-либо товаре."
+        adminSubject: "Получен новый отзыв о товаре"
+        adminText: ""

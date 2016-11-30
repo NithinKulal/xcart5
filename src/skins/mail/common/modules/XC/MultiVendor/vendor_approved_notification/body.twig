@@ -1,9 +1,0 @@
-{##
- # Vendor account approved notification to the user: body
- #}
-<p>{{ t('Your vendor account at company is approved', {'company': this.config.Company.company_name}) }}</p>
-
-<p>{{ t('Now you can log in at our site and start selling products.', {'url': this.url})|raw }}</p>
-
-<p>{{ t('Your account email is X.', {'email': this.profile.getLogin()}) }}</p>
-<p>{{ t('The password is the one you specified.') }}</p>

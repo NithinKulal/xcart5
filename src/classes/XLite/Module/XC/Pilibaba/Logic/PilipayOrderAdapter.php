@@ -37,8 +37,7 @@ class PilipayOrderAdapter
             'fees'   => array(
                 'shipper'       => 0,
                 'tax'           => 0,
-            ),
-            'orderPrefix'   => '',
+            )
         );
     }
 
@@ -91,9 +90,7 @@ class PilipayOrderAdapter
         $order->merchantNO      = $this->options['credentials']['merchantNO'];
         $order->appSecret       = $this->options['credentials']['secretKey'];
         $order->currencyType    = $this->order->getCurrency()->getCode();
-        $order->orderNo         = $this->options['orderPrefix']
-            ? $this->options['orderPrefix'] . '_' . $this->order->getPaymentTransactionId()
-            : $this->order->getPaymentTransactionId();
+        $order->orderNo         = $this->order->getPaymentTransactionId();
         $order->orderAmount     = $this->order->getCurrency()->roundValue(
             $this->order->getTotal()
         );

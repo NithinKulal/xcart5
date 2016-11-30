@@ -1,0 +1,73 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Credit card styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.blue-snap-box div.content div.cardExpire {
+  width: 160px;
+}
+
+.blue-snap-box div.content div.cardName {
+  line-height: 39px;
+}
+
+.blue-snap-box div.content div.cardName .value {
+  text-transform: uppercase;
+}
+
+.blue-snap-box div.content div.cardType {
+  height: 34px;
+  background: url('https://files.readme.io/d1a25b4-generic-card.png') right no-repeat;
+  background-size: contain;
+  width: 70px;
+}
+
+.blue-snap-box div.content div.cardType.AmericanExpress {
+  background-image: url('https://files.readme.io/97e7acc-Amex.png');
+}
+.blue-snap-box div.content div.cardType.CarteBleue {
+  background-image: url('https://files.readme.io/5da1081-cb.png');
+}
+.blue-snap-box div.content div.cardType.DinersClub {
+  background-image: url('https://files.readme.io/8c73810-Diners_Club.png');
+}
+.blue-snap-box div.content div.cardType.Discover {
+  background-image: url('https://files.readme.io/caea86d-Discover.png');
+}
+.blue-snap-box div.content div.cardType.JCB {
+  background-image: url('https://files.readme.io/e076aed-JCB.png');
+}
+.blue-snap-box div.content div.cardType.MaestroUK {
+  background-image: url('https://files.readme.io/daeabbd-Maestro.png');
+}
+.blue-snap-box div.content div.cardType.MasterCard {
+  background-image: url('https://files.readme.io/5b7b3de-Mastercard.png');
+}
+.blue-snap-box div.content div.cardType.Solo {
+  background-image: url('https://sandbox.bluesnap.com/services/hosted-payment-fields/cc-types/solo.png');
+}
+.blue-snap-box div.content div.cardType.Visa {
+  background-image: url('https://files.readme.io/9018c4f-Visa.png');
+}
+
+.blue-snap-box div.content div.cardCVV2 div.right-text span,
+.blue-snap-box div.content div.cardCVV2.Visa div.right-text span.default-text,
+.blue-snap-box div.content div.cardCVV2.MasterCard div.right-text span.default-text,
+.blue-snap-box div.content div.cardCVV2.JCB div.right-text span.default-text,
+.blue-snap-box div.content div.cardCVV2.AmericanExpress div.right-text span.default-text
+{
+  display: none;
+}
+
+.blue-snap-box div.content div.cardCVV2 div.right-text span.default-text,
+.blue-snap-box div.content div.cardCVV2.Visa div.right-text span.Visa,
+.blue-snap-box div.content div.cardCVV2.MasterCard div.right-text span.MasterCard,
+.blue-snap-box div.content div.cardCVV2.JCB div.right-text span.JCB,
+.blue-snap-box div.content div.cardCVV2.AmericanExpress div.right-text span.AmericanExpress
+{
+  display: inline;
+}

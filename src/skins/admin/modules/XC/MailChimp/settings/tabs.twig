@@ -1,0 +1,19 @@
+{##
+ # Just a template for settings. We need it since we do not implement decorator for modules now
+ #}
+
+<div class="tabbed-content-wrapper">
+  <div class="page-tabs clearfix">
+
+    <ul>
+      {% for tabPage in this.getTabs() %}
+        <li class="tab{% if tabPage.selected %}-current{% endif %}">
+          <a href="{{ tabPage.url|raw }}">{{ t(tabPage.title) }}</a>
+        </li>
+      {% endfor %}
+      {{ widget_list('tabs.items') }}
+    </ul>
+  </div>
+  <div class="clear"></div>
+
+</div>

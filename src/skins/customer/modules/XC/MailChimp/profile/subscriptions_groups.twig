@@ -1,0 +1,26 @@
+{##
+ # Register form template
+ #}
+
+{% for group in this.groups %}
+  <span class="group-title list-{{ group.getList().getId() }}">
+    {{ group.getTitle() }}
+  </span>
+  <ul class="group-names list-{{ group.getList().getId() }}">
+    {% for name in group.enabledNames %}
+      <li class="group-name">
+        <span class="group-name-checkbox">
+          {{ widget(
+          '\\XLite\\View\\FormField\\Input\\Checkbox',
+          value='1',
+          fieldOnly='1',
+          fieldName=this.getGroupCheckboxName(name),
+          fieldId=this.getGroupCheckboxId(name),
+          isChecked=this.checkIfSubscribedToGroup(name, this.profile)
+          ) }}
+        </span>
+        <span class="group-name-name">{{ name.getName() }}</span>
+      </li>
+    {% endfor %}
+  </ul>
+{% endfor %}

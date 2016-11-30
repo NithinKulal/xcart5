@@ -98,18 +98,6 @@ abstract class Address extends \XLite\Model\Base\Address implements \XLite\Base\
     }
 
     /**
-     * Set country
-     *
-     * @param \XLite\Model\Country $country
-     * @return Address
-     */
-    public function setCountry(\XLite\Model\Country $country = null)
-    {
-        $this->country = $country;
-        return $this;
-    }
-
-    /**
      * Get country
      *
      * @return \XLite\Model\Country 

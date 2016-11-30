@@ -23,6 +23,10 @@ trait DefaultSortByTrait
         return \XLite\Core\Config::getInstance()->General->default_products_sort_order;
     }
 
+    abstract protected function getSortByModesField();
+
+    abstract protected function setSortByModesField($value);
+
     /**
      * Get additional sortByModes
      *
@@ -30,10 +34,12 @@ trait DefaultSortByTrait
      */
     public function processAdditionalSortByModes()
     {
-        if ('default' == $this->getDefaultSortOrderValue()) {
-            $this->sortByModes = array(
-                static::SORT_BY_MODE_DEFAULT => 'Default-sort-option',
-            ) + $this->sortByModes;
+        if ('default' === $this->getDefaultSortOrderValue()) {
+            $this->setSortByModesField(
+                [
+                    static::SORT_BY_MODE_DEFAULT => 'Default-sort-option',
+                ] + $this->getSortByModesField()
+            );
         }
     }
 
@@ -44,9 +50,9 @@ trait DefaultSortByTrait
      */
     protected function getSortByFields()
     {
-        return array(
+        return [
             'default' => static::SORT_BY_MODE_DEFAULT,
-        ) + parent::getSortByFields();
+        ] + parent::getSortByFields();
     }
 
     /**
@@ -105,7 +111,7 @@ trait DefaultSortByTrait
     {
         // Parse option value
         preg_match(
-            '/^(\w+)(Asc|Desc)?$/SsU',
+            '/^(\w+)(Asc|Desc)?$/SU',
             $this->getDefaultSortOrderValue(),
             $match
         );
@@ -113,7 +119,7 @@ trait DefaultSortByTrait
         // Get list of available sort fields
         $sortFields = $this->getSortByFields();
 
-        $option =(!empty($match[1]) && !empty($sortFields[$match[1]]))
+        $option = (!empty($match[1]) && !empty($sortFields[$match[1]]))
             ? $sortFields[$match[1]]
             : null;
 
@@ -121,6 +127,6 @@ trait DefaultSortByTrait
             ? strtolower($match[2])
             : null;
 
-        return array($option, $sortMode);
+        return [$option, $sortMode];
     }
 }

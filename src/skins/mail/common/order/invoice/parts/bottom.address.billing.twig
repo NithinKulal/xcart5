@@ -1,7 +1,5 @@
 {##
  # Invoice billing address
- #
- # @ListChild (list="invoice.bottom.address.billing", weight="10")
  #}
 <strong class="title">{{ t('Billing address') }}</strong>
 
@@ -15,3 +13,4 @@
         </li>
     {% endfor %}
 </ul>
+<p class="email">{{ t('E-mail') }}: <a href="mailto:{{ this.order.profile.login }}">{{ this.order.profile.login }}</a></p>

@@ -120,6 +120,62 @@ class CacheManagement extends \XLite\Controller\Admin\Settings
 
         \XLite\Core\Database::getRepo('XLite\Model\Category')->correctCategoriesStructure();
     }
+    
+    /**
+     * Export action
+     *
+     * @return void
+     */
+    protected function doActionQuickDataToggle()
+    {
+        $value = !\XLite\Core\Config::getInstance()->CacheManagement->quick_data_rebuilding;
+
+        \XLite\Core\Database::getRepo('XLite\Model\Config')->createOption(
+            array(
+                'category' => 'CacheManagement',
+                'name'     => 'quick_data_rebuilding',
+                'value'    => $value,
+            )
+        );
+
+        \XLite\Core\TopMessage::addInfo(
+            $value
+                ? 'Quick data calculation during store re-deployment is enabled'
+                : 'Quick data calculation during store re-deployment is disabled'
+        );
+    }
+
+    /**
+     * Export action
+     *
+     * @return void
+     */
+    protected function doActionClearCache()
+    {
+        \XLite\Core\Database::getCacheDriver()->deleteAll();
+        \XLite::getInstance()->getContainer()->get('widget_cache')->deleteAll();
+    }
+
+    /**
+     * Export action
+     *
+     * @return void
+     */
+    protected function doActionRebuildViewLists()
+    {
+        $plugins = [
+            new \Includes\Decorator\Plugin\Templates\Plugin\ViewLists\Main(),
+            new \Includes\Decorator\Plugin\Templates\Plugin\Compiler\Main(),
+            new \Includes\Decorator\Plugin\ModuleHandlers\Main(),
+            new \Includes\Decorator\Plugin\Templates\Plugin\ViewListsPostprocess\Main(),
+        ];
+
+        foreach ($plugins as $plugin) {
+            $plugin->executeHookHandler();
+        }
+
+        \XLite\Core\Database::getEM()->flush();
+    }
 
     /**
      * Assemble export options
@@ -177,6 +233,6 @@ class CacheManagement extends \XLite\Controller\Admin\Settings
      */
     protected function getQuickDataCancelFlagVarName()
     {
-        return \XLite\Logic\QuickData\Generator::getQuickDataCancelFlagVarName();
+        return \XLite\Logic\QuickData\Generator::getCancelFlagVarName();
     }
 }

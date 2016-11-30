@@ -32,12 +32,23 @@ class SaleBlock extends \XLite\Module\CDev\Sale\View\ASale
      */
     public static function getAllowedTargets()
     {
-        $result = parent::getAllowedTargets();
-
+        $result   = parent::getAllowedTargets();
         $result[] = 'main';
         $result[] = 'category';
 
         return $result;
+    }
+
+    /**
+     * Return search parameters.
+     *
+     * @return array
+     */
+    public static function getSearchParams()
+    {
+        return [
+            \XLite\Model\Repo\Product::P_CATEGORY_ID => static::PARAM_CATEGORY_ID,
+        ];
     }
 
     /**
@@ -51,12 +62,21 @@ class SaleBlock extends \XLite\Module\CDev\Sale\View\ASale
     {
         parent::setWidgetParams($params);
 
-        unset($this->widgetParams[\XLite\View\Pager\APager::PARAM_SHOW_ITEMS_PER_PAGE_SELECTOR]);
-        unset($this->widgetParams[\XLite\View\Pager\APager::PARAM_ITEMS_PER_PAGE]);
-        unset($this->widgetParams[self::PARAM_SHOW_DISPLAY_MODE_SELECTOR]);
+        unset(
+            $this->widgetParams[\XLite\View\Pager\APager::PARAM_SHOW_ITEMS_PER_PAGE_SELECTOR],
+            $this->widgetParams[\XLite\View\Pager\APager::PARAM_ITEMS_PER_PAGE],
+            $this->widgetParams[self::PARAM_SHOW_DISPLAY_MODE_SELECTOR]
+        );
 
-        $this->widgetParams[static::PARAM_DISPLAY_MODE]->setValue(static::DISPLAY_MODE_STHUMB);
-        $this->widgetParams[static::PARAM_WIDGET_TYPE]->setValue(static::WIDGET_TYPE_SIDEBAR);
+        $this->widgetParams[static::PARAM_DISPLAY_MODE]->setValue($this->getDisplayMode());
+    }
+
+    /**
+     * Return default display mode from settings
+     */
+    protected function getDefaultDisplayMode()
+    {
+        return static::DISPLAY_MODE_STHUMB;
     }
 
     /**
@@ -68,11 +88,14 @@ class SaleBlock extends \XLite\Module\CDev\Sale\View\ASale
     {
         parent::defineWidgetParams();
 
-        $this->widgetParams += array(
+        $this->widgetParams += [
             self::PARAM_MAX_ITEMS_TO_DISPLAY => new \XLite\Model\WidgetParam\TypeInt(
-                'Maximum products to display', $this->getMaxCountInBlock(), true, true
+                'Maximum products to display',
+                $this->getMaxCountInBlock(),
+                true,
+                true
             ),
-        );
+        ];
     }
 
     /**
@@ -93,13 +116,28 @@ class SaleBlock extends \XLite\Module\CDev\Sale\View\ASale
         }
 
         if ($this->getMaxItemsCount()) {
-            $cnd->{\XLite\Model\Repo\Product::P_LIMIT} = array(
+            $cnd->{\XLite\Model\Repo\Product::P_LIMIT} = [
                 0,
-                $this->getMaxItemsCount()
-            );
+                $this->getMaxItemsCount(),
+            ];
         }
 
         return $cnd;
+    }
+
+    /**
+     * Default search conditions
+     *
+     * @param  \XLite\Core\CommonCell $searchCase Search case
+     *
+     * @return \XLite\Core\CommonCell
+     */
+    protected function postprocessSearchCase(\XLite\Core\CommonCell $searchCase)
+    {
+        $searchCase = parent::postprocessSearchCase($searchCase);
+        $searchCase->{\XLite\Model\Repo\Product::P_SEARCH_IN_SUBCATS} = true;
+
+        return $searchCase;
     }
 
     /**
@@ -113,6 +151,16 @@ class SaleBlock extends \XLite\Module\CDev\Sale\View\ASale
     }
 
     /**
+     * getSidebarMaxItems
+     *
+     * @return integer
+     */
+    protected function getSidebarMaxItems()
+    {
+        return $this->getMaxItemsCount();
+    }
+
+    /**
      * Return template of New arrivals widget. It depends on widget type:
      * SIDEBAR/CENTER and so on.
      *
@@ -121,10 +169,8 @@ class SaleBlock extends \XLite\Module\CDev\Sale\View\ASale
     protected function getTemplate()
     {
         $template = parent::getTemplate();
-
-        if (
-            $template == $this->getDefaultTemplate()
-            && self::WIDGET_TYPE_SIDEBAR == $this->getWidgetType()
+        if ($template === $this->getDefaultTemplate()
+            && self::WIDGET_TYPE_SIDEBAR === $this->getWidgetType()
         ) {
             $template = self::TEMPLATE_SIDEBAR;
         }
@@ -140,9 +186,9 @@ class SaleBlock extends \XLite\Module\CDev\Sale\View\ASale
     protected function isVisible()
     {
         return parent::isVisible()
-            && \XLite\Core\Config::getInstance()->CDev->Sale->sale_enabled
-            && static::getWidgetTarget() != \XLite\Core\Request::getInstance()->target
-            && 0 < $this->getItemsCount();
+        && \XLite\Core\Config::getInstance()->CDev->Sale->sale_enabled
+        && static::getWidgetTarget() !== \XLite\Core\Request::getInstance()->target
+        && 0 < $this->getItemsCount();
     }
 
     /**

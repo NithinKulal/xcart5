@@ -237,6 +237,8 @@ ALoadable.prototype.loadHandler = function(xhr, s, data)
 // Check loaded content
 ALoadable.prototype.finishLoadHandler = function(processed)
 {
+  jQuery(this.base).data('controller', this);
+
   this.postprocess(processed);
 
   if (!this.isLoading && this.deferredLoad) {

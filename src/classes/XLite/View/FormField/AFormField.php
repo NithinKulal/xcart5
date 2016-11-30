@@ -58,6 +58,7 @@ abstract class AFormField extends \XLite\View\AView
     const FIELD_TYPE_HIDDEN     = 'hidden';
     const FIELD_TYPE_LISTBOX    = 'listbox';
     const FIELD_TYPE_FILE       = 'file';
+    const FIELD_TYPE_COMPLEX    = 'complex';
 
     /**
      * name

@@ -14,8 +14,12 @@
     var item = getProductRepresentationFor(element);
 
     if (target.length && item.element && item.element.length) {
+      $(item.element).css('pointer-events', 'none');
       $(item.element).fly(target, {
-        view: item.view
+        view: item.view,
+        callback: function () {
+          $(item.element).css('pointer-events', '');
+        }
       });
     }
   }

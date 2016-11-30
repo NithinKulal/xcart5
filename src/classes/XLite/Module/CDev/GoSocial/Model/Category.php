@@ -65,6 +65,8 @@ abstract class Category extends \XLite\Model\Category implements \XLite\Base\IDe
 
         if ($this->getImage()) {
             $list['og:image'] = $this->getOpenGraphImage();
+            $list['og:image:width'] = $this->getImage()->getWidth();
+            $list['og:image:height'] = $this->getImage()->getHeight();
         }
 
         $appId = $this->getOpenGraphAppId();

@@ -22,7 +22,7 @@ class Quantity extends \XLite\View\Product\Details\Customer\Quantity implements 
     {
         $productVariant = $this->getProductVariant();
 
-        return $productVariant && !$productVariant->getDefaultAmount()
+        return $productVariant
             ? $productVariant->getAvailableAmount()
             : parent::getMaxQuantity();
     }

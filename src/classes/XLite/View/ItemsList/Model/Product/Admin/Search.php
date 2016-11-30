@@ -31,8 +31,6 @@ class Search extends \XLite\View\ItemsList\Model\Product\Admin\AAdmin
      * Define and set widget attributes; initialize widget
      *
      * @param array $params Widget params OPTIONAL
-     *
-     * @return void
      */
     public function __construct(array $params = array())
     {
@@ -53,7 +51,7 @@ class Search extends \XLite\View\ItemsList\Model\Product\Admin\AAdmin
      */
     protected function getSearchPanelClass()
     {
-        return '\XLite\View\SearchPanel\Product\Admin\Main';
+        return 'XLite\View\SearchPanel\Product\Admin\Main';
     }
 
     /**
@@ -202,7 +200,7 @@ class Search extends \XLite\View\ItemsList\Model\Product\Admin\AAdmin
     /**
      * Get panel class
      *
-     * @return \XLite\View\Base\FormStickyPanel
+     * @return string|\XLite\View\Base\FormStickyPanel
      */
     protected function getPanelClass()
     {
@@ -227,7 +225,7 @@ class Search extends \XLite\View\ItemsList\Model\Product\Admin\AAdmin
     public function getSearchFormOptions()
     {
         return array(
-            'target'    => 'product_list'
+            'target' => 'product_list'
         );
     }
 
@@ -239,12 +237,10 @@ class Search extends \XLite\View\ItemsList\Model\Product\Admin\AAdmin
      */
     public static function getSearchCaseProcessor()
     {
-        $return = new \XLite\View\ItemsList\SearchCaseProcessor(
+        return new \XLite\View\ItemsList\SearchCaseProcessor(
             static::getSearchParams(),
             static::getSearchValuesStorage()
         );
-
-        return $return;
     }
     /**
      * Return search parameters.

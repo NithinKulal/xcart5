@@ -3,5 +3,5 @@
  #}
 
 <li class="location-node">
-  <a href="{{ this.getLink() }}" class="location-title home-link"><img src="{{ asset('images/home.svg') }}" alt="{{ this.getName()|raw }}" /></a>
+  <a href="{{ this.getLink() }}" class="location-title home-link">{{ this.getSVGImage("images/home.svg")|raw }}</a>
 </li>

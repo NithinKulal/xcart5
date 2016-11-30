@@ -1,0 +1,71 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Modified files check styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.integrity-group {
+  padding-left: 15px;
+  margin: 40px 0;
+
+  & + & {
+    &:before {
+      content: "";
+      display: block;
+      height: 20px;
+      background: #f3f3f4;
+      margin-right: -@center-padding-right;
+      margin-left: -40px;
+      .box-shadow(inset 0px 5px 5px -5px rgba(0, 0, 0, 0.75));
+    }
+  }
+  
+  &:not(:first-of-type) h2 {
+    margin-top: 40px;
+  }
+}
+
+.integrity-list-type {
+  .type-heading {
+    margin: 10px 0;
+    margin-top: 30px;
+  }
+  
+  .files-list {
+    margin: 0;
+    padding: 0;
+    border-left: 2px solid #000;
+
+    padding-left: 20px;
+    
+    .files-list-item {
+      font-size: 14px;
+      line-height: 24px;
+    }
+  }
+
+  &.type-modified {
+    .colorize-type(#f0a300);
+  }
+
+  &.type-added {
+    .colorize-type(#53b662);
+  }
+
+  &.type-removed {
+    .colorize-type(#ea2525);
+  }
+}
+
+.colorize-type(@color) {
+  .files-list {
+    border-color: @color;
+  }
+
+  .type-heading {
+    color: @color
+  }
+}

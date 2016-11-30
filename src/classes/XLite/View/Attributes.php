@@ -82,6 +82,7 @@ class Attributes extends \XLite\View\AView
     {
         $list = parent::getCommonFiles();
         $list[static::RESOURCE_JS][] = 'js/jquery.textarea-expander.js';
+        $list[static::RESOURCE_JS][] = 'js/tooltip.js';
 
         return $list;
     }

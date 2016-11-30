@@ -472,14 +472,18 @@ function assignWaitOverlay(elem)
   var div = jQuery('<div class="wait-block-overlay"><div class="wait-block"><div></div></div></div>');
 
   div.css({
-    width:  elem.outerWidth() + 'px',
-    height: elem.outerHeight() + 'px'
+    width:          elem.outerWidth() + 'px',
+    height:         elem.outerHeight() + 'px'
   });
 
   // We do not show the overlay if the element has zero width or height (the element is not visible)
   if (0 !== elem.outerWidth() && 0 !== elem.outerHeight()) {
     elem.prepend(div)
   }
+  var leftOffset  = elem.offset().left - div.offset().left;
+  var topOffset   = elem.offset().top - div.offset().top;
+  div.css('margin-left',  leftOffset + 'px');
+  div.css('margin-top',   topOffset + 'px');
 
   waitOverlayRegistry[pattern] = div;
   elem.get(0).waitOverlay = div;
@@ -533,6 +537,10 @@ function assignShadeOverlay(elem)
     elem.before(div)
   }
 
+  var leftOffset  = elem.offset().left - div.offset().left;
+  var topOffset   = elem.offset().top - div.offset().top;
+  div.css('margin-left',  leftOffset + 'px');
+  div.css('margin-top',   topOffset + 'px');
   shadeOverlayRegistry[pattern] = div;
   elem.get(0).shadeOverlay = div;
 

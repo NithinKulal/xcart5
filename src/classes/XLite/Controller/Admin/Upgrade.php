@@ -13,6 +13,8 @@ namespace XLite\Controller\Admin;
  */
 class Upgrade extends \XLite\Controller\Admin\Base\Addon
 {
+    const FILES_TO_REMAIN_CELL_NAME = 'upgradeFilesToRemain';
+
     /**
      * List of expired keys
      *
@@ -82,7 +84,7 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
                     $url = $this->buildURL(
                         \XLite\Core\Request::getInstance()->redirect ?: 'addons_list_installed',
                         '',
-                        array('recent' => true)
+                        ['recent' => true]
                     );
                 }
 
@@ -155,7 +157,7 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
                 $result = 'Updates for your version ({{version}})';
             }
 
-            $result = static::t($result, array('version' => $version));
+            $result = static::t($result, ['version' => $version]);
         }
 
         return $result;
@@ -213,6 +215,18 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
     }
 
     /**
+     * Check if there is disabled modules hooks
+     *
+     * @return boolean
+     */
+    public function hasDisabledModulesHooks()
+    {
+        $hooks = \XLite\Upgrade\Cell::getInstance()->getDisabledModulesHooks();
+
+        return (bool) array_filter($hooks);
+    }
+
+    /**
      * Is disk_free_space function available
      *
      * @return boolean
@@ -231,7 +245,7 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
     {
         if (!isset($this->requirementErrors)) {
 
-            $this->requirementErrors = array();
+            $this->requirementErrors = [];
 
             if (
                 version_compare(\XLite::getInstance()->getMajorVersion(), '5.2', '=')
@@ -289,7 +303,7 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
     {
         return array_merge(
             parent::defineFreeFormIdActions(),
-            array('view_log_file', 'view', 'start_upgrade', 'request_for_upgrade', 'validate_keys', 'toggleHotfixMode')
+            ['view_log_file', 'view', 'start_upgrade', 'request_for_upgrade', 'validate_keys', 'toggleHotfixMode']
         );
     }
 
@@ -312,7 +326,7 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
      */
     protected function getActionParamsCommon($force = null)
     {
-        return ($force ?: $this->isForce()) ? array('force' => true) : array();
+        return ($force ?: $this->isForce()) ? ['force' => true] : [];
     }
 
     /**
@@ -355,23 +369,23 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
             if (!$module) {
                 $this->showError(
                     __FUNCTION__,
-                    static::t('invalid module ID passed: X', array('moduleId' => $moduleId))
+                    static::t('invalid module ID passed: X', ['moduleId' => $moduleId])
                 );
 
             } elseif (!$module->getFromMarketplace()) {
                 $this->showError(
                     __FUNCTION__,
-                    static::t('trying to install a non-marketplace module: X', array('name' => $module->getActualName()))
+                    static::t('trying to install a non-marketplace module: X', ['name' => $module->getActualName()])
                 );
 
             } elseif (!\XLite\Upgrade\Cell::getInstance()->addMarketplaceModule($module, true)) {
                 $this->showError(
                     __FUNCTION__,
-                    static::t('unable to add module entry to the installation list: X', array('path' => $module->getActualName()))
+                    static::t('unable to add module entry to the installation list: X', ['path' => $module->getActualName()])
                 );
 
             } else {
-                \XLite\Controller\Admin\Base\AddonsList::storeRecentlyInstalledModules(array($module->getModuleID()));
+                \XLite\Controller\Admin\Base\AddonsList::storeRecentlyInstalledModules([$module->getModuleID()]);
 
                 if ($this->isForce()) {
                     $this->setHardRedirect(true);
@@ -404,7 +418,7 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
             if (!isset($entry)) {
                 $this->showError(
                     __FUNCTION__,
-                    static::t('unable to add module entry to the installation list: X', array('path' => $path))
+                    static::t('unable to add module entry to the installation list: X', ['path' => $path])
                 );
 
             } elseif (\XLite::getInstance()->checkVersion($entry->getMajorVersionNew(), '!=')) {
@@ -412,10 +426,10 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
                     __FUNCTION__,
                     static::t(
                         'module version X is not equal to the core one (Y)',
-                        array(
+                        [
                             'module_version' => $entry->getMajorVersionNew(),
                             'core_version'   => \XLite::getInstance()->getMajorVersion(),
-                        )
+                        ]
                     )
                 );
 
@@ -470,10 +484,10 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
                 $this->buildURL(
                     'addon_install',
                     'warnings',
-                    array(
+                    [
                         'widget' => '\XLite\View\ModulesManager\ModuleWarnings',
                         'moduleIds' => implode(',', \XLite\Core\Request::getInstance()->moduleIds),
-                    )
+                    ]
                 )
             );
             $this->doRedirect();
@@ -505,7 +519,7 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
             if (!$this->runStep('unpackAll')) {
                 $this->showError(
                     __FUNCTION__,
-                    static::t('not all archives were unpacked', array('list' => $this->getErrorEntriesHTML()))
+                    static::t('not all archives were unpacked', ['list' => $this->getErrorEntriesHTML()])
                 );
 
                 \XLite\Core\TopMessage::addError($this->getUnpackErrorMessage());
@@ -554,7 +568,7 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
     {
         $link = $this->buildURL('upgrade', 'check_integrity');
 
-        return static::t('Try to unpack them manually', array('link' => $link));
+        return static::t('Try to unpack them manually', ['link' => $link]);
     }
 
     /**
@@ -570,7 +584,7 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
             \Includes\Utils\Operator::showMessage('Checking integrity, please wait...');
 
             // Perform upgrade in test mode
-            $this->runStep('upgrade', array(true));
+            $this->runStep('upgrade', [true]);
 
             if ($this->isForce() && $this->isNextStepAvailable()) {
                 $this->setReturnURL($this->buildURL('upgrade', 'install_upgrades', $this->getActionParamsCommon()));
@@ -579,7 +593,7 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
         } else {
             $this->showError(
                 __FUNCTION__,
-                static::t('unable to test files: not all archives were unpacked', array('list' => $this->getErrorEntriesHTML()))
+                static::t('unable to test files: not all archives were unpacked', ['list' => $this->getErrorEntriesHTML()])
             );
         }
     }
@@ -601,11 +615,12 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
             $restorePoint = \Includes\Utils\ModulesManager::getEmptyRestorePoint();
 
             //write current state
-            $current = \XLite\Core\Database::getRepo('\XLite\Model\Module')->findBy(array('enabled' => true));
+            $current = \XLite\Core\Database::getRepo('\XLite\Model\Module')->findBy(['enabled' => true]);
             foreach ($current as $module) {
                 $restorePoint['current'][$module->getModuleId()] = $module->getActualName();
             }
 
+            $this->setToRemain(\XLite\Core\Request::getInstance()->toRemain);
             \Includes\Utils\Operator::showMessage('Installing updates, please wait...');
 
             if (\XLite\Core\Request::getInstance()->preUpgradeWarningModules) {
@@ -622,7 +637,7 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
             }
 
             // Disable selected modules
-            $modules = array();
+            $modules = [];
             foreach (\XLite\Upgrade\Cell::getInstance()->getIncompatibleModules(true) as $module) {
                 $module->setEnabled(false);
                 $modules[] = $module;
@@ -632,25 +647,17 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
             \XLite\Core\Database::getRepo('XLite\Model\Module')->updateInBatch($modules);
 
             // Do actions according the admin choice for the disabled modules with hooks
-            $modulesToEnable = array();
+            $modulesToEnable = [];
 
             /** @var \XLite\Model\Module $module */
             foreach (\XLite\Upgrade\Cell::getInstance()->getDisabledModulesHooks() as $marketplaceId => $module) {
-                $action = \XLite\Core\Request::getInstance()->disabledModulesHooks[$marketplaceId];
                 $installedModule = $module->getModuleInstalled();
 
                 if ($installedModule) {
-                    if (1 == $action) {
-                        // Enable module
-                        $installedModule->setEnabled(true);
-                        $modulesToEnable[] = $installedModule;
-                        $restorePoint['enabled'][$installedModule->getModuleId()] = $installedModule->getActualName();
-                    } elseif (0 == $action) {
-                        // Uninstall module
-                        \XLite\Upgrade\Cell::getInstance()->removeModuleEntry($installedModule);
-                        $this->uninstallModule($installedModule);
-                        $restorePoint['deleted'][] = $installedModule->getActualName();
-                    }
+                    // Uninstall module
+                    \XLite\Upgrade\Cell::getInstance()->removeModuleEntry($installedModule);
+                    $this->uninstallModule($installedModule);
+                    $restorePoint['deleted'][] = $installedModule->getActualName();
                 }
             }
 
@@ -679,9 +686,31 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
         } else {
             $this->showWarning(
                 __FUNCTION__,
-                static::t('unable to install: not all archives were unpacked. Please, try again', array('list' => $this->getErrorEntriesHTML()))
+                static::t('unable to install: not all archives were unpacked. Please, try again', ['list' => $this->getErrorEntriesHTML()])
             );
         }
+    }
+
+    /**
+     * Set files to remain list
+     *
+     * @param $value
+     */
+    protected function setToRemain($value)
+    {
+        \XLite\Core\TmpVars::getInstance()->{static::FILES_TO_REMAIN_CELL_NAME} = $value;
+    }
+
+    /**
+     * Return list of files to remain
+     *
+     * @return array
+     */
+    protected function getToRemain()
+    {
+        return is_array(\XLite\Core\TmpVars::getInstance()->{static::FILES_TO_REMAIN_CELL_NAME})
+            ? \XLite\Core\TmpVars::getInstance()->{static::FILES_TO_REMAIN_CELL_NAME}
+            : [];
     }
 
     /**
@@ -700,7 +729,7 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
             // Run pre-upgrade hooks
             $this->runStep('preUpgradeHooks');
             if (\XLite\Upgrade\Cell::getInstance()->hasUnfinishedUpgradeHooks('pre_upgrade')) {
-                $this->setReturnURL($this->buildURL('upgrade', 'pre_upgrade_hooks', array_merge($this->getActionParamsCommon(), array('_t' => microtime(true)))));
+                $this->setReturnURL($this->buildURL('upgrade', 'pre_upgrade_hooks', array_merge($this->getActionParamsCommon(), ['_t' => microtime(true)])));
 
             } else {
                 $this->setReturnURL($this->buildURL('upgrade', 'update_files', $this->getActionParamsCommon()));
@@ -729,7 +758,7 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
 
             // Perform upgrade
             // post_upgrade hooks will be proceeded here
-            $this->runStep('upgrade', array(false, $this->getFilesToOverWrite()));
+            $this->runStep('upgrade', [false, $this->getFilesToOverWrite()]);
             $this->finalizeUpgrade();
 
         } else {
@@ -777,7 +806,7 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
                 $this->buildURL(
                     'upgrade',
                     '',
-                    $this->getActionParamsCommon() + array('redirect' => $target)
+                    $this->getActionParamsCommon() + ['redirect' => $target]
                 )
             );
         }
@@ -817,9 +846,9 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
             $url = $this->buildURL(
                 'payment_settings',
                 'add',
-                array(
+                [
                     'id' => $paymentMethod->getMethodId()
-                )
+                ]
             );
         }
 
@@ -856,7 +885,7 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
      */
     protected function doActionInstallAddonForce()
     {
-        $data = array('moduleIds' => \XLite\Core\Request::getInstance()->moduleIds)
+        $data = ['moduleIds' => \XLite\Core\Request::getInstance()->moduleIds]
             + $this->getActionParamsCommon(true);
         $this->setReturnURL($this->buildURL('upgrade', 'install_addon', $data));
     }
@@ -903,11 +932,11 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
      *
      * @return mixed
      */
-    protected function runStep($method, array $params = array())
+    protected function runStep($method, array $params = [])
     {
         return \Includes\Utils\Operator::executeWithCustomMaxExecTime(
-            \Includes\Utils\ConfigParser::getOptions(array('marketplace', 'upgrade_step_time_limit')),
-            array(\XLite\Upgrade\Cell::getInstance(), $method),
+            \Includes\Utils\ConfigParser::getOptions(['marketplace', 'upgrade_step_time_limit']),
+            [\XLite\Upgrade\Cell::getInstance(), $method],
             $params
         );
     }
@@ -956,7 +985,7 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
     {
         \XLite\Core\Session::getInstance()->upgradeHotfixMode = !(bool)\XLite\Core\Session::getInstance()->upgradeHotfixMode;
 
-        $this->setReturnURL($this->buildURL('upgrade', null, array('mode' => 'install_updates')));
+        $this->setReturnURL($this->buildURL('upgrade', null, ['mode' => 'install_updates']));
     }
 
     // }}}
@@ -980,7 +1009,7 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
      */
     protected function getFilesToOverWrite()
     {
-        $allFilesPlain = array();
+        $allFilesPlain = [];
 
         foreach (\XLite\Upgrade\Cell::getInstance()->getCustomFiles() as $files) {
             $allFilesPlain = array_merge($allFilesPlain, $files);
@@ -988,7 +1017,7 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
 
         return \Includes\Utils\ArrayManager::filterByKeys(
             $allFilesPlain,
-            array_keys((array) \XLite\Core\Request::getInstance()->toRemain),
+            array_keys($this->getToRemain()),
             true
         );
     }
@@ -1036,7 +1065,7 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
     public function getExpiredKeys()
     {
         if (!isset($this->expiredKeys)) {
-            $this->expiredKeys = array();
+            $this->expiredKeys = [];
 
             $entries = \XLite\Upgrade\Cell::getInstance()->getEntries();
 
@@ -1044,7 +1073,7 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
 
             $commonURLPart = 'https://secure.x-cart.com/customer.php?target=generate_invoice&action=buy&';
 
-            $urlParamsAggregated = array();
+            $urlParamsAggregated = [];
             $i = 1;
 
             foreach ($keys as $key) {
@@ -1077,11 +1106,11 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
                             : sprintf('%s (%s)', $key->getName(), $key->getAuthor());
                     }
 
-                    $this->expiredKeys[] = array(
+                    $this->expiredKeys[] = [
                         'title'       => $title,
                         'expDate'     => \XLite\Core\Converter::formatDate($keyData['expDate']),
                         'purchaseURL' => $commonURLPart . $this->getKeyURLParams(1, $key) . '&proxy_checkout=1',
-                    );
+                    ];
                 }
             }
 

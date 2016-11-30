@@ -30,6 +30,6 @@ class TaxClasses extends \XLite\Controller\Admin\ACL\Catalog
      */
     public function getTitle()
     {
-        return static::t('Tax classes');
+        return static::t('Taxes');
     }
 }

@@ -267,7 +267,7 @@ class Auth extends \XLite\Base
                     $result = true;
                 }
 
-                if (\XLite::isAdminZone()) {
+                if (\XLite::isAdminZone() || ($profile && $profile->isAdmin())) {
                     if (\XLite\Core\Converter::time() < (\XLite\Core\Session::getInstance()->dateOfLockLogin + static::TIME_OF_LOCK_LOGIN)) {
                         $result = static::RESULT_LOGIN_IS_LOCKED;
 
@@ -462,7 +462,9 @@ class Auth extends \XLite\Base
             )
         );
 
-        return array($phoneOrdering);
+        return array_filter([
+            $phoneOrdering
+        ]);
     }
 
     /**
@@ -971,6 +973,58 @@ class Auth extends \XLite\Base
         }
 
         return $result;
+    }
+
+    // }}}
+
+    // {{{ Access control routines
+
+    /**
+     * Return array of \XLite\Model\AccessControlCell
+     * 
+     * @return \XLite\Model\AccessControlCell[]
+     */
+    public function getAccessControlCells()
+    {
+        $session = \XLite\Core\Session::getInstance();
+        
+        return $session->getAccessControlCells();
+    }
+
+    /**
+     * Return true if one of session Access Control Cell has access to entity
+     *
+     * @param $entity
+     *
+     * @return bool
+     */
+    public function checkACEAccess($entity)
+    {
+        foreach ($this->getAccessControlCells() as $cell) {
+            if ($cell->hasEntityAccess($entity)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Return true if one of session Access Control Cell has access to entity
+     *
+     * @param $zone
+     *
+     * @return bool
+     */
+    public function checkACZAccess($zone)
+    {
+        foreach ($this->getAccessControlCells() as $cell) {
+            if ($cell->hasZoneAccess($zone)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     // }}}

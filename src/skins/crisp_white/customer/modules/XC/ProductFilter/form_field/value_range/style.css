@@ -40,11 +40,11 @@
 }
 
 .value-range {
-  padding: 9px 8px;
+  padding: 20px 0px;
 }
 
 .value-range input {
-  width: 37%;
+  width: 40%;
   text-align: right;
 }
 

@@ -65,6 +65,25 @@ core.bind('blocks.product_filter_view.before_submit', function() {
   }
 });
 
+$('[data-toggle="collapse"]').each(function(index, el) {
+  var $el = jQuery(el);
+  var target = jQuery($el.data('target'));
+
+  target.on('hide.bs.collapse', function () {
+    $el.removeClass('shown');
+  })
+  target.on('hidden.bs.collapse', function () {
+    $el.removeClass('shown');
+  })
+  target.on('show.bs.collapse', function () {
+    $el.addClass('shown');
+  })
+  target.on('shown.bs.collapse', function () {
+    $el.addClass('shown');
+  })
+});
+
+
 jQuery(function() {
   $('.product-details-tabs ul.tabs').tabCollapse({
     tabsClass: 'hidden-xs',

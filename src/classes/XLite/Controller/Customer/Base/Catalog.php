@@ -74,11 +74,25 @@ abstract class Catalog extends \XLite\Controller\Customer\ACustomer
      *
      * @return string
      */
-    public function getPageTitle()
+    public function getTitleObjectPart()
     {
         $model = $this->getModelObject();
 
         return ($model && $model->getMetaTitle()) ? $model->getMetaTitle() : $this->getTitle();
+    }
+
+    /**
+     * Return the page title parent category part (for the <title> tag)
+     *
+     * @return string
+     */
+    public function getTitleParentPart()
+    {
+        if (!(in_array($this->getTarget(), ['main', 'category']))) {
+            return $this->getCategory() ? $this->getCategory()->getName() : '';
+        }
+
+        return $this->getCategory() && $this->getCategory()->getParent() ? $this->getCategory()->getParent()->getName() : '';
     }
 
     /**

@@ -1,0 +1,20 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Data
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: price_in_list
+    category: XC\ProductVariants
+    type: \XLite\Module\XC\ProductVariants\View\FormField\Select\PriceInList
+    orderby: 100
+    value: 'D'
+    translations:
+      - code: en
+        option_name: 'How to show variant prices in product lists'
+        option_comment: 'If you choose to switch to the "Price range" option, the first time you do so be sure to run a recalculation of <a href="admin.php?target=cache_management">quick data</a>. This has to be done either before or after the switch. Without the recalculation some features may not work correctly.'
+      - code: ru
+        option_name: 'Как отображать цены вариантов в списках продуктов'
+        option_comment: 'При первом переключении в режим диапазона необходимо запустить перестройку <a href="admin.php?target=cache_management">quick data</a>. Это нужно сделать либо до, либо после переключения. Без перестройки quick data некоторые функции могут работать некорректно.'

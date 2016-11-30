@@ -24,11 +24,14 @@ class AttributeValueSelect extends \XLite\Model\AttributeValue\AttributeValueSel
     protected $variants;
 
     /**
+     * @var boolean
+     */
+    protected $variantAvailable = true;
+
+    /**
      * Constructor
      *
      * @param array $data Entity properties OPTIONAL
-     *
-     * @return void
      */
     public function __construct(array $data = array())
     {
@@ -41,21 +44,35 @@ class AttributeValueSelect extends \XLite\Model\AttributeValue\AttributeValueSel
      * Add variants
      *
      * @param \XLite\Module\XC\ProductVariants\Model\ProductVariant $variants
-     * @return AttributeValueSelect
      */
     public function addVariants(\XLite\Module\XC\ProductVariants\Model\ProductVariant $variants)
     {
         $this->variants[] = $variants;
-        return $this;
     }
 
     /**
      * Get variants
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection|\XLite\Module\XC\ProductVariants\Model\ProductVariant[]
      */
     public function getVariants()
     {
         return $this->variants;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isVariantAvailable()
+    {
+        return $this->variantAvailable;
+    }
+
+    /**
+     * @param boolean $variantAvailable
+     */
+    public function setVariantAvailable($variantAvailable)
+    {
+        $this->variantAvailable = $variantAvailable;
     }
 }

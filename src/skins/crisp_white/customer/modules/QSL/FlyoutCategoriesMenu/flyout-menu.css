@@ -89,8 +89,12 @@
 .flyout-menu li a:link,
 .flyout-menu li a:visited,
 .flyout-menu li a:hover {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-between;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+          justify-content: space-between;
   overflow: hidden;
   text-decoration: none;
   white-space: nowrap;
@@ -112,8 +116,12 @@
 
 .flyout-menu li li span.primary-title,
 .flyout-menu li li a:active, .flyout-menu li li a:link, .flyout-menu li li a:visited, .flyout-menu li li a:hover {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-between;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+          justify-content: space-between;
   overflow: hidden;
   white-space: nowrap;
   -o-transition: color .15s;

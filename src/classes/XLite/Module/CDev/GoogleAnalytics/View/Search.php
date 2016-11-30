@@ -8,6 +8,8 @@
 
 namespace XLite\Module\CDev\GoogleAnalytics\View;
 
+use XLite\Module\CDev\GoogleAnalytics;
+
 /**
  * Abstract widget
  */
@@ -21,7 +23,10 @@ abstract class Search extends \XLite\View\Form\Product\Search\Customer\Main impl
     public function getJSFiles()
     {
         $list = parent::getJSFiles();
-        $list[] = 'modules/CDev/GoogleAnalytics/search.js';
+
+        if (GoogleAnalytics\Main::useUniversalAnalytics()) {
+            $list[] = 'modules/CDev/GoogleAnalytics/universal/action/ga-search.js';
+        }
 
         return $list;
     }

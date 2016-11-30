@@ -161,12 +161,35 @@ class Filter extends \XLite\View\SideBarBox
      */
     protected function getCommentedData()
     {
-        return array(
-            'widgetParams' => array(
-                static::PARAM_CATEGORY_ID => $this->getCategoryId(),
-                static::PARAM_AJAX_EVENTS => $this->isFilterTarget(),
-            )
+        return array_merge(
+            array(
+                'widgetParams' => array(
+                    static::PARAM_CATEGORY_ID => $this->getCategoryId(),
+                    static::PARAM_AJAX_EVENTS => $this->isFilterTarget(),
+                )
+            ),
+            $this->getJSData()
         );
+    }
+
+    /**
+     * Defines if the widget is listening to #hash changes
+     *
+     * @return boolean
+     */
+    protected function getListenToHash()
+    {
+        return true;
+    }
+
+    /**
+     * Defines the #hash prefix of the data for the widget
+     *
+     * @return string
+     */
+    protected function getListenToHashPrefix()
+    {
+        return 'product.category';
     }
 
     /**

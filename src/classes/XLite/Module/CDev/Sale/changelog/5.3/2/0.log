@@ -1,0 +1,5 @@
+Version 5.3.2.0
+
+Fixes
+2016-11-29 - [Bug] Fatal error when editing a product, if the fields price / market price / sale price / weight were left blank. #BUG-4197 (Michael Lipinski) #Core #MarketPrice #Sale
+2016-11-22 - [Bug] For products with variants and a relative discount, a wrong old price was displayed; instead of the variant price, the product price was shown. #BUG-4156 (Sergey Elmanov) #Sale #ProductVariants

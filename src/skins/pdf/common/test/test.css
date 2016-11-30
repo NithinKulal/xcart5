@@ -1,0 +1,80 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Test styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+h1 {
+  color: navy;
+  font-family: times;
+  font-size: 24pt;
+  text-decoration: underline;
+}
+
+p.first {
+  color: #003300;
+  font-family: helvetica;
+  font-size: 12pt;
+}
+
+p.first span {
+  color: #006600;
+  font-style: italic;
+}
+
+p#second {
+  color: rgb(00, 63, 127);
+  font-family: times;
+  font-size: 12pt;
+  text-align: justify;
+}
+
+p#second > span {
+  background-color: #FFFFAA;
+}
+
+table.first {
+  color: #003300;
+  font-family: helvetica;
+  font-size: 8pt;
+  border-left: 3px solid red;
+  border-right: 3px solid #FF00FF;
+  border-top: 3px solid green;
+  border-bottom: 3px solid blue;
+  background-color: #ccffcc;
+}
+
+td {
+  border: 2px solid blue;
+  background-color: #ffffee;
+}
+
+td.second {
+  border: 2px dashed green;
+}
+
+div.test {
+  color: #CC0000;
+  background-color: #FFFF66;
+  font-family: helvetica;
+  font-size: 10pt;
+  border-style: solid solid solid solid;
+  border-width: 2px 2px 2px 2px;
+  border-color: green #FF00FF blue red;
+  text-align: center;
+}
+
+.lowercase {
+  text-transform: lowercase;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}

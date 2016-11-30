@@ -22,7 +22,7 @@ class PastYear extends \XLite\View\FormField\Input\Text\Integer
     {
         parent::defineWidgetParams();
 
-        $this->widgetParams[self::PARAM_MIN]->setValue(1970);
+        $this->widgetParams[self::PARAM_MIN]->setValue(0);
         $this->widgetParams[self::PARAM_MAX]->setValue(date('Y') + 1);
     }
 

@@ -63,12 +63,14 @@ class FeaturedProducts extends \XLite\Controller\Admin\AAdmin
      */
     protected function getLocation()
     {
-        return !$this->isVisible()
-            ? static::t('No category defined')
-            : (\XLite\Core\Request::getInstance()->id
+        if (!$this->isVisible()) {
+            return static::t('No category defined');
+        } else {
+            return (\XLite\Core\Request::getInstance()->id
                 ? $this->getCategoryName()
                 : static::t('Front page')
             );
+        }
     }
 
     /**
@@ -106,7 +108,7 @@ class FeaturedProducts extends \XLite\Controller\Admin\AAdmin
     }
 
     /**
-     * doActionAddFeaturedProducts
+     * doActionAdd
      *
      * @return void
      */

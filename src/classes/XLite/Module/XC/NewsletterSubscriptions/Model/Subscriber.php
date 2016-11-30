@@ -45,8 +45,8 @@ class Subscriber extends \XLite\Model\AEntity
      *
      * @var   boolean
      *
-     * @ManyToOne(targetEntity="XLite\Model\Profile")
-     * @JoinColumn(name="profile_id", referencedColumnName="profile_id")
+     * @ManyToOne(targetEntity="XLite\Model\Profile", cascade={"remove"})
+     * @JoinColumn(name="profile_id", referencedColumnName="profile_id", nullable=true, onDelete="SET NULL")
      */
     protected $profile;
 

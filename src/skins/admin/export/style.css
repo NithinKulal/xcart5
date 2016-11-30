@@ -147,60 +147,6 @@ div.export-box.export-progress div.content {
   width: 650px;
 }
 
-.export-progress .subcontent .progress-bar {
-  float: left;
-  margin-right: 20px;
-}
-
-.export-progress .subcontent .bar {
-  width: 540px;
-  height: 30px;
-}
-
-
-.ui-dialog .export-progress .subcontent .bar  {
-  width: 500px;
-}
-
-.export-progress .subcontent button {
-  padding: 1px 17px 2px 17px;
-  float: right;
-  min-height: 24px;
-}
-
-.export-progress .subcontent .time {
-  font-size: 14px;
-  text-align: center;
-  color: #44769d;
-  height: 20px;
-  margin-top: 27px;
-}
-
-.export-progress .help {
-  padding: 20px 0px;
-  line-height: 20px;
-  -webkit-display: flex;
-  display: flex;
-  -webkit-align-items:center;
-  -align-items:center;
-}
-
-.ui-dialog .export-progress .help{
-  padding: 20px 20px;
-
-}
-
-.export-progress .help i {
-  color: #b9b9b9;
-  font-size: 36px;
-  margin-top: 6px;
-}
-
-.export-progress .help p {
-  font-size: 14px;
-  margin-left:20px;
-}
-
 /**
  * Export (completed)
  */

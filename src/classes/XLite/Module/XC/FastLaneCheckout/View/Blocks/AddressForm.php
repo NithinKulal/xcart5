@@ -100,27 +100,14 @@ abstract class AddressForm extends \XLite\View\Checkout\AAddressBlock
      */
     public function getFieldAttributes($fieldName, array $fieldData)
     {
-        $classes = array('field-' . $fieldName);
-
-        if (!empty($fieldData[\XLite\View\Model\Address\Address::SCHEMA_REQUIRED])) {
-            $classes[] = 'field-required';
-        }
-
-        $attrs = empty($fieldData[\XLite\View\FormField\AFormField::PARAM_ATTRIBUTES])
-            ? array()
-            : $fieldData[\XLite\View\FormField\AFormField::PARAM_ATTRIBUTES];
-
-        if (!isset($attrs['class'])) {
-            $attrs['class'] = '';
-        }
-
-        $attrs['class'] = trim($attrs['class'] . ' ' . implode(' ', $classes));
+        $attrs = parent::getFieldAttributes($fieldName, $fieldData);
 
         // Vue.js attributes
         $attrs['v-model'] = 'fields.' . $fieldName;
         $attrs['debounce'] = '200';
         $attrs['lazy'] = 'lazy';
         $attrs['data-shortname'] = $fieldName;
+        $attrs['class'] = $attrs['class'] . ' show-valid-state';
 
         return $attrs;
     }

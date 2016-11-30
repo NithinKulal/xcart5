@@ -10,8 +10,6 @@ namespace XLite\View;
 
 /**
  * Automate shipping routine page view
- *
- * @ListChild (list="admin.center", zone="admin")
  */
 class AutomateShippingRoutine extends \XLite\View\AView
 {
@@ -90,13 +88,48 @@ class AutomateShippingRoutine extends \XLite\View\AView
         $repo = \XLite\Core\Database::getRepo('XLite\Model\Module');
 
         $modules = array(
-            $repo->findOneByModuleName('Qualiteam\\ShippingEasy', true),
-            $repo->findOneByModuleName('ShipStation\\Api', true),
-            $repo->findOneByModuleName('Webgility\\Shiplark', true),
-            $repo->findOneByModuleName('AutomatedShippingRefunds71LBS\\SeventyOnePounds', true),
+            $repo->findOneByModuleName('Qualiteam\\ShippingEasy', true)
+                ?: [
+                    'name' => 'ShippingEasy',
+                    'humanName' => 'ShippingEasy'
+                ],
+            $repo->findOneByModuleName('ShipStation\\Api', true)
+                ?: [
+                    'name' => 'Api',
+                    'humanName' => 'ShipStation'
+                ],
+            $repo->findOneByModuleName('Webgility\\Shiplark', true)
+                ?: [
+                    'name' => 'Shiplark',
+                    'humanName' => 'Shiplark'
+                ],
         );
 
         return array_filter($modules);
+    }
+
+    /**
+     * Get module name
+     *
+     * @param  mixed $module
+     * @return string
+     */
+    public function getModuleName($module)
+    {
+        return is_object($module)
+            ? $module->getModuleName()
+            : $module['humanName'];
+    }
+
+    /**
+     * Check if real object
+     *
+     * @param  mixed $module
+     * @return string
+     */
+    public function isModuleObject($module)
+    {
+        return is_object($module);
     }
 
     /**
@@ -196,26 +229,6 @@ class AutomateShippingRoutine extends \XLite\View\AView
                     'type' => static::PROPERTY_VALUE_APP_TYPE_WINDOWS,
                 ),
             ),
-            'SeventyOnePounds'  => array(
-                'common' => array(
-                    'labels'    => static::PROPERTY_VALUE_NO,
-                    'trial'     => static::PROPERTY_VALUE_YES,
-                    'refunds'   => static::PROPERTY_VALUE_YES,
-                ),
-                'integrations' => array(
-                    'ebay'      => static::PROPERTY_VALUE_NO,
-                    'amazon'    => static::PROPERTY_VALUE_NO,
-                    'etsy'      => static::PROPERTY_VALUE_NO,
-                    'stamps'    => static::PROPERTY_VALUE_NO,
-                    'fedex'     => static::PROPERTY_VALUE_YES,
-                    'ups'       => static::PROPERTY_VALUE_YES,
-                    'usps'      => static::PROPERTY_VALUE_NO,
-                    'dhl'       => static::PROPERTY_VALUE_NO,
-                ),
-                'app' => array(
-                    'type' => static::PROPERTY_VALUE_APP_TYPE_CLOUD,
-                ),
-            ),
         );
     }
 
@@ -240,7 +253,9 @@ class AutomateShippingRoutine extends \XLite\View\AView
      */
     protected function hasSetting($module)
     {
-        return $module->callModuleMethod('showSettingsForm');
+        return is_object($module)
+            ? $module->callModuleMethod('showSettingsForm')
+            : false;
     }
 
     /**
@@ -252,10 +267,16 @@ class AutomateShippingRoutine extends \XLite\View\AView
      */
     protected function getImageURL($module)
     {
-        $name = $module->getName();
+        $name = is_object($module)
+            ? $module->getName()
+            : $module['name'];
         $path = sprintf('automate_shipping_routine/images/%s_logo.png', strtolower($name));
 
-        return \XLite\Core\Layout::getInstance()->getResourceWebPath($path) ?: $module->getPublicIconURL();
+        $modulePublicIcon = is_object($module)
+            ? $module->getPublicIconURL()
+            : '';
+
+        return \XLite\Core\Layout::getInstance()->getResourceWebPath($path) ?: $modulePublicIcon;
     }
 
     /**
@@ -267,7 +288,9 @@ class AutomateShippingRoutine extends \XLite\View\AView
      */
     protected function getSettingsForm($module)
     {
-        return $module->getModuleInstalled()->getSettingsForm();
+        return is_object($module)
+            ? $module->getModuleInstalled()->getSettingsForm()
+            : null;
     }
 
     /**
@@ -335,8 +358,12 @@ class AutomateShippingRoutine extends \XLite\View\AView
      */
     protected function getShippingModulePropertyValue($module, $type, $property)
     {
+        $name = is_object($module)
+            ? $module->getName()
+            : $module['name'];
+
         $dict = $this->getShippingModulePropertyDictionary();
-        $moduleTypeDict = $dict[$module->getName()][$type];
+        $moduleTypeDict = $dict[$name][$type];
 
         return $moduleTypeDict[$property];
     }

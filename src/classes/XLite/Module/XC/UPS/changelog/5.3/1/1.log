@@ -1,0 +1,4 @@
+Version 5.3.1.1
+
+Fixes
+2016-11-08 - [Bug] dimensionUnit was mistyped as weightUnit, which caused weight information to be passed in centimeters. #BUG-4079 (Maxim Kuznetsov) #UPS

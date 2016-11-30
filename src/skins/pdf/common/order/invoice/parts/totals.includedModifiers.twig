@@ -1,0 +1,13 @@
+{##
+ # Invoice totals : subtotal
+ #
+ # @ListChild (list="invoice.base.totals.after", weight="20")
+ #}
+{% if this.getItemsIncludeSurchargesTotals() %}
+    {% for row in this.getItemsIncludeSurchargesTotals() %}
+      <tr class='included-surcharge'>
+        <td class="name">{{ t('Including X', {'name': row.surcharge.getName()}) }}:</td>
+        <td class="value">{{ this.formatPrice(row.cost, this.order.getCurrency()) }}</td>
+      </tr>
+    {% endfor %}
+{% endif %}

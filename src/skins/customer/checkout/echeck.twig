@@ -16,11 +16,11 @@
   </li>
 
   <li class="clearfix">
-    {{ widget('XLite\\View\\FormField\\Input\\Text', fieldName='payment[check_bank_name]', label=t('Name of bank at which account is maintained'), required='true', attributes={'v-model': 'payment.check_bank_name', 'lazy': 'lazy'}) }}
+    {{ widget('XLite\\View\\FormField\\Input\\Text', fieldName='payment[check_bank_name]', label=t('Bank name'), required='true', attributes={'v-model': 'payment.check_bank_name', 'lazy': 'lazy'}) }}
   </li>
 
   <li class="clearfix">
-    {{ widget('XLite\\View\\FormField\\Input\\Text', fieldName='payment[check_acct_name]', label=t('Name under which the account is maintained at the bank'), required='true', attributes={'v-model': 'payment.check_acct_name', 'lazy': 'lazy'}) }}
+    {{ widget('XLite\\View\\FormField\\Input\\Text', fieldName='payment[check_acct_name]', label=t('Name of account holder'), required='true', attributes={'v-model': 'payment.check_acct_name', 'lazy': 'lazy'}) }}
   </li>
 
   {% if this.processor.isDisplayNumber() %}

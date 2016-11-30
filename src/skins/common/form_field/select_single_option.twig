@@ -1,0 +1,8 @@
+{##
+ # Common selector
+ #}
+
+<span class="input-field-wrapper {{ this.getWrapperClass() }}">
+  <label class="single-option-select">{{ this.getValueLabel() }}</label>
+  <input {{ this.getAttributesCode()|raw }} />
+</span>

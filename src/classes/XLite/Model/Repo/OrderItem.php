@@ -56,7 +56,7 @@ class OrderItem extends \XLite\Model\Repo\ARepo
             ->addSelect('o1.date')
             ->andWhere($qb->expr()->in('ps.code', \XLite\Model\Order\Status\Payment::getPaidStatuses()))
             ->setMaxResults($cnd->limit)
-            ->addGroupBy('o.sku')
+            ->addGroupBy('o.object')
             ->addOrderBy('cnt', 'desc')
             ->addOrderBy('o.name', 'asc');
 

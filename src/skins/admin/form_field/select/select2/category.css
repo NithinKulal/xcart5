@@ -1,0 +1,32 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Select2 category styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.input-category-select2 .select2-container .selection {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+}
+
+.input-category-select2 .select2-container .selection .select2-selection {
+    border-radius: 3px;
+    border-color: #c9dcea;
+
+    min-width: 150px;
+    min-height: 35px;
+}
+
+.input-category-select2 .select2-container .selection .select2-selection .select2-selection__rendered,
+.input-category-select2 .select2-container .selection .select2-selection .select2-selection__arrow {
+    min-height: 35px;
+    line-height: 35px;
+}
+
+.select2-container .select2-dropdown .select2-results {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+}

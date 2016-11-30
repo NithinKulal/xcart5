@@ -44,7 +44,7 @@ class InputMapper extends Shipping\Mapper\AMapper
 
         } else {
             $this->weightUnit = 'KGS';
-            $this->weightUnit = 'CM';
+            $this->dimensionUnit = 'CM';
         }
 
         $config = $this->getConfiguration();

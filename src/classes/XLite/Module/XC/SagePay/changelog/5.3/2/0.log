@@ -1,0 +1,4 @@
+Version 5.3.2.0
+
+Fixes
+2016-08-09 - [Bug] Added a new setting - "Transaction Type" - for SagePay form protocol payment method. #BUG-3690 (Michael Lipinski) #SagePay

@@ -27,13 +27,17 @@ CommonForm.elementControllers.push(
       var $tooltip = jQuery(this).closest('div').parent().children('.rating-tooltip');
       var $div = jQuery(this).closest('div');
 
-      $div
-        .hover(
+      var timeout;
+
+      $div.hover(
           function() {
-            $tooltip.css({'display': 'block'});
+            timeout = setTimeout(function(){
+              $tooltip.show(100);
+            }, 250);
           },
           function() {
-            $tooltip.css({'display': 'none'});
+            clearTimeout(timeout);
+            $tooltip.hide(100);
           }
         );
     }

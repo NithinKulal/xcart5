@@ -11,6 +11,16 @@
   min-width: 100px;
 }
 
+.u_products.items-list-table table.list td.cell.actions.right button.remove i.fa-trash-o {
+  transform: rotate(45deg);
+}
+
+.u_products.items-list-table table.list td.cell.actions.right button.remove i.fa-trash-o:before {
+  content: "+";
+  font-size: 25px;
+  font-weight: bold;
+}
+
 .items-list button.remove img {
   background: transparent url(../../../../images/close_icon.png) no-repeat center -2px;
   height: 19px;
@@ -33,4 +43,28 @@ td.cell.product div.cell {
 {
   width: 43%;
   margin-right: 12px;
+}
+
+.xc-upselling-searchpanel-main .search-conditions-box .search-conditions > li.substring-condition div.table-value input[type="text"] {
+  width: 324px;
+}
+
+.xc-upselling-searchpanel-main .search-conditions-box .search-conditions > li.categoryId-condition div.table-value select {
+  width: 324px;
+}
+
+.select2-container.select2-container--default.select2-container--open {
+  z-index: 10001;
+}
+
+.xc-upselling-searchpanel-main .search-conditions-box .search-conditions > li.categoryId-condition .input-category-select2 .select2-container .selection .select2-selection {
+  border-radius: 3px;
+  border: 1px solid #c3c3c3;;
+
+  min-width: 150px;
+  min-height: 35px;
+}
+
+.sticky-panel .additional-buttons .dropdown-menu .enable-mutual i.button-icon {
+  color: #72b25b;
 }

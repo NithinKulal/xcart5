@@ -13,6 +13,8 @@ namespace XLite\Module\XC\ThemeTweaker\View;
  */
 class Code extends \XLite\Module\XC\ThemeTweaker\View\Custom
 {
+    const PARAM_TYPE = 'type';
+
     /**
      * Return widget directory
      *
@@ -24,13 +26,38 @@ class Code extends \XLite\Module\XC\ThemeTweaker\View\Custom
     }
 
     /**
+     * Define widget parameters
+     *
+     * @return void
+     */
+    protected function defineWidgetParams()
+    {
+        parent::defineWidgetParams();
+
+        $this->widgetParams += array(
+            static::PARAM_TYPE => new \XLite\Model\WidgetParam\TypeString(
+                'Code widget type', null, false
+            ),
+        );
+    }
+
+    /**
+     * Returns widget type
+     * @return string
+     */
+    protected function getType() 
+    {
+        return $this->getParam(static::PARAM_TYPE) ?: \XLite\Core\Request::getInstance()->target;
+    }
+
+    /**
      * Code is used or not
      *
      * @return boolean
      */
     protected function isUsed()
     {
-        return \XLite\Core\Config::getInstance()->XC->ThemeTweaker->{'use_' . \XLite\Core\Request::getInstance()->target};
+        return (boolean) \XLite\Core\Config::getInstance()->XC->ThemeTweaker->{'use_' . $this->getType()};
     }
 
     /**
@@ -40,7 +67,7 @@ class Code extends \XLite\Module\XC\ThemeTweaker\View\Custom
      */
     protected function getUseCustomText()
     {
-        return 'custom_css' == \XLite\Core\Request::getInstance()->target
+        return 'custom_css' == $this->getType()
             ? static::t('Use custom css')
             : static::t('Use custom js');
     }

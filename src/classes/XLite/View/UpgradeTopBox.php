@@ -61,6 +61,16 @@ class UpgradeTopBox extends \XLite\View\AView
     }
 
     /**
+     * Return list of disallowed targets
+     *
+     * @return string[]
+     */
+    public static function getDisallowedTargets()
+    {
+        return ['upgrade'];
+    }
+
+    /**
      * Check widget visibility
      *
      * @return boolean

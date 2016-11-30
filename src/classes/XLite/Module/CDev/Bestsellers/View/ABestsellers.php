@@ -12,7 +12,6 @@ use XLite\View\CacheableTrait;
 
 /**
  * abstract Bestsellers view
- *
  */
 abstract class ABestsellers extends \XLite\View\ItemsList\Product\Customer\ACustomer
 {
@@ -21,7 +20,6 @@ abstract class ABestsellers extends \XLite\View\ItemsList\Product\Customer\ACust
     /**
      * Widget parameter names
      */
-
     const PARAM_ROOT_ID     = 'rootId';
     const PARAM_USE_NODE    = 'useNode';
     const PARAM_CATEGORY_ID = 'category_id';
@@ -44,8 +42,6 @@ abstract class ABestsellers extends \XLite\View\ItemsList\Product\Customer\ACust
      * Define and set widget attributes; initialize widget
      *
      * @param array $params Widget params OPTIONAL
-     *
-     * @return void
      */
     public function __construct(array $params = array())
     {
@@ -62,16 +58,6 @@ abstract class ABestsellers extends \XLite\View\ItemsList\Product\Customer\ACust
     protected function getHead()
     {
         return 'Bestsellers';
-    }
-
-    /**
-     * Return class name for the list pager
-     *
-     * @return string
-     */
-    protected function getPagerClass()
-    {
-        return '\XLite\Module\CDev\Bestsellers\View\Pager\Pager';
     }
 
     /**
@@ -99,32 +85,30 @@ abstract class ABestsellers extends \XLite\View\ItemsList\Product\Customer\ACust
     }
 
     /**
-     * Define so called "request" parameters
+     * Default search conditions
      *
-     * @return void
+     * @param  \XLite\Core\CommonCell $searchCase Search case
+     *
+     * @return \XLite\Core\CommonCell
      */
-    protected function defineRequestParams()
+    protected function postprocessSearchCase(\XLite\Core\CommonCell $searchCase)
     {
-        parent::defineRequestParams();
+        $searchCase = parent::postprocessSearchCase($searchCase);
+        $searchCase->{\XLite\Model\Repo\Product::SEARCH_BESTSELLERS} = true;
+        $searchCase->{\XLite\Model\Repo\Product::P_SEARCH_IN_SUBCATS} = true;
 
-        $this->requestParams[] = static::PARAM_CATEGORY_ID;
+        return $searchCase;
     }
 
     /**
-     * Return category Id to use
+     * Return 'Order by' array.
+     * array(<Field to order>, <Sort direction>)
      *
-     * @return integer
+     * @return array|null
      */
-    protected function getRootId()
+    protected function getOrderBy()
     {
-        if (!isset($this->rootCategoryId)) {
-            $this->rootCategoryId = $this->getParam(static::PARAM_USE_NODE)
-                ? intval(\XLite\Core\Request::getInstance()->category_id)
-                : $this->getParam(static::PARAM_ROOT_ID);
-
-        }
-
-        return $this->rootCategoryId;
+        return [static::SORT_BY_MODE_BOUGHT, static::SORT_ORDER_DESC];
     }
 
     /**

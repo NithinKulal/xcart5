@@ -26,7 +26,11 @@ class CodeMirror extends \XLite\View\FormField\Textarea\Simple
     public function getCSSFiles()
     {
         $list = parent::getCSSFiles();
-        $list[] = 'modules/XC/ThemeTweaker/codemirror/lib/codemirror.css';
+        $list[] = array(
+            'file'      => 'modules/XC/ThemeTweaker/codemirror/lib/codemirror.css',
+            'no_minify' => true,
+        );
+
         $list[] = 'modules/XC/ThemeTweaker/form_field/codemirror.css';
 
         return $list;
@@ -80,6 +84,10 @@ class CodeMirror extends \XLite\View\FormField\Textarea\Simple
     {
         $classes = parent::assembleClasses($classes);
         $classes[] = 'codemirror';
+
+        if (!\XLite::getController()->isAJAX()) {
+            $classes[] = 'autoloadable';
+        }
 
         return $classes;
     }

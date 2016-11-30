@@ -59,7 +59,7 @@ class ActivateFreeLicense extends \XLite\Controller\Admin\ModuleKey
      */
     public function checkACL()
     {
-        return parent::checkACL() && !(bool)\XLite::getXCNLicense();
+        return parent::checkACL() && !(bool) \XLite::getXCNLicense();
     }
 
     /**
@@ -95,20 +95,20 @@ class ActivateFreeLicense extends \XLite\Controller\Admin\ModuleKey
                 // Free license is already registered: prepare specific error message
                 $message = static::t(
                     'Free license key for this email is already registered',
-                    array(
+                    [
                         'email' => \XLite\Core\Request::getInstance()->email,
                         'url'   => $this->buildURL(
                             'activate_free_license',
                             'resend_key',
-                            array('email' => \XLite\Core\Request::getInstance()->email)
+                            ['email' => \XLite\Core\Request::getInstance()->email]
                         ),
-                    )
+                    ]
                 );
             }
 
-            \XLite\Core\TopMessage::addError($message);
+            \XLite\Core\TopMessage::addRawError($message);
 
-        } elseif ($info && isset($info[\XLite\Core\Marketplace::XC_FREE_LICENSE_KEY])) {
+        } elseif (isset($info[\XLite\Core\Marketplace::XC_FREE_LICENSE_KEY])) {
             // License key is successfully activated: register the key in database
 
             $key = $info[\XLite\Core\Marketplace::XC_FREE_LICENSE_KEY][0];
@@ -123,9 +123,9 @@ class ActivateFreeLicense extends \XLite\Controller\Admin\ModuleKey
             }
 
             \XLite\Core\Database::getRepo('\XLite\Model\ModuleKey')->insert(
-                $key + array(
+                $key + [
                     'keyValue' => $keyValue,
-                )
+                ]
             );
 
             // Clear cache for proper installation
@@ -139,14 +139,12 @@ class ActivateFreeLicense extends \XLite\Controller\Admin\ModuleKey
             if ($nonFreeModules) {
                 // Try to uninstall these modules...
                 foreach ($nonFreeModules as $module) {
-                    $messages = array();
-
+                    $messages = [];
                     $res = \XLite\Core\Database::getRepo('XLite\Model\Module')->uninstallModule($module, $messages);
-
                     if ($messages) {
+                        $method = ($res ? 'Info' : 'Error');
                         foreach ($messages as $message) {
-                            $method = ($res ? 'Info' : 'Error');
-                            \XLite\Upgrade\Logger::getInstance()->{'log' . $method}($message, array(), false);
+                            \XLite\Upgrade\Logger::getInstance()->{'log' . $method}($message, [], false);
                         }
                     }
                 }
@@ -174,10 +172,13 @@ class ActivateFreeLicense extends \XLite\Controller\Admin\ModuleKey
         $result = \XLite\Core\Marketplace::getInstance()->doResendLicenseKey(\XLite\Core\Request::getInstance()->email);
 
         if ($result) {
-            \XLite\Core\TopMessage::addInfo('Information about free license key has been sent', array('email' => \XLite\Core\Request::getInstance()->email));
+            \XLite\Core\TopMessage::addInfo(
+                'Information about free license key has been sent',
+                ['email' => \XLite\Core\Request::getInstance()->email]
+            );
 
         } else {
-            \XLite\Core\TopMessage::addError(\XLite\Core\Marketplace::getInstance()->getError());
+            \XLite\Core\TopMessage::addRawError(\XLite\Core\Marketplace::getInstance()->getError());
         }
 
         $this->setReturnURL($this->buildURL('activate_free_license'));

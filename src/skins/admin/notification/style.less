@@ -9,9 +9,15 @@
 
 .form-scheme-header-link,
 .form-scheme-greeting-link,
-.form-scheme-signature-link,
-.form-scheme-body {
+.form-scheme-signature-link {
   & > .input-widget {
+    line-height: 34px;
+    height: 34px;
+  }
+}
+
+.form-scheme-body {
+  & > .input-widget .scheme-body {
     line-height: 34px;
     height: 34px;
   }
@@ -42,7 +48,6 @@
     .flex-wrap(nowrap);
 
     .help-wrapper {
-      padding-top: 0;
       padding-left: 10px;
     }
   }

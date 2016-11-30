@@ -1292,7 +1292,7 @@ abstract class Table extends \XLite\View\ItemsList\Model\AModel
      * @param array                $column
      * @param \XLite\Model\AEntity $entity
      *
-     * @return boolean
+     * @return array
      */
     protected function preprocessFieldParams(array $column, \XLite\Model\AEntity $entity)
     {

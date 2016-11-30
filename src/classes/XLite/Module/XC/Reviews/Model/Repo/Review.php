@@ -64,9 +64,11 @@ class Review extends \XLite\Model\Repo\ARepo
 
         $queryBuilder = $this->searchState['queryBuilder'];
 
-        $result = $queryBuilder
-            ->select('AVG(r.rating)')
-            ->getSingleScalarResult();
+        if ($queryBuilder) {
+            $result = $queryBuilder
+                ->select('AVG(r.rating)')
+                ->getSingleScalarResult();
+        }
 
         return $result;
     }
@@ -441,4 +443,26 @@ class Review extends \XLite\Model\Repo\ARepo
     }
 
     // }}}
+
+    public function getVotesCount($product, $status)
+    {
+        $queryBuilder = $this->createQueryBuilder();
+
+        $this->prepareCndProduct($queryBuilder, $product);
+        if ($status) {
+            $this->prepareCndStatus($queryBuilder, $status, false);
+        }
+
+        $queryBuilder->select('r.rating rating')->addSelect('COUNT(r.id) votes');
+        $queryBuilder->groupBy('r.rating');
+
+        $votes = $queryBuilder->getArrayResult();
+        $result = [];
+
+        foreach ($votes as $rating) {
+            $result[$rating['rating']] = (int) $rating['votes'];
+        }
+
+        return $result;
+    }
 }

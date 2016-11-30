@@ -99,9 +99,16 @@ class FormTypeExtension extends AbstractTypeExtension
         $vValidator = '$' . $validationRoot . '.' . strtolower($vValidatePath);
         $vValidators = [];
         foreach ($options['v_validate'] as $constraint => $rule) {
-            $vValidators[] = $vValidator . '.' . $constraint;
-            $options['v_validate'][$constraint]['rule']['model'] = $vModel;
+            if ($constraint !== 'Backend') {
+                $vValidators[] = $vValidator . '.' . $constraint;
+
+                $options['v_validate'][$constraint]['rule']['model'] = $vModel;
+            }
         }
+
+        $vValidateTrigger = array_key_exists('validation_trigger', $options)
+            ? $options['validation_trigger']
+            : '';
 
         $rowClasses = implode(' ', array_map(function ($item) {
             return str_replace('_', '-', $item) . '-row';
@@ -129,6 +136,7 @@ class FormTypeExtension extends AbstractTypeExtension
             'v_validate'      => $options['v_validate'] ? json_encode($options['v_validate']) : '',
             'v_validators'    => $vValidators,
             'v_validator'     => $vValidator,
+            'v_validate_trigger' => $vValidateTrigger,
 
             'data_object' => $options['data_object'],
             'view_object' => $options['view_object'],

@@ -6,9 +6,9 @@
  * Copyright (c) 2001-present Qualiteam software Ltd. All rights reserved.
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
-Checkout.define('Checkout.AddressForm', [], function(){
+define('checkout_fastlane/blocks/address_form', ['vue/vue'], function(Vue) {
 
-  Checkout.AddressForm = Vue.extend({
+  return Vue.extend({
     name: 'address-form',
     replace: false,
 
@@ -20,6 +20,7 @@ Checkout.define('Checkout.AddressForm', [], function(){
       // Legacy form validation
       new CommonForm(this.form);
       core.autoload(PopupButtonAddressBook);
+      this.assignHandlers();
       this.triggerUpdate({
         silent: true
       });
@@ -33,6 +34,7 @@ Checkout.define('Checkout.AddressForm', [], function(){
         loginExists: null,
         create_profile: null,
         visible: true,
+        syncBlockers: [],
       };
     },
 
@@ -68,6 +70,14 @@ Checkout.define('Checkout.AddressForm', [], function(){
     },
 
     events: {
+      beforeSectionPersist: function(data) {
+        this.syncBlockers.push(data);
+      },
+      sectionPersist: function(data) {
+        this.$nextTick(_.bind(function() {
+          this.syncBlockers.pop();
+        }, this));
+      },
       requestNextNotReady: function() {
         if ($(this.form).is(':visible') && !_.isUndefined(this.form.commonController)) {
           this.form.commonController.validate({
@@ -88,16 +98,34 @@ Checkout.define('Checkout.AddressForm', [], function(){
       },
 
       modify: function(value, oldValue, forcePersist) {
-        this.triggerUpdate({
-          silent: oldValue === null || this.nonPersistMode,
-          force: forcePersist
-        });
+        var args = {
+          silent: oldValue === null || this.nonPersistMode
+        };
+
+        if (forcePersist) {
+          args['force'] = forcePersist;
+        }
+
+        this.triggerUpdate(args);
       },
 
       global_selectcartaddress: function(data) {
         if (data.type == this.shortType && !_.isEmpty(data.fields)) {
           this.nonPersistMode = true;
           this.fields = _.extend(this.fields, data.fields);
+
+          this.$nextTick(function() {
+            jQuery('.field-country_code', this.form).change();
+            jQuery('.field-state_id', this.form).val(this.fields.state_id);
+          });
+        }
+      },
+
+      global_updatecart: function(data) {
+        var key = this.fullType + 'AddressFields';
+        if (_.has(data, key) && _.isEmpty(this.syncBlockers)) {
+          this.nonPersistMode = true;
+          this.fields = _.extend(this.fields, data[key]);
 
           this.$nextTick(function() {
             jQuery('.field-country_code', this.form).change();
@@ -139,26 +167,7 @@ Checkout.define('Checkout.AddressForm', [], function(){
 
         if (value) {
           this.create_profile = false;
-          $('.item-email .subbox.create-warning').css("display", "inline-block")
-            .find('a.log-in').click(
-              function(event) {
-                loadDialogByLink(
-                  event.currentTarget,
-                  URLHandler.buildURL({
-                    'target':  'login',
-                    'widget':  '\\XLite\\View\\Authorization',
-                    'popup':   1,
-                    'fromURL': URLHandler.buildURL({'target': 'checkout'}),
-                    'login':   $('#email').val() || ''
-                  }),
-                  {width: 'auto'},
-                  null,
-                  this
-                );
-
-                return false;
-              }
-            )
+          $('.item-email .subbox.create-warning').css("display", "inline-block");
 
         } else {
           $('.item-email .subbox.create').css("display", "inline-block");
@@ -167,12 +176,58 @@ Checkout.define('Checkout.AddressForm', [], function(){
     },
 
     methods: {
+      assignHandlers: function() {
+        $('.item-email .subbox.create-warning').find('a.log-in').click(_.bind(this.onLoginClick, this));
+        $('.item-email .subbox.create').find('a.register').click(_.bind(this.onRegisterClick, this));
+      },
+      onLoginClick: function(event) {
+        loadDialogByLink(
+          event.currentTarget,
+          URLHandler.buildURL({
+            'target':  'login',
+            'widget':  '\\XLite\\View\\Authorization',
+            'popup':   1,
+            'fromURL': URLHandler.buildURL({'target': 'checkout'}),
+            'login':   $('#email').val() || ''
+          }),
+          {width: 'auto'},
+          null,
+          this
+        );
+
+        return false;
+      },
+
+      onRegisterClick: function(event) {
+        loadDialogByLink(
+          event.currentTarget,
+          URLHandler.buildURL({
+            'target':  'profile',
+            'widget':  '\\XLite\\View\\AccountDialog',
+            'mode':    'register',
+            'popup':   1,
+            'fromURL': URLHandler.buildURL({'target': 'checkout'}),
+            'login':   $('#email').val() || ''
+          }),
+          {width: 'auto'},
+          _.bind(this.afterSignUpPopupOpen,this),
+          this
+        );
+
+        return false;
+      },
+
+      afterSignUpPopupOpen: function() {
+        core.autoload(PopupButtonLogin);
+      },
+
       triggerUpdate: function(options) {
         options = options || {};
         var eventArgs = _.extend({
           sender: this,
           isValid: options.silent ? false : this.isValid,
           fields: this.preprocess(this.toDataObject()),
+          force: (options.silent || !this.isValid) ? false : true
         }, options);
 
         this.$dispatch('update', eventArgs);

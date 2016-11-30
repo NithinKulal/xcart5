@@ -2,30 +2,44 @@
  # Database restore tab template
  #}
 
-<p>
-  {{ t('Use this section to restore the database of your online store. Please note that the database restoration procedure can take up to several minutes') }}
-</p>
-<p>
-{{ t('Warning: The restoration procedure is irreversible and erases all the data tables from the store database. It is highly recommended that you back up your current database before restoring one of the previous states from a back-up.') }}
-</p>
-<div class="db-restore-form">
-  {% form '\\XLite\\View\\Form\\DbRestore' %}
+<div class="db-restore-page">
+  <p>
+    {{ t('Use this section to restore the database of your online store. Please note that the database restoration procedure can take up to several minutes') }}
+  </p>
 
-    <input class="input-file form-control" type="file" name="userfile" />
-    <div class="clear"></div>
+  <div class="alert alert-warning alert-link">
+    {{ t('Warning: The restoration procedure is irreversible and erases all the data tables from the store database. It is highly recommended that you back up your current database before restoring one of the previous states from a back-up.') }}
+    <hr />
+    {{ t('If you want to upload the backup of another X-Cart installation, ensure that you have completed the steps described here', {'url': this.getKbUrl()})|raw }}
+  </div>
 
-    <div class="model-form-buttons">
-        {{ widget('\\XLite\\View\\Button\\Submit', style='upload-restore', label='Upload and restore') }}
-        {{ widget('\\XLite\\View\\Tooltip', id='upload-restore-help', text=t('You can upload the database data directly from your local computer', {'N': this.getUploadMaxFilesize()}), isImageTag='true', className='help-icon') }}
-    </div>
+  <div class="db-restore-form">
+    {% form '\\XLite\\View\\Form\\DbRestore' %}
 
-    {% if this.isFileExists() %}
-      <div class="model-form-buttons">
-  
-          {{ widget('\\XLite\\View\\Button\\Regular', style='restore-from-server', action='restore_from_local_file', label='Restore from server') }}
-          {{ widget('\\XLite\\View\\Tooltip', id='restore-from-server-help', text=t('Alternatively, upload file sqldump.sql.php to the var/backup/ sub-directory click on the "Restore from server" button'), isImageTag='true', className='help-icon') }}
-      </div>
-    {% endif %}
+      <table>
+        <tbody>
+            <tr>
+              <td class="column column-name">
+                <p class="action-name">{{ t('Upload from your computer') }}</p>
+                <p class="action-description">{{ t('You can upload the database data directly from your local computer', {'N': this.getUploadMaxFilesize()}) }}</p>
+                <input class="input-file form-control" type="file" name="userfile" />
+              </td>
+              <td class="column column-action">
+                {{ widget('\\XLite\\View\\Button\\Submit', style='upload-restore', label='Upload and restore') }}
+              </td>
+            </tr>
+            <tr>
+              <td class="column column-name">
+                <p class="action-name">{{ t('Upload from server') }}</p>
+                <p class="action-description">{{ t('Alternatively, upload file sqldump.sql.php to the var/backup/ sub-directory click on the "Restore from server" button') }}</p>
+              </td>
+              <td class="column column-action">
+                {{ widget('\\XLite\\View\\Button\\Regular', style='restore-from-server', action='restore_from_local_file', label='Restore from server', disabled=(not this.isFileExists()) ) }}
+              </td>
+            </tr>
+        </tbody>
+      </table>
 
-  {% endform %}
+    {% endform %}
+  </div>
 </div>

@@ -7,6 +7,7 @@
  */
 
 namespace XLite\View\Order\Details\Admin;
+use XLite\Model\Payment\BackendTransaction;
 
 /**
  * Payment actions widget (capture, refund, void etc)
@@ -158,7 +159,7 @@ class PaymentActions extends \XLite\View\AView
      */
     protected function getTransactionUnits($transaction = null)
     {
-        if (!isset($this->allowedTransactions) && isset($transaction) && $transaction->getPaymentMethod()) {
+        if (isset($transaction) && $transaction->getPaymentMethod()) {
 
             $processor = $transaction->getPaymentMethod()->getProcessor();
 
@@ -170,6 +171,17 @@ class PaymentActions extends \XLite\View\AView
                     if (!$processor->isTransactionAllowed($transaction, $v) || !$this->isTransactionFiltered($v)) {
                         unset($this->allowedTransactions[$k]);
                     }
+                }
+
+                if (in_array(BackendTransaction::TRAN_TYPE_REFUND_MULTI, $this->allowedTransactions)) {
+                    $this->allowedTransactions = array_diff($this->allowedTransactions, [
+                        BackendTransaction::TRAN_TYPE_REFUND,
+                        BackendTransaction::TRAN_TYPE_REFUND_PART,
+                    ]);
+                } elseif (in_array(BackendTransaction::TRAN_TYPE_REFUND_PART, $this->allowedTransactions)) {
+                    $this->allowedTransactions = array_diff($this->allowedTransactions, [
+                        BackendTransaction::TRAN_TYPE_REFUND,
+                    ]);
                 }
             }
         }

@@ -422,13 +422,15 @@ class Attribute extends \XLite\Model\Base\I18n
                 array(
                     'attribute' => $this,
                     'addToNew'  => true,
-                )
+                ),
+                ['position' => 'ASC']
             ) ;
 
             foreach ($attributeOptions as $attributeOption) {
                 $av = $this->createAttributeValue($product);
                 if ($av) {
                     $av->setAttributeOption($attributeOption);
+                    $av->setPosition($attributeOption->getPosition());
                 }
             }
         } elseif (self::TYPE_TEXT === $this->getType()) {
@@ -459,8 +461,7 @@ class Attribute extends \XLite\Model\Base\I18n
                 && $product->getProductClass()
                 && $this->getProductClass()->getId() == $product->getProductClass()->getId()
             )
-            || (
-                $this->getProduct()
+            || ($this->getProduct()
                 && $this->getProduct()->getId() == $product->getId()
             )
         ) {
@@ -583,7 +584,10 @@ class Attribute extends \XLite\Model\Base\I18n
         $repo = \XLite\Core\Database::getRepo(static::getAttributeValueClass($this->getType()));
 
         if (self::TYPE_SELECT === $this->getType() || self::TYPE_CHECKBOX === $this->getType()) {
-            $attributeValue = $repo->findBy(array('product' => $product, 'attribute' => $this));
+            $attributeValue = $repo->findBy(
+                array('product' => $product, 'attribute' => $this),
+                self::TYPE_SELECT === $this->getType() ? ['position' => 'ASC'] : null
+            );
 
             if ($attributeValue
                 && $asString
@@ -618,7 +622,7 @@ class Attribute extends \XLite\Model\Base\I18n
      *
      * @param \XLite\Model\Product $product Product
      *
-     * @return mixed
+     * @return \XLite\Model\AttributeValue\AAttributeValue
      */
     public function getDefaultAttributeValue(\XLite\Model\Product $product)
     {
@@ -907,7 +911,7 @@ class Attribute extends \XLite\Model\Base\I18n
         $delete = true;
         $attributeValue = null;
 
-        if ('' !== $value || null !== $editable) {
+        if ('' !== $value || null !== $editable || self::TYPE_TEXT === $this->getType()) {
             $attributeValue = $repo->findOneBy(array('product' => $product, 'attribute' => $this));
 
             if (!$attributeValue) {

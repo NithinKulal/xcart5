@@ -1,0 +1,13 @@
+{##
+ # Layout editor label
+ #
+ # @ListChild (list="inline_editor", weight="10")
+ #}
+
+<div class='inline-editor-message inline-editor--switchable'>
+    {% if this.isInlineEditorAvailable() %}
+    <span class='inline-editor-message_label'>{{ t('You are now in preview mode')|raw }}</span>
+    {% else %}
+    <span class='inline-editor-message_label'>{{ t('Inline editor is unavailable due to TinyMCE')|raw }}</span>
+    {% endif %}
+</div>

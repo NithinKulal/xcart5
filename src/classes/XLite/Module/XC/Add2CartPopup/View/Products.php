@@ -30,7 +30,6 @@ class Products extends \XLite\View\ItemsList\Product\Customer\ACustomer
      */
     protected $products;
 
-
     /**
      * Return list of targets allowed for this widget
      *
@@ -139,7 +138,7 @@ class Products extends \XLite\View\ItemsList\Product\Customer\ACustomer
      */
     protected function getPagerClass()
     {
-        return '\XLite\View\Pager\Customer\Product\Category';
+        return 'XLite\View\Pager\Customer\Product\Category';
     }
 
     /**
@@ -174,7 +173,7 @@ class Products extends \XLite\View\ItemsList\Product\Customer\ACustomer
             $methods = \XLite\Module\XC\Add2CartPopup\Core\Add2CartPopup::getInstance()->getActiveSources();
 
             foreach ($methods as $method) {
-
+                /** @var \XLite\Model\Product[] $products */
                 $products = \XLite\Module\XC\Add2CartPopup\Core\Add2CartPopup::getInstance()->$method(
                     $this->getProductId(),
                     $productIds,

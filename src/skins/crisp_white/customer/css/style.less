@@ -121,6 +121,19 @@ ul.primary li span {
 
   div.tabs ul.tabs {
     .tabs-top;
+    li {
+      a {
+        border-color: @color-link;
+        &:hover {
+          border-color: @color-highlight;
+        }
+      }
+      &.active {
+        a {
+          border-color: transparent
+        }
+      }
+    }
   }
   div.tabs-container {
     .tabs-top-content;
@@ -165,7 +178,8 @@ ul.primary li span {
 
           .panel-title {
             color: @color-link;
-            &:active {
+
+            a:not(.collapsed) {
               color: @color-highlight;
             }
 

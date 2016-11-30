@@ -183,6 +183,16 @@ abstract class AModel extends \XLite\View\Dialog
     abstract protected function getFormClass();
 
     /**
+     * Return the array of form widget parameters
+     *
+     * @return array
+     */
+    protected function getFormWidgetParams()
+    {
+        return array();
+    }
+
+    /**
      * Get instance to the current form object
      *
      * @return \XLite\View\Model\AModel
@@ -1007,13 +1017,11 @@ abstract class AModel extends \XLite\View\Dialog
     }
 
     /**
-     * Called after the includeCompiledFile()
-     *
-     * @return void
+     * @inheritDoc
      */
-    protected function closeView()
+    protected function finalizeTemplateDisplay($template, array $profilerData)
     {
-        parent::closeView();
+        parent::finalizeTemplateDisplay($template, $profilerData);
 
         $this->clearFormData();
     }

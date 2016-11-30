@@ -8,6 +8,8 @@
 
 namespace XLite\Module\CDev\Bestsellers\View;
 
+use XLite\Core\Cache\ExecuteCachedTrait;
+
 /**
  * Bestsellers widget
  *
@@ -18,9 +20,9 @@ class Bestsellers extends \XLite\Module\CDev\Bestsellers\View\ABestsellers
     /**
      * List names where the Bestsellers block is located
      */
-    const SIDEBAR_LIST = 'sidebar.first';
+    const SIDEBAR_LIST   = 'sidebar.first';
     const SIDEBAR_SINGLE = 'sidebar.single';
-    const CENTER_LIST = 'center.bottom';
+    const CENTER_LIST    = 'center.bottom';
 
     /**
      * Return list of targets allowed for this widget
@@ -29,12 +31,23 @@ class Bestsellers extends \XLite\Module\CDev\Bestsellers\View\ABestsellers
      */
     public static function getAllowedTargets()
     {
-        $result = parent::getAllowedTargets();
-
+        $result   = parent::getAllowedTargets();
         $result[] = 'main';
         $result[] = 'category';
 
         return $result;
+    }
+
+    /**
+     * Return search parameters.
+     *
+     * @return array
+     */
+    public static function getSearchParams()
+    {
+        return [
+            \XLite\Model\Repo\Product::P_CATEGORY_ID => static::PARAM_CATEGORY_ID,
+        ];
     }
 
     /**
@@ -64,40 +77,42 @@ class Bestsellers extends \XLite\Module\CDev\Bestsellers\View\ABestsellers
     {
         parent::defineWidgetParams();
 
-        $this->widgetParams[static::PARAM_WIDGET_TYPE]->setValue(static::WIDGET_TYPE_CENTER);
-
-        $this->widgetParams[static::PARAM_DISPLAY_MODE]->setValue(static::DISPLAY_MODE_GRID);
-        $this->widgetParams[static::PARAM_GRID_COLUMNS]->setValue(3);
-
         unset($this->widgetParams[static::PARAM_SHOW_DISPLAY_MODE_SELECTOR]);
     }
 
     /**
-     * Return products list
-     *
-     * @param \XLite\Core\CommonCell $cnd       Search condition
-     * @param boolean                $countOnly Return items list or only its size OPTIONAL
-     *
-     * @return mixed
+     * Return default display mode from settings
      */
-    protected function getData(\XLite\Core\CommonCell $cnd, $countOnly = false)
+    protected function getDefaultDisplayMode()
     {
-        if (!isset($this->bestsellProducts)) {
-            $limit = \XLite\Core\Config::getInstance()->CDev->Bestsellers->number_of_bestsellers;
+        return static::DISPLAY_MODE_GRID;
+    }
 
-            $this->bestsellProducts = \XLite\Core\Database::getRepo('XLite\Model\Product')
-                ->findBestsellers(
-                    $cnd,
-                    (int)$limit,
-                    $this->getRootId()
-                );
-        }
+    /**
+     * Return class name for the list pager
+     *
+     * @return string
+     */
+    protected function getPagerClass()
+    {
+        return 'XLite\View\Pager\Infinity';
+    }
 
-        $result = true === $countOnly
-            ? count($this->bestsellProducts)
-            : $this->bestsellProducts;
+    /**
+     * Get limit condition
+     *
+     * @return \XLite\Core\CommonCell
+     */
+    protected function getLimitCondition()
+    {
+        $cnd = $this->getSearchCondition();
 
-        return $result;
+        $cnd->{\XLite\Model\Repo\ARepo::P_LIMIT} = [
+            0,
+            $limit = \XLite\Core\Config::getInstance()->CDev->Bestsellers->number_of_bestsellers,
+        ];
+
+        return $cnd;
     }
 
     /**
@@ -109,10 +124,8 @@ class Bestsellers extends \XLite\Module\CDev\Bestsellers\View\ABestsellers
     protected function getTemplate()
     {
         $template = parent::getTemplate();
-
-        if (
-            $template == $this->getDefaultTemplate()
-            && static::WIDGET_TYPE_SIDEBAR == $this->getParam(static::PARAM_WIDGET_TYPE)
+        if ($template === $this->getDefaultTemplate()
+            && static::WIDGET_TYPE_SIDEBAR === $this->getParam(static::PARAM_WIDGET_TYPE)
         ) {
             $template = 'common/sidebar_box.twig';
         }

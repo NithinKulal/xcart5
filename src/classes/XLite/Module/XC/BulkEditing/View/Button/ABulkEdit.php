@@ -11,11 +11,8 @@ namespace XLite\Module\XC\BulkEditing\View\Button;
 /**
  * ItemsExport button
  */
-abstract class ABulkEdit extends \XLite\View\Button\AButton
+abstract class ABulkEdit extends \XLite\View\Button\Dropdown\ADropdown
 {
-    protected $additionalButtons;
-    protected $additionalButtonsWidgets;
-
     /**
      * getJSFiles
      *
@@ -30,82 +27,6 @@ abstract class ABulkEdit extends \XLite\View\Button\AButton
     }
 
     /**
-     * Register CSS files for delete address button
-     *
-     * @return array
-     */
-    public function getCSSFiles()
-    {
-        $list = parent::getCSSFiles();
-        $list[] = 'modules/XC/BulkEditing/button/bulk_edit.css';
-
-        return $list;
-    }
-
-    abstract protected function defineAdditionalButtons();
-
-    protected function getAdditionalButtons()
-    {
-        if (null === $this->additionalButtons) {
-            $this->additionalButtons = $this->defineAdditionalButtons();
-
-            uasort($this->additionalButtons, function ($a, $b) {
-                $aPos = (int) (isset($a['position']) ? $a['position'] : 0);
-                $bPos = (int) (isset($b['position']) ? $b['position'] : 0);
-
-                return $aPos === $bPos ? 0 : ($aPos < $bPos ? -1 : 1);
-            });
-        }
-
-        return $this->additionalButtons;
-    }
-
-    protected function getAdditionalButtonsWidgets()
-    {
-        if (null === $this->additionalButtonsWidgets) {
-            $this->additionalButtonsWidgets = [];
-            $url = \XLite::getController()->getURL();
-            foreach ($this->getAdditionalButtons() as $button) {
-                $class = isset($button['class'])
-                    ? $button['class']
-                    : 'XLite\Module\XC\BulkEditing\View\Button\Scenario';
-                unset($button['class']);
-
-                if (isset($button['formParams'])) {
-                    $button['formParams'] = array_replace($button['formParams'], ['returnURL' => $url]);
-                }
-                $this->additionalButtonsWidgets[] = $this->getWidget($button, $class);
-            }
-        }
-
-        return $this->additionalButtonsWidgets;
-    }
-
-    /**
-     * Get attributes
-     *
-     * @return boolean
-     */
-    protected function isMultipleOptions()
-    {
-        return 1 < count($this->getAdditionalButtons());
-    }
-
-    /**
-     * Get attributes
-     *
-     * @return boolean
-     */
-    protected function getFirstProviderLabel()
-    {
-        $buttons = $this->getAdditionalButtons();
-        $firstButtonKey = key($buttons);
-        $button = $buttons[$firstButtonKey];
-
-        return isset($button['label']) ? $button['label'] : $firstButtonKey;
-    }
-
-    /**
      * getDefaultLabel
      *
      * @return string
@@ -113,16 +34,6 @@ abstract class ABulkEdit extends \XLite\View\Button\AButton
     protected function getDefaultLabel()
     {
         return static::t('Bulk edit all');
-    }
-
-    /**
-     * Return widget default template
-     *
-     * @return string
-     */
-    protected function getDefaultTemplate()
-    {
-        return 'modules/XC/BulkEditing/button/bulk_edit.twig';
     }
 
     /**

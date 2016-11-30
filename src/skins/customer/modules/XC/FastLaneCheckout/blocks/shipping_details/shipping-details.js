@@ -6,9 +6,14 @@
  * Copyright (c) 2001-present Qualiteam software Ltd. All rights reserved.
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
-Checkout.define('Checkout.ShippingDetails', ['Checkout.Sections'], function() {
 
-  Checkout.ShippingDetails = Vue.extend({
+define(
+  'checkout_fastlane/blocks/shipping_details',
+  ['vue/vue', 
+   'checkout_fastlane/sections'], 
+  function(Vue, Sections) {
+
+  var ShippingDetails = Vue.extend({
     name: 'shipping-details',
     replace: false,
 
@@ -17,15 +22,18 @@ Checkout.define('Checkout.ShippingDetails', ['Checkout.Sections'], function() {
         order_shipping_method: function(state) {
           return state.order.shipping_method;
         },
-        order_notes: function(state) {
-          return state.order.notes;
-        },
       },
     },
 
     computed: {
       shipping_method: function() {
-        return Checkout.shippingMethodString.apply(this, arguments);
+        return this.shippingMethodString();
+      }
+    },
+
+    methods: {
+      shippingMethodString: function() {
+        return window.shippingMethodsList[parseInt(this.order_shipping_method, 10)];        
       }
     },
 
@@ -36,14 +44,7 @@ Checkout.define('Checkout.ShippingDetails', ['Checkout.Sections'], function() {
     },
   });
 
-  Checkout.shippingMethodString = function() {
-    return window.shippingMethodsList[parseInt(this.order_shipping_method, 10)];
-  }
+  Vue.registerComponent(Sections, ShippingDetails);
 
-  Checkout.Sections = Checkout.Sections.extend({
-    components: _.extend(Checkout.Sections.options.components, {
-      ShippingDetails: Checkout.ShippingDetails,
-    })
-  });
-
+  return ShippingDetails;
 });

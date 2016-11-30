@@ -14,14 +14,12 @@ namespace XLite\Module\CDev\FeaturedProducts\View\Menu;
 abstract class AAdmin extends \XLite\View\Menu\Admin\AAdmin implements \XLite\Base\IDecorator
 {
     /**
-     * Initialize handler
-     *
-     * @return void
+     * @param array $params
      */
-    public function init()
+    public function __construct(array $params = array())
     {
-        parent::init();
-
         $this->relatedTargets[\XLite\Core\Request::getInstance()->id ? 'categories' : 'front_page'][] = 'featured_products';
+
+        parent::__construct();
     }
 }

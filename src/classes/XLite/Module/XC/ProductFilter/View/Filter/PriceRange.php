@@ -22,15 +22,9 @@ class PriceRange extends \XLite\Module\XC\ProductFilter\View\Filter\AFilter
      */
     public function getMinPrice()
     {
-        $itemList = new \XLite\Module\XC\ProductFilter\View\ItemsList\Product\Customer\Category\CategoryFilter;
-
-        $cnd = $itemList->getSearchCondition();
-        $cnd->{\XLite\Model\Repo\Product::P_SCALAR_PROPERTY} = 'price';
-        $cnd->{\XLite\Model\Repo\Product::P_SCALAR_FUNCTION} = 'min';
-
         return number_format(
             \XLite\Core\Database::getRepo('\XLite\Model\Product')->search(
-                $cnd,
+                $this->getMinPriceCondition(),
                 \XLite\Model\Repo\Product::SEARCH_MODE_SCALAR
             ),
             \XLite::getInstance()->getCurrency()->getE(),
@@ -40,27 +34,57 @@ class PriceRange extends \XLite\Module\XC\ProductFilter\View\Filter\AFilter
     }
 
     /**
+     * Return min price condition
+     *
+     * @return float
+     */
+    public function getMinPriceCondition()
+    {
+        $itemList = new \XLite\Module\XC\ProductFilter\View\ItemsList\Product\Customer\Category\CategoryFilter;
+
+        $cnd = $itemList->getSearchCondition();
+        $profile = \XLite\Core\Auth::getInstance()->getProfile();
+        $cnd->{\XLite\Model\Repo\Product::P_QUICK_DATA_MEMBERSHIP} = $profile ? $profile->getMembership() : null;
+        $cnd->{\XLite\Model\Repo\Product::P_SCALAR_SELECT} = 'MIN(qdm.price)';
+        $cnd->filter = null;
+
+        return $cnd;
+    }
+
+    /**
      * Return max value
      *
      * @return float
      */
     public function getMaxPrice()
     {
-        $itemList = new \XLite\Module\XC\ProductFilter\View\ItemsList\Product\Customer\Category\CategoryFilter;
-
-        $cnd = $itemList->getSearchCondition();
-        $cnd->{\XLite\Model\Repo\Product::P_SCALAR_PROPERTY} = 'price';
-        $cnd->{\XLite\Model\Repo\Product::P_SCALAR_FUNCTION} = 'max';
-
         return number_format(
             \XLite\Core\Database::getRepo('\XLite\Model\Product')->search(
-                $cnd,
+                $this->getMaxPriceCondition(),
                 \XLite\Model\Repo\Product::SEARCH_MODE_SCALAR
             ),
             \XLite::getInstance()->getCurrency()->getE(),
             '.',
             ''
         );
+    }
+
+    /**
+     * Return max price condition
+     *
+     * @return float
+     */
+    public function getMaxPriceCondition()
+    {
+        $itemList = new \XLite\Module\XC\ProductFilter\View\ItemsList\Product\Customer\Category\CategoryFilter;
+
+        $cnd = $itemList->getSearchCondition();
+        $profile = \XLite\Core\Auth::getInstance()->getProfile();
+        $cnd->{\XLite\Model\Repo\Product::P_QUICK_DATA_MEMBERSHIP} = $profile ? $profile->getMembership() : null;
+        $cnd->{\XLite\Model\Repo\Product::P_SCALAR_SELECT} = 'MAX(qdm.price)';
+        $cnd->filter = null;
+
+        return $cnd;
     }
 
     /**

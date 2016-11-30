@@ -56,7 +56,13 @@
 
   <tbody class="no-items" {% if this.hasResults() %}style="display: none;"{% endif %}>
     <tr>
-      <td colspan="{{ this.getColumnsCount() }}">{% if this.isEmptyListTemplateVisible() %}{% include this.getEmptyListTemplate() %}{% endif %}</td>
+      <td colspan="{{ this.getColumnsCount() }}">
+        {% if this.isDisplayBlankItemsListDescription() %}
+          {% include this.getBlankListTemplate() %}
+        {% elseif this.isEmptyListTemplateVisible() %}
+          {% include this.getEmptyListTemplate() %}
+        {% endif %}
+      </td>
     </tr>
   </tbody>
 

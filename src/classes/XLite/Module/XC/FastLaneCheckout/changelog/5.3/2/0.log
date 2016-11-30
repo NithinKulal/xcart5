@@ -1,0 +1,7 @@
+Version 5.3.2.0
+
+Improvements
+2016-11-30 - [Change] Fast Lane Checkout module code and UI improvement. #XCN-7165 (Eugene Dementjev) #FastLaneCheckout #CrispWhiteSkin
+
+Fixes
+2016-11-22 - [Bug] Layout issues related to the payment methods Purchase order and Check on the checkout page in Crisp White skin. #BUG-4139 (Michael Lipinski) #Core #FastLaneCheckout

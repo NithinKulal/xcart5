@@ -1,0 +1,5 @@
+Version 5.3.2.0
+
+Fixes
+2016-09-08 - [Bug] Added og meta tags og:image:width and og:image:height for better image sharing on Facebook. #BUG-3841 (Michael Lipinski) #GoSocial
+2016-08-01 - [Bug] Uniform styles implemented for social buttons (The library https://github.com/ilyabirman/Likely is used.) #BUG-3490 (Sergey Elmanov) #Core #GoSocial #CrispWhiteSkin

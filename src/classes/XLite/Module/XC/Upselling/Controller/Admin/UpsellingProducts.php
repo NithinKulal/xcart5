@@ -51,12 +51,12 @@ class UpsellingProducts extends \XLite\Controller\Admin\AAdmin
      */
     protected function doActionAdd()
     {
-        if (isset(\XLite\Core\Request::getInstance()->select)) {
-            $pids = \XLite\Core\Request::getInstance()->select;
+        if (is_array(\XLite\Core\Request::getInstance()->select)) {
+            $pids = array_keys(\XLite\Core\Request::getInstance()->select);
             $products = \XLite\Core\Database::getRepo('\XLite\Model\Product')
                 ->findByIds($pids);
 
-            $this->id = \XLite\Core\Request::getInstance()->parent_product_id;
+            $this->id = \XLite\Core\Request::getInstance()->product_id;
             $parentProduct = \XLite\Core\Database::getRepo('\XLite\Model\Product')->find($this->id);
 
             $existingLinksIds = array();
@@ -83,8 +83,10 @@ class UpsellingProducts extends \XLite\Controller\Admin\AAdmin
                         \XLite\Core\Database::getEM()->persist($up);
                         \XLite\Core\Database::getEM()->flush($up);
 
-                        \XLite\Core\Database::getRepo('XLite\Module\XC\Upselling\Model\UpsellingProduct')
-                            ->addBidirectionalLink($up);
+                        if (\XLite\Core\Request::getInstance()->mutualRelations) {
+                            \XLite\Core\Database::getRepo('XLite\Module\XC\Upselling\Model\UpsellingProduct')
+                                ->addBidirectionalLink($up);
+                        }
                     }
                 }
             }
@@ -100,5 +102,59 @@ class UpsellingProducts extends \XLite\Controller\Admin\AAdmin
                 )
             )
         );
+        $this->setHardRedirect(true);
+    }
+
+    /**
+     * Delete upselling links from product
+     *
+     * @return void
+     */
+    protected function doActionDelete()
+    {
+        $links = \XLite\Core\Database::getRepo('\XLite\Module\XC\Upselling\Model\UpsellingProduct')
+            ->getUpsellingProducts($this->getParentProductId());
+
+        foreach ($links as $link) {
+            \XLite\Core\Database::getEM()->remove($link);
+        }
+
+        \XLite\Core\Database::getEM()->flush();
+    }
+
+    /**
+     * Delete upselling links from product
+     *
+     * @return void
+     */
+    protected function doActionEnableMutual()
+    {
+        $links = \XLite\Core\Database::getRepo('\XLite\Module\XC\Upselling\Model\UpsellingProduct')
+            ->getUpsellingProducts($this->getParentProductId());
+
+        foreach ($links as $link) {
+            \XLite\Core\Database::getRepo('XLite\Module\XC\Upselling\Model\UpsellingProduct')
+                ->addBidirectionalLink($link);
+        }
+
+        \XLite\Core\Database::getEM()->flush();
+    }
+
+    /**
+     * Delete upselling links from product
+     *
+     * @return void
+     */
+    protected function doActionDisableMutual()
+    {
+        $links = \XLite\Core\Database::getRepo('\XLite\Module\XC\Upselling\Model\UpsellingProduct')
+            ->getUpsellingProducts($this->getParentProductId());
+
+        foreach ($links as $link) {
+            \XLite\Core\Database::getRepo('XLite\Module\XC\Upselling\Model\UpsellingProduct')
+                ->deleteBidirectionalLink($link);
+        }
+
+        \XLite\Core\Database::getEM()->flush();
     }
 }

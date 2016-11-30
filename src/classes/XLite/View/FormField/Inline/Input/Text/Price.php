@@ -48,7 +48,36 @@ class Price extends \XLite\View\FormField\Inline\Base\Single
         $value = parent::getViewValue($field);
         $sign = 0 <= $value ? '' : '&minus;';
 
-        return $sign . $field['widget']->getCurrency()->formatValue(abs($value));
+        $valueProcessed = $sign . $field['widget']->getCurrency()->formatValue(abs($value));
+
+        if (!doubleval($value) && $this->isDashed($field)) {
+            $valueProcessed = '&mdash;';
+        }
+
+        return $valueProcessed;
+    }
+
+
+    /**
+     * Is symbol visible
+     *
+     * @param  array   $field   Field
+     * @return boolean
+     */
+    public function isSymbolVisible(array $field)
+    {
+        return $field['widget']->getValue() || !$this->isDashed($field);
+    }
+
+    /**
+     * Is dashed
+     *
+     * @param  array   $field   Field
+     * @return boolean
+     */
+    public function isDashed(array $field)
+    {
+        return isset($field['widget']) && $field['widget']->dashed;
     }
 
     /**

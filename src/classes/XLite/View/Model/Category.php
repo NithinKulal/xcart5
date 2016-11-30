@@ -43,6 +43,7 @@ class Category extends \XLite\View\Model\AModel
             self::SCHEMA_CLASS    => 'XLite\View\FormField\FileUploader\Image',
             self::SCHEMA_LABEL    => 'Top banner',
             self::SCHEMA_REQUIRED => false,
+            \XLite\View\FormField\AFormField::PARAM_LABEL_HELP => 'Learn more about the top banner and how it shows in the page layout',
         ),
         'description' => array(
             self::SCHEMA_CLASS    => 'XLite\View\FormField\Textarea\Advanced',
@@ -95,6 +96,21 @@ class Category extends \XLite\View\Model\AModel
             self::SCHEMA_REQUIRED => false,
         ),
     );
+
+    /**
+     * Save current form reference and sections list, and initialize the cache
+     *
+     * @param array $params   Widget params OPTIONAL
+     * @param array $sections Sections list OPTIONAL
+     */
+    public function __construct(array $params = array(), array $sections = array())
+    {
+        if (\XLite\Model\Repo\CleanURL::isCategoryUrlHasExt()) {
+            $this->schemaDefault['cleanURL'][\XLite\View\FormField\Input\Text\CleanURL::PARAM_EXTENSION] = \XLite\Model\Repo\CleanURL::CLEAN_URL_DEFAULT_EXTENSION;
+        }
+
+        parent::__construct($params, $sections);
+    }
 
     /**
      * Return current model ID

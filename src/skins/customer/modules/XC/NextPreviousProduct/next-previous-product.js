@@ -18,7 +18,7 @@ var nextPreviousLinkUnhoverHandler = function () {
 core.microhandlers.add(
   'NextPreviousLinkHandler',
   '.next-previous-link',
-  function (event) {
+  function () {
     jQuery(this).hover(nextPreviousLinkHoverHandler, nextPreviousLinkUnhoverHandler);
 
     jQuery(this).find('a').click(function () {
@@ -33,8 +33,8 @@ core.microhandlers.add(
       var dataString = box.data('xcNextPrevious');
       dataString['created'] = date.getTime();
 
-      if (box.data('xcCookiePath')) {
-          path = '; path=' + box.data('xcCookiePath');
+      if (xliteConfig.npCookiePath) {
+          path = '; path=' + xliteConfig.npCookiePath;
       }
 
       document.cookie = 'xc_np_product_' + productId + '=' + JSON.stringify(dataString) + path + expires;

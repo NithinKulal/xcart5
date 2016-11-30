@@ -351,7 +351,7 @@ abstract class Address extends \XLite\Model\AEntity
         foreach ($this->getRequiredFieldsByType($atype) as $name) {
             $method = 'get' . \XLite\Core\Converter::getInstance()->convertToCamelCase($name);
             // $method assebled from 'get' + \XLite\Core\Converter::getInstance()->convertToCamelCase() method
-            if (!$this->$method()) {
+            if (!strlen($this->$method())) {
                 $result[] = $name;
             }
         }

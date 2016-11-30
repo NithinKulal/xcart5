@@ -15,6 +15,7 @@ use DebugBar\DataCollector\MessagesCollector;
 use DebugBar\DataCollector\PhpInfoCollector;
 use DebugBar\DataCollector\RequestDataCollector;
 use XLite\Core\Database;
+use XLite\Module\XC\WebmasterKit\Core\DataCollector\QueriesCollector;
 use XLite\Module\XC\WebmasterKit\DebugBar\DataCollector;
 use XLite\Module\XC\WebmasterKit\DebugBar\Doctrine\DBAL\Logging\ObservableDebugStack;
 use XLite\Module\XC\WebmasterKit\Logic\DebugBarSettingsManager;
@@ -51,13 +52,18 @@ class DebugBar extends \XLite\Base
             ? new ObservableDebugStack($configuration->getSQLLogger())
             : new ObservableDebugStack();
 
-        $configuration->setSQLLogger($debugStack);
-
+        if ($settingsMgr->areDatabaseDetailedModeEnabled()
+            || $settingsMgr->areWidgetsTabEnabled()
+        ) {
+            $configuration->setSQLLogger($debugStack);
+        }
 
         if ($settingsMgr->areDatabaseDetailedModeEnabled()) {
             $this->debugbar->addCollector(new DoctrineCollector($debugStack));
         } else {
-            $this->debugbar->addCollector(new DataCollector\DoctrineCollectorSimple($debugStack));
+            $this->debugbar->addCollector(new DataCollector\DoctrineCollectorSimple(
+                QueriesCollector::getInstance()
+            ));
         }
 
         if ($settingsMgr->areWidgetsTabEnabled()) {

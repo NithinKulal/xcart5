@@ -399,10 +399,22 @@ class Shipping extends \XLite\Logic\Order\Modifier\AShipping
         $subtotal = 0;
 
         foreach ($this->getItems() as $item) {
-            $subtotal += $item->getTotal();
+            $subtotal += $this->getItemSubtotal($item);
         }
 
         return $subtotal;
+    }
+
+    /**
+     * Get item subtotal
+     *
+     * @param \XLite\Model\OrderItem $item
+     *
+     * @return float
+     */
+    protected function getItemSubtotal($item)
+    {
+        return $item->getTotal();
     }
 
     /**

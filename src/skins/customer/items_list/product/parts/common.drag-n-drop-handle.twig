@@ -8,6 +8,7 @@
  #}
 
 <div class="drag-n-drop-handle">
+  {{ this.displayCommentedData(this.getAllItemHoverParams()) }}
   {% for itemParam in this.getItemHoverParams() %}
     <span class="{{ itemParam.style }}">{{ itemParam.text }}</span>
   {% endfor %}

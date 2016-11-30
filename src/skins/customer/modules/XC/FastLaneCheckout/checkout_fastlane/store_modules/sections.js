@@ -6,8 +6,8 @@
  * Copyright (c) 2001-present Qualiteam software Ltd. All rights reserved.
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
-Checkout.define('Checkout.StoreSections', [], function(){
-	Checkout.StoreSections = {
+define('checkout_fastlane/store/sections', ['vue/vue'], function(Vue){
+	return {
     state: {
       current: null,
       enabled: [],
@@ -23,16 +23,26 @@ Checkout.define('Checkout.StoreSections', [], function(){
         Vue.set(state.list[name], 'index',      component.index);
         Vue.set(state.list[name], 'nextLabel',  component.nextLabel);
 
-        if (null === state.current
-          && name === 'address' // Hack for registering address sections first
-        ) {
-          state.enabled.push(name);
-          state.current = state.list[name];
-        }
+        // if (null === state.current
+        //   && name === 'address' // Hack for registering address sections first
+        // ) {
+        //   state.enabled.push(name);
+        //   state.current = state.list[name];
+
+        //   core.trigger('fastlane_section_switched', {
+        //     newSection: state.current
+        //   });
+        // }
       },
 
       SWITCH_SECTION: function (state, name) {
+        var oldSection = state.current;
         state.current = state.list[name];
+
+        core.trigger('fastlane_section_switched', {
+          oldSection: oldSection,
+          newSection: state.current
+        });
       },
 
       TOGGLE_SECTION: function (state, name, value) {

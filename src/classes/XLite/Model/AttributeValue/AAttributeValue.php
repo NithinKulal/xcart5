@@ -61,54 +61,49 @@ abstract class AAttributeValue extends \XLite\Model\Base\I18n
 
     /**
      * Return diff
+     * @todo: add test
      *
-     * @param array oldValues Old values
-     * @param array newValues New values
+     * @param array $oldValues Old values
+     * @param array $newValues New values
      *
      * @return array
      */
-    static public function getDiff(array $oldValues, array $newValues)
+    public static function getDiff(array $oldValues, array $newValues)
     {
-        $diff = array();
+        $diff = [];
         if ($newValues) {
             foreach ($newValues as $attributeId => $attributeValues) {
                 $changed = false;
-                $changes = array(
-                    'deleted' => array(),
-                    'added'   => array(),
-                    'changed' => array(),
-                );
+                $changes = [
+                    'deleted' => [],
+                    'added'   => [],
+                    'changed' => [],
+                ];
 
                 foreach ($attributeValues as $id => $value) {
-                    if (
-                        !isset($oldValues[$attributeId])
-                        || !isset($oldValues[$attributeId][$id])
-                    ) {
+                    if (!isset($oldValues[$attributeId][$id])) {
+                        $changed               = true;
                         $changes['added'][$id] = $value;
-                        $changed = true;
 
                     } else {
-                        $c = array();
+                        $c = [];
                         foreach ($value as $k => $v) {
                             if ($v != $oldValues[$attributeId][$id][$k]) {
                                 $c[$k] = $v;
                             }
                         }
                         if ($c) {
+                            $changed                 = true;
                             $changes['changed'][$id] = $c;
-                            $changed = true;
                         }
                     }
                 }
 
-                if (
-                    isset($oldValues[$attributeId])
-                    || $oldValues[$attributeId]
-                ) {
+                if (!empty($oldValues[$attributeId])) {
                     foreach ($oldValues[$attributeId] as $id => $value) {
                         if (!isset($newValues[$attributeId][$id])) {
+                            $changed              = true;
                             $changes['deleted'][] = $id;
-                            $changed = true;
                         }
                     }
                 }
@@ -125,13 +120,64 @@ abstract class AAttributeValue extends \XLite\Model\Base\I18n
     /**
      * Clone
      *
-     * @return \XLite\Model\AEntity
+     * @return static
      */
     public function cloneEntity()
     {
+        /** @var static $newEntity */
         $newEntity = parent::cloneEntity();
         $newEntity->setAttribute($this->getAttribute());
 
         return $newEntity;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return (int) $this->id;
+    }
+
+    /**
+     * Set product
+     *
+     * @param \XLite\Model\Product $product
+     */
+    public function setProduct(\XLite\Model\Product $product = null)
+    {
+        $this->product = $product;
+    }
+
+    /**
+     * Get product
+     *
+     * @return \XLite\Model\Product
+     */
+    public function getProduct()
+    {
+        return $this->product;
+    }
+
+    /**
+     * Set attribute
+     *
+     * @param \XLite\Model\Attribute $attribute
+     */
+    public function setAttribute(\XLite\Model\Attribute $attribute = null)
+    {
+        $this->attribute = $attribute;
+    }
+
+    /**
+     * Get attribute
+     *
+     * @return \XLite\Model\Attribute
+     */
+    public function getAttribute()
+    {
+        return $this->attribute;
     }
 }

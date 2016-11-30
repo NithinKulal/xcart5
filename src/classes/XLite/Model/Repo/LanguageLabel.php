@@ -134,7 +134,7 @@ class LanguageLabel extends \XLite\Model\Repo\Base\I18n
                 'en'
             );
             $defaultsQuery = sprintf(
-                '(CASE WHEN %s IS NOT NULL WHEN %s ELSE %s END)',
+                '(CASE WHEN %s IS NOT NULL THEN %s ELSE %s END)',
                 'defaults.label',
                 'defaults.label',
                 'defaultDefaults.label'
@@ -142,7 +142,7 @@ class LanguageLabel extends \XLite\Model\Repo\Base\I18n
         }
 
         $select = sprintf(
-            '(CASE WHEN %s IS NOT NULL WHEN %s ELSE %s END) as label',
+            '(CASE WHEN %s IS NOT NULL THEN %s ELSE %s END) as label',
             'translations.label',
             'translations.label',
             $defaultsQuery

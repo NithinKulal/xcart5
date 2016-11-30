@@ -13,6 +13,10 @@ namespace XLite\View\Import;
  */
 class Begin extends \XLite\View\AView
 {
+    const MODE_UPDATE_AND_CREATE = 'UC';
+    const MODE_UPDATE_ONLY = 'U';
+    const MODE_CREATE_ONLY = 'C';
+
     /**
      * Return widget default template
      *
@@ -43,7 +47,7 @@ class Begin extends \XLite\View\AView
      */
     protected function getSamplesURL()
     {
-        return 'http://kb.x-cart.com/pages/viewpage.action?pageId=7503874';
+        return 'http://kb.x-cart.com/en/import-export/index.html';
     }
 
     /**
@@ -102,8 +106,8 @@ class Begin extends \XLite\View\AView
     protected function getImportModeOptions()
     {
         return array(
-            0 => static::t('Create new items and update existing items'),
-            1 => static::t('Update existing items, but skip new items'),
+            static::MODE_UPDATE_AND_CREATE => static::t('Create new items and update existing items'),
+            static::MODE_UPDATE_ONLY => static::t('Update existing items, but skip new items'),
         );
     }
 }

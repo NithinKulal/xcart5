@@ -1649,3 +1649,23 @@ color: #999;
 #themeTweaker_wrapper{
   color: #333;
 }
+
+.tabs-container .page-tabs .tabs-selector .selected {
+  color: #ffffff;
+}
+
+.tabs-container .page-tabs .tabs-selector .tabs ul li.tab-current a {
+  color: #979797;
+}
+
+.tabs-container .page-tabs .tabs-selector .tabs ul li {
+  border-bottom: 1px solid #979797;
+}
+
+.tabs-container .page-tabs .tabs-selector .tabs {
+  background: #343434;
+}
+
+.tabs-container .page-tabs .tabs-selector .tabs:before {
+  border-color: transparent #343434 #343434 transparent;
+}

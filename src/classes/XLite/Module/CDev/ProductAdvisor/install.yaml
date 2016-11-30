@@ -43,13 +43,13 @@ XLite\Model\Config:
         option_comment: 'Limits the total number of products that can be displayed when user clicks the "All new arrivals" link in the "New arrivals" block. Leave 0 for no limit.'
   - name: na_mark_with_label
     category: CDev\ProductAdvisor
-    type: checkbox
+    type: 'XLite\Module\CDev\ProductAdvisor\View\FormField\Select\MarkProducts'
     orderby: 50
-    value: Y
+    value: C
     translations:
       - code: en
-        option_name: 'Mark new products in catalog'
-        option_comment: 'Marks new products on all products lists (except "New arrivals" lists) with the "New!" label.'
+        option_name: 'Label new products'
+        option_comment: ''
   - name: na_max_count_in_block
     category: CDev\ProductAdvisor
     type: XLite\View\FormField\Input\Text\Integer
@@ -87,13 +87,13 @@ XLite\Model\Config:
         option_name: 'Enable "Coming soon" feature in catalog'
   - name: cs_mark_with_label
     category: CDev\ProductAdvisor
-    type: checkbox
+    type: 'XLite\Module\CDev\ProductAdvisor\View\FormField\Select\MarkProducts'
     orderby: 1020
-    value: Y
+    value: C
     translations:
       - code: en
-        option_name: 'Mark upcoming products in catalog'
-        option_comment: 'Marks upcoming products on all products lists (except "Coming soon" lists) with the "Coming soon..." label.'
+        option_name: 'Label upcoming products'
+        option_comment: ''
   - name: cs_display_date
     category: CDev\ProductAdvisor
     type: checkbox
@@ -213,3 +213,7 @@ XLite\Model\LanguageLabel:
   - { name: "expected on", translations: [{ code: en, label: "expected on" }] }
   - { name: "Coming soon...", translations: [{ code: en, label: "Coming soon..." }] }
   - { name: "a2cp-source-code-PAB", translations: [{ code: en, label: "Customers who bought this product also bought (Product Advisor module)" }] }
+  - { name: "Don't label", translations: [{ code: en, label: "Don't label" }] }
+  - { name: 'In catalog only', translations: [{ code: en, label: 'In catalog only' }] }
+  - { name: 'On catalog and product pages', translations: [{ code: en, label: 'On catalog and product pages' }] }
+  - { name: 'Text links', translations: [{ code: en, label: 'Text links' }] }

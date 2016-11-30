@@ -86,7 +86,7 @@ class Scenario
     /**
      * @param string $scenario
      *
-     * @return string|null
+     * @return array
      */
     public static function getScenarioFields($scenario)
     {

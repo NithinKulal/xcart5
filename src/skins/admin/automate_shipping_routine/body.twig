@@ -14,7 +14,7 @@
           {% for module in this.getShippingModules() %}
             <th>
               <div class="logo-image-container">
-                <img class="logo-image" src="{{ this.getImageURL(module) }}" alt="{{ module.getModuleName() }}">
+                <img class="logo-image" src="{{ this.getImageURL(module) }}" alt="{{ this.getModuleName(module) }}">
               </div>
             </th>
           {% endfor %}
@@ -48,16 +48,22 @@
           <td></td>
           {% for module in this.getShippingModules() %}
             <td>
-              {% if module.isInstalled() and this.hasSetting(module.getModuleInstalled()) %}
-                {{ widget('XLite\\View\\Button\\Link', location=this.getSettingsForm(module), label=t('Settings'), style='regular-button') }}
-              {% endif %}
-              {% if not module.isInstalled() %}
-                {{ widget('XLite\\View\\Button\\Link', location=this.getMarketplaceURL(module), label=t('Install'), style='regular-main-button') }}
-              {% endif %}
-              {% if module.isInstalled() and not this.hasSetting(module.getModuleInstalled()) %}
-                <div class="installed-placeholder">
-                  <span>{{ t('Installed') }}</span>
+              {% if not this.isModuleObject(module) %}
+                <div class="not-available-placeholder">
+                  <span>{{ t('Not available') }}</span>
                 </div>
+              {% else %}
+                {% if module.isInstalled() and this.hasSetting(module.getModuleInstalled()) %}
+                  {{ widget('XLite\\View\\Button\\Link', location=this.getSettingsForm(module), label=t('Settings'), style='regular-button') }}
+                {% endif %}
+                {% if not module.isInstalled() %}
+                  {{ widget('XLite\\View\\Button\\Link', location=this.getMarketplaceURL(module), label=t('Install'), style='regular-main-button') }}
+                {% endif %}
+                {% if module.isInstalled() and not this.hasSetting(module.getModuleInstalled()) %}
+                  <div class="installed-placeholder">
+                    <span>{{ t('Installed') }}</span>
+                  </div>
+                {% endif %}
               {% endif %}
             </td>
           {% endfor %}

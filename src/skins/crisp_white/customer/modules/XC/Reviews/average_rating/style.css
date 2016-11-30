@@ -67,9 +67,11 @@ div.product-reviews div.product-average-rating div.rating {
   position: relative;
 }
 
-div.product-average-rating div.rating {
+div.product-average-rating div.rating,
+div.product-average-rating .separator,
+div.product-average-rating .link-to-tab {
   display: inline-block;
-  /*vertical-align: middle;*/
+  vertical-align: middle;
 }
 
 div.product-average-rating table td {

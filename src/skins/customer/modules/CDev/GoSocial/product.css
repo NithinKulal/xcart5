@@ -11,12 +11,14 @@
   position: relative;
 }
 
-.share > * {
-  float: left;
+.share .fb-like {
+  min-height: 31px;
+  vertical-align: bottom;
+  margin: 0 10px -10px 0;
 }
 
-.share .fb-like {
-  margin-right: 20px;
+.share .fb-like.layout-box_count {
+  min-height: 50px;
 }
 
 .fb-comments span,

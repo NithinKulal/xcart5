@@ -143,19 +143,4 @@ abstract class ABulkEditing extends \XLite\View\ItemsList\Model\Table
 
         return $list;
     }
-
-    /**
-     * Return modules list
-     *
-     * @param \XLite\Core\CommonCell $cnd       Search condition
-     * @param boolean                $countOnly Return items list or only its size OPTIONAL
-     *
-     * @return array|integer
-     */
-    protected function getData(\XLite\Core\CommonCell $cnd, $countOnly = false)
-    {
-        $repo = \XLite\Core\Database::getRepo($this->defineRepositoryName());
-
-        return $repo->search($cnd, $countOnly);
-    }
 }

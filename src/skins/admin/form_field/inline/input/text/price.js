@@ -11,6 +11,7 @@ CommonForm.elementControllers.push(
   {
     pattern: '.inline-field.inline-price',
     handler: function () {
+      this.isDashed = jQuery('.field :input', this).eq(0).data('dashed');
 
       jQuery('.field :input', this).eq(0).bind('sanitize', function () {
         var input = jQuery(this);
@@ -26,8 +27,13 @@ CommonForm.elementControllers.push(
         var input = jQuery('.field :input', this).eq(0);
 
         if (input.length) {
-
-          input.val(input.get(0).sanitizeValue(input.val(), input));
+          var value = input.get(0).sanitizeValue(input.val(), input);
+          input.val(value);
+          if (!value && this.isDashed) {
+            jQuery('.view .symbol', this).addClass('hidden');
+          } else if (value && this.isDashed) {
+            jQuery('.view .symbol', this).removeClass('hidden');
+          };
         }
       };
 
@@ -36,14 +42,23 @@ CommonForm.elementControllers.push(
       {
         var input = jQuery('.field :input', this).eq(0);
 
-        return input.length
-          ? core.numberToString(
-            getFieldFormattedValue.apply(this, arguments),
+        var value = getFieldFormattedValue.apply(this, arguments);
+        if (!core.stringToNumber(
+            value,
             input.data('decimal-delim'),
-            input.data('thousand-delim'),
-            input.data('e')
-          )
-          : undefined;
+            input.data('thousand-delim')) && this.isDashed
+        ) {
+          return ' &mdash;';
+        } else {
+          return input.length
+            ? core.numberToString(
+              value,
+              input.data('decimal-delim'),
+              input.data('thousand-delim'),
+              input.data('e')
+            )
+            : undefined;
+        };
       };
     }
   }

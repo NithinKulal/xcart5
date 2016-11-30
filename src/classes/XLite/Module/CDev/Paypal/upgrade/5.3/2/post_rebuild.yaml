@@ -1,0 +1,9 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Data
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\LanguageLabel:
+  - { name: "This is the login name you created when signing up for PayPal Payments Advanced.", translations: [{ code: en, label: "This is the login name you created when you signed up for PayPal Payments Advanced / Payflow Link." }] }

@@ -48,9 +48,7 @@ class AddressBook extends \XLite\Controller\Customer\ACustomer
      */
     public function getTitle()
     {
-        return \XLite\Core\Request::getInstance()->widget
-            ? static::t('Address details')
-            : static::t('Address book');
+        return static::t('Address book');
     }
 
     /**
@@ -142,6 +140,7 @@ class AddressBook extends \XLite\Controller\Customer\ACustomer
     protected function doActionSave()
     {
         $result = $this->getModelForm()->performAction('update');
+
         if ($result) {
             $this->setHardRedirect();
         }

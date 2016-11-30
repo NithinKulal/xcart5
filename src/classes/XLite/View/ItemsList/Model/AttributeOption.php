@@ -64,7 +64,7 @@ class AttributeOption extends \XLite\View\ItemsList\Model\Table
      */
     protected function getCreateURL()
     {
-        return \XLite\Core\Converter::buildUrl('attribute_option');
+        return \XLite\Core\Converter::buildURL('attribute_option');
     }
 
     /**
@@ -88,6 +88,26 @@ class AttributeOption extends \XLite\View\ItemsList\Model\Table
     }
 
     // {{{ Behaviors
+
+    /**
+     * Mark list as sortable
+     *
+     * @return integer
+     */
+    protected function getSortableType()
+    {
+        return static::SORT_TYPE_MOVE;
+    }
+
+    /**
+     * getSortByModeDefault
+     *
+     * @return string
+     */
+    protected function getSortByModeDefault()
+    {
+        return 'a.position';
+    }
 
     /**
      * Mark list as removable
@@ -162,7 +182,7 @@ class AttributeOption extends \XLite\View\ItemsList\Model\Table
      *
      * @return array
      */
-    static public function getSearchParams()
+    public static function getSearchParams()
     {
         return array();
     }

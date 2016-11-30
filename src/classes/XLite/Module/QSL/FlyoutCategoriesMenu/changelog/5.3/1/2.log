@@ -1,0 +1,4 @@
+Version 5.3.1.2
+
+Fixes
+2016-11-22 - [Bug] A wrong number of products was displayed for a category in the Flyout categories menu with the setting "Show the number of products in category" enabled. #BUG-4154 (Michael Lipinski) #FlyoutCategoriesMenu

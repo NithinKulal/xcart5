@@ -6,8 +6,8 @@
  * Copyright (c) 2001-present Qualiteam software Ltd. All rights reserved.
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
-Checkout.define('Checkout.StoreOrder', [], function(){
-	Checkout.StoreOrder = {
+define('checkout_fastlane/store/order', [], function(){
+	return {
     state: {
       total: 0.0,
       total_text: "",

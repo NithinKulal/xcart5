@@ -122,7 +122,7 @@ class TopLinks extends \XLite\View\Menu\Admin\AAdmin
                     ),
                     'developers_docs' => array(
                         static::ITEM_TITLE      => static::t('Developers docs'),
-                        static::ITEM_LINK       => 'http://kb.x-cart.com/pages/viewpage.action?pageId=7077893',
+                        static::ITEM_LINK       => 'http://devs.x-cart.com/',
                         static::ITEM_WEIGHT     => 200,
                         static::ITEM_BLANK_PAGE => true,
                     ),
@@ -137,6 +137,12 @@ class TopLinks extends \XLite\View\Menu\Admin\AAdmin
                         static::ITEM_LINK       => 'http://bt.x-cart.com/',
                         static::ITEM_WEIGHT     => 400,
                         static::ITEM_ICON_SVG   => 'images/bug.svg',
+                        static::ITEM_BLANK_PAGE => true,
+                    ),
+                    'contact_us' => array(
+                        static::ITEM_TITLE      => static::t('Contact us'),
+                        static::ITEM_LINK       => \XLite::getXCartURL('http://www.x-cart.com/contact-us.html'),
+                        static::ITEM_WEIGHT     => 500,
                         static::ITEM_BLANK_PAGE => true,
                     ),
                 ),

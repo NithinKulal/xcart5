@@ -1,0 +1,5 @@
+Version 5.3.2.0
+
+Fixes
+2016-10-10 - [Bug] Progress bar appearance improved for import/export in the Admin area. #BUG-3920 (Eugene Dementjev) #Core #PitneyBowes #BulkEditing
+2016-10-04 - [Bug] EventTaskProgrss widget refactoring to promote easier modifications. #BUG-3893 (Eugene Dementjev) #Core #AmazonS3Images #PitneyBowes #BulkEditing

@@ -3,4 +3,4 @@
  #
  # @ListChild (list="invoice.item", weight="20")
  #}
-<td class="price">{{ this.formatInvoicePrice(this.item.getItemNetPrice(), this.order.getCurrency()) }}</td>
+<td class="price">{{ this.formatInvoicePrice(this.getOrderItemPrice(this.item), this.order.getCurrency()) }}</td>

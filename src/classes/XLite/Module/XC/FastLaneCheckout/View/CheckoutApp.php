@@ -50,6 +50,9 @@ class CheckoutApp extends \XLite\View\AView
                     'no_minify' => true,
                 ),
                 'vue/vue.loadable.js',
+                'vue/vue.registerComponent.js',
+                'js/vue/vue.js',
+                'js/vue/component.js'
             ),
         );
     }

@@ -296,6 +296,10 @@ ul li
   margin: inherit;
 }
 
+.product-description  ul li {
+  list-style-type: disc;
+}
+
 /*
  * Shadows
  */
@@ -650,7 +654,8 @@ ul.account-links span.email {
   line-height: 20px;
 }
 
-#breadcrumb .home-link img
+#breadcrumb .home-link img,
+#breadcrumb .home-link svg
 {
   vertical-align: middle;
   position: relative;

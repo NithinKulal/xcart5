@@ -3,9 +3,11 @@
  #}
 {% form '\\XLite\\View\\Form\\SelectAddress' with {className: 'select-address'} %}
 
+  {{ widget_list('select-address.before') }}
+
   {% if this.hasAddresses() %}
 
-    <ul class="addresses">
+    <ul class="addresses clearfix">
       {% for address in this.getAddresses() %}
         <li class="{{ this.getItemClassName(address, loop.index) }}" data-address-id="{{ address.getAddressId() }}">
           {{ widget(template='select_address/address.twig', address=address) }}
@@ -24,5 +26,7 @@
     <p>{{ t('Addresses list is empty') }}</p>
 
   {% endif %}
+
+  {{ widget_list('select-address.after') }}
 
 {% endform %}

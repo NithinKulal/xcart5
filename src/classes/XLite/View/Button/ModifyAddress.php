@@ -18,6 +18,7 @@ class ModifyAddress extends \XLite\View\Button\APopupButton
      * Address identificator parameter
      */
     const PARAM_ADDRESS_ID = 'addressId';
+    const PARAM_WIDGET_TITLE = 'widgetTitle';
 
     /**
      * getJSFiles
@@ -43,6 +44,7 @@ class ModifyAddress extends \XLite\View\Button\APopupButton
 
         $this->widgetParams += array(
             self::PARAM_ADDRESS_ID => new \XLite\Model\WidgetParam\TypeInt('Address ID', 0),
+            self::PARAM_WIDGET_TITLE => new \XLite\Model\WidgetParam\TypeString('Widget title', static::t('Edit address')),
         );
     }
 
@@ -57,6 +59,7 @@ class ModifyAddress extends \XLite\View\Button\APopupButton
             'target'       => 'address_book',
             'address_id'   => $this->getParam(self::PARAM_ADDRESS_ID),
             'widget'       => '\XLite\View\Address\Modify',
+            'widget_title' => $this->getParam(self::PARAM_WIDGET_TITLE)
         );
     }
 

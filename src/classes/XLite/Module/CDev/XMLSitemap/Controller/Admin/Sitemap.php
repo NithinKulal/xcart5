@@ -7,6 +7,11 @@
  */
 
 namespace XLite\Module\CDev\XMLSitemap\Controller\Admin;
+use XLite\Core\Database;
+use XLite\Core\EventTask;
+use XLite\Core\Request;
+use XLite\Core\TopMessage;
+use XLite\Module\CDev\XMLSitemap\Logic\Sitemap\Generator;
 
 /**
  * Sitemap
@@ -43,18 +48,96 @@ class Sitemap extends \XLite\Controller\Admin\AAdmin
     }
 
     /**
-     * Manually generate sitemap.xml
+     * Check - generation process is not-finished or not
+     *
+     * @return boolean
+     */
+    public function isSitemapGenerationNotFinished()
+    {
+        $eventName = Generator::getEventName();
+        $state = Database::getRepo('XLite\Model\TmpVar')->getEventState($eventName);
+
+        return $state
+        && in_array(
+            $state['state'],
+            array(EventTask::STATE_STANDBY, EventTask::STATE_IN_PROGRESS)
+        )
+        && !Database::getRepo('XLite\Model\TmpVar')->getVar($this->getSitemapGenerationCancelFlagVarName());
+    }
+
+    /**
+     * Check - generation process is finished or not
+     *
+     * @return boolean
+     */
+    public function isSitemapGenerationFinished()
+    {
+        return !$this->isSitemapGenerationNotFinished();
+    }
+
+    /**
+     * Get export cancel flag name
+     *
+     * @return string
+     */
+    protected function getSitemapGenerationCancelFlagVarName()
+    {
+        return Generator::getSitemapGenerationCancelFlagVarName();
+    }
+
+    /**
+     * Manually generate sitemap
      *
      * @return void
      */
     protected function doActionGenerate()
     {
-        $generator = \XLite\Module\CDev\XMLSitemap\Logic\SitemapGenerator::getInstance();
-        $generator->generate();
-        \XLite\Core\TopMessage::addInfo('XML-Sitemap generated');
+        if ($this->isSitemapGenerationFinished()) {
+            Generator::run([]);
+        }
+
         $this->setReturnURL(
-            \XLite\Core\Converter::buildURL('sitemap')
+            $this->buildURL('sitemap')
         );
+    }
+
+    /**
+     * Cancel
+     *
+     * @return void
+     */
+    protected function doActionSitemapGenerationCancel()
+    {
+        Generator::cancel();
+
+        $this->setReturnURL(
+            $this->buildURL('sitemap')
+        );
+    }
+
+    /**
+     * Preprocessor for no-action run
+     *
+     * @return void
+     */
+    protected function doNoAction()
+    {
+        $request = Request::getInstance();
+
+        if ($request->sitemap_generation_completed) {
+            TopMessage::addInfo('Sitemap generation has been completed successfully.');
+
+            $this->setReturnURL(
+                $this->buildURL('sitemap')
+            );
+
+        } elseif ($request->sitemap_generation_failed) {
+            TopMessage::addError('Sitemap generation has been stopped.');
+
+            $this->setReturnURL(
+                $this->buildURL('sitemap')
+            );
+        }
     }
 
     /**
@@ -64,7 +147,7 @@ class Sitemap extends \XLite\Controller\Admin\AAdmin
      */
     protected function doActionLocate()
     {
-        $engines = \XLite\Core\Request::getInstance()->engines;
+        $engines = Request::getInstance()->engines;
 
         if ($engines) {
             foreach ($this->getEngines() as $key => $engine) {
@@ -78,13 +161,13 @@ class Sitemap extends \XLite\Controller\Admin\AAdmin
                     $request = new \XLite\Core\HTTP\Request($url);
                     $response = $request->sendRequest();
                     if (200 == $response->code) {
-                        \XLite\Core\TopMessage::addInfo(
+                        TopMessage::addInfo(
                             'Site map successfully registred on X',
                             array('engine' => $key)
                         );
 
                     } else {
-                        \XLite\Core\TopMessage::addWarning(
+                        TopMessage::addWarning(
                             'Site map has not been registred in X',
                             array('engine' => $key)
                         );
@@ -93,8 +176,8 @@ class Sitemap extends \XLite\Controller\Admin\AAdmin
             }
         }
 
-        $postedData = \XLite\Core\Request::getInstance()->getData();
-        $options    = \XLite\Core\Database::getRepo('\XLite\Model\Config')
+        $postedData = Request::getInstance()->getData();
+        $options    = Database::getRepo('\XLite\Model\Config')
             ->findBy(array('category' => $this->getOptionsCategory()));
         $isUpdated  = false;
 
@@ -111,12 +194,12 @@ class Sitemap extends \XLite\Controller\Admin\AAdmin
                 }
 
                 $isUpdated = true;
-                \XLite\Core\Database::getEM()->persist($option);
+                Database::getEM()->persist($option);
             }
         }
 
         if ($isUpdated) {
-            \XLite\Core\Database::getEM()->flush();
+            Database::getEM()->flush();
         }
     }
 
@@ -127,7 +210,7 @@ class Sitemap extends \XLite\Controller\Admin\AAdmin
      */
     public function getOptions()
     {
-        return \XLite\Core\Database::getRepo('\XLite\Model\Config')
+        return Database::getRepo('\XLite\Model\Config')
             ->findByCategoryAndVisible($this->getOptionsCategory());
     }
 

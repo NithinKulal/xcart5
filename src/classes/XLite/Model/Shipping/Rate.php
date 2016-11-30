@@ -129,9 +129,14 @@ class Rate extends \XLite\Base\SuperClass
      */
     public function getMarkupRate()
     {
-        $handlingFee = \XLite::isFreeLicense()
-            ? 0
-            : $this->getMethod()->getHandlingFee();
+        if (!\XLite::isFreeLicense()) {
+            $handlingFee = $this->getMethod()->getHandlingFeeValue();
+            if ($this->getMethod()->getHandlingFeeType() == \XLite\View\FormField\Select\AbsoluteOrPercent::TYPE_PERCENT) {
+                $handlingFee = ($this->getBaseRate() + $this->markupRate) * $handlingFee / 100;
+            }
+        } else {
+            $handlingFee = 0;
+        }
 
         return $this->markupRate + $handlingFee;
     }

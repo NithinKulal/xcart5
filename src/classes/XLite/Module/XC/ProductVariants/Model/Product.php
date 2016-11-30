@@ -99,31 +99,72 @@ class Product extends \XLite\Model\Product implements \XLite\Base\IDecorator
     /**
      * Get variant by attribute values
      *
-     * @param mixied $attributeValues Attribute values
+     * @param integer[]|\XLite\Model\AttributeValue\AAttributeValue[] $attributeValues Attribute values
      *
-     * @return mixed
+     * @return integer[]
      */
     public function getVariantByAttributeValues($attributeValues)
     {
-        $ids = array();
+        $result = [];
 
-        if (is_array($ids)) {
-            $tmp = $attributeValues;
-            $tmp = array_shift($tmp);
-            if (is_int($tmp)) {
-                $ids = $attributeValues;
+        foreach ($attributeValues as $attributeId => $valueId) {
+            if (is_scalar($valueId)) {
+                $result[(int) $attributeId] = (int) $valueId;
+
+            } elseif ($valueId instanceof \XLite\Model\AttributeValue\AAttributeValue) {
+                $result[$valueId->getAttribute()->getId()] = $valueId->getId();
             }
         }
 
-        if (!$ids) {
-            foreach ($attributeValues as $av) {
-                if (is_object($av)) {
-                    $ids[$av->getAttribute()->getId()] = $av->getId();
+        return $this->getVariantByAttributeValuesIds($result);
+    }
+
+    /**
+     * Get quick minimal data price
+     *
+     * @return float
+     */
+    public function getQuickDataMinPrice()
+    {
+        if ($this->hasVariants()) {
+            $price = $this->getClearPrice();
+            foreach ($this->getVariants() as $variant) {
+                if ($variant->getQuickDataPrice() < $price) {
+                    $price = $variant->getQuickDataPrice();
                 }
             }
-        }
 
-        return $this->getVariantByAttributeValuesIds($ids);
+            return $price;
+        } else {
+            return $this->getQuickDataPrice();
+        }
+    }
+
+    /**
+     * Get quick data maximal price
+     *
+     * @return float
+     */
+    public function getQuickDataMaxPrice()
+    {
+        if ($this->hasVariants()) {
+            $price = $this->getClearPrice();
+            foreach ($this->getVariants() as $variant) {
+                if ($variant->getQuickDataPrice() > $price) {
+                    $price = $variant->getQuickDataPrice();
+                }
+            }
+
+            foreach ($this->prepareAttributeValues() as $av) {
+                if (is_object($av)) {
+                    $price += $av->getAbsoluteValue('price');
+                }
+            }
+
+            return $price;
+        } else {
+            return $this->getQuickDataPrice();
+        }
     }
 
     /**
@@ -306,6 +347,18 @@ class Product extends \XLite\Model\Product implements \XLite\Base\IDecorator
         return $this->hasVariants()
             ? $this->getVariant()->getAvailableAmount()
             : parent::getAvailableAmount();
+    }
+
+    /**
+     * Alias: is product in stock or not
+     *
+     * @return boolean
+     */
+    public function isOutOfStock()
+    {
+        return $this->hasVariants()
+            ? $this->getVariant()->isOutOfStock()
+            : parent::isOutOfStock();
     }
 
     /**
@@ -520,7 +573,7 @@ class Product extends \XLite\Model\Product implements \XLite\Base\IDecorator
                 }
             }
 
-            $newProduct->update(true);
+            $newProduct->update();
         }
 
         return $newProduct;
@@ -596,5 +649,15 @@ class Product extends \XLite\Model\Product implements \XLite\Base\IDecorator
     public function getVariantsAttributes()
     {
         return $this->variantsAttributes;
+    }
+
+    /**
+     * Check if product price in list should be displayed as range
+     *
+     * @return bool
+     */
+    public function isDisplayPriceAsRange()
+    {
+        return \XLite\Module\XC\ProductVariants\Main::isDisplayPriceAsRange() && $this->getVariants()->count() > 1;
     }
 }

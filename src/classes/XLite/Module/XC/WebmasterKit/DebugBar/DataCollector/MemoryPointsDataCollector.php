@@ -10,6 +10,7 @@ namespace XLite\Module\XC\WebmasterKit\DebugBar\DataCollector;
 
 use DebugBar\DataCollector\DataCollector;
 use DebugBar\DataCollector\Renderable;
+use XLite\Module\XC\WebmasterKit\Core\DataCollector\MemoryPointsCollector;
 
 /**
  * Memory points data collector
@@ -23,7 +24,7 @@ class MemoryPointsDataCollector extends DataCollector implements Renderable
 
     public function collect()
     {
-        $this->memoryPoints = \XLite\Module\XC\WebmasterKit\Core\Profiler::getMemoryPoints();
+        $this->memoryPoints = MemoryPointsCollector::getInstance()->getCollected();
         $points = [];
 
         $lastPoint = 0;

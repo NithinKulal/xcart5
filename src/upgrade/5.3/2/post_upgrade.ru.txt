@@ -1,0 +1,15 @@
+Для включения поддержки точек в "чистых ссылках" (Clean URLs), отредактируйте файл .htaccess в корне X-Cart, добавив требуемые директивы:
+1. В файле .htaccess найдите следующий блок кода:
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^((([/_a-z0-9-]+)/)?([_a-z0-9-]+)/)?([_a-z0-9-]+)(/?)(\.([_a-z0-9-]+))?$ cart.php?url=$5&last=$4&rest=$3&ext=$7 [NC,L,QSA]
+
+2. Замените его на такой блок:
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ cart.php?url=$1 [NC,L,QSA]
+
+Если используется nginx, необходимо внести изменения в файл nginx.conf согласно рекомендациям в статье
+http://kb.x-cart.com/en/general_setup/setting_up_seo-friendly_urls.html#setting-up-nginx

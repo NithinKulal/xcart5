@@ -73,7 +73,7 @@ class QuickData extends \XLite\Model\AEntity
     /**
      * Set price
      *
-     * @param decimal $price
+     * @param float $price
      * @return QuickData
      */
     public function setPrice($price)
@@ -85,7 +85,7 @@ class QuickData extends \XLite\Model\AEntity
     /**
      * Get price
      *
-     * @return decimal 
+     * @return float 
      */
     public function getPrice()
     {

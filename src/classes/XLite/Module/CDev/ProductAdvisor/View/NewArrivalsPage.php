@@ -50,7 +50,7 @@ class NewArrivalsPage extends \XLite\Module\CDev\ProductAdvisor\View\ANewArrival
      */
     protected function getPagerClass()
     {
-        return '\XLite\Module\CDev\ProductAdvisor\View\Pager\Customer\ControllerPager';
+        return 'XLite\Module\CDev\ProductAdvisor\View\Pager\Customer\ControllerPager';
     }
 
     /**
@@ -70,7 +70,7 @@ class NewArrivalsPage extends \XLite\Module\CDev\ProductAdvisor\View\ANewArrival
      */
     protected function isVisible()
     {
-        return static::getWidgetTarget() == \XLite\Core\Request::getInstance()->target
+        return static::getWidgetTarget() === \XLite\Core\Request::getInstance()->target
             && parent::isVisible();
     }
 }

@@ -20,7 +20,7 @@ abstract class Multiple extends \XLite\Model\AttributeValue\AAttributeValue
     const TYPE_ABSOLUTE = 'a';
     const TYPE_PERCENT  = 'p';
 
-   /**
+    /**
      * Price modifier
      *
      * @var float
@@ -38,7 +38,7 @@ abstract class Multiple extends \XLite\Model\AttributeValue\AAttributeValue
      */
     protected $priceModifierType = self::TYPE_PERCENT;
 
-   /**
+    /**
      * Weight modifier
      *
      * @var float
@@ -70,18 +70,18 @@ abstract class Multiple extends \XLite\Model\AttributeValue\AAttributeValue
      *
      * @return array
      */
-    static public function getModifiers()
+    public static function getModifiers()
     {
-        return array(
-            'price' => array(
+        return [
+            'price'  => [
                 'title'  => 'Price',
                 'symbol' => '$',
-            ),
-            'weight' => array(
+            ],
+            'weight' => [
                 'title'  => 'Weight',
                 'symbol' => 'w',
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -92,7 +92,7 @@ abstract class Multiple extends \XLite\Model\AttributeValue\AAttributeValue
      *
      * @return string
      */
-    static public function formatModifier($value, $field)
+    public static function formatModifier($value, $field)
     {
         $method = 'formatModifier' . $field;
 
@@ -114,7 +114,7 @@ abstract class Multiple extends \XLite\Model\AttributeValue\AAttributeValue
      *
      * @return string
      */
-    static public function formatModifierPrice($value)
+    public static function formatModifierPrice($value)
     {
         return \XLite\View\Price::getInstance()->formatPrice($value, null, true);
     }
@@ -126,7 +126,7 @@ abstract class Multiple extends \XLite\Model\AttributeValue\AAttributeValue
      *
      * @return string
      */
-    static public function formatModifierWeight($value)
+    public static function formatModifierWeight($value)
     {
         return $value . ' ' . \XLite\Core\Translation::translateWeightSymbol();
     }
@@ -142,11 +142,12 @@ abstract class Multiple extends \XLite\Model\AttributeValue\AAttributeValue
     public function setModifier($value, $field)
     {
         $method = 'set' . $field . 'Modifier';
-        if (isset($value) && method_exists($this, $method)) {
-            $result = $this->$method(doubleval($value));
+        if (null !== $value && method_exists($this, $method)) {
+            $this->$method((float) $value);
+
             $method .= 'Type';
             if (method_exists($this, $method)) {
-                $result = $this->$method(
+                $this->$method(
                     strpos($value, '%')
                         ? static::TYPE_PERCENT
                         : static::TYPE_ABSOLUTE
@@ -162,7 +163,7 @@ abstract class Multiple extends \XLite\Model\AttributeValue\AAttributeValue
      */
     public function isDefault()
     {
-        return $this->getId() == $this->getAttribute()->getDefaultAttributeValue($this->getProduct())->getId();
+        return $this->getId() === $this->getAttribute()->getDefaultAttributeValue($this->getProduct())->getId();
     }
 
     /**
@@ -177,8 +178,8 @@ abstract class Multiple extends \XLite\Model\AttributeValue\AAttributeValue
         $value = 0;
         if ($this->isApply()) {
             $modifier = $this->getModifierData($field);
-            $value = $this->getModifierBase($field);
-            $value = static::TYPE_PERCENT == $modifier['type']
+            $value    = $this->getModifierBase($field);
+            $value    = static::TYPE_PERCENT === $modifier['type']
                 ? $value * $modifier['value'] / 100
                 : $modifier['value'];
         }
@@ -188,6 +189,7 @@ abstract class Multiple extends \XLite\Model\AttributeValue\AAttributeValue
 
     /**
      * Get surcharge absolute value
+     * @todo: remove in 5.4
      *
      * @param string $field Field
      *
@@ -195,12 +197,25 @@ abstract class Multiple extends \XLite\Model\AttributeValue\AAttributeValue
      */
     public function getFormatedValue($field)
     {
+        return $this->getFormattedValue($field);
+    }
+
+    /**
+     * Get surcharge absolute value
+     * @todo: check usage
+     *
+     * @param string $field Field
+     *
+     * @return string
+     */
+    public function getFormattedValue($field)
+    {
         $modifier = $this->getModifierData($field);
-        $value = $this->getModifierBase($field);
-        $value = static::TYPE_PERCENT == $modifier['type']
+        $value    = $this->getModifierBase($field);
+        $value    = static::TYPE_PERCENT === $modifier['type']
             ? $value * $modifier['value'] / 100
             : $modifier['value'];
-        $value = round($value, 2);
+        $value    = round($value, 2);
 
         return round($value, 2);
     }
@@ -216,12 +231,12 @@ abstract class Multiple extends \XLite\Model\AttributeValue\AAttributeValue
     {
         $modifier = $this->getModifierData($field);
 
-        $result = (float)$modifier['value'];
+        $result = (float) $modifier['value'];
         if ($result) {
             if (0 < $result) {
                 $result = '+' . $result;
             }
-            if (static::TYPE_PERCENT == $modifier['type']) {
+            if (static::TYPE_PERCENT === $modifier['type']) {
                 $result .= '%';
             }
 
@@ -251,9 +266,9 @@ abstract class Multiple extends \XLite\Model\AttributeValue\AAttributeValue
      */
     protected function getModifierData($field)
     {
-        $result = array();
+        $result = [];
 
-        $method = 'get' . $field . 'Modifier';
+        $method          = 'get' . $field . 'Modifier';
         $result['value'] = method_exists($this, $method)
             ? $this->$method()
             : 0;
@@ -269,7 +284,7 @@ abstract class Multiple extends \XLite\Model\AttributeValue\AAttributeValue
     /**
      * Get modifier base value
      *
-     * @param string  $field Field
+     * @param string $field Field
      *
      * @return float
      */
@@ -300,5 +315,105 @@ abstract class Multiple extends \XLite\Model\AttributeValue\AAttributeValue
     protected function getModifierBaseWeight()
     {
         return $this->getProduct()->getWeight();
+    }
+
+    /**
+     * Set priceModifier
+     *
+     * @param float $priceModifier
+     */
+    public function setPriceModifier($priceModifier)
+    {
+        $this->priceModifier = $priceModifier;
+    }
+
+    /**
+     * Get priceModifier
+     *
+     * @return float
+     */
+    public function getPriceModifier()
+    {
+        return $this->priceModifier;
+    }
+
+    /**
+     * Set priceModifierType
+     *
+     * @param string $priceModifierType
+     */
+    public function setPriceModifierType($priceModifierType)
+    {
+        $this->priceModifierType = $priceModifierType;
+    }
+
+    /**
+     * Get priceModifierType
+     *
+     * @return string
+     */
+    public function getPriceModifierType()
+    {
+        return $this->priceModifierType;
+    }
+
+    /**
+     * Set weightModifier
+     *
+     * @param float $weightModifier
+     */
+    public function setWeightModifier($weightModifier)
+    {
+        $this->weightModifier = $weightModifier;
+    }
+
+    /**
+     * Get weightModifier
+     *
+     * @return float
+     */
+    public function getWeightModifier()
+    {
+        return $this->weightModifier;
+    }
+
+    /**
+     * Set weightModifierType
+     *
+     * @param string $weightModifierType
+     */
+    public function setWeightModifierType($weightModifierType)
+    {
+        $this->weightModifierType = $weightModifierType;
+    }
+
+    /**
+     * Get weightModifierType
+     *
+     * @return string
+     */
+    public function getWeightModifierType()
+    {
+        return $this->weightModifierType;
+    }
+
+    /**
+     * Set defaultValue
+     *
+     * @param boolean $defaultValue
+     */
+    public function setDefaultValue($defaultValue)
+    {
+        $this->defaultValue = $defaultValue;
+    }
+
+    /**
+     * Get defaultValue
+     *
+     * @return boolean
+     */
+    public function getDefaultValue()
+    {
+        return $this->defaultValue;
     }
 }

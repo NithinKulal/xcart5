@@ -94,16 +94,16 @@
         font-weight: normal;
         font-variant: normal;
         text-transform: none;
-        line-height: 20px;
+        line-height: 2em;
 
         /* Better Font Rendering =========== */
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
 
         content: '\e90f';
-        font-size: 0.5em;
+        font-size: 7px;
         display: inline-block;
-        vertical-align: bottom;
+        vertical-align: middle;
         margin-left: 5px;
     }
 }

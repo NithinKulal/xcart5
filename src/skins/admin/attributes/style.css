@@ -249,6 +249,12 @@ div.group table.list th.actions.left {
   display: block;
 }
 
+.ajax-container-loadable .model-properties ul.table li.custom-field .inline-move .field .table-value,
+.ajax-container-loadable .model-properties ul.table li.custom-field .inline-move .field .clear
+{
+  display: none;
+}
+
 .ajax-container-loadable .model-properties ul.table li.custom-field .star {
   display: none;
 }

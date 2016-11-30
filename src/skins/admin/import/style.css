@@ -150,6 +150,7 @@ div.import-box.import-begin .subcontent {
 .import-begin input[type=file]{
   margin-top: 15px;
   color: #999;
+  max-width: 273px;
 }
 
 .import-begin .subcontent a {
@@ -172,68 +173,6 @@ div.import-box.import-progress .subcontent {
 
 div.import-box.import-progress div.content {
   width: 650px;
-}
-
-.import-progress .subcontent .progress-bar {
-  float: left;
-  margin-right: 20px;
-}
-
-.import-progress .subcontent .bar {
-  width: 540px;
-  height: 30px;
-}
-
-
-.ui-dialog .import-progress .subcontent .bar  {
-  width: 500px;
-}
-
-.import-progress .subcontent button {
-  padding: 1px 17px 2px 17px;
-  float: right;
-  min-height: 24px;
-}
-
-.import-progress .subcontent .time {
-  font-size: 14px;
-  text-align: center;
-  color: #44769d;
-  height: 20px;
-  margin-top: 27px;
-}
-
-.import-progress .help {
-  padding: 20px 0px;
-  line-height: 20px;
-  -webkit-display: flex;
-  display: flex;
-  -webkit-align-items:center;
-  -align-items:center;
-}
-
-.ui-dialog .import-progress .help{
-  padding: 20px 20px;
-
-}
-
-.import-progress .help i {
-  color: #b9b9b9;
-  font-size: 36px;
-  margin-top: 6px;
-}
-
-.import-progress .help p {
-  font-size: 14px;
-  margin-left:20px;
-}
-
-.import-progress .subcontent .rows-processed {
-  font-size: 14px;
-  text-align: center;
-  color: #44769d;
-  height: 20px;
-  margin-top: 33px;
 }
 
 /**

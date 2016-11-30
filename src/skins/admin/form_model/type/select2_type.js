@@ -27,6 +27,9 @@
               searching: function () {
                 return self.params.searchingLbl;
               }
+            },
+            escapeMarkup: function (markup) {
+              return markup;
             }
           }
         )

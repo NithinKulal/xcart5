@@ -54,7 +54,7 @@ class Begin extends \XLite\View\RequestHandler\ARequestHandler
     /**
      * Return widget default template
      *
-     * @return string
+     * @return string[]
      */
     protected function getSections()
     {

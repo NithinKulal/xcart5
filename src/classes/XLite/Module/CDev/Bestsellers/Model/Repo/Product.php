@@ -13,50 +13,20 @@ namespace XLite\Module\CDev\Bestsellers\Model\Repo;
  */
 class Product extends \XLite\Model\Repo\Product implements \XLite\Base\IDecorator
 {
-    /**
-     * Defines bestsellers products collection
-     *
-     * @param \XLite\Core\CommonCell $cnd   Search condition
-     * @param integer                $count Number of products to get OPTIONAL
-     * @param integer                $cat   Category identificator OPTIONAL
-     *
-     * @return array
-     */
-    public function findBestsellers(\XLite\Core\CommonCell $cnd, $count = 0, $cat = 0)
-    {
-        return $this->defineBestsellersQuery($cnd, $count, $cat)->getOnlyEntities();
-    }
+    const SEARCH_BESTSELLERS = 'bestsellers';
 
     /**
-     * Prepares query builder object to get bestsell products
+     * Prepare certain search condition
      *
-     * @param \XLite\Core\CommonCell $cnd   Search condition
-     * @param integer                $count Number of products to get
-     * @param integer                $cat   Category identificator
+     * @param \Doctrine\ORM\QueryBuilder $qb    Query builder to prepare
+     * @param boolean                    $value Condition data
      *
-     * @return \Doctrine\ORM\QueryBuilder Query builder object
+     * @return void
      */
-    protected function defineBestsellersQuery(\XLite\Core\CommonCell $cnd, $count, $cat)
+    protected function prepareCndBestsellers(\Doctrine\ORM\QueryBuilder $qb, $value)
     {
-        list($sort, $order) = $cnd->{self::P_ORDER_BY};
-
-        $qb = $this->createQueryBuilder()
-            ->andWhere('p.sales > 0')
-            ->addGroupBy('p.product_id')
-            ->addOrderBy('p.sales', 'desc')
-            ->addOrderBy($sort, $order);
-
-        if (0 < $count) {
-            $qb->setMaxResults($count);
-        } elseif (isset($cnd->{self::P_LIMIT})) {
-            $qb->setFrameResults($cnd->{self::P_LIMIT});
+        if ($value) {
+            $qb->andWhere('p.sales > 0');
         }
-
-        if (0 < $cat) {
-            $qb->linkLeft('p.categoryProducts', 'cp')->linkLeft('cp.category', 'c');
-            \XLite\Core\Database::getRepo('XLite\Model\Category')->addSubTreeCondition($qb, $cat);
-        }
-
-        return \XLite\Core\Database::getRepo('XLite\Model\Product')->assignExternalEnabledCondition($qb, 'p');
     }
 }

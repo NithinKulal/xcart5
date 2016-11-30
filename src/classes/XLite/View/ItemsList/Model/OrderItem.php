@@ -13,6 +13,8 @@ namespace XLite\View\ItemsList\Model;
  */
 class OrderItem extends \XLite\View\ItemsList\Model\Table
 {
+    use \XLite\View\Base\ViewListsFallbackTrait;
+
     /**
      * Widget param names
      */

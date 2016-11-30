@@ -13,6 +13,17 @@ namespace XLite\View\Import;
  */
 class Progress extends \XLite\View\AView
 {
+    use \XLite\View\EventTaskProgressProviderTrait;
+
+    /**
+     * Returns processing unit
+     * @return mixed
+     */
+    protected function getProcessor()
+    {
+        return \XLite::getController()->getImporter();
+    }
+
     /**
      * Return widget default template
      *
@@ -24,6 +35,16 @@ class Progress extends \XLite\View\AView
     }
 
     /**
+     * Provides status message for progress bar
+     * 
+     * @return string
+     */
+    protected function getProgressMessage()
+    {
+        return \XLite\Core\Translation::lbl('Initializing...');
+    }
+
+    /**
      * Get time label
      *
      * @return string
@@ -31,25 +52,5 @@ class Progress extends \XLite\View\AView
     protected function getTimeLabel()
     {
         return \XLite\Core\Translation::formatTimePeriod($this->getImporter()->getStep()->getTimeRemain());
-    }
-
-    /**
-     * Check - current event driver is blocking or not
-     *
-     * @return boolean
-     */
-    protected function isBlocking()
-    {
-        return \XLite\Core\EventTask::getInstance()->getDriver()->isBlocking();
-    }
-
-    /**
-     * Get import event name
-     *
-     * @return string
-     */
-    protected function getEventName()
-    {
-        return \XLite\Logic\Import\Importer::getEventName();
     }
 }

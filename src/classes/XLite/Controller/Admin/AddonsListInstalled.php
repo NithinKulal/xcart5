@@ -72,6 +72,15 @@ class AddonsListInstalled extends \XLite\Controller\Admin\Base\AddonsList
     {
         return \XLite\Core\Request::getInstance()->substring;
     }
+    /**
+     * State search getter
+     *
+     * @return string
+     */
+    public function getState()
+    {
+        return \XLite\Core\Request::getInstance()->state;
+    }
 
     /**
      * The recently installed page flag
@@ -213,6 +222,8 @@ class AddonsListInstalled extends \XLite\Controller\Admin\Base\AddonsList
                 // To restore previous state
                 \XLite\Core\Marketplace::getInstance()->getAddonsList(0);
                 \XLite\Core\Marketplace::getInstance()->clearActionCache(\XLite\Core\Marketplace::ACTION_CHECK_FOR_UPDATES);
+                \XLite\Core\Marketplace::getInstance()->clearActionCache(\XLite\Core\Marketplace::ACTION_UPDATE_PM);
+                \XLite\Core\Marketplace::getInstance()->clearActionCache(\XLite\Core\Marketplace::ACTION_UPDATE_SHM);
 
                 // Flag to rebuild cache
                 \XLite::setCleanUpCacheFlag(true);
@@ -535,6 +546,8 @@ class AddonsListInstalled extends \XLite\Controller\Admin\Base\AddonsList
             // Refresh marketplace modules cache
             \XLite\Core\Marketplace::getInstance()->getAddonsList(0);
             \XLite\Core\Marketplace::getInstance()->clearActionCache(\XLite\Core\Marketplace::ACTION_CHECK_FOR_UPDATES);
+            \XLite\Core\Marketplace::getInstance()->clearActionCache(\XLite\Core\Marketplace::ACTION_UPDATE_PM);
+            \XLite\Core\Marketplace::getInstance()->clearActionCache(\XLite\Core\Marketplace::ACTION_UPDATE_SHM);
         }
 
         if ($changed || $deleted) {

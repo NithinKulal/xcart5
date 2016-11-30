@@ -186,7 +186,7 @@ class TransactionData extends \XLite\Model\AEntity
     /**
      * Get value
      *
-     * @return text 
+     * @return string
      */
     public function getValue()
     {

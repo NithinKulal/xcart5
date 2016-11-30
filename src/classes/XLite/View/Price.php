@@ -16,10 +16,11 @@ class Price extends \XLite\View\Product\Details\Customer\Widget
     /**
      * Widget parameters
      */
-    const PARAM_DISPLAY_ONLY_PRICE          = 'displayOnlyPrice';
+    const PARAM_DISPLAY_ONLY_PRICE = 'displayOnlyPrice';
+    const PARAM_ALLOW_RANGE = 'allowRange';
 
     /**
-     * @var array $labels  List labels runtime cache
+     * @var array $labels List labels runtime cache
      */
     protected static $labels = array();
 
@@ -57,6 +58,16 @@ class Price extends \XLite\View\Product\Details\Customer\Widget
     }
 
     /**
+     * Check if price as range allowed
+     *
+     * @return mixed
+     */
+    public function isAllowRange()
+    {
+        return $this->getParam(static::PARAM_ALLOW_RANGE);
+    }
+
+    /**
      * Define widget parameters
      *
      * @return void
@@ -66,7 +77,8 @@ class Price extends \XLite\View\Product\Details\Customer\Widget
         parent::defineWidgetParams();
 
         $this->widgetParams += array(
-            static::PARAM_DISPLAY_ONLY_PRICE => new \XLite\Model\WidgetParam\TypeBool('Display only price', false)
+            static::PARAM_DISPLAY_ONLY_PRICE => new \XLite\Model\WidgetParam\TypeBool('Display only price', false),
+            static::PARAM_ALLOW_RANGE => new \XLite\Model\WidgetParam\TypeBool('Allow to display as range', false)
         );
     }
 
@@ -80,7 +92,6 @@ class Price extends \XLite\View\Product\Details\Customer\Widget
         $id = $this->getProduct()->getProductId();
 
         if (!isset(static::$listPrices[$id])) {
-            $this->product->setAttrValues($this->getAttributeValues());
             static::$listPrices[$id] = $this->getNetPrice($value);
         }
 

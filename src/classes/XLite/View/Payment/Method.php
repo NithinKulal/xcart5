@@ -44,7 +44,7 @@ class Method extends \XLite\View\Dialog
     /**
      * Get payment method
      *
-     * @return \XLite\Model\Payment\Metho
+     * @return \XLite\Model\Payment\Method
      */
     public function getPaymentMethod()
     {

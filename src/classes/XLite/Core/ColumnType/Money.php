@@ -65,4 +65,14 @@ class Money extends \Doctrine\DBAL\Types\DecimalType
     {
         return true;
     }
+
+    /**
+     * Define binding database type
+     *
+     * @return integer
+     */
+    public function getBindingType()
+    {
+        return \PDO::PARAM_INT;
+    }
 }

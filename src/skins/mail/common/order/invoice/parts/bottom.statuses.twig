@@ -1,19 +1,6 @@
 {##
  # Invoice bottom block
- #
- # @ListChild (list="invoice.bottom.lines", weight="20")
  #}
-
-{% if this.order.isPaymentSectionVisible() %}
-  {% if this.order.getPaymentStatus() %}
-    <td class="payment-status">
-      <div class="wrapper">
-        <strong class="title">{{ t('Payment status') }}:</strong>
-        {{ this.order.paymentStatus.getCustomerName()|raw }}
-      </div>
-    </td>
-  {% endif %}
-{% endif %}
 
 {% if this.order.isShippingSectionVisible() %}
   {% if this.order.getShippingStatus() %}
@@ -21,6 +8,17 @@
       <div class="wrapper">
         <strong class="title">{{ t('Shipping status') }}:</strong>
         {{ this.order.shippingStatus.getCustomerName()|raw }}
+      </div>
+    </td>
+  {% endif %}
+{% endif %}
+
+{% if this.order.isPaymentSectionVisible() %}
+  {% if this.order.getPaymentStatus() %}
+    <td class="payment-status">
+      <div class="wrapper">
+        <strong class="title">{{ t('Payment status') }}:</strong>
+        {{ this.order.paymentStatus.getCustomerName()|raw }}
       </div>
     </td>
   {% endif %}

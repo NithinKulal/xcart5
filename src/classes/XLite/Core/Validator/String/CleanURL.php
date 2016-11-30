@@ -125,9 +125,15 @@ class CleanURL extends \XLite\Core\Validator\String\RegExp
         $repo = \XLite\Core\Database::getRepo('XLite\Model\CleanURL');
         $conflict = $repo->getConflict($data, $this->class, $this->id);
 
-        $message = $conflict && $conflict->getCleanURL() == $data
-            ? 'The Clean URL entered is already in use.'
-            : 'The Clean URL entered is a redirect to object.';
+        if ($conflict && $conflict->getCleanURL() == $data) {
+            if ($conflict instanceof \XLite\Model\TargetCleanUrl) {
+                $message = 'The Clean URL entered is already in use by target alias.';
+            } else {
+                $message = 'The Clean URL entered is already in use.';
+            }
+        } else {
+            $message = 'The Clean URL entered is a redirect to object.';
+        }
 
         $exception = $this->throwError(
             $message,

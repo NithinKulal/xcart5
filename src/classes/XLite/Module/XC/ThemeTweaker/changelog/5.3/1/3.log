@@ -1,0 +1,5 @@
+Version 5.3.1.3
+
+Fixes
+2016-11-07 - [Bug] Webmaster mode was working incorrectly on Windows servers and on *nix servers with insufficient permissions for writing new files. #BUG-4060 (Sergey Elmanov) #ThemeTweaker
+2016-10-28 - [Bug] Theme Tweaker can now override templates in the admin/common/mail/pdf folder (not in the visual mode, but only if the templates have been added manually). #BUG-4043 (Eugene Dementjev) #ThemeTweaker

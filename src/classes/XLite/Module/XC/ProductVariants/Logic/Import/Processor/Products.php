@@ -82,7 +82,64 @@ abstract class Products extends \XLite\Logic\Import\Processor\Products implement
                 'VARIANT-PRODUCT-SKU-FMT' => 'SKU is already assigned to variant',
                 'VARIANT-WEIGHT-FMT'      => 'Wrong variant weight format',
                 'VARIANT-IMAGE-FMT'       => 'The "{{value}}" image does not exist',
+                'VARIANT-ATTRIBUTE-FMT'   => 'Variant attribute "{{column}}" cannot be empty',
             );
+    }
+
+    /**
+     * Verify 'attributes' value
+     *
+     * @param mixed $value  Value
+     * @param array $column Column info
+     *
+     * @return void
+     */
+    protected function verifyAttributes($value, array $column)
+    {
+        parent::verifyAttributes($value, $column);
+
+        if (is_array($value)) {
+            foreach ($value as $name => $attribute) {
+                if ($this->isAttributeRowMultiline($attribute)) {
+                    foreach ($attribute as $offset => $line) {
+                        foreach ($line as $val) {
+                            if (empty($val)) {
+                                $this->addError(
+                                    'VARIANT-ATTRIBUTE-FMT',
+                                    [
+                                        'column' => array_merge($column, [static::COLUMN_NAME => $name]),
+                                        'value' => $attribute
+                                    ],
+                                    $offset + 1 - $this->rowStartIndex
+                                );
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Check if attribute column multiline(is variants)
+     *
+     * @param $attribute
+     *
+     * @return bool
+     */
+    protected function isAttributeRowMultiline($attribute)
+    {
+        $attribute = array_slice($attribute, 1);
+
+        foreach ($attribute as $line) {
+            foreach ($line as $value) {
+                if (!empty($value)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     /**

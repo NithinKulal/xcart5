@@ -65,14 +65,14 @@ class IncompatibleEntries extends \XLite\View\Upgrade\Step\Prepare\APrepare
      */
     protected function getHead()
     {
-        if (\XLite\Upgrade\Cell::getInstance()->isUpgrade()) {
+        if ($this->isUpgrade()) {
             $result = static::t(
                 'X modules will be disabled',
                 array('count' => $this->getIncompatibleEntriesCount())
             );
 
         } else {
-            $result = 'These components require your attention';
+            $result = 'Custom addons';
         }
 
         return $result;
@@ -90,23 +90,57 @@ class IncompatibleEntries extends \XLite\View\Upgrade\Step\Prepare\APrepare
     }
 
     /**
-     * Return list of inclompatible modules
+     * Return list of incompatible modules
+     * 
+     * @param boolean $private is return private modules
      *
      * @return array
      */
-    protected function getIncompatibleEntries()
+    protected function getIncompatibleEntries($private = true)
     {
         if (!isset($this->incompatibleEntries)) {
             $this->incompatibleEntries = array();
 
             foreach (\XLite\Upgrade\Cell::getInstance()->getIncompatibleModules() as $module) {
-                if ($this->isModuleToDisable($module) || $this->isModuleCustom($module)) {
+                if ($this->isModuleToDisable($module) || $this->isModuleCustom($module) || ($private && $this->isModulePrivate($module))) {
                     $this->incompatibleEntries[] = $module;
                 }
             }
         }
 
         return $this->incompatibleEntries;
+    }
+    
+    /**
+     * Check for custom module
+     *
+     * @param \XLite\Model\Module $module Module to check
+     *
+     * @return boolean
+     */
+    protected function getModuleAuthorEmail($module)
+    {
+        return $module->getAuthorEmail();
+    }
+
+    /**
+     * Return incompatible status message
+     * 
+     * @return string
+     */
+    protected function getIncompatibleStatusMessage()
+    {
+        return static::t('The module is incompatible with the new core version going to be installed');
+    }
+
+    /**
+     * Return extended warranty message
+     * 
+     * @return string
+     */
+    protected function getExtendedWarrantyMessage()
+    {
+        return static::t('All the necessary adaptation will be done by the developer.');
     }
 
     /**
@@ -116,7 +150,7 @@ class IncompatibleEntries extends \XLite\View\Upgrade\Step\Prepare\APrepare
      */
     protected function getIncompatibleEntriesCount()
     {
-        return count($this->getIncompatibleEntries());
+        return count($this->getIncompatibleEntries(false));
     }
 
     /**
@@ -173,6 +207,46 @@ class IncompatibleEntries extends \XLite\View\Upgrade\Step\Prepare\APrepare
     protected function isModuleCustom(\XLite\Model\Module $module)
     {
         return $module->isCustom();
+    }
+
+    /**
+     * Check for private module
+     *
+     * @param \XLite\Model\Module $module Module to check
+     *
+     * @return boolean
+     */
+    protected function isModulePrivate(\XLite\Model\Module $module)
+    {
+        return $module->isPrivate();
+    }
+
+    /**
+     * Check module for extended warranty
+     *
+     * @param \XLite\Model\Module $module Module to check
+     *
+     * @return boolean
+     */
+    protected function isModuleExtendedWarranty(\XLite\Model\Module $module)
+    {
+        return $module->isExtendedWarranty();
+    }
+
+    /**
+     * Check if we upgrade core major version
+     *
+     * @return boolean
+     */
+    public function isShowCheckbox()
+    {
+        $cell = \XLite\Upgrade\Cell::getInstance();
+        $version = $cell->getCoreMajorVersion();
+        $version .= '.' . (explode('.', $cell->getCoreMinorVersion())[0] ?: '0');
+
+        $currentVersion = \XLite::getInstance()->getMajorVersion() . '.' . \XLite::getInstance()->getMinorOnlyVersion();
+
+        return version_compare($version, $currentVersion, '>');
     }
 
     /**

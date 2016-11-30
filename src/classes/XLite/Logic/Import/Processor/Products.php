@@ -109,6 +109,7 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
             'inventoryTrackingEnabled'  => array(),
             'stockLevel'                => array(),
             'lowLimitEnabled'           => array(),
+            'lowLimitEnabledCustomer'   => array(),
             'lowLimitLevel'             => array(),
             'useSeparateBox'            => array(),
             'boxWidth'                  => array(),
@@ -150,6 +151,7 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
                 static::COLUMN_IS_MULTIROW     => true,
                 static::COLUMN_HEADER_DETECTOR => true,
                 static::COLUMN_IS_TAGS_ALLOWED => true,
+                static::COLUMN_IS_IMPORT_EMPTY => true,
             ),
             'cleanURL'                  => array(
                 static::COLUMN_LENGTH          => 255,
@@ -515,6 +517,21 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
      * @return void
      */
     protected function verifyLowLimitEnabled($value, array $column)
+    {
+        if (!$this->verifyValueAsEmpty($value) && !$this->verifyValueAsBoolean($value)) {
+            $this->addWarning('PRODUCT-LOW-LIMIT-NOTIF-FMT', array('column' => $column, 'value' => $value));
+        }
+    }
+
+    /**
+     * Verify 'low limit enabled customer' value
+     *
+     * @param mixed $value  Value
+     * @param array $column Column info
+     *
+     * @return void
+     */
+    protected function verifyLowLimitEnabledCustomer($value, array $column)
     {
         if (!$this->verifyValueAsEmpty($value) && !$this->verifyValueAsBoolean($value)) {
             $this->addWarning('PRODUCT-LOW-LIMIT-NOTIF-FMT', array('column' => $column, 'value' => $value));
@@ -1136,6 +1153,20 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
     }
 
     /**
+     * Import 'low limit enabled customer' value
+     *
+     * @param \XLite\Model\Product $model  Product
+     * @param mixed                $value  Value
+     * @param array                $column Column info
+     *
+     * @return void
+     */
+    protected function importLowLimitEnabledCustomerColumn(\XLite\Model\Product $model, $value, array $column)
+    {
+        $model->setLowLimitEnabledCustomer($this->normalizeValueAsBoolean($value));
+    }
+
+    /**
      * Import 'low limit level' value
      *
      * @param \XLite\Model\Product $model  Product
@@ -1161,52 +1192,63 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
     protected function importImagesColumn(\XLite\Model\Product $model, array $value, array $column)
     {
         if (!$this->verifyValueAsEmpty($value) && !$this->verifyValueAsNull($value)) {
+
+            $pos = 10;
+
+            $toDelete = $model->getImages()->toArray();
+
             foreach ($value as $index => $path) {
                 $file = $this->verifyValueAsLocalURL($path) ? $this->getLocalPathFromURL($path) : $path;
-                if ($this->verifyValueAsFile($file)) {
-                    $image = null;
 
+                /* @var \XLite\Model\Image\Product\Image $image */
+                $image = \XLite\Core\Database::getRepo('XLite\Model\Image\Product\Image')->insert(null, false);
+
+                $success = $this->verifyValueAsURL($file)
+                    ? $image->loadFromURL($path, true)
+                    : $image->loadFromLocalFile(LC_DIR_ROOT . $file);
+
+                if ($success) {
                     if ($model->getImages()) {
-                        $filtered = $model->getImages()->filter($this->getImageFilter($file));
-                        $image = ! $filtered->isEmpty() ? $filtered->first() : null;
-                        $readable = \Includes\Utils\FileManager::isReadable(LC_DIR_ROOT . $file);
-                    }
+                        $filtered = $model->getImages()->filter($this->getImageFilter($image));
 
-                    if (!$image || !$readable) {
-                        $image = new \XLite\Model\Image\Product\Image();
-
-                        if ($this->verifyValueAsURL($file)) {
-                            $success = $image->loadFromURL($path, true);
-
-                        } else {
-                            $success = $image->loadFromLocalFile(LC_DIR_ROOT . $file);
-                        }
-
-                        if (!$success) {
-                            if ($image->getLoadError() === 'unwriteable') {
-                                $this->addError('PRODUCT-IMG-LOAD-FAILED', array('column' => $column, 'value' => $path));
-                            } elseif ($image->getLoadError()) {
-                                $this->addWarning('PRODUCT-IMG-URL-LOAD-FAILED', array('column' => $column, 'value' => $path));
+                        if (!$filtered->isEmpty()) {
+                            $existingImage = $filtered->first();
+                            $existingImage->setOrderby($pos++);
+                            if (($key = array_search($existingImage, $toDelete, true)) !== false) {
+                                unset($toDelete[$key]);
                             }
-
-                        } else {
-                            $image->setNeedProcess(1);
-                            $image->setProduct($model);
-                            $model->getImages()->add($image);
-                            \XLite\Core\Database::getEM()->persist($image);
+                            \XLite\Core\Database::getEM()->remove($image);
+                            $image = null;
                         }
                     }
-                } elseif(!$this->verifyValueAsFile($file) && $this->verifyValueAsURL($file)) {
-                    $this->addWarning('PRODUCT-IMG-URL-LOAD-FAILED', array('column' => $column, 'value' => $path));
+
+                    if ($image) {
+                        $image->setNeedProcess(1);
+                        $image->setProduct($model);
+                        $image->setOrderby($pos++);
+                        $model->getImages()->add($image);
+                    }
                 } else {
-                    $this->addWarning('PRODUCT-IMG-NOT-VERIFIED', array('column' => $column, 'value' => $path));
+                    \XLite\Core\Database::getEM()->remove($image);
+
+                    if ($image->getLoadError() === 'unwriteable') {
+                        $this->addError('PRODUCT-IMG-LOAD-FAILED', array('column' => $column, 'value' => $path));
+                    } elseif (!$this->verifyValueAsFile($file) && $this->verifyValueAsURL($file)) {
+                        $this->addWarning('PRODUCT-IMG-URL-LOAD-FAILED', array('column' => $column, 'value' => $path));
+                    } else {
+                        $this->addWarning('PRODUCT-IMG-NOT-VERIFIED', array('column' => $column, 'value' => $path));
+                    }
                 }
             }
         }
 
-        if ($value || $this->verifyValueAsNull($value)) {
-            $remove = $model->getImages()->filter($this->getImageRejectFilter($value));
-            foreach ($remove as $image) {
+        if ($this->verifyValueAsNull($value)) {
+            foreach ($model->getImages() as $image) {
+                $model->getImages()->removeElement($image);
+                \XLite\Core\Database::getEM()->remove($image);
+            }
+        } elseif ($value && !empty($toDelete)) {
+            foreach ($toDelete as $image) {
                 $model->getImages()->removeElement($image);
                 \XLite\Core\Database::getEM()->remove($image);
             }

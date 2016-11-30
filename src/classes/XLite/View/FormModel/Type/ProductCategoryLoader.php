@@ -11,17 +11,14 @@ namespace XLite\View\FormModel\Type;
 use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
 use Symfony\Component\Form\ChoiceList\ChoiceListInterface;
 use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
+use XLite\Core\Cache\ExecuteCachedTrait;
 
 /**
  * Loader for {@link ProductCategoryType}
  */
 class ProductCategoryLoader implements ChoiceLoaderInterface
 {
-    /**
-     * @var array
-     */
-    protected $selected = [];
-    protected $labels   = [];
+    use ExecuteCachedTrait;
 
     /**
      * @param null $value
@@ -30,7 +27,7 @@ class ProductCategoryLoader implements ChoiceLoaderInterface
      */
     public function loadChoiceList($value = null)
     {
-        return new ArrayChoiceList(array_flip($this->selected));
+        return new ArrayChoiceList(array_keys($this->getCategories()));
     }
 
     /**
@@ -52,33 +49,7 @@ class ProductCategoryLoader implements ChoiceLoaderInterface
      */
     public function loadValuesForChoices(array $choices, $value = null)
     {
-        /** @var \XLite\Model\Repo\Category $repo */
-        $repo = \XLite\Core\Database::getRepo('XLite\Model\Category');
-
-        /**
-         * Load labels for selected choices {@see getValueLabels}
-         */
-        $labels = [];
-        foreach ($repo->findByIds($choices) as $category) {
-            $name = [];
-            foreach ($repo->getCategoryPath($category->getId()) as $cateogryInPath) {
-                $name[] = $cateogryInPath->getName();
-            }
-
-            $labels[$category->getId()] = implode('/', $name);
-        }
-        $this->labels = $labels;
-
-        /**
-         * Prepare choices list to be compatible with selected check
-         */
-        $selected = [];
-        foreach ($choices as $choice) {
-            $selected[$choice] = (string) $choice;
-        }
-        $this->selected = $selected;
-
-        return $selected;
+        return array_map('strval', $choices);
     }
 
     /**
@@ -88,6 +59,35 @@ class ProductCategoryLoader implements ChoiceLoaderInterface
      */
     public function getValueLabel($value)
     {
-        return (string) (isset($this->labels[$value]) ? $this->labels[$value] : $value);
+        $categories = $this->getCategories();
+
+        return (string) (isset($categories[$value]) ? $categories[$value] : $value);
+    }
+
+    /**
+     * @return array
+     */
+    protected function getCategories()
+    {
+        $cacheParameters = [
+            'allCategoriesDTOs',
+            'fullName',
+            \XLite\Core\Session::getInstance()->getLanguage()
+                ? \XLite\Core\Session::getInstance()->getLanguage()->getCode()
+                : '',
+            \XLite\Core\Database::getRepo('XLite\Model\Category')->getVersion(),
+        ];
+
+        return \XLite\Core\Cache\ExecuteCached::executeCached(function () {
+            $repo = \XLite\Core\Database::getRepo('XLite\Model\Category');
+
+            $categories = $repo->getAllCategoriesAsDTO();
+            $result     = [];
+            foreach ($categories as $category) {
+                $result[$category['id']] = $category['fullName'];
+            }
+
+            return $result;
+        }, $cacheParameters);
     }
 }

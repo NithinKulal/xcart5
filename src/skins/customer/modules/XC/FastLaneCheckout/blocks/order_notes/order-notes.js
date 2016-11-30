@@ -6,55 +6,36 @@
  * Copyright (c) 2001-present Qualiteam software Ltd. All rights reserved.
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
-Checkout.define('Checkout.OrderNotes', [], function() {
+define(
+  'checkout_fastlane/blocks/order_notes',
+ ['vue/vue',
+  'checkout_fastlane/sections/shipping',
+  'checkout_fastlane/sections/payment'],
+  function(Vue, ShippingSection, PaymentSection) {
 
-  Checkout.OrderNotes = Vue.extend({
+  var OrderNotes = Vue.extend({
     name: 'order-notes',
     replace: false,
 
-    data: function() {
-      return {
-        notes: null
-      };
-    },
-
-    watch: {
-      notes: function (value, oldValue) {
-        this.triggerUpdate({
-          silent: oldValue === null
-        });
-      },
-      isValid: function() {
-        return true;
-      }
-    },
-
     vuex: {
+      getters: {
+        notes: function(state) {
+          return state.order.notes;
+        },
+      },
       actions: {
-        updateNotes: function(state, value) {
-          state.dispatch('UPDATE_NOTES', value);
+        updateNotes: function(state, event) {
+          state.dispatch('UPDATE_NOTES', event.target.value);
+          this.$nextTick(function() {
+            $('order-notes textarea').trigger('change');
+          });
         },
       }
     },
-
-    methods: {
-      triggerUpdate: function(options) {
-        options = options || {};
-        var eventArgs = _.extend({
-          sender: this,
-          isValid: this.isValid,
-          fields: this.toDataObject()
-        }, options);
-
-        this.$dispatch('update', eventArgs);
-        this.updateNotes(this.notes);
-      },
-      toDataObject: function() {
-        return {
-          notes: this.notes
-        };
-      },
-    }
   });
 
+  Vue.registerComponent(ShippingSection, OrderNotes);
+  Vue.registerComponent(PaymentSection, OrderNotes);
+
+  return OrderNotes;
 });

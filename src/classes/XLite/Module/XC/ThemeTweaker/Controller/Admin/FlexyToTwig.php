@@ -27,7 +27,6 @@ class FlexyToTwig extends \XLite\Controller\Admin\AAdmin
         return $list;
     }
 
-
     /**
      * Return the current page title (for the content area)
      *
@@ -68,7 +67,7 @@ class FlexyToTwig extends \XLite\Controller\Admin\AAdmin
             }
             \XLite\Core\TopMessage::addError(
                 'Some flexy-templates cannot be removed. Please correct file permissions or remove them manually',
-                array('list' => implode('<br />', $result))
+                ['list' => implode('<br />', $result)]
             );
         }
 
@@ -92,18 +91,18 @@ class FlexyToTwig extends \XLite\Controller\Admin\AAdmin
             );
         }
 
-        $data = array(
+        $data = [
             'flexyTemplate' => \XLite\Core\Request::getInstance()->flexyTemplate,
             'content'       => $content,
-        );
+        ];
 
         header('Content-type: application/json');
         $data = json_encode($data);
         header('Content-Length: ' . strlen($data));
 
-        echo ($data);
+        echo $data;
 
-        exit (0);
+        exit;
     }
 
     /**
@@ -126,8 +125,8 @@ class FlexyToTwig extends \XLite\Controller\Admin\AAdmin
         $result = json_encode($result);
         header('Content-Length: ' . strlen($result));
 
-        echo ($result);
+        echo $result;
 
-        exit (0);
+        exit;
     }
 }

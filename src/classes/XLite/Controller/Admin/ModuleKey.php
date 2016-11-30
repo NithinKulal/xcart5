@@ -199,6 +199,7 @@ class ModuleKey extends \XLite\Controller\Admin\AAdmin
                             $repo->update($entity);
 
                         } else {
+                            unset($info['key']);
                             $entity = $repo->insert($info + array('keyValue' => $key));
                         }
 

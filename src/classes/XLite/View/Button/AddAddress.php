@@ -18,6 +18,7 @@ class AddAddress extends \XLite\View\Button\APopupButton
      * Profile identificator parameter
      */
     const PARAM_PROFILE_ID = 'profileId';
+    const PARAM_WIDGET_TITLE = 'widgetTitle';
 
     /**
      * getJSFiles
@@ -50,6 +51,7 @@ class AddAddress extends \XLite\View\Button\APopupButton
 
         $this->widgetParams += array(
             self::PARAM_PROFILE_ID => new \XLite\Model\WidgetParam\TypeInt('Profile ID', 0),
+            self::PARAM_WIDGET_TITLE => new \XLite\Model\WidgetParam\TypeString('Widget title', static::t('Add address')),
         );
     }
 
@@ -64,6 +66,7 @@ class AddAddress extends \XLite\View\Button\APopupButton
             'target'       => 'address_book',
             'profile_id'   => $this->getParam(self::PARAM_PROFILE_ID),
             'widget'       => '\XLite\View\Address\Modify',
+            'widget_title' => $this->getParam(self::PARAM_WIDGET_TITLE)
         );
     }
 
@@ -74,7 +77,6 @@ class AddAddress extends \XLite\View\Button\APopupButton
      */
     protected function getClass()
     {
-        return parent::getClass() . ' add-address';
+        return 'btn regular-button popup-button add-address';
     }
-
 }

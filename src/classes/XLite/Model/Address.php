@@ -385,12 +385,16 @@ class Address extends \XLite\Model\Base\PersonalAddress
     {
         $fields = $this->getAddressFields();
 
-        $self = $this;
+        $result = array();
 
-        $result = array_reduce($fields->toArray(), function ($acc, $item) use ($self) {
-            $acc[$item->getAddressField()->getServiceName()] = $item->getValue();
-            return $acc;
-        }, array());
+        if ($fields) {
+            $result = array_reduce($fields->toArray(), function ($acc, $item) {
+                if ($item->getAddressField()) {                
+                    $acc[$item->getAddressField()->getServiceName()] = $item->getValue();
+                    return $acc;
+                }
+            }, array());
+        }
 
         return $result;
     }

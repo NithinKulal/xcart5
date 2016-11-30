@@ -63,17 +63,6 @@
   font-weight: bold;
 }
 
-
-@media print{
-  html, body{
-    height: 100%;
-  }
-  body > div{
-    position: relative;
-    height: 100%;
-  }
-}
-
 .packing-slip-box
 {
   width: 650px;

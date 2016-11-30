@@ -1,0 +1,11 @@
+{##
+ # Layout type selector
+ #}
+
+{% for group, types in this.getLayoutGroups() %}
+    {% if this.getLayoutTypes(group)|length > 0 %}
+        <div class="layout-type-selector-group">
+            {{ widget('XLite\\View\\FormField\\Select\\LayoutType', availableTypes=this.getLayoutTypes(group), label=this.getLayoutTypeLabel(group), value=this.getLayoutType(group), layoutGroup=group) }} 
+        </div>
+    {% endif %}
+{% endfor %}

@@ -1,0 +1,13 @@
+{##
+ # Home page clean urls settings template
+ #}
+
+<h3>{{ t(this.getLabel()) }}</h3>
+
+<div class="homepage">
+  {% for name, element in this.getHomepageElementsList() %}
+    {{ widget('XLite\\View\\FormField\\Label', label=element.label, fieldName=name, value=element.value) }}
+  {% endfor %}
+
+  <a class="edit-link" href="{{ this.getFrontPageEditURL() }}">{{ t('[Edit]') }}</a>
+</div>

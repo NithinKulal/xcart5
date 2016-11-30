@@ -20,6 +20,13 @@ XLite\Model\Config:
     translations:
       - code: en
         option_name: 'Favicon'
+  - name: appleIcon
+    category: 'CDev\SimpleCMS'
+    type: 'XLite\Module\CDev\SimpleCMS\View\FormField\Input\AppleIcon'
+    orderby: 250
+    translations:
+      - code: en
+        option_name: 'Apple icon'
   - name: page_changefreq
     category: CDev\XMLSitemap
     type: 'XLite\Module\CDev\SimpleCMS\View\FormField\Select\ChangeFrequency'
@@ -66,20 +73,28 @@ XLite\Module\CDev\SimpleCMS\Model\Page:
         name: 'Условия использования'
         teaser: 'Условия использования'
         body: '<p>Чтобы разместить на этой странице Ваш собственный текст "Условия использования", перейдите в раздел "Содержание -> Страницы", откройте для редактирования страницу "Условия использования" и добавьте требуемый текст в поле "Содержание".</p>'
+      - code: zh
+        name: '条款约定'
+        teaser: '条款约定'
+        body: '<p>内容描述</p><p>要替代该条款内的内容，请到&ldquo;内容-网页&ldquo;中进行设置，打开页面编辑并在这里编辑内容栏目。</p>'
   - cleanURLs: [{ cleanURL: shipping.html }]
     translations:
       - code: en
         name: 'Shipping'
         teaser: 'Shipping teaser'
-        body: <p>This page is intended for your store's shipping policy.</p><p>Here you can provide general information about the available shipping options and rates, shipping turn-around times, size and weight limits for shipping, shipping restrictions, order tracking, and so on.</p><p></p><p>To replace this text with the actual delivery information, go to the "Content -> Pages" section, open the "Shipping" page and edit the "Content" field.</p>
+        body: "<p>This page is intended for your store's shipping policy.</p><p>Here you can provide general information about the available shipping options and rates, shipping turn-around times, size and weight limits for shipping, shipping restrictions, order tracking, and so on.</p><p></p><p>To replace this text with the actual delivery information, go to the \"Content -> Pages\" section, open the \"Shipping\" page and edit the \"Content\" field.</p>"
       - code: ru
         name: 'Доставка'
         teaser: 'Доставка'
         body: '<p>Чтобы разместить на этой странице Ваш собственный текст "Доставка", перейдите в раздел "Содержание -> Страницы", откройте для редактирования страницу "Доставка" и добавьте требуемый текст в поле "Содержание".</p>'
+      - code: zh
+        name: '关于运输'
+        teaser: '关于运输'
+        body: '<p>关于运输的内容</p><p>要设置该页面的运输项目内容，请到&rdquo;内容-页面&rdquo;中打开关于运输页面进行修改。</p>'
 
 XLite\Module\CDev\SimpleCMS\Model\Menu:
-  - { link: '{home}', type: P, position: 100, translations: [{ code: en, name: Home }, { code: ru, name: Главная }]}
-  - { link: '{my account}', visibleFor: L, type: P, position: 600, translations: [{ code: en, name: "My Account" }, { code: ru, name: "Мой профиль" }], children: [{ enabled: 1, link: '?target=order_list', visibleFor: L, type: P, position: 100, translations: [{ code: en, name: My orders }, { code: ru, name: "Мои заказы" }]},{ enabled: 1, link: '?target=address_book', visibleFor: L, type: P, position: 200, translations: [{ code: en, name: My address book }, { code: ru, name: "Мои адреса" }]}]}
+  - { link: '{home}', type: P, position: 100, translations: [{ code: en, name: Home }, { code: ru, name: Главная }, { code: zh, name: '主页' }]}
+  - { link: '{my account}', visibleFor: L, type: P, position: 600, translations: [{ code: en, name: "My Account" }, { code: ru, name: "Мой профиль" }, { code: zh, name: "我的账户" }], children: [{ enabled: 1, link: '?target=order_list', visibleFor: L, type: P, position: 100, translations: [{ code: en, name: My orders }, { code: ru, name: "Мои заказы" }, { code: zh, name: "订单（复数）" }]},{ enabled: 1, link: '?target=address_book', visibleFor: L, type: P, position: 200, translations: [{ code: en, name: My address book }, { code: ru, name: "Мои адреса" }, { code: zh, name: "地址簿" }]}]}
 
 XLite\Model\LanguageLabel:
   - { name: "Contact us", translations: [{ code: en, label: "Contact us" }] }
@@ -103,3 +118,4 @@ XLite\Model\LanguageLabel:
   - { name: "Submenu", translations: [{ code: en, label: "Submenu" },{ code: ru, label: "Подменю" }] }
   - { name: "Content page title", translations: [{ code: en, label: "Content page title" },{ code: ru, label: "Заголовок страницы" }] }
   - { name: "Leave blank to use page name as Page Title.", translations: [{ code: en, label: "Leave blank to use page name as Page Title." },{ code: ru, label: "Оставьте поле незаполненным чтобы использовать имя страницы в качестве заголовка." }] }
+  - { name: 'The AppleIcon image could not be uploaded (Unallowed image type. Must be a .png image with the resolution of 192x192 px)', translations: [{ code: 'en', label: 'The AppleIcon image could not be uploaded (Unallowed image type. Must be a .png image with the resolution of 192x192 px)' }] }

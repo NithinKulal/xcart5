@@ -134,18 +134,20 @@ abstract class APdfPage extends \XLite\View\AView
     public function compile()
     {
         $layout = \XLite\Core\Layout::getInstance();
-        $currentSkin = $layout->getSkin();
-        $currentInterface = $layout->getInterface();
-        $layout->setPdfSkin();
 
-        $tempTranslation = \XLite\Core\Translation::getTmpMailTranslationCode();
+        $baseSkin = $layout->getSkin();
+        $baseInterface = $layout->getInterface();
+        $baseInnerInterface = $layout->getInnerInterface();
+        $baseTmpTranslation = \XLite\Core\Translation::getTmpTranslationCode();
+
+        $layout->setPdfSkin($this->getInterface());
         \XLite\Core\Translation::setTmpTranslationCode($this->getLanguageCode());
 
         $this->init();
         $text = $this->getContent();
 
         // restore old skin
-        switch ($currentInterface) {
+        switch ($baseInterface) {
             default:
             case \XLite::ADMIN_INTERFACE:
                 $layout->setAdminSkin();
@@ -160,7 +162,7 @@ abstract class APdfPage extends \XLite\View\AView
                 break;
 
             case \XLite::MAIL_INTERFACE:
-                $layout->setMailSkin();
+                $layout->setMailSkin($baseInnerInterface);
                 break;
 
             case \XLite::PDF_INTERFACE:
@@ -168,8 +170,8 @@ abstract class APdfPage extends \XLite\View\AView
                 break;
         }
 
-        $layout->setSkin($currentSkin);
-        \XLite\Core\Translation::setTmpTranslationCode($tempTranslation);
+        $layout->setSkin($baseSkin);
+        \XLite\Core\Translation::setTmpTranslationCode($baseTmpTranslation);
 
         return $text;
     }
@@ -235,15 +237,69 @@ abstract class APdfPage extends \XLite\View\AView
      */
     protected function buildHtml($body, $styles, $title)
     {
-        $root = LC_DIR_ROOT;
         $html =
 "<html>
     <head>
         <title>$title</title>
         <style type='text/css'>
-            body { font-family: OpenSans !important; }
+            @font-face {
+                font-family: 'DejaVu Sans';
+                src: url('https://fontlibrary.org/assets/fonts/dejavu-sans/f5ec8426554a3a67ebcdd39f9c3fee83/21546d802d508f3d358082d85bc0d9f1/DejaVuSansBold.ttf') format('truetype');
+                font-weight: bold;
+                font-style: normal;
+            }
+            @font-face {
+                font-family: 'DejaVu Sans';
+                src: url('https://fontlibrary.org/assets/fonts/dejavu-sans/f5ec8426554a3a67ebcdd39f9c3fee83/e5947ee873600dd1cae20e30cf80ee68/DejaVuSansBoldOblique.ttf') format('truetype');
+                font-weight: bold;
+                font-style: italic;
+            }
+            @font-face {
+                font-family: 'DejaVu Sans';
+                src: url('https://fontlibrary.org/assets/fonts/dejavu-sans/f5ec8426554a3a67ebcdd39f9c3fee83/49c0f03ec2fa354df7002bcb6331e106/DejaVuSansBook.ttf') format('truetype');
+                font-weight: normal;
+                font-style: normal;
+            }
+            @font-face {
+                font-family: 'DejaVu Sans';
+                src: url('https://fontlibrary.org/assets/fonts/dejavu-sans/f5ec8426554a3a67ebcdd39f9c3fee83/deed2dec8b2a429759183d4ce25ccd39/DejaVuSansCondensed.ttf') format('truetype');
+                font-weight: normal;
+                font-style: normal;
+            }
+            @font-face {
+                font-family: 'DejaVu Sans';
+                src: url('https://fontlibrary.org/assets/fonts/dejavu-sans/f5ec8426554a3a67ebcdd39f9c3fee83/f05d91a4bf97b24878103a3cdf8787d0/DejaVuSansCondensedBold.ttf') format('truetype');
+                font-weight: bold;
+                font-style: normal;
+            }
+            @font-face {
+                font-family: 'DejaVu Sans';
+                src: url('https://fontlibrary.org/assets/fonts/dejavu-sans/f5ec8426554a3a67ebcdd39f9c3fee83/d5e8cfd6145aec5c1c6059484c896b88/DejaVuSansCondensedBoldOblique.ttf') format('truetype');
+                font-weight: bold;
+                font-style: italic;
+            }
+            @font-face {
+                font-family: 'DejaVu Sans';
+                src: url('https://fontlibrary.org/assets/fonts/dejavu-sans/f5ec8426554a3a67ebcdd39f9c3fee83/01fef11654a41d40b5aa1d9564eeb16f/DejaVuSansCondensedOblique.ttf') format('truetype');
+                font-weight: normal;
+                font-style: italic;
+            }
+            @font-face {
+                font-family: 'DejaVu Sans';
+                src: url('https://fontlibrary.org/assets/fonts/dejavu-sans/f5ec8426554a3a67ebcdd39f9c3fee83/5213563f6868aea7a7b5dd9ab2581ec9/DejaVuSansExtraLight.ttf') format('truetype');
+                font-weight: normal;
+                font-style: normal;
+            }
+            @font-face {
+                font-family: 'DejaVu Sans';
+                src: url('https://fontlibrary.org/assets/fonts/dejavu-sans/f5ec8426554a3a67ebcdd39f9c3fee83/8723fc16d3649200d6179f391dd43f9f/DejaVuSansOblique.ttf') format('truetype');
+                font-weight: normal;
+                font-style: italic;
+            }
+            body { font-family: 'DejaVu Sans' !important; letter-spacing: -.5px;}
             $styles
         </style>
+        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"/>
     </head>
     <body>
         $body

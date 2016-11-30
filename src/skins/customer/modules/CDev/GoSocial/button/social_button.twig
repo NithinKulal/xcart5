@@ -1,0 +1,10 @@
+{##
+ # Common button
+ #}
+
+<div class="likely"
+     {% if this.getDataURL() %}data-url="{{ this.getDataURL() }}"{% endif %}
+     {% if this.getDataTitle() %}data-title="{{ this.getDataTitle() }}"{% endif %}
+>
+  <div{{ this.getButtonParamsCode()|raw }} class="{{ this.getButtonType() }}">{{ this.getButtonLabel() }}</div>
+</div>

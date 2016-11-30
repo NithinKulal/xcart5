@@ -27,7 +27,7 @@ class Images extends \XLite\Controller\Admin\AAdmin
      */
     public function getTitle()
     {
-        return static::t('Look & Feel');
+        return static::t('Default image settings');
     }
 
     /**
@@ -37,8 +37,24 @@ class Images extends \XLite\Controller\Admin\AAdmin
      */
     protected function doActionUpdate()
     {
+        \XLite\Core\Database::getRepo('XLite\Model\Config')->createOption([
+            'category' => 'Performance',
+            'name'     => 'use_dynamic_image_resizing',
+            'value'    => (boolean)\XLite\Core\Request::getInstance()->use_dynamic_image_resizing,
+        ]);
+
         $list = new \XLite\View\ItemsList\Model\ImagesSettings();
         $list->processQuick();
+    }
+
+    /**
+     * Return "Use dynamic image resizing" setting value
+     *
+     * @return string
+     */
+    public function getUseDynamicImageResizingValue()
+    {
+        return \XLite\Core\Config::getInstance()->Performance->use_dynamic_image_resizing;
     }
 
     // {{{ Image resize methods
@@ -145,7 +161,7 @@ class Images extends \XLite\Controller\Admin\AAdmin
      */
     protected function getImageResizeCancelFlagVarName()
     {
-        return \XLite\Logic\ImageResize\Generator::getResizeCancelFlagVarName();
+        return \XLite\Logic\ImageResize\Generator::getCancelFlagVarName();
     }
 
     // }}}

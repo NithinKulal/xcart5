@@ -278,13 +278,12 @@ class OrderList extends \XLite\Controller\Admin\AAdmin
         if (!$filter) {
             $cellName = $this->getSessionCellName();
             $searchParams = \XLite\Core\Session::getInstance()->$cellName;
-            if (
-                isset($searchParams[static::PARAM_SEARCH_FILTER_ID])
-                && 'recent' == $searchParams[static::PARAM_SEARCH_FILTER_ID]
+            if (isset($searchParams[static::PARAM_SEARCH_FILTER_ID])
+                && 'recent' === $searchParams[static::PARAM_SEARCH_FILTER_ID]
             ) {
                 $filter = new \XLite\Model\SearchFilter();
                 $filter->setId('recent');
-                $filter->setName(static::t('Recent orders'));
+                $filter->setName(static::t('Orders awaiting processing'));
             }
         }
 

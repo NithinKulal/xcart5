@@ -649,7 +649,28 @@ class Transaction extends \XLite\Model\AEntity
      */
     public function isRefundTransactionAllowed()
     {
-        return $this->isCaptured() && !$this->isRefundedNotMulti();
+        return $this->isCaptured() && !$this->isRefunded();
+    }
+
+    /**
+     * Returns true if REFUND PART transaction is allowed for this payment
+     *
+     * @return boolean
+     */
+    public function isRefundPartTransactionAllowed()
+    {
+        return $this->isCaptured() && !$this->isRefunded();
+    }
+
+    /**
+     * Returns true if REFUND MULTIPLE transaction is allowed for this payment
+     *
+     * @return boolean
+     */
+    public function isRefundMultiTransactionAllowed()
+    {
+        $currency = $this->getCurrency() ?: $this->getOrder()->getCurrency();
+        return $this->isCaptured() && $currency->roundValue($this->getChargeValueModifier()) > 0;
     }
 
     /**
@@ -800,6 +821,20 @@ class Transaction extends \XLite\Model\AEntity
         // TODO: Consider situations if cells with same names have different access levels
 
         return $value;
+    }
+
+    /**
+     * Get data cell object by name
+     *
+     * @param string $name Name of data cell
+     *
+     * @return mixed
+     */
+    public function getDetail($name)
+    {
+        $value = $this->getDataCell($name);
+
+        return $value ? $value->getValue() : null;
     }
 
     // }}}
@@ -1197,7 +1232,7 @@ class Transaction extends \XLite\Model\AEntity
     /**
      * Get value
      *
-     * @return decimal 
+     * @return float
      */
     public function getValue()
     {
@@ -1351,7 +1386,7 @@ class Transaction extends \XLite\Model\AEntity
     /**
      * Get currency
      *
-     * @return \XLite\Model\Currency 
+     * @return \XLite\Model\Currency
      */
     public function getCurrency()
     {

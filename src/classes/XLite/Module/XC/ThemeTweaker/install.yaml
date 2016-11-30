@@ -46,7 +46,7 @@ XLite\Model\LanguageLabel:
   - { name: 'Webmaster mode', translations: [{ code: en, label: 'Webmaster mode' }] }
   - { name: 'Template', translations: [{ code: en, label: 'Template' }] }
   - { name: 'Back to templates list', translations: [{ code: en, label: 'Back to templates list' }] }
-  - { name: 'Webmaster Mode allows you to change the storefront design in click-and-edit mode', translations: [{ code: en, label: 'Webmaster Mode allows you to change the storefront design in click-and-edit mode.<br /><br />If the design of your store''s customer area has been messed up by a template change, try restoring the original template in the Edited Templates section. More information about design changes in X-Cart is available in <a href="http://kb.x-cart.com/pages/viewpage.action?pageId=8224814">X-Cart''s Knowledge Base</a>.' }] }
+  - { name: 'Webmaster Mode allows you to change the storefront design in click-and-edit mode', translations: [{ code: en, label: 'Webmaster Mode allows you to change the storefront design in click-and-edit mode.<br /><br />If the design of your store''s customer area has been messed up by a template change, try restoring the original template in the Edited Templates section. More information about design changes in X-Cart is available in <a href="http://devs.x-cart.com/en/design_changes/basic_guide_to_theme_creation.html">X-Cart''s Knowledge Base</a>.' }] }
   - { name: 'Webmaster mode is enabled', translations: [{ code: en, label: 'Webmaster mode is enabled' }] }
   - { name: 'Webmaster mode is disabled', translations: [{ code: en, label: 'Webmaster mode is disabled' }] }
   - { name: 'The template has been updated', translations: [{ code: en, label: 'The template has been updated' }] }
@@ -59,6 +59,11 @@ XLite\Model\LanguageLabel:
   - { name: 'The directory {{dir}} does not exist or is not writable.', translations: [{ code: en, label: 'The directory {{dir}} does not exist or is not writable.' }] }
   - { name: 'New images', translations: [{ code: en, label: 'New images' }] }
   - { name: 'You are now in layout editing mode', translations: [{ code: en, label: '<b>Drag & drop blocks</b> to rearrange them.' }] }
+  - { name: 'You are now in preview mode', translations: [{ code: en, label: 'Click on the description to <b>edit</b>.' }] }
+  - { name: 'Exit product preview', translations: [{ code: en, label: 'Exit product preview' }] }
+  - { name: 'You have unsaved changes. Are you really sure to exit the preview?', translations: [{ code: en, label: 'You have unsaved changes. Are you really sure to exit the preview?' }] }
+  - { name: 'Inline editor is unavailable due to TinyMCE', translations: [{ code: en, label: '<i class="fa fa-exclamation-triangle inline-editor-message_icon"></i>Click on the description to <b>edit</b>. Your changes may be <span style="font-weight: bold; color: orange;">incompatible</span> with TinyMCE.' }] }
+  - { name: 'Changes may be incompatible with TinyMCE. Are you sure to proceed?', translations: [{ code: en, label: 'Changes may be incompatible with TinyMCE. Are you sure to proceed?' }] }
   - { name: 'Layout editor', translations: [{ code: en, label: 'Layout editor mode' }] }
   - { name: 'Layout editor is', translations: [{ code: en, label: 'Layout editor is' }] }
   - { name: 'disabled blocks', translations: [{ code: en, label: 'disabled blocks' }] }
@@ -92,3 +97,12 @@ XLite\Model\LanguageLabel:
   - { name: 'Failure to convert flexy-template. Check for syntax errors', translations: [{ code: en, label: 'Flexy template conversion failure. Check for syntax errors' }]}
   - { name: 'Back to Webmaster mode', translations: [{ code: en, label: 'Back to Webmaster mode' }]}
   - { name: 'Flexy-to-twig converter warning', translations: [{ code: en, label: 'Converted files may not always work correctly because not all the changes can be handled automatically by conversion. Be sure to check your converted files manually to ensure that all the required changes have been implemented properly. More info about Flexy and Twig key differences is available at <a href="http://xcart.github.io/flexy-to-twig/" target="_blank">http://xcart.github.io/flexy-to-twig</a>' }]}
+
+  - { name: 'Edit via Webmaster mode', translations: [{ code: en, label: 'Edit via Webmaster mode' }] }
+  - { name: 'Preview template', translations: [{ code: en, label: 'Preview template' }] }
+  - { name: 'No orders available. Please create at least one order.', translations: [{ code: en, label: 'No orders available. Please create at least one order.' }] }
+  - { name: 'Back to notification settings', translations: [{ code: en, label: 'Back to notification settings' }] }
+  - { name: 'Edit template based on', translations: [{ code: en, label: 'Edit template based on' }] }
+  - { name: 'The test email notification has been sent to X', translations: [{ code: en, label: 'The test email notification has been sent to {{email}}' }] }
+  - { name: 'Failure sending test email to X', translations: [{ code: en, label: 'Failure sending test email to {{email}}' }] }
+  - { name: 'Enter Order number', translations: [{ code: en, label: 'Enter Order number' }] }

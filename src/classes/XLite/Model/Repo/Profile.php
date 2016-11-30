@@ -294,6 +294,23 @@ class Profile extends \XLite\Model\Repo\ARepo
     }
 
     /**
+     * prepareCndAnonymous
+     *
+     * @param \Doctrine\ORM\QueryBuilder $queryBuilder QueryBuilder instance
+     * @param mixed                      $value        Searchable value
+     *
+     * @return void
+     */
+    protected function prepareCndAnonymous(\Doctrine\ORM\QueryBuilder $queryBuilder, $value)
+    {
+        if ($value) {
+            $queryBuilder->bindAnonymous();
+        } else {
+            $queryBuilder->bindRegistered();
+        }
+    }
+
+    /**
      * prepareCndOrderId
      *
      * @param \Doctrine\ORM\QueryBuilder $queryBuilder QueryBuilder instance
@@ -1099,7 +1116,7 @@ class Profile extends \XLite\Model\Repo\ARepo
      * @param string  $term  Term
      * @param integer $limit Limit OPTIONAL
      *
-     * @return array
+     * @return \XLite\Model\QueryBuilder\AQueryBuilder
      */
     protected function defineFindProfilesByTerm($term, $limit = null)
     {
@@ -1118,5 +1135,40 @@ class Profile extends \XLite\Model\Repo\ARepo
         return $queryBuilder;
     }
 
+    // }}}
+
+    // {{{
+
+    /**
+     * @param \XLite\Model\Profile $profile
+     * @param null|string          $email
+     */
+    public function updateOrderProfileEmailByOrigProfile($profile, $email = null)
+    {
+        $email = $email ?: $profile->getLogin();
+
+        $profiles = $this->createPureQueryBuilder('p')
+            ->select('p.profile_id')
+            ->linkInner('p.order', 'o')
+            ->andWhere('o.orig_profile = :profile')
+            ->setParameter('profile', $profile)
+            ->andWhere('p.login = :oldEmail')
+            ->setParameter('oldEmail', $profile->getLogin())
+            ->getQuery()->getArrayResult();
+
+        $ids = array_map(function ($item) {
+            return $item['profile_id'];
+        }, $profiles);
+
+        if (!empty($ids)) {
+            $expr = new \Doctrine\ORM\Query\Expr();
+            $this->createPureQueryBuilder('p')
+                ->update($this->_entityName, 'p')
+                ->set('p.login', ':email')
+                ->setParameter('email', $email)
+                ->where($expr->in('p.profile_id', $ids))
+                ->execute();
+        }
+    }
     // }}}
 }

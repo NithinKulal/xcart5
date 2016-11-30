@@ -1,0 +1,4 @@
+Version 5.3.3.0
+
+Fixes
+2016-09-16 - [Bug] The "Refresh status" button on an order did not take into account the setting order_prefix of the payment method Pay With Amazon. #BUG-3866 (Sergey Elmanov) #PayWithAmazon

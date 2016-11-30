@@ -8,6 +8,11 @@
 
 namespace XLite\Module\CDev\ContactUs\Controller\Customer;
 
+use XLite\Core\Config;
+use XLite\Core\Mailer;
+use XLite\Core\Session;
+use XLite\Core\TopMessage;
+
 /**
  * Contact us controller
  */
@@ -18,12 +23,12 @@ class ContactUs extends \XLite\Controller\Customer\ACustomer
      *
      * @var   array
      */
-    protected $requiredFields = array(
-        'name'    => 'Your name',
-        'email'   => 'Your e-mail',
+    protected $requiredFields = [
+        'name' => 'Your name',
+        'email' => 'Your e-mail',
         'subject' => 'Subject',
         'message' => 'Message'
-    );
+    ];
 
     /**
      * Check if current page is accessible
@@ -32,8 +37,7 @@ class ContactUs extends \XLite\Controller\Customer\ACustomer
      */
     public function checkAccess()
     {
-        return parent::checkAccess()
-            && \XLite\Core\Config::getInstance()->CDev->ContactUs->enable_form;
+        return parent::checkAccess() && Config::getInstance()->CDev->ContactUs->enable_form;
     }
 
     /**
@@ -43,7 +47,7 @@ class ContactUs extends \XLite\Controller\Customer\ACustomer
      */
     public function isSecure()
     {
-        return \XLite\Core\Config::getInstance()->Security->customer_security;
+        return Config::getInstance()->Security->customer_security;
     }
 
     /**
@@ -65,14 +69,11 @@ class ContactUs extends \XLite\Controller\Customer\ACustomer
      */
     public function getValue($field)
     {
-        $data = \XLite\Core\Session::getInstance()->contact_us;
+        $data = Session::getInstance()->contact_us;
 
         $value = $data && isset($data[$field]) ? $data[$field] : '';
 
-        if (
-            !$value
-            && in_array($field, array('name', 'email'))
-        ) {
+        if (!$value && in_array($field, ['name', 'email'])) {
             $auth = \XLite\Core\Auth::getInstance();
             if ($auth->isLogged()) {
                 if ('email' == $field) {
@@ -105,7 +106,6 @@ class ContactUs extends \XLite\Controller\Customer\ACustomer
     protected function doActionSend()
     {
         $data = \XLite\Core\Request::getInstance()->getData();
-        $config = \XLite\Core\Config::getInstance()->CDev->ContactUs;
         $isValid = true;
 
         foreach ($this->requiredFields as $key => $name) {
@@ -114,63 +114,46 @@ class ContactUs extends \XLite\Controller\Customer\ACustomer
                 || empty($data[$key])
             ) {
                 $isValid = false;
-                \XLite\Core\TopMessage::addError(
-                    static::t('The X field is empty', array('name' => $name))
+                TopMessage::addError(
+                    static::t('The X field is empty', ['name' => $name])
                 );
             }
         }
 
-        if (
-            $isValid
-            && false === filter_var($data['email'], FILTER_VALIDATE_EMAIL)
-        ) {
+        if ($isValid && false === filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
             $isValid = false;
-            \XLite\Core\TopMessage::addError(
-                \XLite\Core\Translation::lbl(
-                    'The value of the X field has an incorrect format',
-                    array('name' => $this->requiredFields['email'])
-                )
-            );
+            TopMessage::addError('The value of the X field has an incorrect format', ['name' => $this->requiredFields['email']]);
         }
 
-        if (
-            $isValid
-            && $config->recaptcha_private_key
-            && $config->recaptcha_public_key
-        ) {
-            require_once LC_DIR_MODULES . '/CDev/ContactUs/recaptcha/recaptchalib.php';
+        $reCaptcha = \XLite\Module\CDev\ContactUs\Core\ReCaptcha::getInstance();
 
-            $resp = recaptcha_check_answer(
-                $config->recaptcha_private_key,
-                $_SERVER['REMOTE_ADDR'],
-                $data['recaptcha_challenge_field'],
-                $data['recaptcha_response_field']
-            );
+        if ($isValid && $reCaptcha->isConfigured()) {
+            $response = $reCaptcha->verify(isset($data['g-recaptcha-response']) ? $data['g-recaptcha-response'] : '');
 
-            $isValid = $resp->is_valid;
+            $isValid = $response && $response->isSuccess();
 
             if (!$isValid) {
-                \XLite\Core\TopMessage::addError('Please enter the correct captcha');
+                TopMessage::addError('Please enter the correct captcha');
             }
         }
 
         if ($isValid) {
-            $errorMessage = \XLite\Core\Mailer::sendContactUsMessage(
+            $errorMessage = Mailer::sendContactUsMessage(
                 $data,
-                \XLite\Core\Config::getInstance()->CDev->ContactUs->email
-                    ?: \XLite\Core\Config::getInstance()->Company->support_department
+                Config::getInstance()->CDev->ContactUs->email
+                    ?: Config::getInstance()->Company->support_department
             );
 
             if ($errorMessage) {
-                \XLite\Core\TopMessage::addError($errorMessage);
+                TopMessage::addError($errorMessage);
 
             } else {
                 unset($data['message']);
                 unset($data['subject']);
-                \XLite\Core\TopMessage::addInfo('Message has been sent');
+                TopMessage::addInfo('Message has been sent');
             }
         }
 
-        \XLite\Core\Session::getInstance()->contact_us = $data;
+        Session::getInstance()->contact_us = $data;
     }
 }

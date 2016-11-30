@@ -10082,29 +10082,13 @@ class Less_SourceMap_Generator extends Less_Configurable {
 
 		// catch the output
 		$this->root->genCSS($output);
-
-
-		$sourceMapUrl				= $this->getOption('sourceMapURL');
-		$sourceMapFilename			= $this->getOption('sourceMapFilename');
+		
 		$sourceMapContent			= $this->generateJson();
 		$sourceMapWriteTo			= $this->getOption('sourceMapWriteTo');
-
-		if( !$sourceMapUrl && $sourceMapFilename ){
-			$sourceMapUrl = $this->normalizeFilename($sourceMapFilename);
-		}
 
 		// write map to a file
 		if( $sourceMapWriteTo ){
 			$this->saveMap($sourceMapWriteTo, $sourceMapContent);
-		}
-
-		// inline the map
-		if( !$sourceMapUrl ){
-			$sourceMapUrl = sprintf('data:application/json,%s', Less_Functions::encodeURIComponent($sourceMapContent));
-		}
-
-		if( $sourceMapUrl ){
-			$output->add( sprintf('/*# sourceMappingURL=%s */', $sourceMapUrl) );
 		}
 
 		return $output->toString();

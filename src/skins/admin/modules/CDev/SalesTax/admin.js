@@ -67,5 +67,29 @@ jQuery().ready(
         }
       }
     );
+
+    jQuery('#common-settings-link span').click(
+      function() {
+        var box = jQuery('#common-settings');
+        var doExpand = jQuery(box).hasClass('hidden');
+        var boxAction;
+        if (doExpand) {
+          boxAction = 'expand';
+          jQuery(box).removeClass('hidden');
+          jQuery('#common-settings-link span.collapsed-common-settings').addClass('hidden');
+          jQuery('#common-settings-link span.expanded-common-settings').removeClass('hidden');
+
+        } else {
+          boxAction = 'collapse';
+          jQuery(box).addClass('hidden');
+          jQuery('#common-settings-link span.expanded-common-settings').addClass('hidden');
+          jQuery('#common-settings-link span.collapsed-common-settings').removeClass('hidden');
+        }
+
+        core.post(
+          URLHandler.buildURL({target: 'sales_tax', action: boxAction})
+        )
+      }
+    );
   }
 );

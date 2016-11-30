@@ -8,45 +8,87 @@
 
 namespace XLite\Module\XC\WebmasterKit\DebugBar\DataCollector;
 
+use DebugBar\DataCollector\AssetProvider;
+use DebugBar\DataCollector\DataCollector;
+use DebugBar\DataCollector\Renderable;
+use XLite\Module\XC\WebmasterKit\Core\DataCollector\QueriesCollector;
+use XLite\Module\XC\WebmasterKit\Logic\DebugBarSettingsManager;
+
 /**
  * Doctrine queries data collector
  */
-class DoctrineCollectorSimple extends \DebugBar\Bridge\DoctrineCollector
+class DoctrineCollectorSimple extends DataCollector implements Renderable, AssetProvider
 {
     const QUERY_LIMIT_TIMES     = 2;
     const QUERY_LIMIT_DURATION  = 0.05;
 
     protected $queriesBacktraces = [];
+    /**
+     * @var QueriesCollector
+     */
+    private $queriesCollector;
 
-    public function __construct($debugStackOrEntityManager)
+    public function __construct(QueriesCollector $queriesCollector)
     {
-        parent::__construct($debugStackOrEntityManager);
-
-        $this->debugStack->addStartQueryObserver([$this, 'startQuery']);
+        $this->queriesCollector = $queriesCollector;
     }
 
-
-    public function startQuery($sql, $params, $types)
-    {
-        $this->queriesBacktraces[$sql] = array_slice(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS), 3);
-    }
 
     public function collect()
     {
-        $collected = parent::collect();
+        $collected = $this->emulateParentCollect();
 
         if ($this->isCompactMode()) {
             $unique = $this->getUniqueQueries($collected['statements'], $this->withParams());
-            $collected['nb_total_statements']   = count($collected['statements']);
             $collected['statements']            = array_values($unique);
             $collected['nb_statements']         = count($unique);
         }
 
-        foreach ($collected['statements'] as $key => $statement) {
-            $collected['statements'][$key]['backtrace'] = $this->queriesBacktraces[$statement['sql']];
+        $settingsMgr = new DebugBarSettingsManager();
+
+        if ($settingsMgr->areSqlQueryStacktracesEnabled()) {
+            foreach ($collected['statements'] as $key => $statement) {
+                $collected['statements'][$key]['backtrace'] = QueriesCollector::getInstance()->hasQuery($statement['sql'])
+                    ? array_slice(QueriesCollector::getInstance()->getCollected($statement['sql'])['trace'], 2)
+                    : null;
+            }
         }
 
         return $collected;
+    }
+    
+    protected function emulateParentCollect()
+    {
+        $queries = array();
+        $totalCount = 0;
+        $totalExecTime = 0;
+
+        foreach ($this->queriesCollector->getCollected() as $sql => $q) {
+            $params = isset($q['params'])
+                ? $q['params']
+                : [];
+            $timeTotal = array_reduce($q['time'], function($carry, $timeItem){
+                return $carry + $timeItem;
+            }, 0);
+            $duration = $timeTotal / count($q['time']);
+            $totalCount += count($q['time']);
+
+            $queries[] = array(
+                'sql'           => $sql,
+                'params'        => (object) $params,
+                'duration'      => $duration,
+                'duration_str'  => $this->formatDuration($duration)
+            );
+            $totalExecTime += $duration;
+        }
+
+        return array(
+            'nb_statements'             => count($queries),
+            'nb_total_statements'       => $totalCount,
+            'accumulated_duration'      => $totalExecTime,
+            'accumulated_duration_str'  => $this->formatDuration($totalExecTime),
+            'statements'                => $queries
+        );
     }
 
     protected function getUniqueQueries($statements, $withParams = false)
@@ -57,7 +99,7 @@ class DoctrineCollectorSimple extends \DebugBar\Bridge\DoctrineCollector
             $hashBase = serialize($statement['sql']);
 
             if ($withParams) {
-                $hashBase .= serialize($statement['params']);
+                $hashBase .= serialize($statement['params'] ?: []);
             }
             $hash = md5($hashBase);
             if (array_key_exists($hash, $unique)) {
@@ -92,7 +134,18 @@ class DoctrineCollectorSimple extends \DebugBar\Bridge\DoctrineCollector
 
     public function getWidgets()
     {
-        $widgets = parent::getWidgets();
+        $widgets = array(
+            "database" => array(
+                "icon" => "arrow-right",
+                "widget" => "PhpDebugBar.Widgets.SQLQueriesWidget",
+                "map" => "doctrine",
+                "default" => "[]"
+            ),
+            "database:badge" => array(
+                "map" => "doctrine.nb_statements",
+                "default" => 0
+            )
+        );
 
         if ($this->isCompactMode()
             && isset($widgets['database']['widget'])
@@ -101,5 +154,26 @@ class DoctrineCollectorSimple extends \DebugBar\Bridge\DoctrineCollector
         }
 
         return $widgets;
+    }
+
+    /**
+     * Returns the unique name of the collector
+     *
+     * @return string
+     */
+    function getName()
+    {
+        return 'doctrine';
+    }
+
+    /**
+     * @return array
+     */
+    public function getAssets()
+    {
+        return array(
+            'css' => 'widgets/sqlqueries/widget.css',
+            'js' => 'widgets/sqlqueries/widget.js'
+        );
     }
 }

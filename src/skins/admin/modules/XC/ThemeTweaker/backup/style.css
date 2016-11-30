@@ -19,15 +19,15 @@ div.table-value.backup-value {
   display: none;
 }
 
-#code_backup a.hide {
+#code_backup a.hide-button {
   margin-left: 10px;
   font-size: 14px;
   position: relative;
-  top: 3px;
+  top: 2px;
 }
 
 #code_backup_link a,
-#code_backup a.hide {
+#code_backup a.hide-button {
   border-bottom: 1px #154e9c dotted;
   text-decoration: none;
 }
@@ -44,3 +44,4 @@ div.table-value.backup-value {
 div.table-value.backup-value textarea {
   width: 100%;
 }
+

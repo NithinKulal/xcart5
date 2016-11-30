@@ -1,0 +1,12 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Sitemap generation styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.sitemap-generation-box.sitemap-generation-progress div.content {
+    width: 650px;
+}

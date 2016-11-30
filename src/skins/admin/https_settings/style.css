@@ -57,3 +57,8 @@
   font-style: italic;
 }
 
+.https-settings-dialog .full-customer-security-wrapper,
+.https-settings-dialog button.disable-https {
+  margin-bottom: 10px;
+}
+

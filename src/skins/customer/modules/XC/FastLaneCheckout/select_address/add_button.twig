@@ -1,0 +1,11 @@
+{##
+ # Add new address button
+ #
+ # @ListChild (list="select-address.after", weight="100")
+ #}
+
+{% if this.isAddAddressButtonVisible() %}
+<div class="add-new-address-button">
+  {{ widget('XLite\\View\\Button\\AddAddressLink', label=t('Add new address'), atype=this.getAddressType(), saveAndApply=true) }}
+</div>
+{% endif %}

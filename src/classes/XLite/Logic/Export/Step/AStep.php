@@ -11,7 +11,7 @@ namespace XLite\Logic\Export\Step;
 /**
  * Abstract export step
  */
-abstract class AStep extends \XLite\Base implements \SeekableIterator, \Countable
+abstract class AStep extends \XLite\Logic\ARepoStep
 {
     const COLUMN_GETTER    = 'getter';
     const COLUMN_MULTIPLE  = 'multiple';
@@ -21,27 +21,6 @@ abstract class AStep extends \XLite\Base implements \SeekableIterator, \Countabl
     const SUBVALUE_DELIMITER = '&&';
 
     const DEFAULT_CHARSET = 'UTF-8';
-
-    /**
-     * Position
-     *
-     * @var   integer
-     */
-    protected $position = 0;
-
-    /**
-     * Items iterator
-     *
-     * @var   \Doctrine\ORM\Internal\Hydration\IterableResult
-     */
-    protected $items;
-
-    /**
-     * Count (cached)
-     *
-     * @var   integer
-     */
-    protected $countCache;
 
     /**
      * File pointer
@@ -85,74 +64,6 @@ abstract class AStep extends \XLite\Base implements \SeekableIterator, \Countabl
     }
 
     // {{{ SeekableIterator, Countable
-
-    /**
-     * \SeekableIterator::seek
-     *
-     * @param integer $position Position
-     *
-     * @return void
-     */
-    public function seek($position)
-    {
-        if ($this->position != $position) {
-            if ($position < $this->count()) {
-                $this->position = $position;
-                $this->getItems(true);
-            }
-        }
-    }
-
-    /**
-     * \SeekableIterator::current
-     *
-     * @return \XLite\Logic\Export\Step\AStep
-     */
-    public function current()
-    {
-        return $this;
-    }
-
-    /**
-     * \SeekableIterator::key
-     *
-     * @return integer
-     */
-    public function key()
-    {
-        return $this->position;
-    }
-
-    /**
-     * \SeekableIterator::next
-     *
-     * @return void
-     */
-    public function next()
-    {
-        $this->position++;
-        $this->getItems()->next();
-    }
-
-    /**
-     * \SeekableIterator::rewind
-     *
-     * @return void
-     */
-    public function rewind()
-    {
-        $this->seek(0);
-    }
-
-    /**
-     * \SeekableIterator::valid
-     *
-     * @return boolean
-     */
-    public function valid()
-    {
-        return $this->getItems()->valid();
-    }
 
     /**
      * \Countable::count
@@ -838,13 +749,6 @@ OUT;
     // }}}
 
     // {{{ Data
-
-    /**
-     * Get repository
-     *
-     * @return \XLite\Model\Repo\ARepo
-     */
-    abstract protected function getRepository();
 
     /**
      * Get items iterator

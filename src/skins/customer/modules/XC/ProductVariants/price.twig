@@ -1,0 +1,9 @@
+{##
+ # Price widget
+ #}
+
+{% if this.isDisplayPriceAsRange() %}
+  {% include 'modules/XC/ProductVariants/price_range.twig' %}
+{% else %}
+  {% include this.getParentTemplate() %}
+{% endif %}

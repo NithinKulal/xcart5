@@ -147,7 +147,7 @@ class Notification extends \XLite\View\FormModel\AFormModel
                 'body'      => [
                     'label'    => static::t('Body'),
                     'position' => 400,
-                    'help'     => 'The body template may include other templates to generate the email notification. To customize it, please, copy appropriate templates to "skins/theme_tweaker/mail/"',
+                    'help'     => static::t('The body template may include other templates to generate the email notification. To customize it, please, copy appropriate templates to "skins/theme_tweaker/mail/"'),
                 ],
                 'signature' => [
                     'label'    => static::t('Signature'),
@@ -202,13 +202,13 @@ class Notification extends \XLite\View\FormModel\AFormModel
     protected function getFormButtons()
     {
         $list = parent::getFormButtons();
-        $list['notifications'] = new \XLite\View\Button\SimpleLink(
-            [
-                \XLite\View\Button\Link::PARAM_LOCATION => $this->buildURL('notifications'),
-                \XLite\View\Button\AButton::PARAM_LABEL => 'Back to notifications list',
-                \XLite\View\Button\AButton::PARAM_STYLE => 'action',
-            ]
-        );
+        // $list['notifications'] = new \XLite\View\Button\SimpleLink(
+        //     [
+        //         \XLite\View\Button\Link::PARAM_LOCATION => $this->buildURL('notifications'),
+        //         \XLite\View\Button\AButton::PARAM_LABEL => 'Back to notifications list',
+        //         \XLite\View\Button\AButton::PARAM_STYLE => 'action',
+        //     ]
+        // );
 
         return $list;
     }

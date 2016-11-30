@@ -317,4 +317,13 @@ abstract class APage extends \XLite\View\Product\Details\Customer\ACustomer
 
     // }}}
 
+    /**
+     * Return product labels
+     *
+     * @return array
+     */
+    protected function getLabels()
+    {
+        return [];
+    }
 }

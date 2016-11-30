@@ -8,6 +8,11 @@
 
 namespace XLite\Module\CDev\XMLSitemap\Logic;
 
+use Includes\Utils\URLManager;
+use XLite\Core\Config;
+use XLite\Core\Converter;
+use XLite\Core\Router;
+
 /**
  * Sitemap links iterator 
  */
@@ -59,12 +64,27 @@ class SitemapIterator extends \XLite\Base implements \SeekableIterator, \Countab
     protected $currentChunkIndex = 0;
 
     /**
-     * Constructor
-     * 
-     * @return void
+     * Language code
+     *
+     * @var string
      */
-    public function __construct()
+    protected $languageCode = null;
+
+    /**
+     * Is page has alternative language url
+     *
+     * @var boolean
+     */
+    protected $hasAlternateLangUrls;
+
+    /**
+     * Constructor
+     *
+     * @param string $languageCode Language code
+     */
+    public function __construct($languageCode = null)
     {
+        $this->languageCode = $languageCode;
         $this->renewChunk(0);
         $this->currentChunkIndex = 0;
         parent::__construct();
@@ -220,18 +240,56 @@ class SitemapIterator extends \XLite\Base implements \SeekableIterator, \Countab
     }
 
     /**
+     * Check if store has alternative language url
+     *
+     * @return bool
+     */
+    public function hasAlternateLangUrls()
+    {
+        if (null === $this->hasAlternateLangUrls) {
+            $router = Router::getInstance();
+            $this->hasAlternateLangUrls = LC_USE_CLEAN_URLS
+                && $router->isUseLanguageUrls()
+                && count($router->getActiveLanguagesCodes()) > 1;
+        }
+
+        return $this->hasAlternateLangUrls;
+    }
+
+    /**
      * Assemble welcome page data
      *
      * @return array
      */
     protected function assembleWelcomeData()
     {
-        return array(
-            'loc'        => array('target' => \XLite::TARGET_DEFAULT),
-            'lastmod'    => \XLite\Core\Converter::time(),
-            'changefreq' => \XLite\Core\Config::getInstance()->CDev->XMLSitemap->welcome_changefreq,
-            'priority'   => $this->processPriority(\XLite\Core\Config::getInstance()->CDev->XMLSitemap->welcome_priority),
-        );
+        $result = [
+            'loc' => Converter::buildFullURL(\XLite::TARGET_DEFAULT, '', [], \XLite::getCustomerScript(), true),
+            'lastmod' => Converter::time(),
+            'changefreq' => Config::getInstance()->CDev->XMLSitemap->welcome_changefreq,
+            'priority' => $this->processPriority(Config::getInstance()->CDev->XMLSitemap->welcome_priority),
+        ];
+
+        if ($this->hasAlternateLangUrls()) {
+            $url = Converter::buildURL(\XLite::TARGET_DEFAULT, '', [], \XLite::getCustomerScript(), false, true);
+
+            if ($this->languageCode) {
+                $result['loc'] = URLManager::getShopURL($this->languageCode . '/' . $url);
+            }
+
+            foreach (Router::getInstance()->getActiveLanguagesCodes() as $code) {
+                $langUrl = $code . '/' . $url;
+                $locale = \XLite\Core\Converter::langToLocale($code);
+
+                $tag = 'xhtml:link rel="alternate" hreflang="' . $locale . '" href="' . URLManager::getShopURL($langUrl) . '"';
+                $result[$tag] = null;
+            }
+
+            $tag = 'xhtml:link rel="alternate" hreflang="x-default" href="' . URLManager::getShopURL($url) . '"';
+            $result[$tag] = null;
+        }
+
+        return $result;
     }
 
     /**
@@ -243,12 +301,35 @@ class SitemapIterator extends \XLite\Base implements \SeekableIterator, \Countab
      */
     protected function assembleCategoryData(\XLite\Model\Category $category)
     {
-        return array(
-            'loc'        => array('target' => 'category', 'category_id' => $category->getCategoryId()),
-            'lastmod'    => \XLite\Core\Converter::time(),
-            'changefreq' => \XLite\Core\Config::getInstance()->CDev->XMLSitemap->category_changefreq,
-            'priority'   => $this->processPriority(\XLite\Core\Config::getInstance()->CDev->XMLSitemap->category_priority),
-        );
+        $_url = Converter::buildURL('category', '', ['category_id' => $category->getCategoryId()], \XLite::getCustomerScript(), false, true);
+        $url = \XLite::getInstance()->getShopURL($_url);
+
+        $result = [
+            'loc' => $url,
+            'lastmod' => Converter::time(),
+            'changefreq' => Config::getInstance()->CDev->XMLSitemap->category_changefreq,
+            'priority' => $this->processPriority(Config::getInstance()->CDev->XMLSitemap->category_changefreq),
+        ];
+
+        if ($this->hasAlternateLangUrls()) {
+            if ($this->languageCode) {
+                $result['loc'] = URLManager::getShopURL($this->languageCode . '/' . $_url);
+            }
+
+            foreach (Router::getInstance()->getActiveLanguagesCodes() as $code) {
+                $langUrl = $_url;
+                $langUrl = $code . '/' . $langUrl;
+                $locale = \XLite\Core\Converter::langToLocale($code);
+
+                $tag = 'xhtml:link rel="alternate" hreflang="' . $locale . '" href="' . URLManager::getShopURL($langUrl) . '"';
+                $result[$tag] = null;
+            }
+
+            $tag = 'xhtml:link rel="alternate" hreflang="x-default" href="' . $url . '"';
+            $result[$tag] = null;
+        }
+
+        return $result;
     }
 
     /**
@@ -260,12 +341,35 @@ class SitemapIterator extends \XLite\Base implements \SeekableIterator, \Countab
      */
     protected function assembleProductData(\XLite\Model\Product $product)
     {
-        return array(
-            'loc'        => array('target' => 'product', 'product_id' => $product->getProductId()),
-            'lastmod'    => \XLite\Core\Converter::time(),
-            'changefreq' => \XLite\Core\Config::getInstance()->CDev->XMLSitemap->product_changefreq,
-            'priority'   => $this->processPriority(\XLite\Core\Config::getInstance()->CDev->XMLSitemap->product_priority),
-        );
+        $_url = Converter::buildURL('product', '', ['product_id' => $product->getProductId()], \XLite::getCustomerScript(), false, true);
+        $url = \XLite::getInstance()->getShopURL($_url);
+
+        $result = [
+            'loc' => $url,
+            'lastmod' => Converter::time(),
+            'changefreq' => Config::getInstance()->CDev->XMLSitemap->product_changefreq,
+            'priority' => $this->processPriority(Config::getInstance()->CDev->XMLSitemap->product_priority),
+        ];
+
+        if ($this->hasAlternateLangUrls()) {
+            if ($this->languageCode) {
+                $result['loc'] = URLManager::getShopURL($this->languageCode . '/' . $_url);
+            }
+
+            foreach (Router::getInstance()->getActiveLanguagesCodes() as $code) {
+                $langUrl = $_url;
+                $langUrl = $code . '/' . $langUrl;
+                $locale = Converter::langToLocale($code);
+
+                $tag = 'xhtml:link rel="alternate" hreflang="' . $locale . '" href="' . URLManager::getShopURL($langUrl) . '"';
+                $result[$tag] = null;
+            }
+
+            $tag = 'xhtml:link rel="alternate" hreflang="x-default" href="' . $url . '"';
+            $result[$tag] = null;
+        }
+
+        return $result;
     }
 
     /**

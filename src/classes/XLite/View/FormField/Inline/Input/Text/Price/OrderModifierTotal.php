@@ -114,12 +114,13 @@ class OrderModifierTotal extends \XLite\View\FormField\Inline\Input\Text\Price\A
 
             foreach ($surcharges as $surcharge) {
                 if (is_object($surcharge)) {
+
                     if ($surcharge->getCode() === $this->getEntity()->getCode()) {
                         $value += $surcharge->getValue();
                     }
 
                     // Remove added surcharges if current entity exists in DB to avoid duplicates
-                    if ($isPersistent) {
+                    if ($isPersistent && !$this->getEntity()->getModifier()->isIgnoreDuplicates()) {
                         \XLite\Core\Database::getEM()->remove($surcharge);
                         $surcharge->getOrder()->removeSurcharge($surcharge);
                     }
@@ -127,7 +128,20 @@ class OrderModifierTotal extends \XLite\View\FormField\Inline\Input\Text\Price\A
             }
 
         } elseif (0 != $value && !$isPersistent) {
-            $this->addOrderSurcharge($this->getEntity(), $value);
+
+            $addSurcharge = true;
+
+            // Search for current surcharge in order surcharges
+            foreach ($this->getEntity()->getOrder()->getSurcharges() as $s) {
+                if ($s->getCode() == $this->getEntity()->getCode()) {
+                    $addSurcharge = false;
+                }
+            }
+
+            if ($addSurcharge) {
+                // Surcharge is new for order - add this
+                $this->addOrderSurcharge($this->getEntity(), $value);
+            }
         }
 
         if (0 < $value && $this->getEntity()->getType() === \XLite\Model\Base\Surcharge::TYPE_DISCOUNT) {

@@ -44,7 +44,7 @@ abstract class Main extends \XLite\Module\AModule
      */
     public static function getMinorVersion()
     {
-        return '1';
+        return '2';
     }
 
     /**
@@ -54,7 +54,7 @@ abstract class Main extends \XLite\Module\AModule
      */
     public static function getBuildVersion()
     {
-        return '2';
+        return '0';
     }
 
     /**
@@ -74,10 +74,7 @@ abstract class Main extends \XLite\Module\AModule
      */
     public static function getDescription()
     {
-        return 'Allows you to add custom website pages and modify the primary website menu and the footer links.'
-            . ' After installing additional TinyMCE and Go Social modules you can configure OpenGraph tags for'
-            . ' your pages and edit their contents in the WYSIWYG mode. This module is incompatible with modules'
-            . ' integrating your store with third-party CMS solutions.';
+        return 'Allows you to add a company logo and favicon, modify the primary website menu, edit the footer links and add custom website pages. When used with TinyMCE and Go Social modules, allows you to configure OpenGraph tags for your pages and edit their contents in the WYSIWYG mode. The module is incompatible with modules integrating your store with third-party CMS solutions.';
     }
 
     /**

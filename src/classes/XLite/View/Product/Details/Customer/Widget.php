@@ -8,24 +8,21 @@
 
 namespace XLite\View\Product\Details\Customer;
 
+use XLite\Core\Cache\ExecuteCachedTrait;
+
 /**
  * Product widget
  */
 abstract class Widget extends \XLite\View\Product\AProduct
 {
+    use ExecuteCachedTrait;
+
     /**
      * Widget parameters
      */
     const PARAM_PRODUCT          = 'product';
     const PARAM_PRODUCT_ID       = 'product_id';
     const PARAM_ATTRIBUTE_VALUES = 'attribute_values';
-
-    /**
-     * Product model cache
-     *
-     * @var \XLite\Model\Product | null
-     */
-    protected $product;
 
     /**
      * Return the specific widget service name to make it visible as specific CSS class
@@ -43,13 +40,23 @@ abstract class Widget extends \XLite\View\Product\AProduct
     {
         parent::defineWidgetParams();
 
-        $this->widgetParams += array(
-            static::PARAM_PRODUCT          => new \XLite\Model\WidgetParam\TypeObject('Product', null, false, '\XLite\Model\Product'),
+        $this->widgetParams += [
+            static::PARAM_PRODUCT          => new \XLite\Model\WidgetParam\TypeObject('Product', null, false, 'XLite\Model\Product'),
             static::PARAM_PRODUCT_ID       => new \XLite\Model\WidgetParam\TypeInt('Product ID', 0),
-            static::PARAM_ATTRIBUTE_VALUES => new \XLite\Model\WidgetParam\TypeString('Attribute values IDs', ''),
-        );
+            static::PARAM_ATTRIBUTE_VALUES => new \XLite\Model\WidgetParam\TypeString('Attribute values IDs', $this->getDefaultAttributeValues()),
+        ];
     }
 
+    /**
+     * @return array
+     */
+    protected function getDefaultAttributeValues()
+    {
+        return is_string(\XLite\Core\Request::getInstance()->attribute_values)
+            ? \XLite\Core\Request::getInstance()->attribute_values
+            : '';   
+    }
+    
     /**
      * Get product
      *
@@ -57,15 +64,22 @@ abstract class Widget extends \XLite\View\Product\AProduct
      */
     protected function getProduct()
     {
-        if (is_null($this->product)) {
-            $this->product = $this->getParam(self::PARAM_PRODUCT_ID)
-                ? \XLite\Core\Database::getRepo('XLite\Model\Product')->find($this->getParam(self::PARAM_PRODUCT_ID))
-                : $this->getParam(self::PARAM_PRODUCT);
+        $product = $this->getRuntimeCache('getProduct');
+        if (!$product) {
+            $product = $this->executeCachedRuntime(function () {
+                $productId = $this->getParam(self::PARAM_PRODUCT_ID);
+                /** @var \XLite\Model\Product $product */
+                $product = $productId
+                    ? \XLite\Core\Database::getRepo('XLite\Model\Product')->find($productId)
+                    : $this->getParam(self::PARAM_PRODUCT);
 
-            $this->product->setAttrValues($this->getAttributeValues());
+                return $product;
+            });
+
+            $product->setAttrValues($this->getAttributeValues());
         }
 
-        return $this->product;
+        return $product;
     }
 
     /**
@@ -75,18 +89,21 @@ abstract class Widget extends \XLite\View\Product\AProduct
      */
     protected function getAttributeValues()
     {
-        $ids = array();
-        $attributeValues = trim($this->getParam(static::PARAM_ATTRIBUTE_VALUES), ',');
+        return $this->executeCachedRuntime(function () {
+            $result          = [];
+            $attributeValues = trim($this->getParam(static::PARAM_ATTRIBUTE_VALUES), ',');
 
-        if ($attributeValues) {
-            $attributeValues = explode(',', $attributeValues);
-            foreach ($attributeValues as $v) {
-                $v = explode('_', $v);
-                $ids[$v[0]] = $v[1];
+            if ($attributeValues) {
+                $attributeValues = explode(',', $attributeValues);
+                foreach ($attributeValues as $attributeValue) {
+                    list($attributeId, $valueId) = explode('_', $attributeValue);
+
+                    $result[$attributeId] = $valueId;
+                }
             }
-        }
 
-        return $this->getProduct()->prepareAttributeValues($ids);
+            return $this->getProduct()->prepareAttributeValues($result);
+        });
     }
 
     /**

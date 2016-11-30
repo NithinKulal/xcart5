@@ -200,9 +200,10 @@ class WholesalePrices extends \XLite\View\ItemsList\Model\Table
     {
         // Search wholesale prices to display in the items list
         $cnd->{\XLite\Module\CDev\Wholesale\Model\Repo\WholesalePrice::P_PRODUCT} = $this->getProduct();
-        $cnd->{\XLite\Module\CDev\Wholesale\Model\Repo\WholesalePrice::P_ORDER_BY_MEMBERSHIP} = true;
-        $cnd->{\XLite\Module\CDev\Wholesale\Model\Repo\WholesalePrice::P_ORDER_BY}
-            = array('w.quantityRangeBegin', 'ASC');
+        $cnd->{\XLite\Module\CDev\Wholesale\Model\Repo\WholesalePrice::P_ORDER_BY} = [
+            ['w.membership', 'ASC'],
+            ['w.quantityRangeBegin', 'ASC'],
+        ];
 
         return \XLite\Core\Database::getRepo('XLite\Module\CDev\Wholesale\Model\WholesalePrice')
             ->search($cnd, $countOnly);

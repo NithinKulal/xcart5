@@ -92,7 +92,7 @@ class Import extends \XLite\Core\EventListener\Base\Countable
      */
     protected function getLength()
     {
-        return $this->getItems()->count() - 1;
+        return $this->getItems()->count();
     }
 
     /**
@@ -137,16 +137,6 @@ class Import extends \XLite\Core\EventListener\Base\Countable
         $step->getOptions()->time += $this->serviceTime;
 
         $this->record['options'] = $step->getOptions()->getArrayCopy();
-        $this->record['touchData'] = array();
-
-        if (0 < ($step->getOptions()->errorsCount + $step->getOptions()->warningsCount)) {
-            $label = $step->getErrorLanguageLabel();
-
-        } else {
-            $label = $step->getNormalLanguageLabel();
-        }
-
-        $this->record['touchData']['rowsProcessedLabel'] = $label;
 
         parent::finishStep();
     }
@@ -170,6 +160,23 @@ class Import extends \XLite\Core\EventListener\Base\Countable
                 \XLite\Core\Database::getRepo('XLite\Model\TmpVar')->setEventState($this->getEventName(), $this->record);
             }
         }
+    }
+
+    /**
+     * Writes some data into $this->record['touchData'] after step/task finish.
+     */
+    protected function compileTouchData()
+    {
+        $this->record['touchData'] = array();
+
+        if (0 < ($this->getItems()->getOptions()->errorsCount + $this->getItems()->getOptions()->warningsCount)) {
+            $label = $this->getItems()->getErrorLanguageLabel();
+
+        } else {
+            $label = $this->getItems()->getNormalLanguageLabel();
+        }
+
+        $this->record['touchData']['message'] = $label;
     }
 
     /**

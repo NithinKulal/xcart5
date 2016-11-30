@@ -13,6 +13,12 @@ namespace XLite\View;
  */
 abstract class AResourcesContainer extends \XLite\View\Container
 {
+    /**
+     * Optimized resources
+     *
+     * @var array
+     */
+    protected static $optimizedResources = [];
 
     /**
      * Latest cache timestamp
@@ -296,7 +302,7 @@ abstract class AResourcesContainer extends \XLite\View\Container
             ob_start();
             $result = \JSMinPlus::minify($content);
             $error = ob_get_contents();
-            ob_clean();
+            ob_end_clean();
 
             if (false === $result) {
                 throw new \Exception(sprintf('[%s] %s', $filePath, $error));
@@ -318,6 +324,16 @@ abstract class AResourcesContainer extends \XLite\View\Container
     protected function doCSSAggregation()
     {
         return \XLite\Core\Config::getInstance()->Performance->aggregate_css;
+    }
+
+    /**
+     * Check if the CSS resources should be aggregated
+     *
+     * @return boolean
+     */
+    protected function doCSSOptimization()
+    {
+        return (bool)\Includes\Utils\ConfigParser::getOptions(['storefront_options', 'optimize_css']);
     }
 
     /**
@@ -398,7 +414,7 @@ abstract class AResourcesContainer extends \XLite\View\Container
         $group = array();
 
         foreach ($resources as $info) {
-            if ('//' == substr($info['url'], 0, 2)) {
+            if (0 === strpos($info['url'], '//')) {
                 $info['url'] = (\XLite\Core\Request::getInstance()->isHTTPS() ? 'https:' : 'http:') . $info['url'];
             }
 
@@ -456,6 +472,112 @@ abstract class AResourcesContainer extends \XLite\View\Container
         }
 
         return $list;
+    }
+
+    /**
+     * Return style tag with content
+     *
+     * @param array $resource
+     *
+     * @return string
+     */
+    protected function getInternalCssByResource($resource)
+    {
+        if (!isset($resource['file'])) {
+            return '';
+        }
+
+        $content = file_get_contents($resource['file']);
+
+        if (isset($resource['media'])) {
+            switch ($resource['media']) {
+                case 'print':
+                    return '';
+                case 'all':
+                    break;
+                default:
+                    $content = "@media {$resource['media']} {" . $content . '}';
+            }
+        }
+
+        $content = "<style type='text/css'>" . $content . '</style>';
+
+        return $content;
+    }
+
+    /**
+     * Check if we need to "optimize" resource
+     *
+     * @param $resource
+     *
+     * @return bool
+     */
+    protected function isResourceSuitableForOptimization($resource)
+    {
+        if (isset($resource['file'])) {
+            $resourceKey = md5(serialize($resource));
+            $result = in_array($resourceKey, static::$optimizedResources) || !$this->isResourceKeyInCookie($resourceKey);
+
+            if ($result) {
+                $this->addResourceKeyToCookie($resourceKey);
+                static::$optimizedResources[] = $resourceKey;
+
+                return file_exists($resource['file']);
+            }
+
+        } else {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Add resource key to cookies
+     *
+     * @param $resourceKey
+     */
+    protected function addResourceKeyToCookie($resourceKey)
+    {
+        $request = \XLite\Core\Request::getInstance();
+
+        $viewedResources = $request->viewedResources;
+
+        if (!empty($viewedResources) && !is_array($viewedResources)) {
+            $viewedResources = unserialize($viewedResources);
+        }
+
+        if (!is_array($viewedResources)) {
+            $viewedResources = [];
+        }
+
+        $viewedResources[] = $resourceKey;
+        $request->setCookie('viewedResources', serialize(array_unique($viewedResources)), 3600);
+        $request->viewedResources = $viewedResources;
+    }
+
+    /**
+     * Check if resource key is in cookies
+     *
+     * @param $resourceKey
+     *
+     * @return bool
+     */
+    protected function isResourceKeyInCookie($resourceKey)
+    {
+        $request = \XLite\Core\Request::getInstance();
+
+        $viewedResources = $request->viewedResources;
+
+        if (!empty($viewedResources) && !is_array($viewedResources)) {
+            $viewedResources = unserialize($viewedResources);
+        }
+
+        if (is_array($viewedResources)) {
+            return in_array($resourceKey, $viewedResources);
+        }
+
+        return false;
     }
 
     /**

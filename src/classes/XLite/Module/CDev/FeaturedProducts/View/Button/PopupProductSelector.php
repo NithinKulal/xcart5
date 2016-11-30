@@ -13,7 +13,7 @@ namespace XLite\Module\CDev\FeaturedProducts\View\Button;
  */
 class PopupProductSelector extends \XLite\View\Button\PopupProductSelector
 {
-    const PARAM_CATEGORY_ID  = 'categoryId';
+    const PARAM_CATEGORY_ID = 'categoryId';
 
     /**
      * Defines the target of the product selector
@@ -33,7 +33,7 @@ class PopupProductSelector extends \XLite\View\Button\PopupProductSelector
      */
     protected function getSelectorViewClass()
     {
-        return '\XLite\Module\CDev\FeaturedProducts\View\ProductSelections';
+        return 'XLite\Module\CDev\FeaturedProducts\View\ProductSelections';
     }
 
     /**
@@ -45,9 +45,9 @@ class PopupProductSelector extends \XLite\View\Button\PopupProductSelector
     {
         return array_merge(
             parent::prepareURLParams(),
-            array(
+            [
                 'categoryId' => $this->getParam(static::PARAM_CATEGORY_ID),
-            )
+            ]
         );
     }
 
@@ -60,8 +60,8 @@ class PopupProductSelector extends \XLite\View\Button\PopupProductSelector
     {
         parent::defineWidgetParams();
 
-        $this->widgetParams += array(
-            static::PARAM_CATEGORY_ID  => new \XLite\Model\WidgetParam\TypeString('Category id, if it is provided', ''),
-        );
+        $this->widgetParams += [
+            static::PARAM_CATEGORY_ID => new \XLite\Model\WidgetParam\TypeString('Category id, if it is provided', ''),
+        ];
     }
 }

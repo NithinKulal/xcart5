@@ -1,0 +1,9 @@
+{##
+ # Layout editor exit button
+ #
+ # @ListChild (list="inline_editor", weight="30")
+ #}
+
+<div class='inline-editor-exit'>
+	{{ widget('XLite\\View\\Button\\Regular', label=t('Exit product preview'), style='inline-editor-exit_button', jsCode='core.trigger("inline_editor.disable");') }}
+</div>

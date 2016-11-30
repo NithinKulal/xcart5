@@ -9,6 +9,7 @@
 namespace XLite\View\FormModel;
 
 use Symfony\Component\Form\Form;
+use Symfony\Component\Form\Forms;
 use Symfony\Component\Form\FormBuilderInterface;
 
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
@@ -74,7 +75,6 @@ class FormGenerator
                 $result['description'] = (string) $section['description'];
             }
 
-
             if (array_key_exists('collapse', $section)) {
                 $result['collapse'] = (bool) $section['collapse'];
             }
@@ -138,6 +138,10 @@ class FormGenerator
                 $options['v_validate'] = $validators;
             }
 
+            if (empty($options['v_validate'])) {
+                $options['v_validate'] = ['Backend' => []];
+            }
+
             $result[$name] = [$type, $options];
         }
 
@@ -146,7 +150,7 @@ class FormGenerator
 
     public function __construct()
     {
-        $builder = \Symfony\Component\Form\Forms::createFormFactoryBuilder();
+        $builder = Forms::createFormFactoryBuilder();
 
         $validator = Validation::createValidator();
         $builder->addExtension(new ValidatorExtension($validator));
@@ -212,6 +216,11 @@ class FormGenerator
         );
     }
 
+    /**
+     * @param string $constraint
+     *
+     * @return string
+     */
     protected static function getValidatorConstraintName($constraint)
     {
         $name = [];

@@ -45,6 +45,7 @@ class Currency extends \XLite\View\Model\AModel
             self::SCHEMA_CLASS    => '\XLite\View\FormField\Input\Text',
             self::SCHEMA_LABEL    => 'Prefix',
             self::SCHEMA_REQUIRED => false,
+            \XLite\View\FormField\Input\Text::PARAM_DO_NOT_TRIM => true,
             self::SCHEMA_MODEL_ATTRIBUTES => array(
                 \XLite\View\FormField\Input\Base\StringInput::PARAM_MAX_LENGTH => 'length',
             ),
@@ -53,6 +54,7 @@ class Currency extends \XLite\View\Model\AModel
             self::SCHEMA_CLASS    => '\XLite\View\FormField\Input\Text',
             self::SCHEMA_LABEL    => 'Suffix',
             self::SCHEMA_REQUIRED => false,
+            \XLite\View\FormField\Input\Text::PARAM_DO_NOT_TRIM => true,
             self::SCHEMA_MODEL_ATTRIBUTES => array(
                 \XLite\View\FormField\Input\Base\StringInput::PARAM_MAX_LENGTH => 'length',
             ),

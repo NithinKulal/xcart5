@@ -1211,6 +1211,20 @@ class Product extends \XLite\Model\Repo\Base\I18n implements \XLite\Base\IREST
             ->iterate();
     }
 
+    /**
+     * Define items iterator
+     *
+     * @param integer $position Position OPTIONAL
+     *
+     * @return \Doctrine\ORM\Internal\Hydration\IterableResult
+     */
+    public function getMembershipsQuickDataIterator($position = 0)
+    {
+        return $this->defineQuickDataIteratorQueryBuilder($position)
+            ->setMaxResults(\XLite\Core\EventListener\MembershipsQuickData::CHUNK_LENGTH)
+            ->iterate();
+    }
+
 
     /**
      * Define quick data iterator query builder

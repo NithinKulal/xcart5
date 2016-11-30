@@ -20,7 +20,7 @@ class Category extends \XLite\View\ItemsList\Model\Category implements \XLite\Ba
      */
     public function getCSSFiles()
     {
-        $list = parent::getCSSFiles();
+        $list   = parent::getCSSFiles();
         $list[] = 'modules/CDev/FeaturedProducts/items_list/category/style.css';
 
         return $list;
@@ -33,15 +33,12 @@ class Category extends \XLite\View\ItemsList\Model\Category implements \XLite\Ba
      */
     protected function defineColumns()
     {
-        return array_merge(parent::defineColumns(), array(
-            'featured_products' => array(
-                static::COLUMN_NAME          => \XLite\Core\Translation::lbl('Featured'),
-                static::COLUMN_TEMPLATE      => false,
-                static::COLUMN_ORDERBY       => 250,
-            ),
-        ));
+        return array_merge(parent::defineColumns(), [
+            'featured_products' => [
+                static::COLUMN_NAME     => static::t('Featured'),
+                static::COLUMN_TEMPLATE => false,
+                static::COLUMN_ORDERBY  => 250,
+            ],
+        ]);
     }
-
-    // }}}
-
 }

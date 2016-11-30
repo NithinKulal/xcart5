@@ -135,13 +135,13 @@ class TopCategories extends \XLite\View\SideBarBox
     }
 
     /**
-     * Check if display number of prducts
+     * Check if display number of products
      *
      * @return boolean
      */
     protected function isShowProductNum()
     {
-        return \XLite\Core\Config::getInstance()->QSL->FlyoutCategoriesMenu->fcm_show_product_num;
+        return false;
     }
 
     /**
@@ -162,7 +162,7 @@ class TopCategories extends \XLite\View\SideBarBox
 
         $dtos = \XLite\Core\Database::getRepo('XLite\Model\Category')->getCategoriesAsDTO();
         foreach ($dtos as $key => $categoryDTO) {
-            $preprocessedDTOs[] = $this->preprocessDTO($categoryDTO);
+            $preprocessedDTOs[$categoryDTO['id']] = $this->preprocessDTO($categoryDTO);
         }
 
         foreach ($preprocessedDTOs as $categoryDTO) {
@@ -189,7 +189,7 @@ class TopCategories extends \XLite\View\SideBarBox
             $this->pathIds = array();
 
             if (static::$categoriesPath === null) {
-                static::$categoriesPath = \XLite\Core\Database::getRepo('\XLite\Model\Category')
+                static::$categoriesPath = \XLite\Core\Database::getRepo('XLite\Model\Category')
                     ->getCategoryPath($this->getCategoryId());
             }
 
@@ -285,11 +285,12 @@ class TopCategories extends \XLite\View\SideBarBox
      */
     protected function getCategories($categoryId = null)
     {
-        if(null === $this->categories) {
+        if (null === $this->categories) {
             $this->categories = $this->collectCategories();
         }
 
         if (!$categoryId) {
+            // $categoryId = \XLite\Core\Database::getRepo('XLite\Model\Category')->getRootCategoryId();
             $categoryId = 1;
         }
 

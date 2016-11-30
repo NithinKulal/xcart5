@@ -139,7 +139,7 @@ abstract class I18n extends \XLite\Model\AEntity implements MetadataLoaderInterf
     {
         $result = null;
 
-        // Select by languages query (current languge -> default language -> hardcoded default language)
+        // Select by languages query (current language -> default language -> hardcoded default language)
         $query = \XLite\Core\Translation::getLanguageQuery($this->getTranslationCode($code));
         foreach ($query as $code) {
             $result = $this->getTranslation($code, true);
@@ -200,10 +200,11 @@ abstract class I18n extends \XLite\Model\AEntity implements MetadataLoaderInterf
     /**
      * Clone
      *
-     * @return \XLite\Model\AEntity
+     * @return static
      */
     public function cloneEntity()
     {
+        /** @var static $entity */
         $entity = parent::cloneEntity();
 
         foreach ($entity->getSoftTranslation()->getRepository()->findBy(array('owner' => $entity)) as $translation) {

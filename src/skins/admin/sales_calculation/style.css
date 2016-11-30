@@ -7,7 +7,7 @@
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
 
-div.dialog-block.sales-box {
+.sales-box {
   width: 902px;
   min-width: 902px;
   display: block;
@@ -22,7 +22,7 @@ div.dialog-block.sales-box {
   font-weight: normal;
 }
 
-div.dialog-block.sales-box .subcontent {
+.sales-box .subcontent {
   padding: 20px;
 }
 
@@ -36,52 +36,11 @@ div.dialog-block.sales-box .subcontent {
   padding-right: 75px;
 }
 
-div.dialog-block.sales-progress .subcontent {
-  padding: 40px;
+.sales-progress .subcontent {
+  padding: 20px 0;
   padding-bottom: 12px;
 }
 
-div.dialog-block.sales-progress div.content {
+.sales-progress div.content {
   width: 900px;
-}
-
-.sales-progress .subcontent .progress-bar {
-  float: left;
-  margin-right: 20px;
-}
-
-.sales-progress .subcontent .bar {
-  width: 650px;
-}
-
-.sales-progress .subcontent button {
-  padding: 1px 17px 2px 17px;
-  float: right;
-  min-height: 24px;
-}
-
-.sales-progress .subcontent .time {
-  font-size: 14px;
-  text-align: center;
-  color: #44769d;
-  height: 20px;
-  margin-top: 27px;
-}
-
-.sales-progress .help {
-  padding-left: 49px;
-  padding-top: 6px;
-  min-height: 38px;
-  line-height: 20px;
-}
-
-.sales-progress .help i {
-  color: #b9b9b9;
-  font-size: 36px;
-  float: left;
-}
-
-.sales-progress .help p {
-  font-size: 14px;
-  margin-left: 51px;
 }

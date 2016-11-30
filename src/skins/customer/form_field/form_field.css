@@ -27,6 +27,14 @@ input[type="text"].form_field_error {
     position: relative;
 }
 
+label.single-option-select {
+  font-size: 14px;
+  padding: 9px 10px 7px 10px;
+  margin: 0;
+  font-size: 14px;
+  line-height: 18px;
+}
+
 /* Multiselect */
 .chosen-container-single .chosen-single,
 .chosen-container-active.chosen-with-drop .chosen-single

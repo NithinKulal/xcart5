@@ -5,6 +5,10 @@
  #}
 {% if this.doCSSAggregation() %}
 {% for file in this.getAggregateCSSResources() %}
-  <link href="{{ this.getResourceURL(file.url) }}" rel="stylesheet" type="text/css" media="{{ file.media }}" />
+  {% if this.doCSSOptimization() and this.isResourceSuitableForOptimization(file) %}
+    {{ this.getInternalCssByResource(file)|raw }}
+  {% else %}
+    <link href="{{ this.getResourceURL(file.url) }}" rel="stylesheet" type="text/css" media="{{ file.media }}" />
+  {% endif %}
 {% endfor %}
 {% endif %}

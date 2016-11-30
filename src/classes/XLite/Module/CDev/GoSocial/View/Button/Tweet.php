@@ -13,79 +13,40 @@ namespace XLite\Module\CDev\GoSocial\View\Button;
  *
  * @ListChild (list="buttons.share", weight="200")
  */
-class Tweet extends \XLite\View\AView
+class Tweet extends \XLite\Module\CDev\GoSocial\View\Button\ASocialButton
 {
-    /**
-     * Allowed languages
-     *
-     * @var array
-     */
-    protected $languages = array('nl', 'en', 'fr', 'de', 'id', 'it', 'ja', 'ko', 'pt', 'ru', 'es', 'tr');
-
-    /**
-     * Return widget default template
-     *
-     * @return string
-     */
-    protected function getDefaultTemplate()
-    {
-        return 'modules/CDev/GoSocial/button/tweet.twig';
-    }
-
     /**
      * Define button attributes
      *
      * @return array
      */
-    protected function defineButtonAttributes()
+    protected function defineButtonParams()
     {
-        $url = urlencode(\XLite::getInstance()->getShopURL($this->getURL()));
-        $list = array(
-            'url'      => $url,
-            'counturl' => $url,
-        );
-
-        if (!\XLite\Core\Config::getInstance()->CDev->GoSocial->tweet_show_count) {
-            $list['count'] = 'none';
-        }
+        $list = array();
 
         if (\XLite\Core\Config::getInstance()->CDev->GoSocial->tweet_via) {
-            $list['via'] = \XLite\Core\Config::getInstance()->CDev->GoSocial->tweet_via;
-        }
-
-        if ($this->getTitle()) {
-            $list['text'] = urlencode(htmlspecialchars_decode($this->getTitle()));
-            $list['text'] = preg_replace('/\+/', '%20', $list['text']);
+            $list['data-via'] = \XLite\Core\Config::getInstance()->CDev->GoSocial->tweet_via;
         }
 
         if (\XLite\Core\Config::getInstance()->CDev->GoSocial->tweet_recommend) {
-            $list['related'] = \XLite\Core\Config::getInstance()->CDev->GoSocial->tweet_recommend;
+            $list['data-related'] = \XLite\Core\Config::getInstance()->CDev->GoSocial->tweet_recommend;
         }
 
         if (\XLite\Core\Config::getInstance()->CDev->GoSocial->tweet_hashtag) {
-            $list['hashtags'] = \XLite\Core\Config::getInstance()->CDev->GoSocial->tweet_hashtag;
+            $list['data-hashtags'] = \XLite\Core\Config::getInstance()->CDev->GoSocial->tweet_hashtag;
         }
-
-        $language = \XLite\Core\Session::getInstance()->getLanguage()->getCode();
-
-        $list['lang'] = in_array($language, $this->languages) ? $language : 'en';
 
         return $list;
     }
 
     /**
-     * Get button attributes hash string
+     * The link caption that should be posted to the social networks. By default it’s the page’s title.
      *
      * @return string
      */
-    protected function getButtonAttributes()
+    protected function getDataTitle()
     {
-        $result = array();
-        foreach ($this->defineButtonAttributes() as $name => $value) {
-            $result[] = $name . '=' . $value;
-        }
-        
-        return implode('&amp;', $result);
+        return $this->getTitle() ?: null;
     }
     
     /**
@@ -97,5 +58,25 @@ class Tweet extends \XLite\View\AView
     {
         return parent::isVisible()
             && \XLite\Core\Config::getInstance()->CDev->GoSocial->tweet_use;
+    }
+
+    /**
+     * Get button type
+     *
+     * @return string
+     */
+    function getButtonType()
+    {
+        return self::BUTTON_CLASS_TWITTER;
+    }
+
+    /**
+     * Get button type
+     *
+     * @return string
+     */
+    function getButtonLabel()
+    {
+        return static::t('Tweet');
     }
 }

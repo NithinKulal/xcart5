@@ -19,10 +19,12 @@
     <div class="access-links">
       <ul>
         <li>
-          {{ t('Soft reset. Turn off all addons except those provided by X-Cart Team & Qualiteam',{'url':this.hard_reset_url})|raw }}
+          <p>{{ t('Soft reset. Turn off all addons except those provided by X-Cart Team & Qualiteam') }}</p>
+          <p>{{ this.getSoftResetLink() }}</p>
         </li>
         <li>
-          {{ t('Hard reset. Disable all addons except those provided by X-Cart Team',{'url':this.hard_reset_url})|raw }}
+          <p>{{ t('Hard reset. Disable all addons except those provided by X-Cart Team') }}</p>
+          <p>{{ this.getHardResetLink() }}</p>
         </li>
       </ul>
       <p>

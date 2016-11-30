@@ -9,7 +9,7 @@
 namespace XLite\View\Button;
 
 /**
- * 'Print invoice' button widget
+ * 'Operate as this user' button widget
  *
  * @ListChild (list="tabs.items", zone="admin", weight="0")
  */

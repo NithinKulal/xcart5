@@ -38,7 +38,7 @@ XLite\Model\Payment\Method:
     countries: [US, CA, AU, NZ]
     translations:
       - code: en
-        name: 'Partner Hosted with PCI Compliance'
+        name: 'PayPal Partner Hosted with PCI Compliance'
         title: 'Credit/Debit card'
         altAdminDescription: 'PCI compliant payments on your site with Visa, MasterCard, American Express and Discover - without PayPal-hosted pages. Maintain full control over your customers'' checkout experience by providing a credit card form that will post your customers'' payment details from your site''s native checkout page directly to the Gateway server.'
     settings:
@@ -247,7 +247,7 @@ XLite\Model\LanguageLabel:
   - { name: "Partner name", translations: [{ code: en, label: "Partner name" }] }
   - { name: "Your partner name is PayPal", translations: [{ code: en, label: "Your partner name is PayPal" }] }
   - { name: "Merchant login", translations: [{ code: en, label: "Merchant login" }] }
-  - { name: "This is the login name you created when signing up for PayPal Payments Advanced.", translations: [{ code: en, label: "This is the login name you created when you signed up for PayPal Payments Advanced." }] }
+  - { name: "This is the login name you created when signing up for PayPal Payments Advanced.", translations: [{ code: en, label: "This is the login name you created when you signed up for PayPal Payments Advanced / Payflow Link." }] }
   - { name: "PayPal recommends entering a User Login here instead of your Merchant Login", translations: [{ code: en, label: "PayPal recommends entering a User Login here instead of your Merchant Login. You can set up a User profile in <a href=\"https://manager.paypal.com\">PayPal Manager</a>. This will enhance security and prevent service interruption should you change your Merchant Login password." }] }
   - { name: "This is the password you created when signing up for PayPal Payments Advanced or the password you created for API calls.", translations: [{ code: en, label: "This is the password you created when you signed up for PayPal Payments Advanced or the password you created for API calls." }] }
   - { name: "Additional settings", translations: [{ code: en, label: "Additional settings" }] }

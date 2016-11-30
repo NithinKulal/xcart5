@@ -125,18 +125,7 @@ class Category extends \XLite\Model\Category implements \XLite\Base\IDecorator
             if (null === $list) {
                 $list = array();
 
-                $options = \XLite\Core\Database::getRepo('XLite\Model\AttributeValue\AttributeValueSelect')
-                    ->createQueryBuilder('av')
-                    ->linkInner('av.product')
-                    ->linkInner('product.categoryProducts')
-                    ->andWhere('categoryProducts.category = :category AND av.attribute = :attribute AND product.enabled = true')
-                    ->setParameter('category', $this)
-                    ->setParameter('attribute', $attribute)
-                    ->groupBy('av.attribute_option')
-                    ->linkInner('av.attribute_option')
-                    ->linkInner('attribute_option.translations', 'option_translations')
-                    ->addOrderBy('option_translations.name')
-                    ->getResult();
+                $options = $this->getAvailableAttributeValueSelectOptions($attribute);
 
                 foreach ($options as $option) {
                     $list[$option->getAttributeOption()->getId()] = $option->getAttributeOption()->getName();
@@ -165,6 +154,40 @@ class Category extends \XLite\Model\Category implements \XLite\Base\IDecorator
         }
 
         return $list;
+    }
+
+    /**
+     * Return available category attribute values
+     *
+     * @param \XLite\Model\Attribute $attribute
+     *
+     * @return mixed
+     */
+    protected function getAvailableAttributeValueSelectOptions(\XLite\Model\Attribute $attribute)
+    {
+        return $this->getAvailableAttributeValueSelectOptionsQueryBuilder($attribute)->getResult();
+    }
+
+    /**
+     * Return available category attribute values query builder
+     *
+     * @param \XLite\Model\Attribute $attribute
+     *
+     * @return \XLite\Model\QueryBuilder\AQueryBuilder
+     */
+    protected function getAvailableAttributeValueSelectOptionsQueryBuilder(\XLite\Model\Attribute $attribute)
+    {
+        return \XLite\Core\Database::getRepo('XLite\Model\AttributeValue\AttributeValueSelect')
+            ->createQueryBuilder('av')
+            ->linkInner('av.product')
+            ->linkInner('product.categoryProducts')
+            ->andWhere('categoryProducts.category = :category AND av.attribute = :attribute AND product.enabled = true')
+            ->setParameter('category', $this)
+            ->setParameter('attribute', $attribute)
+            ->groupBy('av.attribute_option')
+            ->linkInner('av.attribute_option')
+            ->linkInner('attribute_option.translations', 'option_translations')
+            ->addOrderBy('option_translations.name');
     }
 
     // {{{ Cache control methods

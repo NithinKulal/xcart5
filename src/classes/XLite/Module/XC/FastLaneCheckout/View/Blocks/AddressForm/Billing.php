@@ -69,8 +69,7 @@ class Billing extends FastLaneCheckout\View\Blocks\AddressForm
      */
     protected function isPasswordVisible()
     {
-        return (!$this->getModifier() || !$this->getModifier()->canApply())
-            && $this->isAnonymous();
+        return false;
     }
 
     /**
@@ -80,7 +79,7 @@ class Billing extends FastLaneCheckout\View\Blocks\AddressForm
      */
     protected function isCreateVisible()
     {
-        return $this->isAnonymous() && (!$this->getModifier() || !$this->getModifier()->canApply());
+        return false;
     }
 
     /**

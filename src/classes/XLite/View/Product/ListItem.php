@@ -54,7 +54,10 @@ class ListItem extends \XLite\View\AView implements DynamicWidgetInterface
     /**
      * Return class attribute for the product cell
      *
-     * @return string
+     * Note:
+     *  If you decorate this method you must use $this->getSafeValue() on return value
+     * 
+     * @return object
      */
     public function getProductCellClass()
     {
@@ -65,8 +68,8 @@ class ListItem extends \XLite\View\AView implements DynamicWidgetInterface
                . ($product->isOutOfStock() ? ' out-of-stock' : '')
                . ($product->isAvailable() ? '' : ' not-available')
                . ($this->isDraggable() ? ' draggable' : '')
-               . ($this->isGotoProduct() ? ' need-choose-options cancel-ui-state-disabled' : '')
-               . $this->getDynamicProductCellClasses();
+               . ($this->isGotoProduct() ? ' need-choose-options' : '')
+               . ' ' . $this->getDynamicProductCellClasses();
 
         return $this->getSafeValue($classes);
     }
@@ -94,7 +97,7 @@ class ListItem extends \XLite\View\AView implements DynamicWidgetInterface
             $this->getProductAddedToCartCellClass(),
         ];
 
-        return implode('', $classes);
+        return trim(implode(' ', $classes));
     }
 
     /**
@@ -118,7 +121,7 @@ class ListItem extends \XLite\View\AView implements DynamicWidgetInterface
      */
     protected function isGotoProduct()
     {
-        return \XLite\Core\Config::getInstance()->General->force_choose_product_options
+        return \XLite\Core\Config::getInstance()->General->force_choose_product_options !== ''
                && $this->getProduct()->hasEditableAttributes();
     }
 
@@ -150,24 +153,13 @@ class ListItem extends \XLite\View\AView implements DynamicWidgetInterface
                 'XLite\View\Button\Simple'
             );
         } else {
-            if ($this->isGotoProduct()) {
-                $widget = $this->getWidget(
-                    array(
-                        'style'     => 'add-to-cart product-add2cart link productid-' . $this->getProduct()->getProductId(),
-                        'label'     => 'Add to cart',
-                        'location'  => $this->getProduct()->getUrl(),
-                    ),
-                    'XLite\View\Button\Link'
-                );
-            } else {
-                $widget = $this->getWidget(
-                    array(
-                        'style'     => 'add-to-cart product-add2cart productid-' . $this->getProduct()->getProductId(),
-                        'label'     => 'Add to cart',
-                    ),
-                    'XLite\View\Button\Simple'
-                );
-            }
+            $widget = $this->getWidget(
+                array(
+                    'style'     => 'add-to-cart product-add2cart productid-' . $this->getProduct()->getProductId(),
+                    'label'     => 'Add to cart',
+                ),
+                'XLite\View\Button\Simple'
+            );
         }
 
         return $widget;
@@ -410,11 +402,30 @@ class ListItem extends \XLite\View\AView implements DynamicWidgetInterface
     {
         $result = array();
 
-        $result[] = $this->defineItemHoverParamDraggable();
-        $result[] = $this->defineItemHoverParamOutOfStock();
-        $result[] = $this->defineItemHoverParamChooseOptions();
+        $product = $this->getProduct();
+
+        if ($product->isOutOfStock()) {
+            $result['out_of_stock']     = $this->defineItemHoverParamOutOfStock();
+
+        } elseif ($this->isGotoProduct()) {
+            $result['choose_options']   = $this->defineItemHoverParamChooseOptions();
+
+        } elseif ($this->isDraggable()) {
+            $result['draggable']        = $this->defineItemHoverParamDraggable();
+        }
 
         return $result;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAllItemHoverParams(){
+        return [
+            'draggable'         => $this->defineItemHoverParamDraggable(),
+            'out_of_stock'      => $this->defineItemHoverParamOutOfStock(),
+            'choose_options'    => $this->defineItemHoverParamChooseOptions(),
+        ];
     }
 
     /**
@@ -425,8 +436,10 @@ class ListItem extends \XLite\View\AView implements DynamicWidgetInterface
     protected function defineItemHoverParamDraggable()
     {
         return array(
-            'text'  => static::t('Drag and drop me to the bag'),
-            'style' => 'drag-message',
+            'text'          => static::t('Drag and drop me to the bag'),
+            'style'         => 'drag-message',
+            'showCondClass' => 'draggable',
+            'hideCondClass' => 'ui-draggable-disabled',
         );
     }
 
@@ -438,8 +451,9 @@ class ListItem extends \XLite\View\AView implements DynamicWidgetInterface
     protected function defineItemHoverParamOutOfStock()
     {
         return array(
-            'text'  => static::t('Product is out of stock'),
-            'style' => 'out-message',
+            'text'      => static::t('Product is out of stock'),
+            'style'     => 'out-message',
+            'showCondClass' => 'out-of-stock',
         );
     }
 
@@ -451,8 +465,9 @@ class ListItem extends \XLite\View\AView implements DynamicWidgetInterface
     protected function defineItemHoverParamChooseOptions()
     {
         return array(
-            'text'  => static::t('Choose the product options first'),
-            'style' => 'choose-product-option',
+            'text'      => static::t('Choose the product options first'),
+            'style'     => 'choose-product-option',
+            'showCondClass' => 'need-choose-options',
         );
     }
 
@@ -477,6 +492,7 @@ class ListItem extends \XLite\View\AView implements DynamicWidgetInterface
         $cart   = Cart::getInstance();
 
         $params[] = $policy->isOutOfStock($cart);
+        $params[] = $this->getItemListWidgetTarget();
 
         return $params;
     }

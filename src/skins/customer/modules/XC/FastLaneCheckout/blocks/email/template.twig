@@ -1,0 +1,16 @@
+{##
+ # Checkout : order review step : selected state : items
+ #}
+<email inline-template>
+    <div class="email-wrapper" v-data='{ "email": "{{ this.getEmailValue() }}" }'>
+        <div class="email-display" v-show="!isEdited">
+            <span>{{ t('Your order details will be sent to your email address') }}:</span>
+            <span class='invoice-email' v-text="email">{{ this.getEmailValue() }}</span>
+            <a class="checkout_fastlane_address_edit_link" href="#" v-on:click.prevent="toggle" title="{{ t('Edit email') }}">{{ t('Edit') }}</a>
+        </div>
+        <div class="email-edit" v-show="isEdited">
+            {{ widget('XLite\\View\\FormField\\Input\\Text\\Email', label=t('Email'), fieldName='email', value=this.getEmailValue(), attributes={'v-model': 'email', 'v-on:keyup.esc.prevent.stop': 'undoEdit', 'v-on:keyup.enter.prevent': 'save', 'v-bind:title': 'btnTitle' }) }}
+            <a class="checkout_fastlane_close_link" href="#" v-on:click.prevent="save">{{ t('Accept') }}</a>
+        </div>
+    </div>
+</email>

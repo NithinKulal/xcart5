@@ -19,11 +19,23 @@ abstract class ACustomer extends \XLite\View\ItemsList\Product\Customer\ACustome
         parent::__construct($params);
 
         $this->sortOrderModes[self::SORT_BY_MODE_NAME] = [
-            self::SORT_ORDER_ASC => $this->t('A - Z'),
-            self::SORT_ORDER_DESC => $this->t('Z - A')
+            self::SORT_ORDER_ASC => static::t('A - Z'),
+            self::SORT_ORDER_DESC => static::t('Z - A')
         ];
     }
 
+    public function getCSSFiles()
+    {
+        $list = parent::getCSSFiles();
+
+        $list[] = [
+            'file'  => 'css/less/cart-tray.less',
+            'media' =>  'screen',
+            'merge' =>  'bootstrap/css/bootstrap.less',
+        ];
+
+        return $list;
+    }
 
     /**
      * @return array

@@ -8,24 +8,21 @@
 
 namespace XLite\View\Product;
 
+use XLite\Core\Cache\ExecuteCachedTrait;
+
 /**
  * Product attribute values
  */
 class AttributeValues extends \XLite\View\AView
 {
+    use ExecuteCachedTrait;
+
     /**
      * Widget param names
      */
     const PARAM_ORDER_ITEM = 'orderItem';
     const PARAM_PRODUCT    = 'product';
     const PARAM_IDX        = 'idx';
-
-    /**
-     * Multiple attributes
-     *
-     * @var array
-     */
-    protected $attributes;
 
     /**
      * Register CSS files
@@ -104,9 +101,7 @@ class AttributeValues extends \XLite\View\AView
 
         return $orderItem
             ? $orderItem->getProduct()
-            : (
-                $this->getParam(static::PARAM_PRODUCT) ?: \XLite::getController()->getProduct()
-            );
+            : ($this->getParam(static::PARAM_PRODUCT) ?: \XLite::getController()->getProduct());
     }
 
     /**
@@ -126,11 +121,9 @@ class AttributeValues extends \XLite\View\AView
      */
     protected function getAttributes()
     {
-        if (!isset($this->attributes)) {
-            $this->attributes = $this->defineAttributes();
-        }
-
-        return $this->attributes;
+        return $this->executeCachedRuntime(function () {
+            return $this->defineAttributes();
+        });
     }
 
     /**
@@ -159,7 +152,7 @@ class AttributeValues extends \XLite\View\AView
      * Return specific CSS class for attribute wrapper(default <li>)
      *
      * @param $attribute \XLite\Model\Attribute
-     * 
+     *
      * @return string
      */
     protected function getAttributeCSSClass($attribute)

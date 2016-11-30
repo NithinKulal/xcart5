@@ -1,0 +1,4 @@
+Version 5.3.2.0
+
+Improvements
+2016-11-01 - [Change] Minor improvements of Vat and Sales Tax settings. Added the setting Merchant Tax Number which, if not blank, shows on the invoice. #XCN-6967 (Vladimir Semyonov) #SalesTax #VAT

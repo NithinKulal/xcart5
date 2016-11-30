@@ -14,6 +14,7 @@ namespace XLite\View\FormField\Input\Text;
 class Price extends \XLite\View\FormField\Input\Text\Symbol
 {
     const PARAM_CURRENCY = 'currency';
+    const PARAM_DASHED  = 'dashed';
 
     /**
      * Set widget params
@@ -104,6 +105,7 @@ class Price extends \XLite\View\FormField\Input\Text\Symbol
                 false,
                 'XLite\Model\Currency'
             ),
+            self::PARAM_DASHED  => new \XLite\Model\WidgetParam\TypeBool('Dash as empty value', false),
         );
     }
 
@@ -131,6 +133,8 @@ class Price extends \XLite\View\FormField\Input\Text\Symbol
     {
         $attributes = parent::getCommonAttributes();
         $attributes['value'] = $this->formatValue($attributes['value']);
+
+        $attributes['data-dashed']  = $this->getParam(self::PARAM_DASHED);
 
         return $attributes;
     }

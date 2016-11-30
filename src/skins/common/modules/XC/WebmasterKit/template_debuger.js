@@ -44,22 +44,24 @@ function displayTemplateInfo(event)
       var beginPos = t.begin.offset();
       var endPos = t.end.offset();
 
-      c.css(
-        {
-          top:    beginPos.top + 'px',
-          left:   beginPos.left + 'px',
-          width:  (endPos.left - beginPos.left + t.end.outerWidth()) + 'px',
-          height: (endPos.top - beginPos.top + t.end.outerHeight()) + 'px'
-        }
-      );
+      if (t.end.get(0).nodeType === 1) {
+        c.css(
+          {
+            top:    beginPos.top + 'px',
+            left:   beginPos.left + 'px',
+            width:  (endPos.left - beginPos.left + t.end.outerWidth()) + 'px',
+            height: (endPos.top - beginPos.top + t.end.outerHeight()) + 'px'
+          }
+        );
 
-      if (i == 0) {
-        window.templateDebugSwitcher.region = {
-          top:    beginPos.top,
-          left:   beginPos.left,
-          right:  (endPos.left + t.end.outerWidth()),
-          bottom: (endPos.top + t.end.outerHeight())
-        };
+        if (i == 0) {
+          window.templateDebugSwitcher.region = {
+            top:    beginPos.top,
+            left:   beginPos.left,
+            right:  (endPos.left + t.end.outerWidth()),
+            bottom: (endPos.top + t.end.outerHeight())
+          };
+        }
       }
 
       var li = document.createElement('li');

@@ -90,6 +90,11 @@ admin_self = "admin.php"
 cart_self = "cart.php"
 
 [clean_urls]
+; Is use urls like domain.com/LG for languages
+; possible values "Y", "N"
+; Changing this setting requires to re-deploy your store
+use_language_url = "Y"
+
 ; String with one or more chars.
 ; It will be used to autogenerate clean URLs.
 ; By default, only the "-" or "_" characters are allowed.
@@ -101,6 +106,26 @@ capitalize_words = Off
 
 ; Use canonical URL for product page
 use_canonical_urls_only = On
+
+; Category Clean URL’s format
+; possible values:
+; domain/parent/goalcategory/
+; domain/goalcategory/
+; domain/parent/goalcategory.html
+; domain/goalcategory.html
+;
+; Changing this setting will not affect existing url's
+; and requires to re-deploy your store
+category_clean_urls_format = "domain/parent/goalcategory/"
+
+[clean_urls_aliases]
+; to define your own alias add line below as:
+; target = "clean-url"
+new_arrivals = "newarrivals"
+sale_products = "sale_products"
+coming_soon = "coming_soon"
+bestsellers = "bestsellers"
+contact_us = "contact_us"
 
 ;
 ; -----------------
@@ -250,6 +275,7 @@ HTML.SafeIframe = On
 [storefront_options]
 ; Do not close target=callback for payments if storefront is closed
 callback_opened = On
+optimize_css = Off
 
 ;
 ; Other options

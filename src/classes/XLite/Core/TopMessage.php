@@ -33,14 +33,14 @@ class TopMessage extends \XLite\Base\Singleton
      *
      * @var array
      */
-    protected $types = array(self::INFO, self::WARNING, self::ERROR);
+    protected $types = [self::INFO, self::WARNING, self::ERROR];
 
     /**
      * Current messages
      *
      * @var array
      */
-    protected $messages = array();
+    protected $messages = [];
 
     /**
      * Add information-type message with additional translation arguments
@@ -51,9 +51,23 @@ class TopMessage extends \XLite\Base\Singleton
      *
      * @return boolean
      */
-    public static function addInfo($text, array $arguments = array(), $code = null)
+    public static function addInfo($text, array $arguments = [], $code = null)
     {
         return static::getInstance()->add($text, $arguments, $code, static::INFO);
+    }
+
+    /**
+     * Add information-type message without applying translation
+     *
+     * @param string $text      Label name
+     * @param array  $arguments Substitution arguments OPTIONAL
+     * @param string $code      Language code OPTIONAL
+     *
+     * @return boolean
+     */
+    public static function addRawInfo($text, array $arguments = [], $code = null)
+    {
+        return static::getInstance()->add($text, [], $code, static::INFO, true);
     }
 
     /**
@@ -65,9 +79,23 @@ class TopMessage extends \XLite\Base\Singleton
      *
      * @return boolean
      */
-    public static function addWarning($text, array $arguments = array(), $code = null)
+    public static function addWarning($text, array $arguments = [], $code = null)
     {
         return static::getInstance()->add($text, $arguments, $code, static::WARNING);
+    }
+
+    /**
+     * Add warning-type message without applying translation
+     *
+     * @param string $text      Label name
+     * @param array  $arguments Substitution arguments OPTIONAL
+     * @param string $code      Language code OPTIONAL
+     *
+     * @return boolean
+     */
+    public static function addRawWarning($text, array $arguments = [], $code = null)
+    {
+        return static::getInstance()->add($text, [], $code, static::WARNING, true);
     }
 
     /**
@@ -79,11 +107,24 @@ class TopMessage extends \XLite\Base\Singleton
      *
      * @return boolean
      */
-    public static function addError($text, array $arguments = array(), $code = null)
+    public static function addError($text, array $arguments = [], $code = null)
     {
         return static::getInstance()->add($text, $arguments, $code, static::ERROR);
     }
 
+    /**
+     * Add error-type message without applying translation
+     *
+     * @param string $text      Label name
+     * @param array  $arguments Substitution arguments OPTIONAL
+     * @param string $code      Language code OPTIONAL
+     *
+     * @return boolean
+     */
+    public static function addRawError($text, array $arguments = [], $code = null)
+    {
+        return static::getInstance()->add($text, $arguments, $code, static::ERROR, true);
+    }
 
     /**
      * Add message
@@ -97,17 +138,15 @@ class TopMessage extends \XLite\Base\Singleton
      *
      * @return boolean
      */
-    public function add($text, array $arguments = array(), $code = null, $type = self::INFO, $rawText = false, $ajax = true)
+    public function add($text, array $arguments = [], $code = null, $type = self::INFO, $rawText = false, $ajax = true)
     {
         $result = false;
 
         if (!empty($text) && !constant('LC_IS_CLI_MODE')) {
-
-            if (
-                is_object($text)
+            if (is_object($text)
                 && $text instanceof \XLite\View\AView
             ) {
-                $text = $text->getContent();
+                $text    = $text->getContent();
                 $rawText = true;
             }
 
@@ -115,17 +154,17 @@ class TopMessage extends \XLite\Base\Singleton
                 $text = static::t($text, $arguments, $code);
             }
 
-            if (!in_array($type, $this->types)) {
+            if (!in_array($type, $this->types, true)) {
                 $type = static::INFO;
             }
 
             // To prevent duplicated messages
             // :TODO: use "array_unique()" instead
-            $this->messages[$type . md5($text)] = array(
+            $this->messages[$type . md5($text)] = [
                 static::FIELD_TEXT => $text,
                 static::FIELD_TYPE => $type,
                 static::FIELD_AJAX => $ajax,
-            );
+            ];
 
             \XLite\Core\Session::getInstance()->topMessages = $this->messages;
 
@@ -148,7 +187,7 @@ class TopMessage extends \XLite\Base\Singleton
         $result = true;
 
         foreach ($messages as $message) {
-            $result = $result && $this->add($message, array(), null, $type);
+            $result = $result && $this->add($message, [], null, $type);
         }
 
         return $result;
@@ -163,7 +202,7 @@ class TopMessage extends \XLite\Base\Singleton
     {
         $messages = \XLite\Core\Session::getInstance()->topMessages;
 
-        return is_array($messages) ? $messages : array();
+        return is_array($messages) ? $messages : [];
     }
 
     /**
@@ -202,7 +241,8 @@ class TopMessage extends \XLite\Base\Singleton
     public function unloadPreviousMessages()
     {
         $messages = $this->getPreviousMessages();
-        $this->messages = array();
+
+        $this->messages = [];
         $this->clear();
 
         return $messages;
@@ -264,8 +304,6 @@ class TopMessage extends \XLite\Base\Singleton
 
     /**
      * Constructor
-     *
-     * @return void
      */
     protected function __construct()
     {

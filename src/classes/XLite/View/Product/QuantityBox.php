@@ -210,7 +210,10 @@ class QuantityBox extends \XLite\View\Product\AProduct
         $maxValue = $this->getParam(static::PARAM_MAX_VALUE);
 
         $orderItemsAmount = $this->getOrderItem()
-            ? $this->getOrderItem()->getAmount()
+            ? min(
+                $this->getOrderItem()->getAmount(),
+                $this->getProduct()->getPublicAmount()
+            )
             : 0;
 
         return isset($maxValue)

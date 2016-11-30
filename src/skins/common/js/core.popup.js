@@ -401,7 +401,7 @@ popup.getPopupOptions = function(box)
       + ' ' + (box.attr('title') ? 'has-title' : 'no-title'),
     draggable:     false,
     height:        'auto',
-    modal:         true,
+    modal:         (typeof(box.data('dialog-modal')) !== 'undefined' ? box.data('dialog-modal') : true),
     position:      { my: "center", at: "center", of: window },
     resizable:     false,
     width:         'auto',

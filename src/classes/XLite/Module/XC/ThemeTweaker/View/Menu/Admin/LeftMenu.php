@@ -14,26 +14,34 @@ namespace XLite\Module\XC\ThemeTweaker\View\Menu\Admin;
 abstract class LeftMenu extends \XLite\View\Menu\Admin\LeftMenu implements \XLite\Base\IDecorator
 {
     /**
-     * Define and set handler attributes; initialize handler
+     * Define items
      *
-     * @param array $params Handler params OPTIONAL
+     * @return array
      */
-    public function __construct(array $params = array())
+    protected function defineItems()
     {
-        if (empty($this->relatedTargets['layout'])) {
-            $this->relatedTargets['layout'] = array();
+        $items = parent::defineItems();
+
+        if (isset($items['css_js'][static::ITEM_CHILDREN]) && is_array($items['css_js'][static::ITEM_CHILDREN])) {
+            $items['css_js'][static::ITEM_CHILDREN] = array_merge($items['css_js'][static::ITEM_CHILDREN], [
+                'theme_tweaker_templates' => [
+                    static::ITEM_TITLE      => static::t('Webmaster mode'),
+                    static::ITEM_TARGET     => 'theme_tweaker_templates',
+                    static::ITEM_WEIGHT     => 300,
+                ],
+                'custom_css' => [
+                    static::ITEM_TITLE      => static::t('Custom CSS'),
+                    static::ITEM_TARGET     => 'custom_css',
+                    static::ITEM_WEIGHT     => 400,
+                ],
+                'custom_js' => [
+                    static::ITEM_TITLE      => static::t('Custom JavaScript'),
+                    static::ITEM_TARGET     => 'custom_js',
+                    static::ITEM_WEIGHT     => 500,
+                ],
+            ]);
         }
 
-        if (!in_array('custom_css', $this->relatedTargets['layout'])) {
-            $this->relatedTargets['layout'][] = 'custom_css';
-            $this->relatedTargets['layout'][] = 'custom_js';
-            $this->relatedTargets['layout'][] = 'theme_tweaker_templates';
-
-            if (!\XLite\Core\Request::getInstance()->template) {
-                $this->relatedTargets['layout'][] = 'theme_tweaker_template';
-            }
-        }
-
-        parent::__construct();
+        return $items;
     }
 }

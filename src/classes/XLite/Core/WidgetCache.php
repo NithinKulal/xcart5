@@ -8,6 +8,8 @@
 
 namespace XLite\Core;
 
+use XLite\Module\CDev\Demo\XLite;
+
 /**
  * Widget cache represents a specific widget's cache setup
  */
@@ -140,6 +142,6 @@ class WidgetCache
      */
     protected function getCacheKey(array $parameters = array())
     {
-        return md5(static::CACHE_PREFIX . implode('.', $parameters));
+        return md5(static::CACHE_PREFIX . serialize($parameters));
     }
 }

@@ -9,66 +9,10 @@
 namespace XLite\View\Button;
 
 /**
- * 'Print selected invoices' button
+ * 'Print selected packing slip' button
  */
-class PrintSelectedPackingSlip extends \XLite\View\Button\Regular
+class PrintSelectedPackingSlip extends \XLite\View\Button\PrintSelectedInvoices
 {
-    /**
-     * Get a list of JavaScript files required to display the widget properly
-     *
-     * @return array
-     */
-    public function getJSFiles()
-    {
-        $list = parent::getJSFiles();
-        $list[] = 'button/js/print_invoice.js';
-
-        return $list;
-    }
-
-    /**
-     * Return CSS files list
-     *
-     * @return array
-     */
-    public function getCSSFiles()
-    {
-        $list = parent::getCSSFiles();
-        $list[] = 'button/css/print_invoice.css';
-
-        return $list;
-    }
-
-    /**
-     * getDefaultLabel
-     *
-     * @return string
-     */
-    protected function getDefaultLabel()
-    {
-        return 'Print selected';
-    }
-
-    /**
-     * Return CSS classes
-     *
-     * @return string
-     */
-    protected function getClass()
-    {
-        return parent::getClass() . ' link list-action print-invoices';
-    }
-
-    /**
-     * Return widget default template
-     *
-     * @return string
-     */
-    protected function getDefaultTemplate()
-    {
-        return 'button/print_invoice.twig';
-    }
-
     /**
      * Return URL params to use with onclick event
      *

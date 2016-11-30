@@ -111,6 +111,16 @@ class Invoice extends \XLite\View\AView
     }
 
     /**
+     * Return additional CSS classes for invoice box
+     *
+     * @return string
+     */
+    protected function getInvoiceBoxAdditionalCSS()
+    {
+        return null;
+    }
+
+    /**
      * Returns invoice title
      *
      * @return string
@@ -128,6 +138,16 @@ class Invoice extends \XLite\View\AView
     protected function getOrderItems()
     {
         return $this->getOrder()->getItems();
+    }
+
+    /**
+     * Get order item price
+     *
+     * @return float
+     */
+    protected function getOrderItemPrice($item)
+    {
+        return $item->getItemNetPrice();
     }
 
     /**
@@ -222,6 +242,16 @@ class Invoice extends \XLite\View\AView
         return static::formatPrice($value, $currency, $strictFormat);
     }
 
+    /**
+     * Get title for 'Subtotal'
+     *
+     * @return string
+     */
+    protected function getSubtotalTitle()
+    {
+        return static::t('Subtotal');
+    }
+
     // {{{ Surcharges
 
     /**
@@ -232,6 +262,16 @@ class Invoice extends \XLite\View\AView
     protected function getSurchargeTotals()
     {
         return $this->getOrder()->getSurchargeTotals();
+    }
+
+    /**
+     * Get surcharges included to the order totals
+     *
+     * @return array
+     */
+    protected function getItemsIncludeSurchargesTotals()
+    {
+        return $this->getOrder()->getItemsIncludeSurchargesTotals();
     }
 
     /**
@@ -375,6 +415,37 @@ class Invoice extends \XLite\View\AView
             array('order_number' => $this->getOrder()->getOrderNumber()),
             \XLite::getAdminScript()
         );
+    }
+
+    /**
+     * Returns orders full url in customer area
+     *
+     * @return string
+     */
+    protected function getOrderCustomerUrl()
+    {
+        if ($this->getOrder()->getProfile()->getAnonymous()) {
+            $acc = \XLite\Core\Database::getRepo('XLite\Model\AccessControlCell')->generateAccessControlCell(
+                [$this->getOrder()],
+                [\XLite\Model\AccessControlZoneType::ZONE_TYPE_ORDER],
+                'resendAccessLink'
+            );
+
+            return \XLite\Core\Converter::buildPersistentAccessURL(
+                $acc,
+                'order',
+                '',
+                array('order_number' => $this->getOrder()->getOrderNumber()),
+                \XLite::getCustomerScript()
+            );
+        } else {
+            return \XLite\Core\Converter::buildFullURL(
+                'order',
+                '',
+                array('order_number' => $this->getOrder()->getOrderNumber()),
+                \XLite::getCustomerScript()
+            );
+        }
     }
 
     /**

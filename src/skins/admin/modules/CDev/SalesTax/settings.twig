@@ -1,0 +1,48 @@
+{##
+ # Tax edit page : Settings template
+ #}
+
+<div class="settings {{ this.getDialogCSSClasses() }}">
+
+  <div class="common-settings-head">
+
+    <div class="title">{{ t('Common tax settings') }}</div>
+
+    <div id="common-settings-link">
+      <span class="expanded-common-settings {% if not this.isCommonOptionsExpanded() %}hidden{% endif %}">{{ t('Hide common settings') }}</span>
+      <span class="collapsed-common-settings {% if this.isCommonOptionsExpanded() %}hidden{% endif %}">{{ t('Display common settings') }}</span>
+    </div>
+
+  </div>
+
+  <div id="common-settings" {% if not this.isCommonOptionsExpanded() %}class="hidden"{% endif %}>
+
+  <table class="form" cellspacing="0">
+
+    <tr>
+      <td class="label"><label for="tax-title">{{ t('Tax title') }}:</label></td>
+      <td class="star">*</td>
+      <td><input type="text" name="name" value="{{ this.tax.getName() }}" class="field-required form-control" /></td>
+      <td class="button {% if this.tax.getEnabled() %}enabled{% else %}disabled{% endif %}">
+          {{ widget('\\XLite\\View\\Button\\SwitchState', label=t('Tax enabled'), enabled='true', action='switch') }}
+          {{ widget('\\XLite\\View\\Button\\SwitchState', label=t('Tax disabled'), enabled='false', action='switch') }}
+      </td>
+    </tr>
+
+  </table>
+
+  <div class="sales-tax-options">
+    <div class="sales-tax-options-block">
+      {{ widget('\\XLite\\View\\FormField\\Input\\Checkbox', fieldName='ignore_memberships', isChecked=this.config.CDev.SalesTax.ignore_memberships, label=t('Use the same tax rates for all user membership levels')) }}
+    </div>
+    <div class="sales-tax-options-block">
+      {{ widget('\\XLite\\Module\\CDev\\SalesTax\\View\\FormField\\AddressType', fieldName='addressType', value=this.config.CDev.SalesTax.addressType, label=t('Address for sales tax calculation')) }}
+    </div>
+    <div class="sales-tax-options-block">
+      {{ widget('\\XLite\\Module\\CDev\\SalesTax\\View\\FormField\\TaxableBase', fieldName='taxableBase', value=this.config.CDev.SalesTax.taxableBase, label=t('Taxable base')) }}
+    </div>
+  </div>
+
+  </div>
+
+</div>

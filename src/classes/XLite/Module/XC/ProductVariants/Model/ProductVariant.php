@@ -248,6 +248,16 @@ class ProductVariant extends \XLite\Model\AEntity
     }
 
     /**
+     * Get quick data price
+     *
+     * @return float
+     */
+    public function getQuickDataPrice()
+    {
+        return $this->getClearPrice();
+    }
+
+    /**
      * Get clear price
      *
      * @return float

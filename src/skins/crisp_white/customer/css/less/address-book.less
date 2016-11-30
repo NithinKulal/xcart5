@@ -12,6 +12,9 @@
 .select-address ul.addresses {
   margin: 0px;
   padding: 0px;
+  width: -webkit-calc(~"100% + 20px");
+     width: -moz-calc(~"100% + 20px");
+          width: calc(~"100% + 20px");
 }
 
 .select-address ul.addresses li {
@@ -21,12 +24,15 @@
 
 .select-address ul.addresses > li {
   list-style: none;
-  width: 46%;
+  width: -webkit-calc(~"50% - 20px");
+     width: -moz-calc(~"50% - 20px");
+          width: calc(~"50% - 20px");
   display: inline-block;
-  border: 1px solid @color-border;
-  padding: 40px;
+  border: 2px solid @color-border;
+  border-radius: 2px;
+  padding: @rhythmic-unit;
   margin: 0px;
-  margin-right: 2%;
+  margin-right: 20px;
   margin-bottom: 20px;
   position: relative;
   cursor: pointer;
@@ -37,7 +43,22 @@
   }
 }
 
-.select-address ul.addresses > li:hover{
+.select-address ul.addresses > li.selected {
+  .icon-ok-mark;
+  border-color: @color-highlight;
+  cursor: default;
+
+  &:before {
+    position: absolute;
+    color: @color-highlight;
+    top: @rhythmic-unit;
+    right: @rhythmic-unit;
+    font-size: 12px;
+    line-height: @rhythmic-unit;
+  }
+}
+
+.select-address ul.addresses > li:not(.selected):hover{
   color: @color-hover;
   border-color: @color-hover;
 }
@@ -47,6 +68,8 @@
 }
 
 .select-address ul.addresses > li .shipping {
+  display: none;
+
   position: absolute;
   right: 8px;
   bottom: 15px;
@@ -56,6 +79,8 @@
 }
 
 .select-address ul.addresses > li .billing {
+  display: none;
+
   position: absolute;
   right: 9px;
   bottom: 47px;
@@ -69,6 +94,14 @@
   font-size : 18px;
   padding-top: 5px;
   padding-left: 5px;
+}
+
+ul.address-book {
+  .make-row(@grid-gutter-width);
+  li.address-book {
+    .make-sm-column(12; @grid-gutter-width);
+    .make-md-column(4; @grid-gutter-width);
+  }
 }
 
 .ui-dialog .address-book {

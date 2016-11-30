@@ -22,8 +22,12 @@ XLite\Model\Payment\Method:
       - name: test
         value: 1
       - name: prefix
-        value: xcart
+        value: xcart        
+      - name: md5_key
 XLite\Model\LanguageLabel:
   - { name: "API Login ID", translations: [{ code: en, label: "API Login ID" }] }
   - { name: "Transaction key", translations: [{ code: en, label: "Transaction key" }] }
+  - { name: "MD5 Hash protection", translations: [{ code: en, label: "MD5 Hash protection" }] }
+  - { name: "authorize_md5_key_help", translations: [{ code: en, label: "The MD5 Hash feature allows you to authenticate that transaction responses are securely received from Authorize.Net.<br> You can configure the MD5 Hash value in the Security Setting sections of your merchant interface at <a href='http://account.authorize.net'>http://account.authorize.net</a>" }] }
+  - { name: "authorize_key_help", translations: [{ code: en, label: "To obtain the transaction key from the Merchant Interface, do the following:<br><ol><li>Log into the Merchant Interface</li><li>Select Settings from the Main Menu</li><li>Click on Obtain Transaction Key in the Security section</li><li>Type in the answer to the secret question configured on setup</li><li>Click Submit</li></ol>" }] }
   - { name: "It's recommended to limit the length of invoice prefix to 9 characters", translations: [{ code: en, label: "It's recommended to limit the length of invoice prefix to 9 characters. Larger prefixes will be cut prior to transaction initialization." }] }

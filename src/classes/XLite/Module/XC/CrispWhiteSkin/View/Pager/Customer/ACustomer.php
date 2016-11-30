@@ -10,6 +10,18 @@ namespace XLite\Module\XC\CrispWhiteSkin\View\Pager\Customer;
 
 abstract class ACustomer extends \XLite\View\Pager\Customer\ACustomer implements \XLite\Base\IDecorator
 {
+    public function getCSSFiles()
+    {
+        $list = parent::getCSSFiles();
+
+        $list[] = [
+            'file'  => 'css/less/pagination.less',
+            'media' =>  'screen',
+            'merge' =>  'bootstrap/css/bootstrap.less',
+        ];
+
+        return $list;
+    }
     protected function getPerPageCounts()
     {
         return false;

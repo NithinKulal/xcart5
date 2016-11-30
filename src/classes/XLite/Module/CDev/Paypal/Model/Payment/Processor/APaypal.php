@@ -180,7 +180,7 @@ abstract class APaypal extends \XLite\Model\Payment\Base\Iframe
     /**
      * Get allowed backend transactions
      *
-     * @return string Status code
+     * @return string[] Status code
      */
     public function getAllowedTransactions()
     {
@@ -188,6 +188,8 @@ abstract class APaypal extends \XLite\Model\Payment\Base\Iframe
             \XLite\Model\Payment\BackendTransaction::TRAN_TYPE_CAPTURE,
             \XLite\Model\Payment\BackendTransaction::TRAN_TYPE_VOID,
             \XLite\Model\Payment\BackendTransaction::TRAN_TYPE_REFUND,
+            \XLite\Model\Payment\BackendTransaction::TRAN_TYPE_REFUND_PART,
+            \XLite\Model\Payment\BackendTransaction::TRAN_TYPE_REFUND_MULTI
         );
     }
 
@@ -485,13 +487,16 @@ abstract class APaypal extends \XLite\Model\Payment\Base\Iframe
         );
 
         if (\XLite\Core\Request::getInstance()->cancel) {
-            $this->setDetail(
-                'status',
-                'Customer has canceled checkout before completing their payments',
-                'Status'
-            );
-            $transaction->setNote('Customer has canceled checkout before completing their payments');
-            $transaction->setStatus($transaction::STATUS_CANCELED);
+
+            if ($this->api->isTransactionCancellable($transaction)) {
+                $this->setDetail(
+                    'status',
+                    'Customer has canceled checkout before completing their payments',
+                    'Status'
+                );
+                $transaction->setNote('Customer has canceled checkout before completing their payments');
+                $transaction->setStatus($transaction::STATUS_CANCELED);
+            }
 
         } else {
             $request = \XLite\Core\Request::getInstance();
@@ -557,6 +562,7 @@ abstract class APaypal extends \XLite\Model\Payment\Base\Iframe
     {
         $status = \XLite\Model\Payment\Transaction::STATUS_FAILED;
         $transaction->setStatus($status);
+
         $this->updateInitialBackendTransaction($transaction, $status);
         \XLite\Core\Database::getEM()->flush();
 
@@ -839,6 +845,32 @@ abstract class APaypal extends \XLite\Model\Payment\Base\Iframe
     }
 
     /**
+     * Do 'CREDIT' request.
+     * Returns true on success or false on failure
+     *
+     * @param \XLite\Model\Payment\BackendTransaction $transaction Transaction
+     *
+     * @return boolean
+     */
+    protected function doRefundPart(\XLite\Model\Payment\BackendTransaction $transaction)
+    {
+        return $this->doRefund($transaction);
+    }
+
+    /**
+     * Do 'CREDIT' request.
+     * Returns true on success or false on failure
+     *
+     * @param \XLite\Model\Payment\BackendTransaction $transaction Transaction
+     *
+     * @return boolean
+     */
+    protected function doRefundMulti(\XLite\Model\Payment\BackendTransaction $transaction)
+    {
+        return $this->doRefund($transaction);
+    }
+
+    /**
      * Return array of parameters for 'CREDIT' request
      *
      * @param \XLite\Model\Payment\BackendTransaction $transaction Transaction
@@ -1069,14 +1101,18 @@ abstract class APaypal extends \XLite\Model\Payment\Base\Iframe
             case \XLite\Model\Payment\BackendTransaction::TRAN_TYPE_CAPTURE:
             case \XLite\Model\Payment\BackendTransaction::TRAN_TYPE_VOID:
                 if (\XLite\Model\Payment\BackendTransaction::TRAN_TYPE_AUTH === $paymentTransaction->getType()) {
-                    $referenceId = $paymentTransaction->getDataCell($this->getReferenceIdField())->getValue();
+                    $dataCell = $paymentTransaction->getDataCell($this->getReferenceIdField());
+                    $referenceId = $dataCell ? $dataCell->getValue() : null;
                 }
 
                 break;
 
             case \XLite\Model\Payment\BackendTransaction::TRAN_TYPE_REFUND:
+            case \XLite\Model\Payment\BackendTransaction::TRAN_TYPE_REFUND_PART:
+            case \XLite\Model\Payment\BackendTransaction::TRAN_TYPE_REFUND_MULTI:
                 if (\XLite\Model\Payment\BackendTransaction::TRAN_TYPE_SALE === $paymentTransaction->getType()) {
-                    $referenceId = $paymentTransaction->getDataCell($this->getReferenceIdField())->getValue();
+                    $dataCell = $paymentTransaction->getDataCell($this->getReferenceIdField());
+                    $referenceId = $dataCell ? $dataCell->getValue() : null;
 
                 } elseif ($paymentTransaction->isCaptured()) {
                     foreach ($paymentTransaction->getBackendTransactions() as $bt) {

@@ -226,3 +226,18 @@ address {
   font-style: normal;
   line-height: @line-height-base;
 }
+
+.recently-updated-icon {
+  &:after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    background-color: @color-hover;
+    border: 2px solid @color-background;
+    border-radius: 50%;
+    position: absolute;
+    bottom: -4px;
+    left: 10px;
+  }
+}

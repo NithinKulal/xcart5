@@ -111,26 +111,30 @@
   left: 30px;
 }
 
-@-webkit-keyframes reveal {
+@-webkit-keyframes xc_progress_reveal {
   from { transform: scale(0.001); }
   to { transform: scale(1); }
 }
 
-@-webkit-keyframes slide {
-  to { transform: translateX(15px) }
+@-webkit-keyframes xc_progress_slide {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(15px, 0);
+  }
 }
-
 .progress-state .loader .dot1 {
-  -webkit-animation-name: reveal;
+  -webkit-animation-name: xc_progress_reveal;
 }
 
 .progress-state .loader .dot2,
 .progress-state .loader .dot3 {
-  -webkit-animation-name: slide;
+  -webkit-animation-name: xc_progress_slide;
 }
 
 .progress-state .loader .dot4 {
-  -webkit-animation-name: reveal;
+  -webkit-animation-name: xc_progress_reveal;
   -webkit-animation-direction: reverse;
 }
 

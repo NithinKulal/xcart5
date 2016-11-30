@@ -23,11 +23,7 @@ class ProductSelections extends \XLite\View\ProductSelections
      */
     public static function getAllowedTargets()
     {
-        $list = parent::getAllowedTargets();
-
-        return array(
-            'f_product_selections'
-        );
+        return ['f_product_selections'];
     }
 
     /**
@@ -37,6 +33,6 @@ class ProductSelections extends \XLite\View\ProductSelections
      */
     protected function getSearchPanelView()
     {
-        return '\XLite\Module\CDev\FeaturedProducts\View\SearchPanel\Main';
+        return 'XLite\Module\CDev\FeaturedProducts\View\SearchPanel\Main';
     }
 }

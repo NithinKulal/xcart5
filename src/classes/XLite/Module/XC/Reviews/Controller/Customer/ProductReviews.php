@@ -31,7 +31,7 @@ class ProductReviews extends \XLite\Controller\Customer\Product
      *
      * @return string
      */
-    public function getPageTitle()
+    public function getTitleObjectPart()
     {
         return $this->getProduct() && $this->getProduct()->getMetaTitle()
             ? static::t('Ratings and Reviews of X', array('product' => $this->getProduct()->getMetaTitle()))

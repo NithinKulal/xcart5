@@ -126,11 +126,7 @@ MinicartView.prototype.postprocess = function(isSuccess)
     // Initialize view mode toggle mechanism
     this.base.click(_.bind(
       function(event) {
-        event.stopPropagation();
-
         this.toggleViewMode();
-
-        return false;
       },
       this
     ));
@@ -138,7 +134,9 @@ MinicartView.prototype.postprocess = function(isSuccess)
     if (!this.bodyHandlerBinded) {
       jQuery('body').click(_.bind(
         function (event) {
-          this.toggleViewMode(false);
+          if (event.target !== this.base.get(0)) {
+            this.toggleViewMode(false);
+          }
         },
         this
       ));

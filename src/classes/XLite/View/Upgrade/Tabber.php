@@ -73,25 +73,44 @@ class Tabber extends \XLite\View\Tabber
      */
     protected function defineUpgradePageTabs()
     {
-        $list = array();
+        $list = [];
 
-        $modulesInfo = \XLite\Core\Database::getRepo('XLite\Model\Module')->getUpgradeModulesInfoHash();
-
-        if ($this->isUpdateModeSelectorAvailable()) {
+        if ($this->isUpdate()) {
+            $upgradeCell = \XLite\Upgrade\Cell::getInstance();
             $isHotfixMode = (bool)\XLite\Core\Session::getInstance()->upgradeHotfixMode;
             $url = $this->buildURL('upgrade', 'toggleHotfixMode');
-            $list['hotfix'] = array(
-                'title'    => static::t('Hotfixes mode'),
-                'url'      => !$isHotfixMode ? $url : null,
-                'selected' => $isHotfixMode,
-            );
-            $list['updates'] = array(
-                'title'    => static::t('Updates mode'),
-                'url'      => $isHotfixMode ? $url : null,
-                'selected' => !$isHotfixMode,
-            );
+
+            if ($upgradeCell->hasHotfixEntries() || $this->isUpdateModeSelectorAvailable()) {
+                $list['hotfix'] = [
+                    'title'    => static::t('Hotfixes mode'),
+                    'url'      => !$isHotfixMode ? $url : null,
+                    'selected' => $isHotfixMode,
+                ];
+            }
+
+            if ($upgradeCell->hasNewFeaturesEntries() || $this->isUpdateModeSelectorAvailable()) {
+                $list['updates'] = [
+                    'title'    => static::t('Updates mode'),
+                    'url'      => $isHotfixMode ? $url : null,
+                    'selected' => !$isHotfixMode,
+                ];
+            }
+
+            if (count($list) === 1) {
+                $list[array_keys($list)[0]]['selected'] = true;
+            }
         }
 
         return $list;
+    }
+
+    /**
+     * Checks whether the tabs navigation is visible, or not
+     *
+     * @return boolean
+     */
+    protected function isTabsNavigationVisible()
+    {
+        return 0 < count($this->getTabberPages());
     }
 }

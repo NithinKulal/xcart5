@@ -28,28 +28,6 @@ abstract class AQueryBuilder extends \Doctrine\ORM\QueryBuilder implements \Coun
      */
     protected $dataStorage = array();
 
-    /**
-     * Flag to define is inventory is already joined to prevent double joining (error)
-     *
-     * @var boolean
-     */
-    protected $hasJoinedInventory = false;
-
-    /**
-     * Join inventory procedure
-     *
-     * @return \XLite\Model\QueryBuilder\Product
-     */
-    public function innerJoinInventory()
-    {
-        if (!$this->hasJoinedInventory) {
-            $this->innerJoin('p.inventory', 'i');
-            $this->hasJoinedInventory = true;
-        }
-
-        return $this;
-    }
-
     // {{{ Result helpers
 
     /**

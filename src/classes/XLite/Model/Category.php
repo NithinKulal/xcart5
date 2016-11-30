@@ -351,7 +351,7 @@ class Category extends \XLite\Model\Base\Catalog
     /**
      * Return subcategories list
      *
-     * @return \Doctrine\Common\Collections\ArrayCollection
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getSubcategories()
     {
@@ -467,8 +467,6 @@ class Category extends \XLite\Model\Base\Catalog
     /**
      * Return number of products associated with the category
      *
-     * TODO: check if result of "getProducts()" is cached by Doctrine
-     *
      * @return integer
      */
     public function getProductsCount()
@@ -515,7 +513,7 @@ class Category extends \XLite\Model\Base\Catalog
     }
 
     /**
-     * Count products
+     * @deprecated No longer used by internal code. Use getProducts($cnd, true) instead.
      *
      * @param \XLite\Core\CommonCell $cnd       Search condition OPTIONAL
      *
@@ -611,7 +609,7 @@ class Category extends \XLite\Model\Base\Catalog
      */
     public function getCategoryId()
     {
-        return $this->category_id;
+        return (int) $this->category_id;
     }
 
     /**
@@ -666,7 +664,9 @@ class Category extends \XLite\Model\Base\Catalog
      */
     public function setEnabled($enabled)
     {
+        $this->_getPreviousState()->enabled = $this->enabled;
         $this->enabled = $enabled;
+
         return $this;
     }
 
@@ -859,7 +859,7 @@ class Category extends \XLite\Model\Base\Catalog
     /**
      * Get banner image
      *
-     * @return \XLite\Model\Image\Category\Image
+     * @return \XLite\Model\Image\Category\Banner
      */
     public function getBanner()
     {

@@ -6,8 +6,13 @@
  * Copyright (c) 2001-present Qualiteam software Ltd. All rights reserved.
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
-Checkout.define('Checkout.NextButton', [], function(){
-  Checkout.NextButton = Vue.extend({
+define(
+  'checkout_fastlane/sections/next_button',
+ ['vue/vue',
+  'checkout_fastlane/sections/section_change_button'],
+  function(Vue, SectionChangeButton){
+
+  var NextButton = Vue.extend({
     name: 'next-button',
     props: ['enabled', 'index'],
 
@@ -76,4 +81,8 @@ Checkout.define('Checkout.NextButton', [], function(){
       },
     }
   });
+  
+  Vue.registerComponent(SectionChangeButton, NextButton);
+
+  return NextButton;
 });

@@ -1,0 +1,12 @@
+{##
+ # Checkbox
+ #}
+
+<span class="input-field-wrapper {{ this.getWrapperClass() }}">
+  {{ this.displayCommentedData(this.getCommentedData()) }}
+  <input type="hidden" name="{{ this.getName() }}" value="" />
+  <span class="input-itseft-wrapper">
+    <input{{ this.getAttributesCode()|raw }} />
+  </span>
+  <span class="checkbox-caption">{{ t('Sign up for <Company name> news, sales and deals', {'company_name': this.config.Company.company_name}) }}</span>
+</span>

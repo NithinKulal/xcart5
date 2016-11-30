@@ -1,0 +1,11 @@
+{##
+ # Field : email
+ #
+ # @ListChild (list="signin-anonymous-title.continue", weight="100")
+ #}
+
+<tr>
+  <td class="email-field field">
+    {{ widget('XLite\\View\\FormField\\Input\\Text\\Email', required='true', fieldName='email', label=t('Email'), fieldOnly='false') }}
+  </td>
+</tr>

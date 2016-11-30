@@ -203,6 +203,11 @@ class StaticReflector implements StaticReflectorInterface
             $pos = array_merge($pos, $annotation->dependencies);
         }
 
+        /** @var \Includes\Annotations\Decorator\Rely $annotation */
+        foreach ($this->getClassAnnotationsOfType('Includes\Annotations\Decorator\Rely') as $annotation) {
+            $pos = array_merge($pos, $annotation->dependencies);
+        }
+
         return $pos;
     }
 
@@ -217,6 +222,11 @@ class StaticReflector implements StaticReflectorInterface
 
         /** @var \Includes\Annotations\Decorator\Depend $annotation */
         foreach ($this->getClassAnnotationsOfType('Includes\Annotations\Decorator\Depend') as $annotation) {
+            $neg = array_merge($neg, $annotation->incompatibilities);
+        }
+
+        /** @var \Includes\Annotations\Decorator\Rely $annotation */
+        foreach ($this->getClassAnnotationsOfType('Includes\Annotations\Decorator\Rely') as $annotation) {
             $neg = array_merge($neg, $annotation->incompatibilities);
         }
 

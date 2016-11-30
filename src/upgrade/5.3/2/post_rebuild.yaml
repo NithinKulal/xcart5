@@ -1,0 +1,116 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Data
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - { name: origin_use_company, category: Company, translations: [{ code: en, option_name: 'Use your company address as your ship-from address', option_comment: 'See <a href="admin.php?target=settings&page=Company#company-address">company address</a>' }] }
+  - { name: aggregate_css, category: Performance, type: XLite\View\FormField\Input\Checkbox\OnOff, orderby: 2000, translations: [{ code: en, option_name: 'Aggregate CSS files (enable for better performance)' }] }
+  - { name: aggregate_js, category: Performance, type: XLite\View\FormField\Input\Checkbox\OnOff, orderby: 3000, translations: [{ code: en, option_name: 'Aggregate JS files (enable for better performance)' }] }
+  - { name: use_view_cache, category: Performance, type: XLite\View\FormField\Input\Checkbox\OnOff, orderby: 4000, translations: [{ code: en, option_name: 'Use widget cache (enable for better performance)' }] }
+  - { name: layout_type_home, category: Layout, type: XLite\View\FormField\Select\LayoutType, orderby: 1010, value: left, translations: [{ code: en, option_name: 'Home page layout' }] }
+  - { name: force_choose_product_options, category: General, type: XLite\View\FormField\Select\ForceProductOptions, orderby: 29900, value: '', translations: [{ code: en, option_name: 'Force customer to choose product options before the product can be added to cart' }] }
+  - { name: use_dynamic_image_resizing, category: Performance, type: hidden, orderby: 5000 }
+  - name: clean_url_flag
+    category: CleanURL
+    type: XLite\View\FormField\Input\Checkbox\CleanUrl
+    orderby: 1000
+  - { name: general_options, category: CleanURL, type: separator, orderby: 10000, translations: [{ code: en, option_name: 'General options' }] }
+  - name: default_site_title
+    category: CleanURL
+    type: XLite\View\FormField\Label\TranslationLabel
+    orderby: 11000
+    value: 'default-site-title'
+    translations:
+      - code: en
+        option_name: 'Default site title'
+  - name: default_site_meta_description
+    category: CleanURL
+    type: XLite\View\FormField\Label\TranslationLabel
+    orderby: 12000
+    value: 'default-meta-description'
+    translations:
+      - code: en
+        option_name: 'Default site meta description'
+  - name: default_site_meta_keywords
+    category: CleanURL
+    type: XLite\View\FormField\Label\TranslationLabel
+    orderby: 13000
+    value: 'default-meta-keywords'
+    translations:
+      - code: en
+        option_name: 'Default site meta keywords'
+  - name: home_page_title_and_meta
+    category: CleanURL
+    type: XLite\View\FormField\CleanUrls\FrontPage
+    orderby: 14000
+    translations:
+      - code: en
+        option_name: 'Home page title and meta'
+  - name: page_title_format
+    category: CleanURL
+    type: XLite\View\FormField\CleanUrls\PageTitleFormat
+    orderby: 15000
+    translations:
+      - code: en
+        option_name: 'Page title format'
+  - name: company_name
+    category: CleanURL
+    type: XLite\View\FormField\Input\Checkbox\OnOff
+    orderby: 15100
+    value: 0
+    translations:
+      - code: en
+        option_name: 'Company name'
+  - name: parent_category_path
+    category: CleanURL
+    type: XLite\View\FormField\Input\Checkbox\OnOff
+    orderby: 15200
+    value: 0
+    translations:
+      - code: en
+        option_name: 'Parent category path'
+  - name: object_name
+    category: CleanURL
+    type: XLite\View\FormField\Input\Checkbox\OnOffReadOnly
+    orderby: 15300
+    value: 1
+    translations:
+      - code: en
+        option_name: 'Object name (category, product, etc)'
+  - name: object_name_in_page_title_order
+    category: CleanURL
+    type: XLite\View\FormField\Select\ObjectNameInPageTitleOrder
+    orderby: 16000
+    value: L
+    translations:
+      - code: en
+        option_name: 'Show object name in page title'
+  - { name: clean_urls_about, category: CleanURL, type: separator, orderby: 20000, translations: [{ code: en, option_name: 'About clean urls' }] }
+  - name: about_widget
+    category: CleanURL
+    type: XLite\View\FormField\CleanUrls\AboutCleanUrls
+    orderby: 21000
+
+XLite\Model\LanguageLabel:
+  - { name: "Origin address", translations: [{ code: en, label: 'Ship-From address' }]}
+  - { name: "Use dynamic image resizing", translations: [{ code: en, label: 'Use dynamic image resizing' }]}
+  - { name: "Use dynamic image help", translations: [{ code: en, label: 'This setting determines what happens if X-Cart cannot find a previously generated resized version of an image it needs to display. If this setting is enabled, an appropriately sized version of the image is generated on the fly. If this setting is disabled, the original (non-resized) image is used.' }]}
+
+  - { name: "Bank name", translations: [{ code: en, label: "Bank name" }] }
+  - { name: "Name of account holder", translations: [{ code: en, label: "Name of account holder" }] }
+
+XLite\Model\Task:
+  - { owner: 'XLite\Core\Task\OrdersGarbageCleaner' }
+  - { owner: 'XLite\Core\Task\SessionsGarbageCleaner' }
+
+XLite\Model\Notification:
+  - { templatesDirectory: recover_password_request, availableForAdmin: false, availableForCustomer: false, enabledForAdmin: true, enabledForCustomer: true}
+
+XLite\Model\AccessControlEntityType:
+  - type: '\XLite\Model\Order'
+
+XLite\Model\AccessControlZoneType:
+  - name: 'order'

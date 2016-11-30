@@ -43,6 +43,8 @@
   width: 200px;
 }
 
-.checkout_fastlane_container #payWithAmazonDiv_co_btn {
+.checkout_fastlane_container .pay-with-amazon-button {
   margin-left: 0;
+  margin-top: 20px;
+  float: none;
 }

@@ -13,4 +13,18 @@ namespace XLite\Module\XC\ThemeTweaker\Controller\Admin;
  */
 class CustomCss extends \XLite\Module\XC\ThemeTweaker\Controller\Admin\Base\ThemeTweaker
 {
+    /**
+     * Return the current page title (for the content area)
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->isAJAX() ? '' : static::t('Custom CSS');
+    }
+
+    public function printAJAXAttributes()
+    {
+        return 'data-dialog-modal="false"';
+    }
 }

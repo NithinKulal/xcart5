@@ -14,11 +14,12 @@ namespace XLite\Module\CDev\Sale\View;
  */
 abstract class ASale extends \XLite\View\ItemsList\Product\Customer\ACustomer
 {
+    const PARAM_CATEGORY_ID = 'category_id';
+
     /**
      * Widget target
      */
     const WIDGET_TARGET_SALE_PRODUCTS = 'sale_products';
-
 
     /**
      * Return target to retrive this widget from AJAX
@@ -61,7 +62,7 @@ abstract class ASale extends \XLite\View\ItemsList\Product\Customer\ACustomer
      */
     protected function getHead()
     {
-        return 'Sale';
+        return static::t('Sale');
     }
 
     /**
@@ -71,40 +72,45 @@ abstract class ASale extends \XLite\View\ItemsList\Product\Customer\ACustomer
      */
     protected function getPagerClass()
     {
-        return '\XLite\Module\CDev\Sale\View\Pager\Pager';
+        return 'XLite\Module\CDev\Sale\View\Pager\Pager';
     }
 
     /**
-     * Return params list to use for search
+     * Default search conditions
+     *
+     * @param  \XLite\Core\CommonCell $searchCase Search case
      *
      * @return \XLite\Core\CommonCell
      */
-    protected function getSearchConditions(\XLite\Core\CommonCell $cnd)
+    protected function postprocessSearchCase(\XLite\Core\CommonCell $searchCase)
     {
-        $cnd->{\XLite\Module\CDev\Sale\Model\Repo\Product::P_PARTICIPATE_SALE} = true;
+        $searchCase = parent::postprocessSearchCase($searchCase);
+        $searchCase->{\XLite\Module\CDev\Sale\Model\Repo\Product::P_PARTICIPATE_SALE} = true;
 
-        $cnd->{\XLite\Model\Repo\Product::P_ORDER_BY} = array(
-            \XLite\Module\CDev\Sale\Model\Repo\Product::PERCENT_CALCULATED_FIELD,
-            'DESC'
-        );
-
-        return $cnd;
+        return $searchCase;
     }
 
     /**
-     * Return products list
+     * Return 'Order by' array.
+     * array(<Field to order>, <Sort direction>)
      *
-     * @param \XLite\Core\CommonCell $cnd       Search condition
-     * @param boolean                $countOnly Return items list or only its size OPTIONAL
-     *
-     * @return mixed
+     * @return array|null
      */
-    protected function getData(\XLite\Core\CommonCell $cnd, $countOnly = false)
+    protected function getOrderBy()
     {
-        return \XLite\Core\Database::getRepo('XLite\Model\Product')
-            ->search($this->getSearchConditions($cnd), $countOnly);
+        return [\XLite\Model\Repo\Product::PERCENT_CALCULATED_FIELD, static::SORT_ORDER_DESC];
     }
 
+    /**
+     * Check if widget is visible
+     *
+     * @return boolean
+     */
+    protected function isVisible()
+    {
+        return parent::isVisible()
+            && $this->hasResults();
+    }
     /**
      * Get max number of products displayed in block
      *
@@ -112,7 +118,7 @@ abstract class ASale extends \XLite\View\ItemsList\Product\Customer\ACustomer
      */
     protected function getMaxCountInBlock()
     {
-        return intval(\XLite\Core\Config::getInstance()->CDev->Sale->sale_max_count_in_block) ?: 3;
+        return (int) \XLite\Core\Config::getInstance()->CDev->Sale->sale_max_count_in_block ?: 3;
     }
 
     /**

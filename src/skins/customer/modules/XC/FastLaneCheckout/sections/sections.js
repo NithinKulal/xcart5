@@ -6,11 +6,12 @@
  * Copyright (c) 2001-present Qualiteam software Ltd. All rights reserved.
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
-Checkout.define(
-  'Checkout.Sections',
-  ['Checkout.AddressSection', 'Checkout.PaymentSection', 'Checkout.SectionChangeButton'],
-  function(){
-    Checkout.Sections = Vue.extend({
+define(
+  'checkout_fastlane/sections',
+  ['vue/vue'],
+  function(Vue){
+
+    var Sections = Vue.extend({
       name: 'sections',
     	replace: false,
 
@@ -31,15 +32,6 @@ Checkout.define(
         $(this.$el).find('.checkout_fastlane_details_box').removeClass('loading');
       },
 
-      components: {
-        AddressSection: Checkout.AddressSection,
-        PaymentSection: Checkout.PaymentSection,
-        Address: Checkout.Address,
-        CartItems: Checkout.CartItems,
-        OrderNotes: Checkout.OrderNotes,
-        SectionChangeButton: Checkout.SectionChangeButton
-      },
-
       methods: {
         switchTo: function(target) {
           this.dispatchSwitch(target);
@@ -49,11 +41,15 @@ Checkout.define(
       computed: {
         classes: function() {
           var obj = {};
-          obj['section-' + this.current.name] = true;
+          if (this.current !== null) {
+            obj['section-' + this.current.name] = true;
+          }
 
           return obj;
         },
       },
     });
+
+    return Sections;
   }
 );

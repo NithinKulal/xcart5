@@ -1,0 +1,8 @@
+{##
+ # Register form template
+ #
+ # @ListChild (list="checkout.review.selected.placeOrder", weight="350")
+ # @ListChild (list="checkout_fastlane.sections.place-order.before", weight="100")
+ # @ListChild (list="checkout.review.selected.items", weight="2000")
+ #}
+{{ widget('\\XLite\\Module\\XC\\MailChimp\\View\\ItemsList\\Subscriptions\\RegisterSubscriptions', profile=this.getProfile()) }}

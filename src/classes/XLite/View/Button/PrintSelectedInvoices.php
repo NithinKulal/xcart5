@@ -56,7 +56,7 @@ class PrintSelectedInvoices extends \XLite\View\Button\Regular
      */
     protected function getClass()
     {
-        return parent::getClass() . ' link list-action print-invoices';
+        return parent::getClass() . ' print-invoices';
     }
 
     /**

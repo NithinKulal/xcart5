@@ -8,6 +8,9 @@
 
 namespace XLite\View\ItemsList;
 
+use XLite\Model\SearchCondition\IExpressionProvider;
+use XLite\Model\SearchCondition\IRepositoryHandlerCarrier;
+
 /**
  * SearchCaseProcessor
  */
@@ -16,31 +19,31 @@ class SearchCaseProcessor implements \XLite\View\ItemsList\ISearchCaseProvider
     /**
      * Search params
      *
-     * @var array[\XLite\Model\SearchCondition\IExpressionProvider]
+     * @var [IExpressionProvider]|[IRepositoryHandlerCarrier]
      */
     protected $searchParams;
 
     /**
      * Search values provider
      *
-     * @var \XLite\View\ItemsList\ISearchValuesStorage
+     * @var ISearchValuesStorage
      */
     protected $searchValuesStorage;
 
     /**
-     * @param array     $searchParams    Search params list
-     * @param string    $sessionCellName Session cell name
+     * @param array                $searchParams        Search params list
+     * @param ISearchValuesStorage $searchValuesStorage Session cell name
      */
-    public function __construct(array $searchParams, \XLite\View\ItemsList\ISearchValuesStorage $searchValuesStorage)
+    public function __construct(array $searchParams, ISearchValuesStorage $searchValuesStorage)
     {
-        $this->searchParams         = array_filter(
+        $this->searchParams = array_filter(
             $searchParams,
-            function($condition){
+            function ($condition) {
                 return isset($condition['condition']);
             }
         );
 
-        $this->searchValuesStorage  = $searchValuesStorage;
+        $this->searchValuesStorage = $searchValuesStorage;
     }
 
     /**
@@ -61,11 +64,9 @@ class SearchCaseProcessor implements \XLite\View\ItemsList\ISearchCaseProvider
         // Fill values for deferred search conditions.
         // We do it separately because we need searchConditions prepopulated here
         foreach ($this->searchParams as $name => $condition) {
-            $paramValue = $this->getSearchConditionValue($name);
-
             if (is_callable($condition['condition'])) {
                 $searchConditionCallback = $condition['condition'];
-                $searchConditionObject = $searchConditionCallback($this->searchParams);
+                $searchConditionObject   = $searchConditionCallback($this->searchParams);
 
                 $paramValue = $this->getSearchConditionValue($name);
 
@@ -91,24 +92,25 @@ class SearchCaseProcessor implements \XLite\View\ItemsList\ISearchCaseProvider
 
         $searchConditions = array_filter(
             $this->searchParams,
-            function($condition){
+            function ($condition) {
                 return isset($condition['condition'])
-                    && is_object($condition['condition'])
-                    &&$condition['condition']->getValue();
+                && is_object($condition['condition'])
+                && $condition['condition']->getValue();
             }
         );
 
         foreach ($searchConditions as $name => $condition) {
             if (is_object($condition['condition'])
-                && $condition['condition'] instanceof \XLite\Model\SearchCondition\IExpressionProvider
+                && $condition['condition'] instanceof IExpressionProvider
             ) {
                 $cell->{$condition['condition']->getName()} = $condition['condition'];
 
             } elseif (is_object($condition['condition'])
-                && $condition['condition'] instanceof \XLite\Model\SearchCondition\IRepositoryHandlerCarrier
+                && $condition['condition'] instanceof IRepositoryHandlerCarrier
             ) {
                 $cell->{$condition['condition']->getName()} = $this->getSearchConditionValue($name);
-            } else  {
+
+            } else {
                 $cell->{$name} = $this->getSearchConditionValue($name);
             }
         }

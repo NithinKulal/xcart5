@@ -1,0 +1,7 @@
+{##
+ # Use dynamic image resizing setting
+ #
+ # @ListChild (list="images_settings", weight="20")
+ #}
+
+{{ widget('\\XLite\\View\\FormField\\Input\\Checkbox\\OnOff', fieldName='use_dynamic_image_resizing', value=this.getUseDynamicImageResizingValue(), label='Use dynamic image resizing', help='Use dynamic image help') }}

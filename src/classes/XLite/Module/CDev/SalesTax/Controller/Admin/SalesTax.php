@@ -21,7 +21,7 @@ class SalesTax extends \XLite\Controller\Admin\AAdmin
      */
     public function getTitle()
     {
-        return static::t('Sales tax');
+        return static::t('Taxes');
     }
 
     // {{{ Widget-specific getters
@@ -146,13 +146,51 @@ class SalesTax extends \XLite\Controller\Admin\AAdmin
     }
 
     /**
+     * Expand common settings section
+     *
+     * @return void
+     */
+    protected function doActionExpand()
+    {
+        $this->toggleCommonSettingsDisplayMode(true);
+    }
+
+    /**
+     * Collapse common settings section
+     *
+     * @return void
+     */
+    protected function doActionCollapse()
+    {
+        $this->toggleCommonSettingsDisplayMode(false);
+    }
+
+    /**
+     * Update common settings section visibility mode
+     *
+     * @param boolean $value Visibility mode: true - section is expanded; false - collapsed
+     *
+     * @return void
+     */
+    protected function toggleCommonSettingsDisplayMode($value)
+    {
+        $optionData = array(
+            'name'     => 'common_settings_expanded',
+            'category' => 'CDev\\SalesTax',
+            'value'    => $value,
+        );
+
+        \XLite\Core\Database::getRepo('XLite\Model\Config')->createOption($optionData);
+    }
+
+    /**
      * Define the actions with no secure token
      *
      * @return array
      */
     public static function defineFreeFormIdActions()
     {
-        return array_merge(parent::defineFreeFormIdActions(), array('switch'));
+        return array_merge(parent::defineFreeFormIdActions(), array('switch', 'expand', 'collapse'));
     }
 
     // }}}

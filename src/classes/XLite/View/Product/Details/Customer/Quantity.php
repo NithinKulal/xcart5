@@ -70,26 +70,6 @@ class Quantity extends \XLite\View\Product\Details\Customer\Widget
     }
 
     /**
-     * Check if widget is visible
-     *
-     * @return boolean
-     */
-    protected function isVisible()
-    {
-        return parent::isVisible() && $this->isProductAvailableForSale();
-    }
-
-    /**
-     * Check - product is available for sale or not
-     *
-     * @return boolean
-     */
-    protected function isProductAvailableForSale()
-    {
-        return $this->getProduct()->isAvailable();
-    }
-
-    /**
      * Return maximum allowed quantity
      *
      * @return integer

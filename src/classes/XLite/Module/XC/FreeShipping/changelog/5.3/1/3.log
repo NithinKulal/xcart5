@@ -1,0 +1,4 @@
+Version 5.3.1.3
+
+Fixes
+2016-08-09 - [Bug] In the Warehouse mode in the module Multivendor, vendors must not have access to the fields Free shipping and Shipping Freight on the product editing page. #BUG-3607 (Sergey Elmanov) #Core #MultiVendor #FreeShipping

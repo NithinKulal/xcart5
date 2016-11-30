@@ -1,0 +1,31 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Data
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: na_mark_with_label
+    category: CDev\ProductAdvisor
+    type: 'XLite\Module\CDev\ProductAdvisor\View\FormField\Select\MarkProducts'
+    orderby: 50
+    value: N
+    translations:
+      - code: en
+        option_name: 'Label new products'
+        option_comment: ''
+  - name: cs_mark_with_label
+    category: CDev\ProductAdvisor
+    type: 'XLite\Module\CDev\ProductAdvisor\View\FormField\Select\MarkProducts'
+    orderby: 1020
+    value: N
+    translations:
+      - code: en
+        option_name: 'Label upcoming products'
+        option_comment: ''
+
+XLite\Model\LanguageLabel:
+  - { name: "Don't label", translations: [{ code: en, label: "Don't label" }] }
+  - { name: 'In catalog only', translations: [{ code: en, label: 'In catalog only' }] }
+  - { name: 'On catalog and product pages', translations: [{ code: en, label: 'On catalog and product pages' }] }

@@ -7,45 +7,12 @@
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
 Checkout = {
-  dependencies: {},
-  loadableCache: {},
-  define: function(name, deps, callback) {
-    var self = this;
-    var promise = new jQuery.Deferred();
-    this.dependencies[name] = promise;
-
-    jQuery(document).ready(function(){
-      if (_.isNull(deps) || _.isEmpty(deps)) {
-        self.resolve(promise, callback);
-      } else {
-        self.require(deps, function() {
-          self.resolve(promise, callback);
-        });
-      }
-    });
-  },
-  resolve: function (promise, callback) {
-    callback();
-    promise.resolve();
-  },
-  require: function(names, callback) {
-    var self = this;
-    var promises = names.map(function(name){
-      if (_.isUndefined(self.dependencies[name])) {
-        throw new Error("[require] Cannot find module " + name + " definition.");
-      }
-      return self.dependencies[name];
-    });
-
-    await(promises, callback);
-  },
-
-  requireAll: function(callback) {
-    await(_.values(this.dependencies), callback);
-  },
+  loadableCache: {}
 };
 
-jQuery(document).ready(function(){
+define('checkout_fastlane/deps', function () { return {} });
+
+define('checkout_fastlane/loader', ['vue/vue', 'ready'], function(Vue){
 
   if (core.isDeveloperMode) {
     Vue.config.debug = true;
@@ -63,14 +30,15 @@ jQuery(document).ready(function(){
 
   core.loadLanguageHash(core.getCommentedData('.checkout_fastlane_container'));
 
-  Checkout.requireAll(function() {
-    Checkout.App = Vue.extend({
+  define('checkout_fastlane/app', ['vue/vue', 'checkout_fastlane/sections', 'checkout_fastlane/store', 'checkout_fastlane/navigation', 'checkout_fastlane/deps'], function(Vue, Sections, Store, Navigation, Deps) {
+    var App = Vue.extend({
       name: 'checkout',
       replace: false,
 
       created: function() {
         core.trigger('checkout.main.initialize');
         core.trigger('checkout.main.postprocess');
+        core.bind('fastlane_section_switched', _.bind(this.updateSectionHandler, this));
       },
 
       ready: function() {
@@ -81,8 +49,8 @@ jQuery(document).ready(function(){
       },
 
       components: {
-        Sections: Checkout.Sections,
-        Navigation: Checkout.Navigation,
+        Sections: Sections,
+        Navigation: Navigation,
       },
 
       methods: {
@@ -109,11 +77,20 @@ jQuery(document).ready(function(){
             console.error('Trying to reload undefined checkout block ' + blockName);
           };
         },
+        updateSectionHandler: function(event, data) {
+          if (!_.isUndefined(data['oldSection']) && data['oldSection'] !== null) {
+            jQuery('body').removeClass('fastlane-step-' + data['oldSection']['name']);
+          };
+          if (!_.isUndefined(data['newSection']) && data['newSection'] !== null) {
+            jQuery('body').addClass('fastlane-step-' + data['newSection']['name']);
+          };
+        },
         assignGlobalListeners: function() {
           core.bind('updatecart', _.bind(this.broadcastCoreEvent('global_updatecart'), this));
           core.bind('loginexists', _.bind(this.broadcastCoreEvent('global_loginexists'), this));
           core.bind('invalidElement', _.bind(this.broadcastCoreEvent('global_invalidelement'), this));
           core.bind('selectcartaddress', _.bind(this.broadcastCoreEvent('global_selectcartaddress'), this));
+          core.bind('createShippingAddress', _.bind(this.broadcastCoreEvent('global_createshippingaddress'), this));
         },
         broadcastCoreEvent: function(name) {
           return function(event, data) {
@@ -122,9 +99,11 @@ jQuery(document).ready(function(){
         },
       },
 
-      store: Checkout.Store
+      store: Store
     });
 
-    Checkout.instance = new Checkout.App({ el: '.checkout_fastlane_container' });
+    Checkout.instance = new App({ el: '.checkout_fastlane_container' });
+
+    return Checkout.instance;
   });
-});
+});  

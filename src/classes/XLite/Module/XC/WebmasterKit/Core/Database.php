@@ -26,7 +26,7 @@ abstract class Database extends \XLite\Core\Database implements \XLite\Base\IDec
         if (!defined('LC_CACHE_BUILDING')) {
             if (\XLite\Module\XC\WebmasterKit\Core\Profiler::getInstance()->enabled) {
                 static::$em->getConnection()->getConfiguration()
-                    ->setSQLLogger(\XLite\Module\XC\WebmasterKit\Core\Profiler::getInstance());
+                    ->setSQLLogger(DataCollector\QueriesCollector::getInstance());
 
             } elseif (\XLite\Core\Config::getInstance()->XC->WebmasterKit->logSQL) {
                 static::$em->getConnection()->getConfiguration()

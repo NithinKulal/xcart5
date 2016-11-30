@@ -7,17 +7,7 @@
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
 
-div.btn-dropdown {
-  white-space: nowrap;
-  position: relative;
-}
-
-.dropdown-backdrop {
-  position: static;
-}
-
 div.btn-dropdown ul li button {
   width: 100%;
   text-align: left;
-  border: none;
 }

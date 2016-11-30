@@ -26,6 +26,7 @@ abstract class Mailer extends \XLite\Core\Mailer implements \XLite\Base\IDecorat
     public static function sendAcquirePinCodesFailedAdmin(\XLite\Model\Order $order)
     {
         static::register('order', $order);
+        static::register('items', $order->getItems());
 
         static::compose(
             static::TYPE_ACQUIRE_PIN_CODES_FAILED_LINKS,

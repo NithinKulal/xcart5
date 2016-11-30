@@ -17,6 +17,16 @@ function () {
       jQuery('.module-' + module).addClass('non-active');
     }, 500);
   }
+
+  var state = $('.addons-search-box .search-form #state');
+
+  state.change(function () {
+    $(this).closest('form').submit();
+  });
+
+  if (state.val() !== '') {
+    $('option:first', state).text(core.t('Any status'));
+  }
 });
 
 

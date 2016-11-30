@@ -16,7 +16,8 @@ abstract class AModule extends \XLite\View\ItemsList\AItemsList
     /**
      * Widget param names
      */
-    const PARAM_SUBSTRING    = 'substring';
+    const PARAM_SUBSTRING   = 'substring';
+    const PARAM_STATE       = 'state';
 
     /**
      * Sort option name definitions

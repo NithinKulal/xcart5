@@ -1,0 +1,27 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Powered by widget style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.profile-form .table .input.mailchimp-subscribe-all:not(.input-label):not(.checkbox-label) .form-control {
+  width: 20px;
+  min-height: 20px;
+  height: 20px;
+  padding: 0;
+}
+
+.input-field-wrapper.mailchimp-subscribe-all {
+  display: flex;
+}
+
+.input-field-wrapper.mailchimp-subscribe-all .input-itseft-wrapper {
+  margin-right: 20px;
+}
+
+.profile-form .table li.input-checkbox.mailchimp-subscribe-all .table-value {
+  float: none;
+}

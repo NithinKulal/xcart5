@@ -30,41 +30,24 @@
                 return self.params.searchingLbl;
               }
             },
-            ajax: {
-              cacheDataSource: [],
-              url: URLHandler.buildURL({target: 'categories', action: 'selectorData'}),
-              dataType: 'json',
-              delay: 250,
-              data: function (params) {
-                term = params.term || '';
-                return {term: params.term, page: params.page ? params.page - 1 : 0}
-              },
-              transport: function (params, success, failure) {
-                var self = this;
-                var key = JSON.stringify(params.data);
-
-                if (self.cacheDataSource[key]) {
-                  success(self.cacheDataSource[key]);
-                } else {
-
-                  var $request = $.ajax(params);
-
-                  $request.then(function (data) {
-                    self.cacheDataSource[key] = data;
-                    success.apply(this, arguments);
-                  });
-                  $request.fail(failure);
-
-                  return $request;
-                }
-              },
-              cache: true
-            },
             escapeMarkup: function (markup) { return markup; },
             templateResult: function (repo) {
+              var term = $('.select2-search__field', $el.parent()).val();
               if (repo.loading) return repo.text;
 
-              return repo.text.replace(new RegExp('('+repo.term+')([^/]*)$', 'i'), '<em>$1</em>$2');
+              return repo.text.replace(new RegExp('('+term+')([^/]*)$', 'i'), '<em>$1</em>$2');
+            },
+            matcher: function (params, match) {
+              if (params.term == null || $.trim(params.term) === '') {
+                return match;
+              }
+
+              var re = new RegExp('('+params.term+')([^/]*)$', 'i');
+              if (re.test(match.text)) {
+                return match;
+              }
+
+              return null;
             }
           }
         )
@@ -76,6 +59,36 @@
           var $el = $(this.el);
           this.vm.$set(model, $el.val() || []);
         }, this));
+
+      this.vm.$watch(this.expression, function (newValue, oldValue) {
+        self.vm.$set('form.default.category_tree', newValue);
+      });
+
+      this.vm.$watch('form.default.category_tree', function (newValue, oldValue) {
+        self.vm.$set(self.expression, newValue);
+      });
+
+      setTimeout(function () {
+        $el.closest('.input-widget').find('span.help-block a').click(function () {
+          self.vm.$set('form.default.category_widget_type', 'tree');
+          jQuery.cookie('product_modify_categroy_widget', 'tree');
+        });
+
+        $('#form_default_category_tree').closest('.input-widget').find('span.help-block a').click(function () {
+          self.vm.$set('form.default.category_widget_type', 'search');
+          jQuery.cookie('product_modify_categroy_widget', 'search');
+        });
+      }, 1000);
+    },
+    update: function (newValue, oldValue) {
+      if (newValue.filter(function (value) { return value.length }).length === 0) {
+        return;
+      }
+
+      var $el = $(this.el);
+
+      $el.val(newValue);
+      $el.trigger('change');
     }
   });
 

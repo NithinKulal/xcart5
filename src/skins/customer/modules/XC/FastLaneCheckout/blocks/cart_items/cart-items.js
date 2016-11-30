@@ -6,9 +6,14 @@
  * Copyright (c) 2001-present Qualiteam software Ltd. All rights reserved.
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
-Checkout.define('Checkout.CartItems', [], function() {
+define(
+  'checkout_fastlane/blocks/cart_items',
+ ['vue/vue',
+  'vue/vue.loadable',
+  'checkout_fastlane/sections'],
+ function(Vue, VueLoadableMixin, Sections) {
 
-  Checkout.CartItems = Vue.extend({
+  var CartItems = Vue.extend({
     mixins: [VueLoadableMixin],
     name: 'cart-items',
     replace: false,
@@ -26,7 +31,7 @@ Checkout.define('Checkout.CartItems', [], function() {
       cacheSimultaneous: true,
       loader: function() {
         this.$root.$broadcast('reloadingBlock', 3);
-        return Checkout.loadableCache[this.$options.name] = core.get({
+        return core.get({
           target: 'checkout',
           widget: 'XLite\\Module\\XC\\FastLaneCheckout\\View\\Blocks\\CartItems'
         }, undefined, undefined, { timeout: 45000 });
@@ -94,4 +99,7 @@ Checkout.define('Checkout.CartItems', [], function() {
     },
   });
 
+  Vue.registerComponent(Sections, CartItems);
+
+  return CartItems;
 });

@@ -21,7 +21,7 @@ class RecentOrders extends \XLite\Controller\Admin\OrderList
     public function getItemsListClass()
     {
         return \XLite\Core\Request::getInstance()->itemsList
-            ?: '\XLite\View\ItemsList\Model\Order\Admin\Recent';
+            ?: 'XLite\View\ItemsList\Model\Order\Admin\Recent';
     }
 
     /**
@@ -31,7 +31,7 @@ class RecentOrders extends \XLite\Controller\Admin\OrderList
      */
     public function getTitle()
     {
-        return static::t('Recent orders');
+        return static::t('Orders awaiting processing');
     }
 
     /**

@@ -27,7 +27,7 @@ class Search extends \XLite\View\Pager\Customer\Product\AProduct
 
    /**
      * Should we use cache for pageId
-     * 
+     *
      * @return boolean
      */
     protected function isSavedPageId()

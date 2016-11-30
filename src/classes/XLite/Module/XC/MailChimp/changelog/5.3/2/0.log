@@ -1,0 +1,4 @@
+Version 5.3.2.0
+
+Improvements
+2016-11-24 - [Change] Mailchimp updated to API 3.0. Added support for Abandoned carts and Product Recomendations on the MailChimp end. #XCN-7198 (Michael Lipinski) #MailChimp

@@ -4,4 +4,8 @@
  # @ListChild (list="itemsList.category.cell.info", weight="100")
  #}
 
-<a href="{{ url('category_products', '', {'id': this.entity.getCategoryId()}) }}"class="count-link">{{ this.entity.countProducts() }}</a>
+<a href="{{ url('category_products', '', {'id': this.entity.getCategoryId()}) }}"class="count-link">{{ this.entity.getProducts(null, true) }}</a>{% spaceless %}
+{% if this.entity.hasSubcategories() %}
+({{ this.entity.getProducts(this.getProductsCountCondition(), true) }})
+{% endif %}
+{% endspaceless %}

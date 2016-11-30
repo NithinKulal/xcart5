@@ -5,6 +5,6 @@
  # @ListChild (list="itemsList.product.small_thumbnails.customer.info", weight="10")
  # @ListChild (list="itemsList.product.big_thumbnails.customer.info", weight="100")
  #}
-<div class="product-photo">
+<div class="product-photo lazy-load">
   {{ widget_list('photo', type='nested', product=this.product) }}
 </div>

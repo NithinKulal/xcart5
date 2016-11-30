@@ -26,7 +26,6 @@ class Menu extends \XLite\Module\CDev\SimpleCMS\Model\Menu implements \XLite\Bas
     protected function defineLinkURLs()
     {
         $list = parent::defineLinkURLs();
-
         $list[static::DEFAULT_BESTSELLERS] = '?target=bestsellers';
 
         return $list;
@@ -41,8 +40,7 @@ class Menu extends \XLite\Module\CDev\SimpleCMS\Model\Menu implements \XLite\Bas
     protected function defineLinkControllers()
     {
         $list = parent::defineLinkControllers();
-
-        $list[static::DEFAULT_BESTSELLERS] = '\XLite\Module\CDev\Bestsellers\Controller\Customer\Bestsellers';
+        $list[static::DEFAULT_BESTSELLERS] = 'XLite\Module\CDev\Bestsellers\Controller\Customer\Bestsellers';
 
         return $list;
     }

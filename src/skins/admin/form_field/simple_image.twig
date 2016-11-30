@@ -1,0 +1,9 @@
+{##
+ # Image field
+ #}
+
+{% if this.getValue() %}
+  {{ widget('\\XLite\\View\\Image', this.getImageOptions()) }}
+{% else %}
+  <div class="no-image">{{ t('No image') }}</div>
+{% endif %}

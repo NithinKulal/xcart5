@@ -3,7 +3,7 @@
  #}
 
 <div class="add-button-wrapper {{ this.getFingerprint() }}">
-  {% if not this.isOutOfStock() %}
+  {% if not this.isOutOfStock() and this.isProductAvailableForSale() %}
     {{ widget('\\XLite\\View\\Button\\Submit', label='Add to cart', style='regular-main-button add2cart') }}
   {% endif %}
 </div>

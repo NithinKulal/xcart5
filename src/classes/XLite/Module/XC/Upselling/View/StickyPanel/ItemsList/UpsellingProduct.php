@@ -13,4 +13,24 @@ namespace XLite\Module\XC\Upselling\View\StickyPanel\ItemsList;
  */
 class UpsellingProduct extends \XLite\View\StickyPanel\ItemsListForm
 {
+    /**
+     * Define additional buttons
+     *
+     * @return array
+     */
+    protected function defineAdditionalButtons()
+    {
+        $list = parent::defineAdditionalButtons();
+        $list['edit_all'] = [
+            'class'    => 'XLite\Module\XC\Upselling\View\Button\EditUpsellingProducts',
+            'params'   => [
+                'style'          => 'more-action always-enabled edit-all',
+                'useCaretButton' => false,
+                'dropDirection'  => 'dropup',
+            ],
+            'position' => 50,
+        ];
+
+        return $list;
+    }
 }

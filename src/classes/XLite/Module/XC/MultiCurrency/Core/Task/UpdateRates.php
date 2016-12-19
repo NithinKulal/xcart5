@@ -15,18 +15,6 @@ use XLite\Module\XC\MultiCurrency\Core\MultiCurrency;
  */
 class UpdateRates extends \XLite\Core\Task\Base\Periodic
 {
-    const INT_1_MIN     = 60;
-    const INT_5_MIN     = 300;
-    const INT_10_MIN    = 600;
-    const INT_15_MIN    = 900;
-    const INT_30_MIN    = 1800;
-    const INT_1_HOUR    = 3600;
-    const INT_2_HOURS   = 7200;
-    const INT_4_HOURS   = 14400;
-    const INT_6_HOURS   = 21600;
-    const INT_12_HOURS  = 43200;
-    const INT_1_DAY     = 86400;
-
     /**
      * Get title
      *

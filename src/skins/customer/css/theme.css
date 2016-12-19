@@ -276,10 +276,20 @@ ul li
   margin-left: 0;
 }
 
+.category-description img,
+.product-description img,
+.news-message-body img,
+.mce-content-body img,
+.fr-view img {
+  max-width: 100%;
+  height: auto;
+}
+
 .category-description ul,
 .product-description ul,
 .news-message-body ul,
-.mce-content-body ul
+.mce-content-body ul,
+.fr-view ul
 {
   padding: 0;
   margin: 8px 0 0 8px;
@@ -288,7 +298,8 @@ ul li
 .category-description ul li,
 .product-description ul li,
 .news-message-body ul li,
-.mce-content-body ul li
+.mce-content-body ul li,
+.fr-view ul li,
 {
   list-style: inherit;
   list-style-position: inside;
@@ -296,7 +307,7 @@ ul li
   margin: inherit;
 }
 
-.product-description  ul li {
+.product-description ul li {
   list-style-type: disc;
 }
 

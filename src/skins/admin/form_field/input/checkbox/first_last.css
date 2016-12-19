@@ -1,0 +1,94 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * OnOff styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+div.first-last-switch {
+  display: inline-block;
+  height: 35px;
+}
+
+.first-last-switch input[type=checkbox] + label .fa {
+  padding: 4px;
+  width: 54px;
+  height: 30px;
+  background-color: #ccc;
+  border-radius: 30px;
+  transition: background 0.4s;
+  color: #9d9d9d;
+  font-size: 14px;
+  vertical-align: middle;
+}
+.first-last-switch input[type=checkbox] + label .fa:before,
+.first-last-switch input[type=checkbox] + label .fa:after {
+  position: absolute;
+}
+.first-last-switch input[type=checkbox] + label .fa:before {
+  padding: 4px;
+  transition: margin 0.4s, color 0.4s;
+  z-index: 1;
+}
+.first-last-switch input[type=checkbox] + label .fa:after {
+  top: 4px;
+  bottom: 4px;
+  width: 22px;
+  border-radius: 30px;
+  transition: margin 0.4s, background 0.4s;
+  background-color: #fff;
+  content: "";
+}
+.first-last-switch input[type=checkbox] + label .on-label,
+.first-last-switch input[type=checkbox] + label .off-label {
+  text-transform: uppercase;
+  font-size: 14px;
+  margin: 0 2px;
+  transition: color 0.4s;
+  display: inline-block;
+  vertical-align: middle;
+}
+.first-last-switch input[type=checkbox] + label .on-label {
+  color: #ccc;
+  text-align: left;
+}
+.first-last-switch input[type=checkbox] + label .off-label {
+  color: #9d9d9d;
+  text-align: right;
+}
+.first-last-switch input[type=checkbox]:checked + label .fa {
+  background-color: #51b962;
+  color: #51b962;
+}
+.first-last-switch input[type=checkbox]:checked + label .fa:before,
+.first-last-switch input[type=checkbox]:checked + label .fa:after {
+  margin-left: 24px;
+}
+.first-last-switch input[type=checkbox]:checked + label .on-label {
+  color: #51b962;
+}
+.first-last-switch input[type=checkbox]:checked + label .off-label {
+  color: #ccc;
+}
+.first-last-switch input[type=checkbox]:disabled + label {
+  opacity: .3;
+}
+
+.first-last-switch input[type=checkbox] {
+  position: absolute;
+  margin-left: -9999px;
+  visibility: hidden;
+}
+.first-last-switch input[type=checkbox] + label {
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  text-align: left;
+  position: relative;
+  white-space: nowrap;
+}

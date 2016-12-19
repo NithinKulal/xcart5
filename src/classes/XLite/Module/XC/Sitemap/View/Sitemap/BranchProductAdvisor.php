@@ -29,13 +29,13 @@ class BranchProductAdvisor extends \XLite\Module\XC\Sitemap\View\Sitemap\Branch 
         $result = parent::getChildren($type, $id);
 
         if ($type == static::PAGE_CATEGORY && $id == \XLite\Core\Database::getRepo('XLite\Model\Category')->getRootCategoryId()) {
-            array_unshift($result, array(
+            array_push($result, array(
                 'type' => static::PAGE_STATIC,
                 'id'   => '998',
                 'name' => static::t('New arrivals'),
                 'url'  => static::buildURL('new_arrivals'),
-            ));        
-            array_unshift($result, array(
+            ));
+            array_push($result, array(
                 'type' => static::PAGE_STATIC,
                 'id'   => '999',
                 'name' => static::t('Coming soon'),

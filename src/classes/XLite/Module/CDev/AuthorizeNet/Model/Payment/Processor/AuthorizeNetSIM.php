@@ -465,6 +465,16 @@ class AuthorizeNetSIM extends \XLite\Model\Payment\Base\WebBased
     }
 
     /**
+     * Get Webhook URL
+     *
+     * @return string
+     */
+    public function getWebhookURL()
+    {
+        return $this->getReturnURL('x_invoice_num');
+    }
+
+    /**
      * Get redirect form URL
      *
      * @return string

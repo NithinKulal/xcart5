@@ -21,9 +21,57 @@
     list-style: disc;
     margin-left: 20px;
   }
+
+  .settings-table .note {
+    font-size: 14px;
+    margin-bottom: 14px;
+    float: none;
+  }
+
+  .settings-table .note + .tooltip-main {
+    position: absolute;
+    right: -30px;
+    top: 2px;    
+  }
+
+  .settings-table .webhook {
+    margin-bottom: 13px;
+  }
+
+  .settings-table .webhook .url {
+    font-size: 16px;
+    padding: 7px 18px 7px;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border: solid 1px #efefef;
+    background: #f8f8f8;
+    color: #8f8f8f;
+    width: auto;
+    display: inline-block;
+    white-space: nowrap;
+    float: none;
+  }
+
+  .settings-table .webhook .copy-link {
+    margin-left: 12px;
+  }
+
 </style>
 
 <table cellspacing="1" cellpadding="5" class="settings-table">
+  <tr>
+      <td colspan="2">
+          <p class="note">{{ t('Relay Response URL note')|raw }}</p>
+          {{ widget('XLite\\View\\Tooltip', id='relay_response_help', text=t('relay_response_help')|raw, caption='', isImageTag='true', className='help-icon') }}
+          <div class="webhook">
+              <div class="url">
+                  {{ this.paymentMethod.processor.getWebhookURL() }}
+                  {{ widget('XLite\\View\\Button\\CopyLink', copy=this.paymentMethod.processor.getWebhookURL()) }}
+              </div>
+          </div>
+      </td>
+  </tr>
 
   <tr>
     <td class="setting-name">

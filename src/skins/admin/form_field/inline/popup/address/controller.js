@@ -273,6 +273,4 @@ OrderAddressView.prototype.openAddressBook = function(event)
   return false;
 }
 
-new OrderAddressView();
-
-
+core.autoload(OrderAddressView);

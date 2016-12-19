@@ -9,9 +9,15 @@
 namespace XLite\Module\QSL\CloudSearch\Core;
 
 use XLite\Core\CommonCell;
+use XLite\Core\Config;
 use XLite\Core\Converter;
 use XLite\Core\Database;
-use XLite\Module\CDev\SimpleCMS\Model\Repo\Page as PageRepo;
+use XLite\Core\Translation;
+use XLite\Model\Category;
+use XLite\Model\Product;
+use XLite\Module\QSL\CloudSearch\Model\Repo\Product as ProductRepo;
+use XLite\Module\QSL\CloudSearch\Model\Repo\Page as PageRepo;
+use XLite\Module\QSL\CloudSearch\Main;
 
 /**
  * CloudSearch store-side API methods
@@ -26,31 +32,29 @@ class StoreApi extends \XLite\Base\Singleton
     /*
      * Maximum thumbnail width/height
      */
-    const MAX_THUMBNAIL_WIDTH = 150;
+    const MAX_THUMBNAIL_WIDTH  = 150;
     const MAX_THUMBNAIL_HEIGHT = 150;
 
-    /**
-     * Trusted request origin IPs
-     *
-     * @var array
-     */
-    protected $trustedRequestOrigins = array('78.46.67.123');
+    protected $categoryCache = [];
 
     /**
-     * Get general store info - entity counts
+     * Get API summary - entity counts and supported features
      *
      * @return array
      */
-    public function getEntityCounts()
+    public function getApiSummary()
     {
-        $repo        = Database::getRepo('XLite\Model\Product');
-        $numProducts = $repo->search(new CommonCell(), $repo::SEARCH_MODE_COUNT);
+        /** @var ProductRepo $repo */
+        $repo = Database::getRepo('XLite\Model\Product');
+        $repo->setSkipMembershipCondition(true);
+        $numProducts = $repo->search($this->getProductSearchConditions(), $repo::SEARCH_MODE_COUNT);
+        $repo->setSkipMembershipCondition(false);
 
         $catRepo       = Database::getRepo('XLite\Model\Category');
-        $numCategories = $catRepo->search(new CommonCell(), $catRepo::SEARCH_MODE_COUNT);
+        $numCategories = $catRepo->search($this->getCategorySearchConditions(), $catRepo::SEARCH_MODE_COUNT);
 
         $pageRepo = Database::getRepo('\XLite\Module\CDev\SimpleCMS\Model\Page');
-        $numPages = $pageRepo ? $pageRepo->search(new CommonCell(array(PageRepo::PARAM_ENABLED => true)), $pageRepo::SEARCH_MODE_COUNT) : 0;
+        $numPages = $pageRepo ? $pageRepo->search($this->getPageSearchConditions(), $pageRepo::SEARCH_MODE_COUNT) : 0;
 
         return array(
             'numProducts'      => $numProducts,
@@ -58,24 +62,67 @@ class StoreApi extends \XLite\Base\Singleton
             'numManufacturers' => $this->getBrandsCount(),
             'numPages'         => $numPages,
             'productsAtOnce'   => $this->getMaxEntitiesAtOnce(),
+            'features'         => ['cloud_filters'],
         );
     }
 
+    /**
+     * Get product search conditions when indexing the catalog
+     *
+     * @return CommonCell
+     */
+    protected function getProductSearchConditions()
+    {
+        $cnd = new CommonCell();
+
+        if ('directLink' != Config::getInstance()->General->show_out_of_stock_products) {
+            $cnd->{ProductRepo::P_INVENTORY} = false;
+        }
+
+        return $cnd;
+    }
+
+    /**
+     * Get category search conditions when indexing the catalog
+     *
+     * @return CommonCell
+     */
+    protected function getCategorySearchConditions()
+    {
+        return new CommonCell();
+    }
+
+    /**
+     * Get page search conditions when indexing the catalog
+     *
+     * @return CommonCell
+     */
+    protected function getPageSearchConditions()
+    {
+        return new CommonCell(array(PageRepo::PARAM_ENABLED => true));
+    }
+
+    /**
+     *
+     * Maximum number of entities returned in one API response
+     *
+     * @return int
+     */
     protected function getMaxEntitiesAtOnce()
     {
         return static::MAX_ENTITIES_AT_ONCE;
     }
-    
+
+    /**
+     * @return int
+     */
     protected function getBrandsCount()
     {
         return 0;
     }
-    
+
     /**
      * Get products data
-     *
-     * @param $start
-     * @param $limit
      *
      * @return array
      */
@@ -94,114 +141,395 @@ class StoreApi extends \XLite\Base\Singleton
      */
     public function getProducts($start, $limit)
     {
-        $cnd                                       = new CommonCell;
-        $cnd->{\XLite\Model\Repo\Product::P_LIMIT} = array($start, $limit);
+        $cnd = $this->getProductSearchConditions();
 
-        return array_map(
-            array($this, 'getIndexProductHash'), 
-            Database::getRepo('XLite\Model\Product')->search($cnd, \XLite\Model\Repo\Product::SEARCH_MODE_ENTITIES)
+        $cnd->{ProductRepo::P_LIMIT} = array($start, $limit);
+
+        /** @var ProductRepo $repo */
+        $repo = Database::getRepo('XLite\Model\Product');
+
+        $repo->setSkipMembershipCondition(true);
+
+        $products = array_map(
+            array($this, 'getProduct'),
+            $repo->search($cnd, ProductRepo::SEARCH_MODE_ENTITIES)
         );
+
+        $repo->setSkipMembershipCondition(false);
+
+        return $products;
     }
 
-    public function getIndexProductHash($product)
+    /**
+     * Get single product data
+     *
+     * @param Product $product
+     *
+     * @return array
+     */
+    public function getProduct(Product $product)
     {
-        return array(
-            'name'          => $product->getName(),
-            'description'   => $product->getDescription(),
-            'id'            => $product->getProductId(),
-            'sku'           => $this->getSkuInfo($product),
-            'price'         => $product->getDisplayPrice(),
-            'url'           => $this->getUrlProductHash($product),
-            'category'      => $this->getCategoryProductHash($product),
-            'modifiers'     => $this->getModifiersProductHash($product),
-        ) + $this->getImageInfoProductHash($product);
-    }
+        $skus = implode(' ', $this->getSkus($product));
 
-    protected function getSkuInfo($product)
-    {
-        return $product->getSku();
-    }
+        $data = array(
+                    'name'        => $product->getName(),
+                    'description' => $product->getDescription() ?: $product->getBriefDescription(),
+                    'id'          => $product->getProductId(),
+                    'sku'         => $skus,
+                    'price'       => $product->getDisplayPrice(),
+                    'url'         => $this->getProductUrl($product),
+                    'membership'  => $product->getMembershipIds(),
+                )
+                + $this->getProductImage($product)
+                + $this->getProductCategoryData($product);
 
-    protected function getModifiersProductHash($product)
-    {
-        $result = array();
+        $data['modifiers'] = [];
 
-        // Attributes retrieving could have overloading effect on the DB
-        // Avoid it if you do not need it actually
-        if (\XLite\Module\QSL\CloudSearch\Main::doIndexModifiers()) {
-            foreach ($product->getAllAttributes() as $attribute) {
-                $values = array();
-                $avs = $attribute->getAttributeValue($product);
+        $attributes = $this->getProductAttributes($product);
 
-                if (is_array($avs)) {
-                    foreach ($avs as $av) {
-                        if ($av->asString()) {
-                            $values[] = $av->asString();
-                        }
-                    }
-                } elseif (is_string($avs)) {
-                    $values[] = $avs;
-                }
+        foreach ($attributes as $k => $m) {
+            if (strtolower($m['name']) == 'manufacturer') {
+                $data['manufacturer'] = $m['values'][0];
 
-                $result[] = array(
-                    'name' => $attribute->getName(),
-                    'values' => $values,
-                );
+                unset($attributes[$k]);
             }
         }
 
-        $result[] = $this->getAdditionalProductInfo($product);
-        
+        $data['modifiers']   = $attributes;
+        $data['modifiers'][] = $this->getProductMetaInfo($product);
+
+        $data['variants'] = $this->getProductVariants($product, $attributes);
+
+        $data += $this->getSortFields($product);
+
+        return $data;
+    }
+
+    /**
+     * Get sort fields that can be used to sort CloudSearch search results.
+     * Sort fields are dynamic in the way that custom sort_int_*, sort_float_*, sort_str_* are allowed.
+     *
+     * @param Product $product
+     *
+     * @return array
+     */
+    protected function getSortFields(Product $product)
+    {
+        return [
+            'sort_int_orderby'      => $product->getOrderBy(),
+            'sort_int_arrival_date' => $product->getArrivalDate(),
+            'sort_float_price'      => $product->getDisplayPrice(),
+            'sort_str_name'         => $product->getName(),
+            'sort_float_rating'     => $product->getAverageRating(),
+            'sort_int_sales'        => $product->getSales(),
+        ];
+    }
+
+    /**
+     * Get product SKUs (multiple if there are variants)
+     *
+     * @param $product
+     *
+     * @return array
+     */
+    protected function getSkus($product)
+    {
+        return [$product->getSku()];
+    }
+
+    /**
+     * Get product attributes data
+     *
+     * @param $product
+     *
+     * @return array
+     */
+    protected function getProductAttributes(Product $product)
+    {
+        $productClassRepo = Database::getRepo('XLite\Model\ProductClass');
+
+        $result = array_merge(
+            $this->getProductAttributesOfSelectType($product),
+            $this->getProductAttributesOfCheckboxType($product)
+        );
+
+        $attributes = [];
+
+        foreach ($result as $r) {
+            if (!isset($attributes[$r['id']])) {
+                $group = $r['productClassId'] !== null
+                    ? $productClassRepo->find($r['productClassId'])->getName() : null;
+
+                $attributes[$r['id']] = [
+                    'id'                => $r['id'],
+                    'name'              => htmlspecialchars_decode($r['name']),
+                    'preselectAsFilter' => $this->isPreselectAttributeAsFilter($r),
+                    'group'             => $group,
+                    'values'            => [htmlspecialchars_decode($r['value'])],
+                ];
+            } else {
+                $attributes[$r['id']]['values'][] = htmlspecialchars_decode($r['value']);
+            }
+        }
+
+        return array_values($attributes);
+    }
+
+    /**
+     * Get "select"-type attributes with values
+     *
+     * @param $product
+     *
+     * @return mixed
+     */
+    protected function getProductAttributesOfSelectType(Product $product)
+    {
+        $qb = Database::getEM()->createQueryBuilder()
+            ->select('a.id')
+            ->addSelect('IDENTITY(a.productClass) AS productClassId')
+            ->from('XLite\Model\AttributeValue\AttributeValueSelect', 'av')
+            ->join('av.attribute', 'a')
+            ->leftJoin('av.attribute_option', 'ao')
+            ->where('av.product = :productId')
+            ->setParameter('productId', $product->getProductId());
+
+        $codes = Translation::getLanguageQuery();
+
+        foreach ($codes as $code) {
+            $qb
+                ->join('a.translations', "at_$code", 'WITH', "at_$code.code = :lng_$code")
+                ->join('ao.translations', "aot_$code", 'WITH', "aot_$code.code = :lng_$code")
+                ->setParameter("lng_$code", $code);
+        }
+
+        $qb->addSelect(
+            $this->getIfNullChainSqlExp(
+                array_map(function ($code) {
+                    return "at_{$code}.name";
+                }, $codes)
+            )
+        );
+
+        $qb->addSelect(
+            $this->getIfNullChainSqlExp(
+                array_map(function ($code) {
+                    return "aot_{$code}.name";
+                }, $codes)
+            ) . ' AS value'
+        );
+
+        $this->addProductAttributesQuerySelects($qb);
+
+        return $qb
+            ->getQuery()
+            ->getArrayResult();
+    }
+
+    /**
+     * Get "checkbox"-type attributes with values
+     *
+     * @param $product
+     *
+     * @return mixed
+     */
+    protected function getProductAttributesOfCheckboxType(Product $product)
+    {
+        $qb = Database::getEM()->createQueryBuilder()
+            ->select('a.id')
+            ->addSelect('at.name')
+            ->addSelect('av.value')
+            ->addSelect('IDENTITY(a.productClass) AS productClassId')
+            ->from('XLite\Model\AttributeValue\AttributeValueCheckbox', 'av')
+            ->join('av.attribute', 'a')
+            ->join('a.translations', 'at', 'WITH', 'at.code = :lng')
+            ->where('av.product = :productId')
+            ->setParameter('productId', $product->getProductId())
+            ->setParameter('lng', 'en');
+
+        $codes = Translation::getLanguageQuery();
+
+        foreach ($codes as $code) {
+            $qb
+                ->join('a.translations', "at_$code", 'WITH', "at_$code.code = :lng_$code")
+                ->setParameter("lng_$code", $code);
+        }
+
+        $qb->addSelect(
+            $this->getIfNullChainSqlExp(
+                array_map(function ($code) {
+                    return "at_{$code}.name";
+                }, $codes)
+            )
+        );
+
+        $this->addProductAttributesQuerySelects($qb);
+
+        $result = $qb
+            ->getQuery()
+            ->getArrayResult();
+
+        foreach ($result as $k => $v) {
+            $result[$k]['value'] = self::t($v['value'] ? 'Yes' : 'No');
+        }
+
         return $result;
     }
 
-    protected function getAdditionalProductInfo($product)
+    /**
+     * Construct an expression in the form of IFNULL(a1, IFNULL(a2, ...)) out of field names
+     *
+     * @param $fieldNames
+     *
+     * @return string
+     */
+    protected function getIfNullChainSqlExp($fieldNames)
     {
-        return array(
-            'name' => '_meta_additional_',
+        $fieldName = array_shift($fieldNames);
+
+        return empty($fieldNames)
+            ? $fieldName
+            : "IFNULL($fieldName, " . $this->getIfNullChainSqlExp($fieldNames) . ')';
+    }
+
+    /**
+     * Override to modify QueryBuilder before querying attributes
+     *
+     * @param $qb
+     */
+    protected function addProductAttributesQuerySelects($qb)
+    {
+    }
+
+    /**
+     * Check if specific attribute should be preselected as a custom filter for CloudFilters
+     *
+     * @param $attribute
+     *
+     * @return bool
+     */
+    protected function isPreselectAttributeAsFilter($attribute)
+    {
+        return $attribute['productClassId'] !== null;
+    }
+
+    /**
+     * Get product variants data.
+     * If ProductVariants is disabled, then there will be a single product variant representing the main product.
+     *
+     * @param Product $product
+     * @param         $attributes
+     *
+     * @return array
+     */
+    protected function getProductVariants(Product $product, $attributes)
+    {
+        $variant = [
+            'id'         => $product->getId(),
+            'price'      => $product->getDisplayPrice(),
+            'attributes' => $attributes,
+        ];
+
+        return [$variant];
+    }
+
+    /**
+     * Get additional meta information about the product
+     *
+     * @param $product
+     *
+     * @return array
+     */
+    protected function getProductMetaInfo(Product $product)
+    {
+        $info = array(
+            'name'   => '_meta_additional_',
             'values' => array(
-                $product->getBriefDescription(),
                 $product->getMetaTags(),
                 $product->getMetaDesc(),
             ),
         );
-    }
 
-    protected function getCategoryProductHash($product)
-    {
-        $result = array();
-        $catRepo = Database::getRepo('XLite\Model\Category');
-
-        foreach ($product->getCategories() as $category) {
-            $path = array();
-
-            foreach ($catRepo->getCategoryPath($category->getCategoryId()) as $c) {
-                $path[] = $c->getName();
-            }
-
-            $result = array_merge($result, $path);
+        // Include brief description if full description is not empty (so that both will be indexed)
+        if ($product->getDescription()) {
+            $info['values'][] = $product->getBriefDescription();
         }
 
-        return $result;
+        return $info;
     }
 
-    protected function getUrlProductHash($product)
+    /**
+     * Get product category data
+     *
+     * @param $product
+     *
+     * @return array
+     */
+    protected function getProductCategoryData(Product $product)
+    {
+        $categories = [];
+
+        $catRepo = Database::getRepo('XLite\Model\Category');
+
+        /** @var Category $category */
+        foreach ($product->getCategories() as $category) {
+            $id = $category->getCategoryId();
+
+            if (!isset($this->categoryCache[$id])) {
+                $categoryPath = $catRepo->getCategoryPath($id);
+
+                $path = [];
+
+                /** @var Category $parent */
+                foreach ($categoryPath as $parent) {
+                    $path[] = [
+                        'id'   => $parent->getCategoryId(),
+                        'name' => htmlspecialchars_decode($parent->getName()),
+                    ];
+                }
+
+                $this->categoryCache[$id] = [
+                    'id'   => $id,
+                    'path' => $path,
+                ];
+            }
+
+            $categories[] = $this->categoryCache[$id];
+        }
+
+        return ['category' => $categories];
+    }
+
+    /**
+     * Get product url
+     *
+     * @param $product
+     *
+     * @return string
+     */
+    protected function getProductUrl(Product $product)
     {
         return Converter::buildFullURL(
             'product', '', array('product_id' => $product->getProductId())
         );
     }
 
-    protected function getImageInfoProductHash($product)
+    /**
+     * Get product image
+     *
+     * @param $product
+     *
+     * @return array
+     */
+    protected function getProductImage(Product $product)
     {
         $result = array();
 
         if ($product->getImage()) {
             list(
-                $result['image_width'], 
-                $result['image_height'], 
+                $result['image_width'],
+                $result['image_height'],
                 $result['image_src']
-            ) = $product->getImage()->getResizedURL(static::MAX_THUMBNAIL_WIDTH, static::MAX_THUMBNAIL_HEIGHT);
+                ) = $product->getImage()->getResizedURL(static::MAX_THUMBNAIL_WIDTH, static::MAX_THUMBNAIL_HEIGHT);
         }
 
         return $result;
@@ -219,16 +547,17 @@ class StoreApi extends \XLite\Base\Singleton
     {
         $repo = Database::getRepo('XLite\Model\Category');
 
-        $cnd                                             = new CommonCell;
+        $cnd = $this->getCategorySearchConditions();
+
         $cnd->{\XLite\Model\Repo\Category::P_LIMIT} = array($start, $limit);
-        $categories                                      = $repo->search($cnd, false);
+
+        $categories = $repo->search($cnd, false);
 
         $categoriesArray = array();
 
         $rootCatId = Database::getRepo('XLite\Model\Category')->getRootCategoryId();
 
         foreach ($categories as $category) {
-
             $parentId = $category->getParentId() == $rootCatId ? 0 : $category->getParentId();
 
             $categoryHash = array(
@@ -270,7 +599,8 @@ class StoreApi extends \XLite\Base\Singleton
         $pagesArray = array();
 
         if ($repo) {
-            $cnd                            = new CommonCell;
+            $cnd = $this->getPageSearchConditions();
+
             $cnd->{PageRepo::P_LIMIT}       = array($start, $limit);
             $cnd->{PageRepo::PARAM_ENABLED} = true;
             $pages                          = $repo->search($cnd, false);
@@ -303,15 +633,12 @@ class StoreApi extends \XLite\Base\Singleton
         if ($key && $signature) {
             $signature = base64_decode($signature);
 
-            if ($this->isServiceIpTrusted()
-                || $this->isSignatureCorrect($key, $signature)
-            ) {
-
+            if ($this->isSignatureCorrect($key, $signature)) {
                 $repo = Database::getRepo('XLite\Model\Config');
 
                 $secretKeySetting = $repo->findOneBy(array(
                     'name'     => 'secret_key',
-                    'category' => 'QSL\CloudSearch'
+                    'category' => 'QSL\CloudSearch',
                 ));
 
                 $secretKeySetting->setValue($key);
@@ -357,15 +684,5 @@ MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC+sJv3R+kKUl0okgi7HoN6sGcM
 K55PFPn6T0V5++5oyyObofPe08kDoW6Ft2+yNcshmg1Vd711Vd37LLXWsaWpfcjr
 82cfYTelfejE4IO5NQIDAQAB
 -----END PUBLIC KEY-----';
-    }
-
-    /**
-     * Check if remote request origin has a trusted IP
-     *
-     * @return bool
-     */
-    protected function isServiceIpTrusted()
-    {
-        return in_array($_SERVER['REMOTE_ADDR'], $this->trustedRequestOrigins);
     }
 }

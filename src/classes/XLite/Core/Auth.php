@@ -155,7 +155,6 @@ class Auth extends \XLite\Base
         return md5($password);
     }
 
-
     /**
      * Updates the specified profile on login. Saves profile to session
      *
@@ -163,14 +162,14 @@ class Auth extends \XLite\Base
      *
      * @return boolean
      */
-    public function loginProfile(\XLite\Model\Profile $profile)
+    public function loginProfile(\XLite\Model\Profile $profile, $withCells = true)
     {
         $result = $profile->isPersistent();
 
         if ($result) {
 
             // Restart session
-            \XLite\Core\Session::getInstance()->restart();
+            \XLite\Core\Session::getInstance()->restart($withCells);
 
             $loginTime = \XLite\Core\Converter::time();
 

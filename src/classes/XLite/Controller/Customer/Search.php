@@ -79,12 +79,9 @@ class Search extends \XLite\Controller\Customer\ACustomer
             \XLite\View\ItemsList\Product\Customer\Search::PARAM_SEARCH_IN_SUBCATS
         );
 
-        $showAdvancedPanel = false;
-
         foreach ($searchParams as $modelParam => $requestParam) {
             if (isset(\XLite\Core\Request::getInstance()->$requestParam)) {
                 $productsSearch[$requestParam] = \XLite\Core\Request::getInstance()->$requestParam;
-                $showAdvancedPanel = true;
             }
         }
 

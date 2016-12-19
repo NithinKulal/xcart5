@@ -22,9 +22,9 @@ class ModuleState extends \XLite\View\FormField\Select\ASelect
     protected function getDefaultOptions()
     {
         return [
-            '' => static::t('Select status'),
-            static::ENABLED => static::t('Enabled'),
-            static::DISABLED => static::t('Disabled'),
+            '' => static::t('All modules'),
+            static::ENABLED => static::t('Enabled only'),
+            static::DISABLED => static::t('Disabled only'),
         ];
     }
 

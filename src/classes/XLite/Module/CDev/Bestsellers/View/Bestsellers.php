@@ -109,10 +109,20 @@ class Bestsellers extends \XLite\Module\CDev\Bestsellers\View\ABestsellers
 
         $cnd->{\XLite\Model\Repo\ARepo::P_LIMIT} = [
             0,
-            $limit = \XLite\Core\Config::getInstance()->CDev->Bestsellers->number_of_bestsellers,
+            \XLite\Core\Config::getInstance()->CDev->Bestsellers->number_of_bestsellers,
         ];
 
         return $cnd;
+    }
+
+    /**
+     * getSidebarMaxItems
+     *
+     * @return integer
+     */
+    protected function getSidebarMaxItems()
+    {
+        return \XLite\Core\Config::getInstance()->CDev->Bestsellers->number_of_bestsellers;
     }
 
     /**

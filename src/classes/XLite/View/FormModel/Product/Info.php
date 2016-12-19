@@ -8,6 +8,9 @@
 
 namespace XLite\View\FormModel\Product;
 
+/**
+ * Product form model
+ */
 class Info extends \XLite\View\FormModel\AFormModel
 {
     /**

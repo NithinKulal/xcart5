@@ -6,6 +6,44 @@
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
 
+function upgrade532TryChangeDefaultConfig()
+{
+    $configFile = LC_DIR_ROOT . 'etc/config.php';
+
+    if (\Includes\Utils\FileManager::isFileWriteable($configFile)) {
+        $origContent = file_get_contents($configFile);
+
+        $desirableValue = 'use_language_url = "N"';
+
+        // If value already correct - quit
+        if (strpos($origContent, $desirableValue) !== false) {
+            return;
+        }
+
+        $toFind = 'use_language_url = "Y"';
+        $toReplace = $desirableValue;
+
+        // If there is no such value - try to create
+        if (strpos($origContent, $toFind) === false) {
+            $toFind = '[clean_urls]';
+            $toReplace = <<<PHP
+[clean_urls]
+; Is use urls like domain.com/LG for languages
+; possible values "Y", "N"
+; Changing this setting requires to re-deploy your store
+use_language_url = "N"
+
+PHP;
+        }
+
+        $newContent = str_replace($toFind, $toReplace, $origContent);
+
+        if ($newContent != $origContent) {
+            file_put_contents($configFile, $newContent);
+        }
+    }
+}
+
 function removeRecentOrdersConfig() {
     $list = \XLite\Core\Database::getRepo('XLite\Model\Config')
         ->findBy([
@@ -27,18 +65,19 @@ function fixForceProductOptionsConfig($oldValue) {
 }
 
 function setHomeGroupLayoutTypeValue() {
-    //skins which should copy layout type from default to home
-    $skins_to_copy = [
-        'XC\ColorSchemes'
-    ];
+    \XLite\Core\Database::getRepo('XLite\Model\Config')->createOption([
+        'category' => 'Layout',
+        'name' => 'layout_type_' . \XLite\Core\Layout::LAYOUT_GROUP_HOME,
+        'value' => \XLite\Core\Config::getInstance()->Layout->layout_type,
+    ]);
 
     $skin = \XLite\Core\Database::getRepo('XLite\Model\Module')->getCurrentSkinModule();
 
-    if (!$skin || in_array($skin->getActualName(), $skins_to_copy)) {
+    if ($skin && $skin->getActualName() === 'XC\CrispWhiteSkin') {
         \XLite\Core\Database::getRepo('XLite\Model\Config')->createOption([
             'category' => 'Layout',
             'name' => 'layout_type_' . \XLite\Core\Layout::LAYOUT_GROUP_HOME,
-            'value' => \XLite\Core\Config::getInstance()->Layout->layout_type,
+            'value' => \XLite\Core\Layout::LAYOUT_ONE_COLUMN,
         ]);
     }
 }
@@ -60,6 +99,8 @@ return function()
     removeRecentOrdersConfig();
     fixForceProductOptionsConfig($oldValue);
     setHomeGroupLayoutTypeValue();
+    upgrade532TryChangeDefaultConfig();
+
 
     \XLite\Core\Database::getEM()->flush();
 };

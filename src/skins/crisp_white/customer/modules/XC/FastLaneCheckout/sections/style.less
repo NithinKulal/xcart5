@@ -41,22 +41,42 @@
       padding-left: 0;
       padding-right: 0;
     }
+  }
+}
 
-    .checkout_fastlane_details_box {
-      box-shadow: 0 0 0px 1px #cacaca;
-      border-radius: 2px;
-      padding: (@rhythmic-unit * 2) !important;
-      position: relative;
-      background: @body-bg;
+.checkout_fastlane_details_box {
+  box-shadow: 0 0 0px 1px #cacaca;
+  border-radius: 2px;
+  padding: (@rhythmic-unit * 2) !important;
+  position: relative;
+  background: @body-bg;
 
-      .detail-header {
-        font-weight: 600;
-      }
+  // tablet mode
+  @media(min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+    .flex-display();
+    .flex-wrap(wrap);
+    .justify-content(space-between);
 
-      .checkout_fastlane_address {
-        margin-bottom: @rhythmic-unit;
-      }
+    .checkout_fastlane_details_left {
+      width: ~"calc(50% - 20px)";
     }
+
+    .checkout_fastlane_details_right {
+      width: ~"calc(50% - 20px)";
+      align-self: center;
+    }
+
+    .order-total {
+      text-align: center;
+    }
+  }
+
+  .detail-header {
+    font-weight: 600;
+  }
+
+  .checkout_fastlane_address {
+    margin-bottom: @rhythmic-unit;
   }
 }
 

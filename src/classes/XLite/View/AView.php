@@ -1951,6 +1951,26 @@ abstract class AView extends \XLite\Core\Handler
         return LC_DEVELOPER_MODE;
     }
 
+    /**
+     * @return string
+     */
+    public function getAjaxPrefix()
+    {
+        $result  = '';
+
+        if (LC_USE_CLEAN_URLS
+            && \XLite\Core\Router::getInstance()->isUseLanguageUrls()
+            && !\XLite::isAdminZone()
+        ) {
+            $language = \XLite\Core\Session::getInstance()->getLanguage();
+            if ($language && !$language->getDefaultAuth()) {
+                $result = $language->getCode();
+            }
+        }
+
+        return $result;
+    }
+
     // }}}
 
     /**

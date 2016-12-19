@@ -8,7 +8,9 @@
 
 namespace XLite\Module\QSL\CloudSearch;
 
+use XLite\Core\Config;
 use XLite\Module\QSL\CloudSearch\Core\RegistrationScheduler;
+use XLite\Module\QSL\CloudSearch\Core\ServiceApiClient;
 
 /**
  * Featured Products module manager
@@ -32,7 +34,7 @@ abstract class Main extends \XLite\Module\AModule
      */
     public static function getModuleName()
     {
-        return 'CloudSearch';
+        return 'CloudSearch & CloudFilters';
     }
 
     /**
@@ -52,7 +54,7 @@ abstract class Main extends \XLite\Module\AModule
      */
     public static function getMinorVersion()
     {
-        return '2';
+        return '3';
     }
 
     /**
@@ -66,13 +68,13 @@ abstract class Main extends \XLite\Module\AModule
     }
 
     /**
-     * 5.2.14 version is required for the current module
+     * 5.3.1 version is required for the module
      * 
      * @return string
      */
     public static function getMinorRequiredCoreVersion()
     {
-        return '0';
+        return '1';
     }
 
     /**
@@ -82,7 +84,7 @@ abstract class Main extends \XLite\Module\AModule
      */
     public static function getDescription()
     {
-        return 'CloudSearch is a SaaS solution that integrates with X-Cart 5 to enable dynamic, real-time product search with highly relevant search results. Power up your store with enterprise-class search technologies for better conversion!';
+        return 'CloudSearch is a service that integrates with X-Cart 5 to enable dynamic, real-time product search with highly relevant search results. CloudFilters works on top of CloudSearch to enable advanced layered navigation in an X-Cart store. This module provides integration with both services. Power up your store with enterprise-class search and navigation technologies for better conversion!';
     }
 
     /**
@@ -131,22 +133,24 @@ abstract class Main extends \XLite\Module\AModule
     }
     
     /**
-     * Check if the CloudSearch specific search is used
+     * Check if CloudSearch is configured
      * 
      * @return boolean
      */
-    public static function doSearch()
+    public static function isConfigured()
     {
-        return \XLite\Core\Config::getInstance()->QSL->CloudSearch->doSearch;
+        $apiClient = new ServiceApiClient();
+
+        return $apiClient->getApiKey();
     }
 
     /**
-     * Check if the CloudSearch specific search is used
-     * 
+     * Check if CloudFilters is enabled
+     *
      * @return boolean
      */
-    public static function doIndexModifiers()
+    public static function isCloudFiltersEnabled()
     {
-        return \XLite\Core\Config::getInstance()->QSL->CloudSearch->doIndexModifiers;
+        return Config::getInstance()->QSL->CloudSearch->isCloudFiltersEnabled;
     }
 }

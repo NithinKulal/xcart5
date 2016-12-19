@@ -1556,6 +1556,7 @@ div.star::after {
 
 div.table-value {
   display: table-cell;
+  position: relative;
 }
 
 table.list div.table-value {
@@ -2090,7 +2091,6 @@ button.force-notice
   padding: 5px 0;
 }
 
-.target-settings .page-tabs,
 .target-promotions .page-tabs {
   display: none;
 }

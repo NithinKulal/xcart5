@@ -8,6 +8,7 @@
 
 namespace XLite\Module\QSL\CloudSearch\Controller\Customer;
 
+use XLite\Core\Database;
 use XLite\Core\Request;
 use XLite\Module\QSL\CloudSearch\Core\StoreApi;
 
@@ -16,15 +17,7 @@ use XLite\Module\QSL\CloudSearch\Core\StoreApi;
  */
 class CloudSearchApi extends \XLite\Controller\Customer\ACustomer
 {
-    /**
-     * Stub for the CMS connectors
-     *
-     * @return boolean
-     */
-    protected function checkStorefrontAccessibility()
-    {
-        return true;
-    }
+    protected $debugStack;
 
     /**
      * 'info' api verb
@@ -35,7 +28,7 @@ class CloudSearchApi extends \XLite\Controller\Customer\ACustomer
     {
         $api = StoreApi::getInstance();
 
-        $data = $api->getEntityCounts();
+        $data = $api->getApiSummary();
 
         $this->printOutputAndExit($data);
     }
@@ -47,11 +40,21 @@ class CloudSearchApi extends \XLite\Controller\Customer\ACustomer
      */
     protected function doActionProducts()
     {
+        $measureSqlQueries = LC_DEVELOPER_MODE;
+
+        if ($measureSqlQueries) {
+            $this->startMeasuring();
+        }
+
         $api = StoreApi::getInstance();
 
         list($start, $limit) = $this->getLimits();
 
         $data = $api->getProducts($start, $limit);
+
+        if ($measureSqlQueries) {
+            $this->stopMeasuring();
+        }
 
         $this->printOutputAndExit($data);
     }
@@ -99,16 +102,16 @@ class CloudSearchApi extends \XLite\Controller\Customer\ACustomer
 
     protected function doActionGetPrices()
     {
-        $prices = array();        
+        $prices   = array();
         $products = array();
-        
+
         $currency = $this->getCart()->getCurrency();
 
-        foreach($this->getProducts() as $product) {
+        foreach ($this->getProducts() as $product) {
             $products[$product->getProductId()] = \XLite\View\AView::formatPrice($product->getDisplayPrice(), $currency);
         }
 
-        foreach($this->getProductIds() as $productId) {
+        foreach ($this->getProductIds() as $productId) {
             $prices[] = $products[$productId];
         }
 
@@ -117,7 +120,7 @@ class CloudSearchApi extends \XLite\Controller\Customer\ACustomer
 
     protected function getProducts()
     {
-        return \XLite\Core\Database::getRepo('XLite\Model\Product')->findByIds($this->getProductIds());
+        return Database::getRepo('XLite\Model\Product')->findByIds($this->getProductIds());
     }
 
     protected function getProductIds()
@@ -180,5 +183,35 @@ class CloudSearchApi extends \XLite\Controller\Customer\ACustomer
         $limit = max(1, $request->limit ?: StoreApi::MAX_ENTITIES_AT_ONCE);
 
         return array($start, $limit);
+    }
+
+    /**
+     * Start measuring SQL queries
+     */
+    protected function startMeasuring()
+    {
+        $em = Database::getEM();
+
+        $this->debugStack = new \Doctrine\DBAL\Logging\DebugStack();
+
+        $em->getConfiguration()->setSQLLogger($this->debugStack);
+    }
+
+    /**
+     * Stop measuring SQL queries
+     */
+    protected function stopMeasuring()
+    {
+        header('X-SQL-Queries: ' . count($this->debugStack->queries));
+    }
+
+    /**
+     * Stub for the CMS connectors
+     *
+     * @return boolean
+     */
+    protected function checkStorefrontAccessibility()
+    {
+        return true;
     }
 }

@@ -26,6 +26,23 @@ abstract class URLManager extends \Includes\Utils\AUtils
     protected static $isHTTPS;
 
     /**
+     * @param      $url
+     * @param null $time
+     *
+     * @return string
+     */
+    public static function addTimestampToUrl($url, $time = null)
+    {
+        $time = $time ?: time();
+
+        $query = parse_url($url, PHP_URL_QUERY);
+
+        return $query
+            ? $url . '&t=' . $time
+            : $url . '?t=' . $time;
+    }
+
+    /**
      * Remove trailing slashes from URL
      *
      * @param string $url URL to prepare

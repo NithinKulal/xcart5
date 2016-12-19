@@ -234,7 +234,7 @@ abstract class Online extends \XLite\Model\Payment\Base\Processor
         }
 
         return \XLite::getInstance()->getShopURL(
-            \XLite\Core\Converter::buildURL('payment_return', '', $query),
+            \XLite\Core\Converter::buildURL('payment_return', '', $query, \XLite::getCustomerScript()),
             \XLite\Core\Config::getInstance()->Security->customer_security
         );
     }

@@ -32,10 +32,12 @@ class VolumeDiscountsDiscount extends \XLite\Module\CDev\Coupons\Logic\Order\Mod
             }
             $total += $used->getValue();
 
-            $this->distributeDiscountAmongItems(
-                $used->getValue(),
-                $this->getOrder()->getValidItemsByCoupon($used->getCoupon())
-            );
+            if ($used->getCoupon()) {
+                $this->distributeDiscountAmongItems(
+                    $used->getValue(),
+                    $this->getOrder()->getValidItemsByCoupon($used->getCoupon())
+                );
+            }
         }
 
         if ($this->isValidTotal($total)) {

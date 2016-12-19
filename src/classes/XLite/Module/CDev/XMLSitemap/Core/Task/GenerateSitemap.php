@@ -13,8 +13,6 @@ namespace XLite\Module\CDev\XMLSitemap\Core\Task;
  */
 class GenerateSitemap extends \XLite\Core\Task\Base\Periodic
 {
-    const INT_1_DAY     = 86400;
-
     /**
      * Get title
      *

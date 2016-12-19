@@ -87,7 +87,7 @@ abstract class ACustomer extends \XLite\View\Product\AttributeValue\AAttributeVa
     {
         return $this->executeCachedRuntime(function () {
             return $this->defineSelectedIds();
-        });
+        }, ['getSelectedIds', $this->getProduct()->getProductId()]);
     }
 
     /**

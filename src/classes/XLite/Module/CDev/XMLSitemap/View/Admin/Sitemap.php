@@ -10,8 +10,6 @@ namespace XLite\Module\CDev\XMLSitemap\View\Admin;
 
 /**
  * Sitemap page widget 
- *
- * @ListChild (list="admin.center", zone="admin")
  */
 class Sitemap extends \XLite\View\Dialog
 {

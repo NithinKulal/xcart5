@@ -22,7 +22,7 @@ class Settings extends \XLite\Controller\Admin\AAdmin
     /**
      * Installation directory article url
      */
-    const INSTALLATION_DIRECTORY_ARTICLE_URL = 'http://devs.x-cart.com/en/migration_guides/moving_x-cart_to_another_location.html';
+    const INSTALLATION_DIRECTORY_ARTICLE_URL = 'http://kb.x-cart.com/en/general_setup/moving_x-cart_to_another_location.html';
 
     /**
      * Values to use for $page identification
@@ -136,7 +136,7 @@ class Settings extends \XLite\Controller\Admin\AAdmin
         $list[static::COMPANY_PAGE]     = static::t('Store info');
         $list[static::EMAIL_PAGE]       = static::t('Email settings');
         $list[static::ENVIRONMENT_PAGE] = static::t('Environment');
-        $list[static::CLEAN_URL]        = static::t('Clean URLs');
+        $list[static::CLEAN_URL]        = static::t('SEO settings');
 
         return $list;
     }
@@ -155,9 +155,34 @@ class Settings extends \XLite\Controller\Admin\AAdmin
         }
 
         $list[static::ENVIRONMENT_PAGE] = 'settings/summary/body.twig';
-        $list[static::CLEAN_URL] = 'settings/clean_url/body.twig';
+        $list[static::CLEAN_URL] = 'settings/clean_url/tabs.twig';
 
         return $list;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCleanUrlCommentedData()
+    {
+        $result = [];
+
+        if (\XLite\Core\Request::getInstance()->page == 'CleanURL') {
+            $result = [
+                'companyName'               => \XLite\Core\Config::getInstance()->Company->company_name,
+                'companyNameLabel'          => static::t('Company name'),
+                'delimiter'                 => " > ",
+                'productTitle'              => static::t('Product'),
+                'categoryTitle'             => static::t('Category'),
+                'staticTitle'               => static::t('Page'),
+                'categoryNameLabel'         => static::t('Category name'),
+                'parentCategoryNameLabel'   => static::t('Parent category name'),
+                'productNameLabel'          => static::t('Product name'),
+                'staticPageNameLabel'       => static::t('Page name'),
+            ];
+        }
+
+        return $result;
     }
 
     // }}}

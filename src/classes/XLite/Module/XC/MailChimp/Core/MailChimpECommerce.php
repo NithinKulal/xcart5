@@ -199,6 +199,12 @@ class MailChimpECommerce extends \XLite\Base\Singleton
 
     public function createStoreReference($listId, $storeId, $storeName, $isMain = false)
     {
+        $repo = \XLite\Core\Database::getRepo('\XLite\Module\XC\MailChimp\Model\Store');
+        $duplicateByList = $repo->findByList($listId);
+        if ($duplicateByList) {
+            $repo->deleteInBatch($duplicateByList);
+        }
+
         $list = \XLite\Core\Database::getEM()->getReference(
             'XLite\Module\XC\MailChimp\Model\MailChimpList',
             $listId
@@ -360,16 +366,16 @@ class MailChimpECommerce extends \XLite\Base\Singleton
      * @param                      $storeId
      * @param \XLite\Model\Order[] $products
      *
-     * @return array|bool|false
+     * @return array|bool
      */
     public function createOrdersBatch($storeId, array $orders)
     {
-        $operations = [];
+        $ordersData = [];
 
         /** @var \XLite\Model\Order $order */
         foreach ($orders as $order) {
             $order = \XLite\Core\Database::getEM()->merge($order);
-            $orderData = Order::getDataByOrder(
+            $ordersData[$order->getOrderId()] = Order::getDataByOrder(
                 null,
                 null,
                 null,
@@ -381,7 +387,26 @@ class MailChimpECommerce extends \XLite\Base\Singleton
                         : \XLite\Core\Request::getInstance()->{Request::MAILCHIMP_USER_ID}
                 )
             );
+        }
 
+        if (!$ordersData) {
+            return false;
+        }
+
+        return $this->createOrdersBatchFromMappedData($storeId, $ordersData);
+    }
+
+    /**
+     * @param           $storeId
+     * @param array     $ordersData
+     *
+     * @return array|bool
+     */
+    public function createOrdersBatchFromMappedData($storeId, array $ordersData)
+    {
+        $operations = [];
+
+        foreach ($ordersData as $orderId => $orderData) {
             $operations[] = [
                 "method"    => "post",
                 "path"      => "ecommerce/stores/{$storeId}/orders",
@@ -396,7 +421,10 @@ class MailChimpECommerce extends \XLite\Base\Singleton
         $this->mailChimpAPI->setActionMessageToLog('Creating orders batch');
         return $this->mailChimpAPI->post(
             "batches",
-            [ 'operations' => $operations ]
+            [
+                'operations' => $operations,
+                'fields' => 'id'
+            ]
         );
     }
 

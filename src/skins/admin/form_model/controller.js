@@ -37,6 +37,8 @@ define('form_model', ['js/vue/vue'], function (XLiteVue) {
     },
 
     ready: function() {
+      core.trigger('vue-form.ready', this.$el);
+
       new CommonForm(this.$el);
     },
 

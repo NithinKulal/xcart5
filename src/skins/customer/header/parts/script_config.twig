@@ -9,6 +9,7 @@ var xliteConfig = {
   script:   '{{ this.getScript()|raw }}',
   target:   '{{ this.getTarget()|raw }}',
   language: '{{ this.currentLanguage.getCode() }}',
+  ajax_prefix: '{{ this.getAjaxPrefix() }}',
   form_id: '{{ this.xlite.formId }}',
   form_id_name: '{{ constant('XLite::FORM_ID') }}',
   developer_mode: {{ this.isDeveloperMode() ? 'true' : 'false' }},

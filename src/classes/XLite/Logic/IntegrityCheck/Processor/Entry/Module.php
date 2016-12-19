@@ -51,6 +51,10 @@ class Module implements IEntry
             throw new \Exception('Module ' . $name . ' not found');
         }
 
+        if (!defined('LC_MODULE_CONTROL')) {
+            define('LC_MODULE_CONTROL', true);
+        }
+
         $this->modulePack = new \XLite\Core\Pack\Module($this->module);
     }
 

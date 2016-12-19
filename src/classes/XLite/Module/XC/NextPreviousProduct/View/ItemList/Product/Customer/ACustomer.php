@@ -120,7 +120,10 @@ abstract class ACustomer extends \XLite\View\ItemsList\Product\Customer\ACustome
 
         if (static::isNPRead()) {
             $npConditionCellName = static::getNPConditionCellName() ?: $cellName;
-            return \XLite\Core\Session::getInstance()->{$npConditionCellName};
+
+            if (\XLite\Core\Session::getInstance()->{$npConditionCellName} !== null) {
+                return \XLite\Core\Session::getInstance()->{$npConditionCellName};
+            }
         }
 
         $result   = parent::getSearchCondition();

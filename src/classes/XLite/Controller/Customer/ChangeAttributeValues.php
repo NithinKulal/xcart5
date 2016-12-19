@@ -48,11 +48,13 @@ class ChangeAttributeValues extends \XLite\Controller\Customer\ACustomer
      */
     public function getItem()
     {
-        return $this->executeCachedRuntime(function () {
-            if (\XLite\Core\Request::getInstance()->source === 'cart'
-                && is_numeric(\XLite\Core\Request::getInstance()->item_id)
+        $itemId = \XLite\Core\Request::getInstance()->item_id;
+
+        return $this->executeCachedRuntime(function () use ($itemId) {
+            if (is_numeric($itemId)
+                && \XLite\Core\Request::getInstance()->source === 'cart'
             ) {
-                $item = $this->getCart()->getItemByItemId(\XLite\Core\Request::getInstance()->item_id);
+                $item = $this->getCart()->getItemByItemId($itemId);
 
                 if ($item
                     && $item->getProduct()
@@ -63,7 +65,7 @@ class ChangeAttributeValues extends \XLite\Controller\Customer\ACustomer
             }
 
             return false;
-        });
+        }, ['getItem', $itemId]);
     }
 
     /**

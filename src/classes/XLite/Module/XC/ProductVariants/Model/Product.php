@@ -538,21 +538,31 @@ class Product extends \XLite\Model\Product implements \XLite\Base\IDecorator
         if ($this->mustHaveVariants()) {
             $attrs = array();
             foreach ($this->getVariantsAttributes() as $a) {
+                $attribute = null;
+
                 if ($a->getProduct()) {
                     $cnd = new \XLite\Core\CommonCell();
                     $cnd->product = $newProduct;
                     $cnd->name = $a->getName();
                     $cnd->type = $a->getType();
-                    $attribute = array_pop(\XLite\Core\Database::getRepo('\XLite\Model\Attribute')->search($cnd));
+
+                    $attributes = \XLite\Core\Database::getRepo('\XLite\Model\Attribute')->search($cnd);
+                    if ($attributes && is_array($attributes)) {
+                        $attribute = array_pop($attributes);
+                    } else {
+                        $attribute = $a;
+                    }
 
                 } else {
                     $attribute = $a;
                 }
 
-                $attrs[$a->getId()] = $attribute;
+                if ($attribute) {
+                    $attrs[$a->getId()] = $attribute;
 
-                $newProduct->addVariantsAttributes($attribute);
-                $attribute->addVariantsProduct($newProduct);
+                    $newProduct->addVariantsAttributes($attribute);
+                    $attribute->addVariantsProduct($newProduct);
+                }
             }
 
             foreach ($this->getVariants() as $variant) {

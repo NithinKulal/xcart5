@@ -265,11 +265,13 @@ class Login extends \XLite\Controller\Customer\ACustomer
             }
 
             $profileCart = $this->getCart();
-            if (!$this->getReturnURL()) {
-                $url = $profileCart->isEmpty()
-                    ? \XLite\Core\Converter::buildURL()
-                    : \XLite\Core\Converter::buildURL('cart');
-                $this->setReturnURL($url);
+
+            $this->setReturnURL($this->getReferrerURL());
+
+            if (!$this->getReturnURL() && !$profileCart->isEmpty()) {
+                $this->setReturnURL(
+                    \XLite\Core\Converter::buildURL('cart')
+                );
             }
 
             $this->setHardRedirect();

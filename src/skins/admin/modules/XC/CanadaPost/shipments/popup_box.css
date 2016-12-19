@@ -74,7 +74,7 @@
 /* Background overlay */
 
 .blockOverlay {
-  background: transparent url(../../../../../common/ui/images/popup_overlay.png) repeat top left !important;
+  background: transparent url(../../../../../customer/images/popup_overlay.png) repeat top left !important;
 }
 
 .blockMsg .close-link,

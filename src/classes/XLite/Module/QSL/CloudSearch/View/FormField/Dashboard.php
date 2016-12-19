@@ -8,11 +8,15 @@
 
 namespace XLite\Module\QSL\CloudSearch\View\FormField;
 
+use XLite\Model\WidgetParam\TypeSet;
+
 /**
  * String-based
  */
 class Dashboard extends \XLite\View\FormField\AFormField
 {
+    const PARAM_SECTION = 'section';
+
     /**
      * Get a list of CSS files required to display the widget properly
      *
@@ -95,6 +99,20 @@ class Dashboard extends \XLite\View\FormField\AFormField
         return true;
     }
 
+    /*
+     * Define widget params
+     *
+     * @return void
+     */
+    protected function defineWidgetParams()
+    {
+        parent::defineWidgetParams();
+
+        $this->widgetParams += array(
+            self::PARAM_SECTION => new TypeSet('Section', null, false, ['cloud_search', 'cloud_filters']),
+        );
+    }
+
     /**
      * Get CloudSearch initialization data to pass to the JS code
      *
@@ -104,6 +122,7 @@ class Dashboard extends \XLite\View\FormField\AFormField
     {
         return array(
             'admin_self' => \XLite::getAdminScript(),
+            'section'    => $this->getParam(self::PARAM_SECTION),
         );
     }
 }

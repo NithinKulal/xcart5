@@ -8,6 +8,8 @@
 
 namespace XLite\Model;
 
+use Includes\Utils\URLManager;
+
 /**
  * Temporary file store
  *
@@ -24,6 +26,16 @@ class TemporaryFile extends \XLite\Model\Base\Image
     public function isImage()
     {
         return 0 < $this->getWidth();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getURL()
+    {
+        return is_string(parent::getURL())
+            ? URLManager::addTimestampToUrl(parent::getURL())
+            : null;
     }
 
     /**

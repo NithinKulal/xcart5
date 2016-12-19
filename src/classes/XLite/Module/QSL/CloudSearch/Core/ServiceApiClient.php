@@ -18,16 +18,18 @@ use XLite\Core\URLManager;
 /**
  * CloudSearch API client
  */
-class ServiceApiClient extends \XLite\Base\Singleton
+class ServiceApiClient
 {
     /**
      * CloudSearch service access details
      */
-    const CLOUD_SEARCH_DOMAIN                   = 'cloudsearch.x-cart.com';
-    const CLOUD_SEARCH_REQUEST_SECRET_KEY_URL   = '/api/v1/getkey';
-    const CLOUD_SEARCH_REMOTE_IFRAME_URL        = '/api/v1/iframe?key=';
-    const CLOUD_SEARCH_REGISTER_URL             = '/api/v1/register';
-    const CLOUD_SEARCH_SEARCH_URL               = '/api/v1/search';
+    const CLOUD_SEARCH_URL                    = 'https://cloudsearch.x-cart.com';
+    const CLOUD_SEARCH_REQUEST_SECRET_KEY_URL = '/api/v1/getkey';
+    const CLOUD_SEARCH_REMOTE_IFRAME_URL      = '/api/v1/iframe?key=';
+    const CLOUD_SEARCH_REGISTER_URL           = '/api/v1/register';
+    const CLOUD_SEARCH_SEARCH_URL             = '/api/v1/search';
+
+    const SEARCH_REQUEST_TIMEOUT = 5;
 
     /**
      * Register CloudSearch installation
@@ -36,15 +38,15 @@ class ServiceApiClient extends \XLite\Base\Singleton
      */
     public function register()
     {
-        $requestUrl = 'http://' . static::CLOUD_SEARCH_DOMAIN . static::CLOUD_SEARCH_REGISTER_URL;
+        $requestUrl = static::CLOUD_SEARCH_URL . static::CLOUD_SEARCH_REGISTER_URL;
 
         $shopUrl = $this->getShopUrl();
 
-        $request = new Request($requestUrl);
+        $request       = new Request($requestUrl);
         $request->body = array(
-            'shopUrl'   => $shopUrl,
-            'shopType'  => 'xc5',
-            'format'    => 'php',
+            'shopUrl'  => $shopUrl,
+            'shopType' => 'xc5',
+            'format'   => 'php',
         );
 
         $response = $request->sendRequest();
@@ -60,114 +62,128 @@ class ServiceApiClient extends \XLite\Base\Singleton
 
     /**
      * Search functionality on the product list
-     * 
+     *
      * @param string $query Substring pattern for search
-     * 
+     * @param        $categoryId
+     * @param        $searchInSubcats
+     * @param        $filters
+     * @param        $membership
+     * @param        $sort
+     * @param        $offset
+     * @param        $limit
+     *
      * @return array
      */
-    public function search($query)
+    public function search($query, $categoryId, $searchInSubcats, $filters, $membership, $sort, $offset, $limit)
     {
-        $result = $this->getCachedSearch($query);
+        $response = $this->performSearchRequest($query, $categoryId, $searchInSubcats, $filters, $membership, $sort, $offset, $limit);
 
-        if (!$result) {
-            $result = $this->getSearchResult($query);
-
-            $this->storeCachedSearch($query, $result);
-        }
-
-        return $result;
-    }
-
-    /**
-     * Search result via search request
-     * 
-     * @param string $query
-     * 
-     * @return array
-     */
-    protected function getSearchResult($query)
-    {
-        $response = $this->makeSearchRequest($query);
-
-        return ($response && $response->code === 200)
-            ? $this->processSearchResponse($response)
+        return $response && $response->code == 200
+            ? $this->extractSearchResultsFromResponse($response)
             : null;
     }
 
     /**
-     * Retrieve the product ids from the response body
-     * 
-     * @param \PEAR2\HTTP\Request\Response $response Response object
-     * 
-     * @return array
+     * Get search api endpoint url
+     *
+     * @return string
      */
-    protected function processSearchResponse($response)
+    public function getSearchApiUrl()
     {
-        $result = json_decode($response->body, true);
-
-        if (
-            $result
-            && $result['products']
-            && count($result['products']) > 0
-        ) {
-            $result = array_map(function ($elem) {
-                return intval($elem['id']);
-            }, $result['products']);
-        } else {
-            $result = array();
-        }
-
-        return $result;
+        return static::CLOUD_SEARCH_URL . static::CLOUD_SEARCH_SEARCH_URL;
     }
 
     /**
-     * Make product search request (ALL) into the CloudSearch service
-     * 
+     * Get CloudSearch API key
+     *
+     * @return mixed
+     */
+    public function getApiKey()
+    {
+        return Config::getInstance()->QSL->CloudSearch->api_key;
+    }
+
+    /**
+     * Get CloudSearch API key
+     *
+     * @return mixed
+     */
+    public function getSecretKey()
+    {
+        return Config::getInstance()->QSL->CloudSearch->secret_key;
+    }
+
+    /**
+     * Retrieve search results from the response body
+     *
+     * @param \PEAR2\HTTP\Request\Response $response Response object
+     *
+     * @return array
+     */
+    protected function extractSearchResultsFromResponse($response)
+    {
+        $input = json_decode($response->body, true);
+
+        $products = $input
+                    && $input['products']
+                    && count($input['products']) > 0 ? $input['products'] : [];
+
+        $facets = $input && isset($input['facets']) ? $input['facets'] : null;
+        $stats  = $input && isset($input['stats']) ? $input['stats'] : null;
+
+        return [
+            'products'         => $products,
+            'numFoundProducts' => $input['numFoundProducts'],
+            'facets'           => $facets,
+            'stats'            => $stats,
+        ];
+    }
+
+    /**
+     * Perform product search request (ALL) into the CloudSearch service
+     *
      * @param string $query Query pattern
-     * 
+     * @param        $categoryId
+     * @param        $searchInSubcats
+     * @param        $filters
+     * @param        $membership
+     * @param        $sort
+     * @param        $offset
+     * @param        $limit
+     *
      * @return \PEAR2\HTTP\Request\Response
      */
-    protected function makeSearchRequest($query)
-    {
-        $request = new Request(
-            'http://' . static::CLOUD_SEARCH_DOMAIN
-                . static::CLOUD_SEARCH_SEARCH_URL
-        );
+    protected function performSearchRequest(
+        $query, $categoryId, $searchInSubcats, $filters, $membership, $sort, $offset, $limit
+    ) {
+        $request = new Request($this->getSearchApiUrl());
 
-        $request->body = array(
-            'apiKey'    => Config::getInstance()->QSL->CloudSearch->api_key,
-            'q'         => $query,
-            'all'       => 1,
-        );
+        $request->setAdditionalOption(\CURLOPT_TIMEOUT, self::SEARCH_REQUEST_TIMEOUT);
+
+        $data = [
+            'apiKey'          => $this->getApiKey(),
+            'q'               => $query,
+            'categoryId'      => $categoryId,
+            'searchInSubcats' => $searchInSubcats,
+            'all'             => 1,
+            'facet'           => true,
+            'filters'         => $filters,
+            'membership'      => $membership,
+            'sort'            => $sort,
+            'offset'          => $offset,
+            'limits'          => [
+                'products'      => $limit,
+                'categories'    => 0,
+                'manufacturers' => 0,
+                'pages'         => 0,
+            ],
+        ];
+
+        $request->body = json_encode($data);
+        $request->verb = 'POST';
+        $request->setHeader('Content-Type', 'application/json');
 
         return $request->sendRequest();
-    }
-    
-    /**
-     * Retrieve the cached search result if any
-     * 
-     * @param string $query Query pattern
-     * 
-     * @return array
-     */
-    protected function getCachedSearch($query)
-    {
-        return \XLite\Core\Database::getRepo('XLite\Module\QSL\CloudSearch\Model\SearchCache')
-            ->getCachedSearch($query);
-    }
-
-    /**
-     * Store the search result into the inner cache
-     * 
-     * @param string $query  Query pattern
-     * @param array  $result Product ids array
-     * 
-     * @return void
-     */
-    protected function storeCachedSearch($query, $result)
-    {
-        \XLite\Core\Database::getRepo('XLite\Module\QSL\CloudSearch\Model\SearchCache')
-            ->storeCachedSearch($query, $result);
     }
 
     /**
@@ -177,13 +193,11 @@ class ServiceApiClient extends \XLite\Base\Singleton
      */
     public function requestSecretKey()
     {
-        $apiKey = Config::getInstance()->QSL->CloudSearch->api_key;
+        $apiKey = $this->getApiKey();
 
-        $requestUrl = 'http://'
-            . static::CLOUD_SEARCH_DOMAIN
-            . static::CLOUD_SEARCH_REQUEST_SECRET_KEY_URL;
+        $requestUrl = static::CLOUD_SEARCH_URL . static::CLOUD_SEARCH_REQUEST_SECRET_KEY_URL;
 
-        $request = new Request($requestUrl);
+        $request       = new Request($requestUrl);
         $request->body = array(
             'apiKey' => $apiKey,
         );
@@ -195,15 +209,17 @@ class ServiceApiClient extends \XLite\Base\Singleton
      * Get CloudSearch dashboard url
      *
      * @param $secretKey
+     * @param $params
      *
      * @return string
      */
-    public function getDashboardIframeUrl($secretKey)
+    public function getDashboardIframeUrl($secretKey, $params)
     {
-        return 'https://'
-            . static::CLOUD_SEARCH_DOMAIN
-            . static::CLOUD_SEARCH_REMOTE_IFRAME_URL
-            . $secretKey;
+        return static::CLOUD_SEARCH_URL
+               . static::CLOUD_SEARCH_REMOTE_IFRAME_URL
+               . $secretKey
+               . '&client_features[]=cloud_filters'
+               . '&' . http_build_query($params);
     }
 
     /**
@@ -232,8 +248,8 @@ class ServiceApiClient extends \XLite\Base\Singleton
         $repo = Database::getRepo('XLite\Model\Config');
 
         $secretKeySetting = $repo->findOneBy(array(
-            'name'      => 'api_key',
-            'category'  => 'QSL\CloudSearch'
+            'name'     => 'api_key',
+            'category' => 'QSL\CloudSearch',
         ));
 
         $secretKeySetting->setValue($key);

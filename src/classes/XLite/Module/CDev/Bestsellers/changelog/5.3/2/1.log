@@ -1,0 +1,4 @@
+Version 5.3.2.1
+
+Fixes
+2016-12-05 - [Bug] The setting "Number of products in the bestsellers list" was ignored if the section Bestsellers was moved from the central area to the sidebar. #BUG-4255 (Michael Lipinski) #Bestsellers

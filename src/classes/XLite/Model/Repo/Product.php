@@ -542,9 +542,7 @@ class Product extends \XLite\Model\Repo\Base\I18n implements \XLite\Base\IREST
                 ? $including
                 : self::INCLUDING_PHRASE;
 
-            $cnd = $this->{'getCndSubstring' . ucfirst($including)} ($queryBuilder, $value);
-
-            $queryBuilder->andWhere($cnd);
+            $this->{'processCndSubstring' . ucfirst($including)} ($queryBuilder, $value);
         }
     }
 
@@ -644,10 +642,8 @@ class Product extends \XLite\Model\Repo\Base\I18n implements \XLite\Base\IREST
      *
      * @param \Doctrine\ORM\QueryBuilder $queryBuilder Query builder to prepare
      * @param string                     $value        Condition data
-     *
-     * @return \Doctrine\ORM\Query\Expr\Base Condition class
      */
-    protected function getCndSubstringPhrase(\Doctrine\ORM\QueryBuilder $queryBuilder, $value)
+    protected function processCndSubstringPhrase(\Doctrine\ORM\QueryBuilder $queryBuilder, $value)
     {
         $cnd = new \Doctrine\ORM\Query\Expr\Orx();
 
@@ -658,7 +654,7 @@ class Product extends \XLite\Model\Repo\Base\I18n implements \XLite\Base\IREST
 
         $queryBuilder->setParameter('substring', '%' . $value . '%');
 
-        return $cnd;
+        $queryBuilder->andWhere($cnd);
     }
 
     /**
@@ -666,34 +662,26 @@ class Product extends \XLite\Model\Repo\Base\I18n implements \XLite\Base\IREST
      *
      * @param \Doctrine\ORM\QueryBuilder $queryBuilder Query builder to prepare
      * @param string                     $value        Condition data
-     *
-     * @return \Doctrine\ORM\Query\Expr\Base Condition class
      */
-    protected function getCndSubstringAll(\Doctrine\ORM\QueryBuilder $queryBuilder, $value)
+    protected function processCndSubstringAll(\Doctrine\ORM\QueryBuilder $queryBuilder, $value)
     {
-        $searchWords = $this->getSearchWords($value);
-        $cnd = new \Doctrine\ORM\Query\Expr\Orx();
-
-        foreach ($this->getSubstringSearchFields() as $field) {
-            $fieldCnd = new \Doctrine\ORM\Query\Expr\Andx();
-
-            foreach ($searchWords as $index => $word) {
-                // Collect AND expressions for one field
-                $fieldCnd->add($field . ' LIKE :word' . $index);
-
-                $queryBuilder->setParameter('word' . $index, '%' . $word . '%');
-            }
-
-            // Add AND expression into OR main expression
-            // (
-            //    ((field1 LIKE word1) AND (field1 LIKE word2))
-            //        OR
-            //    ((field2 LIKE word1) AND (field2 LIKE word2))
-            // )
-            $cnd->add($fieldCnd);
+        if (count($this->getSubstringSearchFields()) > 1) {
+            $concatField = 'concat_ws(\' \', ' . implode(', ', $this->getSubstringSearchFields()) . ')';
+        } elseif (count($this->getSubstringSearchFields()) == 1) {
+            $concatField = array_values($this->getSubstringSearchFields())[0];
+        } else {
+            return;
         }
 
-        return $cnd;
+        $cnd = $queryBuilder->expr()->andX();
+
+        foreach ($this->getSearchWords($value) as $index => $word) {
+            $cnd->add($queryBuilder->expr()->like($concatField, ':word' . $index));
+
+            $queryBuilder->setParameter('word' . $index, '%' . $word . '%');
+        }
+
+        $queryBuilder->andWhere($cnd); // TODO check https://github.com/doctrine/doctrine2/issues/4164 and use "having"
     }
 
     /**
@@ -701,10 +689,8 @@ class Product extends \XLite\Model\Repo\Base\I18n implements \XLite\Base\IREST
      *
      * @param \Doctrine\ORM\QueryBuilder $queryBuilder Query builder to prepare
      * @param string                     $value        Condition data
-     *
-     * @return \Doctrine\ORM\Query\Expr\Base Condition class
      */
-    protected function getCndSubstringAny(\Doctrine\ORM\QueryBuilder $queryBuilder, $value)
+    protected function processCndSubstringAny(\Doctrine\ORM\QueryBuilder $queryBuilder, $value)
     {
         $searchWords = $this->getSearchWords($value);
         $cnd = new \Doctrine\ORM\Query\Expr\Orx();
@@ -718,7 +704,7 @@ class Product extends \XLite\Model\Repo\Base\I18n implements \XLite\Base\IREST
             }
         }
 
-        return $cnd;
+        $queryBuilder->andWhere($cnd);
     }
 
     /**

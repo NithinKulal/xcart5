@@ -63,7 +63,7 @@ abstract class Main extends \XLite\Module\AModuleSkin
      */
     public static function getBuildVersion()
     {
-        return '0';
+        return '1';
     }
 
     /**
@@ -279,6 +279,11 @@ abstract class Main extends \XLite\Module\AModuleSkin
                     ['itemsList.product.table.customer.columns', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
+            'items_list/product/parts/common.field-product-qty.twig' => [
+                static::TO_DELETE => [
+                    ['itemsList.product.table.customer.columns', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
+                ],
+            ],
             'items_list/product/parts/table.captions.field-select-all.twig' => [
                 static::TO_DELETE => [
                     ['itemsList.product.table.customer.captions', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
@@ -367,6 +372,12 @@ abstract class Main extends \XLite\Module\AModuleSkin
                     ['product.details.quicklook.image', 5, \XLite\Model\ViewList::INTERFACE_CUSTOMER],
                 ],
             ],
+            'product/details/parts/common.product-title.twig' => [
+                static::TO_DELETE => [
+                    ['product.details.quicklook.info', \XLite\Model\ViewList::INTERFACE_CUSTOMER],
+                ],
+            ],
+
             'checkout/steps/shipping/parts/address.billing.same.twig' => [
                 static::TO_DELETE => [
                     ['checkout.payment.address.after', \XLite\Model\ViewList::INTERFACE_CUSTOMER],

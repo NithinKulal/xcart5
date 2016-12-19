@@ -39,8 +39,12 @@ class Order
         $return = array(
             'id'                    => strval($order->getOrderNumber()),
             'customer'              => $customerData,
-            'financial_status'      => $order->getPaymentStatus()->getName(),
-            'fulfillment_status'    => $order->getShippingStatus()->getName(),
+            'financial_status'      => $order->getPaymentStatus()
+                ? $order->getPaymentStatus()->getName()
+                : 'unknown',
+            'fulfillment_status'    => $order->getShippingStatus()
+                ? $order->getShippingStatus()->getName()
+                : 'unknown',
             'currency_code'         => $order->getCurrency()->getCode(),
             'order_total'           => $order->getTotal(),
             'tax_total'             => static::getTaxValue($order),

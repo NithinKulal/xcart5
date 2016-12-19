@@ -29,7 +29,7 @@ class AutomateShippingReturns extends \XLite\View\AView
         return array_merge(
             parent::getAllowedTargets(),
             array(
-                'automate_shipping_returns'
+                'automate_shipping_refunds'
             )
         );
     }

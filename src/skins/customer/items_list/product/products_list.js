@@ -39,6 +39,11 @@ ProductsListController.prototype.getListView = function()
 
 ProductsListController.prototype.updateCartHandler = function(event, data) {
   var productPattern, product;
+
+  if (_.isUndefined(data.items)) {
+    return;
+  }
+
   for (var i = 0; i < data.items.length; i++) {
     if (data.items[i].object_type == 'product') {
 

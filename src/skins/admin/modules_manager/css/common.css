@@ -553,6 +553,7 @@ table.data-table td .module-tags-list li a:hover {
 .addons-search-box .search-form .substring-value {
   padding: 0;
   display: inline-block;
+  vertical-align: middle;
 }
 
 .addons-search-box .search-form button[type="submit"] {
@@ -564,6 +565,8 @@ table.data-table td .module-tags-list li a:hover {
   border-radius: 0 10px 10px 0;
   position: relative;
   left: -40px;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .addons-search-box .search-form input#substring {

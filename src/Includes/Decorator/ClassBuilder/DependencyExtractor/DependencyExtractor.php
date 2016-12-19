@@ -11,6 +11,7 @@ namespace Includes\Decorator\ClassBuilder\DependencyExtractor;
 use Includes\ClassPathResolverInterface;
 use Includes\Decorator\ClassBuilder\DependencyExtractor\DependencyExtractorInterface;
 use Includes\Reflection\StaticReflectorInterface;
+use Includes\Utils\ModulesManager;
 use MJS\TopSort\Implementations\StringSort;
 use Includes\Decorator\ClassBuilder\ModuleInterface;
 use Includes\Decorator\ClassBuilder\ModuleRegistryInterface;
@@ -176,7 +177,17 @@ class DependencyExtractor implements DependencyExtractorInterface
 
             $deps = [];
 
-            foreach ($reflector->getAfterModules() as $after) {
+            // After all dependencies specified in getDependencies
+            // if only Before not specified
+            $afterModules = array_merge(
+                $reflector->getAfterModules(),
+                array_diff(
+                    ModulesManager::callModuleMethod($module, 'getDependencies'),
+                    $reflector->getBeforeModules()
+                )
+            );
+
+            foreach ($afterModules as $after) {
                 if (isset($modules[$after])) {
                     $deps = array_merge($deps, array_diff($modules[$after], [$file]));
                 }

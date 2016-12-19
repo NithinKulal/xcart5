@@ -1,7 +1,7 @@
 {##
  # OnOff checkbox
  #}
-<div class="onoffswitch">
+<div class="{{ this.getCssClass() }}">
   {% if not this.isDisabled() %}
     <input type="hidden" name="{{ this.getName() }}" value="" />
   {% endif %}

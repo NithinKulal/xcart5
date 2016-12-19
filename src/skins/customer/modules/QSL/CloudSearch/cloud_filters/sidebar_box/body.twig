@@ -1,0 +1,42 @@
+{# Render all filters #}
+
+<category-filter
+        v-if="facets.category"
+        id="category"
+        title="{{ t('Category') }}"
+        :facet="facets.category"
+        :toggled-values="filters.category"
+        :on-toggle="toggleFilterAction">
+</category-filter>
+
+<price-filter
+        title="{{ t('Price') }}"
+        :min="filters.min_price"
+        :max="filters.max_price"
+        :stats-min="stats.price.min"
+        :stats-max="stats.price.max"
+>
+</price-filter>
+
+<default-filter
+        v-if="facets.manufacturer"
+        id="manufacturer"
+        title="{{ t('Manufacturer') }}"
+        :facet="facets.manufacturer"
+        :toggled-values="filters.manufacturer"
+        :on-toggle="toggleFilterAction">
+</default-filter>
+
+<component :is="getFilterType(facet)"
+           v-for="facet in facets" v-if="facet.id != 'category' && facet.id != 'manufacturer'"
+           :id="facet.id"
+           :title="facet.name"
+           :facet="facet"
+           :toggled-values="filters[facet.id]"
+           :on-toggle="toggleFilterAction">
+</component>
+
+<a href="#" v-show="isAnyFilterSet" v-on:click.prevent="resetFiltersAction"
+   class="cloud-filters__reset">
+    <small>{{ t('Reset all filters') }}</small>
+</a>

@@ -18,7 +18,7 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
      *
      * @var array
      */
-    protected $multAttributes = array();
+    protected $multAttributes = [];
 
     /**
      * Get title
@@ -82,82 +82,82 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
      */
     protected function defineColumns()
     {
-        return array(
-            'sku'                       => array(
+        return [
+            'sku'                       => [
                 static::COLUMN_IS_KEY          => true,
                 static::COLUMN_LENGTH          => 32,
-            ),
-            'price'                     => array(),
-            'memberships'               => array(
+            ],
+            'price'                     => [],
+            'memberships'               => [
                 static::COLUMN_IS_MULTIPLE     => true
-            ),
-            'productClass'              => array(),
-            'taxClass'                  => array(),
-            'enabled'                   => array(),
-            'weight'                    => array(),
-            'shippable'                 => array(),
-            'images'                    => array(
+            ],
+            'productClass'              => [],
+            'taxClass'                  => [],
+            'enabled'                   => [],
+            'weight'                    => [],
+            'shippable'                 => [],
+            'images'                    => [
                 static::COLUMN_IS_MULTIPLE     => true,
-            ),
-            'imagesAlt'                 => array(
+            ],
+            'imagesAlt'                 => [
                 static::COLUMN_IS_MULTIPLE     => true,
                 static::COLUMN_LENGTH          => 255,
-            ),
-            'arrivalDate'               => array(),
-            'date'                      => array(),
-            'updateDate'                => array(),
-            'inventoryTrackingEnabled'  => array(),
-            'stockLevel'                => array(),
-            'lowLimitEnabled'           => array(),
-            'lowLimitEnabledCustomer'   => array(),
-            'lowLimitLevel'             => array(),
-            'useSeparateBox'            => array(),
-            'boxWidth'                  => array(),
-            'boxLength'                 => array(),
-            'boxHeight'                 => array(),
-            'itemsPerBox'               => array(),
-            'name'                      => array(
+            ],
+            'arrivalDate'               => [],
+            'date'                      => [],
+            'updateDate'                => [],
+            'inventoryTrackingEnabled'  => [],
+            'stockLevel'                => [],
+            'lowLimitEnabled'           => [],
+            'lowLimitEnabledCustomer'   => [],
+            'lowLimitLevel'             => [],
+            'useSeparateBox'            => [],
+            'boxWidth'                  => [],
+            'boxLength'                 => [],
+            'boxHeight'                 => [],
+            'itemsPerBox'               => [],
+            'name'                      => [
                 static::COLUMN_IS_MULTILINGUAL => true,
                 static::COLUMN_LENGTH          => 255,
-            ),
-            'categories'                => array(
+            ],
+            'categories'                => [
                 static::COLUMN_IS_MULTIPLE     => true,
-            ),
-            'inCategoriesPosition'       => array(
+            ],
+            'inCategoriesPosition'       => [
                 static::COLUMN_IS_MULTIPLE     => true,
-            ),
-            'description'               => array(
+            ],
+            'description'               => [
                 static::COLUMN_IS_MULTILINGUAL => true,
                 static::COLUMN_IS_TAGS_ALLOWED => true,
-            ),
-            'briefDescription'          => array(
+            ],
+            'briefDescription'          => [
                 static::COLUMN_IS_MULTILINGUAL => true,
                 static::COLUMN_IS_TAGS_ALLOWED => true,
-            ),
-            'metaTags'                  => array(
+            ],
+            'metaTags'                  => [
                 static::COLUMN_IS_MULTILINGUAL => true,
                 static::COLUMN_LENGTH          => 255,
-            ),
-            'metaDesc'                  => array(
+            ],
+            'metaDesc'                  => [
                 static::COLUMN_IS_MULTILINGUAL => true,
-            ),
-            'metaTitle'                 => array(
+            ],
+            'metaTitle'                 => [
                 static::COLUMN_IS_MULTILINGUAL => true,
                 static::COLUMN_LENGTH          => 255,
-            ),
-            'attributes'                => array(
+            ],
+            'attributes'                => [
                 static::COLUMN_IS_MULTICOLUMN  => true,
                 static::COLUMN_IS_MULTIPLE     => true,
                 static::COLUMN_IS_MULTIROW     => true,
                 static::COLUMN_HEADER_DETECTOR => true,
                 static::COLUMN_IS_TAGS_ALLOWED => true,
                 static::COLUMN_IS_IMPORT_EMPTY => true,
-            ),
-            'cleanURL'                  => array(
+            ],
+            'cleanURL'                  => [
                 static::COLUMN_LENGTH          => 255,
-            ),
-            'metaDescType'              => array(),
-        );
+            ],
+            'metaDescType'              => [],
+        ];
     }
 
     // }}}
@@ -189,7 +189,7 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
     public static function getMessages()
     {
         return parent::getMessages()
-            + array(
+            + [
                 'PRODUCT-SKU-FMT'               => 'ProductSKU is empty',
                 'PRODUCT-PRICE-FMT'             => 'Wrong price format',
                 'PRODUCT-ENABLED-FMT'           => 'Wrong enabled format',
@@ -215,7 +215,7 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
                 'PRODUCT-IN-CAT-POSITION-CNT'   => 'The count of categories specified for a product and the count of orderBy position numbers describing the position of the product within these categories must be the same.',
                 'PRODUCT-CATEGORY-PATH-EMPTY'   => 'Category name should not be empty',
                 'PRODUCT-IN-CAT-POSITION-FMT'   => 'OrderBy position number must be specified as a non-negative integer.',
-            );
+        ];
     }
 
     /**
@@ -229,7 +229,7 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
     protected function verifySku($value, array $column)
     {
         if ($this->verifyValueAsEmpty($value)) {
-            $this->addError('PRODUCT-SKU-FMT', array('column' => $column, 'value' => $value));
+            $this->addError('PRODUCT-SKU-FMT', ['column' => $column, 'value' => $value]);
 
         } elseif (!$this->isUpdateMode()) {
             $products = \XLite\Core\Session::getInstance()->importedProductSkus;
@@ -249,7 +249,7 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
     protected function verifyPrice($value, array $column)
     {
         if (!$this->verifyValueAsEmpty($value) && !$this->verifyValueAsFloat($value)) {
-            $this->addWarning('PRODUCT-PRICE-FMT', array('column' => $column, 'value' => $value));
+            $this->addWarning('PRODUCT-PRICE-FMT', ['column' => $column, 'value' => $value]);
         }
     }
 
@@ -266,7 +266,7 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
         if (!$this->verifyValueAsEmpty($value) && !$this->verifyValueAsNull($value)) {
             foreach ($value as $membership) {
                 if (!$this->verifyValueAsEmpty($membership) && !$this->verifyValueAsMembership($membership)) {
-                    $this->addWarning('GLOBAL-MEMBERSHIP-FMT', array('column' => $column, 'value' => $membership));
+                    $this->addWarning('GLOBAL-MEMBERSHIP-FMT', ['column' => $column, 'value' => $membership]);
                 }
             }
         }
@@ -283,7 +283,7 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
     protected function verifyProductClass($value, array $column)
     {
         if (!$this->verifyValueAsEmpty($value) && !$this->verifyValueAsProductClass($value)) {
-            $this->addWarning('GLOBAL-PRODUCT-CLASS-FMT', array('column' => $column, 'value' => $value));
+            $this->addWarning('GLOBAL-PRODUCT-CLASS-FMT', ['column' => $column, 'value' => $value]);
         }
     }
 
@@ -298,7 +298,7 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
     protected function verifyTaxClass($value, array $column)
     {
         if (!$this->verifyValueAsEmpty($value) && !$this->verifyValueAsTaxClass($value)) {
-            $this->addWarning('GLOBAL-TAX-CLASS-FMT', array('column' => $column, 'value' => $value));
+            $this->addWarning('GLOBAL-TAX-CLASS-FMT', ['column' => $column, 'value' => $value]);
         }
     }
 
@@ -313,7 +313,7 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
     protected function verifyEnabled($value, array $column)
     {
         if (!$this->verifyValueAsEmpty($value) && !$this->verifyValueAsBoolean($value)) {
-            $this->addWarning('PRODUCT-ENABLED-FMT', array('column' => $column, 'value' => $value));
+            $this->addWarning('PRODUCT-ENABLED-FMT', ['column' => $column, 'value' => $value]);
         }
     }
 
@@ -328,7 +328,7 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
     protected function verifyWeight($value, array $column)
     {
         if (!$this->verifyValueAsEmpty($value) && !$this->verifyValueAsFloat($value)) {
-            $this->addWarning('PRODUCT-WEIGHT-FMT', array('column' => $column, 'value' => $value));
+            $this->addWarning('PRODUCT-WEIGHT-FMT', ['column' => $column, 'value' => $value]);
         }
     }
 
@@ -343,7 +343,7 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
     protected function verifyShippable($value, array $column)
     {
         if (!$this->verifyValueAsEmpty($value) && !$this->verifyValueAsBoolean($value)) {
-            $this->addWarning('PRODUCT-FREE-SHIP-FMT', array('column' => $column, 'value' => $value));
+            $this->addWarning('PRODUCT-FREE-SHIP-FMT', ['column' => $column, 'value' => $value]);
         }
     }
 
@@ -360,9 +360,9 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
         if (!$this->verifyValueAsEmpty($value) && !$this->verifyValueAsNull($value)) {
             foreach ($value as $image) {
                 if (!$this->verifyValueAsEmpty($image) && $this->verifyValueAsURL($image) && !$this->verifyValueAsFile($image)) {
-                    $this->addWarning('PRODUCT-IMG-URL-LOAD-FAILED', array('column' => $column, 'value' => $value));
+                    $this->addWarning('PRODUCT-IMG-URL-LOAD-FAILED', ['column' => $column, 'value' => $value]);
                 } elseif (!$this->verifyValueAsEmpty($image) && !$this->verifyValueAsNull($image) && !$this->verifyValueAsFile($image)) {
-                    $this->addWarning('GLOBAL-IMAGE-FMT', array('column' => $column, 'value' => $image));
+                    $this->addWarning('GLOBAL-IMAGE-FMT', ['column' => $column, 'value' => $image]);
                 }
             }
         }
@@ -391,7 +391,7 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
     protected function verifyArrivalDate($value, array $column)
     {
         if (!$this->verifyValueAsEmpty($value) && !$this->verifyValueAsDate($value)) {
-            $this->addWarning('PRODUCT-ARRIVAL-DATE-FMT', array('column' => $column, 'value' => $value));
+            $this->addWarning('PRODUCT-ARRIVAL-DATE-FMT', ['column' => $column, 'value' => $value]);
         }
     }
 
@@ -406,7 +406,7 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
     protected function verifyDate($value, array $column)
     {
         if (!$this->verifyValueAsEmpty($value) && !$this->verifyValueAsDate($value)) {
-            $this->addWarning('PRODUCT-DATE-FMT', array('column' => $column, 'value' => $value));
+            $this->addWarning('PRODUCT-DATE-FMT', ['column' => $column, 'value' => $value]);
         }
     }
 
@@ -421,7 +421,7 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
     protected function verifyUpdateDate($value, array $column)
     {
         if (!$this->verifyValueAsEmpty($value) && !$this->verifyValueAsDate($value)) {
-            $this->addWarning('PRODUCT-UPDATE-DATE-FMT', array('column' => $column, 'value' => $value));
+            $this->addWarning('PRODUCT-UPDATE-DATE-FMT', ['column' => $column, 'value' => $value]);
         }
     }
 
@@ -438,10 +438,10 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
         if (!$this->verifyValueAsEmpty($value) && !$this->verifyValueAsNull($value)) {
             foreach (array_unique($value) as $path) {
                 if ($this->verifyValueAsEmpty($path)) {
-                    $this->addError('PRODUCT-CATEGORY-PATH-EMPTY', array('column' => $column, 'value' => $path));
+                    $this->addError('PRODUCT-CATEGORY-PATH-EMPTY', ['column' => $column, 'value' => $path]);
                 }
                 if (!$this->verifyValueAsEmpty($path) && !$this->getCategoryByPath($path)) {
-                    $this->addWarning('GLOBAL-CATEGORY-FMT', array('column' => $column, 'value' => $path));
+                    $this->addWarning('GLOBAL-CATEGORY-FMT', ['column' => $column, 'value' => $path]);
                 }
             }
         }
@@ -457,7 +457,7 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
      */
     protected function verifyInCategoriesPosition($value, array $column)
     {
-        $categoriesData = array();
+        $categoriesData = [];
         $column         = $this->getColumn('categories');
         if (isset($this->currentRowData[$column[static::COLUMN_NAME]])) {
             $categoriesData = $this->currentRowData[$column[static::COLUMN_NAME]];
@@ -467,12 +467,12 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
             if (is_array($categoriesData)
                 && count($value) !== count($categoriesData)
             ) {
-                $this->addError('PRODUCT-IN-CAT-POSITION-CNT', array('column' => $column, 'value' => $value));
+                $this->addError('PRODUCT-IN-CAT-POSITION-CNT', ['column' => $column, 'value' => $value]);
             }
 
             foreach ($value as $inCategoryOrder) {
                 if (!$this->verifyValueAsUinteger($inCategoryOrder)) {
-                    $this->addError('PRODUCT-IN-CAT-POSITION-FMT', array('column' => $column, 'value' => $inCategoryOrder));
+                    $this->addError('PRODUCT-IN-CAT-POSITION-FMT', ['column' => $column, 'value' => $inCategoryOrder]);
                 }
             }
         }
@@ -489,7 +489,7 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
     protected function verifyInventoryTrackingEnabled($value, array $column)
     {
         if (!$this->verifyValueAsEmpty($value) && !$this->verifyValueAsBoolean($value)) {
-            $this->addWarning('PRODUCT-INV-TRACKING-FMT', array('column' => $column, 'value' => $value));
+            $this->addWarning('PRODUCT-INV-TRACKING-FMT', ['column' => $column, 'value' => $value]);
         }
     }
 
@@ -504,7 +504,7 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
     protected function verifyStockLevel($value, array $column)
     {
         if (!$this->verifyValueAsEmpty($value) && !$this->verifyValueAsUinteger($value)) {
-            $this->addWarning('PRODUCT-STOCK-LEVEL-FMT', array('column' => $column, 'value' => $value));
+            $this->addWarning('PRODUCT-STOCK-LEVEL-FMT', ['column' => $column, 'value' => $value]);
         }
     }
 
@@ -519,7 +519,7 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
     protected function verifyLowLimitEnabled($value, array $column)
     {
         if (!$this->verifyValueAsEmpty($value) && !$this->verifyValueAsBoolean($value)) {
-            $this->addWarning('PRODUCT-LOW-LIMIT-NOTIF-FMT', array('column' => $column, 'value' => $value));
+            $this->addWarning('PRODUCT-LOW-LIMIT-NOTIF-FMT', ['column' => $column, 'value' => $value]);
         }
     }
 
@@ -534,7 +534,7 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
     protected function verifyLowLimitEnabledCustomer($value, array $column)
     {
         if (!$this->verifyValueAsEmpty($value) && !$this->verifyValueAsBoolean($value)) {
-            $this->addWarning('PRODUCT-LOW-LIMIT-NOTIF-FMT', array('column' => $column, 'value' => $value));
+            $this->addWarning('PRODUCT-LOW-LIMIT-NOTIF-FMT', ['column' => $column, 'value' => $value]);
         }
     }
 
@@ -549,7 +549,7 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
     protected function verifyLowLimitLevel($value, array $column)
     {
         if (!$this->verifyValueAsEmpty($value) && !$this->verifyValueAsUinteger($value)) {
-            $this->addWarning('PRODUCT-LOW-LIMIT-LEVEL-FMT', array('column' => $column, 'value' => $value));
+            $this->addWarning('PRODUCT-LOW-LIMIT-LEVEL-FMT', ['column' => $column, 'value' => $value]);
         }
     }
 
@@ -571,7 +571,7 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
             if (0 < strlen($value)
                 && !preg_match('/^' . $repo->getPattern('XLite\Model\Product') . '$/S', $value)
             ) {
-                $this->addError('PRODUCT-CLEAN-URL-FMT', array('column' => $column, 'value' => $value));
+                $this->addError('PRODUCT-CLEAN-URL-FMT', ['column' => $column, 'value' => $value]);
             }
         }
     }
@@ -588,7 +588,7 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
     {
         $value = $this->getDefLangValue($value);
         if ($this->verifyValueAsEmpty($value) && !$this->isProductExists()) {
-            $this->addError('PRODUCT-NAME-FMT', array('column' => $column, 'value' => $value));
+            $this->addError('PRODUCT-NAME-FMT', ['column' => $column, 'value' => $value]);
         }
     }
 
@@ -604,7 +604,7 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
         $sku = isset($this->currentRowData['sku']) ? $this->currentRowData['sku'] : '';
 
         if (!\XLite\Core\Converter::isEmptyString($sku)) {
-            $result = \XLite\Core\Database::getRepo('XLite\Model\Product')->findOneBy(array('sku' => $sku));
+            $result = \XLite\Core\Database::getRepo('XLite\Model\Product')->findOneBy(['sku' => $sku]);
         }
 
         return !empty($result);
@@ -693,7 +693,7 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
     protected function verifyUseSeparateBox($value, array $column)
     {
         if (!$this->verifyValueAsEmpty($value) && !$this->verifyValueAsBoolean($value)) {
-            $this->addWarning('PRODUCT-USE-SEP-BOX-FMT', array('column' => $column, 'value' => $value));
+            $this->addWarning('PRODUCT-USE-SEP-BOX-FMT', ['column' => $column, 'value' => $value]);
         }
     }
 
@@ -708,7 +708,7 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
     protected function verifyBoxWidth($value, array $column)
     {
         if (!$this->verifyValueAsEmpty($value) && !$this->verifyValueAsFloat($value)) {
-            $this->addWarning('PRODUCT-BOX-WIDTH-FMT', array('column' => $column, 'value' => $value));
+            $this->addWarning('PRODUCT-BOX-WIDTH-FMT', ['column' => $column, 'value' => $value]);
         }
     }
 
@@ -723,7 +723,7 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
     protected function verifyBoxLength($value, array $column)
     {
         if (!$this->verifyValueAsEmpty($value) && !$this->verifyValueAsFloat($value)) {
-            $this->addWarning('PRODUCT-BOX-LENGTH-FMT', array('column' => $column, 'value' => $value));
+            $this->addWarning('PRODUCT-BOX-LENGTH-FMT', ['column' => $column, 'value' => $value]);
         }
     }
 
@@ -738,7 +738,7 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
     protected function verifyBoxHeight($value, array $column)
     {
         if (!$this->verifyValueAsEmpty($value) && !$this->verifyValueAsFloat($value)) {
-            $this->addWarning('PRODUCT-BOX-HEIGHT-FMT', array('column' => $column, 'value' => $value));
+            $this->addWarning('PRODUCT-BOX-HEIGHT-FMT', ['column' => $column, 'value' => $value]);
         }
     }
 
@@ -753,7 +753,7 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
     protected function verifyItemsPerBox($value, array $column)
     {
         if (!$this->verifyValueAsEmpty($value) && !$this->verifyValueAsUinteger($value)) {
-            $this->addWarning('PRODUCT-ITEMS-PRE-BOX-FMT', array('column' => $column, 'value' => $value));
+            $this->addWarning('PRODUCT-ITEMS-PRE-BOX-FMT', ['column' => $column, 'value' => $value]);
         }
     }
 
@@ -1023,11 +1023,11 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
         $key = 'XLite\Model\Membership|Product';
 
         if (!isset($this->modelsLocalCache[$key])) {
-            $this->modelsLocalCache[$key] = array();
+            $this->modelsLocalCache[$key] = [];
         }
         $productId = $model->getProductId();
         if (!isset($this->modelsLocalCache[$key][$productId])) {
-            $this->modelsLocalCache[$key][$productId] = array();
+            $this->modelsLocalCache[$key][$productId] = [];
         }
 
         $this->modelsLocalCache[$key][$productId][] = $membership->getMembershipId();
@@ -1046,7 +1046,7 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
     {
         if ($value) {
             if (!$this->verifyValueAsNull($value)) {
-                $position = array();
+                $position = [];
                 foreach ($model->getCategoryProducts() as $link) {
                     $position[$link->getCategory()->getCategoryId()] = $link->getOrderby();
                 }
@@ -1062,10 +1062,10 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
                 foreach (array_unique($value) as $path) {
                     $category = $this->addCategoryByPath($path);
                     $link  = \XLite\Core\Database::getRepo('\XLite\Model\CategoryProducts')->findOneBy(
-                        array(
+                        [
                             'category' => $category,
                             'product'  => $model,
-                        )
+                        ]
                     );
                     if (!$link) {
                         $link = new \XLite\Model\CategoryProducts;
@@ -1103,7 +1103,7 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
                 }
 
             } else {
-                $this->addError('PRODUCT-IN-CAT-POSITION-CNT', array('column' => $column, 'value' => $value));
+                $this->addError('PRODUCT-IN-CAT-POSITION-CNT', ['column' => $column, 'value' => $value]);
             }
         }
     }
@@ -1232,11 +1232,20 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
                     \XLite\Core\Database::getEM()->remove($image);
 
                     if ($image->getLoadError() === 'unwriteable') {
-                        $this->addError('PRODUCT-IMG-LOAD-FAILED', array('column' => $column, 'value' => $path));
+                        $this->addError('PRODUCT-IMG-LOAD-FAILED', [
+                            'column' => $column,
+                            'value' => $this->verifyValueAsURL($file) ? $path : LC_DIR_ROOT . $file
+                        ]);
                     } elseif (!$this->verifyValueAsFile($file) && $this->verifyValueAsURL($file)) {
-                        $this->addWarning('PRODUCT-IMG-URL-LOAD-FAILED', array('column' => $column, 'value' => $path));
+                        $this->addWarning('PRODUCT-IMG-URL-LOAD-FAILED', [
+                            'column' => $column,
+                            'value' => $path
+                        ]);
                     } else {
-                        $this->addWarning('PRODUCT-IMG-NOT-VERIFIED', array('column' => $column, 'value' => $path));
+                        $this->addWarning('PRODUCT-IMG-NOT-VERIFIED', [
+                            'column' => $column,
+                            'value' => $this->verifyValueAsURL($file) ? $path : LC_DIR_ROOT . $file
+                        ]);
                     }
                 }
             }
@@ -1292,7 +1301,7 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
      */
     protected function importAttributesColumn(\XLite\Model\Product $model, array $value, array $column)
     {
-        $this->multAttributes = array();
+        $this->multAttributes = [];
         foreach ($value as $attr => $v) {
             if (preg_match('/(.+)\(field:(global|product|class)([ ]*>>>[ ]*(.+))?\)(_([a-z]{2}))?/iSs', $attr, $m)) {
                 $type = $m[2];
@@ -1308,18 +1317,18 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
                     ? $model
                     : null;
 
-                $values = array();
+                $values = [];
                 foreach ($v as $value) {
                     $values = array_merge($values, $value);
                 }
                 $values = array_values(array_unique($values));
                 $shouldClear = $this->verifyValueAsNull($values);
-                $data = array(
-                    'value'    => array(),
-                    'default'  => array(),
-                    'price'    => array(),
-                    'weight'   => array(),
-                );
+                $data = [
+                    'value'    => [],
+                    'default'  => [],
+                    'price'    => [],
+                    'weight'   => [],
+                ];
                 $hasOptions = false;
                 foreach ($values as $k => $value) {
                     if (preg_match('/(.+)=(default)?(\/)?((w|\$)(([+-]?\d+\.?\d*)(%)?))?(\/)?((w|\$)(([+-]?\d+\.?\d*)(%)?))?/iSs', $value, $m)) {
@@ -1328,7 +1337,7 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
                             $data['default'][$k] = true;
                         }
                         $hasOptions = true;
-                        foreach (array(5, 11) as $id) {
+                        foreach ([5, 11] as $id) {
                             if (isset($m[$id])) {
                                 $data['$' === $m[$id] ? 'price' : 'weight'][$k] = $m[$id + 1];
                             }
@@ -1372,13 +1381,13 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
                         }
                     }
                     $attribute = \XLite\Core\Database::getRepo('\XLite\Model\Attribute')->insert(
-                        array(
+                        [
                             'name'           => $name,
                             'productClass'   => $productClass,
                             'attributeGroup' => $attributeGroup,
                             'product'        => $product,
                             'type'           => $type,
-                        )
+                        ]
                     );
 
                     if ($attributeGroup && $productClass) {
@@ -1447,10 +1456,10 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
                 // Input cleanURL value is empty, trying to get product name from current row data
 
                 $lngCodes = array_unique(
-                    array(
+                    [
                         'en',
                         $this->importer->getLanguageCode(),
-                    )
+                    ]
                 );
 
                 foreach ($lngCodes as $code) {

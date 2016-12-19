@@ -88,11 +88,17 @@ abstract class Catalog extends \XLite\Controller\Customer\ACustomer
      */
     public function getTitleParentPart()
     {
+        $categoryToGetName = null;
+
         if (!(in_array($this->getTarget(), ['main', 'category']))) {
-            return $this->getCategory() ? $this->getCategory()->getName() : '';
+            $categoryToGetName = $this->getCategory();
+        } elseif ($this->getCategory() && $this->getCategory()->getParent()) {
+            $categoryToGetName = $this->getCategory()->getParent();
         }
 
-        return $this->getCategory() && $this->getCategory()->getParent() ? $this->getCategory()->getParent()->getName() : '';
+        return $categoryToGetName && $categoryToGetName->isVisible() && $categoryToGetName->getDepth() !== -1
+            ? $categoryToGetName->getName()
+            : '';
     }
 
     /**

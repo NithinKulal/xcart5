@@ -178,7 +178,7 @@ class Session extends \XLite\Base\Singleton
      *
      * @return void
      */
-    public function restart()
+    public function restart($withCells = true)
     {
         $this->lastFormId = null;
 
@@ -201,12 +201,15 @@ class Session extends \XLite\Base\Singleton
         $this->createSession();
         if ($old && !$dump) {
             // Copy session cells from old to new session
-            foreach ($old->getCellsCache() as $cell) {
-                $cell->detach();
-                $cell->setSession($this->session);
-                $this->session->addCells($cell);
-                \XLite\Core\Database::getEM()->persist($cell);
+            if ($withCells) {
+                foreach ($old->getCellsCache() as $cell) {
+                    $cell->detach();
+                    $cell->setSession($this->session);
+                    $this->session->addCells($cell);
+                    \XLite\Core\Database::getEM()->persist($cell);
+                }
             }
+
             // Remove old session
             \XLite\Core\Database::getEM()->remove($old);
             \XLite\Core\Database::getEM()->flush();
@@ -761,7 +764,9 @@ class Session extends \XLite\Base\Singleton
             $code = array();
         }
 
-        if (LC_USE_CLEAN_URLS && \XLite\Core\Router::getInstance()->isUseLanguageUrls() && \XLite\Core\Request::getInstance()->getLanguageCode()) {
+        $useCleanUrls = defined('LC_USE_CLEAN_URLS') && true == LC_USE_CLEAN_URLS;
+
+        if ($useCleanUrls && \XLite\Core\Router::getInstance()->isUseLanguageUrls() && \XLite\Core\Request::getInstance()->getLanguageCode()) {
             $code = array_merge($code, ['customer' => \XLite\Core\Request::getInstance()->getLanguageCode()]);
         }
 
@@ -770,7 +775,7 @@ class Session extends \XLite\Base\Singleton
 
             if (!isset($language) || !$language->getAdded() || !$language->getEnabled()) {
                 unset($code[$zone]);
-            } elseif (LC_USE_CLEAN_URLS && \XLite\Core\Router::getInstance()->isUseLanguageUrls() && \XLite\Core\Request::getInstance()->getLanguageCode()) {
+            } elseif ($useCleanUrls && \XLite\Core\Router::getInstance()->isUseLanguageUrls() && \XLite\Core\Request::getInstance()->getLanguageCode()) {
                 $lang = $this->__get('language') ?: [];
                 $lang['customer'] = \XLite\Core\Request::getInstance()->getLanguageCode();
                 $this->__set('language', $lang);

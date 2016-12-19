@@ -197,6 +197,11 @@ output {
   }
 }
 
+.form-control-label {
+  .form-control;
+  border-color: transparent;
+}
+
 .form-control.secondary {
   border-top: 0px;
   border-left: 0px;
@@ -267,7 +272,7 @@ output {
     background-position: 96% 24px;
   }
 
-  .form-control {
+  .form-control, .form-control-label {
     height: @input-height-base-floating;
     min-height: (@line-height-base * 3);
     padding-top: @line-height-base + @padding-base-vertical;

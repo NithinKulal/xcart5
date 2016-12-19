@@ -64,7 +64,9 @@ abstract class Widget extends \XLite\View\Product\AProduct
      */
     protected function getProduct()
     {
-        $product = $this->getRuntimeCache('getProduct');
+        $productId = $this->getParam(self::PARAM_PRODUCT_ID) ?: $this->getParam(self::PARAM_PRODUCT)->getProductId();
+
+        $product = $this->getRuntimeCache(['getProduct', $productId]);
         if (!$product) {
             $product = $this->executeCachedRuntime(function () {
                 $productId = $this->getParam(self::PARAM_PRODUCT_ID);
@@ -74,7 +76,7 @@ abstract class Widget extends \XLite\View\Product\AProduct
                     : $this->getParam(self::PARAM_PRODUCT);
 
                 return $product;
-            });
+            }, ['getProduct', $productId]);
 
             $product->setAttrValues($this->getAttributeValues());
         }
@@ -89,9 +91,11 @@ abstract class Widget extends \XLite\View\Product\AProduct
      */
     protected function getAttributeValues()
     {
-        return $this->executeCachedRuntime(function () {
+        $attributeValuesParam = $this->getParam(static::PARAM_ATTRIBUTE_VALUES);
+
+        return $this->executeCachedRuntime(function () use ($attributeValuesParam) {
             $result          = [];
-            $attributeValues = trim($this->getParam(static::PARAM_ATTRIBUTE_VALUES), ',');
+            $attributeValues = trim($attributeValuesParam, ',');
 
             if ($attributeValues) {
                 $attributeValues = explode(',', $attributeValues);
@@ -103,7 +107,7 @@ abstract class Widget extends \XLite\View\Product\AProduct
             }
 
             return $this->getProduct()->prepareAttributeValues($result);
-        });
+        }, ['getAttributeValues', $attributeValuesParam]);
     }
 
     /**

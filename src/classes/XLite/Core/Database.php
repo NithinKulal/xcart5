@@ -368,6 +368,7 @@ class Database extends \XLite\Base\Singleton
         $this->configuration->addCustomStringFunction('collate', '\\XLite\\Core\\Doctrine\\CollateFunction');
         $this->configuration->addCustomStringFunction('least', '\\XLite\\Core\\Doctrine\\LeastFunction');
         $this->configuration->addCustomStringFunction('greatest', '\\XLite\\Core\\Doctrine\\GreatestFunction');
+        $this->configuration->addCustomStringFunction('concat_ws', '\\XLite\\Core\\Doctrine\\ConcatWSFunction');
 
         $this->tablePrefix = trim(\XLite::getInstance()->getOptions(array('database_details', 'table_prefix')));
 

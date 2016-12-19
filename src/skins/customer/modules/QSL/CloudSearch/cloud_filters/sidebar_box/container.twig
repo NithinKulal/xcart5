@@ -1,0 +1,17 @@
+{# Root Vuejs element #}
+
+<div id="cloud-filters" class="cloud-filters" v-cloak>
+    {{ this.displayCommentedData(this.getPhpToJsData()) }}
+
+    <div v-if="isVisible()">
+        {{ include('common/sidebar_box.twig') }}
+    </div>
+</div>
+
+{% set tplPath = 'modules/QSL/CloudSearch/cloud_filters/filters/' %}
+
+{{ include(tplPath ~ 'default.vue.twig') }}
+{{ include(tplPath ~ 'price.vue.twig') }}
+{{ source(tplPath ~ 'value_renderers/text.vue.html') }}
+{{ source(tplPath ~ 'value_renderers/color.vue.html') }}
+{{ source(tplPath ~ 'value_renderers/category.vue.html') }}

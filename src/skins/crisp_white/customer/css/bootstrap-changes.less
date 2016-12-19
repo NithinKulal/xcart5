@@ -571,16 +571,9 @@ div.tabs ul.tabs {
   }
 
   .product {
-    border: @border-base solid transparent;
-    margin: -@border-base;
     background-color: #fff;
-    .rounded(@border-radius-base);
     .flex-display();
     .flex-wrap(wrap);
-
-    &:not(.prevent-hover):hover, &.touched, &.ui-draggable-dragging {
-      border-color: #000;
-    }
 
     &.drag-owner {
       opacity: .2;
@@ -664,6 +657,7 @@ div.tabs ul.tabs {
   }
 
   .sort-box {
+    z-index: 1;
     position: absolute;
     left: 0;
   }
@@ -736,7 +730,7 @@ div.tabs ul.tabs {
   }
 
   .per-page-box {
-    margin-left: @rhythmic-unit;
+    margin-left: 16px;
   }
 
   .list-pager {
@@ -1124,6 +1118,11 @@ div.tabs ul.tabs {
   .product-photo {
     min-width: 262px;
     margin-right: @grid-gutter-width;
+
+    @media(max-width: @screen-sm-max) {
+      min-width: initial;
+      margin-right: 20px;
+    }
   }
 
   .product-name {

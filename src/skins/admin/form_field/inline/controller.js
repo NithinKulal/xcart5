@@ -221,41 +221,78 @@ CommonForm.elementControllers.push(
       // Move focus to next field in this column (if axists)
       inputs.keydown(
         function (event) {
-          var result = true;
+          var result = {state: true};
 
-          // Press 'Tab' button
-          if (!vTab && (9 === event.keyCode || 13 === event.keyCode)) {
-            var target = event.shiftKey ? this.getPreviousInputs() : this.getNextInputs();
-
-            if (0 < target.length) {
-              // Go to target (next / previous) input into current inline-field box
-              target.eq(0).focus();
-            } else {
-
-              // Go to similar inline-field into next / previous line
-              var l = line;
-              var f;
-              do {
-                l = event.shiftKey ? l.prev('.line') : l.next('.line');
-                if (l.length) {
-                  var f = l
-                    .find('.inline-field.editable')
-                    .eq(jQuery(this).parents('.inline-field').get(0).getPositionIntoLine())
-                    .find('.view');
-                }
-
-              } while (l.length && 0 == f.length);
-
-              if (l.length && f.length) {
-                result = false;
-                f.click();
-              }
+          // Press 'Tab' / 'Enter' button
+          if (!vTab && (9 === event.keyCode || 13 === event.keyCode) && !$(this).is('textarea')) {
+            if (!$(this).is('textarea')) {
+              $(this).trigger('enterPress', [event, result]);
+            } else if (event.metaKey || event.ctrlKey) {
+              $(this).trigger('enterPress', [event, result]);
             }
           } else if (27 === event.keyCode) {
-            jQuery(this).trigger('blur');
+            $(this).trigger('escPress', [event, result]);
           }
 
-          return result;
+          return result.state;
+        }
+      );
+
+      inputs.bind(
+        'enterPress',
+        function (currentEvent, event, result) {
+          var target = event.shiftKey ? this.getPreviousInputs() : this.getNextInputs();
+
+          if (0 < target.length) {
+            // Go to target (next / previous) input into current inline-field box
+            target.eq(0).focus();
+          } else {
+            // Go to similar inline-field into next / previous line
+            var l = line;
+            var f;
+
+            var cell = jQuery(this).parents('.cell').filter(function () {
+              return $(this).parent().hasClass('line');
+            }).eq(0);
+
+            var index = cell.index();
+
+            do {
+              l = event.shiftKey ? l.prev('.line') : l.next('.line');
+              if (l.length) {
+                var f = l
+                  .find('> .cell')
+                  .eq(index)
+                  .find('.inline-field.editable .view');
+              }
+
+            } while (l.length && 0 == f.length);
+
+            if (l.length && f.length) {
+              result.state = false;
+              f.click();
+            } else {
+              jQuery(this).trigger('blur');
+            }
+          }
+        }
+      );
+
+      inputs.bind(
+        'escPress',
+        function (currentEvent, event, result) {
+          inputs.each(function () {
+            var input = $(this);
+
+            if (input.get(0).commonController) {
+              input.val(input.get(0).commonController.element.initialValue);
+              input.change();
+            }
+          });
+
+          jQuery(this).trigger('blur');
+
+          result.state = false;
         }
       );
 

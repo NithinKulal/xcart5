@@ -456,7 +456,7 @@ CheckoutAddressView.prototype.filterInvisible = function(event, data)
       return 'hidden' === this.type
         || 'password' === this.type
         || jQuery(this).is(':visible')
-        || (-1 != this.name.search(/custom_state|state_id/) && jQuery(this).parents('.address-visible,.step-shipping-address').length);
+        || (-1 != this.name.search(/country_code|custom_state|state_id/) && jQuery(this).parents('.address-visible,.step-shipping-address').length);
     }
   );
 };

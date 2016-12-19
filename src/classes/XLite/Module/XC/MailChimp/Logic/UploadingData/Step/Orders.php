@@ -9,24 +9,48 @@
 namespace XLite\Module\XC\MailChimp\Logic\UploadingData\Step;
 
 use XLite\Module\XC\MailChimp\Core\MailChimpECommerce;
+use XLite\Module\XC\MailChimp\Logic\DataMapper\Order;
 
 class Orders extends AStep
 {
     /**
+     * @param $model
+     */
+    public function addBatchModel($model)
+    {
+        $model = \XLite\Core\Database::getEM()->merge($model);
+
+        $key = 'batch_data_' . get_class($this);
+        $options = $this->generator->getOptions();
+
+        if (!isset($options[$key])) {
+            $options[$key] = [];
+        }
+
+        $options[$key][] = Order::getDataByOrder(
+            null,
+            null,
+            null,
+            $model,
+            false
+        );
+
+        $this->generator->setOptions($options);
+    }
+
+    /**
      * Process models
      *
-     * @param \XLite\Model\AEntity[] $models Models
+     * @param array $models Models
      *
      * @return void
      */
-    protected function processBatch(array $models)
+    protected function processBatch(array $batchData)
     {
-        /** @var \XLite\Model\Order $model */
-
         foreach ($this->getStores() as $storeId) {
-            $result = MailChimpECommerce::getInstance()->createOrdersBatch(
+            $result = MailChimpECommerce::getInstance()->createOrdersBatchFromMappedData(
                 $storeId,
-                $models
+                $batchData
             );
         }
     }

@@ -8,78 +8,97 @@
 
 namespace XLite\Module\QSL\CloudSearch\View\ItemsList\Product\Customer;
 
+use XLite\Core\CommonCell;
+use XLite\Module\QSL\CloudSearch\Main;
+use XLite\Module\QSL\CloudSearch\Model\Repo\Product;
+
 /**
- * Search
+ * Search products item list
  */
 abstract class Search extends \XLite\View\ItemsList\Product\Customer\Search implements \XLite\Base\IDecorator
 {
-    const SORT_BY_RELEVANCE = 'relevance';
-    /**
-     * Define and set widget attributes; initialize widget
-     *
-     * @param array $params Widget params OPTIONAL
-     *
-     * @return void
-     */
-    public function __construct(array $params = array())
-    {
-        parent::__construct($params);
+    use FilterWithCloudSearchTrait;
 
-        if (\XLite\Module\QSL\CloudSearch\Main::doSearch()) {
-            $this->sortByModes += array(
-                static::SORT_BY_RELEVANCE => 'Relevance',
-            );
-        }
-    }
+    const PARAM_CLOUD_FILTERS = 'cloudFilters';
+
+    const PARAM_LOAD_PRODUCTS_WITH_CLOUD_SEARCH = 'loadProductsWithCloudSearch';
 
     public function getCSSFiles()
     {
         $list = parent::getCSSFiles();
 
-        if (\XLite\Module\QSL\CloudSearch\Main::doSearch()) {
-            $list[] = 'modules/QSL/CloudSearch/search_style.css';
-        }
+        $list[] = 'modules/QSL/CloudSearch/search_style.css';
 
         return $list;
     }
 
     /**
-     * Get products 'sort by' fields
-     *
-     * @return array
-     */
-    protected function getSortByFields()
-    {
-        $fields = parent::getSortByFields();
-
-        if (\XLite\Module\QSL\CloudSearch\Main::doSearch()) {
-            $fields += array(
-                'relevance' => static::SORT_BY_RELEVANCE,
-            );
-        }
-
-        return $fields;
-    }
-
-    /**
-     * Defines the CSS class for sorting order arrow
-     *
-     * @param string $sortBy
+     * Get default sort order value
      *
      * @return string
      */
-    protected function getSortArrowClassCSS($sortBy)
+    protected function getDefaultSortOrderValue()
     {
-        return static::SORT_BY_RELEVANCE === $this->getSortBy() ? '' : parent::getSortArrowClassCSS($sortBy);
+        return 'default';
     }
 
     /**
-     * getSortOrder
-     *
      * @return string
      */
-    protected function getSortOrder()
+    protected function getEmptyFilteredListTemplate()
     {
-        return static::SORT_BY_RELEVANCE === $this->getSortBy() ? static::SORT_ORDER_DESC : parent::getSortOrder();
+        return 'modules/QSL/CloudSearch/cloud_filters/empty_filtered_search.twig';
+    }
+
+    /**
+     * Check if product list should be loaded with CloudSearch
+     *
+     * @param CommonCell $cnd
+     *
+     * @return bool
+     */
+    protected function isLoadingWithCloudSearch(CommonCell $cnd)
+    {
+        return Main::isConfigured()
+               && ($cnd->{Product::P_SUBSTRING} !== '' && $cnd->{Product::P_SUBSTRING} !== null)
+               || (Main::isCloudFiltersEnabled() && !empty($cnd->{Product::P_CLOUD_FILTERS}));
+    }
+
+    /**
+     * Check if product list should have a Filter section
+     *
+     * @param CommonCell $cnd
+     *
+     * @return bool
+     */
+    protected function isFilteringWithCloudSearch(CommonCell $cnd)
+    {
+        return Main::isCloudFiltersEnabled();
+    }
+
+    /**
+     * Check if Filter section should be loaded asynchronously on the client side
+     *
+     * @param CommonCell $cnd
+     *
+     * @return bool
+     */
+    protected function isAsynchronouslyFilteringWithCloudSearch(CommonCell $cnd)
+    {
+        return false;
+    }
+
+    /**
+     * Get current search condition to be used in CloudSearch searching and filtering
+     *
+     * @return CommonCell
+     */
+    protected function getCloudSearchConditions()
+    {
+        $cnd = $this->getLimitCondition();
+
+        $cnd = $this->prepareCnd($cnd);
+
+        return $cnd;
     }
 }

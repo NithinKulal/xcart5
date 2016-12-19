@@ -1148,6 +1148,7 @@ XLite\Model\LanguageLabel:
   - { name: "Select status", translations: [{ code: en, label: "Select status" }] }
   - { name: "Send", translations: [{ code: en, label: "Send" }] }
   - { name: "Send test email", translations: [{ code: en, label: "Send test email" }] }
+  - { name: "SEO settings", translations: [{ code: en, label: "SEO settings" }] }
   - { name: "Service name", translations: [{ code: en, label: "Service name" }] }
   - { name: "Service name of address field", translations: [{ code: en, label: "Service name of address field" }] }
   - { name: "Set", translations: [{ code: en, label: "Set" }] }
@@ -2334,6 +2335,8 @@ XLite\Model\LanguageLabel:
   - { name: 'Back to notifications list', translations: [{ code: en, label: 'Back to notifications list' }] }
   - { name: 'checkbox.onoff.on', translations: [{ code: en, label: 'On' }] }
   - { name: 'checkbox.onoff.off', translations: [{ code: en, label: 'Off' }] }
+  - { name: 'checkbox.firstlast.on', translations: [{ code: en, label: 'First' }] }
+  - { name: 'checkbox.firstlast.off', translations: [{ code: en, label: 'Last' }] }
   - { name: 'Cannot gather modules from the marketplace. Please try later.', translations: [{ code: en, label: "The Free license key cannot be activated as it is impossible to get information about the available addons from the Marketplace at the moment. Please try again later." }] }
   - { name: 'No promotion modules installed', translations: [{ code: en, label: 'No promotion modules installed' }] }
   - { name: 'Sorting & Descriptions', translations: [{ code: en, label: 'Sorting & Descriptions' }] }
@@ -2793,7 +2796,7 @@ XLite\Model\LanguageLabel:
   - { name: "The Clean URL entered is already in use by target alias.", translations: [{ code: en, label: "The Clean URL entered is already in use by another page. To resolve the conflict, edit the \"clean_urls_aliases\" section in the file etc/config.php." }] }
   - { name: "Object name order first", translations: [{ code: en, label: "First" }] }
   - { name: "Object name order last", translations: [{ code: en, label: "Last" }] }
-  - { name: "title-delimiter", translations: [{ code: en, label: "::" }] }
+  - { name: "title-delimiter", translations: [{ code: en, label: " > " }] }
   - { name: "default-site-title", translations: [{ code: en, label: "X-Cart" }] }
   - { name: "default-meta-keywords", translations: [{ code: en, label: "" }] }
   - { name: "Front page title", translations: [{ code: en, label: "Title" }, { code: ru, label: "Название" }] }
@@ -2999,3 +3002,8 @@ XLite\Model\LanguageLabel:
   - { name: 'Integrity check has been stopped.', translations: [{ code: en, label: 'Integrity check has been stopped.' }] }
   - { name: 'Switch to Category tree', translations: [{ code: en, label: 'Switch to <a href="javascript: void(0)">Category tree</a>' }] }
   - { name: 'Switch to Category search', translations: [{ code: en, label: 'Switch to <a href="javascript: void(0)">Category search</a>' }] }
+  - { name: 'Parent category name', translations: [{ code: en, label: 'Parent category name' }] }
+
+  - { name: "All modules", translations: [{ code: en, label: "All modules" }] }
+  - { name: 'Disabled only', translations: [{ code: en, label: 'Disabled only' }] }
+  - { name: 'Enabled only', translations: [{ code: en, label: 'Enabled only' }] }

@@ -805,7 +805,7 @@ a.final-link:hover {
 }
 
 .report-layer {
-  background: url(<?php echo $skinsDir; ?>../../customer/images/popup_overlay.png) repeat scroll 50% 50% transparent;
+  background: url(<?php echo $skinsDir; ?>../customer/images/popup_overlay.png) repeat scroll 50% 50% transparent;
   left: 0;
   position: absolute;
   top: 0;

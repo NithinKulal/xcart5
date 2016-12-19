@@ -713,10 +713,10 @@ abstract class AController extends \XLite\Core\Handler
             $title[] = $this->getTitleParentPart();
         }
         
-        if ($config->CleanURL->object_name_in_page_title_order == ObjectNameInPageTitleOrder::OPTION_FIRST) {
-            $title = array_merge([$this->getTitleObjectPart()], $title);
-        } else {
-            $title[] = $this->getTitleObjectPart();
+        $title[] = $this->getTitleObjectPart();
+
+        if ($config->CleanURL->object_name_in_page_title_order == true) {
+            $title = array_reverse($title);
         }
 
         return implode(static::t('title-delimiter'), array_filter($title));

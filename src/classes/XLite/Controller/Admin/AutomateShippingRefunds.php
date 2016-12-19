@@ -9,9 +9,9 @@
 namespace XLite\Controller\Admin;
 
 /**
- * AutomateShippingReturns controller
+ * AutomateShippingRefunds controller
  */
-class AutomateShippingReturns extends \XLite\Controller\Admin\AAdmin
+class AutomateShippingRefunds extends \XLite\Controller\Admin\AAdmin
 {
 
     /**
@@ -21,6 +21,6 @@ class AutomateShippingReturns extends \XLite\Controller\Admin\AAdmin
      */
     public function getTitle()
     {
-        return static::t('Automate Shipping returns');
+        return static::t('Automate Shipping Refunds');
     }
 }

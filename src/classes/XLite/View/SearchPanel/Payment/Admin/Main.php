@@ -63,6 +63,7 @@ class Main extends \XLite\View\SearchPanel\Payment\Admin\AAdmin
             'country' => array(
                 static::CONDITION_CLASS => 'XLite\View\FormField\Select\Country',
                 \XLite\View\FormField\AFormField::PARAM_FIELD_ONLY => true,
+                \XLite\View\FormField\Select\Country::PARAM_ALL => true,
                 \XLite\View\FormField\Select\Country::PARAM_SELECT_ONE => true,
                 \XLite\View\FormField\Select\Country::PARAM_SELECT_ONE_LABEL => static::t('All countries'),
             ),

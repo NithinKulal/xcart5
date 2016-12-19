@@ -8,18 +8,11 @@
 
 namespace XLite\Logic\IntegrityCheck\Processor\Entry;
 
-use XLite\Core\Pack\Distr;
-
 /**
  * Class Core
  */
 class Core implements IEntry
 {
-    /**
-     * @var \XLite\Core\Pack\Distr
-     */
-    protected $coreDistr;
-
     /**
      * @var
      */
@@ -37,15 +30,12 @@ class Core implements IEntry
      */
     public function __construct($version = null)
     {
-        $this->coreDistr = new Distr();
         $this->version = $version;
 
         if ($this->version === null) {
-            $metadata = $this->coreDistr->getMetadata();
-
             $this->version = [
-                'major' => $metadata[Distr::METADATA_FIELD_VERSION_MAJOR],
-                'minor' => $metadata[Distr::METADATA_FIELD_VERSION_MINOR] . '.' . $metadata[Distr::METADATA_FIELD_VERSION_BUILD]
+                'major' => \XLite::getInstance()->getMajorVersion(),
+                'minor' => \XLite::getInstance()->getMinorVersion()
             ];
         }
     }
@@ -55,7 +45,8 @@ class Core implements IEntry
      */
     public function getRealFiles()
     {
-        return $this->coreDistr->getDirectoryIterator();
+        $builder = new CoreIteratorBuilder();
+        return $builder->getIterator();
     }
 
     /**

@@ -17,7 +17,7 @@
 {% if this.isCleanURLDisabled() %}
   <div class="clean-url-disabled-info">
     <i class="fa fa-exclamation-triangle"></i>
-    {{ t('Clean URLs are disabled. More info', {'more_info_url': url('settings', '', {'page': 'Environment'})})|raw }}
+    {{ t('Clean URLs are disabled. More info', {'more_info_url': url('settings', '', {'page': 'CleanURL'})})|raw }}
   </div>
 {% endif %}
 {% if this.getErrorMessage() %}

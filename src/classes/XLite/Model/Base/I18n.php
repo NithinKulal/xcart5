@@ -207,7 +207,7 @@ abstract class I18n extends \XLite\Model\AEntity implements MetadataLoaderInterf
         /** @var static $entity */
         $entity = parent::cloneEntity();
 
-        foreach ($entity->getSoftTranslation()->getRepository()->findBy(array('owner' => $entity)) as $translation) {
+        foreach ($entity->getSoftTranslation()->getRepository()->findBy(array('owner' => $this)) as $translation) {
             $newTranslation = $translation->cloneEntity();
             $newTranslation->setOwner($entity);
             $entity->addTranslations($newTranslation);

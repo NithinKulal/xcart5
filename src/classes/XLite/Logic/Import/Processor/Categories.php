@@ -53,41 +53,41 @@ class Categories extends \XLite\Logic\Import\Processor\AProcessor
      */
     protected function defineColumns()
     {
-        return array(
-            'path'              => array(
+        return [
+            'path'              => [
                 static::COLUMN_IS_KEY          => true,
-            ),
-            'enabled'           => array(),
-            'showTitle'         => array(),
-            'position'          => array(),
-            'memberships'       => array(
+            ],
+            'enabled'           => [],
+            'showTitle'         => [],
+            'position'          => [],
+            'memberships'       => [
                 static::COLUMN_IS_MULTIPLE     => true
-            ),
-            'image'             => array(),
-            'banner'            => array(),
-            'cleanURL'          => array(
+            ],
+            'image'             => [],
+            'banner'            => [],
+            'cleanURL'          => [
                 static::COLUMN_LENGTH          => 255,
-            ),
-            'name'              => array(
+            ],
+            'name'              => [
                 static::COLUMN_IS_MULTILINGUAL => true,
                 static::COLUMN_LENGTH          => 255,
-            ),
-            'description'       => array(
+            ],
+            'description'       => [
                 static::COLUMN_IS_MULTILINGUAL => true,
                 static::COLUMN_IS_TAGS_ALLOWED => true,
-            ),
-            'metaTags'          => array(
+            ],
+            'metaTags'          => [
                 static::COLUMN_IS_MULTILINGUAL => true,
                 static::COLUMN_LENGTH          => 255,
-            ),
-            'metaDesc'          => array(
+            ],
+            'metaDesc'          => [
                 static::COLUMN_IS_MULTILINGUAL => true,
-            ),
-            'metaTitle'         => array(
+            ],
+            'metaTitle'         => [
                 static::COLUMN_IS_MULTILINGUAL => true,
                 static::COLUMN_LENGTH          => 255,
-            ),
-        );
+            ],
+        ];
     }
 
     // }}}
@@ -102,7 +102,7 @@ class Categories extends \XLite\Logic\Import\Processor\AProcessor
     public static function getMessages()
     {
         return parent::getMessages()
-            + array(
+            + [
                 'CATEGORY-ENABLED-FMT'              => 'Wrong enabled format',
                 'CATEGORY-SHOW-TITLE-FMT'           => 'Wrong show title format',
                 'CATEGORY-POSITION-FMT'             => 'Wrong position format',
@@ -111,7 +111,7 @@ class Categories extends \XLite\Logic\Import\Processor\AProcessor
                 'CATEGORY-IMG-URL-LOAD-FAILED'      => "Couldn't download the image {{value}} from URL",
                 'CATEGORY-BANNER-LOAD-FAILED'       => 'Error of banner loading. Make sure the "images" directory has write permissions.',
                 'CATEGORY-BANNER-URL-LOAD-FAILED'   => "Couldn't download the banner {{value}} from URL",
-            );
+        ];
     }
 
     /**
@@ -137,7 +137,7 @@ class Categories extends \XLite\Logic\Import\Processor\AProcessor
     protected function verifyEnabled($value, array $column)
     {
         if (!$this->verifyValueAsEmpty($value) && !$this->verifyValueAsBoolean($value)) {
-            $this->addWarning('CATEGORY-ENABLED-FMT', array('column' => $column, 'value' => $value));
+            $this->addWarning('CATEGORY-ENABLED-FMT', ['column' => $column, 'value' => $value]);
         }
     }
 
@@ -152,7 +152,7 @@ class Categories extends \XLite\Logic\Import\Processor\AProcessor
     protected function verifyShowTitle($value, array $column)
     {
         if (!$this->verifyValueAsEmpty($value) && !$this->verifyValueAsBoolean($value)) {
-            $this->addWarning('CATEGORY-SHOW-TITLE-FMT', array('column' => $column, 'value' => $value));
+            $this->addWarning('CATEGORY-SHOW-TITLE-FMT', ['column' => $column, 'value' => $value]);
         }
     }
 
@@ -167,7 +167,7 @@ class Categories extends \XLite\Logic\Import\Processor\AProcessor
     protected function verifyPosition($value, array $column)
     {
         if (!$this->verifyValueAsEmpty($value) && !$this->verifyValueAsUinteger($value)) {
-            $this->addWarning('CATEGORY-POSITION-FMT', array('column' => $column, 'value' => $value));
+            $this->addWarning('CATEGORY-POSITION-FMT', ['column' => $column, 'value' => $value]);
         }
     }
 
@@ -184,7 +184,7 @@ class Categories extends \XLite\Logic\Import\Processor\AProcessor
         if (!$this->verifyValueAsEmpty($value) && !$this->verifyValueAsNull($value)) {
             foreach ($value as $membership) {
                 if (!$this->verifyValueAsEmpty($membership) && !$this->verifyValueAsMembership($membership)) {
-                    $this->addWarning('GLOBAL-MEMBERSHIP-FMT', array('column' => $column, 'value' => $membership));
+                    $this->addWarning('GLOBAL-MEMBERSHIP-FMT', ['column' => $column, 'value' => $membership]);
                 }
             }
         }
@@ -201,9 +201,9 @@ class Categories extends \XLite\Logic\Import\Processor\AProcessor
     protected function verifyImage($value, array $column)
     {
         if (!$this->verifyValueAsEmpty($value) && !$this->verifyValueAsFile($value)) {
-            $this->addWarning('GLOBAL-IMAGE-FMT', array('column' => $column, 'value' => $value));
+            $this->addWarning('GLOBAL-IMAGE-FMT', ['column' => $column, 'value' => $value]);
         } elseif (!$this->verifyValueAsEmpty($value) && $this->verifyValueAsURL($value) && !$this->verifyValueAsFile($value)) {
-            $this->addWarning('CATEGORY-IMG-URL-LOAD-FAILED', array('column' => $column, 'value' => $value));
+            $this->addWarning('CATEGORY-IMG-URL-LOAD-FAILED', ['column' => $column, 'value' => $value]);
         }
     }
 
@@ -218,9 +218,9 @@ class Categories extends \XLite\Logic\Import\Processor\AProcessor
     protected function verifyBanner($value, array $column)
     {
         if (!$this->verifyValueAsEmpty($value) && !$this->verifyValueAsFile($value)) {
-            $this->addWarning('GLOBAL-IMAGE-FMT', array('column' => $column, 'value' => $value));
+            $this->addWarning('GLOBAL-IMAGE-FMT', ['column' => $column, 'value' => $value]);
         } elseif (!$this->verifyValueAsEmpty($value) && $this->verifyValueAsURL($value) && !$this->verifyValueAsFile($value)) {
-            $this->addWarning('CATEGORY-BANNER-URL-LOAD-FAILED', array('column' => $column, 'value' => $value));
+            $this->addWarning('CATEGORY-BANNER-URL-LOAD-FAILED', ['column' => $column, 'value' => $value]);
         }
     }
 
@@ -248,7 +248,7 @@ class Categories extends \XLite\Logic\Import\Processor\AProcessor
     {
         $value = $this->getDefLangValue($value);
         if ($this->verifyValueAsEmpty($value)) {
-            $this->addError('CATEGORY-NAME-FMT', array('column' => $column, 'value' => $value));
+            $this->addError('CATEGORY-NAME-FMT', ['column' => $column, 'value' => $value]);
         }
     }
 
@@ -458,16 +458,27 @@ class Categories extends \XLite\Logic\Import\Processor\AProcessor
                 $image->setCategory($model);
                 $model->setImage($image);
             } else {
-                \XLite\Core\Database::getEM()->remove($image);
+                if (!$image->isPersistent()) {
+                    \XLite\Core\Database::getEM()->remove($image);
+                }
 
                 if ($image->getLoadError() === 'unwriteable') {
-                    $this->addError('CATEGORY-IMG-LOAD-FAILED', array('column' => $column, 'value' => $path));
-                } elseif ($this->verifyValueAsURL($value) && !$this->verifyValueAsFile($value)) {
-                    $this->addWarning('CATEGORY-IMG-URL-LOAD-FAILED', array('column' => $column, 'value' => $value));
+                    $this->addError('CATEGORY-IMG-LOAD-FAILED', [
+                        'column' => $column,
+                        'value' => $this->verifyValueAsURL($file) ? $path : LC_DIR_ROOT . $file
+                    ]);
+                } elseif ($image->getLoadError()) {
+                    $this->addWarning('CATEGORY-IMG-URL-LOAD-FAILED', [
+                        'column' => $column,
+                        'value' => $this->verifyValueAsURL($file) ? $path : LC_DIR_ROOT . $file
+                    ]);
                 }
             }
         } elseif ($value && $this->verifyValueAsURL($value) && !$this->verifyValueAsFile($value)) {
-            $this->addWarning('CATEGORY-IMG-URL-LOAD-FAILED', array('column' => $column, 'value' => $value));
+            $this->addWarning('CATEGORY-IMG-URL-LOAD-FAILED', [
+                'column' => $column,
+                'value' => $value
+            ]);
         }
 
         if ($value && $this->verifyValueAsNull($value)) {
@@ -510,16 +521,27 @@ class Categories extends \XLite\Logic\Import\Processor\AProcessor
                 $image->setCategory($model);
                 $model->setBanner($image);
             } else {
-                \XLite\Core\Database::getEM()->remove($image);
+                if (!$image->isPersistent()) {
+                    \XLite\Core\Database::getEM()->remove($image);
+                }
 
                 if ($image->getLoadError() === 'unwriteable') {
-                    $this->addError('CATEGORY-BANNER-LOAD-FAILED', array('column' => $column, 'value' => $path));
-                } elseif ($this->verifyValueAsURL($value) && !$this->verifyValueAsFile($value)) {
-                    $this->addWarning('CATEGORY-BANNER-URL-LOAD-FAILED', array('column' => $column, 'value' => $value));
+                    $this->addError('CATEGORY-BANNER-LOAD-FAILED', [
+                        'column' => $column,
+                        'value' => $this->verifyValueAsURL($file) ? $path : LC_DIR_ROOT . $file
+                    ]);
+                } elseif ($image->getLoadError()) {
+                    $this->addWarning('CATEGORY-BANNER-URL-LOAD-FAILED', [
+                        'column' => $column,
+                        'value' => $this->verifyValueAsURL($file) ? $path : LC_DIR_ROOT . $file
+                    ]);
                 }
             }
         } elseif ($value && $this->verifyValueAsURL($value) && !$this->verifyValueAsFile($value)) {
-            $this->addWarning('CATEGORY-BANNER-URL-LOAD-FAILED', array('column' => $column, 'value' => $value));
+            $this->addWarning('CATEGORY-BANNER-URL-LOAD-FAILED', [
+                'column' => $column,
+                'value' => $value
+            ]);
         }
 
         if ($value && $this->verifyValueAsNull($value)) {

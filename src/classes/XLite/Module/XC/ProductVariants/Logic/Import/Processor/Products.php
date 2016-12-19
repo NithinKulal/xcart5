@@ -20,14 +20,14 @@ abstract class Products extends \XLite\Logic\Import\Processor\Products implement
      *
      * @var array
      */
-    protected $variants = array();
+    protected $variants = [];
 
     /**
      * Product variants attributes
      *
      * @var array
      */
-    protected $variantsAttributes = array();
+    protected $variantsAttributes = [];
 
     /**
      * Define columns
@@ -38,28 +38,28 @@ abstract class Products extends \XLite\Logic\Import\Processor\Products implement
     {
         $columns = parent::defineColumns();
 
-        $columns += array(
-            static::VARIANT_PREFIX . 'SKU'      => array(
+        $columns += [
+            static::VARIANT_PREFIX . 'SKU'      => [
                 static::COLUMN_IS_MULTIROW => true,
                 static::COLUMN_LENGTH      => 32,
-            ),
-            static::VARIANT_PREFIX . 'Price'    => array(
+            ],
+            static::VARIANT_PREFIX . 'Price'    => [
                 static::COLUMN_IS_MULTIROW => true
-            ),
-            static::VARIANT_PREFIX . 'Quantity' => array(
+            ],
+            static::VARIANT_PREFIX . 'Quantity' => [
                 static::COLUMN_IS_MULTIROW => true
-            ),
-            static::VARIANT_PREFIX . 'Weight'   => array(
+            ],
+            static::VARIANT_PREFIX . 'Weight'   => [
                 static::COLUMN_IS_MULTIROW => true
-            ),
-            static::VARIANT_PREFIX . 'Image'   => array(
+            ],
+            static::VARIANT_PREFIX . 'Image'   => [
                 static::COLUMN_IS_MULTIROW => true
-            ),
-            static::VARIANT_PREFIX . 'ImageAlt'   => array(
+            ],
+            static::VARIANT_PREFIX . 'ImageAlt'   => [
                 static::COLUMN_IS_MULTIROW => true,
                 static::COLUMN_LENGTH      => 255
-            ),
-        );
+            ],
+        ];
 
         return $columns;
     }
@@ -76,14 +76,14 @@ abstract class Products extends \XLite\Logic\Import\Processor\Products implement
     public static function getMessages()
     {
         return parent::getMessages()
-            + array(
+            + [
                 'VARIANT-PRICE-FMT'       => 'Wrong variant price format',
                 'VARIANT-QUANTITY-FMT'    => 'Wrong variant quantity format',
                 'VARIANT-PRODUCT-SKU-FMT' => 'SKU is already assigned to variant',
                 'VARIANT-WEIGHT-FMT'      => 'Wrong variant weight format',
                 'VARIANT-IMAGE-FMT'       => 'The "{{value}}" image does not exist',
                 'VARIANT-ATTRIBUTE-FMT'   => 'Variant attribute "{{column}}" cannot be empty',
-            );
+        ];
     }
 
     /**
@@ -159,7 +159,7 @@ abstract class Products extends \XLite\Logic\Import\Processor\Products implement
                 ->findOneBySku($value);
 
             if ($entity) {
-                $this->addError('VARIANT-PRODUCT-SKU-FMT', array('column' => $column, 'value' => $value));
+                $this->addError('VARIANT-PRODUCT-SKU-FMT', ['column' => $column, 'value' => $value]);
             }
         }
     }
@@ -189,7 +189,7 @@ abstract class Products extends \XLite\Logic\Import\Processor\Products implement
         if (!$this->verifyValueAsEmpty($value)) {
             foreach ($value as $val) {
                 if (!$this->verifyValueAsFloat($val)) {
-                    $this->addWarning('VARIANT-PRICE-FMT', array('column' => $column, 'value' => $val));
+                    $this->addWarning('VARIANT-PRICE-FMT', ['column' => $column, 'value' => $val]);
                 }
             }
         }
@@ -208,7 +208,7 @@ abstract class Products extends \XLite\Logic\Import\Processor\Products implement
         if (!$this->verifyValueAsEmpty($value)) {
             foreach ($value as $val) {
                 if (!$this->verifyValueAsFloat($val)) {
-                    $this->addWarning('VARIANT-QUANTITY-FMT', array('column' => $column, 'value' => $val));
+                    $this->addWarning('VARIANT-QUANTITY-FMT', ['column' => $column, 'value' => $val]);
                 }
             }
         }
@@ -227,7 +227,7 @@ abstract class Products extends \XLite\Logic\Import\Processor\Products implement
         if (!$this->verifyValueAsEmpty($value)) {
             foreach ($value as $val) {
                 if (!$this->verifyValueAsFloat($val)) {
-                    $this->addWarning('VARIANT-WEIGHT-FMT', array('column' => $column, 'value' => $val));
+                    $this->addWarning('VARIANT-WEIGHT-FMT', ['column' => $column, 'value' => $val]);
                 }
             }
         }
@@ -259,7 +259,7 @@ abstract class Products extends \XLite\Logic\Import\Processor\Products implement
      */
     protected function importData(array $data)
     {
-        $this->variants = $this->variantsAttributes = array();
+        $this->variants = $this->variantsAttributes = [];
 
         return parent::importData($data);
     }
@@ -280,7 +280,7 @@ abstract class Products extends \XLite\Logic\Import\Processor\Products implement
         if ($this->multAttributes) {
             \XLite\Core\Database::getEM()->flush();
 
-            $variantsAttributes = array();
+            $variantsAttributes = [];
             foreach ($this->multAttributes as $id => $values) {
                 foreach ($values as $k => $v) {
                     if (1 === count($v)) {
@@ -294,7 +294,7 @@ abstract class Products extends \XLite\Logic\Import\Processor\Products implement
             }
 
             if ($variantsAttributes) {
-                $tmp = array();
+                $tmp = [];
                 foreach ($variantsAttributes as $k => $v) {
                     $tmp[$k] = implode('::', $v);
                 }
@@ -310,22 +310,22 @@ abstract class Products extends \XLite\Logic\Import\Processor\Products implement
                             $repo = \XLite\Core\Database::getRepo($attribute->getAttributeValueClass($attribute->getType()));
                             if ($attribute::TYPE_CHECKBOX == $attribute->getType()) {
                                 $values[$id] = $repo->findOneBy(
-                                    array(
+                                    [
                                         'attribute' => $attribute,
                                         'product'   => $model,
                                         'value'     => $this->normalizeValueAsBoolean($value),
-                                    )
+                                    ]
                                 );
 
                             } else {
                                 $attributeOption = \XLite\Core\Database::getRepo('XLite\Model\AttributeOption')
                                    ->findOneByNameAndAttribute($value, $attribute);
                                 $values[$id] = $repo->findOneBy(
-                                    array(
+                                    [
                                         'attribute'        => $attribute,
                                         'product'          => $model,
                                         'attribute_option' => $attributeOption,
-                                    )
+                                    ]
                                 );
                             }
 
@@ -471,11 +471,16 @@ abstract class Products extends \XLite\Logic\Import\Processor\Products implement
 
                     if (!$success) {
                         if ($image->getLoadError() === 'unwriteable') {
-                            $this->addError('PRODUCT-IMG-LOAD-FAILED', array('column' => $column, 'value' => $path));
+                            $this->addError('PRODUCT-IMG-LOAD-FAILED', [
+                                'column' => $column,
+                                'value' => $this->verifyValueAsURL($file) ? $path : LC_DIR_ROOT . $file
+                            ]);
                         } elseif ($image->getLoadError()) {
-                            $this->addError('PRODUCT-IMG-URL-LOAD-FAILED', array('column' => $column, 'value' => $path));
+                            $this->addError('PRODUCT-IMG-URL-LOAD-FAILED', [
+                                'column' => $column,
+                                'value' => $this->verifyValueAsURL($file) ? $path : LC_DIR_ROOT . $file
+                            ]);
                         }
-
                     } elseif ($isNew) {
                         $image->setProductVariant($variant);
                         $variant->setImage($image);
@@ -483,9 +488,15 @@ abstract class Products extends \XLite\Logic\Import\Processor\Products implement
                     }
 
                 } elseif(!$this->verifyValueAsFile($file) && $this->verifyValueAsURL($file)) {
-                    $this->addWarning('PRODUCT-IMG-URL-LOAD-FAILED', array('column' => $column, 'value' => $path));
+                    $this->addWarning('PRODUCT-IMG-URL-LOAD-FAILED', [
+                        'column' => $column,
+                        'value' => $path
+                    ]);
                 } else {
-                    $this->addWarning('PRODUCT-IMG-NOT-VERIFIED', array('column' => $column, 'value' => $path));
+                    $this->addWarning('PRODUCT-IMG-NOT-VERIFIED', [
+                        'column' => $column,
+                        'value' => $this->verifyValueAsURL($file) ? $path : LC_DIR_ROOT . $file
+                    ]);
                 }
             }
         }

@@ -17,3 +17,49 @@
 .homepage .edit-link {
     line-height: 60px;
 }
+
+.model-properties ul.table div.table-label,
+.model-properties ul.table div.table-value,
+.model-properties .clean_urls_about-table * {
+  white-space: normal !important;
+}
+
+.model-properties ul.table div.table-label {
+  max-width: 300px;
+}
+
+.model-properties ul.table div.table-label,
+.model-properties ul.table div.table-value {
+  padding: 10px 0;
+}
+
+.model-properties ul.table div.table-value .onoffswitch,
+.model-properties ul.table div.table-value .first-last-switch {
+  padding: 0;
+  height: auto;
+}
+
+.model-properties .edit {
+  margin-left: 4px;
+}
+
+.model-properties ul.table .cleanurls-format-help {
+  max-width: 500px;
+  max-height: 100px;
+  left: 430px;
+  margin-top: 10px;
+  position: absolute;
+  display: table;
+}
+
+.model-properties ul.table .cleanurls-format-help > div {
+  display: table-row;
+}
+
+.model-properties ul.table .cleanurls-format-help > div > span{
+  display: table-cell;
+}
+
+.model-properties ul.table .cleanurls-format-help > div > span:first-child {
+  padding-right: 7px;
+}

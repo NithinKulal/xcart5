@@ -8,113 +8,287 @@
 
 namespace XLite\Module\QSL\CloudSearch\Model\Repo;
 
+use Doctrine\ORM\QueryBuilder;
+use XLite\Core\Auth;
+use XLite\Core\CommonCell;
+use XLite\Module\QSL\CloudSearch\Core\ServiceApiClient;
+use XLite\Module\QSL\CloudSearch\Main;
+use XLite\View\ItemsList\Product\Customer\Search as SearchList;
+
 /**
  * The "product" repo class
  */
 abstract class Product extends \XLite\Model\Repo\Product implements \XLite\Base\IDecorator
 {
-    protected $csProductIds = null;
+    const P_CLOUD_FILTERS = 'cloudFilters';
 
+    const P_LOAD_PRODUCTS_WITH_CLOUD_SEARCH = 'loadProductsWithCloudSearch';
+
+    protected $cloudSearchResults = [];
+
+    protected $skipMembershipCondition = false;
 
     /**
-     * Common search
+     * Get CloudSearch search results under current searchState conditions
      *
-     * @param \XLite\Core\CommonCell $cnd           Search conditions                   OPTIONAL
-     * @param boolean|string         $searchMode    Return items list or only its size  OPTIONAL
+     * @param CommonCell $cnd
      *
-     * @return \Doctrine\ORM\PersistentCollection|integer
+     * @return array|null
      */
-    public function search(\XLite\Core\CommonCell $cnd = null, $searchMode = self::SEARCH_MODE_ENTITIES)
+    public function getCloudSearchResults(CommonCell $cnd)
     {
+        $query           = $cnd->{self::P_SUBSTRING};
+        $categoryId      = $cnd->{self::P_CATEGORY_ID};
+        $searchInSubcats = $cnd->{self::P_SEARCH_IN_SUBCATS};
+        $filters         = $cnd->{self::P_CLOUD_FILTERS};
+        list($sortMode, $sortDir) = $this->getSortOrderValue($cnd->{self::P_ORDER_BY});
+        list($offset, $limit) = $cnd->{self::P_LIMIT};
+
+        // Workaround for a bug in X-Cart when it sets offset to negative values sometimes
+        $offset = max($offset, 0);
+
+        $membership = Auth::getInstance()->getMembershipId();
+
+        $sortFieldMappings = $this->getCloudSearchSortFieldMappings();
+
+        $sort = isset($sortFieldMappings[$sortMode])
+            ? $sortFieldMappings[$sortMode] . ' ' . $sortDir : null;
+
+        // Switch to relevance sorting on default sort mode if P_SUBSTRING is not empty
         if (
-            $cnd->{static::P_SUBSTRING}
-            && \XLite\Module\QSL\CloudSearch\Main::doSearch()
-            && !\XLite::isAdminZone()
+            $sortMode == SearchList::SORT_BY_MODE_DEFAULT
+            && $query !== null
+            && $query !== ''
         ) {
-            // We initialize IDS for CloudSearch functionality
-            $this->getCSProductIds($cnd->{static::P_SUBSTRING});
+            $sort = null;
         }
 
-        return parent::search($cnd, $searchMode);
+        $searchParams = [
+            $query,
+            $categoryId,
+            $searchInSubcats,
+            $filters,
+            $membership,
+            $sort,
+            $offset,
+            $limit,
+        ];
+
+        $paramsHash = md5(serialize($searchParams));
+
+        if (!array_key_exists($paramsHash, $this->cloudSearchResults)) {
+            $apiClient = new ServiceApiClient();
+
+            $this->cloudSearchResults[$paramsHash] = call_user_func_array(
+                [$apiClient, 'search'],
+                $searchParams
+            );
+        }
+
+        return $this->cloudSearchResults[$paramsHash];
     }
 
-    protected function getCSProductIds($value = null)
+    /**
+     * Get product ids returned from CloudSearch
+     *
+     * @param CommonCell $cnd
+     *
+     * @return array|null
+     */
+    protected function getCloudSearchProductIds(CommonCell $cnd)
     {
-        if (is_null($this->csProductIds)) {
-            $this->csProductIds = \XLite\Module\QSL\CloudSearch\Core\ServiceApiClient::getInstance()->search($value);
-        }
-        
-        return $this->csProductIds;
+        $results = $this->getCloudSearchResults($cnd);
+
+        return array_map(function ($p) {
+            return $p['id'];
+        }, $results['products']);
+    }
+
+    /**
+     * Get "X-Cart search mode -> CloudSearch sort field" mappings
+     *
+     * @return array
+     */
+    protected function getCloudSearchSortFieldMappings()
+    {
+        return [
+            'cp.orderby'        => 'sort_int_orderby',
+            'p.arrivalDate'     => 'sort_int_arrival_date',
+            'p.price'           => 'sort_float_price',
+            'translations.name' => 'sort_str_name',
+            'r.rating'          => 'sort_float_rating',
+            'p.sales'           => 'sort_int_sales',
+        ];
     }
 
     /**
      * Prepare certain search condition
      *
-     * @param \Doctrine\ORM\QueryBuilder $queryBuilder Query builder to prepare
-     * @param array                      $value        Condition data
+     * @param QueryBuilder $queryBuilder Query builder to prepare
+     * @param string       $value        Condition data
      *
      * @return void
      */
-    protected function prepareCndOrderBy(\Doctrine\ORM\QueryBuilder $queryBuilder, array $value)
+    protected function prepareCndSubstring(QueryBuilder $queryBuilder, $value)
     {
-        if (
-            $value
-            && !$this->isCountSearchMode()
-        ) {
-            list($sort, ) = $this->getSortOrderValue($value);
-
-            $needParent = true;
-
-            if ('relevance' == $sort) {
-                // We add the IDs additional condition
-                // We get last IDS from the previous query by string
-                $ids = $this->getCSProductIds();
-
-                if (!empty($ids)) {
-                    $idsInCondition = $queryBuilder->getInCondition($ids, 'arr');
-
-                    $queryBuilder->resetDQLPart('orderBy');
-                    $queryBuilder
-                        ->addSelect('field(p.product_id, ' . $idsInCondition . ') as field_product_id')
-                        ->addOrderBy('field_product_id', 'asc');
-
-                    $needParent = false;
-                }
-            }
-
-            if ($needParent) {
-                parent::prepareCndOrderBy($queryBuilder, $value);
-            }
-        }
-    }
-
-    /**
-     * Prepare certain search condition
-     *
-     * @param \Doctrine\ORM\QueryBuilder $queryBuilder Query builder to prepare
-     * @param string                     $value        Condition data
-     *
-     * @return void
-     */
-    protected function prepareCndSubstring(\Doctrine\ORM\QueryBuilder $queryBuilder, $value)
-    {
-        if (
-            $value
-            && \XLite\Module\QSL\CloudSearch\Main::doSearch()
-            && !\XLite::isAdminZone()
-        ) {
-            // We add the IDs additional condition
-            $ids = $this->getCSProductIds($value);
+        if ($this->loadProductsWithCloudSearch()) {
+            $ids = $this->getCloudSearchProductIds($this->getCloudSearchConditions());
 
             if (!empty($ids)) {
                 $idsInCondition = $queryBuilder->getInCondition($ids, 'arr');
                 $queryBuilder->andWhere('p.product_id IN (' . $idsInCondition . ')');
             } else {
-                // No result in Cloud Search
-                parent::prepareCndSubstring($queryBuilder, $value);
+                // Force empty result set:
+                $queryBuilder->andWhere('p.product_id IN (0)');
             }
         } else {
             parent::prepareCndSubstring($queryBuilder, $value);
         }
+    }
+
+    /**
+     * Prepare certain search condition
+     *
+     * @param QueryBuilder $queryBuilder Query builder to prepare
+     * @param array        $value        Condition data
+     */
+    protected function prepareCndOrderBy(QueryBuilder $queryBuilder, array $value)
+    {
+        if ($this->loadProductsWithCloudSearch() && !$this->isCountSearchMode()) {
+            $ids = $this->getCloudSearchProductIds($this->getCloudSearchConditions());
+
+            if (!empty($ids)) {
+                $idsInCondition = $queryBuilder->getInCondition($ids, 'arr');
+
+                $queryBuilder->resetDQLPart('orderBy');
+                $queryBuilder
+                    ->addSelect('field(p.product_id, ' . $idsInCondition . ') as field_product_id')
+                    ->addOrderBy('field_product_id', 'asc');
+            }
+        } else {
+            parent::prepareCndOrderBy($queryBuilder, $value);
+        }
+    }
+
+    /**
+     * Prepare certain search condition
+     *
+     * @param QueryBuilder $queryBuilder Query builder to prepare
+     * @param mixed        $value        Condition data
+     *
+     * @return void
+     */
+    protected function prepareCndCategoryId(QueryBuilder $queryBuilder, $value)
+    {
+        if ($this->loadProductsWithCloudSearch()) {
+            $ids = $this->getCloudSearchProductIds($this->getCloudSearchConditions());
+
+            if (!empty($ids)) {
+                $idsInCondition = $queryBuilder->getInCondition($ids, 'arr');
+                $queryBuilder->andWhere('p.product_id IN (' . $idsInCondition . ')');
+            } else {
+                // Force empty result set:
+                $queryBuilder->andWhere('p.product_id IN (0)');
+            }
+        }
+
+        parent::prepareCndCategoryId($queryBuilder, $value);
+    }
+
+    /**
+     * Prepare certain search condition
+     *
+     * @param QueryBuilder $queryBuilder Query builder to prepare
+     * @param array        $value        Condition data
+     *
+     * @return void
+     */
+    protected function prepareCndLimit(QueryBuilder $queryBuilder, array $value)
+    {
+        if (!$this->loadProductsWithCloudSearch()) {
+            parent::prepareCndLimit($queryBuilder, $value);
+        }
+    }
+
+    /**
+     * Prepare certain search condition
+     *
+     * @param QueryBuilder $queryBuilder Query builder to prepare
+     * @param string       $value        Condition data
+     *
+     * @return void
+     */
+    protected function prepareCndCloudFilters(QueryBuilder $queryBuilder, $value)
+    {
+        // No-op handler for the 'cloudFilters' search condition
+    }
+
+    /**
+     * Prepare certain search condition
+     *
+     * @param QueryBuilder $queryBuilder Query builder to prepare
+     * @param string       $value        Condition data
+     *
+     * @return void
+     */
+    protected function prepareCndLoadProductsWithCloudSearch(QueryBuilder $queryBuilder, $value)
+    {
+        // No-op handler for the 'loadProductsWithCloudSearch' search condition
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isSkipMembershipCondition()
+    {
+        return $this->skipMembershipCondition;
+    }
+
+    /**
+     * @param boolean $skipMembershipCondition
+     */
+    public function setSkipMembershipCondition($skipMembershipCondition)
+    {
+        $this->skipMembershipCondition = $skipMembershipCondition;
+    }
+
+    /**
+     * Adds additional condition to the query for checking if product has available membership
+     *
+     * @param QueryBuilder $queryBuilder Query builder object
+     * @param string       $alias        Entity alias OPTIONAL
+     *
+     * @return void
+     */
+    protected function addMembershipCondition(QueryBuilder $queryBuilder, $alias = null)
+    {
+        if (!$this->isSkipMembershipCondition()) {
+            parent::addMembershipCondition($queryBuilder, $alias);
+        }
+    }
+
+    /**
+     * Get current search conditions
+     *
+     * @return CommonCell
+     */
+    protected function getCloudSearchConditions()
+    {
+        return $this->searchState['currentSearchCnd'];
+    }
+
+    /**
+     * Check if products should be fetched from CloudSearch
+     *
+     * @return mixed
+     */
+    protected function loadProductsWithCloudSearch()
+    {
+        /** @var CommonCell $cnd */
+        $cnd = $this->getCloudSearchConditions();
+
+        return Main::isConfigured()
+               && $cnd->{self::P_LOAD_PRODUCTS_WITH_CLOUD_SEARCH}
+               && $this->getCloudSearchResults($this->getCloudSearchConditions()) !== null;
     }
 }

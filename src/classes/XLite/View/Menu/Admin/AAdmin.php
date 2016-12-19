@@ -70,7 +70,7 @@ abstract class AAdmin extends \XLite\View\Menu\AMenu
         'shipping_methods' => array(
             'shipping_rates',
             'origin_address',
-            'automate_shipping_returns',
+            'automate_shipping_refunds',
             'automate_shipping_routine',
         ),
         'countries' => array(

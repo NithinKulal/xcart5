@@ -13,15 +13,20 @@ CommonForm.elementControllers.push(
     handler: function () {
 
       var field = jQuery(this);
+      var obj = this;
+
+      var inputs = jQuery('.field :input', this);
 
       // Sanitize-and-set value into field
-      this.sanitize = function()
-      {
-      }
+      this.sanitize = function () {
+      };
+
+      this.startEditInline = function () {
+        field.find('input[type="text"]').focus();
+      };
 
       // Save field into view
-      this.saveField = function()
-      {
+      this.saveField = function () {
         var type = $(this).find('input[type=hidden]').val();
         var value = $(this).find('input[type=text]').val();
         var view = field.find(this.viewValuePattern);
@@ -34,7 +39,29 @@ CommonForm.elementControllers.push(
         }
 
         view.find('.value').html(value);
-      }
+      };
+
+      inputs.unbind('escPress');
+      inputs.bind(
+        'escPress',
+        function (currentEvent, event, result) {
+          inputs.each(function () {
+            var input = $(this);
+
+            if (input.get(0).commonController && !input.is('button')) {
+              input.val(input.get(0).commonController.element.initialValue);
+              input.change();
+            }
+          });
+          obj.saveField();
+
+          setTimeout(function () {
+            field.parents('form').eq(0).change();
+          }, 100);
+
+          jQuery(this).trigger('blur');
+        }
+      );
 
     }
   }

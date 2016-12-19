@@ -29,7 +29,7 @@ class BranchSale extends \XLite\Module\XC\Sitemap\View\Sitemap\Branch implements
         $result = parent::getChildren($type, $id);
 
         if ($type == static::PAGE_CATEGORY && $id == \XLite\Core\Database::getRepo('XLite\Model\Category')->getRootCategoryId()) {
-            array_unshift($result, array(
+            array_push($result, array(
                 'type' => static::PAGE_STATIC,
                 'id'   => '997',
                 'name' => static::t('Sale'),

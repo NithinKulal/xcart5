@@ -1,0 +1,8 @@
+Version 5.3.2.1
+
+Fixes
+2016-12-08 - [Bug] Added responsive styles for the img tag in the sections product description/full description, product custom tabs, static pages description, category/front page decsription. #BUG-4285 (Eugene Dementjev) #Core #CrispWhiteSkin
+2016-12-05 - [Bug] The address was not updated at checkout if all the countries in the store but one were disabled. #BUG-4252 (Eugene Dementjev) #Core #PitneyBowes #CrispWhiteSkin
+2016-12-05 - [Bug] The Quick view popup header is now a link to the product in Crisp White skin. #BUG-4225 (Michael Lipinski) #CrispWhiteSkin
+2016-12-05 - [Bug] Improvement for Fast Lane checkout layout in Tablets view. #BUG-4234 (Eugene Dementjev) #FastLaneCheckout #CrispWhiteSkin
+2016-12-02 - [Bug] The upgrade hook 5.3/2/post_rebuild.php moved from the skin CrispWhite to core. #BUG-4240 (Michael Lipinski) #Core #CrispWhiteSkin

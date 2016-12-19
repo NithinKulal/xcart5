@@ -60,6 +60,7 @@ class Modules extends AStep
 
             $this->items = new \ArrayIterator($modules);
             $this->items->rewind();
+            $this->items->seek($this->position);
         }
 
         return $this->items;

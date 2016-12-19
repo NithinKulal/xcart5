@@ -217,13 +217,18 @@ class ProductVariant extends \XLite\View\ItemsList\Model\Table
     }
 
     /**
-     * Check - pager box is visible or not
+     * Get AJAX-specific URL parameters
      *
-     * @return boolean
+     * @return array
      */
-    protected function isPagerVisible()
+    protected function getAJAXSpecificParams()
     {
-        return false;
+        $params = parent::getAJAXSpecificParams();
+
+        $params['product_id']   = $this->getProductId();
+        $params['page']         = 'variants';
+
+        return $params;
     }
 
     /**

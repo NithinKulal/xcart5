@@ -1,9 +1,9 @@
 /**
- * Fly plugin for jQuery
- * v0.1
- * Animates DOMElement flight to target position. Depends on jQuery.path plugin for bezier path of flight.
+ * Floating label plugin for jQuery. 
+ * Version 1.1.
  *
- * Released under the MIT license.
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
  */
 
 (function($) {
@@ -48,7 +48,7 @@
 
   function findParent(element) {
     var parent = null;
-    if ($(element).siblings('label').length == 1) {
+    if ($(element).siblings('label:not(.form-control-label)').length == 1) {
       parent = $(element).parent();
     } else if ($(element).closest('.floating-label').length > 0) {
       parent = $(element).closest('.floating-label');

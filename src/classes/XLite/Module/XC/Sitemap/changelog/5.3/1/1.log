@@ -1,0 +1,5 @@
+Version 5.3.1.1
+
+Fixes
+2016-12-05 - [Bug] On the Sitemap page, categories are now shown in the first place. #BUG-4250 (Michael Lipinski) #Sitemap
+2016-12-05 - [Bug] Fixed the font size for nested categories of the 3rd level on the Sitemap page. #BUG-4251 (Michael Lipinski) #Sitemap

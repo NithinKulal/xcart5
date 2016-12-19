@@ -123,7 +123,7 @@ class AttributeValues extends \XLite\View\AView
     {
         return $this->executeCachedRuntime(function () {
             return $this->defineAttributes();
-        });
+        }, ['getAttributes', $this->getProduct()->getProductId()]);
     }
 
     /**

@@ -3,9 +3,8 @@
  #}
 {% if this.isItemsPerPageVisible() %}
   <div class="pager-items-total">
-    {{ t('Items') }}:
-    {{ t('BEGIN - END of TOTAL', {'begin': this.getBeginRecordNumber(), 'end': this.getEndRecordNumber(), 'total': this.getItemsTotal()})|raw }}
-
+    <span class="pager-items-label">{{ t('Items') }}:</span>
+    <span class="pager-items-range">{{ t('BEGIN - END of TOTAL', {'begin': this.getBeginRecordNumber(), 'end': this.getEndRecordNumber(), 'total': this.getItemsTotal()})|raw }}</span>
     {% if this.isItemsPerPageSelectorVisible() and this.getPerPageCounts() %}
       <div class="per-page-box">
         <div>

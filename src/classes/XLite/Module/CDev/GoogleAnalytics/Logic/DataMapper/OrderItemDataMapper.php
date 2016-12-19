@@ -53,7 +53,7 @@ class OrderItemDataMapper
             'name'      => $item->getObject()
                 ? $item->getObject()->getName()
                 : $item->getName(),
-            'category'  => $categoryName,
+            'category'  => strval($categoryName),
             'brand'     => $brand,
             'variant'   => $variant,
             'price'     => strval($item->getNetPrice()),

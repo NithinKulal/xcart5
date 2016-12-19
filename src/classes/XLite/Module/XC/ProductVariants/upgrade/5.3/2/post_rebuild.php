@@ -8,6 +8,11 @@
 
 return function()
 {
+    // BUG-4336
+    if (!\XLite\Core\Database::getRepo('XLite\Model\Module')->isModuleEnabled('XC\ProductVariants')) {
+        return;
+    }
+
     // Loading data to the database from yaml file
     $yamlFile = __DIR__ . LC_DS . 'post_rebuild.yaml';
 

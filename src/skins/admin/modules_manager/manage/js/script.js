@@ -25,7 +25,7 @@ function () {
   });
 
   if (state.val() !== '') {
-    $('option:first', state).text(core.t('Any status'));
+    $('option:first', state).text(core.t('All modules'));
   }
 });
 

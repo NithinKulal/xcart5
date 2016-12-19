@@ -88,10 +88,17 @@ var URLHandler = {
     return this.querySeparator + this.implodeQueryParams(this.preprocessParams(params));
   },
 
+  getBuildURLPrefix: function()
+  {
+    return xliteConfig.ajax_prefix
+        ? (xliteConfig.ajax_prefix + '/')
+        : '';
+  },
+
   // Compose URL
   buildURL: function(params)
   {
-    return this.buildBaseUrl(params) + this.buildQueryParams(params);
+    return this.getBuildURLPrefix() + this.buildBaseUrl(params) + this.buildQueryParams(params);
   }
 };
 

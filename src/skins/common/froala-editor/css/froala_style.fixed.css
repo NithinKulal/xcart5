@@ -28,6 +28,11 @@
             box-sizing: border-box;
 }
 
+.fr-box:not(.fr-inline).fr-code-view textarea.fr-code,
+.fr-box:not(.fr-inline) iframe {
+  min-height: 250px;
+}
+
 .fr-box.fr-inline {
   min-height: 60px;
   outline: 1px dashed rgba(16, 127, 152, 0.5);
@@ -290,20 +295,20 @@ img.fr-dii,img.fr-view.fr-dii
   vertical-align:bottom;
   margin-left:5px;
   margin-right:5px;
-  max-width:calc(100%-(2*5px));
+  max-width:calc(100% - 10px);
 }
 
 img.fr-dii.fr-fil,img.fr-view.fr-dii.fr-fil
 {
   float:left;
-  max-width:calc(100%-5px);
+  max-width:calc(100% - 5px);
   margin:5px 5px 5px 0;
 }
 
 img.fr-dii.fr-fir,img.fr-view.fr-dii.fr-fir
 {
   float:right;
-  max-width:calc(100%-5px);
+  max-width:calc(100% - 5px);
   margin:5px 0 5px 5px;
 }
 

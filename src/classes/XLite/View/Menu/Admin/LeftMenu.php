@@ -312,6 +312,12 @@ class LeftMenu extends \XLite\View\Menu\Admin\AAdmin
                         static::ITEM_TARGET     => 'accounting',
                         static::ITEM_WEIGHT     => 1100,
                     ],
+                    'seo' => [
+                        static::ITEM_TITLE      => static::t('SEO settings'),
+                        static::ITEM_TARGET     => 'settings',
+                        static::ITEM_EXTRA      => ['page' => 'CleanURL'],
+                        static::ITEM_WEIGHT     => 1200,
+                    ],
                 ],
             ],
             'css_js' => [
@@ -353,12 +359,6 @@ class LeftMenu extends \XLite\View\Menu\Admin\AAdmin
                         static::ITEM_TARGET     => 'cache_management',
                         static::ITEM_CLASS      => 'rebuild-cache',
                         static::ITEM_WEIGHT     => 300,
-                    ],
-                    'seo' => [
-                        static::ITEM_TITLE      => static::t('Clean URLs'),
-                        static::ITEM_TARGET     => 'settings',
-                        static::ITEM_EXTRA      => ['page' => 'CleanURL'],
-                        static::ITEM_WEIGHT     => 450,
                     ],
                     'environment' => [
                         static::ITEM_TITLE      => static::t('Environment'),

@@ -8,6 +8,8 @@
 
 namespace XLite\Module\QSL\CloudSearch\Controller\Admin;
 
+use XLite\Module\QSL\CloudSearch\Main;
+
 /**
  * CloudSearch dashboard page controller (Promotion section)
  */
@@ -16,7 +18,8 @@ class Promotions extends \XLite\Controller\Admin\Promotions implements \XLite\Ba
     /**
      * Page key
      */
-    const PAGE_CLOUD_SEARCH_DASHBOARD = 'cloud_search';
+    const PAGE_CLOUD_SEARCH_DASHBOARD  = 'cloud_search';
+    const PAGE_CLOUD_FILTERS_DASHBOARD = 'cloud_filters';
 
 
     /**
@@ -30,8 +33,15 @@ class Promotions extends \XLite\Controller\Admin\Promotions implements \XLite\Ba
 
         $list[static::PAGE_CLOUD_SEARCH_DASHBOARD] = array(
             'name' => static::t('CloudSearch'),
-            'tpl'  => 'modules/QSL/CloudSearch/promotions_menu_body.twig',
+            'tpl'  => 'modules/QSL/CloudSearch/cloud_search_promotions_menu_body.twig',
         );
+
+        if (Main::isCloudFiltersEnabled()) {
+            $list[static::PAGE_CLOUD_FILTERS_DASHBOARD] = array(
+                'name' => static::t('CloudFilters'),
+                'tpl'  => 'modules/QSL/CloudSearch/cloud_filters_promotions_menu_body.twig',
+            );
+        }
 
         return $list;
     }

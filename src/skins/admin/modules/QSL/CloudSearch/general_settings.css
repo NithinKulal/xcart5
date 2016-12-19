@@ -1,0 +1,12 @@
+#default-search-sort-order {
+    display: none;
+}
+
+.form-field-comment.default-search-sort-order-comment {
+    color: #896c3f;
+    font-size: 12px;
+}
+
+.form-field-comment.default-search-sort-order-comment i {
+    color: #e4a037;
+}

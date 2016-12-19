@@ -7,12 +7,14 @@
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
 
-.search-form-main-part tr.including-options-list,
-  table.advanced-search-options 
-{
-  display: none !important;
+ul.search-including-options {
+  display: none;
 }
 
-.search-product-form .substring-cell {
-  padding-bottom: 17px !important;
+td.title-search-by-options {
+  display: none;
+}
+
+ul.search-by-options {
+  display: none;
 }

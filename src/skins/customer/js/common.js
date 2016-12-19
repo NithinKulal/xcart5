@@ -206,10 +206,17 @@ var URLHandler = {
     return this.argSeparator + this.implodeQueryParams(this.clearParams(params, this.mainParams));
   },
 
+  getBuildURLPrefix: function()
+  {
+    return xliteConfig.ajax_prefix
+      ? (xliteConfig.ajax_prefix + '/')
+      : '';
+  },
+
   // Compose URL
   buildURL: function(params)
   {
-    return this.baseURLPart + this.buildMainPart(params) + this.buildQueryPart(params);
+    return this.getBuildURLPrefix() + this.baseURLPart + this.buildMainPart(params) + this.buildQueryPart(params);
   }
 }
 

@@ -2,10 +2,8 @@
 #
 # Upgrade data
 #
-# @author    Qualiteam software Ltd <info@x-cart.com>
-# @copyright Copyright (c) 2011-2015 Qualiteam software Ltd <info@x-cart.com>. All rights reserved
-# @license   http://www.x-cart.com/license-agreement.html X-Cart 5 License Agreement
-# @link      http://www.x-cart.com/
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
 
 XLite\Model\Config:
   directives: { addModel: 'XLite\Model\ConfigTranslation' }
@@ -44,8 +42,8 @@ XLite\Model\LanguageLabel:
   - { name: 'E-Commerce features setup', translations: [{ code: en, label: 'E-Commerce features setup' }, { code: ru, label: 'Настройка опций e-Commerce' }] }
   - { name: 'Upload store data to MailChimp', translations: [{ code: en, label: 'Upload store data to MailChimp' }, { code: ru, label: 'Выгрузить данные в MailChimp' }] }
   - name: '_MailChimp ecommerce info text_'
-      translations:
-        - code: en
-          label: 'Upload store data to MailChimp to promote more efficient MailChimp Product Recommendations and Abandoned Carts. Before clicking the button, select the lists for which you want MailChimp "stores" to be created. A "store" is a collection of products, orders, carts and customers. MailChimp will create the "stores" and will connect them with the lists you have specified. Store data from X-Cart will be uploaded for these specific stores.<br><a href="{{url}}" target="_blank">Learn more about MailChimp e-Commerce features</a>'
-        - code: ru
-          label: 'Загрузите данные магазина в MailChimp для более эффективной работы рекомендаций товаров и поддержки оставленных корзин от MailChimp. Перед тем как нажать на кнопку, выберите списки, для которых требуется создать "магазины" в MailChimp. "Магазин" - это набор товаров, заказов, корзин и покупателей. MailChimp создаст "магазины" и привяжет их к спискам, которые вы указали. Данные из X-Cart будут выгружаться именно в эти магазины.<br><a href="{{url}}" target="_blank">Подробнее об опциях e-Commerce в MailChimp</a>'
+    translations:
+      - code: en
+        label: 'Upload store data to MailChimp to promote more efficient MailChimp Product Recommendations and Abandoned Carts. Before clicking the button, select the lists for which you want MailChimp "stores" to be created. A "store" is a collection of products, orders, carts and customers. MailChimp will create the "stores" and will connect them with the lists you have specified. Store data from X-Cart will be uploaded for these specific stores.<br><a href="{{url}}" target="_blank">Learn more about MailChimp e-Commerce features</a>'
+      - code: ru
+        label: 'Загрузите данные магазина в MailChimp для более эффективной работы рекомендаций товаров и поддержки оставленных корзин от MailChimp. Перед тем как нажать на кнопку, выберите списки, для которых требуется создать "магазины" в MailChimp. "Магазин" - это набор товаров, заказов, корзин и покупателей. MailChimp создаст "магазины" и привяжет их к спискам, которые вы указали. Данные из X-Cart будут выгружаться именно в эти магазины.<br><a href="{{url}}" target="_blank">Подробнее об опциях e-Commerce в MailChimp</a>'

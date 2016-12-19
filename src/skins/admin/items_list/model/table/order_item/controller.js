@@ -650,6 +650,7 @@ OrderItemsList.prototype.handleRemoveLine = function(event)
 OrderItemsList.prototype.handleNewLineRemove = function(event)
 {
   jQuery('form.order-operations').change();
+  core.trigger('order.items.changed');
 }
 
 OrderItemsList.prototype.getEventNamespace = function()

@@ -43,6 +43,16 @@ class Address extends \XLite\View\Dialog
     // {{{ Schema fields
 
     /**
+     * Returns address param
+     * 
+     * @return void
+     */
+    protected function getAddress()
+    {
+        return $this->getParam(static::PARAM_ADDRESS);
+    }
+
+    /**
      * Get schema fields
      *
      * @return array
@@ -130,7 +140,7 @@ class Address extends \XLite\View\Dialog
      */
     public function getFieldValue($fieldName, $processValue = false)
     {
-        $address = $this->getParam(self::PARAM_ADDRESS);
+        $address = $this->getAddress();
 
         $methodName = 'get' . \XLite\Core\Converter::getInstance()->convertToCamelCase($fieldName);
 
@@ -241,7 +251,7 @@ class Address extends \XLite\View\Dialog
                 'Display mode', self::DISPLAY_MODE_TEXT, false
             ),
             self::PARAM_ADDRESS => new \XLite\Model\WidgetParam\TypeObject(
-                'Address object', null, false
+                'Address object', new \XLite\Model\Address(), false
             ),
             self::PARAM_DISPLAY_WRAPPER => new \XLite\Model\WidgetParam\TypeBool(
                 'Display wrapper', false, false

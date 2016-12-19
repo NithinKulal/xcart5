@@ -20,7 +20,7 @@ class OrderItem extends \XLite\Model\OrderItem implements \XLite\Base\IDecorator
      *
      * @var string
      *
-     * @Column (type="string")
+     * @Column (type="string", nullable=true)
      */
     protected $categoryAdded = '';
 

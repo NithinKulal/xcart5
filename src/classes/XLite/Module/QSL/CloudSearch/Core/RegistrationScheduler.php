@@ -48,7 +48,7 @@ class RegistrationScheduler extends \XLite\Base\Singleton
     public function registerIfScheduled()
     {
         if ($this->isScheduled() && !\XLite::isCacheBuilding()) {
-            $apiClient = ServiceApiClient::getInstance();
+            $apiClient = new ServiceApiClient();
 
             $this->unschedule();
 

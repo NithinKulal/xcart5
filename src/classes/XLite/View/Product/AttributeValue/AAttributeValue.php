@@ -59,7 +59,7 @@ abstract class AAttributeValue extends \XLite\View\Product\AProduct
         return $this->getAttribute()
             ? $this->executeCachedRuntime(function () {
                 return $this->defineAttributeValue();
-            }, 'getAttributeValue_' . $this->getAttribute()->getId())
+            }, ['getAttributeValue', $this->getAttribute()->getId()])
             : null;
     }
 

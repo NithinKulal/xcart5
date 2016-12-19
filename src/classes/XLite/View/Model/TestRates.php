@@ -72,6 +72,7 @@ abstract class TestRates extends \XLite\View\Model\AModel
         self::SCHEMA_FIELD_SRC_COUNTRY => array(
             self::SCHEMA_CLASS    => 'XLite\View\FormField\Select\Country',
             self::SCHEMA_LABEL    => 'Country',
+            self::SCHEMA_ATTRIBUTES => array('all' => true),
         ),
         self::SCHEMA_FIELD_SRC_STATE => array(
             self::SCHEMA_CLASS    => 'XLite\View\FormField\Select\State',
@@ -100,6 +101,7 @@ abstract class TestRates extends \XLite\View\Model\AModel
         self::SCHEMA_FIELD_DST_COUNTRY => array(
             self::SCHEMA_CLASS    => 'XLite\View\FormField\Select\Country',
             self::SCHEMA_LABEL    => 'Country',
+            self::SCHEMA_ATTRIBUTES => array('all' => true),
         ),
         self::SCHEMA_FIELD_DST_STATE => array(
             self::SCHEMA_CLASS    => 'XLite\View\FormField\Select\State',

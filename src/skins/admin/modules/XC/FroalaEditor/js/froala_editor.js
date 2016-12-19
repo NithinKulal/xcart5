@@ -62,7 +62,7 @@ var FroalaEditor = CommonElement.extend({
       return;
     }
 
-    if (this.$element.length && this.$element.froalaEditor('html.get') === '') {
+    if (this.$element.length && this.$element.froalaEditor('html.get').trim() === '' && this.$element.froalaEditor('codeView.get').trim() === '') {
       var name = '';
       var label = jQuery('label[for=' + this.element.id + ']');
       if (label && label.length > 0) {

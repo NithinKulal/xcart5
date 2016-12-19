@@ -160,8 +160,10 @@ class Generator extends \XLite\Logic\AGenerator
             if (!isset($options['stores'])) {
                 $options['stores'] = [];
             }
-            
-            $options['stores'][] = $storeId;
+
+            if ($value) {
+                $options['stores'][] = $storeId;
+            }
         }
         
         $this->setOptions($options);

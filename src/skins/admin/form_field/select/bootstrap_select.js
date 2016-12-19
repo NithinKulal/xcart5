@@ -11,20 +11,30 @@ CommonForm.elementControllers.push(
   {
     pattern: '.input-bootstrap-select',
     handler: function () {
-      var elem = this,
-        input = $("input.bootstrap-select-value", elem),
-        button = $('.input-group-btn button', elem),
-        mainLabel = $('span.main-label', button);
+      var elem = this;
+      var input = $("input.bootstrap-select-value", elem);
+      var button = $('.input-group-btn button', elem);
+      var options = $(".input-group-btn .dropdown-menu a", elem);
+      var mainLabel = $('span.main-label', button);
 
-      $(".input-group-btn .dropdown-menu a", elem).click(function (e) {
+      options.click(function (e) {
         e.preventDefault();
 
         input.val($(this).data('value')).change();
-        mainLabel.text($(this).text());
 
         button.focus();
       }).mousedown(function (e) {
         e.preventDefault();
+      });
+
+      input.change(function () {
+        var val = $(this).val();
+
+        options.each(function () {
+          if ($(this).data('value') === val) {
+            mainLabel.text($(this).text());
+          }
+        })
       });
     }
   }

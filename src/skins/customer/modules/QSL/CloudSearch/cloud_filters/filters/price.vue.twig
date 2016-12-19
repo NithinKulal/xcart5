@@ -1,0 +1,22 @@
+<script type="x-template" id="cloud-filters-template-price">
+
+    <div class="cloud-filters-filter cloud-filters-filter-price">
+        <h4 class="cloud-filters-filter__title">{{ '{{' }} title {{ '}}' }}</h4>
+
+        <form class="form-inline">
+            <input type="text"
+                   v-model="min[0] | priceFilterValue"
+                   debounce="500"
+                   :placeholder="statsMin !== null ? statsMin.toFixed(2) : '{{ t('From') }}'"
+                   class="form-control cloud-filters-filter-price__input">
+            &mdash;
+            <input type="text"
+                   v-model="max[0] | priceFilterValue"
+                   debounce="500"
+                   :placeholder="statsMax !== null ? statsMax.toFixed(2) : '{{ t('To') }}'"
+                   class="form-control cloud-filters-filter-price__input">
+        </form>
+
+    </div>
+
+</script>

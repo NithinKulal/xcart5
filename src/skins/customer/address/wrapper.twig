@@ -5,7 +5,7 @@
 <li class="address-book">
 <div class="address-box">
 
-  {% if this.address.getAddressId() %}
+  {% if this.getAddress().getAddressId() %}
     <table>
   
       <tr>
@@ -50,7 +50,7 @@
     </table>
   {% endif %}
 
-  {% if not this.address.getAddressId() %}
+  {% if not this.getAddress().getAddressId() %}
     <div class="address-center-button">
       {{ widget('\\XLite\\View\\Button\\AddAddress', label='Add new address', profileId=this.profile_id) }}
     </div>

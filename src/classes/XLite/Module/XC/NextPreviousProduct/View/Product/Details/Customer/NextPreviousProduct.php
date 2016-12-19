@@ -183,15 +183,17 @@ class NextPreviousProduct extends \XLite\View\AView
      */
     protected function getCookieData()
     {
-        $result = $this->executeCachedRuntime(function () {
+        $productId = $this->getProductId();
+
+        $result = $this->executeCachedRuntime(function () use ($productId) {
             if (isset($_COOKIE['xc_np_disable'])) {
                 return [];
             }
 
-            $cookieKey = 'xc_np_product_' . $this->getProductId();
+            $cookieKey = 'xc_np_product_' . $productId;
 
             return isset($_COOKIE[$cookieKey]) ? json_decode($_COOKIE[$cookieKey], true) : [];
-        });
+        }, ['getCookieData', $productId]);
 
         $this->unsetCookie();
 

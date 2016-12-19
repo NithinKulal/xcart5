@@ -340,7 +340,7 @@ class Profile extends \XLite\Controller\Admin\AAdmin
             && (\XLite\Core\Auth::getInstance()->isPermissionAllowed('manage admins')
                 || \XLite\Core\Auth::getInstance()->isPermissionAllowed(\XLite\Model\Role\Permission::ROOT_ACCESS))
         ) {
-            \XLite\Core\Auth::getInstance()->loginProfile($profile);
+            \XLite\Core\Auth::getInstance()->loginProfile($profile, false);
 
             \XLite\Core\TopMessage::addInfo(
                 'You are logged in as: user',

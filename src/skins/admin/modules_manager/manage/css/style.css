@@ -214,12 +214,13 @@ div.pack-warning a {
   white-space: nowrap;
   width: 300px;
   display: inline-block;
+  vertical-align: middle;
 }
 
 .addons-search-box div.state {
   display: inline-block;
-  position: absolute;
-  margin-left: 14px;
+  vertical-align: middle;
+  margin-right: 14px;
 }
 
 .addons-search-box div.state .state-value {
@@ -259,7 +260,7 @@ div.pack-warning a {
   display: inline;
 }
 
-.modules-list .author {
+.modules-list .module-main-section .author {
   margin-left: 6px;
 }
 

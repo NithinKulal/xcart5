@@ -47,7 +47,7 @@ XLite\Model\Config:
   - { name: default_prod_display_mode, category: General, type: 'XLite\View\FormField\Select\DefaultDisplayModeForProductsList', orderby: 25000, value: 'grid', translations: [{ code: en, option_name: 'Default display mode for products list' }] }
   - { name: license, category: License, type: text }
   - { name: location_address, category: Company, type: text, orderby: 39000, translations: [{ code: en, option_name: 'Street address' }] }
-  - { name: location_country, category: Company, type: country, orderby: 40000, value: US, widgetParameters: { selectOne: false }, translations: [{ code: en, option_name: Country }] }
+  - { name: location_country, category: Company, type: country, orderby: 40000, value: US, widgetParameters: { selectOne: false, all: true }, translations: [{ code: en, option_name: Country }] }
   - { name: location_state, category: Company, type: state, orderby: 41000, translations: [{ code: en, option_name: State }] }
   - { name: location_custom_state, category: Company, type: text, orderby: 41500, translations: [{ code: en, option_name: 'State' }] }
   - { name: location_city, category: Company, type: text, orderby: 42000, translations: [{ code: en, option_name: City }] }
@@ -55,7 +55,7 @@ XLite\Model\Config:
 
   - { name: origin_use_company, category: Company, type: checkbox, orderby: 38000, value: true, translations: [{ code: en, option_name: 'Use your company address as your ship-from address', option_comment: 'See <a href="admin.php?target=settings&page=Company#company-address">company address</a>' }] }
   - { name: origin_address, category: Company, type: text, orderby: 39000, translations: [{ code: en, option_name: 'Street address' }] }
-  - { name: origin_country, category: Company, type: country, orderby: 40000, value: US, widgetParameters: { selectOne: false }, translations: [{ code: en, option_name: Country }] }
+  - { name: origin_country, category: Company, type: country, orderby: 40000, value: US, widgetParameters: { selectOne: false, all: true }, translations: [{ code: en, option_name: Country }] }
   - { name: origin_state, category: Company, type: state, orderby: 41000, translations: [{ code: en, option_name: State }] }
   - { name: origin_custom_state, category: Company, type: text, orderby: 41500, translations: [{ code: en, option_name: 'State' }] }
   - { name: origin_city, category: Company, type: text, orderby: 42000, translations: [{ code: en, option_name: City }] }
@@ -96,7 +96,7 @@ XLite\Model\Config:
   - { name: users_per_page, category: General, type: 'XLite\View\FormField\Input\Text\Integer', orderby: 42000, value: '30', widgetParameters: { min: 1 }, translations: [{ code: en, option_name: 'Users per page' }] }
   - { name: use_smtp, category: Email, type: checkbox, orderby: 11000, value: N, translations: [{ code: en, option_name: 'Use SMTP server' }] }
   - { name: use_smtp_auth, category: Email, type: checkbox, orderby: 14000, value: N, translations: [{ code: en, option_name: 'Use authentication' }] }
-  - { name: version, category: Version, value: '5.3.2' }
+  - { name: version, category: Version, value: '5.3.2.2' }
   - { name: weight_symbol, category: Units, type: text, orderby: 62000, value: lbs, translations: [{ code: en, option_name: 'Weight symbol' }] }
   - { name: weight_unit, category: Units, type: 'XLite\View\FormField\Select\WeightUnit', orderby: 61000, value: lbs, translations: [{ code: en, option_name: 'Weight unit' }] }
   - { name: weight_trailing_zeroes, category: Units, type: checkbox, orderby: 62100, value: Y, translations: [{ code: en, option_name: 'Hide trailing zeros in fractional part' }] }
@@ -177,9 +177,9 @@ XLite\Model\Config:
         option_name: 'Object name (category, product, etc)'
   - name: object_name_in_page_title_order
     category: CleanURL
-    type: XLite\View\FormField\Select\ObjectNameInPageTitleOrder
+    type: XLite\View\FormField\Input\Checkbox\FirstLast
     orderby: 16000
-    value: L
+    value: 0
     translations:
       - code: en
         option_name: 'Show object name in page title'

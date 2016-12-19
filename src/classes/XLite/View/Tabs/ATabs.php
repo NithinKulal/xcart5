@@ -319,7 +319,10 @@ abstract class ATabs extends \XLite\View\AView
 
             foreach ($this->prepareTabs() as $target => $tab) {
                 $tab['selected'] = $this->isSelectedTab($target);
-                $tab['url'] = $this->buildTabURL($target);
+                $params = isset($tab['url_params']) ? $tab['url_params'] : array();
+                $tab['url'] = $params 
+                    ? $this->buildURL($target, '', $params) 
+                    : $this->buildTabURL($target);
 
                 // Set default values for missing tab parameters
                 $tab += $defaultValues;

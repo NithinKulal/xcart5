@@ -13,6 +13,6 @@
 <div class="recently-viewed-product-details">
   <h5><a href="{{ this.getProductURL() }}">{{ this.product.getName() }}</a></h5>
   <div class="price">
-    {{ widget('\\XLite\\Module\\XC\\NextPreviousProduct\\View\\Price', product=this.product, displayOnlyPrice='1') }}
+    {{ widget('\\XLite\\View\\Price', product=this.product, displayOnlyPrice='1') }}
   </div>
 </div>

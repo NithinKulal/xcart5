@@ -15,6 +15,10 @@ html, body {
   height: 100%;
 }
 
+html {
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
 a:focus {
   color: #1a509a;
 }
@@ -185,7 +189,6 @@ a:focus {
     .align-items(center);
 
     .header-search {
-      width: 233px;
 
       .btn {
         font-size: 12px;
@@ -210,6 +213,18 @@ a:focus {
         font-weight: 600;
       }
 
+      .input-group {
+        display: block;
+        font-size: 0;
+
+        .input-group-btn,
+        input {
+          width: auto;
+          vertical-align: middle;
+          display: inline-block;
+        }
+      }
+
       .input-group input {
         width: 140px;
         height: 32px;
@@ -217,6 +232,7 @@ a:focus {
         .drop-shadow(0, 0, 0, 0);
         font-size: 12px;
         font-style: normal;
+        float: none;
 
         &::-webkit-input-placeholder {
           font-size: 12px;

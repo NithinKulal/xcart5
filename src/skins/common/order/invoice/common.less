@@ -442,14 +442,7 @@ body * {
     width: auto;
   }
 
-  .invoice-box h1,
-  .invoice-box h2,
-  .invoice-box h3,
-  .invoice-box p,
-  .invoice-box div,
-  .invoice-box th,
-  .invoice-box td,
-  .invoice-box span {
+  html {
     font-family: 'Open Sans', sans-serif;
   }
 
@@ -511,7 +504,6 @@ body * {
   .invoice-box td,
   .invoice-box span {
     font-size: 12px;
-    font-family: 'Open Sans', sans-serif;
   }
 
   .invoice-box .totals div {
@@ -545,6 +537,11 @@ body * {
   .invoice-box .header .address p {
     font-size: 9px;
     line-height: initial;
+  }
+
+  .invoice-box .addresses .address p.email,
+  .invoice-box .addresses .address p.email a {
+    font-size: 10px;
   }
 
   .invoice-box .addresses .address .method-box,

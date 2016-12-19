@@ -1,0 +1,5 @@
+Version 5.3.2.1
+
+Fixes
+2016-12-08 - [Bug] Pagination was missed on the Product Variants page. Fixed. #BUG-4293 (Michael Lipinski) #Core #ProductVariants
+2016-12-07 - [Bug] Fatal error when cloning a product with variants if the Admin area is configured to use a language other than the default one. #BUG-4279 (Michael Lipinski) #Core #ProductVariants

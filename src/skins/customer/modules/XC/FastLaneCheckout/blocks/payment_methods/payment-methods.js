@@ -117,6 +117,7 @@ define(
       methodId: function(value, oldValue){
         var silent = (oldValue === null);
         if (!silent) {
+          this.$reloading = true;
           this.$root.$broadcast('reloadingBlock', 2);
         }
         this.triggerUpdate({
@@ -141,6 +142,7 @@ define(
         }
       },
       sectionPersist: function(data) {
+        this.$reloading = false;
         this.$root.$broadcast('reloadingUnblock', 2);
       },
       global_updatecart: function(data) {

@@ -127,6 +127,8 @@ MinicartView.prototype.postprocess = function(isSuccess)
     this.base.click(_.bind(
       function(event) {
         this.toggleViewMode();
+
+        event.stopPropagation();
       },
       this
     ));

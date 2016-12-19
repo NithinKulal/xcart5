@@ -118,9 +118,11 @@ abstract class ACategory extends \XLite\View\ItemsList\Product\Customer\ACustome
      */
     protected function getCategory()
     {
-        return $this->executeCachedRuntime(function () {
-            return \XLite\Core\Database::getRepo('XLite\Model\Category')->find($this->getCategoryId());
-        });
+        $categoryId = $this->getCategoryId();
+
+        return $this->executeCachedRuntime(function () use ($categoryId) {
+            return \XLite\Core\Database::getRepo('XLite\Model\Category')->find($categoryId);
+        }, ['getCategory', $categoryId]);
     }
 
     /**

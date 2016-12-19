@@ -9,6 +9,7 @@
 namespace XLite\Module\QSL\CloudSearch\Core;
 
 use XLite\Core\Converter;
+use XLite\Core\Database;
 
 /**
  * CloudSearch store-side API methods
@@ -19,20 +20,17 @@ abstract class StoreApiBrands extends \XLite\Module\QSL\CloudSearch\Core\StoreAp
 {
     protected function getBrandsCount()
     {
-        return \XLite\Core\Database::getRepo('\XLite\Module\QSL\ShopByBrand\Model\Brand')->countEnabledBrands();
+        return Database::getRepo('XLite\Module\QSL\ShopByBrand\Model\Brand')->countEnabledBrands();
     }
 
     /**
      * Get products data
      *
-     * @param $start
-     * @param $limit
-     *
      * @return array
      */
     public function getBrands()
     {
-        $result = \XLite\Core\Database::getRepo('\XLite\Module\QSL\ShopByBrand\Model\Brand')->getCategoryBrandsWithProductCount();
+        $result = Database::getRepo('XLite\Module\QSL\ShopByBrand\Model\Brand')->getCategoryBrandsWithProductCount();
 
         return array_map(
             array($this, 'getIndexBrandHash'), 

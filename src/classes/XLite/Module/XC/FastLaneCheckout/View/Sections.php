@@ -128,7 +128,7 @@ class Sections extends \XLite\View\Tabs\AJsTabs
         if ($this->isShippingNeeded()) {
             $sections['shipping'] = array(
                 'weight'   => 200,
-                'title'    => 'Shipping info',
+                'title'    => 'Shipping',
                 'widget'   => 'XLite\Module\XC\FastLaneCheckout\View\Sections\Shipping',
                 'index'    => 1,
                 // 'paneClasses' => array('slide-left'),

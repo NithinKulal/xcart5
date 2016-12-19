@@ -340,6 +340,10 @@ ul.address-section.billing-address-section li.address-field.address-type
 
 @media only print {
 
+  html {
+    font-family: 'Open Sans', sans-serif;
+  }
+
   .packing-slip-box .header img.logo
   {
     max-width: 300px !important;

@@ -31,23 +31,58 @@
       padding-right: 0;
     }
 
+    @media(max-width: @screen-xs-max) {
+      margin-bottom: 20px;
+    }
+
     @media(min-width: @screen-md-min) {
       padding-right: 0px !important;
     }
-    .checkout_fastlane_details_box {
-      border-radius: 2px;
-      background: @body-bg;
+  }
+}
 
-      padding: 20px;
-      position: relative;
+.checkout_fastlane_details_box {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: @body-bg;
 
-      .detail-header {
-        font-weight: 600;
-      }
+  padding: 18px;
+  position: relative;
 
-      .checkout_fastlane_address {
-        margin-bottom: 20px;
-      }
+  .detail-header {
+    font-weight: 600;
+  }
+
+  .checkout_fastlane_address {
+    margin-bottom: 20px;
+  }
+
+  // tablet mode
+  @media(min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+    .flex-display();
+    .flex-wrap(wrap);
+    .justify-content(space-between);
+
+    .checkout_fastlane_details_left {
+      width: ~"calc(50% - 10px)";
+    }
+
+    .checkout_fastlane_details_right {
+      width: ~"calc(50% - 10px)";
+      align-self: center;
+    }
+
+    .order-total {
+      text-align: center;
+    }
+  }
+
+  .coupons {
+    margin: 0 auto;
+    text-align: center;
+
+    .add-coupon form {
+      display: inline-block;
     }
   }
 }

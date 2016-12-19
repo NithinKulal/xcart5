@@ -15,24 +15,16 @@ XLite\Model\Config:
   - name: dashboard
     category: QSL\CloudSearch
     type: \XLite\Module\QSL\CloudSearch\View\FormField\Dashboard
-  - name: doSearch
+  - name: isCloudFiltersEnabled
     category: QSL\CloudSearch
     type: checkbox
+    orderby: 20
     value: Y
     translations:
       - code: en
-        option_name: Turn on the CloudSearch specific search on the product list
+        option_name: Enable CloudFilters
       - code: ru
-        option_name: Включить поиск продуктов от CloudSearch
-  - name: doIndexModifiers
-    category: QSL\CloudSearch
-    type: checkbox
-    value: N
-    translations:
-      - code: en
-        option_name: Include products attributes into CloudSearch index
-      - code: ru
-        option_name: Вносить в индекс CloudSearch информацию об атрибутах
+        option_name: Включить CloudFilters
 
 XLite\Model\LanguageLabel:
   - { name: "cs_showing_results_for", translations: [{ code: en, label: "Showing results for" }, { code: ru, label: "Показаны результаты для" }] }
@@ -43,3 +35,8 @@ XLite\Model\LanguageLabel:
   - { name: "cs_categories", translations: [{ code: en, label: "Categories" }, { code: ru, label: "Категории" }] }
   - { name: "cs_pages", translations: [{ code: en, label: "Pages" }, { code: ru, label: "Страницы" }] }
   - { name: "cs_did_you_mean", translations: [{ code: en, label: "Did you mean" }, { code: ru, label: "Возможно, вы имели в виду" }] }
+  # CloudFilters
+  - { name: 'Reset all filters', translations: [{ code: en, label: 'Reset all filters' }, { code: ru, label: 'Сбросить все фильтры' }] }
+  - { name: 'Try clearing filters or different search terms.', translations: [{ code: en, label: 'Try clearing filters or different search terms.' }, { code: ru, label: 'Попробуйте сбросить фильтры или ввести другое условие поиска.' }] }
+  - { name: 'No products matching the current filtering criteria were found. Try clearing filters.', translations: [{ code: en, label: 'No products matching the current filtering criteria were found. Try clearing filters.' }, { code: ru, label: 'Товары, удовлетворяющие условиям фильтрации, не найдены. Попробуйте сбросить фильтры.' }] }
+  - { name: "CloudSearch sets default sort order to relevance", translations: [{ code: en, label: '<i class="fa fa-exclamation-triangle"></i> <a href="{{url}}">CloudSearch</a> sets default sort order to relevance.' }, { code: ru, label: '<i class="fa fa-exclamation-triangle"></i> Модуль <a href="{{url}}">CloudSearch</a> по умолчанию сортирует товары по релевантности.' }] }

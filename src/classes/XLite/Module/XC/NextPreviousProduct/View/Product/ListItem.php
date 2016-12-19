@@ -84,4 +84,17 @@ class ListItem extends \XLite\View\Product\ListItem implements \XLite\Base\IDeco
             'parameters' => [],
         ];
     }
+
+    /**
+     * Get cache parameters
+     *
+     * @return array
+     */
+    protected function getCacheParameters()
+    {
+        $params = parent::getCacheParameters();
+        $params[] = $this->getDataString();
+
+        return $params;
+    }
 }

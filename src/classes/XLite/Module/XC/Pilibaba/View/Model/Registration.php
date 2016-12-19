@@ -61,6 +61,7 @@ class Registration extends \XLite\View\Model\AModel
             self::SCHEMA_LABEL     => 'Others',
             self::SCHEMA_REQUIRED  => true,
             self::SCHEMA_HELP     => 'Tell us your country, and we will inform you once warehouse in this country is opened',
+            self::SCHEMA_ATTRIBUTES => array('all' => true),
             self::SCHEMA_DEPENDENCY => array(
                 self::DEPENDENCY_SHOW => array(
                     self::SCHEMA_FIELD_WAREHOUSE => 'others',

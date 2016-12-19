@@ -1,0 +1,10 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\LanguageLabel:
+  - { name: "Relay Response URL note", translations: [{ code: en, label: "Add this URL as the default Relay Response URL to the <b>Account</b> -> <b>Response/Receipt URLs</b> section in the <a href='https://account.authorize.net'>Merchant Interface</a>:" }] }
+  - { name: "relay_response_help", translations: [{ code: en, label: "Relay Response URL is used to return the customer to invoice page after successful payment. Authorize.Net may issue the <b>Error 14</b> (The Referrer or Relay Response URL is invalid) in case this URL is not present in the <b>Merchant Interface</b>. <br/> Read more at the <a href='https://support.authorize.net/authkb/index?page=content&id=A601'>Authorize.Net Support Center</a>" }] }

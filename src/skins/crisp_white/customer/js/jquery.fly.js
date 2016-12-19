@@ -1,9 +1,9 @@
 /**
- * Fly plugin for jQuery
- * v0.1
- * Animates DOMElement flight to target position. Depends on jQuery.path plugin for bezier path of flight.
+ * Fly plugin for jQuery. Animates DOMElement flight to target position. Depends on jQuery.path plugin for bezier path of flight.
+ * Version 1.0.
  *
- * Released under the MIT license.
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
  */
 
 (function ($) {

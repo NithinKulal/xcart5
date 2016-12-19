@@ -1,9 +1,9 @@
 /**
- * Collapser plugin for jQuery + Bootstrap
- * v0.1
- * Makes any DOMElement collapsible.
+ * Collapser plugin for jQuery + Bootstrap. Makes any DOMElement collapsible.
+ * Version 1.0.
  *
- * Released under the MIT license.
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
  */
 
 (function($) {

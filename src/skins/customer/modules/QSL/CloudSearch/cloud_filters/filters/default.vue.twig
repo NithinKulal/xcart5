@@ -1,0 +1,34 @@
+<script type="x-template" id="cloud-filters-template-default">
+
+    <div class="cloud-filters-filter" v-if="values.length > 0">
+        <h4 class="cloud-filters-filter__title">{{ '{{' }} title {{ '}}' }}</h4>
+
+        <ul>
+            <li v-for="(index, valueCount) in foldedValues">
+
+                <div class="checkbox cloud-filters-filter-checkbox-container">
+                    <label class="cloud-filters-filter-label" v-bind:class="{'cloud-filters-filter-label--zero-count': valueCount.count == 0, 'cloud-filters-filter-label--toggled': isToggled(valueCount.value)}">
+
+                        <input type="checkbox"
+                               v-bind:checked="isToggled(getFilterValue(valueCount.value))"
+                               v-on:change="onToggle(id, getFilterValue(valueCount.value), $event.target.checked)">
+
+                        <component :is="getValueRenderer()" :value="valueCount.value">
+                        </component>
+
+                        <span class="cloud-filters-filter-label__count" v-if="valueCount.count > 0">
+                            ({{ '{{' }} valueCount.count {{ '}}' }})
+                        </span>
+
+                    </label>
+                </div>
+
+            </li>
+        </ul>
+
+        <a href="#" v-on:click.prevent="unfoldValues" v-if="showUnfoldButton" class="cloud-filters-filter__more">
+            {{ t('More') }}
+        </a>
+    </div>
+
+</script>

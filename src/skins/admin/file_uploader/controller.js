@@ -282,7 +282,13 @@ FileUploader.prototype.postprocess = function (isSuccess) {
   }
 };
 
-core.autoload(FileUploader, 'div.file-uploader');
+core.microhandlers.add(
+    'file-uploader',
+    'div.file-uploader',
+    function(event, element) {
+      core.autoload(FileUploader, element);
+    }
+);
 
 core.bind('list.model.table.newLineCreated', function(event, data) {
     var line = jQuery('.create-line').last();

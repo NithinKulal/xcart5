@@ -167,7 +167,30 @@ class Attribute extends \XLite\Model\Repo\Base\I18n
     protected function prepareCndName(\Doctrine\ORM\QueryBuilder $queryBuilder, $value = null)
     {
         if ($value) {
-            $queryBuilder->andWhere('translations.name = :name')
+            // Add additional join to translations with default language code
+            $this->addDefaultTranslationJoins(
+                $queryBuilder,
+                $this->getMainAlias($queryBuilder),
+                'defaults',
+                \XLite::getDefaultLanguage()
+            );
+
+            $condition = $queryBuilder->expr()->orX();
+
+            $condition->add('translations.name = :name');
+            $condition->add('defaults.name = :name');
+            if (\XLite\Core\Translation::DEFAULT_LANGUAGE !== \XLite::getDefaultLanguage()) {
+                // Add additional join to translations with default-default ('en' at the moment) language code
+                $this->addDefaultTranslationJoins(
+                    $queryBuilder,
+                    $this->getMainAlias($queryBuilder),
+                    'defaultDefaults',
+                    'en'
+                );
+                $condition->add('defaultDefaults.name = :name');
+            }
+
+            $queryBuilder->andWhere($condition)
                 ->setParameter('name', $value);
         }
     }

@@ -1101,3 +1101,11 @@ core.bind(
     core.microhandlers.runAll(widget.base);
   }
 );
+
+
+core.bind(
+  'vue-form.ready',
+  function(event, element) {
+    core.microhandlers.runAll(element);
+  }
+);

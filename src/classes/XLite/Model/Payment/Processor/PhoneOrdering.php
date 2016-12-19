@@ -14,4 +14,22 @@ namespace XLite\Model\Payment\Processor;
  */
 class PhoneOrdering extends \XLite\Model\Payment\Processor\Offline
 {
+
+    /**
+     * @inheritdoc
+     */
+    public function isForcedEnabled(\XLite\Model\Payment\Method $method)
+    {
+        return parent::isForcedEnabled($method)
+            || \XLite\Core\Auth::getInstance()->isOperatingAsUserMode();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function isApplicable(\XLite\Model\Order $order, \XLite\Model\Payment\Method $method)
+    {
+        return parent::isApplicable($order, $method)
+            || \XLite\Core\Auth::getInstance()->isOperatingAsUserMode();
+    }
 }

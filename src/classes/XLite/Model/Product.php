@@ -1447,7 +1447,7 @@ class Product extends \XLite\Model\Base\Catalog implements \XLite\Model\Base\IOr
     {
         return $this->executeCachedRuntime(function () {
             return $this->defineEditableAttributes();
-        });
+        }, ['getEditableAttributes', $this->getProductId()]);
     }
 
     /**

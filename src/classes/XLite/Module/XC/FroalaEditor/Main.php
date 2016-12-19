@@ -50,7 +50,7 @@ abstract class Main extends \XLite\Module\AModule
      */
     public static function getBuildVersion()
     {
-        return '0';
+        return '1';
     }
 
     /**
@@ -60,7 +60,7 @@ abstract class Main extends \XLite\Module\AModule
      */
     public static function getMinorRequiredCoreVersion()
     {
-        return '1'; // TODO: Fix to 2 when X-Cart 5.3.2 will be released.
+        return '2';
     }
 
     /**

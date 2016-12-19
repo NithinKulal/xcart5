@@ -1,0 +1,4 @@
+Version 5.3.2.1
+
+Fixes
+2016-12-02 - [Bug] Fatal error on category page with the module 'Next & Previous Products' disabled and the module 'Product Advisor' enabled. #BUG-4239 (Maxim Kuznetsov) #ProductAdvisor

@@ -17,6 +17,7 @@ class OnOff extends \XLite\View\FormField\Input\Checkbox
      * Widget param names
      */
     const PARAM_FA_CLASS = 'faClass';
+    const PARAM_CSS_CLASS = 'cssClass';
     const PARAM_ON_LABEL = 'onLabel';
     const PARAM_OFF_LABEL = 'offLabel';
     const PARAM_DISABLED = 'disabled';
@@ -88,6 +89,7 @@ class OnOff extends \XLite\View\FormField\Input\Checkbox
 
         $this->widgetParams += array(
             self::PARAM_FA_CLASS => new \XLite\Model\WidgetParam\TypeString('Font awesome', $this->getDefaultFontAwesomeClass()),
+            self::PARAM_CSS_CLASS => new \XLite\Model\WidgetParam\TypeString('Css class', $this->getDefaultCssClass()),
             self::PARAM_ON_LABEL => new \XLite\Model\WidgetParam\TypeString('On label', $this->getDefaultOnLabel()),
             self::PARAM_OFF_LABEL => new \XLite\Model\WidgetParam\TypeString('Off label', $this->getDefaultOffLabel()),
             self::PARAM_DISABLED => new \XLite\Model\WidgetParam\TypeBool('Disabled', false),
@@ -112,6 +114,26 @@ class OnOff extends \XLite\View\FormField\Input\Checkbox
     protected function getFontAwesomeClass()
     {
         return $this->getParam(static::PARAM_FA_CLASS);
+    }
+
+    /**
+     * Returns default param value
+     *
+     * @return string
+     */
+    protected function getDefaultCssClass()
+    {
+        return 'onoffswitch';
+    } 
+
+    /**
+     * Returns param value
+     *
+     * @return string
+     */
+    protected function getCssClass()
+    {
+        return $this->getParam(static::PARAM_CSS_CLASS);
     }
 
     /**

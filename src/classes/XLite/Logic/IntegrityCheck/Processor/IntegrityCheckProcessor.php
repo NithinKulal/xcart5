@@ -85,25 +85,74 @@ class IntegrityCheckProcessor
                     $expectedHash   = $hashes[$path];
                     $realHash       = \Includes\Utils\FileManager::getHash($key);
 
-                    if (\Includes\Utils\FileManager::isExists($key)) {
-                        if ($expectedHash !== $realHash) {
-                            $result[] = $path;
-                        }
-                    } else {
-                        $removedFiles[] = $path;
+                    if ($expectedHash !== $realHash) {
+                        $result[] = $path;
                     }
 
                 } else {
                     $addedFiles[] = $path;
                 }
             }
+
+            foreach ($hashes as $path => $hash) {
+                if (!\Includes\Utils\FileManager::isExists($path)) {
+                    $removedFiles[] = $path;
+                }
+            }
         }
 
         return [
-            'modified'  => $result,
-            'added'     => $addedFiles,
-            'removed'   => $removedFiles,
+            'modified'  => static::postProcessFiles($result),
+            'added'     => static::postProcessFiles($addedFiles),
+            'removed'   => static::postProcessFiles($removedFiles),
             'errors'    => $entry->getErrors(),
+        ];
+    }
+
+    /**
+     * @param array $files
+     *
+     * @return array
+     */
+    protected static function postProcessFiles(array $files)
+    {
+        $pattern = static::getExcludedPattern();
+        return array_filter($files, function($file) use ($pattern) {
+            return !preg_match($pattern, $file);
+        });
+    }
+
+    /**
+     * @return string
+     */
+    protected static function getExcludedPattern()
+    {
+        $list = array_merge(
+            ['list' => [], 'raw' => []],
+            static::getCommonExludePatterns()
+        );
+
+        $toImplode = $list['raw'];
+
+        foreach ($list['list'] as $pattern) {
+            $toImplode[] = preg_quote($pattern, '/');
+        }
+
+        return  '/^(?:' . implode('|', $toImplode) . ')/Ss';
+    }
+
+    /**
+     * @return array
+     */
+    protected static function getCommonExludePatterns()
+    {
+        return [
+            'list'  => [],
+            'raw'   => [
+                ".*\/.gitattributes",
+                ".*\/.gitignore",
+                ".*\/?.htaccess",
+            ]
         ];
     }
 }

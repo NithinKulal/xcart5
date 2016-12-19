@@ -1,0 +1,10 @@
+{##
+ # Product details title main block
+ #
+ # @ListChild (list="product.details.quicklook.info", weight="10")
+ #}
+<h1 class="fn title">
+  <a href="{{ url('product', '', {'product_id': this.product.product_id, 'category_id': this.getCategoryId()}) }}">
+    {{ this.product.name|raw }}
+  </a>
+</h1>

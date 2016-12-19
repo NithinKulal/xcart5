@@ -1,0 +1,5 @@
+Version 5.3.2.1
+
+Fixes
+2016-12-05 - [Bug] Improvement for Fast Lane checkout layout in Tablets view. #BUG-4234 (Eugene Dementjev) #FastLaneCheckout #CrispWhiteSkin
+2016-12-05 - [Bug] Fast Lane checkout page looped in infinite reloads after payment methods had been switched quickly. #BUG-4259 (Eugene Dementjev) #FastLaneCheckout

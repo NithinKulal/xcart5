@@ -75,12 +75,13 @@ class Login extends \XLite\Module\CDev\Paypal\Core\RESTAPI
             ? 'https://www.sandbox.paypal.com/webapps/auth/protocol/openidconnect'
             : 'https://www.paypal.com/webapps/auth/protocol/openidconnect';
 
-        $params = array(
+        $params = [
             'client_id'     => \Xlite\Core\Config::getInstance()->CDev->Paypal->loginClientId,
             'response_type' => 'code',
             'scope'         => implode(' ', $this->getScope()),
             'redirect_uri'  => $this->getSignInReturnURL(),
-        );
+            'state' => \XLite\Core\Request::getInstance()->state
+        ];
 
         return sprintf('%s/v1/authorize?%s', $url, http_build_query($params));
     }
@@ -102,10 +103,7 @@ class Login extends \XLite\Module\CDev\Paypal\Core\RESTAPI
             \XLite\Core\Converter::buildURL(
                 'paypal_login',
                 'login',
-                array(
-                    'auth_provider' => 'PayPal',
-                    'state' => \XLite\Core\Request::getInstance()->state,
-                ),
+                ['auth_provider' => 'PayPal'],
                 'cart.php',
                 false,
                 false
@@ -131,7 +129,7 @@ class Login extends \XLite\Module\CDev\Paypal\Core\RESTAPI
      */
     public function createFromAuthorisationCode($code)
     {
-        $params = array('code' => $code);
+        $params = ['code' => $code];
 
         return $this->doRequest('createFromAuthorisationCode', $params);
     }
@@ -159,7 +157,7 @@ class Login extends \XLite\Module\CDev\Paypal\Core\RESTAPI
      */
     protected function prepareCreateFromAuthorisationCodeParams($params)
     {
-        return $params + array('grant_type' => 'authorization_code');
+        return $params + ['grant_type' => 'authorization_code'];
     }
 
     // }}}
@@ -175,7 +173,7 @@ class Login extends \XLite\Module\CDev\Paypal\Core\RESTAPI
      */
     public function createFromRefreshToken($token)
     {
-        $params = array('refresh_token' => $token);
+        $params = ['refresh_token' => $token];
 
         return $this->doRequest('createFromAuthorisationCode', $params);
     }
@@ -203,10 +201,10 @@ class Login extends \XLite\Module\CDev\Paypal\Core\RESTAPI
      */
     protected function prepareCreateFromRefreshTokenParams($params)
     {
-        return $params + array(
+        return $params + [
             'grant_type' => 'refresh_token',
             'scope'      => $this->getScope()
-        );
+        ];
     }
 
     // }}}
@@ -222,7 +220,7 @@ class Login extends \XLite\Module\CDev\Paypal\Core\RESTAPI
      */
     public function getUserinfo($accessToken)
     {
-        $params = array($accessToken);
+        $params = [$accessToken];
 
         return $this->doRequest('getUserinfo', $params);
     }

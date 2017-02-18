@@ -1,0 +1,7 @@
+Version 5.3.4.0
+
+Improvements
+2017-01-10 - [Change] Code refactoring. Fixed a few bugs: a missing button on the registration page, problems with order placement in asynchronous mode. #XCN-7171 (Maxim Kuznetsov) #PayWithAmazon
+
+Fixes
+2017-01-10 - [Bug] With PayPal Express and Pay with Amazon enabled, during Fast Lane checkout, the "pay with amazon" button disappeared following any changes that caused the payment method selection block to be refreshed (like choosing a different payment method). #BUG-4412 (Maxim Kuznetsov) #Core #PayWithAmazon

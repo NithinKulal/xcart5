@@ -7,7 +7,7 @@
     <option value="">{{ t('All') }}</option>
   {% endif %}
   {% if this.getParam('noneOption') %}
-    <option value="">{{ t('None') }}</option>
+    <option value="no_category">{{ t('Not assigned') }}</option>
   {% endif %}
   {% if this.getParam('rootOption') %}
     <option value="" class="CenterBorder">{{ t('Root level') }}</option>

@@ -223,6 +223,7 @@ class Shipping extends \XLite\Base\Singleton
     /**
      * Prepare the specific data format for address
      *
+     * @deprecated 5.3.2.2 This function uses old incompatible format, use \XLite\Model\Address::toArray() instead
      * @param \XLite\Model\Address $address Address
      *
      * @return array
@@ -233,7 +234,7 @@ class Shipping extends \XLite\Base\Singleton
             ? array(
                 'address' => $address->getStreet(),
                 'city'    => $address->getCity(),
-                'state'   => $address->getState()->getStateId(),
+                'state'   => $address->getState() ? $address->getState()->getStateId() : '',
                 'custom_state' => $address->getCustomState(),
                 'zipcode' => $address->getZipcode(),
                 'country' => $address->getCountry() ? $address->getCountry()->getCode() : '',

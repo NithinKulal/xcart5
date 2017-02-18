@@ -10,8 +10,7 @@
 /**
  * Widget
  */
-function ProductFilterView(base)
-{
+function ProductFilterView(base) {
   this.listenToHash = core.getCommentedData(base, 'listenToHash');
   this.listenToHashPrefix = core.getCommentedData(base, 'listenToHashPrefix');
 
@@ -21,17 +20,19 @@ function ProductFilterView(base)
 
   this.ajaxEvents = this.widgetParams.ajax_events;
 
-  
   var o = this;
 
   if (this.ajaxEvents) {
     core.bind(
       'list.products.loaded',
-      function(event, data){
-        if (jQuery(data.base).hasClass('filtered-products') && jQuery.isEmptyObject(hash.get())) {
+      function (event, data) {
+        if (jQuery('.product-filter', data.base).length) {
+          core.autoload(ProductFilterView);
+        } else if (jQuery(data.base).hasClass('filtered-products') && jQuery.isEmptyObject(hash.get())) {
           o.productsListView = data;
           _.once(o.load());
-        };
+        }
+        ;
       }
     );
   }
@@ -39,7 +40,7 @@ function ProductFilterView(base)
 
 extend(ProductFilterView, ALoadable);
 
-ProductFilterView.autoload = function(){
+ProductFilterView.autoload = function () {
   core.trigger('autoload.before.product_filter_view');
   new ProductFilterView(jQuery('.product-filter'));
 };
@@ -61,14 +62,13 @@ ProductFilterView.prototype.widgetClass = '\\XLite\\Module\\XC\\ProductFilter\\V
 ProductFilterView.prototype.bodyHandlerBinded = false;
 
 // Postprocess widget
-ProductFilterView.prototype.getFilters = function()
-{
+ProductFilterView.prototype.getFilters = function () {
   return jQuery('form.filter-form').serializeArray().filter(
-    function(item){
+    function (item) {
       return /^filter/.test(item.name) && item.value;
     }
   ).reduce(
-    function(acc, item){
+    function (acc, item) {
       acc[item.name] = item.value;
       return acc;
     },
@@ -76,38 +76,59 @@ ProductFilterView.prototype.getFilters = function()
   );
 };
 
-ProductFilterView.prototype.postprocess = function(isSuccess)
-{
+// Merge filters
+ProductFilterView.prototype.mergeFilters = function () {
+  if (this.productsListView.widgetParams) {
+    var prefix = 'filter';
+    for (var prop in this.productsListView.widgetParams) {
+      if (this.productsListView.widgetParams.hasOwnProperty(prop) && prop.substring(0, prefix.length) === prefix) {
+        delete this.productsListView.widgetParams[prop];
+      }
+    }
+
+    var ft = this.getFilters();
+
+    if (ft) {
+      for (prop in ft) {
+        if (ft.hasOwnProperty(prop)) {
+          this.productsListView.widgetParams[prop] = ft[prop];
+        }
+      }
+    }
+  }
+};
+
+ProductFilterView.prototype.postprocess = function (isSuccess) {
   this.callSupermethod('postprocess', arguments);
 
   if (isSuccess) {
     var o = this;
     jQuery('.table-label.collapsible').click(
-        function() {
-            if (jQuery(this).hasClass('collapsed')) {
-                jQuery(this).removeClass('collapsed');
-                jQuery(this).parent().find('.table-value.collapsible').removeClass('collapsed');
-                jQuery(this).parent().removeClass('collapsed');
-            } else {
-                jQuery(this).addClass('collapsed');
-                jQuery(this).parent().find('.table-value.collapsible').addClass('collapsed');
-                jQuery(this).parent().addClass('collapsed');
-            }
+      function () {
+        if (jQuery(this).hasClass('collapsed')) {
+          jQuery(this).removeClass('collapsed');
+          jQuery(this).parent().find('.table-value.collapsible').removeClass('collapsed');
+          jQuery(this).parent().removeClass('collapsed');
+        } else {
+          jQuery(this).addClass('collapsed');
+          jQuery(this).parent().find('.table-value.collapsible').addClass('collapsed');
+          jQuery(this).parent().addClass('collapsed');
         }
+      }
     );
 
-    jQuery('.table-label.collapsible.collapsed').each(function(){
-        jQuery(this).parent().addClass('collapsed');
+    jQuery('.table-label.collapsible.collapsed').each(function () {
+      jQuery(this).parent().addClass('collapsed');
     });
 
     jQuery('.product-filter a.reset-filter, .empty-box a.reset-filter').click(
-      function() {
+      function () {
         var productFilter = jQuery('.product-filter');
 
-        productFilter.find('input[type=\'checkbox\']:checked').each(function() {
+        productFilter.find('input[type=\'checkbox\']:checked').each(function () {
           jQuery(this).click();
         });
-        productFilter.find('input[type=\'text\']').each(function() {
+        productFilter.find('input[type=\'text\']').each(function () {
           jQuery(this).val('').change();
         });
         jQuery('.product-filter .popup').hide();
@@ -118,43 +139,44 @@ ProductFilterView.prototype.postprocess = function(isSuccess)
     );
 
     jQuery('.type-c input[type=\'checkbox\']').change(
-        function() {
-            if (jQuery(this).prop('checked')) {
-              jQuery(this).parent().parent().parent().addClass('checked');
-            } else {
-              jQuery(this).parent().parent().parent().removeClass('checked');
-            }
+      function () {
+        if (jQuery(this).prop('checked')) {
+          jQuery(this).parent().parent().parent().addClass('checked');
+        } else {
+          jQuery(this).parent().parent().parent().removeClass('checked');
         }
+      }
     );
 
     jQuery('.type-s input[type=\'checkbox\']').change(
-        function() {
-            if (jQuery(this).prop('checked')) {
-              jQuery(this).parent().addClass('checked');
-            } else {
-              jQuery(this).parent().removeClass('checked');
-            }
+      function () {
+        if (jQuery(this).prop('checked')) {
+          jQuery(this).parent().addClass('checked');
+        } else {
+          jQuery(this).parent().removeClass('checked');
         }
+      }
     );
 
     jQuery('a.show-products').click(
-        function() {
-            jQuery('form.filter-form').submit();
-            return false;
-        }
+      function () {
+        jQuery('form.filter-form').submit();
+        return false;
+      }
     );
 
     jQuery('.product-filter input[type=\'checkbox\'],.product-filter input[type=\'text\']').change(
-        function() {
-            var popup = jQuery('.product-filter .popup');
-            popup.css('top', jQuery(this).offset().top - jQuery('.product-filter').offset().top - 60).show();
-            clearTimeout(popup.attr('timerId'));
-            popup.attr('timerId', setTimeout("jQuery('.product-filter .popup').hide()", 4000));
-        }
+      function () {
+        var popup = jQuery('.product-filter .popup');
+        popup.css('top', jQuery(this).offset().top - jQuery('.product-filter').offset().top - 60).show();
+        clearTimeout(popup.attr('timerId'));
+        popup.attr('timerId', setTimeout("jQuery('.product-filter .popup').hide()", 4000));
+      }
     );
 
     jQuery('form.filter-form').unbind('submit').submit(
       function () {
+        o.mergeFilters();
         core.trigger('blocks.product_filter_view.before_submit');
 
         if (!o.productsListView || !o.ajaxEvents) {
@@ -203,22 +225,23 @@ core.bind(
   'load',
   function () {
     decorate(
-    'ProductsListView',
-    'postprocess',
-    function (isSuccess, initial) {
-      arguments.callee.previousMethod.apply(this, arguments);
+      'ProductsListView',
+      'postprocess',
+      function (isSuccess, initial) {
+        arguments.callee.previousMethod.apply(this, arguments);
 
-      if (isSuccess) {
-        if (jQuery(this.base).hasClass('filtered-products')
-          && jQuery(this.base).hasClass('category-products')
-        ) {
-          ProductFilterView.prototype.productsListView = this;
-        }
+        if (isSuccess) {
+          if (jQuery(this.base).hasClass('filtered-products')
+            && jQuery(this.base).hasClass('category-products')
+          ) {
+            ProductFilterView.prototype.productsListView = this;
+            ProductFilterView.prototype.mergeFilters();
+          }
 
-        jQuery('form.filter-form button').removeClass('disabled');
-        jQuery('form.filter-form').removeClass('disabled');
-      } // if (isSuccess) {
-    } // function(isSuccess, initial)
+          jQuery('form.filter-form button').removeClass('disabled');
+          jQuery('form.filter-form').removeClass('disabled');
+        } // if (isSuccess) {
+      } // function(isSuccess, initial)
     ); // 'postprocess' method decoration (EXISTING method)
   }
 );

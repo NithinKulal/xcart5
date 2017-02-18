@@ -1,0 +1,25 @@
+@cs-trial-notice-color: #ca4541;
+@cs-trial-notice-hover-color: #f04d49;
+
+#leftMenu .notification .notification-item.cloud-search-notice {
+  .notification-header svg path {
+    fill: @cs-trial-notice-color;
+  }
+
+  .notification-header span {
+    font-size: 14px;
+    line-height: 21px;
+    color: @cs-trial-notice-color;
+    width: 182px;
+  }
+
+  a:hover {
+    .notification-header svg path {
+      fill: @cs-trial-notice-hover-color;
+    }
+
+    .notification-header span {
+      color: @cs-trial-notice-hover-color;
+    }
+  }
+}

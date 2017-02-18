@@ -119,6 +119,10 @@ class ComingSoon extends \XLite\Module\CDev\ProductAdvisor\View\AComingSoon
     {
         $searchCase = parent::postprocessSearchCase($searchCase);
 
+        if ($this->getMaxItemsCount()) {
+            $searchCase->{\XLite\Model\Repo\ARepo::P_LIMIT} = [ 0, $this->getMaxItemsCount() ];
+        }
+
         $categoryId = $this->getRootId();
         if ($this->countAllComingSoonProducts || !$categoryId) {
             unset(

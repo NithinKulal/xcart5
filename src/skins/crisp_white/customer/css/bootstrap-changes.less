@@ -530,9 +530,9 @@ div.tabs ul.tabs {
     .flex-display();
     .align-items(center);
     .justify-content(center);
-    height: 120px;
-    max-width: 100px;
-    width: 100px;
+    height: @layout-category-image-height;
+    max-width: @layout-category-image-width;
+    width: @layout-category-image-width;
     margin-bottom: @rhythmic-unit;
   }
 
@@ -1591,6 +1591,11 @@ div.tabs ul.tabs {
 
     li {
       .floating-label;
+
+      &.not-floating label {
+        line-height: @rhythmic-unit;
+        margin-bottom: @rhythmic-unit / 2;
+      }
 
       .form-control {
         margin-bottom: @rhythmic-unit;

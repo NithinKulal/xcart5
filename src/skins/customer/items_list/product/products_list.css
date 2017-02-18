@@ -443,7 +443,9 @@ ul.products-sidebar li .clearfix {
 }
 
 .products-grid .product-cell .product.out-of-stock,
-.products-grid .product-cell .not-available {
+.products-grid .product-cell .not-available,
+.products-list .product-cell .product.out-of-stock,
+.products-list .product-cell .not-available {
   opacity: .35;
   filter: Alpha(Opacity=35);
   background-image: none;

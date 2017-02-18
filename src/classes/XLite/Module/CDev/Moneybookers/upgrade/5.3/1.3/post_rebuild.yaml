@@ -1,0 +1,18 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Data
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Payment\Method:
+  - { service_name: 'Moneybookers.NTL', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1010, exCountries: [AF,AM,BT,BV,MM,CN,CK,CU,ER,GS,GU,GN,IQ,KZ,KG,LR,LY,MN,MP,MH,PW,PK,PR,SL,SO,ZW,SD,TJ,TM,UG,US,UZ,YE,CC,CD,HM,IR,CI,KP,FM,TL,SY,VI], translations: [{ code: en, name: 'Skrill Neteller' }] }
+  - { service_name: 'Moneybookers.PSC', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1010, countries: [AS,AT,BE,CA,HR,CY,CZ,DK,FI,FR,DE,GU,HU,IE,IT,LV,LU,MT,MX,NL,MP,NO,PL,PT,PR,RO,SK,SI,ES,SE,CH,TR,GB,US,VI], translations: [{ code: en, name: 'Skrill PSC' }] }
+  - { service_name: 'Moneybookers.RSB', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1010, countries: [SE, NO, FI, DK], translations: [{ code: en, name: 'Skrill Resurs' }] }
+  - { service_name: 'Moneybookers.EPY', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1450, countries: [BG], translations: [{ code: en, name: 'Skrill ePay.bg' }] }
+  - { service_name: 'Moneybookers.GLU', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1460, countries: [SE, FI, EE, DK, ES, IT, DE, PT, AT, LV, LT, NL, PL], translations: [{ code: en, name: 'Skrill Trustly' }] }
+  - { service_name: 'Moneybookers.ALI', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1460, exCountries: [CN], translations: [{ code: en, name: 'Skrill Alipay' }] }
+  - { service_name: 'Moneybookers.ADB', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1460, countries: [AR, BR], translations: [{ code: en, name: 'Skrill Astropay‐Online bank transfer' }] }
+  - { service_name: 'Moneybookers.AOB', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1460, countries: [BR, CL, CN, CO], translations: [{ code: en, name: 'Skrill Astropay‐Offline bank transfer' }] }
+  - { service_name: 'Moneybookers.ACI', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1460, countries: [AR, BR, CL, CN, CO, MX, UY], translations: [{ code: en, name: 'Skrill Astropay‐Cash (Invoice)' }] }
+  - { service_name: 'Moneybookers.AUP', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1460, countries: [CN], translations: [{ code: en, name: 'Skrill Unionpay (via Astropay)' }] }

@@ -15,10 +15,6 @@ namespace XLite\Module\XC\ProductVariants\Module\XC\ProductFilter\Model;
  */
 class Category extends \XLite\Model\Category implements \XLite\Base\IDecorator
 {
-    const VARIANT_ATTRIBUTES_ALIAS = 'variant_attributes';
-    const VARIANTS_ALIAS = 'variants';
-    const ATTRIBUTE_VALUE_S_ALIAS = 'attribute_values_s';
-
     /**
      * Return available category attribute values query builder
      *
@@ -30,18 +26,11 @@ class Category extends \XLite\Model\Category implements \XLite\Base\IDecorator
     {
         $qb = parent::getAvailableAttributeValueSelectOptionsQueryBuilder($attribute);
 
-        $qb->leftJoin('product.variantsAttributes', static::VARIANT_ATTRIBUTES_ALIAS);
-        $qb->leftJoin('product.variants', static::VARIANTS_ALIAS);
-        $qb->leftJoin(static::VARIANTS_ALIAS . '.attributeValueS', static::ATTRIBUTE_VALUE_S_ALIAS);
+        $qb->leftJoin('product.variantsAttributes', 'variantsAttributes', 'WITH', 'variantsAttributes = av.attribute');
+        $qb->leftJoin('product.variants', 'variants');
+        $qb->leftJoin('variants.attributeValueS', 'attributeValuesS', 'WITH', 'attributeValuesS.attribute = av');
 
-        $where = sprintf('(:attribute = %s.id AND %s.id = %s.id) OR %s.id IS NULL',
-            static::VARIANT_ATTRIBUTES_ALIAS,
-            'av',
-            static::ATTRIBUTE_VALUE_S_ALIAS,
-            static::VARIANT_ATTRIBUTES_ALIAS);
-
-        $qb->andWhere($where);
-
+        $qb->andWhere('(variantsAttributes.id IS NULL OR attributeValuesS.id IS NOT NULL)');
         return $qb;
     }
 }

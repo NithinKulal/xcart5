@@ -20,6 +20,8 @@ use XLite\Module\QSL\CloudSearch\View\CloudFilters\FiltersBoxPlaceholder;
  */
 class Controller extends \XLite\View\Controller implements \XLite\Base\IDecorator
 {
+    const CLOUD_SEARCH_MAX_PRODUCT_COUNT_IN_POPUP = 7;
+
     /**
      * @var bool
      */
@@ -81,6 +83,7 @@ class Controller extends \XLite\View\Controller implements \XLite\Base\IDecorato
                 'lng'                  => $lng,
                 'membership'           => $membership,
                 'dynamicPricesEnabled' => $this->isCloudSearchDynamicPricesEnabledCached(),
+                'maxProducts'          => $this->getCloudSearchMaxProductCountInPopup(),
             ),
         );
 
@@ -202,5 +205,15 @@ class Controller extends \XLite\View\Controller implements \XLite\Base\IDecorato
         }
 
         return false;
+    }
+
+    /**
+     * A maximum number of products that could be displayed in a popup
+     *
+     * @return int
+     */
+    protected function getCloudSearchMaxProductCountInPopup()
+    {
+        return static::CLOUD_SEARCH_MAX_PRODUCT_COUNT_IN_POPUP;
     }
 }

@@ -18,7 +18,11 @@
 
   {% if this.getSearchSubstring() %}
     <div class="clarify-text">
-      {{ t('Please, clarify your search request or search in Marketplace', {'marketplace': url('addons_list_marketplace')})|raw }}
+      {{ t('Please, clarify your search request or search in Marketplace', {
+          'marketplace': url('addons_list_marketplace', '', {
+            'substring': this.getSearchSubstring()
+          })
+      })|raw }}
     </div>
   {% endif %}
 

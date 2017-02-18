@@ -23,6 +23,7 @@ class Category extends \XLite\View\Model\AModel
             self::SCHEMA_CLASS    => 'XLite\View\FormField\Input\Text',
             self::SCHEMA_LABEL    => 'Category name',
             self::SCHEMA_REQUIRED => true,
+            self::SCHEMA_TRUSTED  => true,
         ),
         'parent' => array(
             self::SCHEMA_CLASS    => 'XLite\View\FormField\Select\Category',

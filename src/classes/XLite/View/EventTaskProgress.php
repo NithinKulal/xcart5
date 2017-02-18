@@ -238,5 +238,25 @@ class EventTaskProgress extends \XLite\View\AView
         return $this->getParam(static::PARAM_NON_BLOCKING_NOTE) ?: static::t('This process may take much time. Please do not close this page until the task is complete');
     }
 
+    /**
+     * Get preloaded labels
+     *
+     * @return array
+     */
+    protected function getPreloadedLabels()
+    {
+        $list = array(
+            'Canceling',
+            'Canceled',
+        );
+
+        $data = array();
+        foreach ($list as $name) {
+            $data[$name] = static::t($name);
+        }
+
+        return $data;
+    }
+
     // }}}
 }

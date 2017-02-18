@@ -444,7 +444,7 @@ class NextPreviousProduct extends \XLite\View\AView
             $itemsList = $this->getItemsList();
             $result    = $itemsList ? $itemsList->getNextPreviousItems($this->getItemPosition()) : null;
 
-            return $result;
+            return array_values($result);
         });
     }
 

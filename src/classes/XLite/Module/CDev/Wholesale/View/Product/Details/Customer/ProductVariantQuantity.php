@@ -12,6 +12,7 @@ namespace XLite\Module\CDev\Wholesale\View\Product\Details\Customer;
  * Quantity
  *
  * @Decorator\Depend("XC\ProductVariants")
+ * @Decorator\After("CDev\Wholesale")
  */
 class ProductVariantQuantity extends \XLite\View\Product\Details\Customer\Quantity implements \XLite\Base\IDecorator
 {

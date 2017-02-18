@@ -133,6 +133,7 @@ div.header div.right {
 @media (max-width: 991px) {
   div.header div.right {
     position: relative;
+    bottom: 0;
   }
 }
 

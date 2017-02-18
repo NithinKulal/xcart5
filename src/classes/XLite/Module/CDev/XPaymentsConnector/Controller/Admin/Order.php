@@ -67,6 +67,16 @@ class Order extends \XLite\Controller\Admin\Order implements \XLite\Base\IDecora
     }
 
     /**
+    * Get difference text label
+    *
+    * @return string
+    */
+    public function getDifferenceLabel()
+    {
+        return \XLite\Module\CDev\XPaymentsConnector\Model\Order::getDifferenceLabel();
+    }
+
+    /**
      * Redirect admin back to the order page (controller's redirecter wrapper) 
      *
      * @return void

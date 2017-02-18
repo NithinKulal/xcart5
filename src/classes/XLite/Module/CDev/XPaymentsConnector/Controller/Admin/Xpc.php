@@ -368,6 +368,18 @@ class Xpc extends \XLite\Controller\Admin\Module
     }
 
     /**
+     * Get link to XPayments admin panel
+     *
+     * @return boolean
+     */
+    public function getXPAdminLink()
+    {
+        $xp_url = trim(\XLite\Core\Config::getInstance()->CDev->XPaymentsConnector->xpc_xpayments_url, '/');
+
+        return $xp_url . '/admin.php?target=payment_confs';
+    }
+
+    /**
      * getModelFormClass
      *
      * @return string

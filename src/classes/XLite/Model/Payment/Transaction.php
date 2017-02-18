@@ -439,20 +439,30 @@ class Transaction extends \XLite\Model\AEntity
     public function getChargeValueModifier()
     {
         $value = 0;
+        $valueCaptured = 0;
+        $valueRefunded = 0;
 
         if ($this->isCompleted() || $this->isPending()) {
             $value += $this->getValue();
         }
 
         if ($this->getBackendTransactions()) {
+            /** @var \XLite\Model\Payment\BackendTransaction $transaction */
             foreach ($this->getBackendTransactions() as $transaction) {
+                if ($transaction->isCapture() && $transaction->isSucceed()) {;
+                    $valueCaptured += abs($transaction->getValue());
+                }
+
                 if ($transaction->isRefund() && $transaction->isSucceed()) {
-                    $value -= abs($transaction->getValue());
+                    $valueRefunded += abs($transaction->getValue());
                 }
             }
         }
 
-        return max(0, $value);
+        return max(
+            0,
+            max($valueCaptured, $value) - $valueRefunded
+        );
     }
 
     /**

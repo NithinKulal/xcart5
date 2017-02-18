@@ -28,6 +28,10 @@ form.select-address ul.address-box li ul li {
   clear: none;
 }
 
+form.select-address .address-box-content {
+  margin-right: 35px;
+}
+
 form.select-address ul.address-box li.address-text-lastname,
   form.select-address ul.address-box li.address-text-firstname,
   form.select-address ul.address-box li.address-text-state_id,
@@ -48,4 +52,14 @@ form.select-address ul.address-box li.address-text-city .address-text-comma,
 form.select-address .add-new-address-button > * {
   display: inline-block;
   vertical-align: middle;
+}
+
+@media (max-width: 768px)  {
+  form.select-address {
+    width: auto;
+  }
+
+  form.select-address ul.addresses > li {
+    width: 100%;
+  }
 }

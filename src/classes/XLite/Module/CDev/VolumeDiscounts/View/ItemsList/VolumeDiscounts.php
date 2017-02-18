@@ -104,6 +104,16 @@ class VolumeDiscounts extends \XLite\View\ItemsList\Model\Table
     }
 
     /**
+     * Description for blank items list
+     *
+     * @return string
+     */
+    protected function getBlankItemsListDescription()
+    {
+        return static::t('itemslist.admin.volume_discounts.blank');
+    }
+
+    /**
      * Mark list as switchable (enable / disable)
      *
      * @return boolean

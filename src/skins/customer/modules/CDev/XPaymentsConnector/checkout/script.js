@@ -183,6 +183,9 @@ core.bind(
             jQuery('.bright').addClass('disabled');
           }
         }
+
+        showAddressPopover();
+
       }
     );
 
@@ -212,6 +215,15 @@ core.bind(
     core.bind(
       'checkout.paymentTpl.postprocess',
       reloadXpcIframe
+    );
+
+    core.bind(
+      'checkout.paymentTpl.postprocess',
+      function(event, state) {
+        initAddressPopovers();
+        // Show popover for selected card (if required) after tpl load
+        showAddressPopover();
+      }
     );
 
     core.bind(
@@ -267,7 +279,7 @@ core.bind(
       'updateCart',
       function(event, data) {
 
-        $('.webui-popover').hide();
+        hideAddressPopovers();
 
         if (data.billingAddressId) {
           xpcBillingAddressId = data.billingAddressId;
@@ -308,18 +320,6 @@ core.bind(
       }
     );
 
-    core.bind(
-      'popup.close',
-      function(event, state) {
-
-        if (
-          jQuery('.xpc-popup button')
-          && xpcPopupError
-        ) {
-          jQuery('.xpc-popup button').click();
-        }
-      }
-    );
   }
 );
 
@@ -333,75 +333,4 @@ function reloadXpcIframe (event, data)
   }
 
   iframe.attr('src', src);
-
-  if (currentPaymentId == xpcSavedCardPaymentId) {
-      var label = getLabelForCard($("[name='payment[saved_card_id]']:checked"));
-      popupAddress(label);
-  }
 }
-
-function switchAddress(addressId)
-{
-  core.post(
-    'cart.php?target=checkout', 
-    function() 
-    {
-      $('.webui-popover').hide();
-    },
-    {
-      action: 'set_card_billing_address', 
-      addressId: addressId
-    }
-  );
-}
-
-function popupAddress(e)
-{
-  $('.webui-popover').hide();
-
-  if (!e || !e.length) {
-    return;
-  }
-
-  var addressId = e.attr('data-address-id');
-  var cardId = e.attr('data-card-id');
-
-  if (
-    !cardId
-    || !addressId
-    || addressId == xpcBillingAddressId
-  ) {
-    return;
-  }
-
-  var content = $('#popup-address-' + cardId).html(); 
-
-  var opts = {
-    title: 'Billing address',
-    placement: 'top',
-    closeable: true,
-    cache: false,
-    trigger:'manual',
-    width: '300px',
-    content: content
-  };
-
-  e.webuiPopover(opts);
-  e.webuiPopover('show');
-}
-
-function getLabelForCard(e)
-{
-  var cardId = $(e).val();
-  return label = $('#saved-card-label-' + cardId);
-}
-
-$(document).ready(function () {
-  $("[name='payment[saved_card_id]']").change( 
-    function() 
-    {
-      var label = getLabelForCard(this); 
-      popupAddress(label);
-    }
-  );
-});

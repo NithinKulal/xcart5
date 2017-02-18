@@ -9,7 +9,7 @@
 namespace XLite\Module\CDev\GoSocial\Model;
 
 /**
- * Product 
+ * Product
  */
 abstract class Product extends \XLite\Model\Product implements \XLite\Base\IDecorator
 {
@@ -215,7 +215,7 @@ abstract class Product extends \XLite\Model\Product implements \XLite\Base\IDeco
 
         $html = array();
         foreach ($list as $k => $v) {
-            $html[] = '<meta property="' . $k . '" content="' . htmlentities($v, ENT_COMPAT, 'UTF-8') . '" />';
+            $html[] = '<meta property="' . $k . '" content="' . htmlentities($v, ENT_COMPAT, 'UTF-8', false) . '" />';
         }
 
         return implode("\n", $html);

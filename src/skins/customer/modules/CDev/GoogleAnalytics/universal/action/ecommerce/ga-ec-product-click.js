@@ -24,7 +24,14 @@ define('googleAnalytics/eCommerceProductClickEvent', ['googleAnalytics/eCommerce
           self.onProductDetailsClick(
               dataOwner.data('ga-ec-action').data,
               function() {
-                document.location = jQuery(event.currentTarget).attr('href');
+                var href = jQuery(event.currentTarget).attr('href');
+                if (!href.match(/^http|^\/\//)) {
+                  var bases = document.getElementsByTagName('base');
+
+                  href = (bases.length > 0 ? bases[0].href : '') + href;
+                }
+
+                document.location = href;
               }
           );
 

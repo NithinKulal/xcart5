@@ -7,6 +7,9 @@
 
 XLite\Model\Payment\Method:
   - { service_name: 'Moneybookers.WLT', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1010, countries: [DE, GB, FR, IT, ES, AT, HU, EE, FI, PL, SE], translations: [{ code: en, name: 'Skrill Wallet' }] }
+  - { service_name: 'Moneybookers.NTL', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1010, exCountries: [AF,AM,BT,BV,MM,CN,CK,CU,ER,GS,GU,GN,IQ,KZ,KG,LR,LY,MN,MP,MH,PW,PK,PR,SL,SO,ZW,SD,TJ,TM,UG,US,UZ,YE,CC,CD,HM,IR,CI,KP,FM,TL,SY,VI], translations: [{ code: en, name: 'Skrill Neteller' }] }
+  - { service_name: 'Moneybookers.PSC', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1010, countries: [AS,AT,BE,CA,HR,CY,CZ,DK,FI,FR,DE,GU,HU,IE,IT,LV,LU,MT,MX,NL,MP,NO,PL,PT,PR,RO,SK,SI,ES,SE,CH,TR,GB,US,VI], translations: [{ code: en, name: 'Skrill PSC' }] }
+  - { service_name: 'Moneybookers.RSB', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1010, countries: [SE, NO, FI, DK], translations: [{ code: en, name: 'Skrill Resurs' }] }
   - { service_name: 'Moneybookers.ACC', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: C, orderby: 1020, countries: [DE, GB, FR, IT, ES, AT, HU, EE, FI, PL], translations: [{ code: en, name: 'Skrill All Card Types' }] }
   - { service_name: 'Moneybookers.VSA', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: C, orderby: 1030, translations: [{ code: en, name: 'Skrill Visa' }] }
   - { service_name: 'Moneybookers.MSC', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: C, orderby: 1040, translations: [{ code: en, name: 'Skrill MasterCard' }] }
@@ -49,6 +52,12 @@ XLite\Model\Payment\Method:
   - { service_name: 'Moneybookers.PWY33', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1430, countries: [NL, GB, DE, FR], translations: [{ code: en, name: 'Skrill Fortis Bank' }] }
   - { service_name: 'Moneybookers.PWY36', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1440, countries: [DE], translations: [{ code: en, name: 'Skrill Deutsche Bank PBC S.A.' }] }
   - { service_name: 'Moneybookers.EPY', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1450, countries: [BG], translations: [{ code: en, name: 'Skrill ePay.bg' }] }
+  - { service_name: 'Moneybookers.GLU', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1460, countries: [SE, FI, EE, DK, ES, IT, DE, PT, AT, LV, LT, NL, PL], translations: [{ code: en, name: 'Skrill Trustly' }] }
+  - { service_name: 'Moneybookers.ALI', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1460, countries: [CN], translations: [{ code: en, name: 'Skrill Alipay' }] }
+  - { service_name: 'Moneybookers.ADB', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1460, countries: [AR, BR], translations: [{ code: en, name: 'Skrill Astropay‐Online bank transfer' }] }
+  - { service_name: 'Moneybookers.AOB', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1460, countries: [BR, CL, CN, CO], translations: [{ code: en, name: 'Skrill Astropay‐Offline bank transfer' }] }
+  - { service_name: 'Moneybookers.ACI', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1460, countries: [AR, BR, CL, CN, CO, MX, UY], translations: [{ code: en, name: 'Skrill Astropay‐Cash (Invoice)' }] }
+  - { service_name: 'Moneybookers.AUP', class: 'Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers', type: N, orderby: 1460, countries: [CN], translations: [{ code: en, name: 'Skrill Unionpay (via Astropay)' }] }
 
 XLite\Model\Config:
   - name: email
@@ -93,10 +102,8 @@ XLite\Model\Config:
     category: 'CDev\Moneybookers'
 
 XLite\Model\LanguageLabel:
-  - { name: "Skrill Quick Checkout enables you to take direct payment from credit cards, debit cards and over 80 other local payment options in over 200 countries as well as the Skrill eWallet.", translations: [{ code: en, label: "<strong>Skrill Quick Checkout</strong> enables you to take <strong>direct</strong> payment from credit cards, debit cards and over 80 other local payment options in over 200 countries as well as the Skrill eWallet. The highly competitive rates for this service are published on the Skrill website at <a href=\"//www.skrill.com/\" target=\"blank\">www.skrill.com</a>" }] }
   - { name: "Don't have an account? Sign up for free", translations: [{ code: en, label: "Don't have an account? <a href=\"{{url}}\" target=\"blank\">Sign up for free</a>" }] }
   - { name: "You have sent a request for activation on the X.", translations: [{ code: en, label: "Your activation request was sent on {{date}}. Please be aware that the verification process to use Skrill Quick Checkout could take up to 72 hours. You will be contacted by Skrill once the verification process has been completed. After activation, Skrill will give you access to a new section in your Skrill Account called Merchant Tools. Please set your secret word in the Merchant Tools (do NOT use your password for this) and also enter it in the section below to connect to Skrill. The secret word is the last step of your activation process; it is needed to encrypt your payments securely. After successful submission you will be ready to use all the direct payment options of Skrill." }] }
-  - { name: "Contact Skrill on ecommerce@skrill.com or by phone +44 203 308 2519", translations: [{ code: en, label: "Contact Skrill at <a href=\"mailto:ecommerce@skrill.com\">ecommerce@skrill.com</a> or by phone +44 203 308 2519" }] }
   - { name: "Email address of your Skrill account", translations: [{ code: en, label: "Email address of your Skrill account" }] }
   - { name: "Skrill Customer ID", translations: [{ code: en, label: "Skrill Customer ID" }] }
   - { name: "Secret Word", translations: [{ code: en, label: "Secret Word" }] }
@@ -105,3 +112,5 @@ XLite\Model\LanguageLabel:
   - { name: "Do you have questions?", translations: [{ code: en, label: "Do you have questions?" }] }
   - { name: "Skrill settings", translations: [{ code: en, label: "Skrill settings" }] }
   - { name: "To process your customers' payments with Skrill, you need a Skrill account. If you do not have one yet, you can sign up for free at http://www.skrill.com", translations: [{ code: en, label: "To process your customers\' payments with Skrill, you need a Skrill account. If you do not have one yet, you can sign up for free at http://www.skrill.com" }]}
+  - { name: "Skrill Quick Checkout description", translations: [{ code: en, label: '<strong>Skrill Quick Checkout</strong> enables you to take <strong>direct</strong> payments from credit cards, debit cards and over 80 other local payment options in nearly 200 countries. The highly competitive rates are published on the Skrill website <a href="https://content.skrill.com/en/ecommerce-solutions/xcart/">www.skrill.com</a>' }] }
+  - { name: "Contact Skrill at newbusiness@paysafe.com", translations: [{ code: en, label: 'Contact Skrill at <a href=\"mailto:newbusiness@paysafe.com\">newbusiness@paysafe.com</a>' }] }

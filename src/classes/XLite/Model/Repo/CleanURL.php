@@ -206,6 +206,7 @@ class CleanURL extends \XLite\Model\Repo\ARepo
         }
 
         $base = \XLite\Core\Converter::convertToTranslit($base);
+        $base = $this->processHTMLEntities($base);
 
         if ($base) {
             $separator = $this->getSeparator($entity);
@@ -240,6 +241,22 @@ class CleanURL extends \XLite\Model\Repo\ARepo
         }
 
         return $result;
+    }
+
+    /**
+     * Process HTML entities
+     *
+     * @param string $base
+     *
+     * @return string
+     */
+    protected function processHTMLEntities($base)
+    {
+        $entities = [
+            '&' => ' and ',
+        ];
+
+        return str_replace(array_keys($entities), array_values($entities), html_entity_decode($base));
     }
 
     // }}}
@@ -331,6 +348,7 @@ class CleanURL extends \XLite\Model\Repo\ARepo
         }
 
         return $result;
+
     }
 
     /**
@@ -1069,13 +1087,22 @@ class CleanURL extends \XLite\Model\Repo\ARepo
      */
     protected function getCategoryURLPath($categoryId)
     {
-        $categoryPath = \XLite\Core\Database::getRepo('XLite\Model\Category')->getCategoryPath($categoryId);
+        $categoriesDTO = \XLite\Core\Database::getRepo('XLite\Model\Category')->getAllCategoriesAsDTO();
+        $tmpCategoryId = $categoryId;
+        $rootCategoryId = \XLite\Core\Database::getRepo('XLite\Model\Category')->getRootCategoryId();
 
-        $result = array();
-        /** @var \XLite\Model\Category $category */
-        foreach ($categoryPath as $category) {
-            $result[] = $category->getCleanURL();
+        $result = [];
+        while ($tmpCategoryId !== $rootCategoryId) {
+            if (!isset($categoriesDTO[$tmpCategoryId])) {
+                $result[] = null;
+                break;
+            }
+            $category = $categoriesDTO[$tmpCategoryId];
+
+            $result[] = $category['cleanURL'];
+            $tmpCategoryId = (int) $category['parent_id'];
         }
+        $result = array_reverse($result);
 
         if (!empty($result)) {
             if (static::isCategoryUrlCanonical()) {

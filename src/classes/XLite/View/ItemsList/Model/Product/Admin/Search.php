@@ -91,6 +91,16 @@ class Search extends \XLite\View\ItemsList\Model\Product\Admin\AAdmin
     }
 
     /**
+     * Description for blank items list
+     *
+     * @return string
+     */
+    protected function getBlankItemsListDescription()
+    {
+        return static::t('itemslist.admin.product.search.blank');
+    }
+
+    /**
      * Get wrapper form target
      *
      * @return array
@@ -265,6 +275,7 @@ class Search extends \XLite\View\ItemsList\Model\Product\Admin\AAdmin
                     'widget'            => array(
                         \XLite\View\SearchPanel\ASearchPanel::CONDITION_CLASS => 'XLite\View\FormField\Select\Category',
                         \XLite\View\FormField\Select\Category::PARAM_DISPLAY_ANY_CATEGORY => true,
+                        \XLite\View\FormField\Select\Category::PARAM_DISPLAY_NO_CATEGORY => true,
                         \XLite\View\FormField\AFormField::PARAM_FIELD_ONLY => true,
                     ),
                 ),

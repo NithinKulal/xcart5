@@ -1,0 +1,4 @@
+Version 5.3.0.1
+
+Fixes
+2017-02-03 - [Bug] Fatal error when importing any entities with the module Concierge enabled. #BUG-4506 (Sergey Elmanov) #Concierge

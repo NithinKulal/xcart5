@@ -22,6 +22,8 @@ class Product extends \XLite\Model\Repo\Product implements \XLite\Base\IDecorato
     const P_PA_GROUP_BY       = 'paGroupBy';
     const P_PRODUCT_IDS       = 'productIds';
 
+    const SEARCH_MODE_INDEXED = 'searchModeIndexed';
+
     // {{{ Search functionallity extension
 
     /**
@@ -35,6 +37,50 @@ class Product extends \XLite\Model\Repo\Product implements \XLite\Base\IDecorato
         if (!\XLite\Core\Config::getInstance()->CDev->ProductAdvisor->cs_enabled) {
             parent::addDateCondition($queryBuilder, $alias);
         }
+    }
+
+    /**
+     * Get search modes handlers
+     *
+     * @return array
+     */
+    protected function getSearchModes()
+    {
+        return array_merge(
+            parent::getSearchModes(),
+            array(
+                static::SEARCH_MODE_INDEXED     => 'searchIndexed',
+            )
+        );
+    }
+
+    /**
+     * Search result routine.
+     *
+     * @return \Doctrine\ORM\PersistentCollection
+     */
+    protected function searchIndexed()
+    {
+        $queryBuilder = $this->postprocessSearchIndexedQueryBuilder($this->searchState['queryBuilder']);
+
+        return $queryBuilder->getObjectResult();
+    }
+
+    /**
+     * Prepare queryBuilder for searchResult() method
+     *
+     * @param \Doctrine\ORM\QueryBuilder $queryBuilder Query builder
+     *
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    protected function postprocessSearchIndexedQueryBuilder($queryBuilder)
+    {
+        $key = $this->getSearchPrimaryFields($queryBuilder);
+
+        $queryBuilder->indexBy($this->getMainAlias($queryBuilder), $this->getMainAlias($queryBuilder) . '.' . $this->getPrimaryKeyField());
+        $queryBuilder->groupBy($key);
+
+        return $queryBuilder;
     }
 
     /**

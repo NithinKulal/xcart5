@@ -44,6 +44,22 @@ class HTMLPurifier extends \XLite\Base\Singleton
 
             $config = static::addConfigOptions($config, $options);
 
+            if (count(static::getAdditionalAttributes())) {
+                if ($def = $config->maybeGetRawHTMLDefinition()) {
+                    $module = $def->getAnonymousModule();
+
+                    foreach (static::getAdditionalAttributes() as $tag => $attributes) {
+                        if (!isset($module->info[$tag])) {
+                            $def->addElement($tag, 'Block', 'Inline', 'Common', []);
+                        }
+
+                        foreach ($attributes as $attribute => $definition) {
+                            $def->addAttribute($tag, $attribute, $definition);
+                        }
+                    }
+                }
+            }
+
             static::$purifier = new \HTMLPurifier($config);
         }
 
@@ -112,7 +128,7 @@ class HTMLPurifier extends \XLite\Base\Singleton
         if (!empty($value)) {
 
             if (!is_array($value)) {
-                $value = array($value);
+                $value = [$value];
             }
 
             foreach ($value as $k => $v) {
@@ -139,7 +155,7 @@ class HTMLPurifier extends \XLite\Base\Singleton
      */
     protected static function getPermittedDomains()
     {
-        $result = array();
+        $result = [];
 
         $hostDetails = \XLite::getInstance()->getOptions('host_details');
 
@@ -163,15 +179,14 @@ class HTMLPurifier extends \XLite\Base\Singleton
      */
     public static function getDefaultOptions()
     {
-        return array(
-            'Attr.AllowedFrameTargets' => true,
-            'Attr.AllowedFrameTargets' => array('_blank', '_self', '_top', '_parent'),
+        return [
+            'Attr.AllowedFrameTargets' => ['_blank', '_self', '_top', '_parent'],
             'Attr.EnableID'            => true,
             'HTML.SafeEmbed'           => true,
             'HTML.SafeObject'          => true,
             'HTML.SafeIframe'          => true,
-            'URI.SafeIframeRegexp'     => array('www.youtube.com/embed/', 'www.youtube-nocookie.com/embed/', 'player.vimeo.com/video/'),
-        );
+            'URI.SafeIframeRegexp'     => ['www.youtube.com/embed/', 'www.youtube-nocookie.com/embed/', 'player.vimeo.com/video/'],
+        ];
     }
 
     /**
@@ -184,5 +199,29 @@ class HTMLPurifier extends \XLite\Base\Singleton
     public static function purify($value)
     {
         return static::getPurifier()->purify($value);
+    }
+
+    /**
+     * Return list in format ['tag' => ['attr' => 'attr_definition', ...], ...] for addAttribute
+     *
+     * @return array
+     */
+    protected static function getAdditionalAttributes()
+    {
+        $result = [];
+
+        if (\Includes\Utils\ConfigParser::getOptions(['html_purifier_additional_attributes'])) {
+            foreach (\Includes\Utils\ConfigParser::getOptions(['html_purifier_additional_attributes']) as $tag => $attributes) {
+                $result[$tag] = [];
+                foreach ($attributes as $attributeData) {
+                    list ($attribute, $definition) = array_pad(explode(':', $attributeData), 2, null);
+                    if ($attribute && $definition) {
+                        $result[$tag][$attribute] = $definition;
+                    }
+                }
+            }
+        }
+
+        return $result;
     }
 }

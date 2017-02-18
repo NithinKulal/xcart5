@@ -208,8 +208,8 @@ abstract class Autoloader
         // Load lessphp
         static::loadLESSPhp();
 
-        // Load PHPMailer
-        static::loadPHPMailer();
+        //// Load PHPMailer
+        //static::loadPHPMailer();
 
         // Register Doctrine proxy autoloader
         \Doctrine\Common\Proxy\Autoloader::register(
@@ -236,16 +236,6 @@ abstract class Autoloader
     protected static function loadLESSPhp()
     {
         require_once (LC_DIR_LIB . 'Less' . LC_DS . 'Less.php');
-    }
-
-    /**
-     * Load PHPMailer
-     *
-     * @return void
-     */
-    protected static function loadPHPMailer()
-    {
-        require_once (LC_DIR_LIB . 'PHPMailer' . LC_DS . 'PHPMailerAutoload.php');
     }
 
     /**

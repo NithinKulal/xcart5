@@ -38,6 +38,35 @@
       params.container = element;
       $(element).popover(params);
     }
+
+    if ($(element).data('keep-on-hover')) {
+      var debouncedToggle = _.debounce(function(element, option) {
+        if (option === 'show'
+          && $(element).data('bs.popover')
+          && $(element).data('bs.popover').$tip
+          && $(element).data('bs.popover').$tip.is(':visible')
+        ) {
+          return;
+        }
+
+        $(element).popover(option);
+      }, 150);
+
+      $(element).on("mouseenter", function () {
+        var _this = this;
+        debouncedToggle($(_this), 'show');
+      }).on("mouseleave", function () {
+        var _this = this;
+        var hoveredPopover = $(".popover:hover");
+        if (!hoveredPopover.length) {
+          debouncedToggle($(_this), 'hide');
+        } else {
+          hoveredPopover.on("mouseleave", function() {
+            debouncedToggle($(_this), 'hide');
+          });
+        }
+      });
+    }
   };
 
   if (window.Vue) {

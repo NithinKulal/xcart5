@@ -8,70 +8,10 @@
 
 namespace XLite\Module\Amazon\PayWithAmazon\View;
 
+use XLite\Module\Amazon\PayWithAmazon\Main;
+
 abstract class AView extends \XLite\View\AView implements \XLite\Base\IDecorator
 {
-    public function isRefundButtonVisible() {
-        $order = $this->get('order');
-        if ($order) {
-            if ($order->getPaymentStatusCode() === \XLite\Model\Order\Status\Payment::STATUS_PAID
-                || ($order->getPaymentStatusCode() === \XLite\Model\Order\Status\Payment::STATUS_REFUNDED
-                    && $order->getDetail('amazon_pa_refund_status')
-                    && $order->getDetail('amazon_pa_refund_status')->getValue() === 'Pending'
-                )
-            ) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public function isRefreshButtonVisible() {
-        /** @var \XLite\Model\Order $order */
-        $order = $this->get('order');
-        if ($order) {
-            if ($order->getPaymentStatusCode() === \XLite\Model\Order\Status\Payment::STATUS_QUEUED) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public function isCaptureButtonVisible() {
-        $order = $this->get('order');
-        if ($order) {
-            if ($order->getPaymentStatusCode() === \XLite\Model\Order\Status\Payment::STATUS_AUTHORIZED) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public function getOrderDetail($str) {
-        $order = $this->get('order');
-        if ($order && $order->getDetail($str)) {
-            return (string)$order->getDetail($str)->getValue();
-        } else {
-            return '';
-        }
-    }
-
-    public function isAmazonControlsVisible()
-    {
-        $order = $this->get('order');
-        return (
-            $this->getOrderDetail('AmazonOrderReferenceId')
-            && (in_array($order->getPaymentStatusCode(), array(
-                \XLite\Model\Order\Status\Payment::STATUS_AUTHORIZED,
-                \XLite\Model\Order\Status\Payment::STATUS_PAID,
-                \XLite\Model\Order\Status\Payment::STATUS_QUEUED,
-            ))
-                || ($order->getPaymentStatusCode() === \XLite\Model\Order\Status\Payment::STATUS_REFUNDED
-                    && $order->getDetail('amazon_pa_refund_status')
-                    && $order->getDetail('amazon_pa_refund_status')->getValue() === 'Pending'
-                )
-        ));
-    }
-
     /**
      * @param boolean|null $adminZone
      *
@@ -79,12 +19,13 @@ abstract class AView extends \XLite\View\AView implements \XLite\Base\IDecorator
      */
     protected function getThemeFiles($adminZone = null)
     {
-        $list = parent::getThemeFiles($adminZone);
-        $api = \XLite\Module\Amazon\PayWithAmazon\Main::getApi();
+        $list      = parent::getThemeFiles($adminZone);
+        $method    = Main::getMethod();
+        $processor = Main::getProcessor();
 
-        if ($api->isConfigured()) {
+        if ($processor->isConfigured($method) && $method->isEnabled()) {
             $list[static::RESOURCE_JS][] = [
-                'url' => $api->getJsUrl(), // todo: allow async attribute for script tag
+                'url' => $processor->getJsSdkUrl($method), // todo: allow async attribute for script tag
             ];
             $list[static::RESOURCE_JS][] = 'modules/Amazon/PayWithAmazon/func.js';
 
@@ -94,15 +35,16 @@ abstract class AView extends \XLite\View\AView implements \XLite\Base\IDecorator
         return $list;
     }
 
+    /**
+     * @return boolean
+     */
     public function isPayWithAmazonActive()
     {
-        // disable if no seller id is specified
-        if (empty(\XLite\Core\Config::getInstance()->Amazon->PayWithAmazon->amazon_pa_sid)) {
-            return false;
-        }
+        $method    = Main::getMethod();
+        $processor = Main::getProcessor();
 
-        // TMP: disable if Mobile skin is used
-        if ($this->isMobileSkinUsed()) {
+        // disable if no seller id is specified
+        if (!$processor->isConfigured($method) || !$method->isEnabled()) {
             return false;
         }
 
@@ -111,17 +53,5 @@ abstract class AView extends \XLite\View\AView implements \XLite\Base\IDecorator
         }
 
         return true;
-    }
-
-    public function isMobileSkinUsed()
-    {
-        // mobile condition: method_exists('\XLite\Core\Request', 'isMobileDevice') && \XLite\Core\Request::isMobileDevice()
-        // TODO: check switch to desktop version button
-        $module = \XLite\Core\Database::getRepo('XLite\Model\Module')->findOneBy(array('author' => 'XC', 'name' => 'Mobile'));
-        if ($module && $module->getEnabled() && !\XLite::isAdminZone() && \XLite\Core\Request::isMobileDevice()) {
-            return true;
-        } else {
-            return false;
-        }
     }
 }

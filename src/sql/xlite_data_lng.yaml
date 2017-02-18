@@ -195,8 +195,8 @@ XLite\Model\LanguageLabel:
   - { name: "_X_ items", translations: [{ code: en, label: "<div class=\"minicart-items-number\">{{count}}</div> <div class=\"minicart-items-text\">items</div>" }] }
   - { name: "There is already an account with your email address. You can sign in or continue as guest", translations: [{ code: en, label: "The email you provided is already in use. You can continue as guest or <a href=\"{{URL}}\" class=\"sign-in log-in\">Sign in</a>" }] }
   - { name: "This user name is used for an existing account. Enter another user name or sign in", translations: [{ code: en, label: "This user name is already taken. Please choose a different user name or <a href=\"{{URL}}\" class=\"log-in\">sign in</a>" }] }
-  - { name: "I accept Terms and Conditions", translations: [{ code: en, label: "I accept the <a href=\"{{URL}}\" target=\"_blank\">Terms & Conditions</a>" }] }
-  - { name: "Clicking the Place order button you accept: Terms and Conditions", translations: [{ code: en, label: "By clicking the \"Place order\" button you confirm that you accept the <a href=\"{{URL}}\">Terms & Conditions</a>" }] }
+  - { name: "I accept Terms and Conditions", translations: [{ code: en, label: "I accept the <a href=\"{{URL}}\" target=\"_blank\">Terms &amp; Conditions</a>" }] }
+  - { name: "Clicking the Place order button you accept: Terms and Conditions", translations: [{ code: en, label: "By clicking the \"Place order\" button you confirm that you accept the <a href=\"{{URL}}\">Terms &amp; Conditions</a>" }] }
   - { name: "Place order X", translations: [{ code: en, label: "Place order: {{total}}" }] }
   - { name: "Proceed to payment X", translations: [{ code: en, label: "Proceed to payment: {{total}}" }] }
   - { name: "Enter a correct email", translations: [{ code: en, label: "Enter a correct email" }] }
@@ -1011,7 +1011,7 @@ XLite\Model\LanguageLabel:
   - { name: "Perform order search", translations: [{ code: en, label: "Perform order search" }] }
   - { name: "Performance", translations: [{ code: en, label: "Performance" }] }
   - { name: "Permissions", translations: [{ code: en, label: "Permissions" }] }
-  - { name: "Permissions checking failed", translations: [{ code: en, label: "Permissions checking failed. Please make sure that the following file permissions are assigned (UNIX only):" }] }
+  - { name: "Permissions checking failed", translations: [{ code: en, label: "Not enough permissions to run the process. Make sure the following permissions are set (UNIX-like systems only).<br />Such permissions are required for a seamless automated installation or upgrade of X-Cart on your server. They do not take into account the specific configuration of your server or any security requirements. Once the process is completed, make sure you change the permissions to a more restrictive setting. <a target='_blank' href='http://kb.x-cart.com/en/setting_up_x-cart_5_environment/secure_configuration.html#why-x-cart-asks-for-666777-permissions'>Read more</a>" }] }
   - { name: "Personal info", translations: [{ code: en, label: "Personal info" }] }
   - { name: "Phone", translations: [{ code: en, label: "Phone" }] }
   - { name: "Pick address from address book", translations: [{ code: en, label: "Pick address from address book" }] }
@@ -2280,7 +2280,6 @@ XLite\Model\LanguageLabel:
   - { name: 'Wrong country code format', translations: [{ code: en, label: 'Wrong format of country code value. Correct examples: CA, US, RU: http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2' }] }
   - { name: 'Wrong state id format', translations: [{ code: en, label: 'Wrong format of state id value.' }] }
   - { name: 'In advanced mode you can choose specific modules for upgrade.', translations: [{ code: en, label: 'In advanced mode you can choose specific modules for upgrade.' }] }
-  - { name: 'Please take your attention that it is not guaranteed the correct site operation after upgrade if you select to not upgrade all.', translations: [{ code: en, label: 'Please note that correct site operation after upgrade is not guaranteed if you select to not upgrade all. Use this at your own risk and if you know exactly what you are doing.' }] }
   - { name: 'Before installing a paid addon for this installation, you need to activate your X-Cart license.', translations: [{ code: en, label: 'Before installing a paid addon for this installation, you need to <a href="#" class="open-license-key-form">activate your X-Cart license.</a>' }] }
   - { name: 'Use the form below to provide your license information.', translations: [{ code: en, label: 'Use the form below to provide your license information.' }] }
   - { name: 'Activate your X-Cart installation', translations: [{ code: en, label: 'Activate your X-Cart installation' }] }
@@ -2434,12 +2433,12 @@ XLite\Model\LanguageLabel:
   - { name: 'X-Cart license key has been successfully verified', translations: [{ code: en, label: 'X-Cart license key has been successfully verified and activated.' }] }
   - { name: 'X-Cart license key has been successfully verified and activated. But this key has expired and do not allow upgrade store.', translations: [{ code: en, label: 'X-Cart license key has been activated. However, this key is expired and does not allow getting upgrade packs from the Marketplace.' }] }
   - { name: 'License key has been successfully verified and activated for "{{name}}" module by "{{author}}" author. But this key has expired and do not allow upgrade store.', translations: [{ code: en, label: 'The license key for the module "name" by "author" has been successfully verified and activated. However, this key is expired and does not allow getting module upgrade packs from the Marketplace.' }] }
-  - { name: 'There are expired license keys', translations: [{ code: en, label: 'Expired license keys have been found. Download and installation of updates requiring these license keys will be unavailable.' }] }
-  - { name: 'There are expired license keys activated in store', translations: [{ code: en, label: 'Expired license keys have been found. Please prolongate them to receive new features and improvements with periodic updates.' }] }
+  - { name: 'Some of these updates are not available for you at the moment.', translations: [{ code: en, label: 'Some of these updates are not available for you at the moment. Please renew your access to upgrades to get new superior features from the latest releases.' }] }
+  - { name: 'Please renew your access to upgrades to get new superior features from the latest releases.', translations: [{ code: en, label: 'Please renew your access to upgrades to get new superior features from the latest releases.' }] }
   - { name: 'License key', translations: [{ code: en, label: 'License key' }] }
   - { name: 'Exp. date', translations: [{ code: en, label: 'Exp. date' }] }
   - { name: 'Buy prolongation', translations: [{ code: en, label: 'Prolongate license' }] }
-  - { name: 'Prolongate keys', translations: [{ code: en, label: 'Prolongate licenses' }] }
+  - { name: 'Renew your access to new features', translations: [{ code: en, label: 'Renew your access to new features' }] }
   - { name: 'Re-validate license keys', translations: [{ code: en, label: 'Re-validate license keys' }] }
   - { name: "Wrong format: Field contains unallowed characters", translations: [{ code: en, label: "Wrong format: Field contains unallowed characters" }] }
   - { name: "The Clean URL entered is already in use.", translations: [{ code: en, label: 'The Clean URL entered is already <a href="{{entityURL}}" target="_blank">in use</a>.' }] }
@@ -2882,10 +2881,14 @@ XLite\Model\LanguageLabel:
 
   - { name: Item list, translations: [{ code: en, label: Item list }] }
 
-  - { name: 'Hotfixes mode', translations: [{ code: en, label: 'Bug-fixes only' }] }
-  - { name: 'Updates mode', translations: [{ code: en, label: 'Bug-fixes and new features' }] }
-  - { name: 'Bug-fixes', translations: [{ code: en, label: 'Bug-fixes' }] }
-  - { name: 'New features', translations: [{ code: en, label: 'New features' }] }
+#  - { name: 'Hotfixes mode', translations: [{ code: en, label: 'Bug-fixes only' }] }
+#  - { name: 'Updates mode', translations: [{ code: en, label: 'Bug-fixes and new features' }] }
+  - { name: 'Minor update', translations: [{ code: en, label: 'Minor update' }] }
+  - { name: 'Major upgrade', translations: [{ code: en, label: 'Major upgrade' }] }
+#  - { name: 'Bug-fixes', translations: [{ code: en, label: 'Bug-fixes' }] }
+#  - { name: 'New features', translations: [{ code: en, label: 'New features' }] }
+  - { name: 'Major improvements and new features', translations: [{ code: en, label: 'Major improvements and new features' }] }
+  - { name: 'Minor imporvements', translations: [{ code: en, label: 'Minor imporvements' }] }
 
   - { name: 'X items selected', translations: [{ code: en, label: '{{count}} items selected' }] }
   - { name: 'Maximum items in box', translations: [{ code: en, label: 'Maximum items in box' }] }
@@ -3007,3 +3010,37 @@ XLite\Model\LanguageLabel:
   - { name: "All modules", translations: [{ code: en, label: "All modules" }] }
   - { name: 'Disabled only', translations: [{ code: en, label: 'Disabled only' }] }
   - { name: 'Enabled only', translations: [{ code: en, label: 'Enabled only' }] }
+
+  - { name: 'Please be warned that proper operation of the site after an upgrade is not guaranteed if you choose to upgrade only some of the components listed below.', translations: [{ code: en, label: 'Please be warned that proper operation of the site after an upgrade is not guaranteed if you choose to upgrade only some of the components listed below. Please use the selective upgrade feature at your own risk and only if you know exactly what you are doing.' }] }
+
+  - { name: 'Enable selected', translations: [{ code: en, label: 'Enable selected' }] }
+  - { name: 'Disable selected', translations: [{ code: en, label: 'Disable selected' }] }
+  - { name: 'Clone selected', translations: [{ code: en, label: 'Clone selected' }] }
+
+  - { name: 'Will be available if core update is selected', translations: [{ code: en, label: 'Will be available if core update is selected' }] }
+  - { name: 'No category assigned', translations: [{ code: en, label: 'No category assigned' }] }
+  - { name: 'Not assigned', translations: [{ code: en, label: 'Not assigned' }] }
+  - { name: 'Developer wave', translations: [{ code: en, label: 'Developer wave' }] }
+  - { name: 'upgrade_warning_text', translations: [{ code: en, label: 'You license key is set up to get upgrades in the  {{wave_name}} wave. Therefore, upgrading may require some technical assistance on your part. If you are not prepared to deal with upgrade issues that may arise when upgrading in the developer wave, please, wait for the merchant wave. Your can switch to the merchant wave <a  href="{{link_to_waves}}" target="_blank">on this page</a>' }] }
+  - { name: 'Products in this class: {{X}}', translations: [{ code: en, label: 'Products in this class: {{X}}' }] }
+
+  - { name: "Canceling", translations: [{ code: en, label: "Canceling" }] }
+  - { name: "mbstring.extension.alert", translations: [{ code: en, label: "Installing native <a target='_blank' href='http://php.net/manual/en/mbstring.installation.php'><b>mbstring extension</b></a> is highly recommended due to the major speedup of PDF generation and general string processing." }] }
+
+  - { name: "itemslist.admin.order.search.blank", translations: [{ code: en, label: "<p class='items-list-blank-description-heading text-center'>There are currently no orders in the store.</p><p class='text-center'>Once your store has orders, this is where you’ll process and track them. Get accustomed with the order workflow at <a target='_blank' href='http://kb.x-cart.com/en/orders/understanding_x-cart_order_statuses.html'>X-Cart Knowledge Base</a>.</p>" }] }
+  - { name: "itemslist.admin.order.blank", translations: [{ code: en, label: "There are currently no orders in the store." }] }
+
+  - { name: "itemslist.admin.transaction.blank", translations: [{ code: en, label: "<p class='items-list-blank-description-heading text-center'>No payment transactions have been made yet.</p><p class='text-center'>Once a customer will place an order, this is where you can track payment status and transaction details.</p>" }] }
+
+  - { name: "itemslist.admin.product.search.blank", translations: [{ code: en, label: "<p class='items-list-blank-description-heading text-center'>Products catalog is empty.</p><p class='text-center'>Start your sales by adding products using the <b>\"Add product\"</b> button or via import. Learn how to configure a product at <a target='_blank' href='http://kb.x-cart.com/en/products/adding_products.html#adding-a-new-product'>X-Cart Knowledge Base</a>.</p>" }] }
+  - { name: "itemslist.admin.product.blank", translations: [{ code: en, label: "Products catalog is empty." }] }
+
+  - { name: "itemslist.admin.category.blank", translations: [{ code: en, label: "<p class='items-list-blank-description-heading text-center'>There are no categories in the store.</p><p class='text-center'>Group your products by adding categories using the <b>\"New category\"</b> button or via import.</p>" }] }
+  - { name: "itemslist.admin.membership.blank", translations: [{ code: en, label: "<p class='items-list-blank-description-heading text-center'>There are no memberships in the store.</p><p class='text-center'>Memberships allow you to group your customers and give them different privileges. You can add them by clicking the <b>\"New membership\"</b> button, Learn more at <a target='_blank' href='http://kb.x-cart.com/en/users/adding_user_membership_levels.html'>X-Cart Knowledge Base</a>.</p>" }] }
+
+  - { name: 'Categories processed', translations: [{ code: en, label: 'Categories processed' }] }
+  - { name: 'Processing categories...', translations: [{ code: en, label: 'Processing categories...' }] }
+  - { name: 'Categories processed: X out of Y with errors', translations: [{ code: en, label: 'Products processed: {{X}} out of {{Y}} (errors: {{errors}}, warnings: {{warns}})' }] }
+  - { name: 'Categories processed: X out of Y', translations: [{ code: en, label: 'Products processed: {{X}} out of {{Y}}' }] }
+  - { name: 'Categories processed: {{count}}', translations: [{ code: en, label: 'Categories processed: {{count}}' }] }
+

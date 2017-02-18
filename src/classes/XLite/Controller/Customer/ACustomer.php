@@ -275,6 +275,28 @@ abstract class ACustomer extends \XLite\Controller\AController
     }
 
     /**
+     * getURL
+     *
+     * @param array $params URL parameters OPTIONAL
+     *
+     * @return string
+     */
+    public function getURL(array $params = array())
+    {
+        $params = array_merge($this->getAllParams(), $params);
+        $target = isset($params['target']) ? $params['target'] : '';
+
+        if (\XLite::TARGET_DEFAULT === $target) {
+            $target = '';
+            unset($params['target']);
+        } else {
+            unset($params['target']);
+        }
+
+        return $this->buildURL($target, '', $params);
+    }
+
+    /**
      * Get the full URL of the page
      * Example: getShopURL('cart.php') = "http://domain/dir/cart.php
      *
@@ -715,8 +737,10 @@ abstract class ACustomer extends \XLite\Controller\AController
         return isset(\XLite\Model\Repo\CleanURL::getConfigCleanUrlAliases()[$this->getTarget()])
             || preg_match(
                 '/\/cart\.php/Si',
-                \Includes\Utils\ArrayManager::getIndex(\XLite\Core\Request::getInstance()->getServerData(), 'REQUEST_URI')
-            );
+                \Includes\Utils\ArrayManager::getIndex(
+                    \XLite\Core\Request::getInstance()->getServerData(), 'REQUEST_URI'
+                )
+            );            
     }
 
     /**
@@ -728,10 +752,15 @@ abstract class ACustomer extends \XLite\Controller\AController
     {
         $data = \XLite\Core\Request::getInstance()->getGetData();
 
+        if (isset($data['url'])) {
+            unset($data['url']);
+        }
+
         $target = $this->getTarget();
 
         if (\XLite::TARGET_DEFAULT === $target) {
             $target = '';
+            unset($data['target']);
         } else {
             unset($data['target']);
         }

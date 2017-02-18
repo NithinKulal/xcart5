@@ -20,6 +20,7 @@ class Category extends \XLite\View\FormField\Select\ASelect
      * Widget param names
      */
     const PARAM_DISPLAY_ANY_CATEGORY  = 'displayAnyCategory';
+    const PARAM_DISPLAY_NO_CATEGORY   = 'displayNoCategory';
     const PARAM_EXCLUDE_CATEGORY      = 'excludeCategory';
     const PARAM_DISPLAY_ROOT_CATEGORY = 'displayRootCategory';
 
@@ -34,6 +35,7 @@ class Category extends \XLite\View\FormField\Select\ASelect
 
         $this->widgetParams += array(
             static::PARAM_DISPLAY_ANY_CATEGORY => new \XLite\Model\WidgetParam\TypeBool('Display \'Any category\' row', false),
+            static::PARAM_DISPLAY_NO_CATEGORY  => new \XLite\Model\WidgetParam\TypeBool('Display \'No category\' row', false),
             static::PARAM_EXCLUDE_CATEGORY => new \XLite\Model\WidgetParam\TypeInt('Excluded category ID', null),
             static::PARAM_DISPLAY_ROOT_CATEGORY => new \XLite\Model\WidgetParam\TypeBool('Display root category', false),
         );
@@ -62,6 +64,10 @@ class Category extends \XLite\View\FormField\Select\ASelect
 
         if ($this->getParam(static::PARAM_DISPLAY_ROOT_CATEGORY)) {
             $list = array($this->getRootCategoryId() => static::t('Root category')) + $list;
+        }
+
+        if ($this->getParam(static::PARAM_DISPLAY_NO_CATEGORY)) {
+            $list = array('no_category' => static::t('No category assigned')) + $list;
         }
 
         if ($this->getParam(static::PARAM_DISPLAY_ANY_CATEGORY)) {

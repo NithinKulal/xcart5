@@ -18,6 +18,10 @@
   clear: both;
 }
 
+.items-list-table .list-header {
+  padding-bottom: 10px;
+}
+
 .items-list-table table.list,
   .search-conditions-box,
   .table-pager,
@@ -43,16 +47,11 @@
   border-right: 1px solid #f8f8f8;
 }
 
-.items-list-table table.list tbody.no-items td,
 .items-list-table table.list thead th {
   color: #8f8f8f;
   font-weight: normal;
   text-align: left;
   font-size: 16px;
-}
-
-.items-list-table table.list tbody.no-items td {
-  padding: 10px;
 }
 
 .items-list-table table.list thead th {

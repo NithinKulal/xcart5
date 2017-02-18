@@ -130,7 +130,7 @@ class LocationSelect extends \XLite\View\AView
 
         // From getDestinationAddress()
         if ($address && isset($address['state']) && $address['state']) {
-            $state = \XLite\Core\Database::getRepo('XLite\Model\State')->find($address['state']);
+            $state = \XLite\Core\Database::getRepo('XLite\Model\State')->findOneByCode($address['state']);
 
         } elseif (
             $this->getCart()->getProfile()

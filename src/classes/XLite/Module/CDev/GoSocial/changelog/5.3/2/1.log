@@ -1,0 +1,4 @@
+Version 5.3.2.1
+
+Fixes
+2016-12-29 - [Bug] Enlarged the text fields for custom entry on the product details page. #BUG-4316 (Michael Lipinski) #GoSocial

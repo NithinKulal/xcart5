@@ -474,6 +474,20 @@ class Marketplace extends \XLite\Upgrade\Entry\Module\AModule
         return $this->getModule($this->moduleInfoForUpgrade);
     }
 
+    public function isValid()
+    {
+        return parent::isValid()
+            && $this->getModuleForUpgrade();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAvailableForUpgradeWithoutCore()
+    {
+        return $this->getModuleForUpgrade()->isModuleCompatible();
+    }
+
     /**
      * Update database records
      *

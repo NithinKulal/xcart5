@@ -338,6 +338,32 @@ abstract class Address extends \XLite\Model\AEntity
     }
 
     /**
+     * Returns list of alternative getters
+     *
+     * @return array
+     */
+    protected function getFieldsAlternativeNames()
+    {
+        return [
+            'state_id' => ['custom_state']
+        ];
+    }
+
+    /**
+     * Get alternative getters for field by name
+     *
+     * @param $name
+     *
+     * @return array
+     */
+    protected function getFieldAlternativeNames($name)
+    {
+        return isset($this->getFieldsAlternativeNames()[$name])
+            ? $this->getFieldsAlternativeNames()[$name]
+            : [];
+    }
+
+    /**
      * Get required and empty fields
      *
      * @param string $atype Address type code
@@ -350,9 +376,19 @@ abstract class Address extends \XLite\Model\AEntity
 
         foreach ($this->getRequiredFieldsByType($atype) as $name) {
             $method = 'get' . \XLite\Core\Converter::getInstance()->convertToCamelCase($name);
-            // $method assebled from 'get' + \XLite\Core\Converter::getInstance()->convertToCamelCase() method
+
             if (!strlen($this->$method())) {
-                $result[] = $name;
+                foreach ($this->getFieldAlternativeNames($name) as $getter) {
+                    $method = 'get' . \XLite\Core\Converter::getInstance()->convertToCamelCase($getter);
+                    if (strlen($this->$method())) {
+                        $valid = true;
+                        break;
+                    }
+                }
+
+                if (!isset($valid)) {
+                    $result[] = $name;
+                }
             }
         }
 

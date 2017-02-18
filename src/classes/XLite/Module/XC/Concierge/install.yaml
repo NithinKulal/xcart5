@@ -1,0 +1,40 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Module fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: write_key
+    category: XC\Concierge
+    type: hidden
+    value: ''
+    orderby: 100
+    translations:
+      - code: en
+        option_name: Write key
+  - name: company_id
+    category: XC\Concierge
+    type: hidden
+    value: ''
+    orderby: 200
+    translations:
+      - code: en
+        option_name: Company Id
+  - name: user_id
+    category: XC\Concierge
+    type: hidden
+    value: ''
+    orderby: 300
+    translations:
+      - code: en
+        option_name: User Id
+  - name: additional_config_loaded
+    category: XC\Concierge
+    type: hidden
+    value: ''
+    orderby: 400
+    translations:
+      - code: en
+        option_name: Additional config loaded

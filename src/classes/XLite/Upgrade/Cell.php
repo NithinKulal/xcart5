@@ -150,16 +150,17 @@ class Cell extends \XLite\Base\Singleton
     {
         if (!isset($this->isUpgradeHotfixModeSelectorAvailable)) {
             $modulesInfo = \XLite\Core\Database::getRepo('XLite\Model\Module')->getUpgradeModulesInfoHash();
+            $coreVersions = $this->getCoreVersions();
 
-            $result = $modulesInfo['hotfix'] && $modulesInfo['update'];
+            // Has any updates (for module or core)
+            $hasAnyUpdate = $modulesInfo['update']
+                || isset($coreVersions[\XLite::getInstance()->getMajorVersion()]);
 
-            if (!$result) {
-                $coreVersions = $this->getCoreVersions();
-                $result = isset($coreVersions[\XLite::getInstance()->getMajorVersion()])
-                    && isset($coreVersions[\XLite::getInstance()->getHotfixBranchVersion()]);
-            }
+            // Has any hotfixes (for module or core)
+            $hasAnyHotfix = $modulesInfo['hotfix']
+                || isset($coreVersions[\XLite::getInstance()->getHotfixBranchVersion()]);
 
-            $this->isUpgradeHotfixModeSelectorAvailable = $result;
+            $this->isUpgradeHotfixModeSelectorAvailable = $hasAnyUpdate && $hasAnyHotfix;
         }
 
         return $this->isUpgradeHotfixModeSelectorAvailable;
@@ -507,7 +508,8 @@ class Cell extends \XLite\Base\Singleton
         $hash = $module->getActualName();
 
         $result = null;
-        if ($toUpgrade) {
+
+        if ($toUpgrade && ($toUpgrade->isModuleCompatible() || $this->hasCoreUpdate())) {
             $result = $this->addEntry($hash, 'Module\Marketplace', array($module, $toUpgrade));
 
         } elseif ($module->getEnabled()) {
@@ -775,16 +777,29 @@ class Cell extends \XLite\Base\Singleton
             ) = \XLite\Core\TmpVars::getInstance()->{self::CELL_NAME};
         }
 
+        $shouldCollectEntries = true;
+
         if (is_array($entries)) {
-            $this->entries = array_merge($this->entries, $entries);
-            $this->incompatibleModules = $this->incompatibleModules + (array) $incompatibleModules;
-            $this->disabledModulesHooks = $this->disabledModulesHooks + (array) $disabledModulesHooks;
-            $this->preUpgradeWarningModules = $this->preUpgradeWarningModules + (array) $preUpgradeWarningModules;
-            $this->upgradeHooks = $upgradeHooks ?: array();
+            $invalidEntries = array_filter($entries, function($entry) {
+                /** @var \XLite\Upgrade\Entry\AEntry $entry */
+                return !$entry->isValid();
+            });
 
-            $this->setUpgraded(!empty($isUpgraded));
+            // If there is any invalid entry we will recollect entries
+            if (!$invalidEntries) {
+                $this->entries = array_merge($this->entries, $entries);
+                $this->incompatibleModules = $this->incompatibleModules + (array) $incompatibleModules;
+                $this->disabledModulesHooks = $this->disabledModulesHooks + (array) $disabledModulesHooks;
+                $this->preUpgradeWarningModules = $this->preUpgradeWarningModules + (array) $preUpgradeWarningModules;
+                $this->upgradeHooks = $upgradeHooks ?: array();
 
-        } else {
+                $this->setUpgraded(!empty($isUpgraded));
+
+                $shouldCollectEntries = false;
+            }
+        }
+
+        if ($shouldCollectEntries) {
             $this->collectEntries();
         }
     }

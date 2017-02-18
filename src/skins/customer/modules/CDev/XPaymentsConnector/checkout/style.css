@@ -7,8 +7,8 @@
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
 
-div.payment-tpl {
-  margin-right: -10px;
+.xpc-box {
+  margin-top: 10px;
 }
 
 div#xpc {
@@ -128,4 +128,8 @@ ul.saved-cards span.card.bc {
 a.saved-card-address {
   text-decoration: none;
   border-bottom: 1px dotted;
+}
+
+.webui-popover {
+  z-index: 1999 !important;
 }

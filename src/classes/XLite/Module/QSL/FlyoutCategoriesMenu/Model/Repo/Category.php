@@ -33,27 +33,21 @@ abstract class Category extends \XLite\Model\Repo\Category implements \XLite\Bas
         $queryBuilder = parent::getCategoriesAsDTOQueryBuilder();
 
         if ($this->isShowProductNum()) {
-            $queryBuilder->addSelect('COUNT(DISTINCT subcategoriesProducts) as productsCount');
+            $queryBuilder->addSelect('COUNT(DISTINCT categoryProducts) as productsCount')
+                ->linkLeft('c.categoryProducts', 'categoryProducts')
+                ->linkLeft(
+                    'categoryProducts.product',
+                    'categoryProductsProduct',
+                    'WITH',
+                    'categoryProductsProduct.enabled = :enabled'
+                )
+                ->setParameter('enabled', true);
 
-            $queryBuilder->leftJoin(
-                '\XLite\Model\Category',
-                'subcategory',
-                'WITH',
-                'subcategory.lpos > c.lpos AND subcategory.rpos < c.rpos OR subcategory.category_id = c.category_id'
-            );
-            $queryBuilder->leftJoin(
-                'subcategory.categoryProducts',
-                'subcategoriesProducts'
-            );
-            // Enabled condition
-            $queryBuilder->leftJoin(
-                'subcategoriesProducts.product',
-                'subcategoriesProductsProduct'
-            );
-            $queryBuilder->andWhere('subcategoriesProductsProduct.enabled = :enabled');
-            $queryBuilder->setParameter('enabled', true);
+            if ('directLink' === \XLite\Core\Config::getInstance()->General->show_out_of_stock_products) {
+                $queryBuilder->andWhere('(categoryProductsProduct.product_id IS NULL OR categoryProductsProduct.inventoryEnabled = false OR categoryProductsProduct.amount > 0)');
+            }
 
-            $this->addProductMembershipCondition($queryBuilder, 'subcategoriesProductsProduct');
+            $this->addProductMembershipCondition($queryBuilder, 'categoryProductsProduct');
         }
 
         return $queryBuilder;
@@ -85,4 +79,3 @@ abstract class Category extends \XLite\Model\Repo\Category implements \XLite\Bas
         }
     }
 }
-

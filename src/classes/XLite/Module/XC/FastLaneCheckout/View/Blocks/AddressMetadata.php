@@ -48,4 +48,14 @@ class AddressMetadata extends \XLite\View\ASingleView
 
         return json_encode($dto);
     }
+
+    public function buildAddressTypesObject()
+    {
+        $data = [
+            \XLite\View\FormField\Select\AddressType::TYPE_COMMERCIAL => static::t('Commercial'),
+            \XLite\View\FormField\Select\AddressType::TYPE_RESIDENTIAL => static::t('Residential'),
+        ];
+
+        return json_encode($data);
+    }
 }

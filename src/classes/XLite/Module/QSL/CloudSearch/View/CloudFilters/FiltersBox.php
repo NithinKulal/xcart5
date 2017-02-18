@@ -216,9 +216,19 @@ class FiltersBox extends \XLite\View\SideBarBox
 
         $membership = Auth::getInstance()->getMembershipId();
 
+        $currency = \XLite::getInstance()->getCurrency();
+
+        $currencyFormat = [
+            'prefix'             => $currency->getPrefix(),
+            'suffix'             => $currency->getSuffix(),
+            'decimalDelimiter'   => $currency->getDecimalDelimiter(),
+            'thousandsDelimiter' => $currency->getThousandDelimiter(),
+            'numDecimals'        => $currency->getE(),
+        ];
+
         $data = [
-            'filters'  => $this->getFilterConditions(),
-            'facetApi' => [
+            'filters'        => $this->getFilterConditions(),
+            'facetApi'       => [
                 'url'  => $searchApiUrl,
                 'data' => [
                     'apiKey'          => $apiKey,
@@ -235,6 +245,7 @@ class FiltersBox extends \XLite\View\SideBarBox
                     'membership'      => $membership,
                 ],
             ],
+            'currencyFormat' => $currencyFormat,
         ];
 
         if (!$this->isAsyncFilters()) {

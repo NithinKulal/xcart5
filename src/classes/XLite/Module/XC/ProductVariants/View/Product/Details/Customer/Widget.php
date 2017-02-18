@@ -23,7 +23,7 @@ abstract class Widget extends \XLite\View\Product\Details\Customer\Widget implem
     /**
      * Return product variant
      *
-     * @return mixed
+     * @return boolean|\XLite\Module\XC\ProductVariants\Model\ProductVariant
      */
     protected function getProductVariant()
     {
@@ -77,7 +77,7 @@ abstract class Widget extends \XLite\View\Product\Details\Customer\Widget implem
     protected function isProductAvailableForSale()
     {
         return $this->getProductVariant()
-            ? !$this->getProductVariant()->isOutOfStock()
+            ? $this->getProductVariant()->isAvailable()
             : ($this->getProduct()->mustHaveVariants() ? $this->showPlaceholderOption() : parent::isProductAvailableForSale());
     }
 }

@@ -26,19 +26,50 @@
     display: none;
 }
 
-.special-offer-no-create-form {
-    margin-bottom: 1em;
+.special-offer-mods {
+    max-width: 1180px;
+    margin: 20px 0;
+    border-radius: 0px;
+    background: none;
+    padding: 0 20px;
 }
 
-.special-offer-no-create-form p,
-.special-offer-no-create-form a {
+.special-offer-mod {
+    font-size: 16px;
+}
+
+.special-offer-mod__title {
+    padding: 5px 0;
+}
+
+.special-offer-no-create-form > p {
     font-size: 1.17em;
-}
-
-.special-offer-no-create-form ul {
-    padding-left: 2em;
+    margin: 30px 0 10px;
 }
 
 .special-offer-no-create-form li {
-    list-style: disc;
+    list-style: none;
+    position: relative;
+    padding-left: 114px;
+    margin: 20px 0 40px;
+}
+
+.special-offer-mod a:before {
+    content: ' ';
+    display: block;
+    width: 84px;
+    height: 84px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.special-offer-mod--buy-x-get-y a:before {
+    background: url(promo/bxgy.png) no-repeat 50% 50%;
+    background-size: contain;
+}
+
+.special-offer-mod--spend-x-get-y a:before {
+    background: url(promo/sxgy.png) no-repeat 50% 50%;
+    background-size: contain;
 }

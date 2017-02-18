@@ -20,8 +20,6 @@ class Product extends \XLite\Model\QueryBuilder\Product implements \XLite\Base\I
     const ATTRIBUTE_VALUE_S_ALIAS = 'attribute_values_s';
     const ATTRIBUTE_VALUE_C_ALIAS = 'attribute_values_c';
 
-    private $joinsAssigned = false;
-
     /**
      * Assign attribute condition
      *
@@ -30,15 +28,20 @@ class Product extends \XLite\Model\QueryBuilder\Product implements \XLite\Base\I
      */
     public function assignAttributeCondition(\XLite\Model\Attribute $attribute, $value)
     {
-        if (!$this->joinsAssigned) {
-            $this->joinsAssigned = true;
-            $this->leftJoin('p.variantsAttributes', static::VARIANT_ATTRIBUTES_ALIAS);
-            $this->leftJoin('p.variants', static::VARIANTS_ALIAS);
-            $this->leftJoin(static::VARIANTS_ALIAS . '.attributeValueS', static::ATTRIBUTE_VALUE_S_ALIAS);
-            $this->leftJoin(static::VARIANTS_ALIAS . '.attributeValueC', static::ATTRIBUTE_VALUE_C_ALIAS);
-        }
-
         parent::assignAttributeCondition($attribute, $value);
+
+        $alias = 'variantsAttributes' . $attribute->getId();
+        $this->leftJoin('p.variantsAttributes', $alias, 'WITH', $alias . ' = ' . $attribute->getId());
+
+        $this->linkLeft('p.variants');
+        $valueAlias = 'variantAttributeValues' . $attribute->getId();
+        $attributeAlias = 'av' . $attribute->getId();
+        $this->leftJoin(
+            'variants.attributeValue' . $attribute->getType(),
+            $valueAlias,
+            'WITH',
+            $valueAlias . ' = ' . $attributeAlias
+        );
     }
 
     /**
@@ -53,24 +56,16 @@ class Product extends \XLite\Model\QueryBuilder\Product implements \XLite\Base\I
     protected function getConditionSelect(\XLite\Model\Attribute $attribute, $value, $alias)
     {
         $where = parent::getConditionSelect($attribute, $value, $alias);
-        if (
-            $value
-            && is_array($value)
-        ) {
-            foreach ($value as $k => $v) {
-                if (!is_numeric($v)) {
-                    unset($value[$k]);
-                }
-            }
-            if ($value) {
-                $attr = 'attribute' . $attribute->getId();
-                $where .= sprintf(' AND ((:%s = %s.id AND %s.id = %s.id) OR %s.id IS NULL)',
-                    $attr,
-                    static::VARIANT_ATTRIBUTES_ALIAS,
-                    $alias,
-                    static::ATTRIBUTE_VALUE_S_ALIAS,
-                    static::VARIANT_ATTRIBUTES_ALIAS);
-            }
+
+        if (!empty($where)) {
+            $alias      = 'variantsAttributes' . $attribute->getId();
+            $valueAlias = 'variantAttributeValues' . $attribute->getId();
+            $where .= sprintf(
+                ' AND ((%s.id IS NOT NULL AND %s.id IS NOT NULL) OR %s.id IS NULL)',
+                $alias,
+                $valueAlias,
+                $alias
+            );
         }
 
         return $where;
@@ -90,13 +85,14 @@ class Product extends \XLite\Model\QueryBuilder\Product implements \XLite\Base\I
         $where = parent::getConditionCheckbox($attribute, $value, $alias);
 
         if (!empty($where)) {
-            $attr = 'attribute' . $attribute->getId();
-            $where .= sprintf(' AND ((:%s = %s.id AND %s.id = %s.id) OR %s.id IS NULL)',
-                $attr,
-                static::VARIANT_ATTRIBUTES_ALIAS,
+            $alias      = 'variantsAttributes' . $attribute->getId();
+            $valueAlias = 'variantAttributeValues' . $attribute->getId();
+            $where .= sprintf(
+                ' AND ((%s.id IS NOT NULL AND %s.id IS NOT NULL) OR %s.id IS NULL)',
                 $alias,
-                static::ATTRIBUTE_VALUE_C_ALIAS,
-                static::VARIANT_ATTRIBUTES_ALIAS);
+                $valueAlias,
+                $alias
+            );
         }
 
         return $where;

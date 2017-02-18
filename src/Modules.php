@@ -56,6 +56,7 @@ require_once (__DIR__ . '/classes/XLite/Module/XC/CanadaPost/Main.php');
 require_once (__DIR__ . '/classes/XLite/Module/XC/CanadianTaxes/Main.php');
 require_once (__DIR__ . '/classes/XLite/Module/XC/ChronoPay/Main.php');
 require_once (__DIR__ . '/classes/XLite/Module/XC/ColorSchemes/Main.php');
+require_once (__DIR__ . '/classes/XLite/Module/XC/Concierge/Main.php');
 require_once (__DIR__ . '/classes/XLite/Module/XC/CrispWhiteSkin/Main.php');
 require_once (__DIR__ . '/classes/XLite/Module/XC/CustomOrderStatuses/Main.php');
 require_once (__DIR__ . '/classes/XLite/Module/XC/CustomProductTabs/Main.php');

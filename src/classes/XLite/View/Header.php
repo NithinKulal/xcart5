@@ -88,6 +88,26 @@ class Header extends \XLite\View\AResourcesContainer
     }
 
     /**
+     * Get script
+     *
+     * @return string
+     */
+    protected function getAdminScript()
+    {
+        return \XLite::getInstance()->getAdminScript();
+    }
+
+    /**
+     * Get script
+     *
+     * @return string
+     */
+    protected function getCustomerScript()
+    {
+        return \XLite::getInstance()->getCustomerScript();
+    }
+
+    /**
      * Defines the base URL for the page
      * 
      * @return string

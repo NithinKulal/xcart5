@@ -58,6 +58,7 @@ abstract class ARepo extends \Doctrine\ORM\EntityRepository
      * Name of the prefix for the calculated field
      */
     const CALCULATED_FIELD_FLAG = 'calculatedField.';
+    const CALCULATED_FIELD_ALIAS_FLAG = 'calculatedFieldAlias.';
 
     /**
      * Search conditions
@@ -70,6 +71,7 @@ abstract class ARepo extends \Doctrine\ORM\EntityRepository
      */
     const SEARCH_MODE_COUNT     = 'count';
     const SEARCH_MODE_ENTITIES  = 'entities';
+    const SEARCH_MODE_INDEXED   = 'searchModeIndexed';
     const SEARCH_MODE_IDS       = 'ids';
 
     /**
@@ -1727,7 +1729,7 @@ abstract class ARepo extends \Doctrine\ORM\EntityRepository
     }
 
     /**
-     * Get calculated field
+     * Get calculated field dql
      *
      * @param \XLite\Model\QueryBuilder\AQueryBuilder $queryBuilder Query builder
      * @param string                                  $name         Field name
@@ -1752,7 +1754,35 @@ abstract class ARepo extends \Doctrine\ORM\EntityRepository
     }
 
     /**
+     * Get calculated field alias (to use in ORDER BY clause as example)
+     *
+     * @param \XLite\Model\QueryBuilder\AQueryBuilder $queryBuilder Query builder
+     * @param string                                  $name         Field name
+     *
+     * @return string
+     */
+    protected function getCalculatedFieldAlias(\XLite\Model\QueryBuilder\AQueryBuilder $queryBuilder, $name)
+    {
+        if (
+            !$queryBuilder->getDataCell(static::CALCULATED_FIELD_ALIAS_FLAG . $name)
+            && $dql = $this->getCalculatedField($queryBuilder, $name)
+        ) {
+            $field = 'calculatedField' . ucfirst($name);
+
+            $queryBuilder->addSelect("({$dql}) as {$field}");
+
+            $queryBuilder->setDataStorage(
+                static::CALCULATED_FIELD_ALIAS_FLAG . $name,
+                $field
+            );
+        }
+
+        return $queryBuilder->getDataCell(static::CALCULATED_FIELD_ALIAS_FLAG . $name);
+    }
+
+    /**
      * Assign calculated field
+     * @deprecated 5.3.3 use getCalculatedFieldAlias
      *
      * @param \XLite\Model\QueryBuilder\AQueryBuilder $queryBuilder Query builder
      * @param string                                  $name         Field name
@@ -2278,6 +2308,7 @@ abstract class ARepo extends \Doctrine\ORM\EntityRepository
         return array(
             static::SEARCH_MODE_COUNT     => 'searchCount',
             static::SEARCH_MODE_ENTITIES  => 'searchResult',
+            static::SEARCH_MODE_INDEXED     => 'searchIndexed',
             static::SEARCH_MODE_IDS       => 'searchIds',
         );
     }
@@ -2367,6 +2398,18 @@ abstract class ARepo extends \Doctrine\ORM\EntityRepository
     }
 
     /**
+     * Search result routine.
+     *
+     * @return \Doctrine\ORM\PersistentCollection
+     */
+    protected function searchIndexed()
+    {
+        $queryBuilder = $this->postprocessSearchIndexedQueryBuilder($this->searchState['queryBuilder']);
+
+        return $queryBuilder->getObjectResult();
+    }
+
+    /**
      * Prepare queryBuilder for searchCount() method
      *
      * @param \Doctrine\ORM\QueryBuilder $queryBuilder Query builder
@@ -2395,6 +2438,23 @@ abstract class ARepo extends \Doctrine\ORM\EntityRepository
     {
         $key = $this->getSearchPrimaryFields($queryBuilder);
 
+        $queryBuilder->groupBy($key);
+
+        return $queryBuilder;
+    }
+
+    /**
+     * Prepare queryBuilder for searchResult() method
+     *
+     * @param \Doctrine\ORM\QueryBuilder $queryBuilder Query builder
+     *
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    protected function postprocessSearchIndexedQueryBuilder($queryBuilder)
+    {
+        $key = $this->getSearchPrimaryFields($queryBuilder);
+
+        $queryBuilder->indexBy($this->getMainAlias($queryBuilder), $this->getMainAlias($queryBuilder) . '.' . $this->getPrimaryKeyField());
         $queryBuilder->groupBy($key);
 
         return $queryBuilder;

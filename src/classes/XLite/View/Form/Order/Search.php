@@ -34,12 +34,14 @@ class Search extends \XLite\View\Form\AForm
     }
 
     /**
-     * getDefaultParams
+     * Required form parameters
      *
      * @return array
      */
-    protected function getDefaultParams()
+    protected function getCommonFormParams()
     {
-        return parent::getDefaultParams() + array('profileId' => $this->getCondition('profileId'));
+        return parent::getCommonFormParams() + [
+            'profileId' => $this->getCondition('profileId')
+        ];
     }
 }

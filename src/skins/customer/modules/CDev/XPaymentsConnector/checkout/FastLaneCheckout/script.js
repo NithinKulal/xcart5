@@ -81,7 +81,7 @@ function xpcMessageListener(event)
 var xpcLoading = false;
 var xpcPopupError = false;
 
-function isXpcIframe()
+function isXpcIframeMethod()
 {
   var result = false;
 
@@ -100,9 +100,25 @@ function isXpcIframe()
 
 }
 
+function isXpcSavedCardMethod()
+{
+  var result = false;
+
+  var paymentId = Checkout.instance.getState().order.payment_method;
+
+  if (
+      typeof xpcPaymentIds != 'undefined'
+      && paymentId == xpcSavedCardPaymentId 
+  ) {
+    result = true;
+  }
+
+  return result;
+}
+
 function submitXpcIframe(event, state)
 {
-  if (!isXpcIframe()) {
+  if (!isXpcIframeMethod()) {
     return false;
   }
 
@@ -137,7 +153,7 @@ function reloadXpcIframe()
 
   if (
     typeof Checkout.instance == 'undefined'
-    || !isXpcIframe()
+    || !isXpcIframeMethod()
   ) {
     return false;
   }
@@ -196,85 +212,71 @@ core.bind(
   }
 );
 
+core.bind(
+  'fastlane_section_switched',
+  function(event, data) {
+    // Hide any popovers when changing section
+    hideAddressPopovers();
 
-// Load iframe only when payment page is opened
-Checkout.require(['Checkout.StoreSections'], function() {
-  var parent_SWITCH_SECTION = Checkout.StoreSections.mutations.SWITCH_SECTION;
-
-  Checkout.StoreSections.mutations.SWITCH_SECTION = function (state, name) {
-    parent_SWITCH_SECTION.apply(this, arguments);
-
-    if (name === 'payment') {
-      // Timeout is required to place function in queue
-      // and execute after page content is displayed
+    // Load iframe only when payment page is opened
+    if (
+        !_.isUndefined(data['newSection'])
+        && null !== data['newSection']
+        && 'payment' == data['newSection']['name']
+    ) {
+      // Timeout is required to place function in queue and execute after page content is displayed
       setTimeout(function (event, data) { core.trigger('checkout.xpc.paymentPage.loaded'); }, 0);
     }
   }
-});
+);
 
-function switchAddress(addressId)
-{
-  core.post(
-    'cart.php?target=checkout', 
-    function() 
-    {
-      $('.webui-popover').hide();
+core.bind('checkout.paymentTpl.loaded', initAddressPopovers);
+
+core.bind('checkout.xpc.paymentPage.loaded', function() { showAddressPopover(); });
+
+define(
+  'xpayments/checkout_fastlane/blocks/payment_methods',
+ ['checkout_fastlane/blocks/payment_methods',
+  'checkout_fastlane/sections/payment'],
+  function (PaymentMethods, PaymentSection) {
+
+  var parent_loadable_loader = PaymentMethods.options.loadable.loader; 
+
+  var PaymentMethods = PaymentMethods.extend({
+    ready: function() {
+      if (
+        Checkout.instance
+        && Checkout.instance.getState().sections.current.name == 'payment'
+      ) {
+        showAddressPopover();
+      }
     },
-    {
-      action: 'set_card_billing_address', 
-      addressId: addressId
-    }
-  );
-}
+    events: {
+      global_updatecart: function(data) {
+        // If new billing address is set then reload payment section
+        // for correct Saved cards address popovers operation
+        if (isXpcSavedCardMethod()) {
+          var triggerKeys = ['billingAddressFields', 'billingAddressId'];
+          var needsUpdate = _.some(triggerKeys, function(key) {
+            return _.has(data, key);
+          });
+          if (needsUpdate) {
+            xpcBillingAddressId = data.billingAddressId;
+            this.$reload();
+          }
+        }
+      },
+    },
+    loadable: _.extend(PaymentMethods.options.loadable, {
+      loader: function() {
+        // Hide Address popovers when payment method changed or section reloaded
+        hideAddressPopovers();
+        return parent_loadable_loader.apply(this, arguments);
+      },
+    }),
+  });
 
-function popupAddress(e)
-{
-  jQuery('.webui-popover').hide();
+  Vue.registerComponent(PaymentSection, PaymentMethods);
 
-  if (!e || !e.length) {
-    return;
-  }
-
-  var addressId = e.attr('data-address-id');
-  var cardId = e.attr('data-card-id');
-
-  if (
-    !cardId
-    || !addressId
-    || addressId == xpcBillingAddressId
-  ) {
-    return;
-  }
-
-  var content = jQuery('#popup-address-' + cardId).html(); 
-
-  var opts = {
-    title: 'Billing address',
-    placement: 'top',
-    closeable: true,
-    cache: false,
-    trigger:'manual',
-    width: '300px',
-    content: content
-  };
-
-  e.webuiPopover(opts);
-  e.webuiPopover('show');
-}
-
-function getLabelForCard(e)
-{
-  var cardId = jQuery(e).val();
-  return jQuery('#saved-card-label-' + cardId);
-}
-
-jQuery(document).ready(function () {
-  jQuery("[name='payment[saved_card_id]']").change( 
-    function() 
-    {
-      var label = getLabelForCard(this); 
-      popupAddress(label);
-    }
-  );
+  return PaymentMethods;
 });
-

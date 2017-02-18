@@ -154,6 +154,14 @@ class UpgradeTopBox extends \XLite\View\AView
             $data[] = 'invisible';
         }
 
+        if (\XLite\Upgrade\Cell::getInstance()->hasHotfixEntries()) {
+            $data[] = 'hotfix';
+        }
+
+        if (\XLite\Upgrade\Cell::getInstance()->hasNewFeaturesEntries()) {
+            $data[] = 'update';
+        }
+
         return array(
             'class' => $data,
         );

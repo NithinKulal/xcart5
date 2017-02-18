@@ -228,9 +228,11 @@ class Converter extends \XLite\Base\Singleton
                 }
             }
 
-            if ($class) {
+            if ($class && (!LC_DEVELOPER_MODE || class_exists($class, true))) {
                 static::$cacheControllers[$zone . '.' . $target] = $class;
                 static::getSystemCacheDriver()->save('controllers', static::$cacheControllers);
+            } else {
+                $class = null;
             }
         }
 
@@ -265,12 +267,12 @@ class Converter extends \XLite\Base\Singleton
     /**
      * Compose URL from target, action and additional params
      *
-     * @param string  $target        Page identifier OPTIONAL
-     * @param string  $action        Action to perform OPTIONAL
-     * @param array   $params        Additional params OPTIONAL
-     * @param string  $interface     Interface script OPTIONAL
-     * @param boolean $forceCleanURL Force flag - use Clean URL OPTIONAL
-     * @param boolean $forceCuFlag   Force cu flag ?? OPTIONAL
+     * @param string  $target             Page identifier
+     * @param string  $action             Action to perform
+     * @param array   $params             Additional params
+     * @param string  $interface          Interface script
+     * @param boolean $buildCuInAdminZone Is build clean url if XLite::isAdminZone
+     * @param boolean $forceCu            Force clean urls
      *
      * @return string
      */
@@ -279,13 +281,13 @@ class Converter extends \XLite\Base\Singleton
         $action = '',
         array $params = array(),
         $interface = null,
-        $forceCleanURL = false,
-        $forceCuFlag = null
+        $buildCuInAdminZone = false,
+        $forceCu = null
     ) {
         $result = null;
-        $cuFlag = null !== $forceCuFlag
-            ? $forceCuFlag
-            : (LC_USE_CLEAN_URLS && (!\XLite::isAdminZone() || $forceCleanURL));
+        $cuFlag = null !== $forceCu
+            ? $forceCu
+            : (LC_USE_CLEAN_URLS && (!\XLite::isAdminZone() || $buildCuInAdminZone));
 
         if ($cuFlag) {
             $result = static::buildCleanURL($target, $action, $params);
@@ -297,13 +299,6 @@ class Converter extends \XLite\Base\Singleton
             }
 
             $result = \Includes\Utils\Converter::buildURL($target, $action, $params, $interface);
-            if ($cuFlag && !$result) {
-                $result = \XLite::getInstance()->getShopURL(
-                    $result,
-                    null,
-                    array()
-                );
-            }
         }
 
         if (LC_USE_CLEAN_URLS && \XLite\Core\Router::getInstance()->isUseLanguageUrls() && ($interface == \XLite::CART_SELF || !\XLite::isAdminZone())) {
@@ -319,17 +314,18 @@ class Converter extends \XLite\Base\Singleton
     /**
      * Compose full URL from target, action and additional params
      *
-     * @param string $target    Page identifier OPTIONAL
-     * @param string $action    Action to perform OPTIONAL
-     * @param array  $params    Additional params OPTIONAL
-     * @param string $interface Interface script OPTIONAL
-     * @param boolean $forceCuFlag Force clean URL state OPTIONAL
+     * @param string  $target             Page identifier
+     * @param string  $action             Action to perform
+     * @param array   $params             Additional params
+     * @param string  $interface          Interface script
+     * @param boolean $forceCu            Force clean urls
+     * @param boolean $buildCuInAdminZone Is build clean url if XLite::isAdminZone
      *
      * @return string
      */
-    public static function buildFullURL($target = '', $action = '', array $params = array(), $interface = null, $forceCuFlag = null)
+    public static function buildFullURL($target = '', $action = '', array $params = array(), $interface = null, $forceCu = null, $buildCuInAdminZone = false)
     {
-        return \XLite::getInstance()->getShopURL(static::buildURL($target, $action, $params, $interface, false, $forceCuFlag));
+        return \XLite::getInstance()->getShopURL(static::buildURL($target, $action, $params, $interface, $buildCuInAdminZone, $forceCu));
     }
 
     /**

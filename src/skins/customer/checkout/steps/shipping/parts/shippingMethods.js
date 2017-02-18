@@ -29,6 +29,9 @@ function ShippingMethodsView(base)
 
   if (this.base.data('deferred')) {
     this.load();
+    this.bind('local.loaded', function () {
+      core.trigger('reloadPlaceOrder');
+    });
   }
 }
 

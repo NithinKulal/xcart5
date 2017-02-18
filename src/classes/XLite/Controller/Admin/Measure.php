@@ -55,10 +55,7 @@ class Measure extends \XLite\Controller\Admin\AAdmin
 
         set_time_limit(0);
 
-        $request = new \XLite\Core\HTTP\Request($url);
-        $response = $request->sendRequest();
-
-        if (200 != $response->code) {
+        if (null === \XLite\Core\Operator::checkURLAvailability($url)) {
             \XLite\Core\TopMessage::addError('Measuring productivity in manual mode failed.');
         }
     }

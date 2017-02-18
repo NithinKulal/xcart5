@@ -623,7 +623,6 @@ abstract class AFormField extends \XLite\View\AView
      */
     protected function checkFieldValidity()
     {
-        $result = true;
         $this->errorMessage = null;
 
         if ($this->isRequired() && !$this->checkFieldValue()) {

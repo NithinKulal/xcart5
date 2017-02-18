@@ -142,14 +142,13 @@ class LessParser extends \XLite\Base\Singleton
      *
      * @param array $lessFiles LESS files structures array
      *
-     * @return void
+     * @return array
      */
     protected function calcLESSResourceHash($lessFiles)
     {
         $result = array();
 
-        if (
-            $lessFiles
+        if ($lessFiles
             && is_array($lessFiles)
         ) {
             foreach ($lessFiles as $v) {
@@ -379,13 +378,12 @@ class LessParser extends \XLite\Base\Singleton
      * Define the new LESS variables for the specific resource
      *
      * @param array  $data Resource data
-     * @param string $type Resource type
      *
      * @return array
      */
     protected function getModifiedLESSVars($data)
     {
-        $xlite = \XLite::getInstance();
+        $xlite  = \XLite::getInstance();
         $layout = \XLite\Core\Layout::getInstance();
 
         return array(

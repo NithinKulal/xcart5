@@ -181,8 +181,7 @@ abstract class Product extends \XLite\Model\Repo\Product implements \XLite\Base\
             list($sort, $order) = $this->getSortOrderValue($value);
 
             if ('p.price' === $sort && !\XLite::isAdminZone() && \XLite\Module\XC\ProductVariants\Main::isDisplayPriceAsRange()) {
-                $this->assignCalculatedField($queryBuilder, 'minPrice');
-                $sort = 'calculatedMinPrice';
+                $sort = $this->getCalculatedFieldAlias($queryBuilder, 'minPrice');
 
                 $queryBuilder->addOrderBy($sort, $order);
             } else {

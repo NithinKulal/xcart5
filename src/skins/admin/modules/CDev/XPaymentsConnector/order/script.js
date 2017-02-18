@@ -64,5 +64,15 @@ jQuery(document).ready(
   function () {
     jQuery('.fraud-disabled').attr('disabled', 'disabled');
     jQuery('.fraud-disabled').prev('input').attr('disabled', 'disabled');
+
+    if (typeof differenceLabelText != 'undefined') {
+      var $differenceLabel = jQuery('.transaction-label:contains(' + _.unescapeHTML(differenceLabelText) + ')');
+      var $differenceTooltip = jQuery('.difference-tooltip-container');
+      $differenceLabel.html(differenceLabelText + $differenceTooltip.html() + ':');
+      $differenceTooltip.remove();
+      $differenceTooltipIcon = $differenceLabel.find('.tooltip-main');
+      $differenceTooltipIcon.popover('destroy');
+      $differenceTooltipIcon.popover({trigger: 'hover'});
+    }
   }
 );

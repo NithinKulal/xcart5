@@ -6,7 +6,8 @@
 
 <script type="text/javascript">
 var xliteConfig = {
-  script:   '{{ this.getScript()|raw }}',
+  script: '{{ this.getScript()|raw }}',
+  admin_script: '{{ this.getAdminScript()|raw }}',
   target:   '{{ this.getTarget()|raw }}',
   language: '{{ this.currentLanguage.getCode() }}',
   ajax_prefix: '{{ this.getAjaxPrefix() }}',

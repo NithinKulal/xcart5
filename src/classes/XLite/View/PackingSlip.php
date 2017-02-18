@@ -11,7 +11,7 @@ namespace XLite\View;
 /**
  * Invoice widget
  *
- * @ListChild (list="order.children", weight="30")
+ * @ListChild (list="order.children", weight="30", zone="admin")
  */
 class PackingSlip extends \XLite\View\AView
 {

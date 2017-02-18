@@ -187,6 +187,15 @@ TableItemsList.prototype.listeners.createButton = function(handler)
               }
               this.name = this.name.replace(/\[0\]/, '[' + (-1 * idx) + ']');
             }
+          )
+          .end()
+          .find('label')
+          .each(
+            function () {
+              if (this.attributes['for']) {
+                this.attributes['for'].value = this.attributes['for'].value.replace(/-0-/, '-n' + idx + '-');
+              }
+            }
           );
 
         box.append(line);

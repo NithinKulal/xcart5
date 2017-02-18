@@ -59,6 +59,9 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
         if ($this->isUpdate()) {
             if (!$this->isUpdateModeSelectorAvailable()) {
                 \XLite\Core\Session::getInstance()->upgradeHotfixMode = null;
+
+            } elseif (\XLite\Core\Session::getInstance()->upgradeHotfixMode === null) {
+                \XLite\Core\Session::getInstance()->upgradeHotfixMode = true;
             }
             \XLite\Core\Session::getInstance()->selectedEntries = null;
             \XLite\Upgrade\Cell::getInstance()->clear();
@@ -1140,8 +1143,8 @@ class Upgrade extends \XLite\Controller\Admin\Base\Addon
     public function getExpiredKeysMessage()
     {
         return \XLite\Upgrade\Cell::getInstance()->isHotfixUpdate()
-            ? static::t('There are expired license keys activated in store')
-            : static::t('There are expired license keys');
+            ? static::t('Please renew your access to upgrades to get new superior features from the latest releases.')
+            : static::t('Some of these updates are not available for you at the moment.');
     }
 
     /**

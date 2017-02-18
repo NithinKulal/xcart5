@@ -59,13 +59,6 @@ class Mailer extends \XLite\View\AView
     protected $langLocale = 'en';
 
     /**
-     * Languages directory path (for PHPMailer)
-     *
-     * @var string
-     */
-    protected $langPath = 'lib/PHPMailer/language/';
-
-    /**
      * PHPMailer object
      *
      * @var \PHPMailer
@@ -494,6 +487,14 @@ class Mailer extends \XLite\View\AView
         // remove html tags & convert html entities to chars
         $txt = strtr(strip_tags($html), $transTbl);
 
+        $txt = preg_replace_callback(
+            '/&#\d+;/',
+            function ($m) {
+                return mb_convert_encoding($m[0], 'UTF-8', 'HTML-ENTITIES');
+            },
+            $txt
+        );
+
         return preg_replace('/^\s*$/m', '', $txt);
     }
 
@@ -505,8 +506,7 @@ class Mailer extends \XLite\View\AView
     protected function initMailFromSet()
     {
         $this->mail->setLanguage(
-            $this->get('langLocale'),
-            $this->get('langPath')
+            $this->get('langLocale')
         );
 
         $this->mail->CharSet = $this->get('charset');
@@ -573,10 +573,6 @@ class Mailer extends \XLite\View\AView
     protected function initMailFromConfig()
     {
         if (null === $this->mail) {
-
-            // Initialize PHPMailer
-            include_once LC_DIR_LIB . 'PHPMailer' . LC_DS . 'class.phpmailer.php';
-
             $this->mail = new \PHPMailer();
             // SMTP settings
             if (\XLite\Core\Config::getInstance()->Email->use_smtp) {

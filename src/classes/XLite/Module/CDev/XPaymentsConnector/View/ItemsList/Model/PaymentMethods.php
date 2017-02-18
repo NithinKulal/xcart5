@@ -25,7 +25,7 @@ class PaymentMethods extends \XLite\View\ItemsList\Model\Table
     {
         $listTemplateDir = 'modules/CDev/XPaymentsConnector/settings/payment_methods/'; 
 
-        return array(
+        $columns = array(
             'name' => array(
                 static::COLUMN_NAME     => \XLite\Core\Translation::lbl('Payment method'),
                 static::COLUMN_NO_WRAP  => true,
@@ -39,13 +39,32 @@ class PaymentMethods extends \XLite\View\ItemsList\Model\Table
                 static::COLUMN_TEMPLATE => $listTemplateDir . 'list.currency.twig',
                 static::COLUMN_ORDERBY  => 200,
             ),
-            'save_cards' => array(
+        );
+
+        if (\XLite\Module\CDev\XPaymentsConnector\Core\Settings::getInstance()->hasSaveCardsPaymentMethods()) {
+            $columns['save_cards'] = array(
                 static::COLUMN_NAME     => \XLite\Core\Translation::lbl('Save cards'),
                 static::COLUMN_NO_WRAP  => true,
                 static::COLUMN_TEMPLATE => $listTemplateDir . 'list.save_cards.twig',
                 static::COLUMN_ORDERBY  => 800,
-            ),
-        );
+            );
+        }
+
+        return $columns;
+    }
+
+    /**
+     * Get bottom actions
+     *
+     * @return array
+     */
+    protected function getBottomActions()
+    {
+        $actions = parent::getBottomActions();
+
+        $actions[] = 'modules/CDev/XPaymentsConnector/settings/payment_methods/xp_admin_text.twig';
+
+        return $actions;
     }
 
     /**

@@ -42,15 +42,13 @@ abstract class AAdmin extends \XLite\View\StickyPanel\Product\AProduct
                 'position' => 200,
             ],
             'clone' => [
-                'class'    => 'XLite\View\Button\Regular',
+                'class'    => 'XLite\View\Button\Dropdown\CloneFake',
                 'params'   => [
-                    'action'     => 'clone',
-                    'label'      => '',
-                    'style'      => 'more-action icon-only hide-on-disable hidden',
-                    'icon-style' => 'fa fa-copy',
-                    'attributes'    => [
-                        'title' => static::t('Clone')
-                    ]
+                    'label'         => '',
+                    'style'         => 'more-action icon-only hide-on-disable hidden',
+                    'icon-style'    => 'fa fa-copy',
+                    'showCaret'     => false,
+                    'dropDirection' => 'dropup ',
                 ],
                 'position' => 300,
             ],

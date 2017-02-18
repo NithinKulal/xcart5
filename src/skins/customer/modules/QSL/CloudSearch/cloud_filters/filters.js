@@ -337,7 +337,8 @@
         filters = initialData.filters,
         stats = initialData.stats,
         numFound = initialData.numFound,
-        facetApi = initialData.facetApi;
+        facetApi = initialData.facetApi,
+        currencyFormat = initialData.currencyFormat;
 
     if (typeof filters.min_price == 'undefined') {
         filters.min_price = [null];
@@ -349,7 +350,7 @@
 
     Vue.filter('priceFilterValue', {
         read: function (val) {
-            return val;
+            return val !== null && val !== undefined ? formatPrice(val) : val;
         },
         write: function (val) {
             var number = +val.replace(/[^\d.,]/g, '');
@@ -357,6 +358,20 @@
             return isNaN(number) || number == 0 ? null : number;
         }
     });
+
+    var formatPrice = function (price) {
+        var n = price,
+            c = currencyFormat.numDecimals,
+            d = currencyFormat.decimalDelimiter,
+            t = currencyFormat.thousandsDelimiter,
+            s = n < 0 ? "-" : "",
+            i = String(parseInt(n = Math.abs(Number(n) || 0).toFixed(c))),
+            j = (j = i.length) > 3 ? j % 3 : 0;
+
+        var formatted = s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+
+        return currencyFormat.prefix + formatted + currencyFormat.suffix;
+    };
 
     var TextValueRenderer = Vue.extend({
         props: ['value'],
@@ -419,7 +434,9 @@
             foldedValues: function () {
                 var MAX_FOLDED_VALUES = 10;
 
-                var folded = this.values.slice(0, MAX_FOLDED_VALUES);
+                var folded = this.values.length <= MAX_FOLDED_VALUES + 1
+                    ? this.values
+                    : this.values.slice(0, MAX_FOLDED_VALUES);
 
                 var numToggledInFolded = _.filter(folded, (function (v) {
                     return this.isToggled(v.value);
@@ -499,6 +516,9 @@
     var PriceFilter = Vue.extend({
         data: function () {
             return {}
+        },
+        methods: {
+            formatPrice: formatPrice
         },
         props: ['title', 'min', 'max', 'statsMin', 'statsMax'],
         template: '#cloud-filters-template-price'
@@ -639,7 +659,7 @@
                     })
                     .compact()
                     .filter(function (p) {
-                        return !p[0].startsWith(FILTER_PARAM_PREFIX);
+                        return p[0].indexOf(FILTER_PARAM_PREFIX) !== 0;
                     })
                     .value();
 

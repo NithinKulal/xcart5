@@ -69,25 +69,14 @@ class ProductCategoryTreeLoader implements ChoiceLoaderInterface
      */
     protected function getCategories()
     {
-        $cacheParameters = [
-            'allCategoriesDTOs',
-            'name',
-            \XLite\Core\Session::getInstance()->getLanguage()
-                ? \XLite\Core\Session::getInstance()->getLanguage()->getCode()
-                : '',
-            \XLite\Core\Database::getRepo('XLite\Model\Category')->getVersion(),
-        ];
+        $repo = \XLite\Core\Database::getRepo('XLite\Model\Category');
 
-        return \XLite\Core\Cache\ExecuteCached::executeCached(function () {
-            $repo = \XLite\Core\Database::getRepo('XLite\Model\Category');
+        $categories = $repo->getAllCategoriesAsDTO();
+        $result     = [];
+        foreach ($categories as $category) {
+            $result[$category['id']] = str_repeat('---', $category['depth']) . $category['name'];
+        }
 
-            $categories = $repo->getAllCategoriesAsDTO();
-            $result     = [];
-            foreach ($categories as $category) {
-                $result[$category['id']] = str_repeat('---', $category['depth']) . $category['name'];
-            }
-
-            return $result;
-        }, $cacheParameters);
+        return $result;
     }
 }

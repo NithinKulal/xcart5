@@ -10,6 +10,7 @@ namespace XLite\Module\CDev\Paypal\View\Model\Profile;
 
 /**
  * \XLite\View\Model\Profile\AdminMain
+ * @Decorator\Depend ("!CDev\SocialLogin")
  */
 class AdminMain extends \XLite\View\Model\Profile\AdminMain implements \XLite\Base\IDecorator
 {
@@ -21,8 +22,7 @@ class AdminMain extends \XLite\View\Model\Profile\AdminMain implements \XLite\Ba
     protected function getFormFieldsForSectionMain()
     {
         if ($this->getModelObject()->isSocialProfile()) {
-            unset($this->mainSchema['password']);
-            unset($this->mainSchema['password_conf']);
+            unset($this->mainSchema['password'], $this->mainSchema['password_conf']);
         }
 
         return parent::getFormFieldsForSectionMain();

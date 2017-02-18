@@ -234,6 +234,13 @@ class Uploaded extends \XLite\Upgrade\Entry\Module\AModule
         return $result ?: $this->getHashes(true);
     }
 
+    public function isValid()
+    {
+        return parent::isValid()
+            && \Includes\Utils\FileManager::isFileReadable($this->getRepositoryPath())
+            && !!$this->metadata;
+    }
+
     /**
      * Overloaded constructor
      *

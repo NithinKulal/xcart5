@@ -16,6 +16,10 @@ body.target-paypal-settings .payment-settings  div.table-label {
   width: 210px;
 }
 
+body.target-paypal-settings .payment-settings .account-table .table-value {
+  white-space: normal;
+}
+
 body.target-paypal-settings .payment-settings .logo-ppa {
   background: transparent url(../images/ppa.png) no-repeat left top;
   width: 316px;

@@ -83,10 +83,7 @@ class XpcPopup extends \XLite\Controller\Customer\ACustomer
      */
     public function isUnacceptedTemplateError($message)
     {
-        list($code, $message) = \XLite\Module\CDev\XPaymentsConnector\Core\XPaymentsClient::getInstance()
-            ->parseErrorMessage($message);
-
-        return '505' == $code;
+        return \XLite\Module\CDev\XPaymentsConnector\Core\XPaymentsClient::getInstance()->isUnacceptedTemplateError($message);
     }
 
     /**
@@ -262,7 +259,7 @@ class XpcPopup extends \XLite\Controller\Customer\ACustomer
      */
     public function getButtonAction()
     {
-        $result = 'void(0);';
+        $result = '';
 
         switch ($this->getType()) {
 
@@ -281,7 +278,6 @@ class XpcPopup extends \XLite\Controller\Customer\ACustomer
 
             case \XLite\Module\CDev\XPaymentsConnector\Core\Iframe::IFRAME_DO_NOTHING:
             default:
-                $result = 'popup.close();';
                 break;
         }
 

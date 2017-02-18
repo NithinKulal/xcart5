@@ -410,8 +410,9 @@ class ActiveCurrency extends \XLite\Model\Repo\Base\I18n
             if (
                 isset($country)
                 && $country->hasAssignedCurrencies()
+                && $country->getActiveCurrency()
                 && MultiCurrency::getInstance()->getSelectedCurrency()->getCode()
-                != $country->setActiveCurrency()->getCode()
+                != $country->getActiveCurrency()->getCode()
             ) {
                 unset($country);
             }

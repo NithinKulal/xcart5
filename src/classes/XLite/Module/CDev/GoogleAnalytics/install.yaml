@@ -34,7 +34,7 @@ XLite\Model\Config:
     category: CDev\GoogleAnalytics
     type: 'XLite\View\FormField\Input\Checkbox\OnOff'
     orderby: 400
-    value: Y
+    value: true
     translations:
       - code: en
         option_name: 'Enable eCommerce Google Analytics'
@@ -42,7 +42,7 @@ XLite\Model\Config:
     category: CDev\GoogleAnalytics
     type: 'XLite\View\FormField\Input\Checkbox\OnOff'
     orderby: 400
-    value: Y
+    value: true
     translations:
       - code: en
         option_name: 'Register purchase only on Paid status change'
@@ -50,7 +50,7 @@ XLite\Model\Config:
     category: CDev\GoogleAnalytics
     type: 'XLite\View\FormField\Input\Checkbox\OnOff'
     orderby: 500
-    value: N
+    value: false
     translations:
       - code: en
         option_name: 'Debug mode'

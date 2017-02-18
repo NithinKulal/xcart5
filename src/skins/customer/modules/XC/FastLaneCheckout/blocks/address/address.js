@@ -123,6 +123,19 @@ define(
 
         return result;
       },
+      preprocess$type: function(key, address) {
+        var value = address[key];
+
+        if (!_.isUndefined(window.addressTypes)) {
+          var name = window.addressTypes[value];
+
+          if (!_.isUndefined(name)) {
+            value = name;
+          }
+        }
+
+        return value;
+      },
       preprocess$country_code: function(key, address) {
         var value = address[key];
         if (!_.isUndefined(window.countryNames)) {

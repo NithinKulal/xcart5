@@ -439,6 +439,25 @@ class Address extends \XLite\Model\Base\PersonalAddress
         return $result;
     }
 
+
+    /**
+     * Serialize address to array
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return array(
+            'address' => $this->getStreet(),
+            'city'    => $this->getCity(),
+            'state'   => $this->getState() ? $this->getState()->getCode() : '',
+            'custom_state' => $this->getCustomState(),
+            'zipcode' => $this->getZipcode(),
+            'country' => $this->getCountry() ? $this->getCountry()->getCode() : '',
+            'type'    => $this->getType() ?: \XLite\Core\Config::getInstance()->Shipping->anonymous_address_type,
+        );
+    }
+
     /**
      * Set is_billing
      *

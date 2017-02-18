@@ -26,6 +26,13 @@ class Category extends \XLite\Model\Repo\Base\I18n
     const ROOT_LPOS = 1;
 
     /**
+     * Index for subtree param names
+     *
+     * @var integer
+     */
+    static protected $subTreeConditionIndex = 0;
+
+    /**
      * Maximum value of the "rpos" field in all records
      *
      * @var integer
@@ -416,10 +423,13 @@ class Category extends \XLite\Model\Repo\Base\I18n
         $category = $this->getCategory($categoryId);
 
         if ($category) {
-            $lpos = $lpos ?: $category->getLpos();
-            $rpos = $rpos ?: $category->getRpos();
+            $index = static::$subTreeConditionIndex++;
+            $lposName = 'sub_tree_condition_lpos_' . $index;
+            $rposName = 'sub_tree_condition_rpos_' . $index;
 
-            $queryBuilder->andWhere($queryBuilder->expr()->between('c.' . $field, $lpos, $rpos));
+            $queryBuilder->andWhere($queryBuilder->expr()->between('c.' . $field, ':'.$lposName, ':'.$rposName))
+                ->setParameter($lposName, $lpos ?: $category->getLpos())
+                ->setParameter($rposName, $rpos ?: $category->getRpos());
         }
 
         return isset($category);
@@ -1210,25 +1220,41 @@ class Category extends \XLite\Model\Repo\Base\I18n
      */
     public function getAllCategoriesAsDTO()
     {
-        return $this->executeCachedRuntime(function () {
-            $categories = $this->getAllCategoriesAsDTOQueryBuilder()->getResult();
-            array_walk($categories, function (array &$category) {
+        $cacheParameters = [
+            'allCategoriesDTOs',
+            'repo',
+            \XLite\Core\Session::getInstance()->getLanguage()
+                ? \XLite\Core\Session::getInstance()->getLanguage()->getCode()
+                : '',
+            \XLite\Core\Database::getRepo('XLite\Model\Category')->getVersion(),
+        ];
+
+        return \XLite\Core\Cache\ExecuteCached::executeCached(function () {
+            foreach ($this->getAllCategoriesAsDTOQueryBuilder()->getResult() as $category) {
                 if (!$category['name']) {
                     $category['name'] = $this->getFirstTranslatedName($category['id']);
                 }
-            });
+
+                $categories[$category['id']] = $category;
+            }
 
             $rootId = $this->getRootCategoryId();
             array_walk($categories, function (array &$category) use ($categories, $rootId) {
                 $result = [$category['name']];
                 $parentId = (int) $category['parent_id'];
                 while ($parentId !== $rootId) {
+                    $found = false;
                     foreach ($categories as $tmpCategory) {
-                        if ((int) $tmpCategory['id'] === (int) $parentId) {
+                        if ((int) $tmpCategory['id'] === $parentId) {
                             $parentId = (int) $tmpCategory['parent_id'];
                             $result[] = $tmpCategory['name'];
+                            $found = true;
                             break;
                         }
+                    }
+
+                    if (!$found) {
+                        break;
                     }
                 }
 
@@ -1236,7 +1262,7 @@ class Category extends \XLite\Model\Repo\Base\I18n
             });
 
             return $categories;
-        });
+        }, $cacheParameters);
     }
 
     /**
@@ -1246,7 +1272,10 @@ class Category extends \XLite\Model\Repo\Base\I18n
      */
     public function getAllCategoriesAsDTOQueryBuilder()
     {
-        $queryBuilder = $this->createQueryBuilder();
+        $queryBuilder = parent::createQueryBuilder();
+
+        $this->addOrderByCondition($queryBuilder, 'c');
+        $this->addExcludeRootCondition($queryBuilder, 'c');
 
         $queryBuilder->select('c.category_id as id');
 
@@ -1267,6 +1296,14 @@ class Category extends \XLite\Model\Repo\Base\I18n
         $queryBuilder->addSelect('c.depth as depth');
 
         $queryBuilder->linkLeft('c.children', 'conditional_children');
+
+        $queryBuilder->linkLeft(
+            'c.cleanURLs',
+            'cleanURLs',
+            'WITH',
+            'cleanURLs.id = (SELECT MAX(cl.id) FROM XLite\Model\CleanURL cl WHERE cl.category = c.category_id)'
+        );
+        $queryBuilder->addSelect('cleanURLs.cleanURL as cleanURL');
 
         $queryBuilder->addGroupBy('c.category_id');
         $queryBuilder->orderBy('c.lpos');

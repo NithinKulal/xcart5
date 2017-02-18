@@ -50,7 +50,7 @@ abstract class Main extends \XLite\Module\AModule
      */
     public static function getBuildVersion()
     {
-        return '0';
+        return '2';
     }
 
     /**
@@ -125,7 +125,9 @@ abstract class Main extends \XLite\Module\AModule
     {
         $auth = \XLite\Core\Auth::getInstance();
 
-        return $auth->getProfile() && $auth->getProfile()->isAdmin();
+        return $auth->getProfile()
+               && $auth->getProfile()->isAdmin()
+               && \XLite\Core\Auth::getInstance()->isPermissionAllowed(\XLite\Model\Role\Permission::ROOT_ACCESS);
     }
 
     /**

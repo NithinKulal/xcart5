@@ -35,43 +35,9 @@ abstract class PaymentSettings extends \XLite\View\Tabs\PaymentSettings implemen
         $list['pay_with_amazon'] = [
             'weight' => 300,
             'title'  => static::t('Pay with Amazon'),
-            'template' => 'modules/Amazon/PayWithAmazon/configuration.twig',
+            'template' => 'modules/Amazon/PayWithAmazon/tab.twig',
         ];
 
         return $list;
-    }
-
-    /**
-     * @return boolean
-     */
-    protected function hasAmazonWarning()
-    {
-        $api = \XLite\Module\Amazon\PayWithAmazon\Main::getApi();
-
-        return !$api->isConfigured();
-    }
-
-    /**
-     * @return string
-     */
-    protected function getAmazonWarning()
-    {
-        $api = \XLite\Module\Amazon\PayWithAmazon\Main::getApi();
-
-        if (!$api->isConfigured() && \XLite\Core\Config::getInstance()->Security->customer_security) {
-
-            return static::t('The "Pay With Amazon" feature is not configured and cannot be used.');
-
-        } elseif (!\XLite\Core\Config::getInstance()->Security->customer_security) {
-
-            return static::t(
-                'The "Pay with Amazon" feature requires https to be properly set up for your store.',
-                [
-                    'url' => $this->buildURL('https_settings')
-                ]
-            );
-        }
-
-        return '';
     }
 }

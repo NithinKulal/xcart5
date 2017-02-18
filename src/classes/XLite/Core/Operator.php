@@ -99,6 +99,15 @@ class Operator extends \XLite\Base\Singleton
 
         if ($response && 200 == $response->code) {
             $result = $response->headers;
+        } elseif ($response) {
+            unset($bouncer);
+            $bouncer = new \XLite\Core\HTTP\Request($url);
+            $bouncer->verb = 'GET';
+            $response = $bouncer->sendRequest();
+
+            if ($response && 200 == $response->code) {
+                $result = $response->headers;
+            }
         }
 
         return $result;

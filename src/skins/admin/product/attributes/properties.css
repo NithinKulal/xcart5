@@ -13,6 +13,19 @@
   vertical-align: top;
 }
 
+.itemslist-attributeproperty.items-list-table table.list tbody.lines tr.line td.name {
+  white-space: normal;
+  min-width: 450px;
+}
+
+.itemslist-attributeproperty.items-list-table table.list .select2-selection__choice {
+  max-width: 350px;
+}
+
+.itemslist-attributeproperty.items-list-table table.list .select2-selection-text {
+  white-space: normal;
+}
+
 .itemslist-attributeproperty.items-list-table table.list tbody.lines td.actions,
 .itemslist-attributeproperty.items-list-table table.list tbody.lines td.name {
   padding-top: 18px;

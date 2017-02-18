@@ -8,6 +8,8 @@
 
 namespace XLite\Module\CDev\Moneybookers\Model\Payment\Processor;
 
+use Includes\Utils\FileManager;
+
 /**
  * Moneybookers payment processor
  */
@@ -183,6 +185,19 @@ class Moneybookers extends \XLite\Model\Payment\Base\Iframe
         'PWY33' => array('POL'),
         'PWY36' => array('POL'),
         'EPY'   => array('BGR'),
+        'NTL'   => true,
+        'PSC'   => array('ASM','AUT','BEL','CAN','HRV','CYP','CZE','DNK','FIN','FRA','DEU','GUM','HUN','IRL','ITA','LVA','LUX','MLT','MEX','NLD','MNP','NOR','POL','PRT','PRI','ROU','SVK','SVN','ESP','SWE','CHE','TUR','GBR','USA','VIR'),
+        'RSB'   => array('SWE','NOR','FIN','DNK'),
+        'GLU'   => array('SWE','FIN','EST','DNK','ESP','ITA','DEU','PRT','AUT','LVA','LTU','NLD','POL'),
+        'ALI'   => array('CHN'),
+        'ADB'   => array('ARG','BRA'),
+        'AOB'   => array('BRA','CHL','CHN','COL'),
+        'ACI'   => array('ARG','BRA','CHL','CHN','COL','MEX','URY'),
+        'AUP'   => array('CHN'),
+    );
+
+    protected $paymentTypeExCountries  = array(
+        'NTL'   => array('AFG','ARM','BTN','BVT','MMR','CHN','COK','CUB','ERI','SGS','GUM','GIN','IRQ','KAZ','KGZ','LBR','LBY','MNG','MNP','MHL','PLW','PAK','PRI','SLE','SOM','ZWE','SDN','TJK','TKM','UGA','USA','UZB','YEM','CCK','COD','HMD','IRN','CIV','PRK','FSM','TLS','SYR','VIR')
     );
 
     /**
@@ -321,6 +336,26 @@ class Moneybookers extends \XLite\Model\Payment\Base\Iframe
     public function hasModuleSettings()
     {
         return true;
+    }
+
+    /**
+     * Get payment method configuration page URL
+     *
+     * @param \XLite\Model\Payment\Method $method    Payment method
+     * @param boolean                     $justAdded Flag if the method is just added via administration panel.
+     *                                               Additional init configuration can be provided OPTIONAL
+     *
+     * @return string
+     */
+    public function getConfigurationURL(\XLite\Model\Payment\Method $method, $justAdded = false)
+    {
+        return \XLite\Core\Converter::buildURL(
+            'moneybookers_settings',
+            '',
+            array(
+                'method_id' => $method->getMethodId()
+            )
+        );
     }
 
     /**
@@ -490,8 +525,20 @@ class Moneybookers extends \XLite\Model\Payment\Base\Iframe
      */
     public function getAdminIconURL(\XLite\Model\Payment\Method $method)
     {
-        if ($method->getServiceName() == 'Moneybookers.OBT') {
-            return \XLite\Core\Layout::getInstance()->getResourceWebPath('modules/CDev/Moneybookers/OBT_method_icon.jpg');
+        $name = str_replace('Moneybookers.', '', $method->getServiceName());
+
+        if (strpos($name, 'PWY') !== false) {
+            $name = 'PWY';
+        }
+        if (in_array($name, ['ADB', 'AOB', 'ACI'], true) !== false) {
+            $name = 'ADB';
+        }
+
+        $path = 'modules/CDev/Moneybookers/logos/' . $name .'.png';
+
+        $layoutManager = \XLite\Core\Layout::getInstance();
+        if (FileManager::isExists($layoutManager->getResourceFullPath($path))) {
+            return $layoutManager->getResourceWebPath($path);
         }
 
         return true;
@@ -701,6 +748,13 @@ class Moneybookers extends \XLite\Model\Payment\Base\Iframe
             $result = in_array(
                 $order->getProfile()->getBillingAddress()->getCountry()->getCode3(),
                 $this->paymentTypeCountries[$type]
+            );
+        }
+
+        if ($result && isset($this->paymentTypeExCountries[$type])) {
+            $result = !in_array(
+                $order->getProfile()->getBillingAddress()->getCountry()->getCode3(),
+                $this->paymentTypeExCountries[$type]
             );
         }
 

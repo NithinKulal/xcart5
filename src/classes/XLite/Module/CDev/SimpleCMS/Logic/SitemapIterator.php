@@ -73,7 +73,7 @@ class SitemapIterator extends \XLite\Module\CDev\XMLSitemap\Logic\SitemapIterato
      */
     protected function assemblePageData(\XLite\Module\CDev\SimpleCMS\Model\Page $page)
     {
-        $_url = Converter::buildURL('page', '', ['id' => $page->getId()], \XLite::getCustomerScript(), false, true);
+        $_url = Converter::buildURL('page', '', ['id' => $page->getId()], \XLite::getCustomerScript(), true);
         $url = \XLite::getInstance()->getShopURL($_url);
 
         $result = [

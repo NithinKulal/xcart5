@@ -17,7 +17,7 @@
   <div class="update-module-list-frame">
 
     {% if this.getNewFeaturesUpgradeEntries() and this.getHotfixUpgradeEntries() %}
-      <h2>{{ t('New features') }}</h2>
+      <h2>{{ t('Major improvements and new features') }}</h2>
       <ul class="update-module-list clearfix">
 
         {% for entry in this.getNewFeaturesUpgradeEntries() %}
@@ -27,7 +27,7 @@
         {% endfor %}
 
       </ul>
-      <h2>{{ t('Bug-fixes') }}</h2>
+      <h2>{{ t('Minor imporvements') }}</h2>
       <ul class="update-module-list clearfix">
 
         {% for entry in this.getHotfixUpgradeEntries() %}

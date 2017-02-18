@@ -26,7 +26,8 @@ class NotificationAttachments extends \XLite\View\Model\Settings
 
         return $result;
     }
-        /**
+
+    /**
      * Return name of web form widget class
      *
      * @return string
@@ -34,5 +35,13 @@ class NotificationAttachments extends \XLite\View\Model\Settings
     protected function getFormClass()
     {
         return 'XLite\View\Form\Model\NotificationAttachments';
+    }
+
+    /**
+     * Check is symfony-polyfill is used instead of native mbstring
+     */
+    public function isMbstringWarningVisible()
+    {
+        return !function_exists('mb_convert_kana');
     }
 }

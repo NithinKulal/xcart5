@@ -8,7 +8,7 @@
 {% if this.getWrongPermissions() %}
   <div class="modified-files-section">
     <div class="modified-files-section-frame">
-    <div class="description">{{ t('Permissions checking failed') }}</div>
+    <div class="description">{{ t('Permissions checking failed')|raw }}</div>
     <ul class="modified-files-block">
       {% for command in this.getWrongPermissions() %}
         <li>{{ command }}</li>

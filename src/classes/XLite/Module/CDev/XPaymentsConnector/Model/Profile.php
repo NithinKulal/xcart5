@@ -146,9 +146,7 @@ class Profile extends \XLite\Model\Profile implements \XLite\Base\IDecorator
                     $res['address_id'] = $card->getBillingAddress()->getAddressId();
                 }
 
-                if ($this->getDefaultCardId() == $res['card_id']) {
-                    $res['is_default'] = true;
-                }
+                $res['is_default'] = ($this->getDefaultCardId() == $res['card_id']);
 
                 $result[] = $res;
             }

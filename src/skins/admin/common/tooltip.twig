@@ -5,12 +5,13 @@
 {% spaceless %}
 <span
         data-toggle="popover"
-        data-trigger="hover"
+        data-trigger="{{ this.getTrigger() }}"
         data-placement="{{ this.getParam('placement') }}"
         data-content="{% if this.getParam('helpWidget') %}{{  this.getParam('helpWidget') }}{% else  %}{{ this.getParam('text') }}{% endif %}"
         data-html="true"
         data-help-id="{{ this.getHelpId() }}"
         data-delay="{{ this.getDelay() }}"
+        data-keep-on-hover="{{ this.isKeepOnHover() }}"
         v-xlite-tooltip
         class="tooltip-main">
 

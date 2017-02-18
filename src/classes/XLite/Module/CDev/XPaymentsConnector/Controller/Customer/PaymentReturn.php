@@ -15,11 +15,11 @@ namespace XLite\Module\CDev\XPaymentsConnector\Controller\Customer;
 class PaymentReturn extends \XLite\Controller\Customer\PaymentReturn implements \XLite\Base\IDecorator
 {
     /**
-     * Return
+     * Detect the X-Payments transaction from the request directly
      *
-     * @return void
+     * @return \XLite\Model\Payment\Transaction
      */
-    protected function doActionReturn()
+    protected function detectXpcTransaction()
     {
         $txnId = \XLite\Core\Request::getInstance()->txnId;
 
@@ -30,9 +30,20 @@ class PaymentReturn extends \XLite\Controller\Customer\PaymentReturn implements 
                 ->findOneBy(array('value' => $txnId, 'name' => 'xpc_txnid'));
             if ($transactionData) {
                 $transaction = $transactionData->getTransaction();
-
             }
         }
+
+        return $transaction;
+    }
+
+    /**
+     * Return
+     *
+     * @return void
+     */
+    protected function doActionReturn()
+    {
+        $transaction = $this->detectXpcTransaction();
 
         if ($transaction) {
             

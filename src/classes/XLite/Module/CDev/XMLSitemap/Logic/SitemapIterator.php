@@ -264,14 +264,14 @@ class SitemapIterator extends \XLite\Base implements \SeekableIterator, \Countab
     protected function assembleWelcomeData()
     {
         $result = [
-            'loc' => Converter::buildFullURL(\XLite::TARGET_DEFAULT, '', [], \XLite::getCustomerScript(), true),
+            'loc' => \XLite::getInstance()->getShopURL(Converter::buildURL(\XLite::TARGET_DEFAULT, '', [], \XLite::getCustomerScript(), true)),
             'lastmod' => Converter::time(),
             'changefreq' => Config::getInstance()->CDev->XMLSitemap->welcome_changefreq,
             'priority' => $this->processPriority(Config::getInstance()->CDev->XMLSitemap->welcome_priority),
         ];
 
         if ($this->hasAlternateLangUrls()) {
-            $url = Converter::buildURL(\XLite::TARGET_DEFAULT, '', [], \XLite::getCustomerScript(), false, true);
+            $url = Converter::buildURL(\XLite::TARGET_DEFAULT, '', [], \XLite::getCustomerScript(), true);
 
             if ($this->languageCode) {
                 $result['loc'] = URLManager::getShopURL($this->languageCode . '/' . $url);
@@ -301,7 +301,7 @@ class SitemapIterator extends \XLite\Base implements \SeekableIterator, \Countab
      */
     protected function assembleCategoryData(\XLite\Model\Category $category)
     {
-        $_url = Converter::buildURL('category', '', ['category_id' => $category->getCategoryId()], \XLite::getCustomerScript(), false, true);
+        $_url = Converter::buildURL('category', '', ['category_id' => $category->getCategoryId()], \XLite::getCustomerScript(), true);
         $url = \XLite::getInstance()->getShopURL($_url);
 
         $result = [
@@ -341,7 +341,7 @@ class SitemapIterator extends \XLite\Base implements \SeekableIterator, \Countab
      */
     protected function assembleProductData(\XLite\Model\Product $product)
     {
-        $_url = Converter::buildURL('product', '', ['product_id' => $product->getProductId()], \XLite::getCustomerScript(), false, true);
+        $_url = Converter::buildURL('product', '', ['product_id' => $product->getProductId()], \XLite::getCustomerScript(), true);
         $url = \XLite::getInstance()->getShopURL($_url);
 
         $result = [

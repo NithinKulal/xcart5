@@ -272,3 +272,22 @@ div.table-value.decline-period-value input#decline-period {
 .no-payments-requested a.addons-list-back-button span {
   margin-bottom: -5px;
 }
+
+.step-text a {
+  color: #333;
+  text-decoration: none;
+}
+
+.step-text a:hover {
+  text-decoration: none;
+  border-bottom: none;
+}
+
+.step3 .step-text a {
+  color: #428bca;
+}
+
+.step3 .step-text a:hover {
+  color: #2a6496;
+  text-decoration: underline;
+}

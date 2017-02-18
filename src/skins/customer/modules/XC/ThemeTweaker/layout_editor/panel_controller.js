@@ -105,7 +105,7 @@ LayoutEditorPanel.prototype.submitChanges = function (event) {
 
     core.post(
       {
-        base: 'admin.php',
+        base: xliteConfig.admin_script,
         target: 'layout_edit',
         action: 'apply_changes'
       },
@@ -172,7 +172,7 @@ LayoutEditorPanel.prototype.disableEditor = function (event) {
 
     core.post(
       {
-        base: 'admin.php',
+        base: xliteConfig.admin_script,
         target: 'layout_edit',
         action: 'disable'
       },

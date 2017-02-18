@@ -38,16 +38,31 @@ abstract class TopCategories extends \XLite\View\TopCategories implements \XLite
     }
 
     /**
-     * Preprocess DTO
+     * @param array $categories
      *
-     * @param  array    $categoryDTO
      * @return array
      */
-    protected function preprocessDTO($categoryDTO)
+    protected function postprocessDTOs($categories)
     {
-        $categoryDTO = parent::preprocessDTO($categoryDTO);
+        $categories = parent::postprocessDTOs($categories);
 
-        return $categoryDTO;
+        if (\XLite\Core\Config::getInstance()->QSL->FlyoutCategoriesMenu->fcm_show_product_num) {
+            foreach ($categories as $categoryDTO) {
+                $tmpParent = isset($categories[$categoryDTO['parent_id']])
+                    ? $categories[$categoryDTO['parent_id']]
+                    : null;
+
+                $productsCount = $categoryDTO['productsCount'];
+                while ($tmpParent) {
+                    $categories[$tmpParent['id']]['productsCount'] += $productsCount;
+                    $tmpParent = isset($categories[$tmpParent['parent_id']])
+                        ? $categories[$tmpParent['parent_id']]
+                        : null;
+                }
+            }
+        }
+
+        return $categories;
     }
 
     /**

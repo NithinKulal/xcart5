@@ -13,6 +13,7 @@ namespace XLite\Module\XC\FreeShipping\Model;
  * Decorate OrderItem model
  *
  * @Decorator\Depend("CDev\Coupons")
+ * @Decorator\After("XC\FreeShipping")
  */
 class OrderItemCoupon extends \XLite\Model\OrderItem implements \XLite\Base\IDecorator
 {

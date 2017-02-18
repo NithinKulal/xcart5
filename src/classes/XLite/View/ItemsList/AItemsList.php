@@ -441,6 +441,16 @@ abstract class AItemsList extends \XLite\View\Container
     }
 
     /**
+     * Description for blank items list
+     *
+     * @return string
+     */
+    protected function getEmptyListDescription()
+    {
+        return static::t('No items found.');
+    }
+
+    /**
      * Get pager parameters list
      *
      * @return array

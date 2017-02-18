@@ -67,6 +67,16 @@ class Review extends \XLite\View\ItemsList\Model\Table
     }
 
     /**
+     * Description for blank items list
+     *
+     * @return string
+     */
+    protected function getBlankItemsListDescription()
+    {
+        return static::t('itemslist.admin.review.blank');
+    }
+
+    /**
      * Should itemsList be wrapped with form
      *
      * @return boolean

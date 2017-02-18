@@ -52,10 +52,10 @@ class Advanced extends \XLite\View\FormField\Textarea\Advanced implements \XLite
      */
     protected function getEditorLanguageResource()
     {
-        return array(
+        return [
             'file' => $this->getEditorLanguageFile(),
             'no_minify' => true,
-        );
+        ];
     }
 
     /**
@@ -153,7 +153,7 @@ class Advanced extends \XLite\View\FormField\Textarea\Advanced implements \XLite
      */
     protected function getFroalaConfiguration()
     {
-        return array(
+        return [
             'placeholderText' => '',
             'iframe' => true,
             'iframeStyleFiles' => $this->getIframeStyleFiles(),
@@ -162,32 +162,45 @@ class Advanced extends \XLite\View\FormField\Textarea\Advanced implements \XLite
             'imageUploadURL' => \XLite\Core\Converter::buildURL(
                 'files',
                 'upload_from_file',
-                array(
+                [
                     'mode' => 'json',
                     'type' => 'image',
                     'url_param_name' => 'link',
                     'register' => true
-                )
+                ]
             ),
             'imageManagerLoadURL' => \XLite\Core\Converter::buildURL(
                 'files',
                 'get_image_manager_list',
-                array()
+                []
             ),
             'imageManagerDeleteURL' => \XLite\Core\Converter::buildURL(
                 'files',
                 'remove_from_image_manager',
-                array()
+                []
             ),
             'imageUploadParam' => 'file',
-            'requestHeaders' => array(
+            'requestHeaders' => [
                 'X-Requested-With' => 'XMLHttpRequest'
-            ),
-            'toolbarButtons' => array(
+            ],
+            'toolbarButtons' => [
                 'fontFamily', 'fontSize', '|', 'bold', 'italic', 'underline', 'strikeThrough', 'color', 'inlineStyle', 'clearFormatting', '|', 'paragraphFormat', 'paragraphStyle', 'formatOL', 'formatUL', '-', 
                 'align', 'indent', 'outdent', 'insertHR', 'quote', '|', 'insertImage', 'insertTable', 'insertLink', 'insertVideo', '|', 'undo', 'redo', 'html', 'fullscreen'
-            )
-        );
+            ],
+            'appendToDefault' => $this->getFroalaAppendConfiguration(),
+        ];
+    }
+
+    /**
+     * Return editor options, which should be append to existing without overwriting
+     *
+     * @return array
+     */
+    protected function getFroalaAppendConfiguration()
+    {
+        return [
+            'htmlAllowedAttrs' => ['allowfullscreen']
+        ];
     }
 
     /**
@@ -197,7 +210,7 @@ class Advanced extends \XLite\View\FormField\Textarea\Advanced implements \XLite
      */
     protected function getIframeStyleFiles()
     {
-        $styleFiles = array();
+        $styleFiles = [];
 
         $customer = $this->getCustomerLessStyles();
 
@@ -220,32 +233,32 @@ class Advanced extends \XLite\View\FormField\Textarea\Advanced implements \XLite
     {
         $lessParser = \XLite\Core\LessParser::getInstance();
 
-        $customerLESS = array(
-            array(
+        $customerLESS = [
+            [
                 'file' => \XLite\Core\Layout::getInstance()->getResourceFullPath('bootstrap/css/bootstrap.less', \XLite::COMMON_INTERFACE),
                 'media' => 'screen',
                 'weight' => 0,
-                'filelist' => array(
+                'filelist' => [
                     'bootstrap/css/bootstrap.less',
-                ),
+                ],
                 'interface' => \XLite::COMMON_INTERFACE,
                 'original' => 'bootstrap/css/bootstrap.less',
                 'url' => \XLite\Core\Layout::getInstance()->getResourceWebPath('bootstrap/css/bootstrap.less', \XLite\Core\Layout::WEB_PATH_OUTPUT_SHORT, \XLite::COMMON_INTERFACE),
                 'less' => true,
-            ),
-            array(
+            ],
+            [
                 'file'          => \XLite\Core\Layout::getInstance()->getResourceFullPath('css/style.less', \XLite::CUSTOMER_INTERFACE),
                 'media'         => 'screen',
                 'merge'         => 'bootstrap/css/bootstrap.less',
-                'filelist'      => array(
+                'filelist'      => [
                     'css/style.less',
-                ),
+                ],
                 'interface'     => null,
                 'original'      => 'css/style.less',
                 'url'           => \XLite\Core\Layout::getInstance()->getResourceWebPath('css/style.less', \XLite\Core\Layout::WEB_PATH_OUTPUT_SHORT, \XLite::CUSTOMER_INTERFACE),
                 'less'          => true
-            ),
-        );
+            ],
+        ];
 
         // Customer LESS files parsing
         $lessParser->setInterface('default');
@@ -269,7 +282,7 @@ class Advanced extends \XLite\View\FormField\Textarea\Advanced implements \XLite
     {
         $themeFiles = $this->getThemeFiles(false);
         $themeFiles = $themeFiles[static::RESOURCE_CSS];
-        $themeFilesCSS = array();
+        $themeFilesCSS = [];
 
         foreach ($themeFiles as $key => $file) {
             if (!is_array($file)) {
@@ -280,7 +293,7 @@ class Advanced extends \XLite\View\FormField\Textarea\Advanced implements \XLite
                 );
 
                 if ($path) {
-                    $themeFilesCSS[] = $this->getShopURL($path, null, array('t' => LC_START_TIME));
+                    $themeFilesCSS[] = $this->getShopURL($path, null, ['t' => LC_START_TIME]);
                 }
             }
         }
@@ -295,14 +308,14 @@ class Advanced extends \XLite\View\FormField\Textarea\Advanced implements \XLite
      */
     protected function getFroalaEditorStyles()
     {
-        return array(
+        return [
             $this->getShopURL(
                 \XLite\Core\Layout::getInstance()->getResourceWebPath(
                     'froala-editor/css/froala_style.fixed.css',
                     \XLite\Core\Layout::WEB_PATH_OUTPUT_URL,
                     \XLite::COMMON_INTERFACE
                 ),
-                null, array('t' => LC_START_TIME)
+                null, ['t' => LC_START_TIME]
             ),
             $this->getShopURL(
                 \XLite\Core\Layout::getInstance()->getResourceWebPath(
@@ -310,9 +323,9 @@ class Advanced extends \XLite\View\FormField\Textarea\Advanced implements \XLite
                     \XLite\Core\Layout::WEB_PATH_OUTPUT_URL,
                     \XLite::COMMON_INTERFACE
                 ),
-                null, array('t' => LC_START_TIME)
+                null, ['t' => LC_START_TIME]
             ),
-        );
+        ];
     }
 
     /**

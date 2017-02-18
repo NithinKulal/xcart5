@@ -78,7 +78,7 @@ abstract class ADecorator
      */
     public static function getClassesDir()
     {
-        return self::STEP_FIRST == static::$step
+        return self::STEP_FIRST == static::$step || self::STEP_SECOND == static::$step
             ? LC_DIR_CLASSES
             : static::getCacheClassesDir();
     }

@@ -6,12 +6,13 @@
 <div class="button-tooltip-wrapper">
     <div
             data-toggle="popover"
-            data-trigger="hover"
+            data-trigger="{{ this.getTrigger() }}"
             data-placement="{{ this.getParam('placement') }}"
             data-content="{{ this.getButtonTooltip()|raw }}"
             data-html="true"
             data-help-id="{{ this.getHelpId() }}"
             data-delay="{{ this.getDelay() }}"
+            data-keep-on-hover="{{ this.isKeepOnHover() }}"
             v-xlite-tooltip
             class="tooltip-main">
 

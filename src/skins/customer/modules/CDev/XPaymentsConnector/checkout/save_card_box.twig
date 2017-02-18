@@ -3,8 +3,6 @@
  #
  #}
 
-<br />
-
 <div class="xpc-box"{% if not this.checkCheckoutAction() %} style="display: none;"{% endif %}>
   {{ widget('\\XLite\\Module\\CDev\\XPaymentsConnector\\View\\Checkout\\Iframe') }}
   <div class="{{ this.getSaveCardBoxClass() }}" {% if not this.showSaveCardBox() %} style="display: none;"{% endif %}>

@@ -2095,9 +2095,7 @@ abstract class AProcessor extends \XLite\Base implements \SeekableIterator, \Cou
         // Do not verify files in verification mode and if 'ignoreFileChecking' option is true
         if (!$this->isVerification() || !$this->importer->getOptions()->ignoreFileChecking) {
             if ($this->verifyValueAsURL($value)) {
-                $request = new \XLite\Core\HTTP\Request($value);
-                $response = $request->sendRequest();
-                $result = ($response && 200 == $response->code);
+                $result = (bool) \XLite\Core\Operator::checkURLAvailability($value);
 
             } else {
                 $result = \Includes\Utils\FileManager::isReadable(LC_DIR_ROOT . $value)

@@ -22,10 +22,16 @@
 
     if (this.length > 0) {
       this.each(function() {
-        assignHandlers(this);
+        var parent = findParent(this);
+        var label = jQuery(this).siblings('label');
+        if (label.outerWidth() < jQuery(this).outerWidth()) {
+          assignHandlers(this);
 
-        // capture initial state
-        handler.apply(this, [null]);
+          // capture initial state
+          handler.apply(this, [null]);
+        } else if (parent && parent.length) {
+          parent.addClass('not-floating');
+        }
       })
     }
 

@@ -10,7 +10,7 @@
 
 function markStep(step) {
 
-    var selector = '.step' + step + ', .step' + step + ' *';
+    var selector = '.top-line .step' + step + ',.top-line .step' + step + ' *';
 
   jQuery(selector).mouseenter(
       function(e) {

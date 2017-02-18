@@ -1,0 +1,6 @@
+Version 5.3.3.2
+
+Fixes
+2017-01-16 - [Bug] Fatal error when making a payment for products with Shipping requirement = No via PayPal Standard. #BUG-4428 (Maxim Kuznetsov) #Paypal
+2017-01-16 - [Bug] A false CSRF warning was displayed after clicking the checkout with paypal button if http was used by the customer to access the page, and the store had been configured to work via https. #BUG-4434 (Maxim Kuznetsov) #Paypal
+2016-12-29 - [Bug] On the PayPal settings page in the Russian language, the sections were overlapping. #BUG-4356 (Michael Lipinski) #Paypal

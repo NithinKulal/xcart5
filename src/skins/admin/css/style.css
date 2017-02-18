@@ -1506,10 +1506,6 @@ div.model-form-buttons {
   width: 100%;
 }
 
-.model-properties ul.table > li > * {
-  white-space: nowrap;
-}
-
 div.table-label {
   display: table-cell;
   padding-top: 10px;
@@ -2460,4 +2456,9 @@ div.alert {
 .promo-block.banner-system-promo {
   position: absolute;
   right: 10px;
+}
+
+.alert.attachment-warning {
+  max-width: 600px;
+  white-space: normal;
 }

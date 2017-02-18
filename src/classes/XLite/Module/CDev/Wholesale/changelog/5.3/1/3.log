@@ -1,0 +1,4 @@
+Version 5.3.1.3
+
+Fixes
+2017-01-05 - [Bug] If a product with an arrival date set for the future had two variants that were "in stock", both the variants and the add-to-cart button for them showed on the storefront despite the item coming in the future. #BUG-4347 (Michael Lipinski) #Wholesale #ProductVariants

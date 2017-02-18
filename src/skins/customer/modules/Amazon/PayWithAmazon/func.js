@@ -56,14 +56,14 @@ define('Amazon/PayWithAmazon', ['js/jquery', 'ready'], function ($) {
 
     pwaButton: function (id) {
       return this.button(id, 'PwA', 'Gold', 'medium', URLHandler.buildURL({
-        target: 'amazon_checkout',
+        target: 'amazon_login',
         mode: 'payWithAmazon'
       }));
     },
 
     lwaButton: function (id) {
       return this.button(id, 'LwA', 'Gold', 'medium', URLHandler.buildURL({
-        target: 'amazon_checkout',
+        target: 'amazon_login',
         mode: 'loginWithAmazon',
         returnUrl: xliteConfig.target === 'checkout' ? '' : window.location.href
       }));
@@ -71,7 +71,7 @@ define('Amazon/PayWithAmazon', ['js/jquery', 'ready'], function ($) {
 
     lwaIcon: function (id) {
       return this.button(id, 'A', 'Gold', 'small', URLHandler.buildURL({
-        target: 'amazon_checkout',
+        target: 'amazon_login',
         mode: 'loginWithAmazon',
         returnUrl: xliteConfig.target === 'checkout' ? '' : window.location.href
       }));
@@ -115,8 +115,16 @@ define('Amazon/PayWithAmazon', ['js/jquery', 'ready'], function ($) {
         },
         design: {
           designMode: 'responsive'
+        },
+        onError: function (error) {
+          console.warn(error.getErrorMessage());
         }
       };
+
+      if (this.orderReference) {
+        params.amazonOrderReferenceId = this.orderReference;
+        params.displayMode = 'Read';
+      }
 
       new OffAmazonPayments.Widgets.AddressBook(params).bind(id);
     },
@@ -124,10 +132,15 @@ define('Amazon/PayWithAmazon', ['js/jquery', 'ready'], function ($) {
     checkAddress: function () {
       this.lockCheckout(true);
       var self = this;
-      jQuery.post('cart.php?target=amazon_checkout', {
-        'mode': 'check_address',
-        'orefid': this.orderReference
-      }, function (data) {
+
+      var data = {
+        action: 'check_address',
+        orderReference: this.orderReference
+      };
+
+      data[xliteConfig.form_id_name] = xliteConfig.form_id;
+
+      jQuery.post('cart.php?target=amazon_checkout', data, function (data) {
 
         if (data == 'error') {
           alert('ERROR: Amazon server communication error. Please check module configuration (see logs for details)');
@@ -230,6 +243,9 @@ define('Amazon/PayWithAmazon', ['js/jquery', 'ready'], function ($) {
         },
         design: {
           designMode: 'responsive'
+        },
+        onError: function (error) {
+          console.warn(error);
         }
       }).bind(id);
     },
@@ -244,20 +260,20 @@ define('Amazon/PayWithAmazon', ['js/jquery', 'ready'], function ($) {
       }
 
       // except mobile
-      if (jQuery('button.place-order').length > 0 && amazonConfig.sid && !amazonConfig.mobile) {
+      if (jQuery('button.place-order').length > 0 && amazonConfig.sid) {
         this.lockCheckout(true);
 
         // place order button
         jQuery('button.place-order').click(_.bind(this.placeOrder, this));
 
-        // have coupon link
-        jQuery('div.coupons div.new a').click(function () {
-          jQuery('div.coupons div.add-coupon').toggle();
-          return false;
-        });
-
-        // tmp fix for pre-selected payment method
-        jQuery('.payment-tpl').remove();
+        // // have coupon link
+        // jQuery('div.coupons div.new a').click(function () {
+        //   jQuery('div.coupons div.add-coupon').toggle();
+        //   return false;
+        // });
+        //
+        // // tmp fix for pre-selected payment method
+        // jQuery('.payment-tpl').remove();
       }
 
       this.initAddressBookWidget('addressBookWidgetDiv');
@@ -318,8 +334,10 @@ define('Amazon/PayWithAmazon', ['js/jquery', 'ready'], function ($) {
       co_form.removeAttr('onsubmit');
       co_form.attr('action', 'cart.php?target=amazon_checkout');
       co_form.find("input[name='target']").val('amazon_checkout');
-      co_form.append('<input type="hidden" name="amazon_pa_orefid" value="' + this.orderReference + '" />');
-      co_form.append('<input type="hidden" name="mode" value="place_order" />');
+      co_form.append('<input type="hidden" name="orderReference" value="' + this.orderReference + '" />');
+      if (amazonConfig.orderReference) {
+        co_form.append('<input type="hidden" name="isRetry" value="true" />');
+      }
       return true;
     },
 
@@ -338,8 +356,13 @@ define('Amazon/PayWithAmazon', ['js/jquery', 'ready'], function ($) {
 
   };
 
+  Amazon.orderReference = amazonConfig.orderReference;
+
   core.bind('afterPopupPlace', function () {
-    Amazon.pwaButton('payWithAmazonDiv_add2c_popup_btn');
+    var time = (new Date()).getTime();
+    var button = jQuery('[id="payWithAmazonDiv_add2c_popup_btn"]:last').attr('id', 'payWithAmazonDiv_add2c_popup_btn_' + time);
+
+    Amazon.pwaButton('payWithAmazonDiv_add2c_popup_btn_' + time);
     Amazon.pwaButton('payWithAmazonDiv_mini_cart_btn');
   });
 

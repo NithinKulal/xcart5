@@ -81,6 +81,16 @@ abstract class AAdmin extends \XLite\View\ItemsList\Model\Order\AOrder
     }
 
     /**
+     * Description for blank items list
+     *
+     * @return string
+     */
+    protected function getBlankItemsListDescription()
+    {
+        return static::t('itemslist.admin.order.blank');
+    }
+
+    /**
      * Returns true if order has allowed backend payment transactions
      *
      * @param \XLite\Model\Order $entity Order

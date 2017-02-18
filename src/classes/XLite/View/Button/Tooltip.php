@@ -17,6 +17,7 @@ class Tooltip extends \XLite\View\Button\Regular
      * Widget parameter names
      */
     const PARAM_BUTTON_TOOLTIP   = 'buttonTooltip';
+    const PARAM_KEEP_ON_HOVER    = 'keepOnHover';
     const PARAM_SEPARATE_TOOLTIP = 'tooltip';
     const PARAM_PLACEMENT        = 'placement';
     const PARAM_DELAY            = 'delay';
@@ -71,6 +72,7 @@ class Tooltip extends \XLite\View\Button\Regular
         $this->widgetParams += [
             static::PARAM_BUTTON_TOOLTIP   => new \XLite\Model\WidgetParam\TypeString('Button tooltip', ''),
             static::PARAM_SEPARATE_TOOLTIP => new \XLite\Model\WidgetParam\TypeString('Separate tooltip', ''),
+            static::PARAM_KEEP_ON_HOVER    => new \XLite\Model\WidgetParam\TypeBool('Keep on hover', true),
             static::PARAM_PLACEMENT        => new \XLite\Model\WidgetParam\TypeString('Tooltip placement', 'top auto'),
             static::PARAM_DELAY            => new \XLite\Model\WidgetParam\TypeInt('Tooltip hide delay', 0),
             static::PARAM_DELAY_SHOW       => new \XLite\Model\WidgetParam\TypeInt('Tooltip show delay', 0),
@@ -108,6 +110,28 @@ class Tooltip extends \XLite\View\Button\Regular
     protected function getButtonTooltip()
     {
         return $this->getParam(static::PARAM_BUTTON_TOOLTIP);
+    }
+
+    /**
+     * Keep on hover
+     *
+     * @return boolean
+     */
+    protected function isKeepOnHover()
+    {
+        return $this->getParam(static::PARAM_KEEP_ON_HOVER);
+    }
+
+    /**
+     * Get trigger
+     *
+     * @return string
+     */
+    protected function getTrigger()
+    {
+        return $this->isKeepOnHover()
+            ? 'manual'
+            : 'hover';
     }
 
     /**

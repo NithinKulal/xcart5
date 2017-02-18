@@ -7,6 +7,7 @@
   {{ this.displayCommentedData(this.getItemsListParams()) }}
   {% if this.isHeaderVisible() %}
     <div class="list-header">
+      {{ widget_list('header.before', type='inherited') }}
       {% for tpl in this.getTopActions() %}
         <div class="button-container">{% include tpl %}</div>
       {% endfor %}

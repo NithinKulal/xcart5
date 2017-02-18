@@ -1,0 +1,5 @@
+Version 5.3.2.1
+
+Fixes
+2017-01-03 - [Bug] In the module Sale, the setting "Display only the products on sale which are in the category being viewed (or its subcategories)" did not work correctly. #BUG-4384 (Eugene Dementjev) #Sale
+2016-12-19 - [Bug] If the section Sale was moved from the sidebar to the central area with layout editor, only one product was displayed in this section. #BUG-4315 (Michael Lipinski) #Sale

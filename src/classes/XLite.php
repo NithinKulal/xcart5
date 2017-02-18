@@ -22,7 +22,7 @@ class XLite extends \XLite\Base
     /**
      * Core version
      */
-    const XC_VERSION = '5.3.2.2';
+    const XC_VERSION = '5.3.2.7';
 
     /**
      * Endpoints
@@ -232,6 +232,17 @@ class XLite extends \XLite\Base
     {
         if (null === static::$controller) {
             $class = static::getControllerClass();
+
+            // If mod_rewrite is disabled and ErrorDocument 404 is set
+            //  on check/for/clean/urls.html uri we are trying do display 404
+            // This is here to speedup check request
+            if (\XLite\Core\Request::getInstance()->target === static::TARGET_404
+                && isset($_SERVER['REQUEST_URI'])
+                && strpos($_SERVER['REQUEST_URI'], static::CLEAN_URL_CHECK_QUERY) !== false
+            ) {
+                http_response_code(404);
+                die();
+            };
 
             if (!$class) {
                 \XLite\Core\Request::getInstance()->target = static::TARGET_DEFAULT;
@@ -760,6 +771,13 @@ class XLite extends \XLite\Base
         $result = static::TARGET_DEFAULT;
 
         if (isset(\XLite\Core\Request::getInstance()->url)) {
+            if (static::isCheckForCleanURL()) {
+                $result = null;
+                // Request to detect support of clean URLs
+                // Just display 'OK' and exit to speedup this checking
+                die('OK');
+            };
+
             if (LC_USE_CLEAN_URLS) {
                 // Get target
                 $result = static::getTargetByCleanURL();
@@ -771,14 +789,6 @@ class XLite extends \XLite\Base
                     // Redirect
                     \XLite\Core\Operator::redirect($canonicalURL);
                 }
-
-            } else {
-                $result = null;
-                if (static::isCheckForCleanURL()) {
-                    // Request to detect support of clean URLs
-                    // Just display 'OK' and exit to speedup this checking
-                    die('OK');
-                };
             }
         }
 

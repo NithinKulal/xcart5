@@ -5,6 +5,6 @@
 <div>
   <span class="value">{{ this.getViewValue(this.singleField) }}</span>
   {% if this.entity.getId() %}
-    <span class="products">({{ this.entity.getProductsCount() }} {{ t('products') }})</span>
+    <span class="products">({{ t('Products in this class: {{X}}', {'X': this.entity.getProductsCount()}) }})</span>
   {% endif %}
 </div>

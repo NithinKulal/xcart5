@@ -142,7 +142,7 @@ class Welcome extends \XLite\Module\CDev\XPaymentsConnector\View\Settings\ASetti
      */
     public static function getConfigureLink()
     {
-        return 'http://help.x-cart.com/index.php?title=X-Payments:User_manual#Payment_Configurations';
+        return 'https://www.x-payments.com/help/X-Payments:Payment_configurations';
     }
 
     /**
@@ -152,7 +152,7 @@ class Welcome extends \XLite\Module\CDev\XPaymentsConnector\View\Settings\ASetti
      */
     public static function getConnectLink()
     {
-        return 'http://help.x-cart.com/index.php?title=X-Payments:User_manual#Online_Stores';
+        return 'https://www.x-payments.com/help/X-Payments:Managing_store_connections';
     }
 
     /**
@@ -166,14 +166,14 @@ class Welcome extends \XLite\Module\CDev\XPaymentsConnector\View\Settings\ASetti
             . '&utm_medium=xp_connector_xc5_welcome_page'
             . '&utm_campaign=xp_connector_xc5';
 
-
         $email = urlencode(\XLite\Core\Auth::getInstance()->getProfile()->getLogin());
         $url = parse_url(\XLite::getInstance()->getShopURL());
+        $platform = 'xcart5';
 
         $domain = urlencode($url['host']);
 
         return 'http://www.x-cart.com/x-payments-trial-demo.html?'
-                . 'your_email=' . $email . '&shop_url=' . $domain . $utm;
+                . 'your_email=' . $email . '&shop_url=' . $domain . '&platform=' . $platform . $utm;
     }
 
     /**

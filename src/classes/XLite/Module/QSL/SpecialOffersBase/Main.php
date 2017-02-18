@@ -30,6 +30,11 @@
  * 5.3.2
  * - fixed the issue with the cart page crashing on Crisp White theme (#0046804)
  * 
+ * 5.3.3
+ * - fixed styles for the Special Offers backend page
+ * - fixed the issue with offers of disabled modules being displyed on Special
+ *   Offers backend page (#0047540)
+ * 
  * -----------------------------------------------------------------------------
  * 
  * @category  X-Cart 5
@@ -92,7 +97,7 @@ abstract class Main extends \XLite\Module\AModule
      */
     public static function getMinorVersion()
     {
-        return '2';
+        return '3';
     }
 
     /**

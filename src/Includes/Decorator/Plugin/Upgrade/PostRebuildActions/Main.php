@@ -32,6 +32,13 @@ class Main extends \Includes\Decorator\Plugin\APlugin
                 /** @var \XLite\Upgrade\Entry\AEntry $entry */
                 foreach ($entries as $entry) {
                     if (!$entry->isPostUpgradeActionsCalled()) {
+                        if (!$entry->isPostUpgradeActionsStillValid()) {
+                            $message = '...Actions can\'t be invoked because entry is not valid: ' . $entry->getActualName();
+                            \Includes\Utils\Operator::showMessage(str_replace('\\', '\\\\', $message), true, true);
+                            $entry->setPostUpgradeActionsCalled();
+                            break;
+                        }
+
                         $message = '...Invoke actions for ' . $entry->getActualName();
                         \Includes\Utils\Operator::showMessage(str_replace('\\', '\\\\', $message), true, true);
                         \Includes\Decorator\Utils\CacheManager::logMessage(PHP_EOL);

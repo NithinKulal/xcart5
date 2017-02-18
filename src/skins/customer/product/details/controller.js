@@ -462,6 +462,7 @@ ProductDetailsView.prototype.getColorboxOptions = function () {
   return {
     onComplete: function () {
       jQuery('#cboxCurrent').css('display', 'none');
+      jQuery('#cboxTitle').text(jQuery('img', this).attr('alt'));
     },
     onClosed: _.bind(this.hideLightbox, this),
     maxWidth: jQuery(document).width(),

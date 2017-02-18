@@ -266,7 +266,7 @@ class Checkout extends \XLite\Controller\Customer\Checkout implements \XLite\Bas
         \XLite\Module\CDev\XPaymentsConnector\Core\XPaymentsClient::getInstance()->clearInitDataFromSession();
 
         $this->setHardRedirect();
-        $this->setReturnURL($this->buildURL('cart', 'checkout'));
+        $this->setReturnURL($this->buildURL('checkout'));
         $this->doRedirect();
     }
 
@@ -390,13 +390,65 @@ class Checkout extends \XLite\Controller\Customer\Checkout implements \XLite\Bas
     }
 
     /**
+     * Save selected card id
+     *
+     * @return void
+     */
+    protected function doActionSaveSelectedCardId()
+    {
+        $selectedCardId = \XLite\Core\Request::getInstance()->selected_card_id;
+        if (
+            $selectedCardId 
+            && $this->getCart()->getProfile()->isCardIdValid($selectedCardId)
+        ) {
+            \XLite\Core\Session::getInstance()->selectedCardId = $selectedCardId;
+        }
+        // To avoid extra AJAX parsing of response
+        $this->silent = true;
+    }
+
+    /**
+     * Get selected card id
+     *
+     * @return int
+     */
+    public function getSelectedCardId()
+    {
+        $selectedCardId = \XLite\Core\Session::getInstance()->selectedCardId;
+        if (
+            $selectedCardId 
+            && $this->getCart()->getProfile()->isCardIdValid($selectedCardId)
+        ) {
+            return $selectedCardId;
+        }
+
+        return null;
+
+    }
+
+    /**
+     * Check is card selected
+     *
+     * @return bool
+     */
+    public function isCardSelected($card)
+    {
+        $selectedCardId = $this->getSelectedCardId();
+        if ($selectedCardId) {
+            return ($selectedCardId == $card['card_id']);
+        } else {
+            return $card['is_default'];
+        }
+    }
+    
+    /**
      * Set card billing address
      *
      * @return void
      */
     protected function doActionSetCardBillingAddress()
     {
-        $addressId = \XLite\Core\Request::getInstance()->addressId;
+        $addressId = \XLite\Core\Request::getInstance()->address_id;
 
         // Get list of Address IDs associated with profile
         $profileAddressIds = array_keys(

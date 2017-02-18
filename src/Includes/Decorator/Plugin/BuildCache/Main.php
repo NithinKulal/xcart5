@@ -35,6 +35,8 @@ class Main extends \Includes\Decorator\Plugin\APlugin
      */
     public function executeHookHandler()
     {
+        \Includes\Autoloader::switchToOriginalClassDir();
+
         $modules = array_keys(ModulesManager::processActiveModules());
 
         $classBuilder = (new ClassBuilderFactory())->create(LC_DIR_CLASSES, $this->getCacheClassesDir(), $modules);

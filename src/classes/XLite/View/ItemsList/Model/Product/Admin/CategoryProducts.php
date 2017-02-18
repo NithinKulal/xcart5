@@ -180,6 +180,16 @@ class CategoryProducts extends \XLite\View\ItemsList\Model\Product\Admin\Search
     }
 
     /**
+     * Description for blank items list
+     *
+     * @return string
+     */
+    protected function getBlankItemsListDescription()
+    {
+        return static::t('itemslist.admin.product.blank');
+    }
+
+    /**
      * Get panel class
      *
      * @return \XLite\View\Base\FormStickyPanel

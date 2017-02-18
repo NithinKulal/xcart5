@@ -10,7 +10,7 @@
 #ui-datepicker-div {
   border: 1px solid #bbc7d2;
   background: #fff none;
-  z-index: 1000;
+  z-index: 1000 !important;
 }
 
 .ui-datepicker-control {

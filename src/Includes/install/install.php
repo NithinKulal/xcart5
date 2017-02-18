@@ -1610,6 +1610,8 @@ OUT;
 
 <p class="admin-link"><a href="admin.php" class="final-link" target="_blank"><?php echo xtr('Administrator zone (backoffice)'); ?></a></p>
 
+<p class="concierge-note"><?php echo xtr('X-Cart can track and store user actions to improve the UI/UX and merchant experience. You can stop user action tracking at any time by removing the Concierge module.'); ?></p>
+
 <p>
 <?php echo $install_rename; ?>
 </p>

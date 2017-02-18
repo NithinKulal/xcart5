@@ -142,7 +142,7 @@ class AddressBook extends \XLite\Controller\Customer\ACustomer
         $result = $this->getModelForm()->performAction('update');
 
         if ($result) {
-            $this->setHardRedirect();
+            $this->setHardRedirect(true);
         }
 
         return $result;

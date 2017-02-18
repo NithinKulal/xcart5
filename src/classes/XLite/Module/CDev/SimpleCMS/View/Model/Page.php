@@ -43,6 +43,7 @@ class Page extends \XLite\View\Model\AModel
             self::SCHEMA_CLASS    => 'XLite\View\FormField\Textarea\Advanced',
             self::SCHEMA_LABEL    => 'Content',
             self::SCHEMA_REQUIRED => true,
+            self::SCHEMA_TRUSTED  => true,
             \XLite\View\FormField\Textarea\Advanced::PARAM_STYLE => 'page-body-content',
         ),
         'meta_title' => array(

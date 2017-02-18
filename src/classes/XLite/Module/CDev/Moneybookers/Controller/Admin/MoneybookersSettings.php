@@ -14,6 +14,18 @@ namespace XLite\Module\CDev\Moneybookers\Controller\Admin;
 class MoneybookersSettings extends \XLite\Controller\Admin\AAdmin
 {
     /**
+     * Controller parameters
+     *
+     * @var array
+     */
+    protected $params = array('target', 'method_id');
+
+    /**
+     * Module string name for payment methods
+     */
+    const MODULE_NAME = 'CDev_Moneybookers';
+
+    /**
      * Return the current page title (for the content area)
      *
      * @return string
@@ -28,145 +40,34 @@ class MoneybookersSettings extends \XLite\Controller\Admin\AAdmin
      *
      * @return void
      */
-    protected function doActionCheckEmail()
+    protected function doActionUpdate()
     {
         $email = \XLite\Core\Request::getInstance()->email;
         $id = intval(\XLite\Core\Request::getInstance()->id);
-        $sword = \XLite\Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers::getPlatformSecretWord();
-        $sword = md5($sword);
-
-        $platformId = \XLite\Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers::getPlatformCustomerID();
-        $request = new \XLite\Core\HTTP\Request(
-            'https://www.skrill.com/app/email_check.pl'
-            . '?email=' . urlencode($email)
-            . '&cust_id=' . $platformId
-            . '&password=' . $sword
-        );
-        $response = $request->sendRequest();
-
-        $codes = explode(',', $response->body, 2);
-
-        if (
-            200 == $response->code
-            && 'OK' == $codes[0]
-            && isset($codes[1])
-            && is_numeric($codes[1])
-            && 0 < intval($codes[1])
-        ) {
-            // Save settings
-            \XLite\Core\Database::getRepo('\XLite\Model\Config')->createOption(
-                array(
-                    'category' => 'CDev\Moneybookers',
-                    'name'     => 'email',
-                    'value'    => $email,
-                )
-            );
-            \XLite\Core\Database::getRepo('\XLite\Model\Config')->createOption(
-                array(
-                    'category' => 'CDev\Moneybookers',
-                    'name'     => 'id',
-                    'value'    => $codes[1],
-                )
-            );
-
-            \XLite\Core\TopMessage::getInstance()->add('E-mail address is valid');
-
-        } else {
-            \XLite\Core\TopMessage::getInstance()->add(
-                'E-mail address is not valid',
-                array(),
-                null,
-                \XLite\Core\TopMessage::ERROR
-            );
-        }
-    }
-
-    /**
-     * Activate Moneybookers Quick Checkout
-     *
-     * @return void
-     */
-    protected function doActionActivate()
-    {
-        if (
-            \XLite\Core\Config::getInstance()->CDev->Moneybookers->email != \XLite\Core\Request::getInstance()->email
-            || !\XLite\Core\Config::getInstance()->CDev->Moneybookers->email
-            || \XLite\Core\Config::getInstance()->CDev->Moneybookers->id != \XLite\Core\Request::getInstance()->id
-            || !\XLite\Core\Config::getInstance()->CDev->Moneybookers->id
-        ) {
-            $this->doActionCheckEmail();
-        }
-
-        if (
-            \XLite\Core\Config::getInstance()->CDev->Moneybookers->email
-            && \XLite\Core\Config::getInstance()->CDev->Moneybookers->id
-        ) {
-            \XLite\Core\Mailer::sendMoneybookersActivation();
-            \XLite\Core\TopMessage::getInstance()->add(
-                'You have sent a request for activation on the X.',
-                array('date' => date('m.d.Y'))
-            );
-        }
-    }
-
-    /**
-     * Validate secret word
-     *
-     * @return void
-     */
-    protected function doActionValidateSecretWord()
-    {
         $secretWord = trim(\XLite\Core\Request::getInstance()->secret_word);
-        $secret = md5(
-            md5($secretWord)
-            . md5(\XLite\Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers::getPlatformSecretWord())
+
+        // Save settings
+        \XLite\Core\Database::getRepo('\XLite\Model\Config')->createOption(
+            array(
+                'category' => 'CDev\Moneybookers',
+                'name'     => 'email',
+                'value'    => $email,
+            )
         );
-
-        $platformId = \XLite\Module\CDev\Moneybookers\Model\Payment\Processor\Moneybookers::getPlatformCustomerID();
-        $request = new \XLite\Core\HTTP\Request(
-            'https://www.skrill.com/app/secret_word_check.pl'
-            . '?secret=' . $secret
-            . '&email=' . urlencode(\XLite\Core\Config::getInstance()->CDev->Moneybookers->email)
-            . '&cust_id=' . $platformId
+        \XLite\Core\Database::getRepo('\XLite\Model\Config')->createOption(
+            array(
+                'category' => 'CDev\Moneybookers',
+                'name'     => 'id',
+                'value'    => $id,
+            )
         );
-        $response = $request->sendRequest();
-
-        if (200 == $response->code && 'OK' == $response->body) {
-            \XLite\Core\Database::getRepo('\XLite\Model\Config')->createOption(
-                array(
-                    'category' => 'CDev\Moneybookers',
-                    'name'     => 'secret_word',
-                    'value'    => $secretWord,
-                )
-            );
-
-            \XLite\Core\TopMessage::getInstance()->add('Secret word is valid');
-
-        } elseif ('VELOCITY_CHECK_EXCEEDED' == $response->body) {
-            \XLite\Core\TopMessage::getInstance()->add(
-                'Maximum number of checks for a particular user has been reached'
-                . ' (currently set to 3 per user per hour)',
-                array(),
-                null,
-                \XLite\Core\TopMessage::ERROR
-            );
-
-        } elseif ('REQUESTER_NOT_AUTHORISED' == $response->body) {
-            \XLite\Core\TopMessage::getInstance()->add(
-                'Requestor\'s account not authorised to run the secret word check',
-                array(),
-                null,
-                \XLite\Core\TopMessage::ERROR
-            );
-
-        } else {
-            \XLite\Core\TopMessage::getInstance()->add(
-                'Secret word is not valid',
-                array(),
-                null,
-                \XLite\Core\TopMessage::ERROR
-            );
-        }
+        \XLite\Core\Database::getRepo('\XLite\Model\Config')->createOption(
+            array(
+                'category' => 'CDev\Moneybookers',
+                'name'     => 'secret_word',
+                'value'    => $secretWord,
+            )
+        );
     }
 
     /**
@@ -183,5 +84,33 @@ class MoneybookersSettings extends \XLite\Controller\Admin\AAdmin
                 'value'    => trim(\XLite\Core\Request::getInstance()->prefix),
             )
         );
+    }
+
+    /**
+     * Get payment method
+     *
+     * @return \XLite\Model\Payment\Method
+     */
+    public function getPaymentMethod()
+    {
+        if (!isset($this->paymentMethod)) {
+            $this->paymentMethod = $this->getMethodId()
+                ? \XLite\Core\Database::getRepo('XLite\Model\Payment\Method')->find($this->getMethodId())
+                : null;
+        }
+
+        return $this->paymentMethod && static::MODULE_NAME === $this->paymentMethod->getModuleName()
+            ? $this->paymentMethod
+            : null;
+    }
+
+    /**
+     * Get method id from request
+     *
+     * @return integer
+     */
+    public function getMethodId()
+    {
+        return \XLite\Core\Request::getInstance()->method_id;
     }
 }

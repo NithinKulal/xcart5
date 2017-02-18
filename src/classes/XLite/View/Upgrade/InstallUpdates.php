@@ -135,6 +135,18 @@ class InstallUpdates extends \XLite\View\Upgrade\AUpgrade
     }
 
     /**
+     * @param \XLite\Upgrade\Entry\AEntry $entry
+     *
+     * @return boolean
+     */
+    public function isAvailableForUpgradeWithoutCore(\XLite\Upgrade\Entry\AEntry $entry)
+    {
+        return $entry instanceof \XLite\Upgrade\Entry\Module\Marketplace
+            ? $entry->isAvailableForUpgradeWithoutCore()
+            : true;
+    }
+
+    /**
      * Get module ID
      *
      * @return string

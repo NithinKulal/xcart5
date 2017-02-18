@@ -194,8 +194,12 @@ class PaypalLogin extends \XLite\Controller\Customer\ACustomer
      */
     protected function getAuthReturnURL($failure = false)
     {
-        $controller = \XLite\Core\Request::getInstance()->state;
-
+        $state = \XLite\Core\Request::getInstance()->{\XLite\Module\CDev\Paypal\Core\PaypalAuthProvider::STATE_PARAM_NAME};
+        $state = $state
+            ? explode(\XLite\Module\CDev\SocialLogin\Core\AAuthProvider::STATE_DELIMITER, urldecode($state))
+            : [];
+        $controller = isset($state[0]) ? $state[0] : null;
+        $returnURL = isset($state[1]) ? $state[1] : null;
         $redirectTo = $failure ? 'login' : '';
 
         if ('XLite\Controller\Customer\Checkout' === $controller) {
@@ -204,7 +208,43 @@ class PaypalLogin extends \XLite\Controller\Customer\ACustomer
             $redirectTo = 'profile';
         }
 
+        if (empty($redirectTo) && $returnURL && $this->checkReturnUrl($returnURL)) {
+            return \Includes\Utils\URLManager::getShopURL(urldecode($returnURL));
+        }
+
         return $this->buildURL($redirectTo);
+    }
+
+    /**
+     * Check if return url is relative or
+     *
+     * @param $url
+     *
+     * @return bool
+     */
+    protected function checkReturnUrl($url) {
+        if (preg_match("#^https?://([^/]+)/#", $url, $matches)) {
+            return in_array(
+                $matches[1],
+                $this->getStoreDomains()
+            );
+        }
+
+        return !preg_match('/^https?:\/\//Ss', $url);
+    }
+
+    /**
+     * Return store allowed domains
+     *
+     * @return array
+     */
+    protected function getStoreDomains()
+    {
+        $domains = explode(',', \XLite\Core\ConfigParser::getOptions(['host_details', 'domains']));
+        $domains[] = \XLite\Core\ConfigParser::getOptions(['host_details', 'http_host']);
+        $domains[] = \XLite\Core\ConfigParser::getOptions(['host_details', 'https_host']);
+
+        return array_unique(array_filter($domains));
     }
 
     // {{{ Popup related methods

@@ -1,0 +1,7 @@
+Version 5.3.2.2
+
+Fixes
+2016-12-26 - [Bug] Fixed the way the "Recently viewed" section is displayed on the home page in Crisp White skin. Fixed the appearance of the block in the standard skin 1-column view. On hover, name and price are now displayed in a slide-out block. #BUG-4309 (Michael Lipinski) #Core #ProductAdvisor #CrispWhiteSkin
+2016-12-19 - [Bug] The contents of the "Recently viewed" section was not updating after the maximum allowed number of products to be displayed in this section had been reached. #BUG-4332 (Michael Lipinski) #Core #ProductAdvisor
+2016-12-19 - [Bug] After moving the "New Arrivals" and "Coming Soon" blocks from the sidebar, the product limitation was no longer taken into account. #BUG-4339 (Michael Lipinski) #ProductAdvisor
+2016-12-15 - [Bug] Recently viewed products block was not working correctly in the sidebar. #BUG-4333 (Michael Lipinski) #ProductAdvisor

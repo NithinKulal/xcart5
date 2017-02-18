@@ -23,7 +23,7 @@ var FroalaEditor = CommonElement.extend({
   },
 
   initialize: function () {
-    this.$element.froalaEditor(this.getEditorOptions());
+    var froala = this.$element.froalaEditor(this.getEditorOptions());
     this.$element.on('froalaEditor.contentChanged', _.bind(this.onContentChange, this));
 
     this.bind('local.validate', _.bind(this.specialValidate, this));
@@ -33,6 +33,16 @@ var FroalaEditor = CommonElement.extend({
 
   getEditorOptions: function () {
     var options = core.getCommentedData(this.$element.parent());
+
+    $.map(options.appendToDefault, function(value, index) {
+      if (typeof options[index] == 'undefined') {
+        if (value instanceof Array && $.FroalaEditor.DEFAULTS[index] instanceof Array) {
+          options[index] = value.concat($.FroalaEditor.DEFAULTS[index]);
+        }
+      }
+    });
+
+    options.appendToDefault = null;
     return options;
   },
 

@@ -172,7 +172,7 @@ class Info extends \XLite\Model\DTO\Base\ADTO
         $object->setDescription((string) $rawData['default']['full_description']);
 
         $object->setEnabled((boolean) $default->available_for_sale);
-        $object->setArrivalDate((int) $default->arrival_date);
+        $object->setArrivalDate(\XLite\Core\Converter::getDayStart((int) $default->arrival_date));
 
         $priceAndInventory = $this->prices_and_inventory;
         $memberships       = \XLite\Core\Database::getRepo('XLite\Model\Membership')->findByIds($priceAndInventory->memberships);
@@ -249,7 +249,7 @@ class Info extends \XLite\Model\DTO\Base\ADTO
      *
      * @return mixed
      */
-    public function afterUpdate($object, $rawData = null)
+    public function afterPopulate($object, $rawData = null)
     {
         $object->updateQuickData();
     }
@@ -268,5 +268,15 @@ class Info extends \XLite\Model\DTO\Base\ADTO
             $sku = \XLite\Core\Database::getRepo('XLite\Model\Product')->generateSKU($object);
             $object->setSku((string) $sku);
         }
+    }
+
+    /**
+     * @param \XLite\Model\Product $object
+     * @param array|null           $rawData
+     *
+     * @return mixed
+     */
+    public function afterUpdate($object, $rawData = null)
+    {
     }
 }

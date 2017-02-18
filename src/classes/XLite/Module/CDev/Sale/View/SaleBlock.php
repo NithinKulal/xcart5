@@ -105,24 +105,36 @@ class SaleBlock extends \XLite\Module\CDev\Sale\View\ASale
      *
      * @return \XLite\Core\CommonCell
      */
-    protected function getSearchConditions(\XLite\Core\CommonCell $cnd)
+    protected function getSearchCondition()
     {
-        $cnd = parent::getSearchConditions($cnd);
+        return $this->postprocessSearchCase(
+            parent::getSearchCondition()
+        );
+    }
 
-        $cnd->{\XLite\Model\Repo\Product::P_SEARCH_IN_SUBCATS} = true;
+    /**
+     * Get limit condition
+     *
+     * @return \XLite\Core\CommonCell
+     */
+    protected function getLimitCondition()
+    {
+        return $this->postprocessSearchCase(
+            parent::getLimitCondition()
+        );
+    }
 
-        if ($this->getCategoryId()) {
-            $cnd->{\XLite\Model\Repo\Product::P_CATEGORY_ID} = $this->getCategoryId();
-        }
-
-        if ($this->getMaxItemsCount()) {
-            $cnd->{\XLite\Model\Repo\Product::P_LIMIT} = [
-                0,
-                $this->getMaxItemsCount(),
-            ];
-        }
-
-        return $cnd;
+    /**
+     * Returns category condition
+     * 
+     * @return integer
+     */
+    protected function getCategoryId()
+    {
+        return (\XLite\Core\Config::getInstance()->CDev->Sale->sale_in_current_category
+            && \XLite::getController()->getCategoryId())
+            ? \XLite::getController()->getCategoryId()
+            : \XLite::getController()->getRootCategoryId();
     }
 
     /**
@@ -135,7 +147,19 @@ class SaleBlock extends \XLite\Module\CDev\Sale\View\ASale
     protected function postprocessSearchCase(\XLite\Core\CommonCell $searchCase)
     {
         $searchCase = parent::postprocessSearchCase($searchCase);
+
         $searchCase->{\XLite\Model\Repo\Product::P_SEARCH_IN_SUBCATS} = true;
+
+        if ($this->getCategoryId()) {
+            $searchCase->{\XLite\Model\Repo\Product::P_CATEGORY_ID} = $this->getCategoryId();
+        }
+
+        if ($this->getMaxItemsCount()) {
+            $searchCase->{\XLite\Model\Repo\Product::P_LIMIT} = [
+                0,
+                $this->getMaxItemsCount(),
+            ];
+        }
 
         return $searchCase;
     }

@@ -1,0 +1,5 @@
+Version 5.3.2.3
+
+Fixes
+2017-01-05 - [Bug] When clean urls where disabled, sitemap.xml was still generated with clean urls. Fixed. #BUG-4365 (Sergey Elmanov) #SimpleCMS #XMLSitemap #Core
+2017-01-05 - [Bug] Updated the PHPMailer library in connection with the vulnerability issue described at https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2016-10045 #BUG-4383 (Maxim Kuznetsov) #Core

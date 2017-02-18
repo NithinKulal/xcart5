@@ -13,6 +13,7 @@ namespace XLite\Module\XC\FreeShipping\Logic\Order\Modifier;
  * Decorate shipping modifier
  *
  * @Decorator\Depend("CDev\Coupons")
+ * @Decorator\After("XC\FreeShipping")
  */
 class ShippingCoupon extends \XLite\Logic\Order\Modifier\Shipping implements \XLite\Base\IDecorator
 {

@@ -13,7 +13,7 @@ use XLite\Core\Database;
 
 /**
  * CloudSearch store-side API methods
- * 
+ *
  * @Decorator\Depend ({"QSL\ShopByBrand"})
  */
 abstract class StoreApiBrands extends \XLite\Module\QSL\CloudSearch\Core\StoreApi implements \XLite\Base\IDecorator
@@ -33,27 +33,29 @@ abstract class StoreApiBrands extends \XLite\Module\QSL\CloudSearch\Core\StoreAp
         $result = Database::getRepo('XLite\Module\QSL\ShopByBrand\Model\Brand')->getCategoryBrandsWithProductCount();
 
         return array_map(
-            array($this, 'getIndexBrandHash'), 
+            array($this, 'getBrand'),
             $result
         );
     }
 
-    public function getIndexBrandHash($record)
+    public function getBrand($record)
     {
         $brand = $record[0];
 
         return array(
-            'name'          => $brand->getName(),
-            'description'   => $brand->getDescription(),
-            'id'            => $brand->getBrandId(),
-            'url'           => $this->getUrlBrandHash($brand),
+            'name'        => $brand->getName(),
+            'description' => $brand->getDescription(),
+            'id'          => $brand->getBrandId(),
+            'url'         => $this->getBrandUrl($brand),
         );
     }
 
-    protected function getUrlBrandHash($brand)
+    protected function getBrandUrl($brand)
     {
-        return Converter::buildFullURL(
+        $url = Converter::buildFullURL(
             'brand', '', array('brand_id' => $brand->getBrandId())
         );
+
+        return $this->isMultiDomain() ? parse_url($url, PHP_URL_PATH) : $url;
     }
 }

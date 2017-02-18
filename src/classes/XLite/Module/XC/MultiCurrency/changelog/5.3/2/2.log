@@ -1,0 +1,4 @@
+Version 5.3.2.2
+
+Fixes
+2016-12-29 - [Bug] PHP Fatal error:  Call to a member function getCode() on null in classes/XLite/Module/XC/MultiCurrency/View/LanguageSelector/Customer.php in MultiCurrency module. #BUG-4385 (Michael Lipinski) #MultiCurrency

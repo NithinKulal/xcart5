@@ -7,13 +7,13 @@
             <input type="text"
                    v-model="min[0] | priceFilterValue"
                    debounce="500"
-                   :placeholder="statsMin !== null ? statsMin.toFixed(2) : '{{ t('From') }}'"
+                   :placeholder="statsMin !== null ? formatPrice(statsMin) : '{{ t('From') }}'"
                    class="form-control cloud-filters-filter-price__input">
             &mdash;
             <input type="text"
                    v-model="max[0] | priceFilterValue"
                    debounce="500"
-                   :placeholder="statsMax !== null ? statsMax.toFixed(2) : '{{ t('To') }}'"
+                   :placeholder="statsMax !== null ? formatPrice(statsMax) : '{{ t('To') }}'"
                    class="form-control cloud-filters-filter-price__input">
         </form>
 

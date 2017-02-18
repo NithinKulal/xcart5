@@ -388,10 +388,8 @@ class PaypalWPS extends \XLite\Model\Payment\Base\WebBased
             'invoice'       => $orderNumber,
 
             'currency_code' => $currency->getCode(),
-            'handling'      => 0,
 
             'shipping_1'    => (float) $shippingCost,
-            'weight_cart'   => 0,
         );
 
         if (\XLite\Core\Config::getInstance()->Security->customer_security) {
@@ -402,7 +400,7 @@ class PaypalWPS extends \XLite\Model\Payment\Base\WebBased
 
         // To avoid total mismatch clear tax and shipping cost
         $taxAmt = isset($items['tax_cart']) ? $items['tax_cart'] : 0;
-        if (abs($orderTotal - $items['items_amount'] - $taxAmt - $shippingCost) <= 0.0000000001) {
+        if (abs($orderTotal - $items['items_amount'] - $taxAmt - (float) $shippingCost) <= 0.0000000001) {
             unset($items['items_amount']);
             $params = array_merge($params, $items);
 
@@ -444,7 +442,9 @@ class PaypalWPS extends \XLite\Model\Payment\Base\WebBased
 
         $params = array_merge($params, $this->getPhone());
 
-        return $params;
+        return array_filter($params, function ($item) {
+            return trim($item) !== '';
+        });
     }
 
     /**
@@ -496,7 +496,7 @@ class PaypalWPS extends \XLite\Model\Payment\Base\WebBased
      *
      * @param \XLite\Model\Order $order Order
      *
-     * @return float
+     * @return float|null
      */
     protected function getShippingCost($order)
     {
@@ -508,7 +508,7 @@ class PaypalWPS extends \XLite\Model\Payment\Base\WebBased
             /** @var \XLite\Model\Currency $currency */
             $currency = $order->getCurrency();
 
-            $result = $currency->roundValue(
+            $result = (float) $currency->roundValue(
                 $order->getSurchargeSumByType(\XLite\Model\Base\Surcharge::TYPE_SHIPPING)
             );
         }

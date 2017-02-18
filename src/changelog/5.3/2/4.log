@@ -1,0 +1,30 @@
+Version 5.3.2.4
+
+Fixes
+2017-01-18 - [Bug] Layout issues related to the display of the image list on the product editing page in Microsoft EDGE browser. #BUG-4435 (Maxim Kuznetsov) #Core
+2017-01-18 - [Bug] In the arrival date field, current time was set as the time of arrival instead of the time at which the day starts (00:00). #BUG-4440 (Maxim Kuznetsov) #Core
+2017-01-17 - [Bug] Performance optimization for when a large number of categories is used and the module Flyout Categories Menu is enabled. #BUG-4400 (Maxim Kuznetsov) #Core #FlyoutCategoriesMenu
+2017-01-16 - [Bug] The attribute allowfullscreen for the tag iframe was stripped in the WYSIWYG editor. #BUG-4147 (Sergey Elmanov) #Core
+2017-01-12 - [Bug] PHPMailer library updated to version 5.2.22 #BUG-4418 (Maxim Kuznetsov) #Core
+2017-01-11 - [Bug] An error in Partner Hosted with PCI Compliance if credit card expiration date was autofilled by Chrome. #BUG-4382 (Maxim Kuznetsov) #Core
+2017-01-11 - [Bug] After changing the admin_self parameter, an attempt to save changes in the layout editor caused a 404 error. #BUG-4370 (Eugene Dementjev) #Core #ThemeTweaker
+2017-01-11 - [Bug] Added a redirect from shop.com/cart.php and shop.com/cart.php?target=main to shop.com when clean URLs are enabled. #BUG-4295 (Eugene Dementjev) #Core
+2017-01-10 - [Bug] With PayPal Express and Pay with Amazon enabled, during Fast Lane checkout, the "pay with amazon" button disappeared following any changes that caused the payment method selection block to be refreshed (like choosing a different payment method). #BUG-4412 (Maxim Kuznetsov) #Core #PayWithAmazon
+2017-01-10 - [Bug] When the images were listed in the gallery on the product details page, the alt text was not changed, and the text from the first opened image was displayed. Fixed. #BUG-4408 (Maxim Kuznetsov) #Core
+2017-01-05 - [Bug] Products without a category can now be searched for in the Admin area. #BUG-4361 (Michael Lipinski) #Core
+2017-01-05 - [Bug] Layout issues on the vendor details page. #BUG-4358 (Michael Lipinski) #Core
+2017-01-05 - [Bug] Improvement for XLite\Logger: added isBOT to log file. #BUG-4375 (Michael Lipinski) #Core
+2017-01-05 - [Bug] If the blocks Bestsellers, New arrivals and Coming soon were moved in Layout editor from the sidebar to the central area, before the result was saved, these sections showed all the products in the store, not just the products of the current category/subcategory. #BUG-4337 (Michael Lipinski) #Core #ThemeTweaker
+2017-01-05 - [Bug] Error in logs if using Update quantity to update the qty of variants. #BUG-4290 (Maxim Kuznetsov) #Core
+2017-01-05 - [Bug] "The name is empty" error (missing product name) when importing products in the Update only mode. Fixed. #BUG-4317 (Michael Lipinski) #Core #MultiVendor
+2017-01-04 - [Bug] When importing categories, wrong clean URLs were created. #BUG-4392 (Maxim Kuznetsov) #Core
+2016-12-27 - [Bug] A wrong sum was showing up in PayPal's refund field when editing the order with AOM. #BUG-4331 (Michael Lipinski) #Core
+2016-12-26 - [Bug] Page layout issues caused by long product attribute name. #BUG-4320 (Michael Lipinski) #Core #CrispWhiteSkin
+2016-12-26 - [Bug] Fixed the way the "Recently viewed" section is displayed on the home page in Crisp White skin. Fixed the appearance of the block in the standard skin 1-column view. On hover, name and price are now displayed in a slide-out block. #BUG-4309 (Michael Lipinski) #Core #ProductAdvisor #CrispWhiteSkin
+2016-12-23 - [Bug] With Froala module enabled, WYSIWYG date picker was displayed below the WYSIWYG menu. #BUG-4329 (Michael Lipinski) #Core
+2016-12-20 - [Bug] On the checkout page, the Place Order button price was displayed not including the shipping cost until the order data was modified somehow (e.g. shipping method changed, address changed). The problem occurred only with UPS shipping method enabled. #BUG-4342 (Michael Lipinski) #Core
+2016-12-19 - [Bug] The contents of the "Recently viewed" section was not updating after the maximum allowed number of products to be displayed in this section had been reached. #BUG-4332 (Michael Lipinski) #Core #ProductAdvisor
+2016-12-16 - [Bug] PopUp adress box was displayed in a wrong way at checkout in the mobile version. #BUG-4330 (Michael Lipinski) #Core #CrispWhiteSkin
+2016-12-14 - [Bug] \XLite\Core\Operator::checkURLAvailability() was working incorrectly if the image server had no support for HEAD requests. #BUG-4249 (Sergey Elmanov) #Core
+2016-12-14 - [Bug] Fatal error during store re-deployment if opcache was enabled and the setting opcache.revalidate_path=On was used. #BUG-4296 (Sergey Elmanov) #Core
+2016-12-14 - [Bug] Error in logs when downloading a purchased file. #BUG-4236 (Sergey Elmanov) #Core

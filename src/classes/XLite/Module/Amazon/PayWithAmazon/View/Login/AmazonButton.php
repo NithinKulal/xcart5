@@ -8,6 +8,8 @@
 
 namespace XLite\Module\Amazon\PayWithAmazon\View\Login;
 
+use XLite\Module\Amazon\PayWithAmazon\Core\AmazonAuthProvider;
+
 /**
  * Amazon sign-in button
  *
@@ -33,7 +35,7 @@ class AmazonButton extends \XLite\Module\CDev\SocialLogin\View\AButton
      */
     public function getCSSFiles()
     {
-        $list = parent::getCSSFiles();
+        $list   = parent::getCSSFiles();
         $list[] = 'modules/Amazon/PayWithAmazon/login/style.css';
 
         return $list;
@@ -46,7 +48,7 @@ class AmazonButton extends \XLite\Module\CDev\SocialLogin\View\AButton
      */
     public function getJSFiles()
     {
-        $list = parent::getJSFiles();
+        $list   = parent::getJSFiles();
         $list[] = 'modules/Amazon/PayWithAmazon/login/controller.js';
 
         return $list;
@@ -59,7 +61,7 @@ class AmazonButton extends \XLite\Module\CDev\SocialLogin\View\AButton
      */
     public function getAuthRequestUrl()
     {
-        return $this->buildURL('amazon_checkout');
+        return $this->buildURL('amazon_login');
     }
 
     /**
@@ -69,7 +71,7 @@ class AmazonButton extends \XLite\Module\CDev\SocialLogin\View\AButton
      */
     protected function getAuthProvider()
     {
-        return \XLite\Module\Amazon\PayWithAmazon\Core\AmazonAuthProvider::getInstance();
+        return AmazonAuthProvider::getInstance();
     }
 
     /**
@@ -80,5 +82,13 @@ class AmazonButton extends \XLite\Module\CDev\SocialLogin\View\AButton
     protected function getDefaultTemplate()
     {
         return 'modules/Amazon/PayWithAmazon/login/button.twig';
+    }
+
+    /**
+     * @return string
+     */
+    protected function getHash()
+    {
+        return md5(microtime());
     }
 }

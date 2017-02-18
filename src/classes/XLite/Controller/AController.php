@@ -291,9 +291,7 @@ abstract class AController extends \XLite\Core\Handler
 
         \XLite\Core\Session::getInstance()->set(\XLite::SHOW_TRIAL_NOTICE, null);
 
-        $result = \XLite::isAdminZone()
-            ? $showTrialNotice && \XLite::getTrialPeriodLeft() < 7
-            : \XLite::isTrialPeriodExpired();
+        $result = \XLite::isAdminZone() ? $showTrialNotice : \XLite::isTrialPeriodExpired();
 
         if ($result && \XLite::isAdminZone()) {
             \XLite\Core\Session::getInstance()->set(static::TRIAL_NOTICE_DISPLAYED, true);
@@ -1438,10 +1436,22 @@ abstract class AController extends \XLite\Core\Handler
             $location = $this->filterXliteFormID($location);
         }
 
-        \XLite\Core\Event::getInstance()->display();
-        \XLite\Core\Event::getInstance()->clear();
+        if ($this->isAJAX()) {
+            \XLite\Core\Event::getInstance()->display();
+            \XLite\Core\Event::getInstance()->clear();
+        }
 
         $location = $this->addCleanupCacheMark($location);
+
+        if (LC_USE_CLEAN_URLS
+            && \XLite\Core\Router::getInstance()->isUseLanguageUrls()
+            && !\XLite::isAdminZone()
+        ) {
+            $webDir = \Includes\Utils\ConfigParser::getOptions(['host_details', 'web_dir']);
+            if ($webDir && strpos($location, $webDir) !== 0 && strpos($location, 'http') !== 0) {
+                $location = $webDir . '/' . $location;
+            }
+        }
 
         \XLite\Core\Operator::redirect(
             $location,
@@ -2100,7 +2110,7 @@ RES;
      *
      * @return void
      */
-    protected function doActionChangeLanguage()
+        protected function doActionChangeLanguage()
     {
         $code = strval(\XLite\Core\Request::getInstance()->language);
 
@@ -2119,13 +2129,13 @@ RES;
                 }
 
                 if (\XLite\Core\Router::getInstance()->isUseLanguageUrls()) {
-                    $subReferrerUrl = substr($referrerUrl, strlen(\Includes\Utils\URLManager::getShopURL()));
+                    $subReferrerUrl = substr($referrerUrl, strlen(\Includes\Utils\URLManager::getCurrentShopURL()));
 
-                    if (preg_match($pattern, $subReferrerUrl, $matches, PREG_OFFSET_CAPTURE)) {
+                    if (preg_match($pattern, $subReferrerUrl, $matches)) {
                         $referrerUrl = substr_replace(
                             $referrerUrl,
                             $language->getDefaultAuth() ? '' : $language->getCode(),
-                            strlen(\Includes\Utils\URLManager::getShopURL()) + $matches[0][0],
+                            strlen(\Includes\Utils\URLManager::getCurrentShopURL()) + $matches[0],
                             min($language->getDefaultAuth() ? 3 : 2, strlen($subReferrerUrl))
                         );
                     }

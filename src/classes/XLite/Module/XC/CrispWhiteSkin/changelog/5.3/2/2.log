@@ -1,0 +1,10 @@
+Version 5.3.2.2
+
+Fixes
+2017-01-10 - [Bug] Layout issues related to the quick search field in the Customer area on screen resolutions < 480px and screen resolutions between 990px and 480px. #BUG-4377 (Michael Lipinski) #CrispWhiteSkin
+2017-01-03 - [Bug] If a menu item with a subcategory list was higher than page content, an extra vertical scroll was added. #BUG-4390 (Eugene Dementjev) #CrispWhiteSkin
+2016-12-29 - [Bug] After enabling the disable drag'n'drop add to cart module, out-of-stock products were not faded out. #BUG-4350 (Michael Lipinski) #CrispWhiteSkin
+2016-12-26 - [Bug] Page layout issues caused by long product attribute name. #BUG-4320 (Michael Lipinski) #Core #CrispWhiteSkin
+2016-12-26 - [Bug] Fixed the way the "Recently viewed" section is displayed on the home page in Crisp White skin. Fixed the appearance of the block in the standard skin 1-column view. On hover, name and price are now displayed in a slide-out block. #BUG-4309 (Michael Lipinski) #Core #ProductAdvisor #CrispWhiteSkin
+2016-12-21 - [Bug] The order of decorators was not specified properly. Order totals were not re-calculated after adding a coupon. #BUG-4352 (Michael Lipinski) #CrispWhiteSkin #FreeShipping
+2016-12-16 - [Bug] PopUp adress box was displayed in a wrong way at checkout in the mobile version. #BUG-4330 (Michael Lipinski) #Core #CrispWhiteSkin

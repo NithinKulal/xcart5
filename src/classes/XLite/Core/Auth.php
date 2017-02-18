@@ -221,7 +221,7 @@ class Auth extends \XLite\Base
         return $this->sessionVarsToClear;
     }
 
-   /**
+    /**
      * Check login and password
      *
      * @param string $login      User's login

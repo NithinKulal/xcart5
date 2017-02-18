@@ -5,89 +5,58 @@
 # Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
 # See https://www.x-cart.com/license-agreement.html for license details.
 
-XLite\Model\Config:
-  - name: amazon_pa_sid
-    category: Amazon\PayWithAmazon
-    type: text
-    orderby: 5
-    value: ''
+XLite\Model\Payment\Method:
+  - service_name: PayWithAmazon
+    class: Module\Amazon\PayWithAmazon\Model\Payment\Processor\PayWithAmazon
+    type: Z
+    countries: [US, UK, DE, JP]
+    added: true
     translations:
       - code: en
-        option_name: Amazon Seller ID
-        option_comment: If you do not have seller account, you can register here:<br /><a href="https://payments.amazon.com/signup?LD=SPEXUSAPA_XCart_core" target="_blank">USA</a>,&nbsp;<a href="https://payments.amazon.co.uk/preregistration/lpa?LD=SPEXUKAPA_XCart_core" target="_blank">UK</a>,&nbsp;<a href="https://payments.amazon.de/preregistration/lpa?LD=SPEXDEAPA_XCart_core" target="_blank">Germany</a>
-  - name: amazon_pa_mode
-    category: Amazon\PayWithAmazon
-    type: XLite\Module\Amazon\PayWithAmazon\View\FormField\Select\OpMode
-    orderby: 10
-    value: test
-    translations:
-      - code: en
-        option_name: Operation mode
-  - name: amazon_pa_access_key
-    category: Amazon\PayWithAmazon
-    type: text
-    orderby: 15
-    value: ''
-    translations:
-      - code: en
-        option_name: Access Key ID
-  - name: amazon_pa_secret_key
-    category: Amazon\PayWithAmazon
-    type: text
-    orderby: 20
-    value: ''
-    translations:
-      - code: en
-        option_name: Secret Access Key
-  - name: amazon_pa_client_id
-    category: Amazon\PayWithAmazon
-    type: text
-    orderby: 25
-    translations:
-      - code: en
-        option_name: Client ID
-        option_comment: Register your website as an application on the <a href="http://login.amazon.com/manageApps" trget="_blank">Login with Amazon App Console</a>. For more information, see the <a href="https://images-na.ssl-images-amazon.com/images/G/01/lwa/dev/docs/website-gsg._TTH_.pdf" target="_blank">Login with Amazon Getting Started Guide</a>. A client identifier (Client ID) is set when you register your website. You will need this identifier for your integration.
-  - name: amazon_pa_currency
-    category: Amazon\PayWithAmazon
-    type: XLite\Module\Amazon\PayWithAmazon\View\FormField\Select\Currency
-    orderby: 30
-    value: USD
-    translations:
-      - code: en
-        option_name: Country of Merchant account
-  - name: amazon_pa_capture_mode
-    category: Amazon\PayWithAmazon
-    type: XLite\Module\Amazon\PayWithAmazon\View\FormField\Select\CaptureMode
-    orderby: 40
-    value: C
-    translations:
-      - code: en
-        option_name: Capture mode
-  - name: amazon_pa_sync_mode
-    category: Amazon\PayWithAmazon
-    type: XLite\Module\Amazon\PayWithAmazon\View\FormField\Select\SyncMode
-    orderby: 45
-    value: S
-    translations:
-      - code: en
-        option_name: Type of authorization request
-  - name: amazon_pa_order_prefix
-    category: Amazon\PayWithAmazon
-    type: text
-    orderby: 50
-    translations:
-      - code: en
-        option_name: OrderId prefix
+        name: Pay with Amazon
+    settings:
+      - name: merchant_id
+      - name: mode
+      - name: access_key
+      - name: secret_key
+      - name: client_id
+      - name: region
+        value: USD
+      - name: capture_mode
+        value: C
+      - name: sync_mode
+        value: S
+      - name: order_id_prefix
 
 XLite\Model\LanguageLabel:
-  - { name: 'Amazon Order Ref ID', translations: [{ code: en, label: 'Amazon Order Ref ID' }] }
-  - { name: 'Immediate Charge', translations: [{ code: en, label: 'Immediate Charge' }] }
-  - { name: 'Pay with Amazon', translations: [{ code: en, label: 'Pay with Amazon' }] }
-  - { name: 'PayWithAmazon available actions', translations: [{ code: en, label: 'PayWithAmazon available actions' }] }
-  - { name: 'Refresh status', translations: [{ code: en, label: 'Refresh status' }] }
-  - { name: 'Refund status', translations: [{ code: en, label: 'Refund status' }] }
-  - { name: 'This operation will cancel order. Payment authorization will be voided. Please confirm to proceed.', translations: [{ code: en, label: 'This operation will cancel order. Payment authorization will be voided. Please confirm to proceed.' }] }
-  - { name: 'This operation will capture funds from customer. Please confirm to proceed.', translations: [{ code: en, label: 'This operation will capture funds from customer. Please confirm to proceed.' }] }
-  - { name: 'This operation will refund funds to customer. Please confirm to proceed.', translations: [{ code: en, label: 'This operation will refund funds to customer. Please confirm to proceed.' }] }
   - { name: 'The "Pay With Amazon" feature is not configured and cannot be used.', translations: [{ code: en, label: 'The "Pay With Amazon" feature is not configured and cannot be used.' }] }
   - { name: 'The "Pay with Amazon" feature requires https to be properly set up for your store.', translations: [{ code: en, label: 'The "Pay with Amazon" feature requires https to be <a href="{{url}}">properly set up</a> for your store.' }] }
+  - { name: 'Amazon Seller ID', translations: [{ code: en, label: 'Amazon Seller ID' }] }
+  - { name: 'If you do not have seller account, you can register here: USA UK Germany', translations: [{ code: en, label: 'If you do not have seller account, you can register here:<br /><a href="https://payments.amazon.com/signup?LD=SPEXUSAPA_XCart_core" target="_blank">USA</a>,&nbsp;<a href="https://payments.amazon.co.uk/preregistration/lpa?LD=SPEXUKAPA_XCart_core" target="_blank">UK</a>,&nbsp;<a href="https://payments.amazon.de/preregistration/lpa?LD=SPEXDEAPA_XCart_core" target="_blank">Germany</a>' }] }
+  - { name: 'Operation mode', translations: [{ code: en, label: 'Operation mode' }] }
+  - { name: 'Access Key ID', translations: [{ code: en, label: 'Access Key ID' }] }
+  - { name: 'Secret Access Key', translations: [{ code: en, label: 'Secret Access Key' }] }
+  - { name: 'Client ID', translations: [{ code: en, label: 'Client ID' }] }
+  - { name: 'Register your website as an application on the Login with Amazon App Console.', translations: [{ code: en, label: 'Register your website as an application on the <a href="http://login.amazon.com/manageApps" trget="_blank">Login with Amazon App Console</a>. For more information, see the <a href="https://images-na.ssl-images-amazon.com/images/G/01/lwa/dev/docs/website-gsg._TTH_.pdf" target="_blank">Login with Amazon Getting Started Guide</a>. A client identifier (Client ID) is set when you register your website. You will need this identifier for your integration.' }] }
+  - { name: 'Country of Merchant account', translations: [{ code: en, label: 'Country of Merchant account' }] }
+  - { name: 'Capture mode', translations: [{ code: en, label: 'Capture mode' }] }
+  - { name: 'Type of authorization request', translations: [{ code: en, label: 'Type of authorization request' }] }
+  - { name: 'OrderId prefix', translations: [{ code: en, label: 'OrderId prefix' }] }
+  - { name: 'Pay with Amazon', translations: [{ code: en, label: 'Pay with Amazon' }] }
+  - { name: 'AmazonRefresh', translations: [{ code: en, label: 'Refresh' }] }
+  - { name: 'AmazonRefundRefresh', translations: [{ code: en, label: 'Refund refresh' }] }
+  - { name: 'Authorization status: {{status}}', translations: [{ code: en, label: 'Authorization status: {{status}}' }] }
+  - { name: 'Refund status: {{status}}', translations: [{ code: en, label: 'Refund status: {{status}}' }] }
+  - { name: 'Payment has been captured successfully.', translations: [{ code: en, label: 'Payment has been captured successfully.' }] }
+  - { name: 'Payment capture error: {{error}}', translations: [{ code: en, label: 'Payment capture error: {{error}}' }] }
+  - { name: 'Payment have been voided successfully.', translations: [{ code: en, label: 'Payment have been voided successfully.' }] }
+  - { name: 'Payment void error: {{error}}', translations: [{ code: en, label: 'Payment void error: {{error}}' }] }
+  - { name: 'Payment has been refunded successfully.', translations: [{ code: en, label: 'Payment has been refunded successfully.' }] }
+  - { name: 'Refund is in progress...', translations: [{ code: en, label: 'Refund is in progress...' }] }
+  - { name: 'Payment refund error: {{error}}', translations: [{ code: en, label: 'Payment refund error: {{error}}' }] }
+  - { name: 'Payment has been authorized successfully.', translations: [{ code: en, label: 'Payment has been authorized successfully.' }] }
+  - { name: 'Payment has been declined.', translations: [{ code: en, label: 'Payment has been declined.' }] }
+  - { name: 'Payment transaction is in progress...', translations: [{ code: en, label: 'Payment transaction is in progress...' }] }
+  - { name: 'There were problems with the payment method.', translations: [{ code: en, label: 'There were problems with the payment method.' }] }
+  - { name: 'Amazon has rejected the authorisation.', translations: [{ code: en, label: 'Amazon has rejected the authorisation.' }] }
+  - { name: 'Amazon could not process the transaction due to an internal processing error.', translations: [{ code: en, label: 'Amazon could not process the transaction due to an internal processing error.' }] }

@@ -1,0 +1,4 @@
+Version 5.3.4.1
+
+Fixes
+2016-11-01 - [Bug] A wrong endpoint was used for live accounts. #BUG-4054 (Maxim Kuznetsov) #PayWithAmazon

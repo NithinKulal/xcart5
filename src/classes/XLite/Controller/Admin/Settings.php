@@ -622,7 +622,7 @@ class Settings extends \XLite\Controller\Admin\AAdmin
         return $mode;
     }
 
-    protected function isSubdir($dir, $subdir, $start = falsec)
+    protected function isSubdir($dir, $subdir, $start = false)
     {
         return $start
             ? $subdir === "" || strrpos($dir, $subdir, -strlen($dir)) !== false

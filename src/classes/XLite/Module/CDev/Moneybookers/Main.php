@@ -60,7 +60,7 @@ abstract class Main extends \XLite\Module\AModule
      */
     public static function getBuildVersion()
     {
-        return '2';
+        return '3';
     }
 
     /**
@@ -80,7 +80,7 @@ abstract class Main extends \XLite\Module\AModule
      */
     public static function getSettingsForm()
     {
-        return \XLite\Core\Converter::buildURL('moneybookers_settings');
+        return null;
     }
 
     /**

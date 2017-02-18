@@ -10,6 +10,16 @@ namespace XLite\Module\CDev\GoSocial\View\FormModel\Product;
 
 class Info extends \XLite\View\FormModel\Product\Info implements \XLite\Base\IDecorator
 {
+    public function getCSSFiles()
+    {
+        return array_merge(
+            parent::getCSSFiles(),
+            [
+                'modules/CDev/GoSocial/product_page.css',
+            ]
+        );
+    }
+
     /**
      * @return array
      */

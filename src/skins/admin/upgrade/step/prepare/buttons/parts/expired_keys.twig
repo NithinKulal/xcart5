@@ -21,7 +21,7 @@
     </ul>
     <div class="actions">
       {% if this.getAllKeysPurchaseURL() %}
-        {{ widget('\\XLite\\View\\Button\\Link', location=this.getAllKeysPurchaseURL(), label=t('Prolongate keys'), style='regular-main-button', blank='true') }}
+        {{ widget('\\XLite\\View\\Button\\Link', location=this.getAllKeysPurchaseURL(), label=t('Renew your access to new features'), style='regular-main-button', blank='true') }}
       {% endif %}
       <div class="revalidate-keys">
         {{ widget('\\XLite\\View\\Button\\ProgressState', label='Re-validate license keys') }}

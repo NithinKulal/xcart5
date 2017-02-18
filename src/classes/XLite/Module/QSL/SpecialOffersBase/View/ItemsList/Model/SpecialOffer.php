@@ -32,11 +32,6 @@ namespace XLite\Module\QSL\SpecialOffersBase\View\ItemsList\Model;
 class SpecialOffer extends \XLite\View\ItemsList\Model\Table
 {
     /**
-     * Widget param names
-     */
-    const PARAM_SEARCH_NAME = 'name';
-
-    /**
      * Get a list of CSS files required to display the widget properly
      *
      * @return array
@@ -44,7 +39,7 @@ class SpecialOffer extends \XLite\View\ItemsList\Model\Table
     public function getCSSFiles()
     {
         $list = parent::getCSSFiles();
-
+        $list[] = 'main/style.css';
         $list[] = 'modules/QSL/SpecialOffersBase/special_offers/style.css';
 
         return $list;
@@ -58,20 +53,6 @@ class SpecialOffer extends \XLite\View\ItemsList\Model\Table
     protected function getSortByModeDefault()
     {
         return \XLite\Module\QSL\SpecialOffersBase\Model\Repo\SpecialOffer::ORDER_BY_POSITION;
-    }
-
-    /**
-     * Define widget parameters
-     *
-     * @return void
-     */
-    protected function defineWidgetParams()
-    {
-        parent::defineWidgetParams();
-
-        $this->widgetParams += array(
-            static::PARAM_SEARCH_NAME => new \XLite\Model\WidgetParam\TypeString('Name', ''),
-        );
     }
 
     /**
@@ -226,55 +207,17 @@ class SpecialOffer extends \XLite\View\ItemsList\Model\Table
         return 'XLite\View\Pager\Admin\Model\Table';
     }
 
-
-    // {{{ Search
-
     /**
-     * Return search parameters.
+     * Default search conditions
      *
-     * @return array
-     */
-    static public function getSearchParams()
-    {
-        return array(
-            \XLite\Module\QSL\SpecialOffersBase\Model\Repo\SpecialOffer::SEARCH_NAME => static::PARAM_SEARCH_NAME,
-        );
-    }
-
-    /**
-     * Define so called "request" parameters
-     *
-     * @return void
-     */
-    protected function defineRequestParams()
-    {
-        parent::defineRequestParams();
-        $this->requestParams[] = static::PARAM_SEARCH_NAME;
-    }
-
-    /**
-     * Return params list to use for search
-     * TODO refactor
+     * @param  \XLite\Core\CommonCell $searchCase Search case
      *
      * @return \XLite\Core\CommonCell
      */
-    protected function getSearchCondition()
+    protected function postprocessSearchCase(\XLite\Core\CommonCell $searchCase)
     {
-        $result = parent::getSearchCondition();
+        $searchCase->{\XLite\Module\QSL\SpecialOffersBase\Model\Repo\SpecialOffer::SEARCH_TYPE_ENABLED} = true;
 
-        $result->{\XLite\Module\QSL\SpecialOffersBase\Model\Repo\SpecialOffer::P_ORDER_BY} = $this->getOrderBy();
-        
-        foreach (static::getSearchParams() as $modelParam => $requestParam) {
-            $paramValue = $this->getParam($requestParam);
-
-            if ('' !== $paramValue && 0 !== $paramValue) {
-                $result->$modelParam = $paramValue;
-            }
-        }
-
-        return $result;
+        return $searchCase;
     }
-
-    // }}}
-
 }

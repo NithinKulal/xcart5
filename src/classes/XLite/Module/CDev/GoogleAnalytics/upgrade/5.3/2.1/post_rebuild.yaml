@@ -10,7 +10,7 @@ XLite\Model\Config:
     category: CDev\GoogleAnalytics
     type: 'XLite\View\FormField\Input\Checkbox\OnOff'
     orderby: 500
-    value: N
+    value: false
     translations:
       - code: en
         option_name: 'Debug mode'

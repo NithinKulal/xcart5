@@ -1,0 +1,4 @@
+Version 5.3.2.3
+
+Fixes
+2017-01-11 - [Bug] Error when generating an XML Sitemap if a cloned product had an empty clean URL. #BUG-4405 (Maxim Kuznetsov) #XMLSitemap

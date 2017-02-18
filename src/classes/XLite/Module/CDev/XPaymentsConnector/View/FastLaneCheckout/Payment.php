@@ -24,12 +24,14 @@ class Payment extends XLite\Module\XC\FastLaneCheckout\View\Sections\Payment imp
     {
         $list = parent::getCSSFiles();
 
-        if ('1.1' == \XLite\Core\Config::getInstance()->CDev->XPaymentsConnector->xpc_api_version) {
-            $list[] = 'modules/CDev/XPaymentsConnector/checkout/style_old.css';
+        if ($this->getCart()->isXpcMethodsAvailable()) {
+            if ('1.1' == \XLite\Core\Config::getInstance()->CDev->XPaymentsConnector->xpc_api_version) {
+                $list[] = 'modules/CDev/XPaymentsConnector/checkout/style_old.css';
 
-        } else {
-            $list[] = 'modules/CDev/XPaymentsConnector/checkout/style.css';
-            $list[] = 'modules/CDev/XPaymentsConnector/checkout/popover/jquery.webui-popover.css';
+            } else {
+                $list[] = 'modules/CDev/XPaymentsConnector/checkout/style.css';
+                $list[] = 'modules/CDev/XPaymentsConnector/checkout/popover/jquery.webui-popover.min.css';
+            }
         }
 
         return $list;
@@ -44,14 +46,17 @@ class Payment extends XLite\Module\XC\FastLaneCheckout\View\Sections\Payment imp
     {
         $list = parent::getJSFiles();
 
-        if ('1.1' == \XLite\Core\Config::getInstance()->CDev->XPaymentsConnector->xpc_api_version) {
-            // TODO: adapt script for old API
-            // $list[] = 'modules/CDev/XPaymentsConnector/checkout/script_old.js';
+        if ($this->getCart()->isXpcMethodsAvailable()) {
+            if ('1.1' == \XLite\Core\Config::getInstance()->CDev->XPaymentsConnector->xpc_api_version) {
+                // TODO: adapt script for old API
+                // $list[] = 'modules/CDev/XPaymentsConnector/checkout/script_old.js';
 
-        } else {
-            $list[] = 'modules/CDev/XPaymentsConnector/iframe_common.js';
-            $list[] = 'modules/CDev/XPaymentsConnector/checkout/FastLaneCheckout/script.js';
-            $list[] = 'modules/CDev/XPaymentsConnector/checkout/popover/jquery.webui-popover.js';
+            } else {
+                $list[] = 'modules/CDev/XPaymentsConnector/iframe_common.js';
+                $list[] = 'modules/CDev/XPaymentsConnector/checkout/popover/jquery.webui-popover.min.js';
+                $list[] = 'modules/CDev/XPaymentsConnector/checkout/card_address.js';
+                $list[] = 'modules/CDev/XPaymentsConnector/checkout/FastLaneCheckout/script.js';
+            }
         }
 
         return $list;

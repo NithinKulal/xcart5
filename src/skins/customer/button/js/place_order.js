@@ -16,6 +16,7 @@ function PlaceOrderButtonView(base)
 
   this.bind('local.postprocess', _.bind(this.assignHandlers, this))
   core.bind('updateCart', _.bind(this.handleUpdateCart, this));
+  core.bind('reloadPlaceOrder', _.bind(this.handleUpdate, this));
   core.bind('checkout.common.anyChange', _.bind(this.handleAnyFormChange, this));
   core.bind('checkout.common.block', _.bind(
     function() {
@@ -70,6 +71,11 @@ PlaceOrderButtonView.prototype.handleUpdateCart = function(event, data)
   }
 };
 
+PlaceOrderButtonView.prototype.handleUpdate = function()
+{
+  this.load();
+};
+
 // Get event namespace (prefix)
 PlaceOrderButtonView.prototype.getEventNamespace = function()
 {
@@ -108,7 +114,7 @@ PlaceOrderButtonView.prototype.checkState = function(supressErrors)
 
   var state = {
     widget:        this,
-    result:        this.base.parents('form').get(0).validate(supressErrors) && !this.blocked,
+    result:        this.base.parents('form').length && this.base.parents('form').get(0).validate(supressErrors) && !this.blocked,
     blocked:       this.isLoading || this.blocked,
     supressErrors: supressErrors
   };

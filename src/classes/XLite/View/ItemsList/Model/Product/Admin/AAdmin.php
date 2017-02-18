@@ -38,6 +38,16 @@ abstract class AAdmin extends \XLite\View\ItemsList\Model\Product\AProduct
     }
 
     /**
+     * Description for blank items list
+     *
+     * @return string
+     */
+    protected function getBlankItemsListDescription()
+    {
+        return static::t('itemslist.admin.product.blank');
+    }
+
+    /**
      * Check ACL permissions
      *
      * @return boolean

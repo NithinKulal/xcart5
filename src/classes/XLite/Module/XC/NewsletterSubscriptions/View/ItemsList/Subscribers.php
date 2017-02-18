@@ -40,6 +40,16 @@ class Subscribers extends \XLite\View\ItemsList\Model\Table
     }
 
     /**
+     * Description for blank items list
+     *
+     * @return string
+     */
+    protected function getBlankItemsListDescription()
+    {
+        return static::t('itemslist.admin.subscribers.blank');
+    }
+
+    /**
      * Should itemsList be wrapped with form
      *
      * @return boolean

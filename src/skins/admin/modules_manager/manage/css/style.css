@@ -232,6 +232,11 @@ div.pack-warning a {
   width: 300px;
 }
 
+#substring:focus::-webkit-input-placeholder { color:transparent; }
+#substring:focus:-moz-placeholder { color:transparent; } /* FF 4-18 */
+#substring:focus::-moz-placeholder { color:transparent; } /* FF 19+ */
+#substring:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */
+
 .target-addons-list-installed .addons-search-box .search-form select#state {
   border-radius: 5px;
   border: 1px solid #a3a3a3;

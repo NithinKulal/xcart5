@@ -5,7 +5,7 @@
 
 Options -Indexes
 
-<Files "*.tpl">
+<Files "*.twig">
   Deny from all
 </Files>
 

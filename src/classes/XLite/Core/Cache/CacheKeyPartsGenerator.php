@@ -49,10 +49,14 @@ class CacheKeyPartsGenerator
         $profile = $auth->getProfile();
 
         $repo = \XLite\Core\Database::getRepo('XLite\Model\Zone');
-        $address = \XLite\Model\Shipping::prepareAddressData($profile->getShippingAddress());
+        $address = $profile->getShippingAddress()
+            ? $profile->getShippingAddress()->toArray()
+            : null;
 
-        foreach ($repo->findApplicableZones($address) as $zone) {
-            $zones[] = $zone->getZoneId();
+        if ($address) {
+            foreach ($repo->findApplicableZones($address) as $zone) {
+                $zones[] = $zone->getZoneId();
+            }
         }
 
         return implode(',', $zones);

@@ -37,7 +37,8 @@ class Storage extends \XLite\Controller\Customer\ACustomer
      */
     protected function doActionDownload()
     {
-        $this->silent = true;
+        $this->set('silent', true);
+        $this->setSuppressOutput(true);
         header('Content-Type: ' . $this->getStorage()->getMime());
         header('Content-Disposition: attachment; filename="' . addslashes($this->getStorage()->getFileName()) . '";');
         $this->readStorage($this->getStorage());

@@ -7,6 +7,14 @@
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
 
+if (_.isUndefined(jQuery.getQueryParameters)) {
+  jQuery.extend({
+    getQueryParameters : function(str) {
+      return (str || document.location.search).replace(/(^\?)/,'').split("&").map(function(n){return n = n.split("="),this[n[0]] = n[1],this}.bind({}))[0];
+    }
+  });
+}
+
 function LayoutBlockWidget(base)
 {
   LayoutBlockWidget.superclass.constructor.apply(this, arguments);
@@ -27,9 +35,12 @@ LayoutBlockWidget.prototype.reloadIfError = false;
 LayoutBlockWidget.prototype.shadeWidget = true;
 
 LayoutBlockWidget.prototype.defineWidgetParams = function() {
-  return {
-    'displayGroup': this.base.data('display')
-  };
+  return _.defaults(
+    {
+      'displayGroup': this.base.data('display')
+    },
+    jQuery.getQueryParameters()
+  );
 };
 
 LayoutBlockWidget.prototype.reload = function(event, args) {

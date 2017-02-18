@@ -63,7 +63,11 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
         $result = parent::updateModel($model, $data);
 
         if ($result) {
-            if (LC_USE_CLEAN_URLS && !isset($data['cleanURL']) && !$model->getCleanURL() && $model instanceof \XLite\Model\Product) {
+            if (LC_USE_CLEAN_URLS
+                && $model instanceof \XLite\Model\Product
+                && !isset($data['cleanURL'])
+                && !$model->getCleanURL()
+            ) {
                 $this->generateCleanURL($model);
             }
 
@@ -587,7 +591,8 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
     protected function verifyName($value, array $column)
     {
         $value = $this->getDefLangValue($value);
-        if ($this->verifyValueAsEmpty($value) && !$this->isProductExists()) {
+
+        if ($this->verifyValueAsEmpty($value) && !$this->isUpdateMode() && !$this->isProductExists()) {
             $this->addError('PRODUCT-NAME-FMT', ['column' => $column, 'value' => $value]);
         }
     }
@@ -1310,9 +1315,6 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
                 $productClass = 'class' === $type
                     ? $model->getProductClass()
                     : null;
-                $attributeGroup = isset($m[4]) && 'product' !== $type
-                    ? $this->normalizeValueAsAttributeGroup($m[4], $productClass)
-                    : null;
                 $product = 'product' === $type
                     ? $model
                     : null;
@@ -1323,6 +1325,18 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
                 }
                 $values = array_values(array_unique($values));
                 $shouldClear = $this->verifyValueAsNull($values);
+                $notEmptyValues = array_filter($values, function ($element) {
+                    return $element !== "";
+                });
+
+                if ((empty($notEmptyValues) && !$shouldClear) || ('class' === $type && !$productClass)) {
+                    continue;
+                }
+
+                $attributeGroup = isset($m[4]) && 'product' !== $type
+                    ? $this->normalizeValueAsAttributeGroup($m[4], $productClass)
+                    : null;
+
                 $data = [
                     'value'    => [],
                     'default'  => [],

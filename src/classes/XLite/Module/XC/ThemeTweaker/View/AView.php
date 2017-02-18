@@ -350,7 +350,7 @@ HTML;
     protected function getCustomCssText()
     {
         $path = LC_DIR_VAR . 'theme/custom.css';
-        return  \Includes\Utils\FileManager::read($path) ?: '';
+        return \Includes\Utils\FileManager::read($path) ?: '';
     }
 
     /**
@@ -391,7 +391,7 @@ HTML;
             static::$current = $current;
 
             $templateWrapperText = get_class($this) . ' : ' . $localPath . ' (' . $templateId . ')'
-                . ($this->viewListName ? ' [\'' . $this->viewListName . '\' list child]' : '');
+                                   . ($this->viewListName ? ' [\'' . $this->viewListName . '\' list child]' : '');
 
             return [$templateWrapperText, '<!-- ' . $templateWrapperText . ' {' . '{{ -->'];
         }
@@ -549,7 +549,7 @@ HTML;
 
     /**
      * Is running layout edit mode
-     * 
+     *
      * @return boolean
      */
     protected function isInLayoutMode()
@@ -576,22 +576,22 @@ HTML;
     protected function checkCustomerZone()
     {
         return \XLite\Core\Config::getInstance()->XC->ThemeTweaker->edit_mode
-        && \XLite\Module\XC\ThemeTweaker\Main::isUserAllowed()
-        && !\XLite\Core\Request::getInstance()->isPost()
-        && !\XLite\Core\Request::getInstance()->isCLI()
-        && !\XLite\Core\Request::getInstance()->isAJAX()
-        && !\Includes\Decorator\Utils\CacheManager::isRebuildNeeded()
-        && \XLite\Module\XC\ThemeTweaker\Main::isTargetAllowed();
+               && \XLite\Module\XC\ThemeTweaker\Main::isUserAllowed()
+               && !\XLite\Core\Request::getInstance()->isPost()
+               && !\XLite\Core\Request::getInstance()->isCLI()
+               && !\XLite\Core\Request::getInstance()->isAJAX()
+               && !\Includes\Decorator\Utils\CacheManager::isRebuildNeeded()
+               && \XLite\Module\XC\ThemeTweaker\Main::isTargetAllowed();
     }
 
     protected function checkAdminZone()
     {
         return \XLite\Module\XC\ThemeTweaker\Main::isUserAllowed()
-        && !\XLite\Core\Request::getInstance()->isPost()
-        && !\XLite\Core\Request::getInstance()->isCLI()
-        && !\XLite\Core\Request::getInstance()->isAJAX()
-        && !\Includes\Decorator\Utils\CacheManager::isRebuildNeeded()
-        && \XLite\Module\XC\ThemeTweaker\Main::isAdminTargetAllowed();
+               && !\XLite\Core\Request::getInstance()->isPost()
+               && !\XLite\Core\Request::getInstance()->isCLI()
+               && !\XLite\Core\Request::getInstance()->isAJAX()
+               && !\Includes\Decorator\Utils\CacheManager::isRebuildNeeded()
+               && \XLite\Module\XC\ThemeTweaker\Main::isAdminTargetAllowed();
     }
 
     /**

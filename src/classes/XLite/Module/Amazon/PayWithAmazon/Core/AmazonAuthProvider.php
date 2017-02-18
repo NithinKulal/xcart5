@@ -8,6 +8,8 @@
 
 namespace XLite\Module\Amazon\PayWithAmazon\Core;
 
+use XLite\Module\Amazon\PayWithAmazon\Main;
+
 /**
  * Google auth provider
  */
@@ -45,7 +47,9 @@ class AmazonAuthProvider extends \XLite\Module\CDev\SocialLogin\Core\AAuthProvid
      */
     protected function getClientId()
     {
-        return \Xlite\Core\Config::getInstance()->Amazon->PayWithAmazon->amazon_pa_client_id;
+        $method = Main::getMethod();
+
+        return $method->getSetting('client_id');
     }
 
     /**
@@ -65,8 +69,9 @@ class AmazonAuthProvider extends \XLite\Module\CDev\SocialLogin\Core\AAuthProvid
      */
     public function isConfigured()
     {
-        $api = \XLite\Module\Amazon\PayWithAmazon\Main::getApi();
+        $method    = Main::getMethod();
+        $processor = Main::getProcessor();
 
-        return parent::isConfigured() && $api->isConfigured();
+        return parent::isConfigured() && $processor->isConfigured($method) && $method->isEnabled();
     }
 }

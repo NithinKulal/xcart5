@@ -335,11 +335,9 @@ abstract class Storage extends \XLite\Model\AEntity
     public function isFileExists($path = null, $forceFile = false)
     {
         if ($this->isURL($path) && !$forceFile) {
-            $request = new \XLite\Core\HTTP\Request($path ?: $this->getPath());
-            $response = $request->sendRequest();
+            $headers = \XLite\Core\Operator::checkURLAvailability($path ?: $this->getPath());
 
-            $exists = 200 == $response->code && !empty($response->headers->ContentLength);
-
+            $exists = $headers && $headers->ContentLength > 0;
         } else {
             $exists = \Includes\Utils\FileManager::isFileReadable($path ?: $this->getStoragePath());
 

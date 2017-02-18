@@ -288,3 +288,7 @@ td.fraud_warning .alert {
 .confirm-operation .modal-body {
   font-size: 16px;
 }
+
+.difference-tooltip-container {
+  display: none;
+}

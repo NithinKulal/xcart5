@@ -295,3 +295,6 @@ XLite\Model\LanguageLabel:
   - { name: 'X-Payments Dashboard', translations: [{ code: en, label: 'X-Payments Dashboard' }] }
   - { name: 'X-Payments considers this transaction as potentially fraudlent.', translations: [{ code: en, label: 'X-Payments considers this transaction as potentially fraudlent.' }] }
   - { name: 'You should accept the changes at the', translations: [{ code: en, label: 'You should accept the changes at the' }] }
+  - name: "Configuring of the payment methods presented possible in the X-Payments backoffice only. In case of any problems you need to review the X-Payments Connector module settings and if it's ok, review payment configurations settings on the X-Payments side."
+    translations:
+      - { code: en, label: 'Configuring of the payment methods presented possible in the <a href="{{xpadmin}}" target="_blank" >X-Payments backoffice</a> only. In case of any problems you need to review the X-Payments Connector module settings and if it&#39;s ok, review payment configurations settings on the X-Payments side.' }

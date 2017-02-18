@@ -8,7 +8,7 @@
 
   <div class="payment-action-unit">
 	  {% if this.isDisplayAmountField() %}
-     <input type="text" id="{{ this.getAmountFieldId() }}" class="amount-field" value="{{ this.getAmountFieldValue() }}"/>
+     <input type="text" id="{{ this.getAmountFieldId() }}" class="form-control amount-field" value="{{ this.getAmountFieldValue() }}"/>
    {% endif %}
 	  {{ widget('\\XLite\\View\\Button\\Regular', label=this.getUnitName(), jsCode=this.getJsCode(), style=this.getCSSClass()) }}
   </div>

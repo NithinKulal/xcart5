@@ -119,7 +119,12 @@ class NewArrivals extends \XLite\Module\CDev\ProductAdvisor\View\ANewArrivals
     {
         $searchCase = parent::postprocessSearchCase($searchCase);
 
+        if ($this->getMaxItemsCount()) {
+            $searchCase->{\XLite\Model\Repo\ARepo::P_LIMIT} = [ 0, $this->getMaxItemsCount() ];
+        }
+
         $categoryId = $this->getRootId();
+
         if ($this->countAllNewProducts || !$categoryId) {
             unset(
                 $searchCase->{\XLite\Model\Repo\Product::P_CATEGORY_ID},
@@ -140,8 +145,8 @@ class NewArrivals extends \XLite\Module\CDev\ProductAdvisor\View\ANewArrivals
     protected function getLimitCondition()
     {
         $cnd = $this->getSearchCondition();
-        if ($this->countAllNewProducts) {
 
+        if ($this->countAllNewProducts) {
             return $this->getPager()->getLimitCondition(0, $this->getMaxItemsCount(), $cnd);
         }
 

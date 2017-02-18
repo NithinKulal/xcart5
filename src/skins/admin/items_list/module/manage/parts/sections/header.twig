@@ -16,7 +16,7 @@
           {{ widget('\\XLite\\View\\FormField\\Select\\ModuleState', fieldOnly='true', fieldName='state', value=this.getState()) }}
         </div>
         <div class="substring">
-          {{ widget('\\XLite\\View\\FormField\\Input\\Text', fieldOnly='true', fieldName='substring', value=this.getSubstring(), defaultValue=t('Search for modules')) }}
+          {{ widget('\\XLite\\View\\FormField\\Input\\Text', fieldOnly='true', fieldName='substring', value=this.getSubstring(), placeholder=t('Search for modules')) }}
           {{ widget('\\XLite\\View\\Button\\Submit', label='') }}
         </div>
       {% endform %}

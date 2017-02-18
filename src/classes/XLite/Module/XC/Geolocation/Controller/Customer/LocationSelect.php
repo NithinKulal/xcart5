@@ -34,9 +34,7 @@ class LocationSelect extends \XLite\Controller\Customer\ACustomer
                     ? $this->getCart()->getProfile()->getShippingAddress()
                     : null;
 
-        $address = \XLite\Model\Shipping::prepareAddressData($address);
-
-        return $address ?: \XLite\Model\Shipping::getDefaultAddress();
+        return $address ? $address->toArray() : \XLite\Model\Shipping::getDefaultAddress();
     }
 
     /**

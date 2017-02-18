@@ -43,13 +43,12 @@ div.buttons {
 }
 
 p.page-note {
-  padding: 20px;
+  padding: 14px;
   padding-left: 40px;
   width: 600px;
   font-size: 14px;
   line-height: 18px;
-  background: transparent url(../images/lightbulb.png) 0 23px no-repeat;
-  margin-bottom: 20px;
+  background: transparent url(../images/lightbulb.png) 0 17px no-repeat;
 }
 
 .items-list-table table.list tbody.lines td.cell.name div.view div {
@@ -78,4 +77,8 @@ p.page-note {
 .items-list-table table.list thead th.actions.right {
   width: 40px;
   background: url(../images/dotes.png) no-repeat center left;
+}
+
+.items-list-table table.list tbody.lines td .view.not-editable .value {
+  padding-left: 10px;
 }

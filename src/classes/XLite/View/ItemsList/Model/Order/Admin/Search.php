@@ -94,6 +94,16 @@ class Search extends \XLite\View\ItemsList\Model\Order\Admin\AAdmin
     }
 
     /**
+     * Description for blank items list
+     *
+     * @return string
+     */
+    protected function getBlankItemsListDescription()
+    {
+        return static::t('itemslist.admin.order.search.blank');
+    }
+
+    /**
      * Set widget params
      *
      * @param array $params Handler params
@@ -375,7 +385,11 @@ class Search extends \XLite\View\ItemsList\Model\Order\Admin\AAdmin
     {
         $filter = $this->getCurrentSearchFilter();
 
-        return 'Orders' . ($filter ? ' - ' . $filter->getName() : '');
+        if ($filter) {
+            return 'Orders' . ($filter ? ' - ' . $filter->getName() : '');
+        }
+
+        return '';
     }
 
     /**

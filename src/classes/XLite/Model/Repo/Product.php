@@ -517,7 +517,10 @@ class Product extends \XLite\Model\Repo\Base\I18n implements \XLite\Base\IREST
         $queryBuilder->linkLeft('p.categoryProducts', 'cp')
             ->linkLeft('cp.category', 'c');
 
-        if (empty($this->searchState['currentSearchCnd']->{self::P_SEARCH_IN_SUBCATS})) {
+        if ($value === 'no_category') {
+            $queryBuilder->andWhere('p.categoryProducts is empty');
+
+        } elseif (empty($this->searchState['currentSearchCnd']->{self::P_SEARCH_IN_SUBCATS})) {
             $queryBuilder->andWhere('c.category_id = :categoryId')
                 ->setParameter('categoryId', $value);
 
@@ -884,9 +887,7 @@ class Product extends \XLite\Model\Repo\Base\I18n implements \XLite\Base\IREST
 
             // FIXME - add aliases for sort modes
             if ('p.price' === $sort && !\XLite::isAdminZone()) {
-                $this->assignCalculatedField($queryBuilder, 'price');
-                $sort = 'calculatedPrice';
-
+                $sort = $this->getCalculatedFieldAlias($queryBuilder, 'price');
             } elseif ('translations.name' === $sort) {
                 $this->addSortByTranslation($queryBuilder, $sort, $order);
                 $sort = 'calculatedName';

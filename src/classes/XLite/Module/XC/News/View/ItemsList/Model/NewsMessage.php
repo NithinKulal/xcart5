@@ -74,6 +74,15 @@ class NewsMessage extends \XLite\View\ItemsList\Model\Table
         return 'XLite\Module\XC\News\Model\NewsMessage';
     }
 
+    /**
+     * Description for blank items list
+     *
+     * @return string
+     */
+    protected function getBlankItemsListDescription()
+    {
+        return static::t('itemslist.admin.news_message.blank');
+    }
 
     /**
      * Creation button position

@@ -8,6 +8,9 @@
 
 namespace XLite\Module\CDev\Paypal\View\Login;
 
+use XLite\Module\CDev\Paypal\Core\PaypalAuthProvider;
+use XLite\Module\CDev\SocialLogin\Core\AAuthProvider;
+
 /**
  * Facebook sign-in button
  *
@@ -59,21 +62,26 @@ class PaypalButton extends \XLite\Module\CDev\SocialLogin\View\AButton
      */
     public function getAuthRequestUrl()
     {
+        $returnUrl = \XLite\Core\Request::getInstance()->fromURL
+            ?: \XLite::getController()->getURL();
+
+        $state = get_class(\XLite::getController()) . AAuthProvider::STATE_DELIMITER . urlencode($returnUrl);
+
         return $this->buildURL(
             'paypal_login',
             '',
-            array('state' => get_class(\XLite::getController()))
+            [PaypalAuthProvider::STATE_PARAM_NAME => $state]
         );
     }
 
     /**
      * Returns an instance of auth provider
      *
-     * @return \XLite\Module\CDev\SocialLogin\Core\AAuthProvider
+     * @return AAuthProvider
      */
     protected function getAuthProvider()
     {
-        return \XLite\Module\CDev\Paypal\Core\PaypalAuthProvider::getInstance();
+        return PaypalAuthProvider::getInstance();
     }
 
     /**

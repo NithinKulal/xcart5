@@ -29,6 +29,7 @@ class Tooltip extends \XLite\View\AView
     const PARAM_CLEAR_AFTER  = 'clear';
     const PARAM_HELP_ID      = 'helpId';
     const PARAM_CONTAINER    = 'container';
+    const PARAM_KEEP_ON_HOVER   = 'keepOnHover';
 
     const ATTR_CLASS = 'class';
     const ATTR_ID    = 'id';
@@ -59,6 +60,28 @@ class Tooltip extends \XLite\View\AView
     }
 
     /**
+     * Keep on hover
+     *
+     * @return boolean
+     */
+    protected function isKeepOnHover()
+    {
+        return $this->getParam(static::PARAM_KEEP_ON_HOVER);
+    }
+
+    /**
+     * Get trigger
+     *
+     * @return string
+     */
+    protected function getTrigger()
+    {
+        return $this->isKeepOnHover()
+            ? 'manual'
+            : 'hover';
+    }
+
+    /**
      * Define widget parameters
      *
      * @return void
@@ -73,6 +96,7 @@ class Tooltip extends \XLite\View\AView
             static::PARAM_PLACEMENT    => new \XLite\Model\WidgetParam\TypeString('Tooltip placement', 'top auto'),
             static::PARAM_DELAY        => new \XLite\Model\WidgetParam\TypeInt('Tooltip hide delay', 0),
             static::PARAM_DELAY_SHOW   => new \XLite\Model\WidgetParam\TypeInt('Tooltip show delay', 0),
+            static::PARAM_KEEP_ON_HOVER    => new \XLite\Model\WidgetParam\TypeBool('Keep on hover', true),
             static::PARAM_ID           => new \XLite\Model\WidgetParam\TypeString('ID of element', ''),
             static::PARAM_CLASS        => new \XLite\Model\WidgetParam\TypeString('CSS class for caption', ''),
             static::PARAM_CAPTION      => new \XLite\Model\WidgetParam\TypeString('Caption', ''),

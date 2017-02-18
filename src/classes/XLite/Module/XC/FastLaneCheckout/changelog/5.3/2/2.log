@@ -1,0 +1,4 @@
+Version 5.3.2.2
+
+Fixes
+2016-12-15 - [Bug] During checkout, the field address type did not show the option names (residential / commercial) in full. #BUG-4327 (Michael Lipinski) #FastLaneCheckout

@@ -7,6 +7,7 @@
  */
 
 namespace XLite\Model\Shipping;
+
 use XLite\View\FormField\Input\PriceOrPercent;
 
 /**
@@ -318,7 +319,9 @@ class Method extends \XLite\Model\Base\I18n
             $processor = $this->getProcessorObject();
             if ($processor) {
                 $module = $processor->getModule();
-                $result = $module->getAuthor() . '_' . $module->getName();
+                if ($module) {
+                    $result = $module->getAuthor() . '_' . $module->getName();
+                }
             }
         }
 
@@ -501,7 +504,7 @@ class Method extends \XLite\Model\Base\I18n
     /**
      * Get position
      *
-     * @return integer 
+     * @return integer
      */
     public function getPosition()
     {
@@ -511,7 +514,7 @@ class Method extends \XLite\Model\Base\I18n
     /**
      * Get added
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getAdded()
     {

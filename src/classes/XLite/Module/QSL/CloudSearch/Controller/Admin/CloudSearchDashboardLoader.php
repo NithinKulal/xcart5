@@ -11,6 +11,7 @@ namespace XLite\Module\QSL\CloudSearch\Controller\Admin;
 use XLite\Core\Config;
 use XLite\Core\Request;
 use XLite\Module\QSL\CloudSearch\Core\ServiceApiClient;
+use XLite\Module\QSL\CloudSearch\Main;
 
 
 /**
@@ -27,15 +28,9 @@ class CloudSearchDashboardLoader extends \XLite\Controller\Admin\AAdmin
     {
         $apiClient = new ServiceApiClient();
 
-        if (!$apiClient->getApiKey()) {
+        if (!Main::isConfigured()) {
             $apiClient->register();
-
-            Config::updateInstance();
         }
-
-        $apiClient->requestSecretKey();
-
-        Config::updateInstance();
 
         $secretKey = $apiClient->getSecretKey();
 

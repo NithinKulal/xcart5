@@ -1,0 +1,4 @@
+Version 5.3.1.4
+
+Fixes
+2016-12-21 - [Bug] The order of decorators was not specified properly. Order totals were not re-calculated after adding a coupon. #BUG-4352 (Michael Lipinski) #CrispWhiteSkin #FreeShipping

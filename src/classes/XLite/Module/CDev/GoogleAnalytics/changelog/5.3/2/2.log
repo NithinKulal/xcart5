@@ -1,0 +1,4 @@
+Version 5.3.2.2
+
+Fixes
+2017-01-13 - [Bug] With GoogleAnalytics enabled, in the Universal mode and the setting use_canonical_urls_only set to "Off", a product page opened in the EDGE browser redirected to Page not found. #BUG-4425 (Maxim Kuznetsov) #GoogleAnalytics

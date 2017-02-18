@@ -36,6 +36,7 @@ class SpecialOffer extends \XLite\Model\Repo\Base\I18n
     const SEARCH_ACTIVE           = 'active';
     const SEARCH_VISIBLE_HOME     = 'visibleHome';
     const SEARCH_VISIBLE_OFFERS   = 'visibleOffers';
+    const SEARCH_TYPE_ENABLED     = 'typeEnabled';
 
     /**
      *
@@ -139,6 +140,22 @@ class SpecialOffer extends \XLite\Model\Repo\Base\I18n
     {
         if (is_numeric($value) || is_bool($value)) {
             $queryBuilder->andWhere($value ? 's.promoOffers <> 0' : 's.promoOffers = 0');
+        }
+    }
+
+    /**
+     * Prepare Offer Type Enabled/Disabled search condition.
+     *
+     * @param \Doctrine\ORM\QueryBuilder $queryBuilder Query builder to prepare
+     * @param integer                    $value        Condition data
+     * @param boolean                    $countOnly    "Count only" flag. Do not need to add "order by" clauses if only count is needed.
+     *
+     * @return void
+     */
+    protected function prepareCndTypeEnabled(\Doctrine\ORM\QueryBuilder $queryBuilder, $value, $countOnly)
+    {
+        if (is_numeric($value) || is_bool($value)) {
+            $queryBuilder->andWhere($value ? 't.enabled <> 0' : 't.enabled = 0');
         }
     }
 

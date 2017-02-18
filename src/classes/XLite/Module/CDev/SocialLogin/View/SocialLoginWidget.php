@@ -66,6 +66,7 @@ class SocialLoginWidget extends \XLite\View\AView
     protected function isVisible()
     {
         return parent::isVisible()
+            && !\XLite::isAdminZone()
             && $this->getAuthProviders()
             && !\XLite\Core\Auth::getInstance()->isLogged();
     }

@@ -135,14 +135,20 @@ class TopCategoriesSlidebar extends \XLite\View\SideBarBox
             $preprocessedDTOs[$categoryDTO['id']] = $this->preprocessDTO($categoryDTO);
         }
 
-        foreach ($preprocessedDTOs as $categoryDTO) {
-            // Make tree structure
-            $preprocessedDTOs[$categoryDTO['parent_id']]['children'][] = $categoryDTO;
-        }
+        $postprocessedDTOs = $this->postprocessDTOs($preprocessedDTOs);
+        $driver->save($cacheKey, $postprocessedDTOs);
 
-        $driver->save($cacheKey, $preprocessedDTOs);
+        return $postprocessedDTOs;
+    }
 
-        return $preprocessedDTOs;
+    /**
+     * @param array $categories
+     *
+     * @return array
+     */
+    protected function postprocessDTOs($categories)
+    {
+        return $categories;
     }
 
     /**
@@ -192,9 +198,9 @@ class TopCategoriesSlidebar extends \XLite\View\SideBarBox
             $categoryId = \XLite\Core\Database::getRepo('XLite\Model\Category')->getRootCategoryId();
         }
 
-        return isset($this->categories[$categoryId]['children'])
-            ? $this->categories[$categoryId]['children']
-            : array();
+        return array_filter($this->categories, function ($item) use ($categoryId) {
+            return isset($item['parent_id']) && (int) $item['parent_id'] === (int) $categoryId;
+        });
     }
 
 

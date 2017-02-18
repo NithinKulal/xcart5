@@ -129,4 +129,72 @@ class NewsMessage extends \XLite\Model\Repo\Base\I18n
         );
     }
 
+    /**
+     * Define sitemap generation iterator query builder
+     *
+     * @param integer $position Position
+     *
+     * @return \XLite\Model\QueryBuilder\AQueryBuilder
+     */
+    protected function defineSitemapGenerationQueryBuilder($position)
+    {
+        $qb = parent::defineSitemapGenerationQueryBuilder($position);
+
+        $this->prepareCndEnabled($qb, true, true);
+        $qb->select($qb->getMainAlias() . '.id');
+
+        $this->addCleanURLCondition($qb);
+
+        return $qb;
+    }
+
+    /**
+     * Add clean url if applicable
+     *
+     * @param \XLite\Model\QueryBuilder\AQueryBuilder $qb
+     *
+     * @return \XLite\Model\QueryBuilder\AQueryBuilder
+     */
+    protected function addCleanURLCondition(\XLite\Model\QueryBuilder\AQueryBuilder $qb)
+    {
+        if (\XLite\Module\CDev\SimpleCMS\Logic\Sitemap\Step\Page::isSitemapCleanUrlConditionApplicable()) {
+            $qb->addSelect('cu.cleanURL')
+                ->leftJoin('XLite\Model\CleanURL', 'cu', \Doctrine\ORM\Query\Expr\Join::WITH, 'cu.newsMessage = '.$qb->getMainAlias());
+        }
+
+        return $qb;
+    }
+
+    /**
+     * Count as sitemaps links
+     *
+     * @return integer
+     */
+    public function countAsSitemapsLinks()
+    {
+        $qb = $this->defineCountQuery();
+        $this->prepareCndEnabled($qb, true, true);
+
+        return $qb->count();
+    }
+
+    /**
+     * Find one as sitemap link
+     *
+     * @param integer $position Position
+     *
+     * @return \XLite\Module\XC\News\Model\NewsMessage
+     */
+    public function  findOneAsSitemapLink($position)
+    {
+        $qb = $this->createPureQueryBuilder();
+        $this->prepareCndEnabled($qb, true, true);
+
+        return $qb
+            ->setMaxResults(1)
+            ->setFirstResult($position)
+            ->getSingleResult();
+    }
+
+    // }}}
 }

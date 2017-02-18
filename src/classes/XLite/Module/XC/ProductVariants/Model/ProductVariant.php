@@ -364,6 +364,29 @@ class ProductVariant extends \XLite\Model\AEntity
     }
 
     /**
+     * Return true if product variant can be purchased
+     *
+     * @return boolean
+     */
+    public function isAvailable()
+    {
+        return $this->availableInDate()
+            && !$this->isOutOfStock();
+    }
+
+    /**
+     * Flag if the product is available according date/time
+     *
+     * @return boolean
+     */
+    public function availableInDate()
+    {
+        return $this->getProduct()
+            ? $this->getProduct()->availableInDate()
+            : true;
+    }
+
+    /**
      * Alias: is product in stock or not
      *
      * @return boolean

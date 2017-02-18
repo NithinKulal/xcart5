@@ -35,6 +35,15 @@ class Membership extends \XLite\View\ItemsList\Model\Table
         return parent::isVisible() && !\XLite::getController()->isCalculationNotFinished();
     }
 
+    /**
+     * Description for blank items list
+     *
+     * @return string
+     */
+    protected function getBlankItemsListDescription()
+    {
+        return static::t('itemslist.admin.membership.blank');
+    }
 
     /**
      * Should itemsList be wrapped with form

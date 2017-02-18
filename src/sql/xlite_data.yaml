@@ -96,7 +96,7 @@ XLite\Model\Config:
   - { name: users_per_page, category: General, type: 'XLite\View\FormField\Input\Text\Integer', orderby: 42000, value: '30', widgetParameters: { min: 1 }, translations: [{ code: en, option_name: 'Users per page' }] }
   - { name: use_smtp, category: Email, type: checkbox, orderby: 11000, value: N, translations: [{ code: en, option_name: 'Use SMTP server' }] }
   - { name: use_smtp_auth, category: Email, type: checkbox, orderby: 14000, value: N, translations: [{ code: en, option_name: 'Use authentication' }] }
-  - { name: version, category: Version, value: '5.3.2.2' }
+  - { name: version, category: Version, value: '5.3.2.7' }
   - { name: weight_symbol, category: Units, type: text, orderby: 62000, value: lbs, translations: [{ code: en, option_name: 'Weight symbol' }] }
   - { name: weight_unit, category: Units, type: 'XLite\View\FormField\Select\WeightUnit', orderby: 61000, value: lbs, translations: [{ code: en, option_name: 'Weight unit' }] }
   - { name: weight_trailing_zeroes, category: Units, type: checkbox, orderby: 62100, value: Y, translations: [{ code: en, option_name: 'Hide trailing zeros in fractional part' }] }
@@ -193,7 +193,7 @@ XLite\Model\Config:
   - { name: upgrade_wave, category: Environment, type: 'XLite\View\FormField\Select\UpgradeWave', orderby: 21000, value: '', translations: [{ code: en, option_name: 'Upgrade access level' }] }
   - { name: quick_data_rebuilding, category: CacheManagement, type: checkbox, orderby: 10000, value: N, translations: [{ code: en, option_name: 'Perform quick data calculation during store re-deployment', option_comment: 'Calculated quick data enhances your store''s performance by allowing quick product sorting. If you want quick data to be calculated along with store re-deployment, make sure this setting is enabled before running the "Re-deploy the store" tool. Keep the setting disabled if you want to do the re-deployment without the calculation of quick data.' }] }
 
-  - { name: enabled, category: BannerRotation, type: XLite\View\FormField\Input\Checkbox\OnOff, orderby: 10000, value: N, translations: [{ code: en, option_name: 'Enabled' }] }
+  - { name: enabled, category: BannerRotation, type: XLite\View\FormField\Input\Checkbox\OnOff, orderby: 10000, value: false, translations: [{ code: en, option_name: 'Enabled' }] }
   - { name: interval, category: BannerRotation, type: XLite\View\FormField\Input\Text\FloatInput, orderby: 30000, value: 5, translations: [{ code: en, option_name: 'Banner inverval (in seconds)', option_comment: 'Set to "0" to disable automatic rotation' }] }
 
   - { name: attach_pdf_invoices, category: NotificationAttachments, type: XLite\View\FormField\Input\Checkbox\OnOff, orderby: 10000, value: 0, translations: [{ code: en, option_name: 'Send the PDF version of invoices in the attachments' }] }

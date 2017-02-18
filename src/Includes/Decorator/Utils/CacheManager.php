@@ -924,18 +924,6 @@ OUT;
     public static function executeStepHandler2()
     {
         // Invoke plugins
-        \Includes\Decorator\Utils\PluginManager::invokeHook(static::HOOK_BEFORE_DECORATE);
-
-        // Main procedure: build decorator chains
-        \Includes\Decorator\Utils\PluginManager::invokeHook(static::HOOK_DECORATE);
-
-        // Invoke plugins
-        \Includes\Decorator\Utils\PluginManager::invokeHook(static::HOOK_BEFORE_WRITE);
-
-        // Write class files to FS
-        \Includes\Decorator\Utils\PluginManager::invokeHook(static::HOOK_WRITE);
-
-        // Invoke plugins
         \Includes\Decorator\Utils\PluginManager::invokeHook(static::HOOK_STEP_SECOND);
     }
 

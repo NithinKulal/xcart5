@@ -74,18 +74,6 @@ class QuickData extends \XLite\Logic\Import\Step\AStep
     }
 
     /**
-     * Initialize
-     *
-     * @return void
-     */
-    public function initialize()
-    {
-        parent::initialize();
-        
-        \XLite\Core\Database::getRepo('XLite\Model\Category')->correctCategoriesStructure();
-    }
-
-    /**
      * \Counable::count
      *
      * @return integer

@@ -82,7 +82,7 @@ class Tabber extends \XLite\View\Tabber
 
             if ($upgradeCell->hasHotfixEntries() || $this->isUpdateModeSelectorAvailable()) {
                 $list['hotfix'] = [
-                    'title'    => static::t('Hotfixes mode'),
+                    'title'    => static::t('Minor update'),
                     'url'      => !$isHotfixMode ? $url : null,
                     'selected' => $isHotfixMode,
                 ];
@@ -90,7 +90,7 @@ class Tabber extends \XLite\View\Tabber
 
             if ($upgradeCell->hasNewFeaturesEntries() || $this->isUpdateModeSelectorAvailable()) {
                 $list['updates'] = [
-                    'title'    => static::t('Updates mode'),
+                    'title'    => static::t('Major upgrade'),
                     'url'      => $isHotfixMode ? $url : null,
                     'selected' => !$isHotfixMode,
                 ];

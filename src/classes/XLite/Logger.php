@@ -178,6 +178,10 @@ class Logger extends \XLite\Base\Singleton
             if (isset($_SERVER['REQUEST_URI'])) {
                 $parts[] = 'URI: ' . $_SERVER['REQUEST_URI'];
             }
+
+            if (\XLite\Core\Request::getInstance()->isBot()) {
+                $parts[] = 'Is BOT: true';
+            }
         }
 
         $message .= PHP_EOL . implode(';' . PHP_EOL, $parts) . ';';
@@ -328,6 +332,7 @@ class Logger extends \XLite\Base\Singleton
             . 'Runtime id: ' . static::getRuntimeId() . PHP_EOL
             . 'SAPI: ' . PHP_SAPI . '; '
             . 'IP: ' . (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'n/a') . PHP_EOL
+            . (\XLite\Core\Request::getInstance()->isBot() ? 'Is BOT: true' . PHP_EOL : '')
             . 'URI: ' . (isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : 'n/a') . PHP_EOL
             . 'Method: ' . (isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'n/a') . PHP_EOL;
 

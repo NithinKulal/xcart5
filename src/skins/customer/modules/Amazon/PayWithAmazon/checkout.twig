@@ -4,6 +4,7 @@
 <script type="text/javascript">
 //<![CDATA[
 amazonConfig.orderShippable = {% if this.isOrderShippable() %}true{% else %}false{% endif %};
+amazonConfig.orderReference = '{{ this.getOrderReference() }}';
 //]]>
 </script>
 
@@ -22,7 +23,7 @@ amazonConfig.orderShippable = {% if this.isOrderShippable() %}true{% else %}fals
             <h3>{{ t('Delivery methods') }}</h3>
             <div class="step shipping-step">
               <div class="substep step-shipping-methods">
-                {{ widget('\\XLite\\View\\Checkout\\ShippingMethodsList') }}
+                {{ widget('XLite\\View\\Checkout\\ShippingMethodsList') }}
               </div>
             </div>
             <div class="step-payment-methods" style="display: none;"></div>
@@ -44,4 +45,3 @@ amazonConfig.orderShippable = {% if this.isOrderShippable() %}true{% else %}fals
 
   </div>
 </div>
-

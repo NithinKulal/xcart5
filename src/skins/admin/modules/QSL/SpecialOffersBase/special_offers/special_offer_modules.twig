@@ -1,6 +1,13 @@
 <div class="special-offer-no-create-form">
   <p>{{ t('You have no special offer types enabled in your store. Please install at least one module that implements the special offers logic.') }}</p>
-  <ul>
-    <li><a href="https://www.x-cart.com/extensions/addons/buy-x-get-y.html">{{ t('Buy X Get Y') }}</a></li>
+  <ul class="special-offer-mods admin-welcome">
+    <li class="special-offer-mod special-offer-mod--buy-x-get-y">
+      <div class="special-offer-mod__title"><a href="https://market.x-cart.com/addons/buy-x-get-y.html"><span class="special-offer-mod__name">{{ t('Buy X Get Y') }}</span></a></div>
+      <div class="special-offer-mod__descr">{{ t('This module adds variations of the "Buy X Get Y" special offer type. For example, you can give the 50% discount on each third product from Toys category.') }}</div>
+    </li>
+    <li class="special-offer-mod special-offer-mod--spend-x-get-y">
+      <div class="special-offer-mod__title"><a href="https://market.x-cart.com/addons/spend-x-get-y.html"><span class="special-offer-mod__name">{{ t('Spend X Get Y') }}</span></a></div>
+      <div class="special-offer-mod__descr">{{ t('This module adds variations of the "Spend X Get Y" special offer type. For example, in every $100 spent by customer you can give the cheapest product away as a gift.') }}</div>
+    </li>
   </ul>
 </div>

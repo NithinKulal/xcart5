@@ -14,13 +14,19 @@ namespace XLite\Module\Amazon\PayWithAmazon\View;
 class Header extends \XLite\View\Header implements \XLite\Base\IDecorator
 {
     /**
-     * @return \XLite\Core\CommonCell
+     * @return array
      */
     protected function getAmazonConfig()
     {
-        $api = \XLite\Module\Amazon\PayWithAmazon\Main::getApi();
+        $result = [];
+        $method = \XLite\Module\Amazon\PayWithAmazon\Main::getMethod();
+        foreach ($method->getSettings() as $setting) {
+            $result[$setting->getName()] = $setting->getValue();
+        }
 
-        return $api->getConfig();
+        $result['region'] = \XLite\Module\Amazon\PayWithAmazon\View\FormField\Select\Region::getRegionByCurrency($result['region']);
+
+        return $result;
     }
 
     /**
@@ -28,27 +34,22 @@ class Header extends \XLite\View\Header implements \XLite\Base\IDecorator
      */
     protected function isAmazonConfigured()
     {
-        $api = \XLite\Module\Amazon\PayWithAmazon\Main::getApi();
+        $method    = \XLite\Module\Amazon\PayWithAmazon\Main::getMethod();
+        $processor = \XLite\Module\Amazon\PayWithAmazon\Main::getProcessor();
 
-        return $api->isConfigured();
+        return $processor->isConfigured($method);
     }
 
     /**
+     * Returns string 'true' if test mode enabled, 'false' otherwise
+     *
      * @return string
      */
     protected function isSandboxMode()
     {
-        return $this->getAmazonConfig()->amazon_pa_mode === 'test' ? 'true' : 'false';
-    }
+        $method    = \XLite\Module\Amazon\PayWithAmazon\Main::getMethod();
+        $processor = \XLite\Module\Amazon\PayWithAmazon\Main::getProcessor();
 
-    /**
-     * @deprecated @todo: rewrite with responsive
-     * @return string
-     */
-    protected function isMobileDevice()
-    {
-        return method_exists('\XLite\Core\Request', 'isMobileDevice') && \XLite\Core\Request::isMobileDevice()
-            ? 'true'
-            : 'false';
+        return $processor->isTestMode($method) ? 'true' : 'false';
     }
 }

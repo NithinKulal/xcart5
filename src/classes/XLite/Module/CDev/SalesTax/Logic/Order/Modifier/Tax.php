@@ -387,7 +387,7 @@ class Tax extends \XLite\Logic\Order\Modifier\ATax
         $addressObj = $this->getOrderAddress();
         if ($addressObj) {
             // Profile is exists
-            $address = \XLite\Model\Shipping::prepareAddressData($addressObj);
+            $address = $addressObj->toArray();
         }
 
         if (null === $address) {

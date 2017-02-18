@@ -49,7 +49,7 @@ class Page extends \XLite\Module\CDev\XMLSitemap\Logic\Sitemap\Step\ASitemapStep
             if (isset($item['cleanURL']) && static::isSitemapCleanUrlConditionApplicable()) {
                 $_url = $item['cleanURL'];
             } else {
-                $_url = Converter::buildURL('page', '', ['id' => $pageId], \XLite::getCustomerScript(), false, true);
+                $_url = Converter::buildURL('page', '', ['id' => $pageId], \XLite::getCustomerScript(), true);
             }
             $url = \XLite::getInstance()->getShopURL($_url);
 

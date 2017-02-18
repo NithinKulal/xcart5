@@ -17,19 +17,19 @@ function InlineEditableController()
 InlineEditableController.prototype.selector = '[data-inline-editable]';
 
 InlineEditableController.prototype.imageManagerLoadURL = URLHandler.buildURL({
-  base: 'admin.php',
+  base: xliteConfig.script,
   target: 'files',
   action: 'get_image_manager_list',
 });
 
 InlineEditableController.prototype.imageManagerDeleteURL = URLHandler.buildURL({
-  base: 'admin.php',
+  base: xliteConfig.script,
   target: 'files',
   action: 'remove_from_image_manager',
 });
 
 InlineEditableController.prototype.imageUploadURL = URLHandler.buildURL({
-  base: 'admin.php',
+  base: xliteConfig.script,
   target: 'files',
   action: 'upload_from_file',
   mode: 'json',

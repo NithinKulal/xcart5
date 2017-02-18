@@ -8,6 +8,9 @@
 
 namespace XLite\Module\Amazon\PayWithAmazon\View\Login;
 
+use XLite\Model\WidgetParam\TypeString;
+use XLite\Module\Amazon\PayWithAmazon\Main;
+
 /**
  * Social sign-in widget
  */
@@ -16,9 +19,9 @@ class Widget extends \XLite\View\AView
     /**
      * Widget parameter names
      */
-    const PARAM_CAPTION     = 'caption';
-    const PARAM_TEXT_BEFORE = 'text_before';
-    const PARAM_TEXT_AFTER  = 'text_after';
+    const PARAM_CAPTION      = 'caption';
+    const PARAM_TEXT_BEFORE  = 'text_before';
+    const PARAM_TEXT_AFTER   = 'text_after';
     const PARAM_BUTTON_STYLE = 'buttonStyle';
 
     /**
@@ -28,7 +31,7 @@ class Widget extends \XLite\View\AView
      */
     public function getCSSFiles()
     {
-        $list = parent::getCSSFiles();
+        $list   = parent::getCSSFiles();
         $list[] = 'modules/Amazon/PayWithAmazon/login/style.css';
 
         return $list;
@@ -41,7 +44,7 @@ class Widget extends \XLite\View\AView
      */
     public function getJSFiles()
     {
-        $list = parent::getJSFiles();
+        $list   = parent::getJSFiles();
         $list[] = 'modules/Amazon/PayWithAmazon/login/controller.js';
 
         return $list;
@@ -65,11 +68,13 @@ class Widget extends \XLite\View\AView
      */
     protected function isVisible()
     {
-        $api = \XLite\Module\Amazon\PayWithAmazon\Main::getApi();
+        $method    = Main::getMethod();
+        $processor = Main::getProcessor();
 
         return parent::isVisible()
-            && $api->isConfigured()
-            && !\XLite\Core\Auth::getInstance()->isLogged();
+        && $processor->isConfigured($method)
+        && $method->isEnabled()
+        && !\XLite\Core\Auth::getInstance()->isLogged();
     }
 
     /**
@@ -81,13 +86,12 @@ class Widget extends \XLite\View\AView
     {
         parent::defineWidgetParams();
 
-        $this->widgetParams += array(
-            static::PARAM_CAPTION     => new \XLite\Model\WidgetParam\TypeString('Caption', null),
-            static::PARAM_TEXT_BEFORE => new \XLite\Model\WidgetParam\TypeString('TextBefore', null),
-            static::PARAM_TEXT_AFTER  => new \XLite\Model\WidgetParam\TypeString('TextAfter', null),
-            static::PARAM_BUTTON_STYLE
-                => new \XLite\Model\WidgetParam\TypeString('Button style', $this->defineButtonStyle()),
-        );
+        $this->widgetParams += [
+            static::PARAM_CAPTION      => new TypeString('Caption', null),
+            static::PARAM_TEXT_BEFORE  => new TypeString('TextBefore', null),
+            static::PARAM_TEXT_AFTER   => new TypeString('TextAfter', null),
+            static::PARAM_BUTTON_STYLE => new TypeString('Button style', $this->defineButtonStyle()),
+        ];
     }
 
     /**
@@ -97,7 +101,7 @@ class Widget extends \XLite\View\AView
      */
     protected function getAuthURL()
     {
-        return $this->buildURL('amazon_checkout');
+        return $this->buildURL('amazon_login');
     }
 
     /**
@@ -148,5 +152,13 @@ class Widget extends \XLite\View\AView
     protected function defineButtonStyle()
     {
         return 'button';
+    }
+
+    /**
+     * @return string
+     */
+    protected function getHash()
+    {
+        return md5(microtime());
     }
 }

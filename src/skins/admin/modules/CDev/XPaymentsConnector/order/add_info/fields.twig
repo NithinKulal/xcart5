@@ -7,15 +7,15 @@
 
   <tr>
     <td class="name">{{ t('Message') }}:</td>
-    <td class="value">{{ this.tr.message|raw }}</td>
+    <td class="value">{{ tr.message|raw }}</td>
   </tr>
 
   <tr>
     <td class="name">{{ t('Transaction ID') }}:</td>
-    <td class="value">{{ this.tr.txnid }}</td>
+    <td class="value">{{ tr.txnid }}</td>
   </tr>
 
-  {% for field in this.tr.fields %}
+  {% for field in tr.fields %}
     <tr>
       <td class="name">{{ field.name|raw }}:</td>
       <td class="value">{{ field.value|raw }}</td>

@@ -2,59 +2,55 @@
  # Skrill settings
  #}
 
+{{ widget('\\XLite\\View\\Payment\\MethodStatus', method=this.getPaymentMethod()) }}
+
 <p class="mb-register-note">{{ t('Don\'t have an account? Sign up for free', {'url': this.getRegisterURL()})|raw }}</p>
 
 <form action="{{ url() }}" method="post" class="mb-activation">
   <input type="hidden" name="target" value="{{ this.target }}" />
-  <input type="hidden" name="action" value="activate" />
+  <input type="hidden" name="action" value="update" />
+  <input type="hidden" name="returnURL" value="{{ this.getURL() }}" />
   {{ widget('\\XLite\\View\\FormField\\Input\\FormId') }}
 
   <ul>
 
     <li class="mb-email">
-      <label for="mb_email">{{ t('Email address of your Skrill account') }}:</label>
-      <input type="text" id="mb_email" name="email" value="{{ this.config.CDev.Moneybookers.email }}"/>
-      {{ widget('\\XLite\\View\\Button\\Submit', label='Validate Email') }}
+      <div class="table-label">
+        <label for="mb_email">{{ t('Email address of your Skrill account') }}:</label>
+      </div>
+      <div class="table-value">
+        <input type="text" class="form-control" id="mb_email" name="email" value="{{ this.config.CDev.Moneybookers.email }}"/>
+      </div>
     </li>
 
     <li class="mb-id">
-      <label for="mb_id">{{ t('Skrill Customer ID') }}:</label>
-      <input type="text" id="mb_id" name="id" value="{{ this.config.CDev.Moneybookers.id }}" />
+      <div class="table-label">
+        <label for="mb_id">{{ t('Skrill Customer ID') }}:</label>
+      </div>
+      <div class="table-value">
+        <input type="text" class="form-control" id="mb_id" name="id" value="{{ this.config.CDev.Moneybookers.id }}" />
+      </div>
+    </li>
+
+    <li>
+      <div class="table-label">
+        <label for="mb_word">{{ t('Secret Word') }}:</label>
+      </div>
+      <div class="table-value">
+        <input type="password" class="form-control"  id="mb_word" name="secret_word" value="{{ this.config.CDev.Moneybookers.secret_word }}" />
+      </div>
     </li>
 
   </ul>
 
+  <p class="mb-activation-note">{{ t('Skrill Quick Checkout description')|raw }}</p>
+
   <div class="buttons">
-    {{ widget('\\XLite\\View\\Button\\Submit', label='Activate Skrill Quick Checkout', style='action') }}
+    {{ widget('\\XLite\\View\\Button\\Submit', label='Submit', style='action regular-main-button') }}
   </div>
-
-  <p class="mb-activation-note">{{ t('Skrill Quick Checkout enables you to take direct payment from credit cards, debit cards and over 80 other local payment options in over 200 countries as well as the Skrill eWallet.')|raw }}</p>
-
 </form>
 
 <hr class="mb-line" />
-
-{% if this.config.CDev.Moneybookers.email %}
-
-<form action="{{ url() }}" method="post" class="mb-secret-word">
-  <input type="hidden" name="target" value="{{ this.target }}" />
-  <input type="hidden" name="action" value="validateSecretWord" />
-  {{ widget('\\XLite\\View\\FormField\\Input\\FormId') }}
-
-  <p class="mb-secret-word-note">{{ t('After activation Skrill will give you access to a new section in your Skrill account called "Merchant tools". Please choose a secret word (do not use your password for this) and enter it into the merchant tools section and below.') }}</p>
-
-  <ul>
-
-    <li>
-      <label for="mb_word">{{ t('Secret Word') }}:</label>
-      <input type="password" id="mb_word" name="secret_word" value="{{ this.config.CDev.Moneybookers.secret_word }}" />
-      {{ widget('\\XLite\\View\\Button\\Submit', label='Validate Secret Word') }}
-    </li>
-
-  </ul>
-
-</form>
-{% endif %}
 
 <form action="{{ url() }}" method="post" class="mb-order-prefix">
   <input type="hidden" name="target" value="{{ this.target }}" />
@@ -69,7 +65,7 @@
 
     <li>
       <label for="mb_order_prefix">{{ t('Order id prefix') }}:</label>
-      <input type="text" id="mb_order_prefix" name="prefix" value="{{ this.config.CDev.Moneybookers.prefix }}" />
+      <input type="text" class="form-control" id="mb_order_prefix" name="prefix" value="{{ this.config.CDev.Moneybookers.prefix }}" />
       {{ widget('\\XLite\\View\\Button\\Submit', label='Submit') }}
       <div>{{ t('(optional)') }}</div>
     </li>
@@ -83,5 +79,5 @@
 <p class="mb-support-note">
   {{ t('Support') }}:<br />
   {{ t('Do you have questions?') }}<br />
-  {{ t('Contact Skrill on ecommerce@skrill.com or by phone +44 203 308 2519')|raw }}
+  {{ t('Contact Skrill at newbusiness@paysafe.com')|raw }}
 </p>

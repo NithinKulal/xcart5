@@ -272,6 +272,27 @@ HTML.SafeIframe = On
 ; URI.SafeIframeRegexp[] = "www.youtube-nocookie.com/embed/"
 ; URI.SafeIframeRegexp[] = "player.vimeo.com/video/"
 
+; HTML Purifier additional attributes
+; format:
+; tag[] = attribute1:attribute_definition2
+; tag[] = attribute2:attribute_definition2
+;
+; For tag only(if you specified attribute as above - tag will be added automatically):
+; tag[] =
+;
+; Attribute definitions:
+; Enum      - as example "Enum#_blank,_self,_target,_top"
+; Bool      - Boolean attribute, with only one valid value: the name of the attribute.
+; CDATA     - Attribute of arbitrary text. (also Text valid)
+; ID        - Attribute that specifies a unique ID
+; Pixels    - Attribute that specifies an integer pixel length
+; Length    - Attribute that specifies a pixel or percentage length
+; NMTOKENS  - Attribute that specifies a number of name tokens, example: the class attribute
+; URI       - Attribute that specifies a URI, example: the href attribute
+; Number    - Attribute that specifies an positive integer number
+[html_purifier_additional_attributes]
+iframe[] = allowfullscreen:CDATA
+
 [storefront_options]
 ; Do not close target=callback for payments if storefront is closed
 callback_opened = On

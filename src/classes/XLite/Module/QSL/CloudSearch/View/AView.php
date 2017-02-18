@@ -23,7 +23,7 @@ abstract class AView extends \XLite\View\AView implements \XLite\Base\IDecorator
         $list = parent::getCSSFiles();
 
         if (!\XLite::isAdminZone()) {
-            $list[] = 'modules/QSL/CloudSearch/style.css';
+            $list[] = 'modules/QSL/CloudSearch/style.less';
         }
 
         return $list;

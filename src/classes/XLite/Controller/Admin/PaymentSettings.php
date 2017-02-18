@@ -8,11 +8,15 @@
 
 namespace XLite\Controller\Admin;
 
+use XLite\Core\Cache\ExecuteCachedTrait;
+
 /**
  * Payment methods
  */
 class PaymentSettings extends \XLite\Controller\Admin\AAdmin
 {
+    use ExecuteCachedTrait;
+
     /**
      * Define the actions with no secure token
      *
@@ -52,9 +56,10 @@ class PaymentSettings extends \XLite\Controller\Admin\AAdmin
      */
     protected function getMethod()
     {
-        return \XLite\Core\Request::getInstance()->id
-            ? \XLite\Core\Database::getRepo('XLite\Model\Payment\Method')->find(\XLite\Core\Request::getInstance()->id)
-            : null;
+        return $this->executeCachedRuntime(function () {
+            $id = \XLite\Core\Request::getInstance()->id;
+            return $id ? \XLite\Core\Database::getRepo('XLite\Model\Payment\Method')->find($id) : null;
+        });
     }
 
     /**
@@ -107,6 +112,8 @@ class PaymentSettings extends \XLite\Controller\Admin\AAdmin
     {
         // Move top messages into headers since we print data and die()
         $this->translateTopMessagesToHTTPHeaders();
+        \XLite\Core\Event::getInstance()->display();
+        \XLite\Core\Event::getInstance()->clear();
 
         $content = json_encode($data);
 
@@ -178,9 +185,7 @@ class PaymentSettings extends \XLite\Controller\Admin\AAdmin
      */
     protected function doActionRemove()
     {
-        $method = \XLite\Core\Request::getInstance()->id
-            ? \XLite\Core\Database::getRepo('XLite\Model\Payment\Method')->find(\XLite\Core\Request::getInstance()->id)
-            : null;
+        $method = $this->getMethod();
 
         if ($method && !$method->isForcedEnabled()) {
             if (get_class($method->getProcessor()) == 'XLite\Model\Payment\Processor\Offline') {
@@ -193,8 +198,6 @@ class PaymentSettings extends \XLite\Controller\Admin\AAdmin
             \XLite\Core\TopMessage::addInfo('Payment method has been removed successfully');
             \XLite\Core\Database::getEM()->flush();
         }
-
-        $this->setReturnURL(\XLite\Core\Converter::buildURL('payment_settings'));
     }
 
     /**
@@ -204,11 +207,7 @@ class PaymentSettings extends \XLite\Controller\Admin\AAdmin
      */
     protected function doActionAdd()
     {
-        $id = \XLite\Core\Request::getInstance()->id;
-
-        $method = $id
-            ? \XLite\Core\Database::getRepo('XLite\Model\Payment\Method')->find($id)
-            : null;
+        $method = $this->getMethod();
 
         if ($method) {
             if (!$method->getAdded()) {
@@ -228,9 +227,26 @@ class PaymentSettings extends \XLite\Controller\Admin\AAdmin
      */
     protected function doActionAddOfflineMethod()
     {
-        $name = strval(\XLite\Core\Request::getInstance()->name);
-        $instruction = strval(\XLite\Core\Request::getInstance()->instruction);
-        $description = strval(\XLite\Core\Request::getInstance()->description);
+        $method = $this->createOfflinePaymentMethod();
+
+        if ($method) {
+            \XLite\Core\TopMessage::addInfo('Payment method has been added successfully');
+        }
+
+        $this->setReturnURL(\XLite\Core\Converter::buildURL('payment_settings'));
+        $this->setHardRedirect(true);
+    }
+
+    /**
+     * @return null|\XLite\Model\Payment\Method
+     */
+    protected function createOfflinePaymentMethod()
+    {
+        $method = null;
+
+        $name = (string) \XLite\Core\Request::getInstance()->name;
+        $instruction = (string) \XLite\Core\Request::getInstance()->instruction;
+        $description = (string) \XLite\Core\Request::getInstance()->description;
 
         if ($name) {
             $method = new \XLite\Model\Payment\Method;
@@ -251,11 +267,8 @@ class PaymentSettings extends \XLite\Controller\Admin\AAdmin
 
             $method->setServiceName($method->getmethodId());
             \XLite\Core\Database::getEM()->flush();
-
-            \XLite\Core\TopMessage::addInfo('Payment method has been added successfully');
         }
 
-        $this->setReturnURL(\XLite\Core\Converter::buildURL('payment_settings'));
-        $this->setHardRedirect(true);
+        return $method;
     }
 }

@@ -814,7 +814,7 @@ class Method extends \XLite\Model\Base\I18n
     /**
      * Get settings
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection|\XLite\Model\Payment\MethodSetting[]
      */
     public function getSettings()
     {

@@ -265,7 +265,8 @@ class Order extends \XLite\Model\Order implements \XLite\Base\IDecorator
                 || $this->hasSavedCardsInProfile()
             ) {
 
-                $paymentTransactionSums[static::t('Difference')] = $this->getAomTotalDifference();
+                $differenceLabel = static::getDifferenceLabel();
+                $paymentTransactionSums[$differenceLabel] = $this->getAomTotalDifference();
 
                 // Remove from array all zero sums
                 foreach ($paymentTransactionSums as $k => $v) {
@@ -320,6 +321,16 @@ class Order extends \XLite\Model\Order implements \XLite\Base\IDecorator
     {
         return $this->isAomTotalDifferencePositive()
             && $this->hasSavedCardsInProfile(); 
+    }
+
+    /**
+    * Get difference text label
+    *
+    * @return string
+    */
+    public static function getDifferenceLabel()
+    {
+        return static::t('Difference');
     }
 
     /**

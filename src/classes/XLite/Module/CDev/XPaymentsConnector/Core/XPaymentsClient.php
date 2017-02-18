@@ -387,9 +387,11 @@ class XPaymentsClient extends \XLite\Base\Singleton
     public function getFormFields(\XLite\Model\Payment\Transaction $transaction)
     {
         // 1. Try to get data from session
-        $data = $this->getInitDataFromSession($transaction);
+        if (\XLite\Core\Config::getInstance()->CDev->XPaymentsConnector->xpc_use_iframe) {
+            $data = $this->getInitDataFromSession($transaction);
+        }
 
-        if (!$data) {
+        if (empty($data)) {
 
             // 2. Try to get data from X-Payments
             $data = $this->getInitDataFromXpayments($transaction);
@@ -449,6 +451,8 @@ class XPaymentsClient extends \XLite\Base\Singleton
 
         $cart->setCurrency(\XLite::getInstance()->getCurrency());
         $cart->setPaymentMethod($paymentMethod, $total);
+
+        $cart->setLastShippingId(null);
 
         \XLite\Core\Database::getEM()->persist($cart);
         \XLite\Core\Database::getEM()->flush();
@@ -764,6 +768,21 @@ class XPaymentsClient extends \XLite\Base\Singleton
     }
 
     /**
+     * Check if this is error for unaccepted changes of templates in X-Payments
+     *
+     * @param string $message Message
+     *
+     * @return array
+     */
+    public function isUnacceptedTemplateError($message)
+    {
+        list($code, $message) = \XLite\Module\CDev\XPaymentsConnector\Core\XPaymentsClient::getInstance()
+            ->parseErrorMessage($message);
+
+        return '505' == $code;
+    }
+
+    /**
      * Set X-Payments API error to:
      *  - Logs
      *  - Transaction data
@@ -776,30 +795,43 @@ class XPaymentsClient extends \XLite\Base\Singleton
      */
     protected function setXpcInitError(\XLite\Model\Payment\Transaction $transaction, $message = '')
     {
-        self::writeLogError('X-Paymets payment initialization failed: ' . $message);
+        self::writeLogError('X-Payments payment initialization failed: ' . $message);
 
         $transaction->setDataCell('status', $message, 'X-Payments error', 'C');
         $transaction->setNote($message);
+        $transaction->setStatus(\XLite\Model\Payment\Transaction::STATUS_FAILED);
 
         $iframe = \XLite::getController()->getIframe();
 
-        $iframe->setError($message);
+        if ($iframe->useIframe()) {
 
-        if (\XLite::getController()->isCheckoutReady()) {
+            $iframe->setError($message);
 
-            $type = $this->isChangeMethodMessage($message)
-                ? \XLite\Module\CDev\XPaymentsConnector\Core\Iframe::IFRAME_CHANGE_METHOD
-                : \XLite\Module\CDev\XPaymentsConnector\Core\Iframe::IFRAME_ALERT;
+            if (\XLite::getController()->isCheckoutReady()) {
 
-            $iframe->setType($type);
+                $type = $this->isChangeMethodMessage($message)
+                    ? \XLite\Module\CDev\XPaymentsConnector\Core\Iframe::IFRAME_CHANGE_METHOD
+                    : \XLite\Module\CDev\XPaymentsConnector\Core\Iframe::IFRAME_ALERT;
+
+                $iframe->setType($type);
+
+            } else {
+                $iframe->setType(\XLite\Module\CDev\XPaymentsConnector\Core\Iframe::IFRAME_DO_NOTHING);
+            }
+
+            $this->clearInitDataFromSession();
+
+            $iframe->finalize();
 
         } else {
-            $iframe->setType(\XLite\Module\CDev\XPaymentsConnector\Core\Iframe::IFRAME_DO_NOTHING);
+
+            if ($this->isUnacceptedTemplateError($message)) {
+                $message = 'Trying to use unaccepted template change.';
+            }
+
+            \XLite\Core\TopMessage::addError($message);
+
         }
-
-        $this->clearInitDataFromSession();
-
-        $iframe->finalize();
     }
 
     /**
@@ -891,7 +923,9 @@ class XPaymentsClient extends \XLite\Base\Singleton
                 'fields'           => $response['fields'],
             );
 
-            $this->saveInitDataToSession($transaction, $data);
+            if (\XLite\Core\Config::getInstance()->CDev->XPaymentsConnector->xpc_use_iframe) {
+                $this->saveInitDataToSession($transaction, $data);
+            }
 
         } else {
 

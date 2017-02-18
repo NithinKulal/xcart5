@@ -13,37 +13,81 @@
         price_template: cloudSearchData.priceTemplate,
         selector: cloudSearchData.selector,
         lang: cloudSearchData.lng,
-        membership: cloudSearchData.membership,
-        EventHandlers: {OnPopupRender: []}
+        EventHandlers: {OnPopupRender: []},
+        requestData: {
+            membership: cloudSearchData.membership,
+            limits: {
+                products: cloudSearchData.maxProducts
+            }
+        },
+        positionPopupAt: function (searchInput) {
+            var elem = searchInput.closest('.simple-search-box');
+
+            return elem.length == 1 ? elem : searchInput;
+        }
     };
 
     if (cloudSearchData.dynamicPricesEnabled) {
+        var priceCache = {};
+
         window.Cloud_Search.EventHandlers.OnPopupRender.push(function (searchTerm, menu) {
             var popup = $(menu),
                 products = $('.block-products dd', popup),
                 prices = products.find('.price'),
-                pids = [],
                 url;
 
-            prices.hide();
+            function populatePricesFromCache() {
+                var pricesToRequest = [];
 
-            products.each(function () {
-                pids.push($(this).attr('data-id'));
-            });
+                prices.each(function () {
+                    var e = $(this),
+                        id = $(this).closest('dd').attr('data-id'),
+                        price = priceCache[id];
 
-            if (pids.length > 0) {
-                url = URLHandler.buildURL({target: 'cloud_search_api', action: 'get_prices', ids: pids.join(',')});
+                    if (typeof price !== 'undefined') {
+                        if (price !== null) {
+                            e.html(price);
+                        }
+                    } else {
+                        pricesToRequest.push(id);
+                    }
+                });
+
+                return pricesToRequest;
+            }
+
+            var pricesToRequest = populatePricesFromCache();
+
+            if (pricesToRequest) {
+                prices.each(function () {
+                    var id = $(this).closest('dd').attr('data-id');
+
+                    if (pricesToRequest.indexOf(id) !== -1) {
+                        $(this).hide();
+                    }
+                });
+
+                url = URLHandler.buildURL({
+                    target: 'cloud_search_api',
+                    action: 'get_prices',
+                    ids: pricesToRequest.join(',')
+                });
 
                 core.get(url, function (data) {
                     var actualPrices = JSON.parse(data.responseText);
-                    if (actualPrices) {
-                        prices.each(function (index) {
-                            var e = $(this),
-                                price = actualPrices[index];
 
-                            price !== null && e.html(price);
+                    if (actualPrices) {
+                        $.each(actualPrices, function (index) {
+                            var price = actualPrices[index];
+
+                            if (price !== null) {
+                                priceCache[pricesToRequest[index]] = price;
+                            }
                         });
+
+                        populatePricesFromCache();
                     }
+
                     prices.show();
                 });
             }

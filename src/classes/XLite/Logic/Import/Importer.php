@@ -562,6 +562,7 @@ class Importer extends \XLite\Base
             'XLite\Logic\Import\Step\Verification',
             'XLite\Logic\Import\Step\Import',
             'XLite\Logic\Import\Step\QuickData',
+            'XLite\Logic\Import\Step\CategoriesStructure',
             'XLite\Logic\Import\Step\ImageResize',
         );
     }

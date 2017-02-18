@@ -115,6 +115,7 @@ XLite\Model\LanguageLabel:
   - { name: 'There are no comments yet. Be the first to leave a comment', translations: [{ code: 'en', label: 'There are no comments yet. Be the first to leave a comment' }] }
   - { name: 'A new review has been submitted for the product "{{name}}".', translations: [{ code: 'en', label: 'A new review has been submitted for the product "{{name}}".' }] }
   - { name: 'Go to see the review [in the Admin area]', translations: [{ code: 'en', label: 'Go to see the review <a href="{{link}}">in the Admin area</a>' }] }
+  - { name: 'itemslist.admin.review.blank', translations: [{ code: en, label: '<p class="items-list-blank-description-heading text-center">No one has rated your products yet.</p><p class="text-center">Once someone reviews your product (or you add a review manually), this is the place to track, moderate and remove reviews.</p>' },{ code: ru, label: '<p class="items-list-blank-description-heading text-center">Никто пока не оценил ваши продукты.</p><p class="text-center">Как только появятся отзывы о ваших продуктах, вы сможете управлять ими на этой странице.</p>' }] }
 
 XLite\Model\Notification:
   - templatesDirectory: modules/XC/Reviews/new_review

@@ -8,26 +8,39 @@
 
 namespace XLite\Module\Amazon\PayWithAmazon\Controller\Admin;
 
+use XLite\Core\Request;
+use XLite\Module\Amazon\PayWithAmazon\Main;
+
 /**
  * PayWithAmazon settings page controller
  */
-class PayWithAmazon extends \XLite\Controller\Admin\Module
+class PayWithAmazon extends \XLite\Controller\Admin\PaymentMethod
 {
     /**
-     * Gets the PayWithAmazon module id
+     * getPaymentMethod
      *
-     * @return integer
+     * @return \XLite\Model\Payment\Method
      */
-    public function getModuleId()
+    protected function getPaymentMethod()
     {
-        return \XLite\Core\Database::getRepo('XLite\Model\Module')
-            ->findOneBy(
-                [
-                    'author'          => 'Amazon',
-                    'name'            => 'PayWithAmazon',
-                    'fromMarketplace' => false,
-                ]
-            )
-            ->getModuleID();
+        $method                           = Main::getMethod();
+        Request::getInstance()->method_id = $method->getMethodId();
+
+        return $method;
+    }
+
+    /**
+     * Update payment method
+     *
+     * @return void
+     */
+    protected function doActionUpdate()
+    {
+        parent::doActionUpdate();
+
+        $method = $this->getPaymentMethod();
+        if ($method && $method->isConfigured()) {
+            $this->setReturnURL($this->buildURL('pay_with_amazon'));
+        }
     }
 }

@@ -453,6 +453,23 @@ popup.extendOptions = function(first, second)
 // Reposition (center) popup
 popup.reposition = function()
 {
+  if (!this.currentPopup) {
+    return;
+  }
+
+  var box = this.currentPopup.box;
+
+  if (box.length) {
+    box.dialog(
+      "option",
+      "position",
+      {
+        my: "center",
+        at: "center",
+        of: window
+      }
+    );
+  }
 };
 
 // DestroDestroy

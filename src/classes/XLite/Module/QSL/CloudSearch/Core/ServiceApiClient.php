@@ -8,11 +8,13 @@
 
 namespace XLite\Module\QSL\CloudSearch\Core;
 
+use Includes\Utils\ConfigParser;
+use Includes\Utils\URLManager;
 use XLite\Core\Config;
 use XLite\Core\Converter;
 use XLite\Core\Database;
 use XLite\Core\HTTP\Request;
-use XLite\Core\URLManager;
+use XLite\Module\QSL\CloudSearch\Main;
 
 
 /**
@@ -28,8 +30,10 @@ class ServiceApiClient
     const CLOUD_SEARCH_REMOTE_IFRAME_URL      = '/api/v1/iframe?key=';
     const CLOUD_SEARCH_REGISTER_URL           = '/api/v1/register';
     const CLOUD_SEARCH_SEARCH_URL             = '/api/v1/search';
+    const CLOUD_SEARCH_PLAN_INFO_URL          = '/api/v1/plan-info';
 
-    const SEARCH_REQUEST_TIMEOUT = 5;
+    const SEARCH_REQUEST_TIMEOUT    = 5;
+    const PLAN_INFO_REQUEST_TIMEOUT = 3;
 
     /**
      * Register CloudSearch installation
@@ -56,6 +60,10 @@ class ServiceApiClient
 
             if ($data && !empty($data['apiKey'])) {
                 $this->storeApiKey($data['apiKey']);
+
+                $this->requestSecretKey();
+
+                Config::updateInstance();
             }
         }
     }
@@ -206,6 +214,36 @@ class ServiceApiClient
     }
 
     /**
+     * Request CS plan info
+     *
+     * @return mixed|null
+     */
+    public function getPlanInfo()
+    {
+        $apiKey    = $this->getApiKey();
+        $secretKey = $this->getSecretKey();
+
+        $requestUrl = static::CLOUD_SEARCH_URL . static::CLOUD_SEARCH_PLAN_INFO_URL;
+
+        $request = new Request($requestUrl);
+
+        $request->setAdditionalOption(\CURLOPT_TIMEOUT, self::PLAN_INFO_REQUEST_TIMEOUT);
+
+        $request->body = array(
+            'apiKey'    => $apiKey,
+            'secretKey' => $secretKey,
+        );
+
+        $response = $request->sendRequest();
+
+        if ($response->code != 200) {
+            return null;
+        }
+
+        return json_decode($response->body, true);
+    }
+
+    /**
      * Get CloudSearch dashboard url
      *
      * @param $secretKey
@@ -227,13 +265,28 @@ class ServiceApiClient
      *
      * @return string
      */
-    protected function getShopUrl()
+    private function getShopUrl()
     {
-        return preg_replace(
+        $url = preg_replace(
             '/[^\/]*.php$/',
             '',
             URLManager::getShopURL(Converter::buildURL())
         );
+
+        if (Main::isMultiDomain()) {
+            $protocol = URLManager::isHTTPS() ? 'https' : 'http';
+
+            $hostDetails   = ConfigParser::getOptions('host_details');
+            $original_host = $hostDetails[$protocol . '_host_orig'];
+
+            $scheme = parse_url($url, PHP_URL_SCHEME);
+            $host   = parse_url($url, PHP_URL_HOST);
+
+            $url = $scheme . '://' . $original_host
+                   . substr($url, strlen($scheme) + strlen('://') + strlen($host));
+        }
+
+        return $url;
     }
 
     /**
@@ -247,12 +300,12 @@ class ServiceApiClient
     {
         $repo = Database::getRepo('XLite\Model\Config');
 
-        $secretKeySetting = $repo->findOneBy(array(
+        $apiKeySetting = $repo->findOneBy(array(
             'name'     => 'api_key',
             'category' => 'QSL\CloudSearch',
         ));
 
-        $secretKeySetting->setValue($key);
+        $apiKeySetting->setValue($key);
 
         Database::getEM()->flush();
     }

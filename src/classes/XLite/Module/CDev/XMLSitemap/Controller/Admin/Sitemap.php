@@ -158,9 +158,7 @@ class Sitemap extends \XLite\Controller\Admin\AAdmin
                         )
                     );
                     $url = str_replace('%url%', $url, $engine['url']);
-                    $request = new \XLite\Core\HTTP\Request($url);
-                    $response = $request->sendRequest();
-                    if (200 == $response->code) {
+                    if (\XLite\Core\Operator::checkURLAvailability($url)) {
                         TopMessage::addInfo(
                             'Site map successfully registred on X',
                             array('engine' => $key)

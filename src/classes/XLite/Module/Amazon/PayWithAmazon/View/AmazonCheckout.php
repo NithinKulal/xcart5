@@ -8,6 +8,9 @@
 
 namespace XLite\Module\Amazon\PayWithAmazon\View;
 
+use XLite\Core\Request;
+use XLite\Model\Base\Surcharge;
+
 /**
  * Amazon checkout widget
  *
@@ -46,12 +49,16 @@ class AmazonCheckout extends \XLite\View\AView
     public function getJSFiles()
     {
         $list = parent::getJSFiles();
-        $list[] = 'checkout/steps/review/parts/items.js';
+        $list[] = 'checkout/js/controller.js';
 
         return $list;
     }
 
-    // compat with mailchimp module
+    /**
+     * Required by XC\MailChimp
+     *
+     * @return \XLite\Model\Profile
+     */
     public function getProfile()
     {
         return \XLite::getController()->getCart()->getProfile();
@@ -65,9 +72,17 @@ class AmazonCheckout extends \XLite\View\AView
     public function isOrderShippable()
     {
         $cart = \XLite::getController()->getCart();
-        $modifier = $cart->getModifier(\XLite\Model\Base\Surcharge::TYPE_SHIPPING, 'SHIPPING');
+        $modifier = $cart->getModifier(Surcharge::TYPE_SHIPPING, 'SHIPPING');
 
         return $modifier && $modifier->canApply();
+    }
+
+    /**
+     * @return string
+     */
+    public function getOrderReference()
+    {
+        return Request::getInstance()->orderReference ?: '';
     }
 
     /**

@@ -1,0 +1,51 @@
+{##
+ # Kount result on the invoice
+ #
+ # @ListChild (list="invoice.base", weight="60")
+ #}
+</tr>
+{% if this.isDisplayKountResult() and not this.order.getFraudCheckData() %}
+  <tr>
+    <td colspan="3" style="background: #f9f9f9; padding: 15px;">
+  
+    <h2 style="font-weight: normal; font-size: 24px; margin: 18px 0;">{{ t('KOUNT Antifraud screening result') }}</h2>
+  
+    {% if this.getKountErrors() %}
+      {% for error in this.getKountErrors() %}
+        <div style="{{ this.getKountErrorStyle() }}">
+          <strong>{{ t('Error') }}!</strong>
+            {{ error|raw }}
+        </div>
+      {% endfor %}
+    {% endif %}
+  
+    {% if this.getKountMessage() %}
+      <p style="font-size: 15px; line-height: 20px;">
+        {{ this.getKountMessage()|raw }}. {{ t('Score') }}:
+        <span class="lead {{ this.getKountScoreClass() }}">
+          {{ this.getKountScore() }}
+        </span>
+      </p>
+    {% endif %}
+  
+    {% if this.getKountTransactionId() %}
+      <p style="font-size: 15px; line-height: 20px;">{{ t('Transaction ID') }}: {{ this.getKountTransactionId() }}</p>
+    {% endif %}
+  
+    {% if this.getKountRules() %}
+  
+      <h3 style="line-height: 50px; font-size: 18px; font-weight: normal;">{{ t('Rules triggered') }}:</h3>
+  
+      <ul class="kount-result-lines">
+        {% for title, value in this.getKountRules() %}
+          <li style="font-size: 15px; line-height: 20px;">{{ value|raw }}</li>
+        {% endfor %}
+      </ul>
+  
+    {% endif %}
+  
+    </td>
+  </tr>
+{% endif %}
+<tr>
+

@@ -7,7 +7,7 @@
 <a 
   href="{{ this.getProductURL(this.categoryId) }}"
   class="product-link">
-  {{ this.product.name|raw }}
+  {{ this.product.name }}
 </a>
 {% if this.product.isShowStockWarning() %}
   <span class="product-items-available low-stock">{{ t('Only X left in stock', {'X': this.product.getAvailableAmount()}) }}</span>

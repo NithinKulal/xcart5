@@ -47,6 +47,8 @@ class CheckoutSuccess extends \XLite\Controller\Customer\CheckoutSuccess impleme
         } else {
             parent::handleRequest();
         }
+        
+        \XLite\Core\Session::getInstance()->selectedCardId = null;
     }
 
 }

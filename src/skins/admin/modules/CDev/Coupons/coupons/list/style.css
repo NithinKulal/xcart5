@@ -17,16 +17,11 @@
 
 .items-list-table.coupons table.list tbody td.code div.cell {
   padding-left: 16px;
-  width: 200px;
 }
 
 .items-list-table.coupons table.list tbody td.code .expired-mark {
   color: #8f8f8f;
   padding-left: 7px;
-}
-
-.items-list-table.coupons table.list tbody td.comment div.cell {
-  width: 300px;
 }
 
 .items-list-table.coupons table.list tbody td.value {

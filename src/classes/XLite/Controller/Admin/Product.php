@@ -310,11 +310,14 @@ class Product extends \XLite\Controller\Admin\ACL\Catalog
             \XLite\Core\Database::getEM()->persist($product);
             \XLite\Core\Database::getEM()->flush();
 
-            $dto->afterUpdate($product, $rawData[$this->formName]);
+            $dto->afterPopulate($product, $rawData[$this->formName]);
             if (!$isPersistent) {
                 $dto->afterCreate($product, $rawData[$this->formName]);
-                \XLite\Core\Database::getEM()->flush();
+
+            } else {
+                $dto->afterUpdate($product, $rawData[$this->formName]);
             }
+            \XLite\Core\Database::getEM()->flush();
 
         } else {
             $this->saveFormModelTmpData($rawData[$this->formName]);

@@ -84,6 +84,18 @@ class Category extends \XLite\Controller\Customer\Base\Catalog
      */
     protected function isRedirectToCleanURLNeeded()
     {
-        return parent::isRedirectToCleanURLNeeded() && $this->getCategory()->getParent();
+        return parent::isRedirectToCleanURLNeeded() && $this->getCategory()->getParent()
+            || preg_match(
+                '/\/cart\.php/Si',
+                \Includes\Utils\ArrayManager::getIndex(
+                    \XLite\Core\Request::getInstance()->getServerData(), 'REQUEST_URI'
+                )
+            )
+            || preg_match(
+                '/target=main/i',
+                \Includes\Utils\ArrayManager::getIndex(
+                    \XLite\Core\Request::getInstance()->getServerData(), 'QUERY_STRING'
+                )
+            );
     }
 }

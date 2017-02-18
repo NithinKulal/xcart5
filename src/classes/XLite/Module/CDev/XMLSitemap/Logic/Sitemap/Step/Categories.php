@@ -49,7 +49,7 @@ class Categories extends \XLite\Module\CDev\XMLSitemap\Logic\Sitemap\Step\ASitem
             if (isset($item['cleanURL']) && static::isSitemapCleanUrlConditionApplicable()) {
                 $_url = $item['cleanURL'];
             } else {
-                $_url = Converter::buildURL('category', '', ['category_id' => $categoryId], \XLite::getCustomerScript(), false, true);
+                $_url = Converter::buildURL('category', '', ['category_id' => $categoryId], \XLite::getCustomerScript(), true);
             }
             $url = \XLite::getInstance()->getShopURL($_url);
 
@@ -70,11 +70,11 @@ class Categories extends \XLite\Module\CDev\XMLSitemap\Logic\Sitemap\Step\ASitem
                     $langUrl = $code . '/' . $langUrl;
                     $locale = Converter::langToLocale($code);
 
-                    $tag = 'xhtml:link rel="alternate" hreflang="' . $locale . '" href="' . URLManager::getShopURL($langUrl) . '"';
+                    $tag = 'xhtml:link rel="alternate" hreflang="' . $locale . '" href="' . htmlentities(URLManager::getShopURL($langUrl)) . '"';
                     $result[$tag] = null;
                 }
 
-                $tag = 'xhtml:link rel="alternate" hreflang="x-default" href="' . $url . '"';
+                $tag = 'xhtml:link rel="alternate" hreflang="x-default" href="' . htmlentities($url) . '"';
                 $result[$tag] = null;
             }
 

@@ -56,3 +56,8 @@ div.list-footer {
 .ui-dialog .items-list .empty-list {
   min-width: inherit;
 }
+
+.items-list-blank-description-heading {
+  font-size: 20px;
+  line-height: 2.5em;
+}

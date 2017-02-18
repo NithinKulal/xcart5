@@ -215,12 +215,7 @@ output {
   }
 }
 
-/**
- * Floating label inputs
- */
-.floating-label {
-  position: relative;
-
+.floating-label-internal {
   & > .table-label,
   & > label:not(.checkbox-label):not(.rating) {
     z-index: 2;
@@ -296,6 +291,22 @@ output {
     top: @line-height-base - 2;
     right: @line-height-base;
     font-size: @line-height-base;
+  }
+}
+
+.not-floating label {
+  line-height: @rhythmic-unit;
+  margin-bottom: @rhythmic-unit / 2;
+}
+
+/**
+ * Floating label inputs
+ */
+.floating-label {
+  position: relative;
+
+  &:not(.not-floating) {
+    .floating-label-internal;
   }
 }
 

@@ -1,0 +1,5 @@
+Version 5.3.2.2
+
+Fixes
+2017-01-16 - [Bug] Global attributes of products with variants were not showing in the product filter on category pages. #BUG-4423 (Maxim Kuznetsov) #ProductVariants
+2017-01-05 - [Bug] If a product with an arrival date set for the future had two variants that were "in stock", both the variants and the add-to-cart button for them showed on the storefront despite the item coming in the future. #BUG-4347 (Michael Lipinski) #Wholesale #ProductVariants

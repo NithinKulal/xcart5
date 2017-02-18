@@ -20,6 +20,26 @@ class Cart extends \XLite\Model\Cart implements \XLite\Base\IDecorator
     protected $xpcForceCalcFlag = false;
 
     /**
+     * Checks if any X-Payments payment methods are available for this cart
+     *
+     * @return boolean
+     */
+    public function isXpcMethodsAvailable()
+    {
+        $found = false;
+        foreach ($this->getPaymentMethods() as $method) {
+            if (
+                'Module\CDev\XPaymentsConnector\Model\Payment\Processor\XPayments' == $method->getClass()
+                || 'Module\CDev\XPaymentsConnector\Model\Payment\Processor\SavedCard' == $method->getClass()
+            ) {
+                $found = true;
+                break;
+            }
+        }
+        return $found;
+    }
+
+    /**
      * If we can proceed with checkout with current cart
      *
      * @return boolean

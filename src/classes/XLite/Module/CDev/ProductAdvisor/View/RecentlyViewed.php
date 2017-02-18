@@ -89,6 +89,22 @@ class RecentlyViewed extends \XLite\View\ItemsList\Product\Customer\ACustomer
     }
 
     /**
+     * Get a list of JS files required to display the widget properly
+     *
+     * @return array
+     */
+    public function getJSFiles()
+    {
+        $list   = parent::getJSFiles();
+
+        if ($this->getWidgetType() === static::WIDGET_TYPE_CENTER) {
+            $list[] = 'modules/CDev/ProductAdvisor/products.popover.js';
+        }
+
+        return $list;
+    }
+
+    /**
      * Initialize widget (set attributes)
      *
      * @param array $params Widget params
@@ -133,7 +149,11 @@ class RecentlyViewed extends \XLite\View\ItemsList\Product\Customer\ACustomer
             ),
             self::PARAM_PRODUCT_IDS          => new \XLite\Model\WidgetParam\TypeCollection(
                 'ProductIds',
-                \XLite\Module\CDev\ProductAdvisor\Main::getProductIds()
+                array_slice(
+                    \XLite\Module\CDev\ProductAdvisor\Main::getProductIds(),
+                    0,
+                    \XLite\Core\Config::getInstance()->CDev->ProductAdvisor->rv_max_count_in_block
+                )
             ),
         ];
 
@@ -185,8 +205,18 @@ class RecentlyViewed extends \XLite\View\ItemsList\Product\Customer\ACustomer
     protected function getData(\XLite\Core\CommonCell $cnd, $countOnly = false)
     {
         if ($cnd->{\XLite\Model\Repo\Product::P_PRODUCT_IDS}) {
+            if ($countOnly) {
+                return parent::getData($cnd, $countOnly);
+            }
 
-            return parent::getData($cnd, $countOnly);
+            $data = parent::getData($cnd, \XLite\Model\Repo\Product::SEARCH_MODE_INDEXED);
+            $order = $cnd->{\XLite\Model\Repo\Product::P_PRODUCT_IDS};
+
+            $data = array_map(function($i) use ($data) {
+                return isset($data[$i]) ? $data[$i] : null;
+            }, $order);
+
+            return array_filter($data);
 
         } else {
 

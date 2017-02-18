@@ -134,6 +134,16 @@ class Menu extends \XLite\View\ItemsList\Model\Table
     }
 
     /**
+     * Description for blank items list
+     *
+     * @return string
+     */
+    protected function getBlankItemsListDescription()
+    {
+        return static::t('itemslist.admin.menu.blank');
+    }
+
+    /**
      * Get create entity URL
      *
      * @return string

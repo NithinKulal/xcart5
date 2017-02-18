@@ -210,18 +210,39 @@ class Settings extends \XLite\Base\Singleton
      */
     public static function getAllPages()
     {
-        return \XLite\Module\CDev\XPaymentsConnector\Core\XPaymentsClient::getInstance()->isModuleConfigured()
-            ? array(
-                static::PAGE_PAYMENT_METHODS => static::t('Payment methods'),
-                static::PAGE_CONNECTION      => static::t('Connection')   ,
-                static::PAGE_ZERO_AUTH       => static::t('Save credit card setup'), 
-                static::PAGE_MAP_RULES       => static::t('Order status mapping rules'),
-                static::PAGE_WELCOME         => static::t('Welcome'),
-              )
-            : array(
+        if (\XLite\Module\CDev\XPaymentsConnector\Core\XPaymentsClient::getInstance()->isModuleConfigured()) {
+
+            if (static::hasSaveCardsPaymentMethods()) {
+
+                // Spagetti-code here is the simplest way to keep the order of pages
+
+                $pages = array(
+                    static::PAGE_PAYMENT_METHODS => static::t('Payment methods'),
+                    static::PAGE_CONNECTION      => static::t('Connection'),
+                    static::PAGE_ZERO_AUTH       => static::t('Save credit card setup'),
+                    static::PAGE_MAP_RULES       => static::t('Order status mapping rules'),
+                    static::PAGE_WELCOME         => static::t('Welcome'),
+                );
+
+            } else {
+
+                $pages = array(
+                    static::PAGE_PAYMENT_METHODS => static::t('Payment methods'),
+                    static::PAGE_CONNECTION      => static::t('Connection'),
+                    static::PAGE_MAP_RULES       => static::t('Order status mapping rules'),
+                    static::PAGE_WELCOME         => static::t('Welcome'),
+                );
+            }
+
+        } else {
+
+            $pages = array(
                 static::PAGE_WELCOME         => static::t('Welcome'),
                 static::PAGE_CONNECTION      => static::t('Connection'),
             );
+        }
+
+        return $pages;
     }
 
     /**
@@ -267,6 +288,25 @@ class Settings extends \XLite\Base\Singleton
         $cnd->class = 'Module\CDev\XPaymentsConnector\Model\Payment\Processor\\' . $processor;
 
         return \XLite\Core\Database::getRepo('XLite\Model\Payment\Method')->search($cnd);
+    }
+
+    /**
+     * Check if at least one method supports tokenization
+     *
+     * @return array
+     */
+    public static function hasSaveCardsPaymentMethods()
+    {
+        $result = false;
+
+        foreach (static::getPaymentMethods() as $pm) {
+            if ($pm->getSetting('canSaveCards') == 'Y') {
+                $result = true;
+                break;
+            }
+        }
+
+        return $result;
     }
 
     /**

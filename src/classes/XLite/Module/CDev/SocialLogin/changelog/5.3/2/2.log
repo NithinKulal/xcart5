@@ -1,0 +1,4 @@
+Version 5.3.2.2
+
+Fixes
+2017-01-25 - [Bug] When logging in/getting registered with Social login, the user was not redirected back to the page from which they had been logging in. #BUG-4466 (Sergey Elmanov) #Paypal #SocialLogin

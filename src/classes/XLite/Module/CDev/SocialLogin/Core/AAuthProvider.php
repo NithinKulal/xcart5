@@ -24,6 +24,11 @@ abstract class AAuthProvider extends \XLite\Base\Singleton
     const STATE_PARAM_NAME = 'state';
 
     /**
+     * Delimiter that separates controller class and return url
+     */
+    const STATE_DELIMITER = '||';
+
+    /**
      * Get OAuth 2.0 client ID
      *
      * @return string
@@ -41,17 +46,26 @@ abstract class AAuthProvider extends \XLite\Base\Singleton
      * Get authorization request url
      *
      * @param string $state State parameter to include in request
+     * @param string $returnUrl
      *
      * @return string
      */
-    public function getAuthRequestUrl($state)
+    public function getAuthRequestUrl($state, $returnUrl = null)
     {
-        return static::AUTH_REQUEST_URL
+        if (null === $returnUrl) {
+            $returnUrl = \XLite\Core\Request::getInstance()->fromURL
+                ?: \XLite::getController()->getURL();
+        }
+
+        $url = static::AUTH_REQUEST_URL
             . '?client_id=' . $this->getClientId()
             . '&redirect_uri=' . urlencode($this->getRedirectUrl())
             . '&scope=' . static::AUTH_REQUEST_SCOPE
             . '&response_type=code'
-            . '&' . static::STATE_PARAM_NAME . '=' . urlencode($state);
+            . '&' . static::STATE_PARAM_NAME . '=' . urlencode($state)
+            . static::STATE_DELIMITER . urlencode($returnUrl);
+
+        return $url;
     }
 
     /**

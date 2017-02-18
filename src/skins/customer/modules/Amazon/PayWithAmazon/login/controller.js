@@ -8,16 +8,19 @@
  */
 
 define('Amazon/LoginWithAmazon', ['js/jquery', 'Amazon/PayWithAmazon'], function ($, Amazon) {
-  Amazon.lwaButton('loginWithAmazonDiv_button');
-  Amazon.lwaIcon('loginWithAmazonDiv_icon');
+  jQuery('.social-net-button.social-net-Amazon > div').each(function () {
+    Amazon.lwaButton(this.id);
+  });
+
+  jQuery('.social-net-icon.social-net-Amazon > div').each(function () {
+    Amazon.lwaIcon(this.id);
+  });
 
   core.microhandlers.add(
     'loginWithAmazonDiv_button',
-    '#loginWithAmazonDiv_button',
+    '.social-net-button.social-net-Amazon > div',
     function () {
-      var id = 'loginWithAmazonDiv_button_' + (new Date().getTime());
-      $(this).attr('id', id);
-      Amazon.lwaButton(id);
+      Amazon.lwaButton(this.id);
     }
   );
 });

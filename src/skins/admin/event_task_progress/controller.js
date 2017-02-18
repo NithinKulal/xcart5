@@ -19,23 +19,19 @@ var EventTaskProgress = Object.extend({
     this.$progress = this.$component.find(this.progressSelector);
     this.$bar = this.$progress.find(this.barSelector);
     this.$message = this.$component.find(this.messageSelector);
+    this.$cancelButton = this.$component.find(this.cancelSelector);
     this.initialize();
   },
 
   pattern: '.event-task-progress',
   progressSelector: '.progress-bar-container',
   messageSelector: '.progress-message',
+  cancelSelector: '.progress-cancel',
   barSelector: '.bar',
 
   eventTaskInitialized: false,
-
-  getEndpoint: function(action, eventName) {
-    return URLHandler.buildURL({
-      'target': 'event_task',
-      'action': action,
-      'event': eventName
-    });
-  },
+  userCanceling:        false,
+  cancelingRequested:   false,
 
   initialize: function() {
     if (this.$progress.is('.noblocking')) {
@@ -43,17 +39,43 @@ var EventTaskProgress = Object.extend({
     } else {
       this.initializeBlocking();
     }
+
+    this.$cancelButton.click(_.bind(this.cancelHandler, this));
+
+    core.bind('step-completed', _.bind(this.closeIfCanceling, this));
+
+    // Preload language labels
+    core.loadLanguageHash(core.getCommentedData(this.$component));
   },
 
-  changeProgress: function(data) {
-    this.$bar.attr('title', data.percent + '%');
-    this.$bar.css('width', data.percent + '%');
+  closeIfCanceling: function() {
+    if (this.userCanceling && !this.cancelingRequested) {
+      var form = this.$cancelButton.closest('form').get(0);
+      this.$cancelButton.addClass('disabled');
 
-    if (data && 'undefined' !== typeof(data.message)) {
-      this.$message.html(data.message);
+      if (form) {
+        form.commonController.enableBackgroundSubmit();
+        form.commonController.submitBackground();
+        this.$message.html(core.t('Canceled'));
+        this.cancelingRequested = true;
+      }
     }
+  },
 
-    this.$bar.trigger('changePercent', data);
+  cancelHandler: function(event, data) {
+    this.changeMessage(core.t('Canceling'));
+
+    this.userCanceling = true;
+
+    event.preventDefault();
+
+    return false;
+  },
+
+  changeMessage: function(message) {
+    if (!this.userCanceling) {
+      this.$message.html(message);
+    }
   },
 
   triggerError: function(data) {
@@ -62,7 +84,7 @@ var EventTaskProgress = Object.extend({
     this.$message.addClass('progress-message-error');
 
     if (data.message) {
-      this.$message.html(data.message);
+      this.changeMessage(data.message);
     }
 
     this.$bar.trigger('error', data);
@@ -87,6 +109,12 @@ var EventTaskProgress = Object.extend({
     this.initializeNextStep(null, {percent: this.$bar.data('percent')}, eventName);
   },
 
+  initializeBlocking: function() {
+    this.changeProgress({ percent: this.$bar.data('percent') });
+
+    this.updateProgressBar();
+  },
+
   initializeNextStep: function(event, data, eventName, attempt) {
     var self = this;
     var percent = 0;
@@ -102,11 +130,11 @@ var EventTaskProgress = Object.extend({
       percent = data.percent;
     }
 
-    if (100 > percent) {
+    if (percent < 100 && !this.userCanceling) {
       this.runEventTask(eventName, oldData);
 
     } else {
-      if (data.error) {
+      if (data.error || this.userCanceling) {
         self.triggerError(data);
       }
       self.triggerComplete(data);
@@ -133,13 +161,9 @@ var EventTaskProgress = Object.extend({
             self.triggerError({message: 'Event task runner internal error'});
           }
         }}
-    );
-  },
-
-  initializeBlocking: function() {    
-    this.changeProgress({ percent: this.$bar.data('percent') });
-
-    this.updateProgressBar();
+    ).always(function() {
+      core.trigger('step-completed')
+    });
   },
 
   updateProgressBar: function()
@@ -181,7 +205,26 @@ var EventTaskProgress = Object.extend({
       {},
       {timeout: 10000}
     );
-  }
+  },
+
+  changeProgress: function(data) {
+    this.$bar.attr('title', data.percent + '%');
+    this.$bar.css('width', data.percent + '%');
+
+    if (data && 'undefined' !== typeof(data.message)) {
+      this.changeMessage(data.message);
+    }
+
+    this.$bar.trigger('changePercent', data);
+  },
+
+  getEndpoint: function(action, eventName) {
+    return URLHandler.buildURL({
+      'target': 'event_task',
+      'action': action,
+      'event': eventName
+    });
+  },
 
 });
 

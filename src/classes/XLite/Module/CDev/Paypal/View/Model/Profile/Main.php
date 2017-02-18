@@ -10,6 +10,7 @@ namespace XLite\Module\CDev\Paypal\View\Model\Profile;
 
 /**
  * \XLite\View\Model\Profile\Main
+ * @Decorator\Depend ("!CDev\SocialLogin")
  */
 class Main extends \XLite\View\Model\Profile\Main implements \XLite\Base\IDecorator
 {
@@ -21,8 +22,7 @@ class Main extends \XLite\View\Model\Profile\Main implements \XLite\Base\IDecora
     protected function getFormFieldsForSectionMain()
     {
         if ($this->getModelObject()->isSocialProfile()) {
-            unset($this->mainSchema['password']);
-            unset($this->mainSchema['password_conf']);
+            unset($this->mainSchema['password'], $this->mainSchema['password_conf']);
         }
 
         return parent::getFormFieldsForSectionMain();
@@ -42,7 +42,10 @@ class Main extends \XLite\View\Model\Profile\Main implements \XLite\Base\IDecora
             'buttonStyle' => 'icon',
         );
 
-        $result['social-login'] = $this->getWidget($params, 'XLite\Module\CDev\Paypal\View\Login\Widget');
+        $widget = $this->getWidget($params, 'XLite\Module\CDev\Paypal\View\Login\Widget');
+        if ($widget->isVisible()) {
+            $result['social-login'] = $widget;
+        }
 
         return $result;
     }

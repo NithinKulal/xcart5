@@ -25,8 +25,6 @@ class Event extends \XLite\Base\Singleton
      *
      * @param string $name    Element name
      * @param string $message Error message
-     *
-     * @return void
      */
     public static function invalidElement($name, $message)
     {
@@ -38,8 +36,6 @@ class Event extends \XLite\Base\Singleton
      *
      * @param string $name    Form name
      * @param string $message Error message
-     *
-     * @return void
      */
     public static function invalidForm($name, $message)
     {
@@ -51,8 +47,6 @@ class Event extends \XLite\Base\Singleton
      *
      * @param string $name      Event name
      * @param array  $arguments Event arguments
-     *
-     * @return void
      */
     public static function __callStatic($name, array $arguments)
     {
@@ -67,8 +61,6 @@ class Event extends \XLite\Base\Singleton
      *
      * @param string $name      Event name
      * @param array  $arguments Event arguments OPTIONAL
-     *
-     * @return void
      */
     public function trigger($name, array $arguments = array())
     {
@@ -80,15 +72,13 @@ class Event extends \XLite\Base\Singleton
 
     /**
      * Exclude event
-     * 
+     *
      * @param string $name Event name
-     *  
-     * @return void
      */
     public function exclude($name)
     {
         foreach ($this->events as $i => $event) {
-            if ($event['name'] == $name) {
+            if ($event['name'] === $name) {
                 unset($this->events[$i]);
             }
         }
@@ -98,8 +88,6 @@ class Event extends \XLite\Base\Singleton
 
     /**
      * Display events
-     *
-     * @return void
      */
     public function display()
     {
@@ -110,8 +98,6 @@ class Event extends \XLite\Base\Singleton
 
     /**
      * Clear list
-     *
-     * @return void
      */
     public function clear()
     {

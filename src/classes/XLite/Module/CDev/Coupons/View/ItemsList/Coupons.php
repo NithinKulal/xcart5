@@ -20,7 +20,7 @@ class Coupons extends \XLite\View\ItemsList\Model\Table
      */
     protected function getBlankItemsListDescription()
     {
-        return static::t('There are currently no coupons.');
+        return static::t('itemslist.admin.coupon.blank');
     }
 
     /**

@@ -1,0 +1,4 @@
+Version 5.3.3.1
+
+Fixes
+2016-12-20 - [Bug] "PayPal Payment Standard" payment method has been updated due to PayPal updates Jan 18, 2017 (https://www.paypal-knowledge.com/infocenter/index?page=content&id=FAQ2067). #BUG-4340 (Maxim Kuznetsov) #Paypal

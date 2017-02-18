@@ -50,6 +50,16 @@ class Category extends \XLite\View\ItemsList\Model\Table
     }
 
     /**
+     * Description for blank items list
+     *
+     * @return string
+     */
+    protected function getEmptyListDescription()
+    {
+        return static::t('itemslist.admin.category.blank');
+    }
+
+    /**
      * Should itemsList be wrapped with form
      *
      * @return boolean
@@ -479,5 +489,23 @@ class Category extends \XLite\View\ItemsList\Model\Table
     protected function getSortByModeDefault()
     {
         return 'c.pos';
+    }
+
+    /**
+     * Return true if param value may contain anything
+     *
+     * @param string $name Param name
+     *
+     * @return boolean
+     */
+    protected function isParamTrusted($name)
+    {
+        $result = parent::isParamTrusted($name);
+
+        if (!$result && $name === 'name') {
+            $result = true;
+        }
+
+        return $result;
     }
 }

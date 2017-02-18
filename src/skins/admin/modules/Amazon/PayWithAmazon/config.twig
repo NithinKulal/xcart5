@@ -1,0 +1,60 @@
+{##
+ # PayWithAmazon configuration page
+ #}
+
+<table cellspacing="1" cellpadding="5" class="model-properties settings-table pay-with-amazon">
+  <tr>
+    <td class="setting-name"><label for="settings_merchant_id">{{ t('Amazon Seller ID') }}</label></td>
+    <td>
+      {{ widget('XLite\\View\\FormField\\Input\\Text', fieldName='settings[merchant_id]', fieldId='settings_merchant_id', value=this.paymentMethod.getSetting('merchant_id'), help=t('If you do not have seller account, you can register here: USA UK Germany'), fieldOnly='true') }}
+    </td>
+  </tr>
+  <tr>
+    <td class="setting-name"><label for="settings_mode">{{ t('Operation mode') }}</label></td>
+    <td>
+      {{ widget('XLite\\View\\FormField\\Select\\TestLiveMode', fieldId='settings_mode', fieldName='settings[mode]', value=this.paymentMethod.getSetting('mode'), fieldOnly='true') }}
+    </td>
+  </tr>
+  <tr>
+    <td class="setting-name"><label for="settings_access_key">{{ t('Access Key ID') }}</label></td>
+    <td>
+      {{ widget('XLite\\View\\FormField\\Input\\Text', fieldName='settings[access_key]', fieldId='settings_access_key', value=this.paymentMethod.getSetting('access_key'), fieldOnly='true') }}
+    </td>
+  </tr>
+  <tr>
+    <td class="setting-name"><label for="settings_secret_key">{{ t('Secret Access Key') }}</label></td>
+    <td>
+      {{ widget('XLite\\View\\FormField\\Input\\Text', fieldName='settings[secret_key]', fieldId='settings_secret_key', value=this.paymentMethod.getSetting('secret_key'), fieldOnly='true') }}
+    </td>
+  </tr>
+  <tr>
+    <td class="setting-name"><label for="settings_client_id">{{ t('Client ID') }}</label></td>
+    <td>
+      {{ widget('XLite\\View\\FormField\\Input\\Text', fieldName='settings[client_id]', fieldId='settings_client_id', value=this.paymentMethod.getSetting('client_id'), help=t('Register your website as an application on the Login with Amazon App Console.'), fieldOnly='true') }}
+    </td>
+  </tr>
+  <tr>
+    <td class="setting-name"><label for="settings_region">{{ t('Country of Merchant account') }}</label></td>
+    <td>
+      {{ widget('XLite\\Module\\Amazon\\PayWithAmazon\\View\\FormField\\Select\\Region', fieldName='settings[region]', fieldId='settings_region', value=this.paymentMethod.getSetting('region'), fieldOnly='true') }}
+    </td>
+  </tr>
+  <tr>
+    <td class="setting-name"><label for="settings_capture_mode">{{ t('Capture mode') }}</label></td>
+    <td>
+      {{ widget('XLite\\Module\\Amazon\\PayWithAmazon\\View\\FormField\\Select\\CaptureMode', fieldName='settings[capture_mode]', fieldId='settings_capture_mode', value=this.paymentMethod.getSetting('capture_mode'), fieldOnly='true') }}
+    </td>
+  </tr>
+  <tr>
+    <td class="setting-name"><label for="settings_sync_mode">{{ t('Type of authorization request') }}</label></td>
+    <td>
+      {{ widget('XLite\\Module\\Amazon\\PayWithAmazon\\View\\FormField\\Select\\SyncMode', fieldName='settings[sync_mode]', fieldId='settings_sync_mode', value=this.paymentMethod.getSetting('sync_mode'), fieldOnly='true') }}
+    </td>
+  </tr>
+  <tr>
+    <td class="setting-name"><label for="settings_order_id_prefix">{{ t('OrderId prefix') }}</label></td>
+    <td>
+      {{ widget('XLite\\View\\FormField\\Input\\Text', fieldName='settings[order_id_prefix]', fieldId='settings_order_id_prefix', value=this.paymentMethod.getSetting('order_id_prefix'), fieldOnly='true') }}
+    </td>
+  </tr>
+</table>

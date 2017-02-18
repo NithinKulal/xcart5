@@ -8,6 +8,7 @@
 
 namespace XLite\Module\QSL\CloudSearch\Core;
 
+use Includes\Utils\URLManager;
 use XLite\Core\CommonCell;
 use XLite\Core\Config;
 use XLite\Core\Converter;
@@ -15,9 +16,10 @@ use XLite\Core\Database;
 use XLite\Core\Translation;
 use XLite\Model\Category;
 use XLite\Model\Product;
+use XLite\Module\QSL\CloudSearch\Main;
 use XLite\Module\QSL\CloudSearch\Model\Repo\Product as ProductRepo;
 use XLite\Module\QSL\CloudSearch\Model\Repo\Page as PageRepo;
-use XLite\Module\QSL\CloudSearch\Main;
+
 
 /**
  * CloudSearch store-side API methods
@@ -28,12 +30,13 @@ class StoreApi extends \XLite\Base\Singleton
      * Maximum number of entities to include in API call response
      */
     const MAX_ENTITIES_AT_ONCE = 300;
+    const MAX_VARIANTS_AT_ONCE = 6000;
 
     /*
      * Maximum thumbnail width/height
      */
-    const MAX_THUMBNAIL_WIDTH  = 150;
-    const MAX_THUMBNAIL_HEIGHT = 150;
+    const MAX_THUMBNAIL_WIDTH  = 300;
+    const MAX_THUMBNAIL_HEIGHT = 300;
 
     protected $categoryCache = [];
 
@@ -150,10 +153,21 @@ class StoreApi extends \XLite\Base\Singleton
 
         $repo->setSkipMembershipCondition(true);
 
-        $products = array_map(
-            array($this, 'getProduct'),
-            $repo->search($cnd, ProductRepo::SEARCH_MODE_ENTITIES)
-        );
+        $products = [];
+
+        $variantsCount = 0;
+
+        foreach ($repo->search($cnd, ProductRepo::SEARCH_MODE_ENTITIES) as $p) {
+            $product = $this->getProduct($p);
+
+            $variantsCount += count($product['variants']);
+
+            $products[] = $product;
+
+            if ($variantsCount > self::MAX_VARIANTS_AT_ONCE) {
+                break;
+            }
+        }
 
         $repo->setSkipMembershipCondition(false);
 
@@ -171,7 +185,7 @@ class StoreApi extends \XLite\Base\Singleton
     {
         $skus = implode(' ', $this->getSkus($product));
 
-        $data = array(
+        $data = [
                     'name'        => $product->getName(),
                     'description' => $product->getDescription() ?: $product->getBriefDescription(),
                     'id'          => $product->getProductId(),
@@ -179,7 +193,7 @@ class StoreApi extends \XLite\Base\Singleton
                     'price'       => $product->getDisplayPrice(),
                     'url'         => $this->getProductUrl($product),
                     'membership'  => $product->getMembershipIds(),
-                )
+                ]
                 + $this->getProductImage($product)
                 + $this->getProductCategoryData($product);
 
@@ -220,7 +234,6 @@ class StoreApi extends \XLite\Base\Singleton
             'sort_int_arrival_date' => $product->getArrivalDate(),
             'sort_float_price'      => $product->getDisplayPrice(),
             'sort_str_name'         => $product->getName(),
-            'sort_float_rating'     => $product->getAverageRating(),
             'sort_int_sales'        => $product->getSales(),
         ];
     }
@@ -493,7 +506,9 @@ class StoreApi extends \XLite\Base\Singleton
                 ];
             }
 
-            $categories[] = $this->categoryCache[$id];
+            if (!empty($this->categoryCache[$id]['path'])) {
+                $categories[] = $this->categoryCache[$id];
+            }
         }
 
         return ['category' => $categories];
@@ -508,9 +523,11 @@ class StoreApi extends \XLite\Base\Singleton
      */
     protected function getProductUrl(Product $product)
     {
-        return Converter::buildFullURL(
+        $url = Converter::buildFullURL(
             'product', '', array('product_id' => $product->getProductId())
         );
+
+        return $this->isMultiDomain() ? parse_url($url, PHP_URL_PATH) : $url;
     }
 
     /**
@@ -572,11 +589,13 @@ class StoreApi extends \XLite\Base\Singleton
                     $category->getImage()->getResizedURL(static::MAX_THUMBNAIL_WIDTH, static::MAX_THUMBNAIL_HEIGHT);
             }
 
-            $categoryHash['url'] = Converter::buildFullURL(
+            $url = Converter::buildFullURL(
                 'category',
                 '',
                 array('category_id' => $category->getCategoryId())
             );
+
+            $categoryHash['url'] = $this->isMultiDomain() ? parse_url($url, PHP_URL_PATH) : $url;
 
             $categoriesArray[] = $categoryHash;
         }
@@ -606,11 +625,15 @@ class StoreApi extends \XLite\Base\Singleton
             $pages                          = $repo->search($cnd, false);
 
             foreach ($pages as $page) {
+                $url = $this->isMultiDomain()
+                    ? parse_url($page->getFrontURL(), PHP_URL_PATH)
+                    : $page->getFrontURL();
+
                 $pageHash = array(
                     'id'      => $page->getid(),
                     'title'   => $page->getName(),
                     'content' => $page->getBody(),
-                    'url'     => $page->getFrontURL(),
+                    'url'     => $url,
                 );
 
                 $pagesArray[] = $pageHash;
@@ -684,5 +707,15 @@ MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC+sJv3R+kKUl0okgi7HoN6sGcM
 K55PFPn6T0V5++5oyyObofPe08kDoW6Ft2+yNcshmg1Vd711Vd37LLXWsaWpfcjr
 82cfYTelfejE4IO5NQIDAQAB
 -----END PUBLIC KEY-----';
+    }
+
+    /**
+     * Check if current store is running in multi-domain mode
+     *
+     * @return bool
+     */
+    protected function isMultiDomain()
+    {
+        return Main::isMultiDomain();
     }
 }

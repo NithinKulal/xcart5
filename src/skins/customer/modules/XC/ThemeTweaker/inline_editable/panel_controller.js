@@ -21,7 +21,7 @@ function InlineEditorPanel()
 }
 
 InlineEditorPanel.prototype.endpoint = {
-  base: 'admin.php',
+  base: xliteConfig.admin_script,
   target: 'inline_editable',
   action: 'update_field'
 };
@@ -116,7 +116,7 @@ InlineEditorPanel.prototype.disableEditor = function (event) {
     this.elements.exitBtn.text('Exiting...');
 
     window.location = URLHandler.buildURL({
-      base: 'admin.php',
+      base: xliteConfig.admin_script,
       target: 'product',
       product_id: core.getURLParam('product_id')
     });

@@ -175,6 +175,14 @@ ul.module-info {
   font-size: 12px;
 }
 
+.advanced-checkbox .not-available-text {
+  display: none;
+}
+
+.advanced-checkbox.not-selectable .not-available-text {
+  display: block;
+}
+
 .advanced-checkbox.not-selectable {
   height: auto;
   background-color: #f3f3f3;

@@ -28,6 +28,25 @@ XLite\Model\Config:
         option_name: News messages per page
       - code: ru
         option_name: Количество новостей на странице
+  - name: news_changefreq
+    category: CDev\XMLSitemap
+    type: 'XLite\Module\CDev\XMLSitemap\View\FormField\Select\ChangeFrequency'
+    orderby: 400
+    value: daily
+    translations:
+      - code: en
+        option_name: Frequency of content renewal for News Message page
+  - name: news_priority
+    category: CDev\XMLSitemap
+    type: XLite\View\FormField\Input\Text\FloatInput
+    widgetParameters: { min: 0, max: 1, e: 1}
+    orderby: 800
+    value: 0.5
+    translations:
+      - code: en
+        option_name: Priority for News Message page
+        option_comment: The value should range from 0 to 1.
+
 XLite\Model\LanguageLabel:
   - { name: 'News messages', translations: [{ code: en, label: 'News messages' }, { code: ru, label: 'Новости' }] }
   - { name: 'News message', translations: [{ code: en, label: 'News message' }, { code: ru, label: 'Новость' }] }
@@ -43,3 +62,4 @@ XLite\Model\LanguageLabel:
   - { name: 'News page title', translations: [{ code: en, label: 'News page title' }, {code: ru, label: 'Заголовок страницы новости' }] }
   - { name: 'News title', translations: [{ code: en, label: 'News title' }, {code: ru, label: 'Заголовок новости' }] }
   - { name: 'Leave blank to use news title as Page Title.', translations: [{ code: en, label: 'Leave blank to use news title as Page Title.' }, {code: ru, label: 'Оставьте поле незаполненным чтобы использовать заголовок новости в качестве заголовка страницы.'}] }
+  - { name: "itemslist.admin.news_message.blank", translations: [{ code: en, label: "<p class='items-list-blank-description-heading text-center'>There are no news messages in your store.</p><p class='text-center'>News messages are a great way to build a community around your products and notify clients about recent updates. Start by clicking <b>\"New news message\"</b>.</p>" }, { code: ru, label: "<p class='items-list-blank-description-heading text-center'>Пока нет ни одной новости.</p><p class='text-center'>С помощью новостей можно привлекать новых клиентов и уведомлять о различных изменениях. Начните с нажатия на кнопку <b>\"Добавить новость\"</b>.</p>" }] }

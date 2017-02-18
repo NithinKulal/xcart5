@@ -1,0 +1,4 @@
+Version 5.3.1.2
+
+Fixes
+2017-01-09 - [Bug] News were not added to sitemap.xml. Fixed. #BUG-4123 (Michael Lipinski) #News

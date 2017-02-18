@@ -8,6 +8,7 @@
 
 namespace XLite\Module\QSL\CloudSearch;
 
+use Includes\Utils\URLManager;
 use XLite\Core\Config;
 use XLite\Module\QSL\CloudSearch\Core\RegistrationScheduler;
 use XLite\Module\QSL\CloudSearch\Core\ServiceApiClient;
@@ -54,7 +55,7 @@ abstract class Main extends \XLite\Module\AModule
      */
     public static function getMinorVersion()
     {
-        return '3';
+        return '6';
     }
 
     /**
@@ -69,7 +70,7 @@ abstract class Main extends \XLite\Module\AModule
 
     /**
      * 5.3.1 version is required for the module
-     * 
+     *
      * @return string
      */
     public static function getMinorRequiredCoreVersion()
@@ -84,7 +85,7 @@ abstract class Main extends \XLite\Module\AModule
      */
     public static function getDescription()
     {
-        return 'CloudSearch is a service that integrates with X-Cart 5 to enable dynamic, real-time product search with highly relevant search results. CloudFilters works on top of CloudSearch to enable advanced layered navigation in an X-Cart store. This module provides integration with both services. Power up your store with enterprise-class search and navigation technologies for better conversion!';
+        return 'The module provides integration with both CloudSearch and CloudFilters services. CloudSearch integrates with X-Cart 5 to enable dynamic, real-time product search with highly relevant search results. CloudFilters works on top of CloudSearch to enable layered navigation and faceted search for X-Cart stores. Power up your store with enterprise-class search and navigation technologies for better conversion!';
     }
 
     /**
@@ -114,7 +115,7 @@ abstract class Main extends \XLite\Module\AModule
      */
     public static function getMutualModulesList()
     {
-        $list = parent::getMutualModulesList();
+        $list   = parent::getMutualModulesList();
         $list[] = 'CDev\InstantSearch';
 
         return $list;
@@ -131,17 +132,20 @@ abstract class Main extends \XLite\Module\AModule
 
         RegistrationScheduler::getInstance()->schedule();
     }
-    
+
     /**
      * Check if CloudSearch is configured
-     * 
+     *
      * @return boolean
      */
     public static function isConfigured()
     {
         $apiClient = new ServiceApiClient();
 
-        return $apiClient->getApiKey();
+        $apiKey    = $apiClient->getApiKey();
+        $secretKey = $apiClient->getSecretKey();
+
+        return !empty($apiKey) && !empty($secretKey);
     }
 
     /**
@@ -152,5 +156,19 @@ abstract class Main extends \XLite\Module\AModule
     public static function isCloudFiltersEnabled()
     {
         return Config::getInstance()->QSL->CloudSearch->isCloudFiltersEnabled;
+    }
+
+    /**
+     * Check if store is set up in multi-domain mode.
+     * In multi-domain mode only the main domain will be registered in CS and all links will be indexed
+     * as absolute URLs without host name so that every domain can use them properly.
+     *
+     * @return bool
+     */
+    public static function isMultiDomain()
+    {
+        $domains = array_filter(URLManager::getShopDomains());
+
+        return count($domains) > 1;
     }
 }

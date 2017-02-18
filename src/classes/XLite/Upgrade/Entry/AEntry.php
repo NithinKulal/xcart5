@@ -489,6 +489,16 @@ abstract class AEntry
     }
 
     /**
+     * Check post upgrade actions still valid
+     *
+     * @return boolean
+     */
+    public function isPostUpgradeActionsStillValid()
+    {
+        return $this->isInstalled() && $this->isEnabled();
+    }
+
+    /**
      * Set post upgrade actions called flag
      *
      * @param boolean $value Value
@@ -549,7 +559,8 @@ abstract class AEntry
      */
     public function isValid()
     {
-        return ! (bool) $this->getErrorMessages();
+        return 0 < $this->getPackSize()
+            && ! (bool) $this->getErrorMessages();
     }
 
     // }}}

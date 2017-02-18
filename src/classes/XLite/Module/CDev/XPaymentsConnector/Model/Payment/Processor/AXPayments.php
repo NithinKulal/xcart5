@@ -190,7 +190,7 @@ abstract class AXPayments extends \XLite\Model\Payment\Base\WebBased
         }
 
         $file = 'modules/CDev/XPaymentsConnector/icons/' . $name . '.png';
-        $filePath = LC_DIR_SKINS . 'admin' . LC_DS . 'en' . LC_DS . str_replace('/', LC_DS, $file);
+        $filePath = LC_DIR_SKINS . 'admin' . LC_DS . str_replace('/', LC_DS, $file);
 
         return \Includes\Utils\FileManager::isExists($filePath)
             ? \XLite\Core\Layout::getInstance()->getResourceWebPath($file)

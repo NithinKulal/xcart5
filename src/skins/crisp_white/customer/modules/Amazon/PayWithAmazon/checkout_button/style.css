@@ -27,7 +27,7 @@
   height: auto;
 }
 
-#payWithAmazonDiv_add2c_popup_btn {
+.add2cart-popup-pay-with-amazon {
   display: inline-block;
 }
 
@@ -35,7 +35,7 @@
   float: right;
   height: 45px;
   width: 200px;
-  margin-top: -3px;
+  margin-top: -45px;
 }
 
 #payWithAmazonDiv_co_btn > img {
@@ -47,4 +47,18 @@
   margin-left: 0;
   margin-top: 20px;
   float: none;
+}
+
+@media (max-width: 767px) {
+  .list-container {
+    margin-top: 20px;
+  }
+
+  #payWithAmazonDiv_co_btn {
+    float: none;
+    margin-top: -50px;
+    margin-bottom: 10px;
+    width: auto;
+    text-align: center;
+  }
 }

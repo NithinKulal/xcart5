@@ -1,0 +1,11 @@
+{##
+ # Banner promo block
+ #
+ # @ListChild (list="crud.notificationattachments.formHeader", zone="admin", weight="100")
+ #}
+
+{% if this.isMbstringWarningVisible() %}
+<div class="alert alert-warning attachment-warning">
+    {{ t('mbstring.extension.alert')|raw }}
+</div>
+{% endif %}

@@ -14,7 +14,7 @@ namespace XLite\Model;
  * @Entity
  * @Table  (name="modules",
  *      uniqueConstraints={
- *          @UniqueConstraint (name="moduleVersion", columns={"author","name","majorVersion","minorVersion","fromMarketplace"})
+ *          @UniqueConstraint (name="moduleVersion", columns={"author","name","majorVersion","minorVersion","build","fromMarketplace"})
  *      },
  *      indexes={
  *          @Index (name="enabled", columns={"enabled"}),

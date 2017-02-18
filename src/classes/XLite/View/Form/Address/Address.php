@@ -74,7 +74,7 @@ class Address extends \XLite\View\Form\AForm
             $result['atype'] = \XLite\Core\Request::getInstance()->atype;
         }
 
-        $result['returnURL'] = $this->getParam(static::PARAM_FORM_RETURN_URL);
+        $result['returnURL'] = $this->getParam(static::PARAM_FORM_RETURN_URL) ?: $this->getDefaultReturnURL();
         
         return $result;
     }

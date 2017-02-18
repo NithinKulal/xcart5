@@ -213,8 +213,8 @@ class Transaction extends \XLite\Model\Payment\Transaction implements \XLite\Bas
 
             // truncate note for STRICT_TRANS_TABLES
             $note = function_exists('mb_substr')
-                ? mb_substr($value, 0, self::NOTE_LIMIT - 3)
-                : substr($value, 0, self::NOTE_LIMIT - 3);
+                ? mb_substr($note, 0, self::NOTE_LIMIT - 3)
+                : substr($note, 0, self::NOTE_LIMIT - 3);
 
             $note .= '...';
         }

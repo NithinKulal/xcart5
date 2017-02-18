@@ -44,6 +44,16 @@ class SearchTotal extends \XLite\View\ItemsList\Model\Order\Admin\Search
     }
 
     /**
+     * Description for blank items list
+     *
+     * @return string
+     */
+    protected function getBlankItemsListDescription()
+    {
+        return '';
+    }
+
+    /**
      * Return widget default template
      *
      * @return string

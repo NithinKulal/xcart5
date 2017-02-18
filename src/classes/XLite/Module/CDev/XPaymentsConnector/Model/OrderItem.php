@@ -75,6 +75,20 @@ class OrderItem extends \XLite\Model\OrderItem implements \XLite\Base\IDecorator
     }
 
     /**
+     * Returns deleted product for fake items
+     *
+     * @return \XLite\Model\Product
+     */
+    public function getObject()
+    {
+        if ($this->isXpcFakeItem()) {
+            return $this->getDeletedProduct();
+        } else {
+            return parent::getObject();
+        }
+    }
+
+    /**
      * Check if the item is valid to clone through the Re-order functionality
      *
      * @return boolean
@@ -108,10 +122,24 @@ class OrderItem extends \XLite\Model\OrderItem implements \XLite\Base\IDecorator
     /**
      * Get xpcFakeItem
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getXpcFakeItem()
     {
         return $this->xpcFakeItem;
+    }
+
+    /**
+    * Get item clear price. This value is used as a base item price for calculation of netPrice
+    *
+    * @return float
+    */
+    public function getClearPrice()
+    {
+        if ($this->isXpcFakeItem()) {
+            return parent::getPrice();
+        } else {
+            return parent::getClearPrice();
+        }
     }
 }

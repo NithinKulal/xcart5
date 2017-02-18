@@ -96,6 +96,7 @@
 
 .items-list-table.order-items table.list tbody td.cell.main {
   width: 498px;
+  max-width: 498px;
   padding-bottom: 10px;
 }
 
@@ -244,6 +245,7 @@
 }
 
 .items-list-table.order-items .item-attributes-box,
+.items-list-table.order-items .attribute-box,
 .items-list-table.order-items table.list tbody td.cell.name ul.subitem
 {
   white-space: normal;
@@ -274,7 +276,6 @@
 }
 
 .items-list-table.order-items .item-attribute-values-list-item .attribute-box {
-  white-space: nowrap;
   vertical-align: top;
 }
 
@@ -313,11 +314,29 @@
 
 .items-list-table.order-items .popover {
   max-width: initial;
+  min-width: 500px;
 }
 
 .items-list-table.order-items .popover .popover-content {
   position: relative;
   padding: 1px 5px;
+  padding-right: 10px;
+}
+
+.items-list-table.order-items .popover .popover-content .attribute-values {
+  display: table;
+  margin: 10px 15px;
+}
+
+.items-list-table.order-items .popover .popover-content .attribute-values > li {
+  display: table-row;
+}
+
+.items-list-table.order-items .popover .popover-content .attribute-values > li > * {
+  display: table-cell;
+}
+.items-list-table.order-items .popover .popover-content .attribute-values > li > span {
+  padding-right: 10px;
 }
 
 .items-list-table.order-items table.list tbody td.cell.name .edit-options-link .popover .close {
@@ -334,15 +353,6 @@
 .items-list-table.order-items .popover .popover-content .attribute-values {
   background: none;
   width: auto;
-}
-
-.items-list-table.order-items .popover .popover-content ul.attribute-values li {
-  white-space: nowrap;
-}
-
-.items-list-table.order-items .popover .popover-content ul.attribute-values span.title,
-.items-list-table.order-items .popover .popover-content ul.attribute-values .form-control {
-  display: inline-block;
 }
 
 .items-list-table.order-items .popover .popover-content ul.attribute-values span.title {

@@ -8,8 +8,29 @@
  */
 
 var toogleChecked = function (value) {
-  jQuery('.update-module-list input[type=checkbox]').attr('checked', value || false);
+  var checkboxes = jQuery('.update-module-list input[type=checkbox]');
+  checkboxes.attr('checked', value || false);
+  checkboxes.change();
 }
+
+core.microhandlers.add(
+  'Toggle unavailable',
+  '#entry-core',
+  function(event, element) {
+    jQuery(element).change(function(){
+      var state = jQuery(this).is(':checked');
+      jQuery('.entry-unavailable-without-core').each(function(inx, elem) {
+        jQuery(elem).find('input').attr('checked', state);
+        jQuery(elem).find('input').attr('disabled', !state);
+        if (!state) {
+          jQuery(elem).addClass('not-selectable');
+        } else {
+          jQuery(elem).removeClass('not-selectable');
+        }
+      });
+    });
+  }
+);
 
 core.microhandlers.add(
   'Uncheck all updates',

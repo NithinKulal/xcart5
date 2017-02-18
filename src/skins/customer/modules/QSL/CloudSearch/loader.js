@@ -7,7 +7,7 @@
 
 (function () {
   var cs = document.createElement('script');
-  cs.type = 'text/javascript';
+  cs.type = 'text/javascript'; 
   cs.async = true;
   cs.src = 'https://cdn-qualiteamsoftwar.netdna-ssl.com/cloud_search_xcart.js';
 

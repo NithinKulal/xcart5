@@ -60,6 +60,16 @@ class Page extends \XLite\View\ItemsList\Model\Table
     }
 
     /**
+     * Description for blank items list
+     *
+     * @return string
+     */
+    protected function getBlankItemsListDescription()
+    {
+        return static::t('itemslist.admin.page.blank');
+    }
+
+    /**
      * Define columns structure
      *
      * @return array

@@ -25,6 +25,7 @@ class Checkout extends \XLite\Controller\Customer\Checkout implements \XLite\Bas
         return array_merge(
             parent::defineFreeFormIdActions(),
             array(
+                'start_express_checkout',
                 'express_checkout_return'
             )
         );

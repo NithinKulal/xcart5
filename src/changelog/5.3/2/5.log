@@ -1,0 +1,7 @@
+Version 5.3.2.5
+
+Fixes
+2017-01-25 - [Bug] When importing products with All attributes, attributes from classes were added to all the classes, not only their own class. #BUG-4471 (Sergey Elmanov) #Core
+2017-01-25 - [Bug] Under certain conditions (clean urls enabled, and an existing address had been edited), a new address could not be created in the Customer area. #BUG-4469 (Sergey Elmanov) #Core
+2017-01-25 - [Bug] Order search by customer was not working correctly. #BUG-4474 (Sergey Elmanov) #Core
+2017-01-20 - [Bug] Endless loop bug and, as a result, Customer area timeout if a disabled category had non-disabled subcategories. Fixed. #BUG-4455 (Maxim Kuznetsov) #Core

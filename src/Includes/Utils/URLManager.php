@@ -200,6 +200,29 @@ abstract class URLManager extends \Includes\Utils\AUtils
     }
 
     /**
+     * Return current shop URL
+     *
+     * @return string
+     */
+    public static function getCurrentShopURL()
+    {
+        $host = 'http' . (static::isHTTPS() ? 's' : '') . '://' . $_SERVER['HTTP_HOST'];
+        $webdir = static::getWebdir() ? '/' . static::getWebdir() : '';
+        return $host . $webdir;
+    }   
+
+    /**
+     * Returns webdir.
+     * 
+     * @return string
+     */
+    public static function getWebdir()
+    {
+        $hostDetails = static::getOptions('host_details');
+        return $hostDetails['web_dir'];
+    }
+
+    /**
      * Check if provided string is a valid host part of URL
      *
      * @param string $str Host string

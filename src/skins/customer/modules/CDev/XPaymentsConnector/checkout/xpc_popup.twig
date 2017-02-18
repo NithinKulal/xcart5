@@ -3,7 +3,7 @@
  #
  #}
 
-<div class="xpc-popup" >
+<div class="xpc-popup">
 
   <div class="message">
 
@@ -29,11 +29,18 @@
 
   </div>
 
-  <br />
+</div>
 
-  <div class="buttons">
-    <button type="button" class="btn  regular-button" onclick="javascript: {{ this.getButtonAction() }};">{{ t('Ok') }}</button>
-  </div>
+{% if this.getButtonAction() %}
+  {% autoescape false %}
 
-<br/>
+    <script type="text/javascript">
+      core.bind('popup.close', function(event, data) {
+        if (xpcPopupError) {
+            {{ this.getButtonAction() }};
+        }
+      });
+    </script>
 
+  {% endautoescape %}
+{% endif %}

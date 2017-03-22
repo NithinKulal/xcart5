@@ -447,7 +447,7 @@ abstract class Storage extends \XLite\Model\AEntity
      */
     public function isURL($path = null)
     {
-        return (bool) preg_match('/^(https?|ftp):\/\//Ss', !isset($path) ? $this->getPath() : $path);
+        return (bool)filter_var(!isset($path) ? $this->getPath() : $path, FILTER_VALIDATE_URL);
     }
 
     /**
@@ -672,7 +672,8 @@ abstract class Storage extends \XLite\Model\AEntity
      */
     public function loadFromURL($url, $copy2fs = false)
     {
-        if ($this->isURL($url)) {
+        // $this->isUrl works incorrect
+        if (parse_url($url)) {
             if ($copy2fs) {
                 $result = $this->copyFromURL($url);
             } else {
@@ -756,6 +757,61 @@ abstract class Storage extends \XLite\Model\AEntity
         return $result;
     }
 
+    /**
+     * Is value local URL
+     *
+     * @param mixed @value Value
+     *
+     * @return boolean
+     */
+    public static function isValueLocalURL($value)
+    {
+        $isSameHost = in_array(parse_url($value, PHP_URL_HOST), \XLite\Core\URLManager::getShopDomains(), true);
+        $path = static::getLocalPathFromURL($value);
+        $isReadable = \Includes\Utils\FileManager::isFileReadable(LC_DIR_ROOT . $path);
+        return parse_url($value) && $isSameHost && $isReadable;
+    }
+
+    /**
+     * Returns local part of path from local URL
+     *
+     * @return string
+     */
+    public static function getLocalPathFromURL($path)
+    {
+        $webdir = \XLite::getInstance()->getOptions(array('host_details', 'web_dir'));
+        $webdir = $webdir ? $webdir . '/' : '';
+
+        return ltrim(parse_url($path, PHP_URL_PATH), '/' . $webdir);
+    }
+
+    /**
+     * Load from path
+     *
+     * @param      $path
+     * @param bool $copy2fs
+     *
+     * @return bool
+     */
+    public function loadFromPath($path, $copy2fs = true)
+    {
+        $result = false;
+
+        if (!filter_var($path, FILTER_VALIDATE_URL)) {
+            $filePath = static::isValueLocalURL($path)
+                ? static::getLocalPathFromURL($path)
+                : $path;
+
+            $result = $this->loadFromLocalFile(LC_DIR_ROOT . $filePath);
+        }
+
+        if (!$result) {
+            $result = $this->loadFromURL($path, $copy2fs);
+        }
+
+        return $result;
+    }
+
     // }}}
 
     // {{{ Service operations
@@ -771,13 +827,25 @@ abstract class Storage extends \XLite\Model\AEntity
     {
         $path = $this->getStoragePath($path);
 
-        if (
-            !$this->isURL($path)
-            && $this->getStorageType() !== static::STORAGE_ABSOLUTE
-            && $this->getRepository()->allowRemovePath($path, $this)
-        ) {
+        if ($this->isAllowRemoveFile($path)) {
             \Includes\Utils\FileManager::deleteFile($path);
         }
+    }
+
+    /**
+     * Is allow to remove file
+     *
+     * @param null $path
+     *
+     * @return bool
+     */
+    public function isAllowRemoveFile($path = null)
+    {
+        $path = $this->getStoragePath($path);
+
+        return !$this->isURL($path)
+            && $this->getStorageType() !== static::STORAGE_ABSOLUTE
+            && $this->getRepository()->allowRemovePath($path, $this);
     }
 
     /**
@@ -857,8 +925,11 @@ abstract class Storage extends \XLite\Model\AEntity
         $result = null;
 
         if (static::STORAGE_RELATIVE == $this->getStorageType()) {
-            $result = $this->getFileSystemRoot() . ($path ?: $this->getPath());
-
+            if ($path && strpos($path, $this->getFileSystemRoot()) === 0) {
+                $result = $path;
+            } else {
+                $result = $this->getFileSystemRoot() . ($path ?: $this->getPath());
+            }
         } elseif (static::STORAGE_ABSOLUTE == $this->getStorageType()) {
             $result = ($path ?: $this->getPath());
         }
@@ -1055,7 +1126,7 @@ abstract class Storage extends \XLite\Model\AEntity
     /**
      * Get file system images storage root path
      *
-     * @return void
+     * @return string
      */
     protected function getFileSystemRoot()
     {

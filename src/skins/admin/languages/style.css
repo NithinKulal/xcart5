@@ -681,12 +681,17 @@ ul.languages-list li span.active {
   font-weight: bold;
 }
 
-.items-list-table.labels table.list tbody.lines tr.line td.cell {
+.items-list-table.labels table.list tbody.lines tr.line:not(:last-of-type) td.cell {
   border-bottom: none;
 }
 
 .items-list.labels .cell.actions.right {
-  display: inline-block;
+  vertical-align: baseline;
+}
+
+.items-list.labels .cell.actions.right .edit-label-wrapper {
+  margin-top: 3px;
+  line-height: 22px;
 }
 
 .items-list.labels .action .edit img {

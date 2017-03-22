@@ -57,10 +57,7 @@ class PaypalIPN extends \XLite\Base\Singleton
 
         if (!$result) {
             $processor->markCallbackRequestAsInvalid(static::t('Not ready to process this IPN right now (waiting for payment return or db flush)'));
-            \XLite::getController()->sendConflictResponse();
-
-            // Need this because transaction has no sums and will be refreshed in Model\Order->getRawPaymentTransactionSums()
-            \XLite\Core\Database::getEM()->flush();
+            \XLite::getController()->sendPaypalConflictResponse();
         }
 
         return $result;
@@ -75,16 +72,27 @@ class PaypalIPN extends \XLite\Base\Singleton
      */
     protected function canProcessIPN(\XLite\Model\Payment\Transaction $transaction)
     {
-        $result = $transaction->isTtlExpired() || !$transaction->hasTtlForIpn();
+        /** @var \XLite\Module\CDev\Paypal\Model\Payment\Transaction $transaction */
+        $result = $transaction->isCallbackLockExpired() || !$transaction->hasCallbackLock();
 
         // Set ttl once when no payment return happened yet
-        if (($transaction->isOpen() || $transaction->isInProgress())
-         && !$transaction->hasTtlForIpn()) {
-            $transaction->setTtlForIpn(3600);
+        if (!$this->isOrderProcessed($transaction) && !$transaction->hasCallbackLock()) {
+            $transaction->lockCallbackProcessing(3600);
             $result = false;
         }
 
         return $result;
+    }
+
+    /**
+     * Checks if the order of transaction is already processed and is available for IPN receiving
+     *
+     * @param \XLite\Model\Payment\Transaction $transaction
+     * @return bool
+     */
+    protected function isOrderProcessed(\XLite\Model\Payment\Transaction $transaction)
+    {
+        return !$transaction->isOpen() && !$transaction->isInProgress() && $transaction->getOrder()->getOrderNumber();
     }
 
     /**
@@ -280,8 +288,9 @@ class PaypalIPN extends \XLite\Base\Singleton
         }
 
         // Remove ttl for IPN requests
-        if ($transaction->hasTtlForIpn()) {
-            $transaction->removeTtlForIpn();
+        /** @var \XLite\Module\CDev\Paypal\Model\Payment\Transaction $transaction */
+        if ($transaction->hasCallbackLock()) {
+            $transaction->unlockCallbackProcessing();
         }
 
         if ($transaction->getStatus() != $status) {

@@ -10,6 +10,7 @@ namespace XLite\Module\CDev\Egoods\Model;
 
 /**
  * Order
+ * @Decorator\Before("CDev\Egoods")
  */
 abstract class Order extends \XLite\Model\Order implements \XLite\Base\IDecorator
 {
@@ -76,12 +77,20 @@ abstract class Order extends \XLite\Model\Order implements \XLite\Base\IDecorato
      */
     protected function processProcess()
     {
+        $this->renewPrivateAttachments();
+
+        parent::processProcess();
+    }
+
+    /**
+     * Sets download keys for private attachments inside the order
+     */
+    protected function renewPrivateAttachments()
+    {
         $this->initializeAttachments();
 
         foreach ($this->getPrivateAttachments() as $attachment) {
-           $attachment->renew();
+            $attachment->renew();
         }
-
-        parent::processProcess();
     }
 }

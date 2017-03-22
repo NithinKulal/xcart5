@@ -144,16 +144,41 @@ TopMessages.prototype.hide = function (callback) {
   this.container.slideUp(callback);
 };
 
+TopMessages.prototype.getMessageFromText = function (element) {
+  return element.find('.message').length > 0
+      ? element.find('.message')
+      : element;
+};
+
 TopMessages.prototype.getSameRecord = function (ul, text) {
+  var self = this;
+
   return ul.find('li').filter(function () {
+    if (jQuery(text).length > 0) {
+      text = jQuery(text).find('.message').length > 0
+          ? jQuery(text).find('.message').text()
+          : text;
+    }
+
+    if (text) {
+      text = text.replace(/^[\s\n]+|[\s\n]+$/gm,'');
+    }
+
+    var realElement = self.getMessageFromText(jQuery(this));
     var reg = new RegExp(text + " \\\((\\\d*?)\\\)", "i");
-    return jQuery(this).text() === text || jQuery(this).text().match(reg);
+    var realText = realElement.text().replace(/^[\s\n]+|[\s\n]+$/gm,'');
+
+    return realText === text || realText.match(reg);
   }).get(0);
 };
 
 TopMessages.prototype.updateRecord = function (li) {
-  var recordLi = jQuery(li);
+  var recordLi = jQuery(li).find('.message').length > 0
+      ? jQuery(li).find('.message')
+      : jQuery(li);
   var array = /(.*) \((\d*?)\)/i.exec(recordLi.text());
+  console.log(recordLi.text());
+  console.log(array);
   var oldText = array && array[1]
     ? array[1]
     : recordLi.text();
@@ -161,6 +186,7 @@ TopMessages.prototype.updateRecord = function (li) {
     ? array[2]
     : 0;
 
+  oldText = oldText.replace(/^[\s\n]+|[\s\n]+$/gm,'');
   recordLi.text(oldText + ' (' + (intval(oldIndex)+1) + ')');
 };
 

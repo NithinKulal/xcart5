@@ -23,6 +23,7 @@ class PopupLogin extends \XLite\View\Button\PopupLogin implements \XLite\Base\ID
         return array(
             'target' => 'login',
             'widget' => '\XLite\View\Authorization',
+            'fromURL' => \XLite::getController()->getURL()
         );
     }
 }

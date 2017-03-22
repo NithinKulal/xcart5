@@ -1,0 +1,7 @@
+Version 5.3.4.2
+
+Fixes
+2017-03-03 - [Bug] Fatal error when using an Amazon Pay login with the module MailChimp configured. #BUG-4634 (Eugene Dementjev) #PayWithAmazon #MailChimp
+2017-02-15 - [Bug] On the settings page, added information on setting up async-order in Amazon Pay. #BUG-4585 (Sergey Elmanov) #PayWithAmazon
+2017-02-13 - [Bug] After updating to 5.3.2.6, the actual date of Pay with Amazon payment transactions was changed to the current date. #BUG-4562 (Michael Lipinski) #PayWithAmazon
+2017-02-08 - [Bug] Changed the module name and any mentions of Pay with Amazon to Amazon Pay. #BUG-4451 (Sergey Elmanov) #PayWithAmazon

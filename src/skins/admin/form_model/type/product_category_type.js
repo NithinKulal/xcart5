@@ -74,7 +74,7 @@
           jQuery.cookie('product_modify_categroy_widget', 'tree');
         });
 
-        $('#form_default_category_tree').closest('.input-widget').find('span.help-block a').click(function () {
+        $('#form_default_category_tree').attr('name', '').closest('.input-widget').find('span.help-block a').click(function () {
           self.vm.$set('form.default.category_widget_type', 'search');
           jQuery.cookie('product_modify_categroy_widget', 'search');
         });

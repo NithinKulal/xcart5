@@ -41,6 +41,14 @@
   font-size: 16px;
 }
 
+.order-info .title .placed-customer .profile-login {
+  line-height: 38px;
+}
+
+.order-info .title .placed-customer .profile-login .not-editable {
+  margin-left: 10px;
+}
+
 .order-info .title .placed-customer,
 .order-info .title .placed-customer * {
   font-size: 14px;

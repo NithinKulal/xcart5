@@ -16,6 +16,7 @@ try {
     require_once (dirname(__FILE__) . DIRECTORY_SEPARATOR . 'top.inc.php');
 
     \XLite::getInstance()->run(true)->processRequest();
+    \XLite\Logger::getInstance()->executePostponedLogs();
 
 } catch (\Exception $e) {
     \Includes\ErrorHandler::handleException($e);

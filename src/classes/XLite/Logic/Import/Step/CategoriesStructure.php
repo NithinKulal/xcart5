@@ -70,8 +70,17 @@ class CategoriesStructure extends \XLite\Logic\Import\Step\AStep
      */
     public function isAllowed()
     {
-        return parent::isAllowed()
-        && $this->count() > 0;
+        return parent::isAllowed() && $this->count() > 0 && $this->isCategoriesStructureCorrectionAllowed();
+    }
+
+    /**
+     * Check if this step was enabled by this import
+     *
+     * @return bool
+     */
+    public function isCategoriesStructureCorrectionAllowed()
+    {
+        return !empty($this->getOptions()->commonData['correctCategoriesAllowed']);
     }
 
     /**

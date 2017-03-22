@@ -52,6 +52,14 @@ class Result extends \XLite\View\AView
     }
 
     /**
+     * @return bool
+     */
+    public function isMarketplaceAvailable()
+    {
+        return !!\XLite\Core\Session::getInstance()->mpServerError;
+    }
+
+    /**
      * @return array
      */
     public function getFilesGroups()
@@ -96,11 +104,15 @@ class Result extends \XLite\View\AView
      */
     protected function getHumanError($error)
     {
+        $defaultError = $this->isMarketplaceAvailable()
+            ? static::t('Unknown error')
+            : static::t('Can\'t connect to the marketplace server');
+
         $errorsList = static::getHumanErrors();
 
         return isset($errorsList[strval($error)])
             ? $errorsList[strval($error)]
-            : 'Error';
+            : $defaultError;
     }
 
     /**

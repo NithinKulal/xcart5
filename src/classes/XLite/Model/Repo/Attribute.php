@@ -109,9 +109,8 @@ class Attribute extends \XLite\Model\Repo\Base\I18n
             }
 
             if ($ids) {
-                $keys = \XLite\Core\Database::buildInCondition($queryBuilder, $ids, 'pcid');
                 $queryBuilder->linkInner('a.productClass')
-                    ->andWhere('productClass.id IN (' . implode(', ', $keys) . ')');
+                    ->andWhere($queryBuilder->expr()->in('productClass.id', $ids));
             }
         }
     }

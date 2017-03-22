@@ -44,3 +44,61 @@ jQuery(document).ready(
     ItemsListQueue();
   }
 );
+
+
+var RequestForUpgrade = Object.extend({
+  base: null,
+  button: null,
+  moduleId: null,
+
+  constructor: function RequestForUpgradeConstructor() {
+    this.base = jQuery('.request-for-upgrade');
+    this.moduleId = this.base.data('module-id');
+    this.button = this.base.find('button');
+
+    this.bindListeners();
+  },
+
+  bindListeners: function() {
+    this.button.click(_.bind(this.sendRequest, this));
+  },
+
+  sendRequest: function () {
+    var url = {
+      target: 'addons_list_marketplace',
+      action: 'request_for_upgrade'
+    };
+    var data = {
+      'module': this.moduleId
+    };
+
+    data[window.xliteConfig.form_id_name] = window.xliteConfig.form_id;
+
+    core.post(
+        url,
+        _.bind(this.success, this),
+        data
+    );
+  },
+
+  success: function (XMLHttpRequest, textStatus, data, isValid) {
+    var self = this;
+
+    if (isValid) {
+      this.button.get(0).progressState.setStateSuccess();
+
+      _.delay(function() {
+        self.button.fadeOut();
+      }, 1000);
+
+    } else {
+      this.button.get(0).progressState.setStateFail();
+
+      _.delay(function() {
+        self.button.get(0).progressState.setStateStill();
+      }, 2000);
+    }
+  },
+});
+
+core.autoload(RequestForUpgrade);

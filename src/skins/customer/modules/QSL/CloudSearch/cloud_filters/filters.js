@@ -761,7 +761,7 @@
 
                 this.fetchFacets()
                     .then((function () {
-                        this.loaded = true;
+                        this.loaded = !!this.facets;
                     }).bind(this));
             } else {
                 this.loaded = true;

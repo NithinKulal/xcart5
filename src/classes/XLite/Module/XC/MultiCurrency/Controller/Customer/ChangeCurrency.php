@@ -48,6 +48,10 @@ class ChangeCurrency extends \XLite\Controller\Customer\ACustomer
                 $this->getCart()->updateMultiCurrency(
                     MultiCurrency::getInstance()->getSelectedMultiCurrency()
                 );
+
+                if ($this->getCart()->isPersistent()) {
+                    \XLite\Core\Database::getEM()->flush($this->getCart());
+                }
             }
         }
 

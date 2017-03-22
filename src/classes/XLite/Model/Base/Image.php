@@ -285,7 +285,7 @@ abstract class Image extends \XLite\Model\Base\Storage
      * @param array   $sizes     Sizes
      * @param boolean $doRewrite Rewrite flag OPTIONAL
      *
-     * @return boolean
+     * @return array
      */
     public function doResizeAll($sizes, $doRewrite = false)
     {
@@ -474,7 +474,7 @@ abstract class Image extends \XLite\Model\Base\Storage
      * Set width
      *
      * @param integer $width
-     * @return Vendor
+     * @return $this
      */
     public function setWidth($width)
     {
@@ -496,7 +496,7 @@ abstract class Image extends \XLite\Model\Base\Storage
      * Set height
      *
      * @param integer $height
-     * @return Vendor
+     * @return $this
      */
     public function setHeight($height)
     {
@@ -518,7 +518,8 @@ abstract class Image extends \XLite\Model\Base\Storage
      * Set hash
      *
      * @param string $hash
-     * @return Vendor
+     *
+     * @return $this
      */
     public function setHash($hash)
     {
@@ -540,7 +541,8 @@ abstract class Image extends \XLite\Model\Base\Storage
      * Set needProcess
      *
      * @param boolean $needProcess
-     * @return Vendor
+     *
+     * @return $this
      */
     public function setNeedProcess($needProcess)
     {

@@ -187,6 +187,7 @@ class Category extends \XLite\Model\Category implements \XLite\Base\IDecorator
             ->groupBy('av.attribute_option')
             ->linkInner('av.attribute_option')
             ->linkInner('attribute_option.translations', 'option_translations')
+            ->addOrderBy('attribute_option.position')
             ->addOrderBy('option_translations.name');
     }
 

@@ -5,7 +5,7 @@
  #}
 
 {% if this.getViewList('slidebar.settings') %}
-  <li class="settings">
+  <div class="settings">
     <div>
       <a href="#settings-panel" class="item-title">
         <span>{{ t('Settings') }}</span>
@@ -13,13 +13,9 @@
       </a>
       <div class="Panel" id="settings-panel">
         <ul class="Inset">
-          {% for index, w in this.getViewList('slidebar.settings') %}
-            {% if w.isVisible() %}
-              <li>{{ w.display() }}</li>
-            {% endif %}
-          {% endfor %}
+          {{ widget_list('slidebar.settings') }}
         </ul>
       </div>
     </div>
-  </li>
+  </div>
 {% endif %}

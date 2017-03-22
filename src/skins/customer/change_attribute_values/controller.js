@@ -50,7 +50,7 @@ AttributeValues.prototype.getParams = function(params)
 core.microhandlers.add(
   'AttributeValues',
   'ul.attribute-values',
-  function () {
-    new AttributeValues('ul.attribute-values');
+  function (event, item) {
+    new AttributeValues(item);
   }
 );

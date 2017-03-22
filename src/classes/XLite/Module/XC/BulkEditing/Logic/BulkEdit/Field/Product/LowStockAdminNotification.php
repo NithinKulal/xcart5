@@ -15,7 +15,7 @@ class LowStockAdminNotification extends \XLite\Module\XC\BulkEditing\Logic\BulkE
         return [
             $name => [
                 'label'    => static::t('Notify administrator if the stock quantity of this product goes below a certain limit'),
-                'type'     => 'XLite\View\FormModel\Type\SwitcherType',
+                'type'     => 'XLite\View\FormModel\Type\LowStockNotificationType',
                 'position' => isset($options['position']) ? $options['position'] : 0,
             ],
         ];
@@ -57,8 +57,24 @@ class LowStockAdminNotification extends \XLite\Module\XC\BulkEditing\Logic\BulkE
      */
     public static function getViewValue($name, $object)
     {
-        return $object->getInventoryEnabled()
-            ? ($object->getLowLimitEnabled() ? static::t('Yes') : static::t('No'))
-            : '';
+        if ($object->getInventoryEnabled()) {
+            return ($object->getLowLimitEnabled() && static::isNotificationsEnabled())
+                ? static::t('Yes')
+                : static::t('No');
+        }
+
+        return '';
+    }
+
+    /**
+     * Check if low limit warning notification disabled
+     *
+     * @return bool
+     */
+    protected static function isNotificationsEnabled()
+    {
+        $notification = \XLite\Core\Database::getRepo('XLite\Model\Notification')->find('low_limit_warning');
+
+        return $notification && $notification->getEnabledForAdmin();
     }
 }

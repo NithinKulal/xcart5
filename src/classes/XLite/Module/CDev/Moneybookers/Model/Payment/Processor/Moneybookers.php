@@ -406,6 +406,13 @@ class Moneybookers extends \XLite\Model\Payment\Base\Iframe
     {
         parent::processReturn($transaction);
 
+        \XLite\Module\CDev\Moneybookers\Main::logDebug(
+            [
+                'Name'  => 'Customer returned',
+                'Data'  => \XLite\Core\Request::getInstance()->getData(),
+            ]
+        );
+
         if (\XLite\Core\Request::getInstance()->cancel) {
             $this->setDetail(
                 'status',
@@ -432,6 +439,13 @@ class Moneybookers extends \XLite\Model\Payment\Base\Iframe
         parent::processCallback($transaction);
 
         $request = \XLite\Core\Request::getInstance();
+
+        \XLite\Module\CDev\Moneybookers\Main::logDebug(
+            [
+                'Name'  => 'Callback received',
+                'Data'  => $request->getData(),
+            ]
+        );
 
         if (!$request->isPost()) {
             $this->markCallbackRequestAsInvalid(static::t('Request type must be POST'));
@@ -606,6 +620,20 @@ class Moneybookers extends \XLite\Model\Payment\Base\Iframe
         $request = new \XLite\Core\HTTP\Request($this->getPostURL());
         $request->body = $data;
         $response = $request->sendRequest();
+
+        \XLite\Module\CDev\Moneybookers\Main::logDebug(
+            [
+                'Request'   => $request,
+                'Response'  => [
+                    'Code'      => $response->code,
+                    'Body'      => $response->body,
+                    'Headers'   => $response->headers,
+                    'X-Skrill'  => $response->headers && isset($response->headers['X-Skrill'])
+                        ? $response->headers['X-Skrill']
+                        : 'unknown'
+                ],
+            ]
+        );
 
         $id = null;
         if (

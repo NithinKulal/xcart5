@@ -25,7 +25,7 @@ class Callback extends \XLite\Controller\Customer\Callback implements \XLite\Bas
     /**
      * Trigger IPN resending by error response.
      */
-    public function sendConflictResponse()
+    public function sendPaypalConflictResponse()
     {        
         $this->setSuppressOutput(true);
         $this->set('silent', true);
@@ -33,5 +33,7 @@ class Callback extends \XLite\Controller\Customer\Callback implements \XLite\Bas
         header('HTTP/1.1 409 Conflict', true, 409);
         header('Status: 409 Conflict');
         header('X-Robots-Tag: noindex, nofollow');
+
+        die();
     }
 }

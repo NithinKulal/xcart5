@@ -69,6 +69,14 @@
     }
   };
 
+  jQuery.fn.extend({
+    startTooltip: function() {
+      return this.each(function() {
+        startTooltip(this);
+      });
+    },
+  });
+
   if (window.Vue) {
     Vue.directive('xlite-tooltip', {
       bind: function () {

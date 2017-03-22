@@ -261,6 +261,8 @@ class Database extends \XLite\Base\Singleton
     }
 
     /**
+     * @deprecated 5.3.3
+     *
      * Build IN () condition
      *
      * @param \Doctrine\ORM\QueryBuilder $qb     Query builder

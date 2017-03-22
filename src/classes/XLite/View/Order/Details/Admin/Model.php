@@ -18,38 +18,38 @@ class Model extends \XLite\View\Order\Details\Base\AModel
      *
      * @var array
      */
-    protected $schemaMain = array(
-        'order_id' => array(
+    protected $schemaMain = [
+        'order_id'       => [
             self::SCHEMA_CLASS => '\XLite\View\FormField\Label',
             self::SCHEMA_LABEL => 'Order ID',
-        ),
-        'date' => array(
+        ],
+        'date'           => [
             self::SCHEMA_CLASS => '\XLite\View\FormField\Label',
             self::SCHEMA_LABEL => 'Order date',
-        ),
-        'paymentStatus' => array(
+        ],
+        'paymentStatus'  => [
             self::SCHEMA_CLASS => '\XLite\View\FormField\Select\OrderStatus\Payment',
             self::SCHEMA_LABEL => 'Payment order status',
-        ),
-        'shippingStatus' => array(
+        ],
+        'shippingStatus' => [
             self::SCHEMA_CLASS => '\XLite\View\FormField\Select\OrderStatus\Shipping',
             self::SCHEMA_LABEL => 'Shipping order status',
-        ),
-    );
+        ],
+    ];
 
     /**
      * Inline widgets storage
      *
      * @var   array
      */
-    protected $widgets = array();
+    protected $widgets = [];
 
     /**
      * Remove order_id field from mapping
      *
      * @var array
      */
-    protected $excludedFields = array('order_id', 'shippingStatus', 'paymentStatus', 'adminNotes', 'notes');
+    protected $excludedFields = ['order_id', 'shippingStatus', 'paymentStatus', 'adminNotes', 'notes'];
 
     /**
      * Modifiers
@@ -64,7 +64,7 @@ class Model extends \XLite\View\Order\Details\Base\AModel
      * @param array $params   Widget params OPTIONAL
      * @param array $sections Sections list OPTIONAL
      */
-    public function __construct(array $params = array(), array $sections = array())
+    public function __construct(array $params = [], array $sections = [])
     {
         $this->sections['main'] = 'Info';
 
@@ -184,7 +184,7 @@ class Model extends \XLite\View\Order\Details\Base\AModel
         $widgets = $this->getComplexField($name);
 
         if (!is_array($widgets)) {
-            $widgets = array($widgets);
+            $widgets = [$widgets];
         }
 
         foreach ($widgets as $widget) {
@@ -199,13 +199,13 @@ class Model extends \XLite\View\Order\Details\Base\AModel
      */
     protected function getComplexFields()
     {
-        $list = array();
+        $list = [];
 
         foreach ($this->defineComplexFieldNames() as $name) {
             $widgets = $this->getComplexField($name);
             if ($widgets) {
                 if (!is_array($widgets)) {
-                    $widgets = array($widgets);
+                    $widgets = [$widgets];
                 }
 
                 $list[$name] = $widgets;
@@ -224,7 +224,7 @@ class Model extends \XLite\View\Order\Details\Base\AModel
     {
         $list = $this->getComplexFields();
 
-        $result = array();
+        $result = [];
         foreach ($this->defineWritableComplexFieldNames() as $name) {
             if (isset($list[$name])) {
                 $result[$name] = $list[$name];
@@ -245,33 +245,33 @@ class Model extends \XLite\View\Order\Details\Base\AModel
 
         $transactions = $order->getActivePaymentTransactions();
         if (!$transactions && count($order->getPaymentTransactions()) > 0) {
-            $transactions = array($order->getPaymentTransactions()->last());
+            $transactions = [$order->getPaymentTransactions()->last()];
         }
 
-        $widgets = array();
+        $widgets = [];
         if (count($transactions) > 1) {
             foreach ($transactions as $transaction) {
                 $widgets[] = $this->getWidget(
-                    array(
+                    [
                         \XLite\View\FormField\Inline\AInline::PARAM_ENTITY          => $transaction,
                         \XLite\View\FormField\Inline\AInline::PARAM_FIELD_NAME      => 'paymentMethod',
                         \XLite\View\FormField\Inline\AInline::FIELD_NAME            => 'paymentMethods',
                         \XLite\View\FormField\Inline\AInline::PARAM_FIELD_NAMESPACE => 'paymentMethods',
                         \XLite\View\FormField\Inline\AInline::PARAM_VIEW_ONLY       => !$this->isPaymentMethodEditable($transaction),
-                    ),
+                    ],
                     'XLite\View\FormField\Inline\Select\PaymentMethod'
                 );
             }
         } else {
             foreach ($transactions as $transaction) {
                 $widgets[] = $this->getWidget(
-                    array(
+                    [
                         \XLite\View\FormField\Inline\AInline::PARAM_ENTITY          => $transaction,
                         \XLite\View\FormField\Inline\AInline::PARAM_FIELD_NAME      => 'paymentMethod',
                         \XLite\View\FormField\Inline\AInline::FIELD_NAME            => 'paymentMethod',
                         \XLite\View\FormField\Inline\AInline::PARAM_FIELD_NAMESPACE => 'paymentMethod',
                         \XLite\View\FormField\Inline\AInline::PARAM_VIEW_ONLY       => !$this->isPaymentMethodEditable($transaction),
-                    ),
+                    ],
                     'XLite\View\FormField\Inline\Select\PaymentMethod'
                 );
             }
@@ -291,21 +291,21 @@ class Model extends \XLite\View\Order\Details\Base\AModel
 
         $transactions = $order->getActivePaymentTransactions();
         if (!$transactions && count($order->getPaymentTransactions()) > 0) {
-            $transactions = array($order->getPaymentTransactions()->last());
+            $transactions = [$order->getPaymentTransactions()->last()];
         }
 
-        $widgets = array();
+        $widgets = [];
         foreach ($transactions as $transaction) {
             $isEditable = $this->isPaymentMethodEditable($transaction);
             $widgets[] = $this->getWidget(
-                array(
+                [
                     \XLite\View\FormField\Inline\AInline::PARAM_ENTITY          => $transaction,
                     \XLite\View\FormField\Inline\AInline::PARAM_FIELD_NAME      => 'transaction-' . $transaction->getTransactionId(),
                     \XLite\View\FormField\Inline\AInline::FIELD_NAME            => 'paymentData',
                     \XLite\View\FormField\Inline\AInline::PARAM_FIELD_NAMESPACE => 'paymentData',
                     \XLite\View\FormField\Inline\AInline::PARAM_VIEW_TIP        => $isEditable ? 'Edit payment method data' : null,
                     \XLite\View\FormField\Inline\AInline::PARAM_VIEW_ONLY       => !$isEditable,
-                ),
+                ],
                 'XLite\View\FormField\Inline\Popup\PaymentData'
             );
         }
@@ -325,13 +325,13 @@ class Model extends \XLite\View\Order\Details\Base\AModel
         $modifier = $this->getOrder()->getModifier(\XLite\Model\Base\Surcharge::TYPE_SHIPPING, 'SHIPPING');
         if ($modifier) {
             $widget = $this->getWidget(
-                array(
-                    \XLite\View\FormField\Inline\AInline::PARAM_ENTITY    => $this->getOrder(),
-                    \XLite\View\FormField\Inline\AInline::PARAM_FIELD_NAME => 'shippingId',
-                    \XLite\View\FormField\Inline\AInline::FIELD_NAME     => 'shippingId',
+                [
+                    \XLite\View\FormField\Inline\AInline::PARAM_ENTITY          => $this->getOrder(),
+                    \XLite\View\FormField\Inline\AInline::PARAM_FIELD_NAME      => 'shippingId',
+                    \XLite\View\FormField\Inline\AInline::FIELD_NAME            => 'shippingId',
                     \XLite\View\FormField\Inline\AInline::PARAM_FIELD_NAMESPACE => 'shippingId',
-                    \XLite\View\FormField\Inline\AInline::PARAM_VIEW_ONLY  => !$this->isOrderEditable(),
-                ),
+                    \XLite\View\FormField\Inline\AInline::PARAM_VIEW_ONLY       => !$this->isOrderEditable(),
+                ],
                 'XLite\View\FormField\Inline\Select\ShippingMethod'
             );
         }
@@ -342,19 +342,19 @@ class Model extends \XLite\View\Order\Details\Base\AModel
     /**
      * Define billing address
      *
-     * @return array
+     * @return \XLite\View\AView
      */
     protected function defineBillingAddress()
     {
         return $this->getWidget(
-            array(
-                \XLite\View\FormField\Inline\AInline::PARAM_ENTITY    => $this->getOrder()->getProfile(),
-                \XLite\View\FormField\Inline\AInline::PARAM_FIELD_NAME => 'billingAddress',
-                \XLite\View\FormField\Inline\AInline::FIELD_NAME     => 'billingAddress',
+            [
+                \XLite\View\FormField\Inline\AInline::PARAM_ENTITY          => $this->getOrder()->getProfile(),
+                \XLite\View\FormField\Inline\AInline::PARAM_FIELD_NAME      => 'billingAddress',
+                \XLite\View\FormField\Inline\AInline::FIELD_NAME            => 'billingAddress',
                 \XLite\View\FormField\Inline\AInline::PARAM_FIELD_NAMESPACE => 'billingAddress',
-                \XLite\View\FormField\Inline\AInline::PARAM_VIEW_TIP   => 'Edit billing address',
-                \XLite\View\FormField\Inline\AInline::PARAM_VIEW_ONLY  => !$this->isOrderEditable(),
-            ),
+                \XLite\View\FormField\Inline\AInline::PARAM_VIEW_TIP        => 'Edit billing address',
+                \XLite\View\FormField\Inline\AInline::PARAM_VIEW_ONLY       => !$this->isOrderEditable(),
+            ],
             'XLite\View\FormField\Inline\Popup\Address\Order'
         );
     }
@@ -362,19 +362,19 @@ class Model extends \XLite\View\Order\Details\Base\AModel
     /**
      * Define shipping address
      *
-     * @return array
+     * @return \XLite\View\AView
      */
     protected function defineShippingAddress()
     {
         return $this->getWidget(
-            array(
-                \XLite\View\FormField\Inline\AInline::PARAM_ENTITY    => $this->getOrder()->getProfile(),
-                \XLite\View\FormField\Inline\AInline::PARAM_FIELD_NAME => 'shippingAddress',
-                \XLite\View\FormField\Inline\AInline::FIELD_NAME     => 'shippingAddress',
+            [
+                \XLite\View\FormField\Inline\AInline::PARAM_ENTITY          => $this->getOrder()->getProfile(),
+                \XLite\View\FormField\Inline\AInline::PARAM_FIELD_NAME      => 'shippingAddress',
+                \XLite\View\FormField\Inline\AInline::FIELD_NAME            => 'shippingAddress',
                 \XLite\View\FormField\Inline\AInline::PARAM_FIELD_NAMESPACE => 'shippingAddress',
-                \XLite\View\FormField\Inline\AInline::PARAM_VIEW_TIP   => 'Edit shipping address',
-                \XLite\View\FormField\Inline\AInline::PARAM_VIEW_ONLY  => !$this->isOrderEditable(),
-            ),
+                \XLite\View\FormField\Inline\AInline::PARAM_VIEW_TIP        => 'Edit shipping address',
+                \XLite\View\FormField\Inline\AInline::PARAM_VIEW_ONLY       => !$this->isOrderEditable(),
+            ],
             'XLite\View\FormField\Inline\Popup\Address\Order'
         );
     }
@@ -382,17 +382,17 @@ class Model extends \XLite\View\Order\Details\Base\AModel
     /**
      * Define order staff note
      *
-     * @return array
+     * @return \XLite\View\AView
      */
     protected function defineStaffNote()
     {
         return $this->getWidget(
-            array(
-                \XLite\View\FormField\Inline\AInline::PARAM_ENTITY    => $this->getOrder(),
-                \XLite\View\FormField\Inline\AInline::PARAM_FIELD_NAME => 'adminNotes',
-                \XLite\View\FormField\Inline\AInline::FIELD_NAME     => 'adminNotes',
+            [
+                \XLite\View\FormField\Inline\AInline::PARAM_ENTITY          => $this->getOrder(),
+                \XLite\View\FormField\Inline\AInline::PARAM_FIELD_NAME      => 'adminNotes',
+                \XLite\View\FormField\Inline\AInline::FIELD_NAME            => 'adminNotes',
                 \XLite\View\FormField\Inline\AInline::PARAM_FIELD_NAMESPACE => 'adminNotes',
-            ),
+            ],
             'XLite\View\FormField\Inline\Textarea\OrderStaffNote'
         );
     }
@@ -400,17 +400,18 @@ class Model extends \XLite\View\Order\Details\Base\AModel
     /**
      * Define order staff note
      *
-     * @return array
+     * @return \XLite\View\AView
      */
     protected function defineLogin()
     {
         return $this->getWidget(
-            array(
-                \XLite\View\FormField\Inline\AInline::PARAM_ENTITY    => $this->getOrder()->getProfile(),
-                \XLite\View\FormField\Inline\AInline::PARAM_FIELD_NAME => 'login',
-                \XLite\View\FormField\Inline\AInline::FIELD_NAME     => 'login',
+            [
+                \XLite\View\FormField\Inline\AInline::PARAM_ENTITY          => $this->getOrder()->getProfile(),
+                \XLite\View\FormField\Inline\AInline::PARAM_FIELD_NAME      => 'login',
+                \XLite\View\FormField\Inline\AInline::FIELD_NAME            => 'login',
                 \XLite\View\FormField\Inline\AInline::PARAM_FIELD_NAMESPACE => 'login',
-            ),
+                \XLite\View\FormField\Inline\AInline::PARAM_VIEW_ONLY       => !$this->isOrderEditable(),
+            ],
             'XLite\View\FormField\Inline\Input\Text\OrderEmail'
         );
     }
@@ -418,17 +419,17 @@ class Model extends \XLite\View\Order\Details\Base\AModel
     /**
      * Define order customer note
      *
-     * @return array
+     * @return \XLite\View\AView
      */
     protected function defineCustomerNote()
     {
         return $this->getWidget(
-            array(
-                \XLite\View\FormField\Inline\AInline::PARAM_ENTITY    => $this->getOrder(),
-                \XLite\View\FormField\Inline\AInline::PARAM_FIELD_NAME => 'notes',
-                \XLite\View\FormField\Inline\AInline::FIELD_NAME     => 'notes',
+            [
+                \XLite\View\FormField\Inline\AInline::PARAM_ENTITY          => $this->getOrder(),
+                \XLite\View\FormField\Inline\AInline::PARAM_FIELD_NAME      => 'notes',
+                \XLite\View\FormField\Inline\AInline::FIELD_NAME            => 'notes',
                 \XLite\View\FormField\Inline\AInline::PARAM_FIELD_NAMESPACE => 'notes',
-            ),
+            ],
             'XLite\View\FormField\Inline\Textarea\OrderCustomerNote'
         );
     }
@@ -440,7 +441,7 @@ class Model extends \XLite\View\Order\Details\Base\AModel
      */
     protected function defineModifiersTotals()
     {
-        $list = array();
+        $list = [];
         foreach ($this->getSurchargeTotals() as $modifier) {
             if (!empty($modifier['formField'])) {
                 $list[] = $modifier['formField'];
@@ -460,8 +461,8 @@ class Model extends \XLite\View\Order\Details\Base\AModel
     protected function isPaymentMethodEditable(\XLite\Model\Payment\Transaction $transaction)
     {
         return $this->isOrderEditable()
-            && $transaction->getPaymentMethod()
-            && $transaction->getPaymentMethod()->getType() === \XLite\Model\Payment\Method::TYPE_OFFLINE;
+               && $transaction->getPaymentMethod()
+               && $transaction->getPaymentMethod()->getType() === \XLite\Model\Payment\Method::TYPE_OFFLINE;
     }
 
     // }}}
@@ -514,13 +515,13 @@ class Model extends \XLite\View\Order\Details\Base\AModel
     protected function defineDefaultModifierWidget(array $modifier)
     {
         return $this->getWidget(
-            array(
-                \XLite\View\FormField\Inline\AInline::PARAM_ENTITY    => $modifier['object'],
-                \XLite\View\FormField\Inline\AInline::PARAM_FIELD_NAME => $modifier['object']->getCode(),
-                \XLite\View\FormField\Inline\AInline::FIELD_NAME     => $modifier['object']->getCode(),
+            [
+                \XLite\View\FormField\Inline\AInline::PARAM_ENTITY          => $modifier['object'],
+                \XLite\View\FormField\Inline\AInline::PARAM_FIELD_NAME      => $modifier['object']->getCode(),
+                \XLite\View\FormField\Inline\AInline::FIELD_NAME            => $modifier['object']->getCode(),
                 \XLite\View\FormField\Inline\AInline::PARAM_FIELD_NAMESPACE => 'modifiersTotals',
-                \XLite\View\FormField\Inline\AInline::PARAM_VIEW_ONLY  => !$this->isOrderEditable(),
-            ),
+                \XLite\View\FormField\Inline\AInline::PARAM_VIEW_ONLY       => !$this->isOrderEditable(),
+            ],
             'XLite\View\FormField\Inline\Input\Text\Price\OrderModifierTotal'
         );
     }
@@ -619,7 +620,7 @@ class Model extends \XLite\View\Order\Details\Base\AModel
 
             if (!empty($billingAddress['id'])) {
                 // Set billing address by ID
-                $id = (int) $billingAddress['id'];
+                $id = (int)$billingAddress['id'];
 
                 $billAddressObj = \XLite\Core\Database::getRepo('XLite\Model\Address')->find($id);
 
@@ -639,7 +640,7 @@ class Model extends \XLite\View\Order\Details\Base\AModel
 
             if (!empty($shippingAddress['id'])) {
                 // Set shipping address by ID
-                $id = (int) $shippingAddress['id'];
+                $id = (int)$shippingAddress['id'];
 
                 if ($shippingAddress['id'] == $billingAddress['id'] && !empty($newBillingAddressId)) {
                     $newShippingAddressId = $newBillingAddressId;
@@ -679,7 +680,7 @@ class Model extends \XLite\View\Order\Details\Base\AModel
         $profile = $this->getOrder()->getProfile();
         if (!empty($billingAddress['id'])) {
             // Set billing address by ID
-            $id = (int) $billingAddress['id'];
+            $id = (int)$billingAddress['id'];
             if ($id != $profile->getBillingAddress()->getAddressId()) {
                 foreach ($profile->getAddresses() as $address) {
                     $address->setIsBilling($address->getAddressId() == $id);
@@ -726,7 +727,7 @@ class Model extends \XLite\View\Order\Details\Base\AModel
 
         } elseif (!empty($shippingAddress['id'])) {
             // Set shipping address by ID
-            $id = (int) $shippingAddress['id'];
+            $id = (int)$shippingAddress['id'];
             if ($id != $profile->getShippingAddress()->getAddressId()) {
                 foreach ($profile->getAddresses() as $address) {
                     $address->setIsShipping($address->getAddressId() == $id);
@@ -762,7 +763,7 @@ class Model extends \XLite\View\Order\Details\Base\AModel
                 $profile->addAddresses($address);
                 $address->setProfile($profile);
 
-            } elseif ($this->getOrder()->isShippable() && !$profile->getShippingAddress() ) {
+            } elseif ($this->getOrder()->isShippable() && !$profile->getShippingAddress()) {
                 // Order is shippable but shipping address is not defined
                 // Set billing address as shipping
                 $profile->getBillingAddress()->setIsShipping(true);
@@ -781,7 +782,7 @@ class Model extends \XLite\View\Order\Details\Base\AModel
      */
     protected function defineComplexFieldNames()
     {
-        return array(
+        return [
             'paymentMethods',
             'paymentData',
             'shippingMethod',
@@ -791,7 +792,7 @@ class Model extends \XLite\View\Order\Details\Base\AModel
             'customerNote',
             'modifiersTotals',
             'login',
-        );
+        ];
     }
 
     /**
@@ -801,7 +802,7 @@ class Model extends \XLite\View\Order\Details\Base\AModel
      */
     protected function defineWritableComplexFieldNames()
     {
-        return array(
+        return [
             'paymentMethods',
             'paymentData',
             'shippingMethod',
@@ -809,7 +810,7 @@ class Model extends \XLite\View\Order\Details\Base\AModel
             'shippingAddress',
             'modifiersTotals',
             'login',
-        );
+        ];
     }
     // }}}
 

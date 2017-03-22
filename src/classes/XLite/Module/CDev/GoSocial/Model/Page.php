@@ -152,7 +152,7 @@ abstract class Page extends \XLite\Module\CDev\SimpleCMS\Model\Page implements \
      */
     protected function getOpenGraphLocale()
     {
-        return 'en_US';
+        return \XLite\Core\Session::getInstance()->getLocale();
     }
 
     /**

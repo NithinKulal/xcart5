@@ -11,7 +11,7 @@
       <ul class="tabs primary">
         {% for index, tab in this.getTabs() %}
           <li class="{{ this.getTabClass(tab) }}">
-            <a data-id="{{ tab.id|raw }}" href="#{{ tab.id|raw }}" data-toggle="tab">{{ tab.name }}</a>
+            <a data-id="{{ tab.id|raw }}" href="{{ url('product', '', {'product_id': this.product.productId}) }}#{{ tab.id|raw }}" data-toggle="tab">{{ tab.name }}</a>
           </li>
         {% endfor %}
       </ul>

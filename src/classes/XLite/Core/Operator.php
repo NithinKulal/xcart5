@@ -91,6 +91,7 @@ class Operator extends \XLite\Base\Singleton
      */
     public static function checkURLAvailability($url)
     {
+        $url = ltrim($url, '/');
         $result = null;
 
         $bouncer = new \XLite\Core\HTTP\Request($url);

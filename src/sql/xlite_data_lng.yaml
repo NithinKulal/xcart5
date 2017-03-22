@@ -590,6 +590,7 @@ XLite\Model\LanguageLabel:
   - { name: "Change options", translations: [{ code: en, label: "Change options" }] }
   - { name: "Change payment info", translations: [{ code: en, label: "Change payment info" }] }
   - { name: "Change shipping info", translations: [{ code: en, label: "Change shipping info" }] }
+  - { name: "Change shipping", translations: [{ code: en, label: "Change shipping info" }] }
   - { name: "Check all", translations: [{ code: en, label: "Check all" }] }
   - { name: "Check number", translations: [{ code: en, label: "Check number" }] }
   - { name: "Checking", translations: [{ code: en, label: "Checking" }] }
@@ -949,6 +950,7 @@ XLite\Model\LanguageLabel:
   - { name: "Not numeric", translations: [{ code: en, label: "Not a numeric value" }] }
   - { name: "Note", translations: [{ code: en, label: "Note" }] }
   - { name: "Notes", translations: [{ code: en, label: "Notes" }] }
+  - { name: "Notify administrator inactivity help", translations: [{ code: en, label: "This setting is inactive because \"Low stock warning\" notifications are disabled. You can enable them <a href=\"{{link}}\">here</a>." }] }
   - { name: "Off", translations: [{ code: en, label: "Off" }] }
   - { name: "Official website", translations: [{ code: en, label: "Official website" }] }
   - { name: "Offline methods", translations: [{ code: en, label: "Offline methods" }] }
@@ -1170,7 +1172,6 @@ XLite\Model\LanguageLabel:
   - { name: "Shipping rates", translations: [{ code: en, label: "Shipping rates" }] }
   - { name: "Shipping settings", translations: [{ code: en, label: "Shipping settings" }] }
   - { name: "Shipping zones", translations: [{ code: en, label: "Address zones" }] }
-  - { name: "Terminate profile sessions", translations: [{ code: en, label: "Terminate profile sessions" }] }
   - { name: "There is a minimum purchase limit of MinQuantity", translations: [{ code: en, label: "There's a minimum purchase limit of {{minQuantity}}. The number of units of the product '{{productName}}' in cart has been adjusted to reach this limit." }] }
   - { name: "There is a maximum purchase limit of MaxQuantity", translations: [{ code: en, label: "There's a maximum purchase limit of {{maxQuantity}}. The number of units of the product '{{productName}}' in cart has been adjusted to reach this limit." }] }
 
@@ -2824,7 +2825,6 @@ XLite\Model\LanguageLabel:
   - { name: 'Info', translations: [{ code: en, label: 'Info' }]}
   - { name: 'Initializing...', translations: [{ code: en, label: 'Initializing...' }]}
   - { name: 'Inventory tracking is', translations: [{ code: en, label: 'Inventory tracking is' }]}
-  - { name: 'Length x Width x Height (in)', translations: [{ code: en, label: 'Length x Width x Height (in)' }]}
   - { name: 'Login is locked out', translations: [{ code: en, label: 'Login is locked out' }]}
   - { name: 'Manage zones', translations: [{ code: en, label: 'Manage zones' }]}
   - { name: 'Marketing', translations: [{ code: en, label: 'Marketing' }]}
@@ -3021,7 +3021,7 @@ XLite\Model\LanguageLabel:
   - { name: 'No category assigned', translations: [{ code: en, label: 'No category assigned' }] }
   - { name: 'Not assigned', translations: [{ code: en, label: 'Not assigned' }] }
   - { name: 'Developer wave', translations: [{ code: en, label: 'Developer wave' }] }
-  - { name: 'upgrade_warning_text', translations: [{ code: en, label: 'You license key is set up to get upgrades in the  {{wave_name}} wave. Therefore, upgrading may require some technical assistance on your part. If you are not prepared to deal with upgrade issues that may arise when upgrading in the developer wave, please, wait for the merchant wave. Your can switch to the merchant wave <a  href="{{link_to_waves}}" target="_blank">on this page</a>' }] }
+  - { name: 'upgrade_warning_text', translations: [{ code: en, label: 'Your license key is set up to get upgrades in the  {{wave_name}} wave. Therefore, upgrading may require some technical assistance on your part. If you are not prepared to deal with upgrade issues that may arise when upgrading in the developer wave, please, wait for the merchant wave. You can switch to the merchant wave <a  href="{{link_to_waves}}" target="_blank">on this page</a>' }] }
   - { name: 'Products in this class: {{X}}', translations: [{ code: en, label: 'Products in this class: {{X}}' }] }
 
   - { name: "Canceling", translations: [{ code: en, label: "Canceling" }] }
@@ -3040,7 +3040,16 @@ XLite\Model\LanguageLabel:
 
   - { name: 'Categories processed', translations: [{ code: en, label: 'Categories processed' }] }
   - { name: 'Processing categories...', translations: [{ code: en, label: 'Processing categories...' }] }
-  - { name: 'Categories processed: X out of Y with errors', translations: [{ code: en, label: 'Products processed: {{X}} out of {{Y}} (errors: {{errors}}, warnings: {{warns}})' }] }
-  - { name: 'Categories processed: X out of Y', translations: [{ code: en, label: 'Products processed: {{X}} out of {{Y}}' }] }
+  - { name: 'Categories processed: X out of Y with errors', translations: [{ code: en, label: 'Categories processed: {{X}} out of {{Y}} (errors: {{errors}}, warnings: {{warns}})' }] }
+  - { name: 'Categories processed: X out of Y', translations: [{ code: en, label: 'Categories processed: {{X}} out of {{Y}}' }] }
   - { name: 'Categories processed: {{count}}', translations: [{ code: en, label: 'Categories processed: {{count}}' }] }
 
+  - { name: 'The import process has been canceled', translations: [{ code: en, label: 'The import process has been canceled' }] }
+  - { name: "Logout this user", translations: [{ code: en, label: "Logout this user" }] }
+  - { name: "Profile actions", translations: [{ code: en, label: "Profile actions" }] }
+
+  - { name: "itemslist.admin.subcategory.blank", translations: [{ code: en, label: "<p class='items-list-blank-description-heading text-center'>There are no subcategories in the category.</p>" }] }
+
+  - { name: "The product you are trying to add to cart is unavailable", translations: [{ code: en, label: "The product you are trying to add to cart is unavailable." }] }
+
+  - { name: 'Required state_id checkbox help text', translations: [{ code: en, label: 'This field will be required if the selected country has states, and will not be required if the selected country does not have states.' }] }

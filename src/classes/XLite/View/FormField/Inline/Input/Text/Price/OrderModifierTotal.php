@@ -32,6 +32,16 @@ class OrderModifierTotal extends \XLite\View\FormField\Inline\Input\Text\Price\A
     }
 
     /**
+     * @inheritdoc
+     */
+    protected function getCurrency()
+    {
+        return $this->getEntity() && $this->getEntity()->getOrder()
+            ? $this->getEntity()->getOrder()->getCurrency()
+            : parent::getCurrency();
+    }
+
+    /**
      * Get initial field parameters
      *
      * @param array $field Field data

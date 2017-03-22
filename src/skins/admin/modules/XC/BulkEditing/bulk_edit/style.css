@@ -24,10 +24,15 @@
   flex: 1 0px;
 }
 
-.input-widget .placeholder:hover {
+.form-group:not(.disabled) .input-widget .placeholder:hover {
   background-color: #faf5dd;
   border-color: #e0dabc;
   opacity: 1;
+}
+
+.form-group.disabled .input-widget .placeholder {
+  opacity: .5;
+  pointer-events: none;
 }
 
 .input-widget .undo {

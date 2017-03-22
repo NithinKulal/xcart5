@@ -555,12 +555,14 @@ abstract class AEntry
     /**
      * Check for errors
      *
+     * @param boolean $checkForErrors
+     *
      * @return boolean
      */
-    public function isValid()
+    public function isValid($checkForErrors = true)
     {
         return 0 < $this->getPackSize()
-            && ! (bool) $this->getErrorMessages();
+            && (!$checkForErrors || ! (bool) $this->getErrorMessages());
     }
 
     // }}}

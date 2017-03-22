@@ -287,7 +287,7 @@ class Info extends \XLite\View\FormModel\AFormModel
                             'position' => 100,
                         ],
                         'dimensions'   => [
-                            'label'     => static::t('Length x Width x Height (in)'),
+                            'label'     => static::t('Length x Width x Height') . ' (' . \XLite\Core\Translation::translateDimSymbol() . ')',
                             'type'      => 'XLite\View\FormModel\Type\DimensionsType',
                             'show_when' => [
                                 'shipping' => [

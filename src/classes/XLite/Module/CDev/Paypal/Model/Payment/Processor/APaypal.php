@@ -535,22 +535,6 @@ abstract class APaypal extends \XLite\Model\Payment\Base\Iframe
                 $this->updateInitialBackendTransaction($transaction, $status);
             }
         }
-
-        if ($transaction->hasTtlForIpn() && $this->canUnlockIpnOnReturn($transaction)) {
-            $transaction->removeTtlForIpn();
-        }
-    }
-
-    /**
-     * Check if processor can unlock IPN on return
-     *
-     * @param \XLite\Model\Payment\Transaction $transaction Return-owner transaction
-     *
-     * @return boolean
-     */
-    protected function canUnlockIpnOnReturn(\XLite\Model\Payment\Transaction $transaction)
-    {
-        return true;
     }
 
     /**
@@ -1003,7 +987,7 @@ abstract class APaypal extends \XLite\Model\Payment\Base\Iframe
         }
 
         if (in_array($requestType, $this->getIpnLockingRequests())) {
-            $transaction->getPaymentTransaction()->setTtlForIpn(600);
+            $transaction->getPaymentTransaction()->lockCallbackProcessing(600);
         }
 
         $method = sprintf('get%sRequestParams', ucfirst($requestType));
@@ -1063,7 +1047,7 @@ abstract class APaypal extends \XLite\Model\Payment\Base\Iframe
         }
 
         if (in_array($requestType, $this->getIpnLockingRequests())) {
-            $transaction->getPaymentTransaction()->removeTtlForIpn();
+            $transaction->getPaymentTransaction()->unlockCallbackProcessing();
         }
 
         return $result;

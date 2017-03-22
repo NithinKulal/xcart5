@@ -1939,7 +1939,7 @@ abstract class AProcessor extends \XLite\Base implements \SeekableIterator, \Cou
      */
     protected function verifyValueAsURL($value)
     {
-        return (bool)filter_var($value, FILTER_VALIDATE_URL);
+        return (bool)parse_url($value);
     }
 
     /**
@@ -2094,12 +2094,12 @@ abstract class AProcessor extends \XLite\Base implements \SeekableIterator, \Cou
     {
         // Do not verify files in verification mode and if 'ignoreFileChecking' option is true
         if (!$this->isVerification() || !$this->importer->getOptions()->ignoreFileChecking) {
-            if ($this->verifyValueAsURL($value)) {
+            if (\Includes\Utils\FileManager::isReadable(LC_DIR_ROOT . $value)) {
+                $result = 0 === strpos(realpath(LC_DIR_ROOT . $value), LC_DIR_ROOT);
+            } elseif ($this->verifyValueAsURL($value)) {
                 $result = (bool) \XLite\Core\Operator::checkURLAvailability($value);
-
             } else {
-                $result = \Includes\Utils\FileManager::isReadable(LC_DIR_ROOT . $value)
-                    && 0 === strpos(realpath(LC_DIR_ROOT . $value), LC_DIR_ROOT);
+                $result = false;
             }
 
         } else {

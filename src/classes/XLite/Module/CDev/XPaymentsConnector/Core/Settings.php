@@ -48,6 +48,11 @@ class Settings extends \XLite\Base\Singleton
     const ALLOWED_MODULES_CACHE_TTL = 86400;
 
     /**
+     * Validation regex for serialized bundle
+     */
+    const BUNDLE_VALIDATION_REGEX = '/a:[56]:{s:8:"store_id";s:\d+:"[0-9a-z]+";s:3:"url";s:\d+:"[^"]+";s:10:"public_key";s:\d+:"-----BEGIN CERTIFICATE-----[^"]+-----END CERTIFICATE-----";s:11:"private_key";s:\d+:"-----BEGIN [A-Z ]*PRIVATE KEY-----[^"]+-----END [A-Z ]*PRIVATE KEY-----";s:20:"private_key_password";s:32:".{32}";(s:9:"server_ip";s:\d+:"[0-9a-fA-F\.:]*";)?}/s';
+
+    /**
      * List of API versions
      */
     public $apiVersions = array(
@@ -163,6 +168,7 @@ class Settings extends \XLite\Base\Singleton
         'public_key'           => 'xpc_public_key',
         'private_key'          => 'xpc_private_key',
         'private_key_password' => 'xpc_private_key_password',
+        'server_ip'            => 'xpc_allowed_ip_addresses',
     );
 
     /**
@@ -468,7 +474,21 @@ class Settings extends \XLite\Base\Singleton
      */
     protected function getConfiguration($deployConfig)
     {
-        return unserialize(base64_decode($deployConfig));
+        $deployConfig = base64_decode($deployConfig);
+
+        if (preg_match(static::BUNDLE_VALIDATION_REGEX, $deployConfig)) {
+            // It is serialized data and it contains only the configuration fields
+            $result = unserialize($deployConfig);
+        } else {
+            // Try modern JSON bundle
+            $result = json_decode($deployConfig, true);
+        }
+
+        if (!$result || !is_array($result)) {
+            $result = [];
+        }
+
+        return $result;
     }
 
     /**
@@ -494,6 +514,11 @@ class Settings extends \XLite\Base\Singleton
     protected function setConfiguration($configuration)
     {
         foreach ($this->mapFields as $origName => $dbName) {
+
+            if (!isset($configuration[$origName])) {
+                continue;
+            }
+
             $setting = \XLite\Core\Database::getRepo('XLite\Model\Config')
                 ->findOneBy(array('name' => $dbName, 'category' => 'CDev\XPaymentsConnector'));
 

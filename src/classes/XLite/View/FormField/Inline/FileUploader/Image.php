@@ -20,12 +20,12 @@ class Image extends \XLite\View\FormField\Inline\Base\Single
      */
     public function saveValue()
     {
-        $errors = array();
+        $errors = [];
 
         foreach ($this->getFields() as $field) {
             $error = $this->getEntity()->processFiles(
                 $field['field'][static::FIELD_NAME],
-                $field['widget']->getValue() ?: array()
+                is_array($field['widget']->getValue()) ? $field['widget']->getValue() : []
             );
 
             if ($error) {
@@ -49,7 +49,7 @@ class Image extends \XLite\View\FormField\Inline\Base\Single
     protected function processErrors($errors)
     {
         foreach ($errors as $error) {
-            \XLite\Core\TopMessage::addError(static::t($error[0], !empty($error[1]) ? $error[1] : array()));
+            \XLite\Core\TopMessage::addError(static::t($error[0], !empty($error[1]) ? $error[1] : []));
         }
     }
 

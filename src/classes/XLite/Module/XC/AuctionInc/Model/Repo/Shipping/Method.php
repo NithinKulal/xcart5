@@ -37,4 +37,21 @@ class Method extends \XLite\Model\Repo\Shipping\Method implements \XLite\Base\ID
             }
         }
     }
+
+    /**
+     * @return boolean
+     */
+    public function isAuctionIncEnabled()
+    {
+        $name = 'auctionInc';
+        $qb = $this->createPureQueryBuilder('m');
+
+        $qb->select('m.enabled')
+            ->andWhere('m.carrier = :carrier')
+            ->andWhere('m.processor = :processor')
+            ->setParameter('carrier', '')
+            ->setParameter('processor', $name);
+
+        return (bool) $qb->getSingleScalarResult();
+    }
 }

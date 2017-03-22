@@ -54,7 +54,7 @@ abstract class Main extends \XLite\Module\AModule
      */
     public static function getBuildVersion()
     {
-        return '1';
+        return '2';
     }
 
     /**
@@ -64,7 +64,7 @@ abstract class Main extends \XLite\Module\AModule
      */
     public static function getModuleName()
     {
-        return 'Pay with Amazon';
+        return 'Amazon Pay';
     }
 
     /**
@@ -74,7 +74,7 @@ abstract class Main extends \XLite\Module\AModule
      */
     public static function getDescription()
     {
-        return 'This module enables Pay with Amazon functionality';
+        return 'This module enables Amazon Pay functionality';
     }
 
     /**

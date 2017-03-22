@@ -9,6 +9,11 @@
   </div>
 
   <div class="content">
+    {% if this.getLinesMessage() %}
+      <div class="subcontent clearfix">
+        <h4>{{ this.getLinesMessage() }}</h4>
+      </div>
+    {% endif %}
     <div class="subcontent clearfix">
       {{ widget_list('import.failed.content') }}
     </div>

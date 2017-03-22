@@ -14,12 +14,21 @@ namespace XLite\Core\TranslationDriver;
 abstract class ATranslationDriver extends \XLite\Base
 {
     /**
+     * Mark driver as invalid
+     *
+     * @var string
+     */
+    protected $invalid = false;
+
+    /**
      * Translate label
      *
      * @param string $name Label name
      * @param string $code Language code
      *
      * @return string|void
+     *
+     * @throws \XLite\Core\Exception\TranslationDriverError
      */
     abstract public function translate($name, $code);
 
@@ -28,15 +37,28 @@ abstract class ATranslationDriver extends \XLite\Base
      *
      * @return boolean
      */
-    abstract public function isValid();
+    public function isValid()
+    {
+        return !$this->invalid;
+    }
 
     /**
      * Reset language driver
      *
      * @return void
      */
-    abstract public function reset();
+    public function reset()
+    {
+        $this->invalid = false;
+    }
 
+    /**
+     * Mark driver as invalid
+     */
+    public function markAsInvalid()
+    {
+        $this->invalid = true;
+    }
 
     /**
      * Get driver name
@@ -47,7 +69,6 @@ abstract class ATranslationDriver extends \XLite\Base
     {
         return static::TRANSLATION_DRIVER_NAME;
     }
-
 
     /**
      * Alias

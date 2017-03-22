@@ -1794,7 +1794,7 @@ abstract class AController extends \XLite\Core\Handler
      */
     protected function printAJAXResources()
     {
-        $resources = \XLite\Core\Layout::getInstance()->getRegisteredPreparedResources('getResources');
+        $resources = \XLite\Core\Layout::getInstance()->getRegisteredPreparedResources();
         $widget = json_encode(
             array(
                 'widget' => $this->getViewerClass(),

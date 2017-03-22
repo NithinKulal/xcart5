@@ -69,6 +69,8 @@ class CoreIteratorBuilder
                 'sql',
                 'etc' . LC_DS . 'config.local.php',
                 'etc' . LC_DS . 'config.personal.php',
+                'etc' . LC_DS . 'config.php',
+                'lib' . LC_DS . 'dompdf' . LC_DS . 'lib' . LC_DS . 'fonts',
                 'classes' . LC_DS . 'XLite' . LC_DS . 'Module',
                 'vendor',
                 'public',
@@ -80,6 +82,7 @@ class CoreIteratorBuilder
             ],
             'raw' => [
                 "skins\/.*\/modules",
+                ".*\/.log",
             ]
         ];
     }

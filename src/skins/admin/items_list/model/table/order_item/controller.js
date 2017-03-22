@@ -502,7 +502,13 @@ OrderItemsList.prototype.updateLinePriceServer = function(line)
         (this.type == 'hidden' || this.type == 'checkbox' || this.nodeName.toLowerCase() == 'select')
         && -1 != this.name.search(/^(order_items|new).+attribute_values/)
       ) {
-        fields[this.name] = this.type == 'checkbox' ? (this.checked ? '1' : '') : this.value;
+        if ( this.type == 'checkbox') {
+          fields[this.name] = this.checked
+              ? this.value
+              : jQuery(this).data('unchecked');
+        } else {
+          fields[this.name] = this.value;
+        }
       }
     }
   );

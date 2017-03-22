@@ -117,7 +117,8 @@ class RegisterSubscriptions extends \XLite\Module\XC\MailChimp\View\ItemsList\Su
     protected function checkIfSubscribed(\XLite\Module\XC\MailChimp\Model\MailChimpList $list, $profile)
     {
         return (isset($profile) && !\XLite\Core\Auth::getInstance()->checkProfile($profile))
-            ? true : $list->isProfileSubscribed($profile);
+            ? true
+            : $list->isProfileSubscribed($profile);
     }
 
     /**
@@ -130,6 +131,7 @@ class RegisterSubscriptions extends \XLite\Module\XC\MailChimp\View\ItemsList\Su
         $found = false;
 
         $lists = $this->getData();
+
         foreach ($lists as $key => $list) {
             if ($this->checkIfSubscribed($list, $this->getProfile())) {
                 $found = true;

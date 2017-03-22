@@ -13,7 +13,7 @@ XLite\Model\Payment\Method:
     added: true
     translations:
       - code: en
-        name: Pay with Amazon
+        name: Amazon Pay
     settings:
       - name: merchant_id
       - name: mode
@@ -29,8 +29,8 @@ XLite\Model\Payment\Method:
       - name: order_id_prefix
 
 XLite\Model\LanguageLabel:
-  - { name: 'The "Pay With Amazon" feature is not configured and cannot be used.', translations: [{ code: en, label: 'The "Pay With Amazon" feature is not configured and cannot be used.' }] }
-  - { name: 'The "Pay with Amazon" feature requires https to be properly set up for your store.', translations: [{ code: en, label: 'The "Pay with Amazon" feature requires https to be <a href="{{url}}">properly set up</a> for your store.' }] }
+  - { name: 'The "Pay With Amazon" feature is not configured and cannot be used.', translations: [{ code: en, label: 'The "Amazon Pay" feature is not configured and cannot be used.' }] }
+  - { name: 'The "Pay with Amazon" feature requires https to be properly set up for your store.', translations: [{ code: en, label: 'The "Amazon Pay" feature requires https to be <a href="{{url}}">properly set up</a> for your store.' }] }
   - { name: 'Amazon Seller ID', translations: [{ code: en, label: 'Amazon Seller ID' }] }
   - { name: 'If you do not have seller account, you can register here: USA UK Germany', translations: [{ code: en, label: 'If you do not have seller account, you can register here:<br /><a href="https://payments.amazon.com/signup?LD=SPEXUSAPA_XCart_core" target="_blank">USA</a>,&nbsp;<a href="https://payments.amazon.co.uk/preregistration/lpa?LD=SPEXUKAPA_XCart_core" target="_blank">UK</a>,&nbsp;<a href="https://payments.amazon.de/preregistration/lpa?LD=SPEXDEAPA_XCart_core" target="_blank">Germany</a>' }] }
   - { name: 'Operation mode', translations: [{ code: en, label: 'Operation mode' }] }
@@ -42,7 +42,7 @@ XLite\Model\LanguageLabel:
   - { name: 'Capture mode', translations: [{ code: en, label: 'Capture mode' }] }
   - { name: 'Type of authorization request', translations: [{ code: en, label: 'Type of authorization request' }] }
   - { name: 'OrderId prefix', translations: [{ code: en, label: 'OrderId prefix' }] }
-  - { name: 'Pay with Amazon', translations: [{ code: en, label: 'Pay with Amazon' }] }
+  - { name: 'Pay with Amazon', translations: [{ code: en, label: 'Amazon Pay' }] }
   - { name: 'AmazonRefresh', translations: [{ code: en, label: 'Refresh' }] }
   - { name: 'AmazonRefundRefresh', translations: [{ code: en, label: 'Refund refresh' }] }
   - { name: 'Authorization status: {{status}}', translations: [{ code: en, label: 'Authorization status: {{status}}' }] }
@@ -60,3 +60,4 @@ XLite\Model\LanguageLabel:
   - { name: 'There were problems with the payment method.', translations: [{ code: en, label: 'There were problems with the payment method.' }] }
   - { name: 'Amazon has rejected the authorisation.', translations: [{ code: en, label: 'Amazon has rejected the authorisation.' }] }
   - { name: 'Amazon could not process the transaction due to an internal processing error.', translations: [{ code: en, label: 'Amazon could not process the transaction due to an internal processing error.' }] }
+  - { name: 'Amazon callback URL help', translations: [{ code: en, label: "To ensure that the status of payments in your store is updated automatically after Amazon processes the respective payment requests, you need to set up the endpoints.<br/><br/>Log in to Seller Central and select 'Integration Settings' from the Settings drop-down box.<br/>Click Edit under the 'Instant Notifications Settings' section and enter the Callback URL provided here into the 'Merchant URL' field." }] }

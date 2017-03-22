@@ -28,7 +28,7 @@ class Translation extends \XLite\Base\Singleton implements \XLite\Base\IREST
     /**
      * Translation drivers query
      *
-     * @var array
+     * @var \XLite\Core\TranslationDriver\ATranslationDriver[]
      */
     protected $driversQuery = array(
         '\XLite\Core\TranslationDriver\Gettext',
@@ -309,7 +309,14 @@ class Translation extends \XLite\Base\Singleton implements \XLite\Base\IREST
                 ?: \XLite\Core\Session::getInstance()->getLanguage()->getCode();
         }
 
-        $result = $this->getDriver()->translate($name, $code);
+        try {
+            $result = $this->getDriver()->translate($name, $code);
+        } catch (\XLite\Core\Exception\TranslationDriverError $e) {
+            \XLite\Logger::getInstance()->log($e->getMessage(), LOG_NOTICE);
+            $this->resetDriver();
+            return $this->translateByString($name, $arguments, $code);
+        }
+
 
         if (!isset($result)) {
             $result = $name;
@@ -369,7 +376,7 @@ class Translation extends \XLite\Base\Singleton implements \XLite\Base\IREST
 
         if (!$driver) {
             foreach ($this->driversQuery as $class) {
-                $driver = new $class();
+                $driver = $class::getInstance();
                 if ($driver->isValid()) {
                     break;
                 }

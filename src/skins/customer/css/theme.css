@@ -299,16 +299,12 @@ ul li
 .product-description ul li,
 .news-message-body ul li,
 .mce-content-body ul li,
-.fr-view ul li,
-{
+.fr-view ul li {
   list-style: inherit;
   list-style-position: inside;
+  list-style-type: disc;
   padding: inherit;
   margin: inherit;
-}
-
-.product-description ul li {
-  list-style-type: disc;
 }
 
 /*

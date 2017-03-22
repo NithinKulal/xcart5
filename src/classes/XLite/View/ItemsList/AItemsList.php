@@ -9,6 +9,7 @@
 namespace XLite\View\ItemsList;
 
 use XLite\Core\Cache\ExecuteCachedTrait;
+use XLite\Model\SearchCondition\IExpressionProvider;
 
 /**
  * Base class for all lists
@@ -600,7 +601,9 @@ abstract class AItemsList extends \XLite\View\Container
      */
     protected function postprocessSearchCase(\XLite\Core\CommonCell $searchCase)
     {
-        $searchCase->{\XLite\Model\Repo\Order::P_ORDER_BY} = $this->getOrderBy();
+        if ($this->getOrderBy()) {
+            $searchCase->{\XLite\Model\Repo\Order::P_ORDER_BY} = $this->getOrderBy();
+        }
 
         return $searchCase;
     }
@@ -794,9 +797,40 @@ abstract class AItemsList extends \XLite\View\Container
             $this->commonParams = array(
                 static::PARAM_SESSION_CELL => $this->getSessionCell()
             );
+
+            $this->commonParams = array_merge(
+                $this->commonParams,
+                $this->getSearchRequestParams()
+            );
         }
 
         return $this->commonParams;
+    }
+
+    /**
+     * @return array
+     */
+    public function getSearchRequestParams()
+    {
+        $result = [];
+
+        foreach ($this->getSearchCondition() as $name => $condition) {
+            $preprocessed = null;
+
+            if (!is_object($condition)) {
+                $preprocessed = $condition;
+            } elseif ($condition instanceof IExpressionProvider) {
+                $preprocessed = $condition->getValue();
+            }
+
+            if (!$preprocessed || !is_string($preprocessed)) {
+                continue;
+            }
+
+            $result[$name] = $preprocessed;
+        }
+
+        return $result;
     }
 
     /**

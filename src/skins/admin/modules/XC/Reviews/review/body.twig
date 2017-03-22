@@ -3,26 +3,9 @@
  #}
 
 <div class="review model-properties">
-
-  {% form '\\XLite\\Module\\XC\\Reviews\\View\\Form\\Review\\Admin\\Review' %}
-
-    <div class="model-properties">
+  <div class="model-properties">
     <ul class="table default-table">
-      {{ widget_list('review.modify.fields') }}
+      {{ widget('\\XLite\\Module\\XC\\Reviews\\View\\Model\\Review') }}
     </ul>
   </div>
-
-  {% if this.entity.isNotApproved() %}
-    <div class="form-buttons pending">
-      {{ widget_list('review.modify.buttons.pending') }}
-    </div>
-  {% endif %}
-
-  {% if not this.entity.isNotApproved() %}
-    <div class="form-buttons">
-      {{ widget_list('review.modify.buttons.approved') }}
-    </div>
-  {% endif %}
-
-  {% endform %}
 </div>

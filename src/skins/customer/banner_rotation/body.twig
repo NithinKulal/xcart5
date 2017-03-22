@@ -16,7 +16,7 @@
 
   <div class="carousel-inner" role="listbox">
     {% for image in this.getImages() %}
-      <a href="{{ image.bannerRotationSlide.getFrontLink() }}" class="item">
+      <a {% if image.bannerRotationSlide.getFrontLink() %} href="{{ image.bannerRotationSlide.getFrontLink() }}"{% endif %} class="item">
         <img src="{{ image.getFrontURL() }}" alt="{{ image.getAlt() }}" >
       </a>
     {% endfor %}

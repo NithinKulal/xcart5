@@ -48,13 +48,29 @@ label.rating {
   white-space: nowrap;
   display: inline;
   vertical-align: middle;
-  padding: 0px;
-  padding-right: 40px;
+  padding: 0 40px 0 0;
 }
 
 .modify-review-dialog .vote-bar {
   display: inline-block;
   vertical-align: middle;
+}
+
+div.modify-review-dialog .form-item div.email-label {
+  display: none;
+}
+
+div.modify-review-dialog .form-item div.email-value {
+  width: auto;
+  display: inline-block;
+  max-width: 275px;
+  padding-left: 5px;
+}
+
+div.modify-review-dialog .form-item div.tooltip-main {
+  display: inline-block;
+  float: right;
+  padding: 0 5px 0 0;
 }
 
 div.modify-review-dialog .model-properties {

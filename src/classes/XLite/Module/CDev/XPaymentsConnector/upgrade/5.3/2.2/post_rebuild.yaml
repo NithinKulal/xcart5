@@ -1,0 +1,9 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\LanguageLabel:
+  - { name: "Copy the value of the Configuration field from X-Payments Online Store Details page, paste the string here and click Deploy. All the connection settings will be specified automatically.", translations: [{ code: en, label: "Copy the Configuration bundle from Online Store Details page in your X-Payments dashboard, paste it here and click <strong>Deploy</strong>. <br />Connection will be completed automatically." }] }

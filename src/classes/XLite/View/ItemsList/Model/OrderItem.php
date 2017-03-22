@@ -632,6 +632,21 @@ class OrderItem extends \XLite\View\ItemsList\Model\Table
     }
 
     /**
+     * @param array                     $column
+     * @param \XLite\Model\OrderItem    $entity
+     *
+     * @return array
+     */
+    protected function preprocessFieldParams(array $column, \XLite\Model\AEntity $entity)
+    {
+        $params = parent::preprocessFieldParams($column, $entity);
+
+        $params[\XLite\View\FormField\Input\Text\Price::PARAM_CURRENCY] = $entity->getOrder()->getCurrency();
+
+        return $params;
+    }
+
+    /**
      * Define repository name
      *
      * @return string

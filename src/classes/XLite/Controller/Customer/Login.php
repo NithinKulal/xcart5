@@ -272,6 +272,10 @@ class Login extends \XLite\Controller\Customer\ACustomer
                 $this->setReturnURL(
                     \XLite\Core\Converter::buildURL('cart')
                 );
+            } elseif ($this->getReturnURL() === \XLite\Core\Converter::buildURL('login')) {
+                $this->setReturnURL(
+                    \XLite\Core\Converter::buildURL('main')
+                );
             }
 
             $this->setHardRedirect();

@@ -8,7 +8,6 @@
 
 namespace XLite\Module\XC\BulkEditing\View\FormModel\Type\Base;
 
-use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -25,9 +24,10 @@ class FormTypeExtension extends \XLite\View\FormModel\Type\Base\FormTypeExtensio
         parent::buildView($view, $form, $options);
 
         $view->vars = array_replace($view->vars, [
-            'is_data_field'  => $options['is_data_field'],
+            'is_data_field' => $options['is_data_field'],
         ]);
     }
+
     /**
      * @param OptionsResolver $resolver
      *
@@ -38,8 +38,7 @@ class FormTypeExtension extends \XLite\View\FormModel\Type\Base\FormTypeExtensio
         parent::configureOptions($resolver);
 
         $resolver->setDefaults([
-            'is_data_field'  => true,
+            'is_data_field' => true,
         ]);
     }
-
 }

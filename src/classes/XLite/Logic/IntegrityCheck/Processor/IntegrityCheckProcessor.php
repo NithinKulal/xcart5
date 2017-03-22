@@ -129,7 +129,7 @@ class IntegrityCheckProcessor
     {
         $list = array_merge(
             ['list' => [], 'raw' => []],
-            static::getCommonExludePatterns()
+            static::getCommonExcludePatterns()
         );
 
         $toImplode = $list['raw'];
@@ -144,7 +144,7 @@ class IntegrityCheckProcessor
     /**
      * @return array
      */
-    protected static function getCommonExludePatterns()
+    protected static function getCommonExcludePatterns()
     {
         return [
             'list'  => [],
@@ -152,6 +152,7 @@ class IntegrityCheckProcessor
                 ".*\/.gitattributes",
                 ".*\/.gitignore",
                 ".*\/?.htaccess",
+                ".*.log",
             ]
         ];
     }

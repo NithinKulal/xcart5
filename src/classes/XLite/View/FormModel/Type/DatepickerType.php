@@ -41,7 +41,14 @@ class DatepickerType extends AType
         $builder->addModelTransformer(
             new CallbackTransformer(
                 function ($originalValue) {
-                    return \XLite\Core\Converter::formatDate($originalValue);
+                    $timestamp = \XLite\Core\Converter::convertTimeToUser($originalValue);
+                    $dateTime = new \DateTime();
+                    $dateTime->setTimestamp($timestamp);
+
+                    $formats = \XLite\Core\Converter::getDateFormatsByStrftimeFormat();
+                    $format = $formats['phpFormat'];
+
+                    return $dateTime->format($format);
                 },
                 function ($submittedValue) {
                     return \XLite\Core\Converter::parseFromJsFormat($submittedValue);

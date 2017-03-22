@@ -180,7 +180,7 @@ class Uploaded extends \XLite\Upgrade\Entry\Module\AModule
      */
     public function getPackSize()
     {
-        return intval(\Includes\Utils\FileManager::getFileSize($this->getRepositoryPath()));
+        return intval(\Includes\Utils\FileManager::getFileSize($this->getRepositoryPath(), true));
     }
 
     /**
@@ -234,10 +234,15 @@ class Uploaded extends \XLite\Upgrade\Entry\Module\AModule
         return $result ?: $this->getHashes(true);
     }
 
-    public function isValid()
+    /**
+     * @param boolean $checkForErrors
+     *
+     * @return boolean
+     */
+    public function isValid($checkForErrors = true)
     {
-        return parent::isValid()
-            && \Includes\Utils\FileManager::isFileReadable($this->getRepositoryPath())
+        return parent::isValid($checkForErrors)
+            && \Includes\Utils\FileManager::isReadable($this->getRepositoryPath())
             && !!$this->metadata;
     }
 

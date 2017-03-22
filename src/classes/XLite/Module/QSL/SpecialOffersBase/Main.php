@@ -35,6 +35,9 @@
  * - fixed the issue with offers of disabled modules being displyed on Special
  *   Offers backend page (#0047540)
  * 
+ * 5.3.4
+ * - fixed the page listing available Special Offer related modules
+ * 
  * -----------------------------------------------------------------------------
  * 
  * @category  X-Cart 5
@@ -97,7 +100,7 @@ abstract class Main extends \XLite\Module\AModule
      */
     public static function getMinorVersion()
     {
-        return '3';
+        return '4';
     }
 
     /**

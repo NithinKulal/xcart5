@@ -408,14 +408,18 @@ class Settings extends \XLite\Controller\Admin\AAdmin
 
             ob_end_clean();
 
-            if (preg_match('/GD.+>([\.\d]+)/mi', $phpInfo, $m)) {
-                $gdVersion = $m[1];
+            $gdVersion = @gd_info();
+            $gdVersion = (is_array($gdVersion) && isset($gdVersion['GD Version']))
+                ? $gdVersion['GD Version']
+                : null;
 
-            } else {
-                $gdVersion = @gd_info();
-                $gdVersion = (is_array($gdVersion) && isset($gdVersion['GD Version']))
-                    ? $gdVersion['GD Version']
+            if (!$gdVersion) {
+                $isMatched = preg_match('/GD.+>([\.\d]+)/mi', $phpInfo, $m);
+
+                $gdVersion = $isMatched
+                    ? $m[1]
                     : 'unknown';
+
             }
 
             $return = 'found (' . $gdVersion . ')';
@@ -827,7 +831,7 @@ class Settings extends \XLite\Controller\Admin\AAdmin
      */
     public function doActionSwitchCleanUrl()
     {
-        $oldValue = \XLite\Core\Config::getInstance()->CleanURL->clean_url_flag;
+        $oldValue = (bool) \XLite\Core\Config::getInstance()->CleanURL->clean_url_flag;
         $ajaxResponse = array(
             'Success'       => true,
             'Error'         => '',

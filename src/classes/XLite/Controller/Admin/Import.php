@@ -67,6 +67,20 @@ class Import extends \XLite\Controller\Admin\AAdmin
     }
 
     /**
+     * Get importer
+     *
+     * @return \XLite\Logic\Import\Importer
+     */
+    public function getCancelledImporter()
+    {
+        $state = \XLite\Core\Session::getInstance()->lastCancelledEventState;
+
+        return ($state && isset($state['options']))
+            ? new \XLite\Logic\Import\Importer($state['options'])
+            : null;
+    }
+
+    /**
      * Get import target
      *
      * @return string
@@ -99,6 +113,7 @@ class Import extends \XLite\Controller\Admin\AAdmin
         $filesToImport = $this->getFilesToImport();
 
         if ($filesToImport) {
+            \XLite\Core\TmpVars::getInstance()->lastImportStep = null;
             \XLite\Logic\Import\Importer::run($this->getImportOptions(array('files' => $filesToImport)));
         }
     }
@@ -254,8 +269,9 @@ class Import extends \XLite\Controller\Admin\AAdmin
      */
     protected function doActionReset()
     {
-        if ($this->getImporter()->getOptions()->clearImportDir) {
-            $this->getImporter()->deleteAllFiles();
+        $importer = $this->getImporter() ?: $this->getCancelledImporter();
+        if ($importer && $importer->getOptions()->clearImportDir) {
+            $importer->deleteAllFiles();
         }
 
         \XLite\Logic\Import\Importer::cancel();

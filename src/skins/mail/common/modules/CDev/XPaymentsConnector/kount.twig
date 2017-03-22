@@ -3,8 +3,8 @@
  #
  # @ListChild (list="invoice.base", weight="60")
  #}
-</tr>
 {% if this.isDisplayKountResult() and not this.order.getFraudCheckData() %}
+<table>
   <tr>
     <td colspan="3" style="background: #f9f9f9; padding: 15px;">
   
@@ -46,6 +46,5 @@
   
     </td>
   </tr>
+</table>
 {% endif %}
-<tr>
-

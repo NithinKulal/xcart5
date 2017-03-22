@@ -8,6 +8,7 @@
 
 namespace XLite\Module\XC\MultiCurrency\Model;
 
+use XLite\Core\Auth;
 use XLite\Module\XC\MultiCurrency\Core\MultiCurrency;
 
 /**
@@ -46,6 +47,11 @@ class Order extends \XLite\Model\Order implements \XLite\Base\IDecorator
         if (
             static::ACTION_UPDATE == $type
             && !isset($this->selectedMultiCurrency)
+            && (
+                !$this->getProfile()
+                || !Auth::getInstance()->getProfile()
+                || $this->getProfile()->getProfileId() === Auth::getInstance()->getProfile()->getProfileId()
+            )
         ) {
             $this->updateMultiCurrency(
                 MultiCurrency::getInstance()->getSelectedMultiCurrency()
@@ -62,10 +68,7 @@ class Order extends \XLite\Model\Order implements \XLite\Base\IDecorator
      */
     public function updateMultiCurrency(\XLite\Module\XC\MultiCurrency\Model\ActiveCurrency $currency)
     {
-        if (
-            isset($currency)
-            && !$currency->isDefaultCurrency()
-        ) {
+        if ($currency) {
             $this->setSelectedMultiCurrency($currency->getCurrency());
             $this->setSelectedMultiCurrencyRate($currency->getRate());
         }
@@ -96,7 +99,8 @@ class Order extends \XLite\Model\Order implements \XLite\Base\IDecorator
     /**
      * Set selectedMultiCurrencyRate
      *
-     * @param decimal $selectedMultiCurrencyRate
+     * @param float $selectedMultiCurrencyRate
+     *
      * @return Order
      */
     public function setSelectedMultiCurrencyRate($selectedMultiCurrencyRate)
@@ -108,7 +112,7 @@ class Order extends \XLite\Model\Order implements \XLite\Base\IDecorator
     /**
      * Get selectedMultiCurrencyRate
      *
-     * @return decimal 
+     * @return float
      */
     public function getSelectedMultiCurrencyRate()
     {
@@ -119,6 +123,7 @@ class Order extends \XLite\Model\Order implements \XLite\Base\IDecorator
      * Set selectedMultiCurrency
      *
      * @param \XLite\Model\Currency $selectedMultiCurrency
+     *
      * @return Order
      */
     public function setSelectedMultiCurrency(\XLite\Model\Currency $selectedMultiCurrency = null)
@@ -130,7 +135,7 @@ class Order extends \XLite\Model\Order implements \XLite\Base\IDecorator
     /**
      * Get selectedMultiCurrency
      *
-     * @return \XLite\Model\Currency 
+     * @return \XLite\Model\Currency
      */
     public function getSelectedMultiCurrency()
     {

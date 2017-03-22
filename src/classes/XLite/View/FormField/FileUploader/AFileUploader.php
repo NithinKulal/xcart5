@@ -16,10 +16,11 @@ abstract class AFileUploader extends \XLite\View\FormField\AFormField
     /**
      * Widget param names
      */
-    const PARAM_MULTIPLE    = 'multiple';
-    const PARAM_MAX_WIDTH   = 'maxWidth';
-    const PARAM_MAX_HEIGHT  = 'maxHeight';
-    const PARAM_IS_VIA_URL_ALLOWED  = 'isViaUrlAllowed';
+    const PARAM_MULTIPLE           = 'multiple';
+    const PARAM_MAX_WIDTH          = 'maxWidth';
+    const PARAM_MAX_HEIGHT         = 'maxHeight';
+    const PARAM_IS_VIA_URL_ALLOWED = 'isViaUrlAllowed';
+    const PARAM_IS_REMOVABLE       = 'removable';
 
     /**
      * Return field type
@@ -68,10 +69,11 @@ abstract class AFileUploader extends \XLite\View\FormField\AFormField
         parent::defineWidgetParams();
 
         $this->widgetParams += array(
-            static::PARAM_MULTIPLE    => new \XLite\Model\WidgetParam\TypeBool('Multiple', false),
-            static::PARAM_MAX_WIDTH   => new \XLite\Model\WidgetParam\TypeInt('Max. width', 122),
-            static::PARAM_MAX_HEIGHT  => new \XLite\Model\WidgetParam\TypeInt('Max. height', 122),
-            static::PARAM_IS_VIA_URL_ALLOWED  => new \XLite\Model\WidgetParam\TypeInt('Is ViaUrl allowed', true),
+            static::PARAM_MULTIPLE           => new \XLite\Model\WidgetParam\TypeBool('Multiple', false),
+            static::PARAM_MAX_WIDTH          => new \XLite\Model\WidgetParam\TypeInt('Max. width', 122),
+            static::PARAM_MAX_HEIGHT         => new \XLite\Model\WidgetParam\TypeInt('Max. height', 122),
+            static::PARAM_IS_VIA_URL_ALLOWED => new \XLite\Model\WidgetParam\TypeInt('Is ViaUrl allowed', true),
+            static::PARAM_IS_REMOVABLE       => new \XLite\Model\WidgetParam\TypeBool('Is removable', true),
         );
     }
 
@@ -158,5 +160,26 @@ abstract class AFileUploader extends \XLite\View\FormField\AFormField
     protected function isViaUrlAllowed()
     {
         return $this->getParam(static::PARAM_IS_VIA_URL_ALLOWED);
+    }
+
+    /**
+     * Check object is removable or not
+     *
+     * @return boolean
+     */
+    protected function isRemovable()
+    {
+        return $this->getParam(static::PARAM_IS_REMOVABLE) || $this->getParam(static::PARAM_MULTIPLE);
+    }
+
+    /**
+     * Check field value validity
+     *
+     * @return boolean
+     */
+    protected function checkFieldValue()
+    {
+        $value = $this->getValue();
+        return !empty($value);
     }
 }

@@ -135,7 +135,7 @@ abstract class AForm extends \XLite\View\AView
      */
     protected function getFormAction()
     {
-        return $this->buildURL();
+        return '?'; // @tricky: to pass w3c validation, empty value is forbidden
     }
 
     /**

@@ -567,6 +567,14 @@ window.core = {
     return deferred.promise();
   },
 
+  parseObjectString: function(objectString) {
+      if (typeof(JSON5) !== 'undefined') {
+        return JSON5.parse(objectString);
+      }
+
+      console.err('Cannot parse JS object from string: JSON5 is not loaded');
+  },
+
   loadLanguageHash: function(hash)
   {
     _.each(

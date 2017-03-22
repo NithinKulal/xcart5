@@ -20,8 +20,8 @@ abstract class Select extends \XLite\View\Product\AttributeValue\Customer\Select
     {
         /** @var \XLite\Model\AttributeValue\AttributeValueSelect[] $attributeValue */
         $attributeValue = parent::defineAttributeValue();
-        $product        = $this->getProduct();
-        $result         = [];
+        $product = $this->getProduct();
+        $result = [];
 
         if ($product->mustHaveVariants()) {
             $selectedIds = $this->getSelectedIds();
@@ -31,12 +31,9 @@ abstract class Select extends \XLite\View\Product\AttributeValue\Customer\Select
                     [$value->getAttribute()->getId() => $value->getId()]
                 );
                 $isSelectedAlready = isset($selectedIds[$value->getAttribute()->getId()])
-                    && $selectedIds[$value->getAttribute()->getId()] === $value->getId();
+                                     && $selectedIds[$value->getAttribute()->getId()] === $value->getId();
 
-                if (!$product->getVariantByAttributeValues($variantAttributeIds)
-                    && count($selectedIds) >= $product->getVariantsAttributes()->count()
-                    && !$isSelectedAlready
-                ) {
+                if (!$product->getVariantByAnyAttributeValuesIds($variantAttributeIds) && !$isSelectedAlready) {
                     $value->setVariantAvailable(false);
                 }
 

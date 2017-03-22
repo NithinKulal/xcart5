@@ -1578,12 +1578,11 @@ class Product extends \XLite\Model\Base\Catalog implements \XLite\Model\Base\IOr
      */
     protected function showPlaceholderOption()
     {
-        if (\XLite\Core\Config::getInstance()->General->force_choose_product_options === 'quicklook') {
-
+        if (\XLite::isAdminZone()) {
+            return false;
+        } elseif (\XLite\Core\Config::getInstance()->General->force_choose_product_options === 'quicklook') {
             return \XLite::getController()->getTarget() !== 'product';
-
         } elseif (\XLite\Core\Config::getInstance()->General->force_choose_product_options === 'product_page') {
-
             return true;
         }
 

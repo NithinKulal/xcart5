@@ -298,6 +298,30 @@ class ProductVariant extends \XLite\View\ItemsList\Model\Table
     }
 
     /**
+     * @inheritdoc
+     */
+    protected function prevalidateEntities()
+    {
+        if (parent::prevalidateEntities()) {
+            $skus = [];
+
+            /** @var \XLite\Module\XC\ProductVariants\Model\ProductVariant $entity */
+            foreach ($this->getPageDataForUpdate() as $entity) {
+                if (in_array($entity->getSku(), $skus)) {
+                    $this->errorMessages[] = static::t('SKU must be unique');
+                    return false;
+                } else {
+                    $skus[] = $entity->getSku();
+                }
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Post-validate new entity
      *
      * @param \XLite\Model\AEntity $entity Entity
@@ -345,6 +369,16 @@ class ProductVariant extends \XLite\View\ItemsList\Model\Table
     protected function getCreateMessage($count)
     {
         return \XLite\Core\Translation::lbl('X variants have been created', array('count' => $count));
+    }
+
+    /**
+     * Get update message
+     *
+     * @return string
+     */
+    protected function getUpdateMessage()
+    {
+        return static::t('Variants have been updated successfully');
     }
 
     /**

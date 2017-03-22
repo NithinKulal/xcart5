@@ -225,6 +225,8 @@ abstract class AQueryBuilder extends \Doctrine\ORM\QueryBuilder implements \Coun
     }
 
     /**
+     * @deprecated 5.3.3
+     *
      * Get IN () condition
      *
      * @param mixed  $data   Data

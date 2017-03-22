@@ -1,0 +1,4 @@
+Version 5.3.2.2
+
+Fixes
+2017-02-02 - [Bug] With widget cache enabled, the same products were shown as bestsellers both for the main page and for categories. Fixed. Now only products from a category and its subcategories can be shown as bestsellers in a category. #BUG-4503 (Sergey Elmanov) #Bestsellers

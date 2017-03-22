@@ -5,23 +5,31 @@
  #}
 
 {% if this.hasExpiredKeys() %}
-  <div class="alert alert-warning expired-keys">
+  {% if this.isNextStepAvailable() %}
+    {% set buttonStyle = 'regular-button' %}
+  {% else %}
+    {% set buttonStyle = 'regular-main-button' %}
+  {% endif %}
+  <div class="alert alert-warning expired-keys{% if this.isNextStepAvailable() %} next-step-available{% endif %}">
     <div>{{ this.getExpiredKeysMessage() }}</div>
-    <ul>
-      <li class="header">
-        <div class="key-title">{{ t('License key') }}</div>
-        <div class="key-exp-date">{{ t('Exp. date') }}</div>
-      </li>
-      {% for i, k in this.getExpiredKeys() %}
-        <li>
-          <div class="key-title">{{ k.title }}</div>
-          <div class="key-exp-date">{{ k.expDate }}</div>
-        </li>
-      {% endfor %}
-    </ul>
+    <table>
+      <tbody>
+        <tr>
+          <th class="key-title">{{ t('License key') }}</th>
+          <th class="key-exp-date">{{ t('Exp. date') }}</th>
+        </tr>
+        {% for i, k in this.getExpiredKeys() %}
+          <tr>
+            <td class="key-title">{{ k.title }}</td>
+            <td class="key-exp-date">{{ k.expDate }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <hr>
     <div class="actions">
       {% if this.getAllKeysPurchaseURL() %}
-        {{ widget('\\XLite\\View\\Button\\Link', location=this.getAllKeysPurchaseURL(), label=t('Renew your access to new features'), style='regular-main-button', blank='true') }}
+        {{ widget('\\XLite\\View\\Button\\Link', location=this.getAllKeysPurchaseURL(), label=t('Renew your access to new features'), style=buttonStyle, blank='true') }}
       {% endif %}
       <div class="revalidate-keys">
         {{ widget('\\XLite\\View\\Button\\ProgressState', label='Re-validate license keys') }}

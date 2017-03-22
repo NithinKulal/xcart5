@@ -30,7 +30,7 @@ class Logger extends \XLite\Base\Singleton
      *
      * @var array
      */
-    protected static $hashErrors = array();
+    protected static $hashErrors = [];
 
     /**
      * Errors translate table (PHP -> PEAR)
@@ -47,16 +47,23 @@ class Logger extends \XLite\Base\Singleton
     protected $errorTypes = null;
 
     /**
+     * Postponed logs
+     *
+     * @var array
+     */
+    protected $postponedLogs = [];
+
+    /**
      * Options
      *
      * @var array
      */
-    protected $options = array(
+    protected $options = [
         'type'  => null,
         'name'  => '/dev/null',
         'level' => LOG_WARNING,
         'ident' => 'X-Lite',
-    );
+    ];
 
     /**
      * Runtime id
@@ -97,7 +104,7 @@ class Logger extends \XLite\Base\Singleton
             \XLite::getInstance()->getOptions('log_details')
         );
 
-        set_error_handler(array($this, 'registerPHPError'));
+        set_error_handler([$this, 'registerPHPError']);
         // set_exception_handler(array($this, 'registerException'));
 
         // Default log path
@@ -121,7 +128,7 @@ class Logger extends \XLite\Base\Singleton
             ini_set('log_errors', 1);
         }
 
-        self::$markTemplates = (bool)\XLite::getInstance()->getOptions(array('debug', 'mark_templates'));
+        self::$markTemplates = (bool)\XLite::getInstance()->getOptions(['debug', 'mark_templates']);
 
         $logger = \Log::singleton(
             $this->getType(),
@@ -148,12 +155,10 @@ class Logger extends \XLite\Base\Singleton
      * Add log record
      *
      * @param string $message Message
-     * @param string $level   Level code OPTIONAL
-     * @param array  $trace   Back trace OPTIONAL
-     *
-     * @return void
+     * @param int    $level   Level code
+     * @param array  $trace   Back trace
      */
-    public function log($message, $level = LOG_DEBUG, array $trace = array())
+    public function log($message, $level = LOG_DEBUG, $trace = [])
     {
         $dir = getcwd();
         chdir(LC_DIR);
@@ -165,10 +170,10 @@ class Logger extends \XLite\Base\Singleton
         );
 
         // Add additional info
-        $parts = array(
+        $parts = [
             'Runtime id: ' . static::getRuntimeId(),
             'Server API: ' . PHP_SAPI . '; IP: ' . (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'n/a'),
-        );
+        ];
 
         if (isset($_SERVER)) {
             if (isset($_SERVER['REQUEST_METHOD'])) {
@@ -187,14 +192,47 @@ class Logger extends \XLite\Base\Singleton
         $message .= PHP_EOL . implode(';' . PHP_EOL, $parts) . ';';
 
         // Add debug backtrace
-        if (LOG_ERR >= $level) {
-            $backTrace = $trace ? $this->prepareBackTrace($trace) : static::getBackTrace();
-            $message .= PHP_EOL . 'Backtrace:' . PHP_EOL . "\t" . implode(PHP_EOL . "\t", $backTrace);
+        if (LOG_ERR >= $level && null !== $trace) {
+            if (is_string($trace)) {
+                $message .= PHP_EOL . 'Backtrace:' . PHP_EOL . "\t" . $trace;
+            } elseif (is_array($trace) || !$trace) {
+                $backTrace = $trace ? $this->prepareBackTrace($trace) : static::getBackTrace();
+                $message .= PHP_EOL . 'Backtrace:' . PHP_EOL . "\t" . implode(PHP_EOL . "\t", $backTrace);
+            }
         }
 
         $logger->log(trim($message) . PHP_EOL, $level);
 
         chdir($dir);
+    }
+
+    /**
+     * Add postponed log record
+     *
+     * @param string $message Message
+     * @param int    $level   Level code
+     * @param array  $trace   Back trace
+     *
+     */
+    public function logPostponed($message, $level = LOG_DEBUG, $trace = null)
+    {
+        $this->postponedLogs[] = [
+            'message' => $message,
+            'level' => $level,
+            'trace' => $trace ?: implode(PHP_EOL . "\t", static::getBackTrace())
+        ];
+    }
+
+    /**
+     * Write postponed logs
+     */
+    public function executePostponedLogs()
+    {
+        foreach ($this->postponedLogs as $record) {
+            $this->log($record['message'], $record['level'], $record['trace']);
+        }
+
+        $this->postponedLogs = [];
     }
 
     /**
@@ -228,10 +266,10 @@ class Logger extends \XLite\Base\Singleton
 
                 if (isset($_SERVER['REQUEST_METHOD'])) {
                     $displayMessage = '<strong>' . $errortype . '</strong>: ' . $errstr
-                        . ' in <strong>' . $errfile . '</strong> on line <strong>' . $errline . '</strong><br />';
+                                      . ' in <strong>' . $errfile . '</strong> on line <strong>' . $errline . '</strong><br />';
                 }
 
-                echo ($displayMessage . PHP_EOL);
+                echo($displayMessage . PHP_EOL);
             }
 
             // Save to log
@@ -264,20 +302,20 @@ class Logger extends \XLite\Base\Singleton
         ) {
 
             $message = 'Exception: ' . $exception->getMessage()
-                . ' in ' . $exception->getFile() . ' on line ' . $exception->getLine();
+                       . ' in ' . $exception->getFile() . ' on line ' . $exception->getLine();
 
             // Display error
             if (0 != ini_get('display_errors')) {
 
                 if (isset($_SERVER['REQUEST_METHOD'])) {
                     $displayMessage = '<strong>Exception</strong>: ' . $exception->getMessage()
-                        . ' in <strong>' . $exception->getFile() . '</strong>'
-                        . ' on line <strong>' . $exception->getLine() . '</strong><br />';
+                                      . ' in <strong>' . $exception->getFile() . '</strong>'
+                                      . ' on line <strong>' . $exception->getLine() . '</strong><br />';
                 } else {
                     $displayMessage = $message;
                 }
 
-                echo ($displayMessage . PHP_EOL);
+                echo($displayMessage . PHP_EOL);
             }
 
             // Save to log
@@ -329,12 +367,12 @@ class Logger extends \XLite\Base\Singleton
         }
 
         $message = trim('[' . @date('H:i:s.u') . '] ' . $message) . PHP_EOL
-            . 'Runtime id: ' . static::getRuntimeId() . PHP_EOL
-            . 'SAPI: ' . PHP_SAPI . '; '
-            . 'IP: ' . (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'n/a') . PHP_EOL
-            . (\XLite\Core\Request::getInstance()->isBot() ? 'Is BOT: true' . PHP_EOL : '')
-            . 'URI: ' . (isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : 'n/a') . PHP_EOL
-            . 'Method: ' . (isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'n/a') . PHP_EOL;
+                   . 'Runtime id: ' . static::getRuntimeId() . PHP_EOL
+                   . 'SAPI: ' . PHP_SAPI . '; '
+                   . 'IP: ' . (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'n/a') . PHP_EOL
+                   . (\XLite\Core\Request::getInstance()->isBot() ? 'Is BOT: true' . PHP_EOL : '')
+                   . 'URI: ' . (isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : 'n/a') . PHP_EOL
+                   . 'Method: ' . (isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'n/a') . PHP_EOL;
 
         // Add debug backtrace
         if ($useBackTrace) {
@@ -379,7 +417,7 @@ class Logger extends \XLite\Base\Singleton
      */
     public static function getCustomLogURL($type)
     {
-        return \XLite\Core\Converter::buildURL('log', '', array('log' => static::getCustomLogFileName($type)));
+        return \XLite\Core\Converter::buildURL('log', '', ['log' => static::getCustomLogFileName($type)]);
     }
 
     /**
@@ -522,7 +560,7 @@ class Logger extends \XLite\Base\Singleton
     {
         if (!isset($this->errorsTranslate)) {
 
-            $this->errorsTranslate = array(
+            $this->errorsTranslate = [
                 E_ERROR             => LOG_ERR,
                 E_WARNING           => LOG_WARNING,
                 E_PARSE             => LOG_CRIT,
@@ -536,7 +574,7 @@ class Logger extends \XLite\Base\Singleton
                 E_USER_NOTICE       => LOG_NOTICE,
                 E_STRICT            => LOG_NOTICE,
                 E_RECOVERABLE_ERROR => LOG_ERR,
-            );
+            ];
 
             if (defined('E_DEPRECATED')) {
                 $this->errorsTranslate[E_DEPRECATED] = LOG_WARNING;
@@ -557,7 +595,7 @@ class Logger extends \XLite\Base\Singleton
     protected function getPHPErrorName($errno)
     {
         if (!isset($this->errorTypes)) {
-            $this->errorTypes = array(
+            $this->errorTypes = [
                 E_ERROR             => 'Error',
                 E_WARNING           => 'Warning',
                 E_PARSE             => 'Parsing Error',
@@ -571,7 +609,7 @@ class Logger extends \XLite\Base\Singleton
                 E_USER_NOTICE       => 'Notice',
                 E_STRICT            => 'Runtime Notice',
                 E_RECOVERABLE_ERROR => 'Catchable fatal error',
-            );
+            ];
 
             if (defined('E_DEPRECATED')) {
                 $this->errorTypes[E_DEPRECATED] = 'Warning (deprecated)';

@@ -171,7 +171,7 @@ abstract class Product extends \XLite\Model\Product implements \XLite\Base\IDeco
      */
     protected function getOpenGraphLocale()
     {
-        return 'en_US';
+        return \XLite\Core\Session::getInstance()->getLocale();
     }
 
     /**

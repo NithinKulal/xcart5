@@ -7,6 +7,55 @@
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
 
+function LeftMenuController() {};
+
+/**
+ * Makes left menu items behave like an accordion - when one item opens, other expanded items collapse
+ */
+LeftMenuController.accordion = true;
+
+LeftMenuController.toggleItem = function(element) {
+    if (element.hasClass('expanded')) {
+        LeftMenuController.hideItem(element);
+    } else {
+        if (LeftMenuController.accordion) {
+            element.parent().find('.menu-item').each(function(){
+                var item = $(this);
+                LeftMenuController.hideItem(item);
+            });
+        }
+        LeftMenuController.showItem(element);
+    }
+};
+
+LeftMenuController.hideItem = function(element) {
+    element.children('.box').hide(
+        'blind',
+        {},
+        _.bind(
+            function() {
+                jQuery(this).removeClass('expanded');
+                core.trigger('layout.sidebar.changeHeight');
+            },
+            element.get(0)
+        )
+    );
+};
+
+LeftMenuController.showItem = function(element) {
+    element.children('.box').show(
+        'blind',
+        {},
+        _.bind(
+            function() {
+                jQuery(this).addClass('expanded');
+                core.trigger('layout.sidebar.changeHeight');
+            },
+            element.get(0)
+        )
+    );
+};
+
 core.microhandlers.add(
   'left-menu-compressed-box',
   function() {
@@ -139,32 +188,7 @@ core.microhandlers.add(
           return true;
         }
 
-        if (li.hasClass('expanded')) {
-          li.children('.box').hide(
-            'blind',
-            {},
-            _.bind(
-              function() {
-                jQuery(this).removeClass('expanded');
-                core.trigger('layout.sidebar.changeHeight');
-              },
-              li.get(0)
-            )
-          );
-
-        } else {
-          li.children('.box').show(
-            'blind',
-            {},
-            _.bind(
-              function() {
-                jQuery(this).addClass('expanded');
-                core.trigger('layout.sidebar.changeHeight');
-              },
-              li.get(0)
-            )
-          );
-        }
+        LeftMenuController.toggleItem(li);
 
         return false;
       }

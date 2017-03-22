@@ -1,0 +1,22 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Data
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - { name: anonymous_state, category: Shipping, widgetParameters: { selectOne: true } }
+
+XLite\Model\LanguageLabel:
+  - { name: 'Categories processed: X out of Y with errors', translations: [{ code: en, label: 'Categories processed: {{X}} out of {{Y}} (errors: {{errors}}, warnings: {{warns}})' }] }
+  - { name: 'Categories processed: X out of Y', translations: [{ code: en, label: 'Categories processed: {{X}} out of {{Y}}' }] }
+  - { name: 'upgrade_warning_text', translations: [{ code: en, label: 'Your license key is set up to get upgrades in the {{wave_name}} wave. Therefore, upgrading may require some technical assistance on your part. If you are not prepared to deal with upgrade issues that may arise when upgrading in the developer wave, please, wait for the merchant wave. You can switch to the merchant wave <a href="{{link_to_waves}}" target="_blank">on this page</a>' }] }
+
+XLite\Model\Notification:
+  - templatesDirectory: order_shipped
+    translations:
+      - code: en
+        description: "This notification is sent to the customer when an order gets the status Shipped."
+  - { templatesDirectory: low_limit_warning, availableForAdmin: true}
+

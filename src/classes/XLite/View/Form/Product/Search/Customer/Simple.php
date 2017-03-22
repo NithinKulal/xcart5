@@ -18,17 +18,6 @@ class Simple extends \XLite\View\AView
     use CacheableTrait;
 
     /**
-     * Widget params
-     */
-    const PARAM_POSITION = 'position';
-
-    /**
-     * Position
-     */
-    const POSITION_DEFAULT = 'default';
-    const POSITION_RESPONSIVE = 'responsive';
-
-    /**
      * Return CSS files list
      *
      * @return array
@@ -60,39 +49,5 @@ class Simple extends \XLite\View\AView
     protected function isVisible()
     {
         return parent::isVisible() && !$this->isCheckoutLayout();
-    }
-
-    /**
-     * Define widget parameters
-     *
-     * @return void
-     */
-    protected function defineWidgetParams()
-    {
-        parent::defineWidgetParams();
-
-        $this->widgetParams += array(
-            static::PARAM_POSITION => new \XLite\Model\WidgetParam\TypeString('Position', static::POSITION_DEFAULT),
-        );
-    }
-
-    /**
-     * Returns id attribute value for substring input field
-     *
-     * @return string
-     */
-    protected function getSearchSubstringInputId()
-    {
-        return $this->getParam(static::PARAM_POSITION) == static::POSITION_DEFAULT
-            ? 'substring-default'
-            : 'substring-responsive';
-    }
-
-    protected function getCacheParameters()
-    {
-        return array_merge(
-            parent::getCacheParameters(),
-            [$this->getWidgetParams(static::PARAM_POSITION)->value]
-        );
     }
 }

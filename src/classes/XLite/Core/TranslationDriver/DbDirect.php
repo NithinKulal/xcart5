@@ -15,14 +15,8 @@ class DbDirect extends \XLite\Core\TranslationDriver\ATranslationDriver
 {
     const TRANSLATION_DRIVER_NAME = 'DatabaseDirect';
 
-
     /**
-     * Translate label
-     *
-     * @param string $name Label name
-     * @param string $code Language code
-     *
-     * @return string|void
+     * @inheritdoc
      */
     public function translate($name, $code)
     {
@@ -31,24 +25,5 @@ class DbDirect extends \XLite\Core\TranslationDriver\ATranslationDriver
         return $label && $label->getHardTranslation($code)
             ? $label->getHardTranslation($code)->getLabel()
             : null;
-    }
-
-    /**
-     * Check if driver is valid or not
-     *
-     * @return boolean
-     */
-    public function isValid()
-    {
-        return true;
-    }
-
-    /**
-     * Reset language driver
-     *
-     * @return void
-     */
-    public function reset()
-    {
     }
 }

@@ -160,16 +160,6 @@ class AmazonCheckout extends \XLite\Controller\Customer\Checkout
         return parent::checkAccess();
     }
 
-    /**
-     * Amazon used own profile for customer
-     *
-     * @return boolean
-     */
-    public function getProfile()
-    {
-        return false;
-    }
-
     // workaround for compatibility with XP (XP's checkout/script.twig produce error without it)
     public function getXpcPaymentIds()
     {

@@ -40,9 +40,27 @@ class Failed extends \XLite\View\AView
      */
     protected function getFailedHeader()
     {
-        return \XLite\Core\TmpVars::getInstance()->lastImportStep === 'XLite\Logic\Import\Step\Import'
-            ? static::t('Import results')
-            : $this->getDefaultFailedHeader();
+        $result = $this->getDefaultFailedHeader();
+
+        if ($this->isCanceled()) {
+            $result = static::t('The import process has been canceled');
+
+        } elseif (\XLite\Core\TmpVars::getInstance()->lastImportStep === 'XLite\Logic\Import\Step\Import') {
+            $result = static::t('Import results');
+        }
+
+        return $result;
+    }
+
+    /**
+     * Check if import was canceled
+     *
+     * @return boolean
+     */
+    protected function isCanceled()
+    {
+        $repo = \XLite\Core\Database::getRepo('XLite\Model\TmpVar');
+        return $repo->getVar(\XLite\Logic\Import\Importer::getImportCancelFlagVarName());
     }
 
     /**
@@ -250,6 +268,25 @@ class Failed extends \XLite\View\AView
 
         foreach (\XLite\Logic\Import\Importer::getProcessorList() as $processor) {
             $result = array_merge($result, $processor::getMessages());
+        }
+
+        return $result;
+    }
+
+    public function getLinesMessage()
+    {
+        $result = '';
+
+        $importer = $this->getImporter() ?: $this->getCancelledImporter();
+        $lastClass = \XLite\Core\TmpVars::getInstance()->lastImportStep;
+
+        if ($importer && $lastClass) {
+            foreach ($importer->getSteps() as $step) {
+                if ($step instanceof $lastClass) {
+                    $result = $step->getNormalLanguageLabel();
+                    break;
+                }
+            }
         }
 
         return $result;

@@ -780,9 +780,9 @@ class Cell extends \XLite\Base\Singleton
         $shouldCollectEntries = true;
 
         if (is_array($entries)) {
-            $invalidEntries = array_filter($entries, function($entry) {
+            $invalidEntries = array_filter($entries, function ($entry) {
                 /** @var \XLite\Upgrade\Entry\AEntry $entry */
-                return !$entry->isValid();
+                return !$entry->isValid(false);
             });
 
             // If there is any invalid entry we will recollect entries

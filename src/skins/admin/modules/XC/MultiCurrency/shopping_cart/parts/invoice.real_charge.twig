@@ -4,15 +4,13 @@
  # @ListChild (list="invoice.base.totals.after", weight="5")
  #}
 {% if this.isMultiCurrencyOrder() %}
-  <tr class="total-change-value">
-    <td class="title">{{ t('Total charge') }}:</td>
-    <td class="value">{{ this.formatPrice(this.order.getTotal(), this.order.getCurrency()) }}</td>
-  </tr>
+  <div class="total-change-value">
+    <span class="title">{{ t('Total charge') }}:</span>
+    <span class="value">{{ this.formatPrice(this.order.getTotal(), this.order.getCurrency()) }}</span>
+  </div>
 {% endif %}
 {% if this.isMultiCurrencyOrder() %}
-  <tr class="total-change-help">
-    <td colspan="2">
-        {{ widget('XLite\\Module\\XC\\MultiCurrency\\View\\InvoiceChargeWarning', order=this.order) }}
-    </td>
-  </tr>
+  <div class="total-change-help">
+    <span>{{ widget('XLite\\Module\\XC\\MultiCurrency\\View\\InvoiceChargeWarning', order=this.order) }}</span>
+  </div>
 {% endif %}

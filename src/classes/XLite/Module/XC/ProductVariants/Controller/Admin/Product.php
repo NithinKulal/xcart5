@@ -241,8 +241,6 @@ class Product extends \XLite\Controller\Admin\Product implements \XLite\Base\IDe
         $list = new \XLite\Module\XC\ProductVariants\View\ItemsList\Model\ProductVariant;
         $list->processQuick();
         $this->getProduct()->checkVariants();
-
-        \XLite\Core\TopMessage::addInfo('Variants have been updated successfully');
     }
 
     /**

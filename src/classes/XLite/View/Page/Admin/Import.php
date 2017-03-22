@@ -158,6 +158,11 @@ class Import extends \XLite\View\AView
                 );
         }
 
+        if (!$result) {
+            $result = \XLite\Core\Request::getInstance()->failed
+                && $repo->getVar($this->getImportCancelFlagVarName());
+        }
+
         return $result;
     }
 

@@ -139,7 +139,7 @@ abstract class AMailChimpSubscriptions extends \XLite\View\Container
      */
     protected function getProfile()
     {
-        return $this->getWidgetParams(self::PARAM_PROFILE)->value;
+        return $this->getParam(self::PARAM_PROFILE);
     }
 
     /**

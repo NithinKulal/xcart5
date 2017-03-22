@@ -52,7 +52,12 @@ class NestedSet extends \XLite\Logic\ALogic
 
         $flattenedSorted = $this->getSortedByParentAndFlat();
 
+        // The root element is guaranteed to be the very first element in flattened array
         $rootIndex = 0;
+        if (!isset($flattenedSorted[$rootIndex])) {
+            throw new \Exception('Something wrong with root element, assumed root #' . $rootIndex, 1);
+        }
+
         $flattenedSorted[$rootIndex]['lpos'] = 1;
         $flattenedSorted[$rootIndex]['rpos'] = 2;
         $flattenedSorted[$rootIndex]['depth'] = -1;
@@ -77,9 +82,21 @@ class NestedSet extends \XLite\Logic\ALogic
         $sortedByParent = array();
 
         foreach ($this->inputData as $node) {
-            $sortedByParent[intval($node['parent_id'])][] = array(
+            $isRootNode = $node['parent_id'] === null
+                || intval($node['parent_id']) === intval($node['id'])
+                || intval($node['depth']) === -1;
+
+            if ($isRootNode) {
+                $index = 0;
+                $parentId = null;
+            } else {
+                $parentId = $node['parent_id'];
+                $index = intval($parentId);
+            }
+
+            $sortedByParent[$index][] = array(
                 'id'                => $node['id'],
-                'parent_id'         => $node['parent_id'],
+                'parent_id'         => $parentId,
                 'lpos'              => 0,
                 'rpos'              => 0,
                 'depth'             => 0,

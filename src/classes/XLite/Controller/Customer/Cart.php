@@ -377,6 +377,10 @@ class Cart extends \XLite\Controller\Customer\ACustomer
     {
         if (\XLite\Model\Cart::NOT_VALID_ERROR === $this->getCart()->getAddItemError()) {
             \XLite\Core\TopMessage::addError('Product has not been added to cart');
+        } elseif ($product = \XLite\Core\Database::getRepo('XLite\Model\Product')->find($this->getCurrentProductId())) {
+            if (!$product->isAvailable()) {
+                \XLite\Core\TopMessage::addWarning('The product you are trying to add to cart is unavailable');
+            }
         }
     }
 
@@ -560,13 +564,13 @@ class Cart extends \XLite\Controller\Customer\ACustomer
         foreach ($amount as $id => $quantity) {
             $item = $this->getCart()->getItemByItemId($id);
 
-            if ($warningText === '') {
-                $warningText = $item->getAmountWarning($quantity);
-            }
-
             if ($item) {
                 $item->setAmount($quantity);
                 $result = true;
+
+                if ($warningText === '') {
+                    $warningText = $item->getAmountWarning($quantity);
+                }
             }
         }
 

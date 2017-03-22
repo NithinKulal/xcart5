@@ -992,6 +992,12 @@ class Order extends \XLite\Controller\Admin\AAdmin
             \XLite\Core\OrderHistory::getInstance()
                 ->registerOrderChangeCustomerNotes($this->getOrder()->getOrderId(), $changes);
 
+            static::setOrderChanges(
+                static::t('Customer note'),
+                $changes['old'],
+                $changes['new']
+            );
+
             $this->getOrder()->setNotes($notes);
 
             \XLite\Core\Database::getEM()->flush();

@@ -51,6 +51,18 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
     }
 
     /**
+     * Initialize processor
+     *
+     * @return void
+     */
+    protected function initialize()
+    {
+        parent::initialize();
+
+        $this->importer->enableCategoriesStructureCorrection();
+    }
+
+    /**
      * Update model
      *
      * @param \XLite\Model\AEntity $model Model
@@ -1208,9 +1220,7 @@ class Products extends \XLite\Logic\Import\Processor\AProcessor
                 /* @var \XLite\Model\Image\Product\Image $image */
                 $image = \XLite\Core\Database::getRepo('XLite\Model\Image\Product\Image')->insert(null, false);
 
-                $success = $this->verifyValueAsURL($file)
-                    ? $image->loadFromURL($path, true)
-                    : $image->loadFromLocalFile(LC_DIR_ROOT . $file);
+                $success = $image->loadFromPath($path);
 
                 if ($success) {
                     if ($model->getImages()) {

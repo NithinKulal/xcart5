@@ -15,7 +15,6 @@ class Db extends \XLite\Core\TranslationDriver\ATranslationDriver
 {
     const TRANSLATION_DRIVER_NAME = 'Database';
 
-
     /**
      * Translations
      *
@@ -24,12 +23,7 @@ class Db extends \XLite\Core\TranslationDriver\ATranslationDriver
     protected $translations = array();
 
     /**
-     * Translate label
-     *
-     * @param string $name Label name
-     * @param string $code Language code
-     *
-     * @return string|void
+     * @inheritdoc
      */
     public function translate($name, $code)
     {
@@ -41,22 +35,14 @@ class Db extends \XLite\Core\TranslationDriver\ATranslationDriver
     }
 
     /**
-     * Check if driver is valid or not
-     *
-     * @return boolean
-     */
-    public function isValid()
-    {
-        return true;
-    }
-
-    /**
      * Reset language driver
      *
      * @return void
      */
     public function reset()
     {
+        parent::reset();
+
         $this->translations = array();
         $this->getRepo()->cleanCache();
     }

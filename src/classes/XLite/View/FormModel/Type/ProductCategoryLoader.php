@@ -69,14 +69,16 @@ class ProductCategoryLoader implements ChoiceLoaderInterface
      */
     protected function getCategories()
     {
-        $repo = \XLite\Core\Database::getRepo('XLite\Model\Category');
+        return $this->executeCachedRuntime(function() {
+            $repo = \XLite\Core\Database::getRepo('XLite\Model\Category');
 
-        $categories = $repo->getAllCategoriesAsDTO();
-        $result     = [];
-        foreach ($categories as $category) {
-            $result[$category['id']] = $category['fullName'];
-        }
+            $categories = $repo->getAllCategoriesAsDTO();
+            $result     = [];
+            foreach ($categories as $category) {
+                $result[$category['id']] = $category['fullName'];
+            }
 
-        return $result;
+            return $result;
+        });
     }
 }

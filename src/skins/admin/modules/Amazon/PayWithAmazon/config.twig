@@ -57,4 +57,13 @@
       {{ widget('XLite\\View\\FormField\\Input\\Text', fieldName='settings[order_id_prefix]', fieldId='settings_order_id_prefix', value=this.paymentMethod.getSetting('order_id_prefix'), fieldOnly='true') }}
     </td>
   </tr>
+  <tr>
+    <td class="setting-name"><label for="settings_order_id_prefix">{{ t('Callback URL') }}</label></td>
+    <td>
+      <span>{{ this.paymentMethod.getAmazonIPNURL() }}</span>
+      <div class="help-wrapper">
+        {{ widget('XLite\\View\\Tooltip', text=t("Amazon callback URL help"), isImageTag='true', className='help-icon') }}
+      </div>
+    </td>
+  </tr>
 </table>

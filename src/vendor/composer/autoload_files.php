@@ -11,4 +11,5 @@ return array(
     $vendorDir . '/symfony/polyfill-intl-icu/bootstrap.php',
     $vendorDir . '/php-di/php-di/src/DI/functions.php',
     $vendorDir . '/symfony/polyfill-iconv/bootstrap.php',
+    $vendorDir . '/symfony/polyfill-xml/bootstrap.php',
 );

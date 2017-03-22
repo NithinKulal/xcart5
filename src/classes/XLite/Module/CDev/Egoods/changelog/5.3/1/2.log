@@ -1,0 +1,4 @@
+Version 5.3.1.2
+
+Fixes
+2017-03-10 - [Bug] An invalid URL was sent in the invoice for egood download if the module MultiVendor was enabled and configured to operate in the Warehouse mode. #BUG-4655 (Eugene Dementjev) #Egoods #MultiVendor

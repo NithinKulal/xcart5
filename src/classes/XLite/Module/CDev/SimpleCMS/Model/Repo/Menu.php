@@ -770,7 +770,15 @@ class Menu extends \XLite\Model\Repo\ARepo
             $this->getMenusRawData()
         );
 
-        list($data, $quickFlags) = $nestedSetCorrector->recalculateStructure();
+        try {
+            list($data, $quickFlags) = $nestedSetCorrector->recalculateStructure();
+        } catch (\Exception $exception) {
+            \XLite\Logger::getInstance()->log(
+                'Something is wrong in menus nestedSet recalculation: ' . $exception->getMessage(),
+                LOG_ERR
+            );
+            return;
+        }
 
         if ($data) {
             foreach ($data as $catId => $d) {

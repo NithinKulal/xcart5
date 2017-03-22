@@ -431,7 +431,7 @@ class Package extends \XLite\Base\Singleton
      */
     protected function preprocessPendingItems($pendingItems)
     {
-        usort($pendingItems, '\XLite\Core\Package::sortByWeight');
+        usort($pendingItems, [$this, 'sortByWeight']);
 
         return $pendingItems;
     }

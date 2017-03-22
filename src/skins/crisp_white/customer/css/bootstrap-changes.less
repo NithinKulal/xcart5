@@ -638,6 +638,100 @@ div.tabs ul.tabs {
   }
 }
 
+.pager-dropdown-block {
+  cursor: pointer;
+  display: inline-block;
+  padding-bottom: 7px; // hack for glitching hover
+
+  .sort-by-value,
+  .per-page-value {
+    .icon-chevron-down--right;
+    color: @color-text-dark;
+    font-weight: 600;
+  }
+
+  &:hover .display-sort,
+  &:hover .display-per-page {
+    display: block;
+  }
+
+  .display-sort {
+    width: 120%;
+  }
+
+  .display-sort,
+  .display-per-page {
+    .rounded(@border-radius-base);
+    .box-shadow(0 2px 10px 0 rgba(74, 73, 74, 0.2));
+
+    position: absolute;
+    z-index: 1;
+    background-color: #fff;
+    padding: 20px 20px 10px;
+    text-align: center;
+    margin-top: 10px;
+    margin-left: 10px;
+
+    display: none;
+
+    &:before {
+      content: " ";
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 7px 3px 7px;
+      border-color: transparent transparent #fff transparent;
+      position: absolute;
+      margin-left: -7px;
+      top: -3px;
+    }
+
+    li {
+      text-align: left;
+      margin-bottom: @rhythmic-unit;
+    }
+
+    .selected a {
+      color: @color-highlight;
+      cursor: default;
+    }
+  }
+}
+
+.list-pager {
+
+  .flex-display();
+  .align-items(center);
+  .justify-content(space-between);
+
+  padding-bottom: @rhythmic-unit;
+}
+
+.list-pager-bottom {
+  padding-top: @rhythmic-unit;
+  padding-bottom: 0;
+}
+
+.pager-items-total {
+  .sort-box {
+    z-index: 1;
+    position: absolute;
+    left: 0;
+  }
+
+  .per-page-box {
+    .pager-dropdown-block;
+  }
+
+  .per-page-box {
+    margin-left: 16px;
+  }
+
+  .head-h2 + .list-pager {
+    top: (4 * @rhythmic-unit);
+  }
+}
+
 .items-list-products,
 .items-list-orders {
   position: relative;
@@ -660,77 +754,13 @@ div.tabs ul.tabs {
     z-index: 1;
     position: absolute;
     left: 0;
+
+    .pager-dropdown-block;
   }
 
-  .sort-box,
-  .per-page-box {
-    cursor: pointer;
-    display: inline-block;
+  .per-page-box,
+  .sort-box {
     padding-bottom: 20px;
-
-    .sort-by-value,
-    .per-page-value {
-      .icon-chevron-down--right;
-      color: @color-text-dark;
-      font-weight: 600;
-      // &:after {
-      //   .iconfont;
-      //   content: '\e90f';
-      //   vertical-align: bottom;
-      //   margin-left: 5px;
-      // }
-    }
-
-    &:hover .display-sort,
-    &:hover .display-per-page {
-      display: block;
-    }
-
-    .display-sort {
-      width: 120%;
-    }
-
-    .display-sort,
-    .display-per-page {
-      .rounded(@border-radius-base);
-      .box-shadow(0 2px 10px 0 rgba(74, 73, 74, 0.2));
-
-      position: absolute;
-      z-index: 1;
-      background-color: #fff;
-      padding: 20px 20px 10px;
-      text-align: center;
-      margin-top: 10px;
-      margin-left: 10px;
-
-      display: none;
-
-      &:before {
-        content: " ";
-        width: 0;
-        height: 0;
-        border-style: solid;
-        border-width: 0 7px 3px 7px;
-        border-color: transparent transparent #fff transparent;
-        position: absolute;
-        margin-left: -7px;
-        top: -3px;
-      }
-
-      li {
-        text-align: left;
-        margin-bottom: @rhythmic-unit;
-      }
-
-      .selected a {
-        color: @color-highlight;
-        cursor: default;
-      }
-    }
-  }
-
-  .per-page-box {
-    margin-left: 16px;
   }
 
   .list-pager {
@@ -754,10 +784,9 @@ div.tabs ul.tabs {
     }
   }
 
-  .head-h2 + .list-pager {
-    top: (4 * @rhythmic-unit);
-  }
+}
 
+.items-list-products {
   .display-mode-box {
     & > div {
       display: none;

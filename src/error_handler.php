@@ -35,6 +35,6 @@ function showErrorPage($code, $message, $page = LC_ERROR_PAGE_MESSAGE, $prefix =
 }
 
 // Check PHP version before any other operations
-if (!defined('LC_DO_NOT_CHECK_PHP_VERSION') && version_compare(PHP_VERSION, '5.3.0', '<')) {
-    showErrorPage('ERROR_UNSUPPORTED_PHP_VERSION', 'Min allowed PHP version is 5.3.0');
+if (!defined('LC_DO_NOT_CHECK_PHP_VERSION') && version_compare(PHP_VERSION, '5.4.0', '<')) {
+    showErrorPage('ERROR_UNSUPPORTED_PHP_VERSION', 'Min allowed PHP version is 5.4.0');
 }

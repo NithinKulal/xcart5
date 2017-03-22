@@ -99,4 +99,14 @@ class SelectedAttributeValues extends \XLite\View\AView
         return parent::isVisible()
             && $this->getItem()->hasAttributeValues();
     }
+
+    /**
+     * Manage 'change attributes' link on cart page
+     *
+     * @return boolean
+     */
+    protected function isChangeAttributesLinkVisible()
+    {
+        return (bool) $this->getParam(self::PARAM_SOURCE);
+    }
 }

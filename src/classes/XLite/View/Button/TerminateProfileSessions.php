@@ -10,26 +10,9 @@ namespace XLite\View\Button;
 
 /**
  * 'Terminate profile sessions' button widget
- *
- * @ListChild (list="tabs.items", zone="admin", weight="100")
  */
 class TerminateProfileSessions extends \XLite\View\Button\Link
 {
-    /**
-     * Return list of allowed targets
-     *
-     * @return array
-     */
-    public static function getAllowedTargets()
-    {
-        $targets = parent::getAllowedTargets();
-
-        $targets[] = 'profile';
-        $targets[] = 'address_book';
-
-        return $targets;
-    }
-
     /**
      * Get default CSS class name
      *
@@ -40,21 +23,6 @@ class TerminateProfileSessions extends \XLite\View\Button\Link
         return 'action terminate-sessions always-enabled';
     }
 
-
-    /**
-     * Get a list of CSS files required to display the widget properly
-     *
-     * @return array
-     */
-    public function getCSSFiles()
-    {
-        $list = parent::getCSSFiles();
-
-        $list[] = 'profile/terminate_sessions.css';
-
-        return $list;
-    }
-
     /**
      * Get default label
      *
@@ -62,7 +30,7 @@ class TerminateProfileSessions extends \XLite\View\Button\Link
      */
     protected function getDefaultLabel()
     {
-        return 'Terminate profile sessions';
+        return 'Logout this user';
     }
 
     /**

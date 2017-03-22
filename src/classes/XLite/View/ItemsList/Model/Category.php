@@ -56,7 +56,9 @@ class Category extends \XLite\View\ItemsList\Model\Table
      */
     protected function getEmptyListDescription()
     {
-        return static::t('itemslist.admin.category.blank');
+        return $this->isRootCategory()
+            ? static::t('itemslist.admin.category.blank')
+            : static::t('itemslist.admin.subcategory.blank');
     }
 
     /**

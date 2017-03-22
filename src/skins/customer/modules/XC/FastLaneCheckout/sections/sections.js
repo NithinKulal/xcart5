@@ -30,6 +30,7 @@ define(
 
       ready: function() {
         $(this.$el).find('.checkout_fastlane_details_box').removeClass('loading');
+        jQuery('[data-toggle="tooltip"]').tooltip();
       },
 
       methods: {

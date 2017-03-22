@@ -3253,6 +3253,7 @@ ul.shipping-rates li .rate-description {
 
 .checkout-block form.place button.place-order {
   margin: auto;
+  white-space: normal;
 }
 
 .checkout-block form.place button.submitted {

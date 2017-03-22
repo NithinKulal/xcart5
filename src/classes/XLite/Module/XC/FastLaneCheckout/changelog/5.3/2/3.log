@@ -1,0 +1,5 @@
+Version 5.3.2.3
+
+Fixes
+2017-03-02 - [Bug] Replaced the pencil icon used at the step of payment in the shipping address section of Fast Lane checkout in Crisp White skin with a truck icon with a tip. #BUG-4641 (Eugene Dementjev) #Core #RuTranslation #FastLaneCheckout
+2017-02-10 - [Bug] Order confirmation button was displayed incorrectly if a long button text was used. #BUG-4450 (Michael Lipinski) #Core #FastLaneCheckout

@@ -363,7 +363,9 @@ class Order extends \XLite\Model\Repo\ARepo
      */
     public function getMaxOrderNumber()
     {
-        return $this->defineMaxOrderNumberQuery()->getSingleScalarResult();
+        $result = $this->defineMaxOrderNumberQuery()->getSingleResult();
+
+        return empty($result) ? 1 : array_pop($result);
     }
 
     /**
@@ -424,13 +426,14 @@ class Order extends \XLite\Model\Repo\ARepo
      */
     public function defineMaxOrderNumberQuery()
     {
-        return $this->createQueryBuilder()
+        $qb = $this->createQueryBuilder('o', null, true)
             ->select('o.orderNumber')
-            ->andWhere('o INSTANCE OF XLite\Model\Order')
-            ->andWhere('o.orderNumber != :null')
-            ->addOrderBy('o.order_id', 'desc')
-            ->setParameter('null', 'NULL')
+            ->andWhere('o.orderNumber IS NOT NULL')
             ->setMaxResults(1);
+
+        $this->prepareCndOrderBy($qb, ['o.orderNumber', 'DESC']);
+
+        return $qb;
     }
 
     /**
@@ -969,7 +972,7 @@ class Order extends \XLite\Model\Repo\ARepo
             $sort = array($sort);
             $order = array($order);
         }
-        $queryBuilder->addSelect('INTVAL(o.orderNumber) AS int_order_number');
+        $queryBuilder->addSelect('INTVAL(o.orderNumber) AS HIDDEN int_order_number');
 
         foreach ($sort as $key => $sortItem) {
             if (\XLite\View\ItemsList\Model\Order\Admin\Search::SORT_BY_MODE_ID === $sortItem) {

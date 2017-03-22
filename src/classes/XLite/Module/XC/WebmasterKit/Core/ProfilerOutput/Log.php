@@ -99,6 +99,7 @@ HTML;
             'includedFilesTotal' => round($includedFilesTotal / 1024, 3),
         );
 
+        $queries = [];
         foreach ($this->queries as $q => $d) {
             $cnt = count($d['time']);
             $sum = array_sum($d['time']);
@@ -112,6 +113,7 @@ HTML;
             $result['totalQueriesTime'] += $sum;
             $result['totalQueriesCount'] += $cnt;
         }
+        $this->queries = $queries;
 
         $result['execTime'] = number_format($this->timeData['stop_time'] - $this->timeData['start_time'], 4, static::DEC_POINT, static::THOUSANDS_SEP);
         $result['memoryPeak'] = round(memory_get_peak_usage() / 1024 / 1024, 3);

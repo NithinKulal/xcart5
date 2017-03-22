@@ -162,7 +162,6 @@ class Review extends \XLite\View\ItemsList\Model\Table
         $list = parent::getJSFiles();
 
         $list[] = 'modules/XC/Reviews/form_field/input/rating/rating.js';
-        $list[] = 'modules/XC/Reviews/review/buttons.js';
 
         $list = array_merge($list, $this->getProductSelectorWidget()->getJSFiles());
         $list = array_merge($list, $this->getProfileSelectorWidget()->getJSFiles());

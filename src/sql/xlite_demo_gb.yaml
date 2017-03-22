@@ -1,0 +1,48 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Demo store
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Category:
+  - category_id: 1
+    translations:
+      - code: gb
+        name: 'Catalog'
+  - category_id: 2
+    translations:
+      - code: gb
+        name: 'iGoods - Product Filter'
+  - category_id: 3
+    translations:
+      - code: gb
+        name: 'Electronics'
+  - category_id: 4
+    translations:
+      - code: gb
+        name: 'Apparel'
+  - category_id: 5
+    translations:
+      - code: gb
+        name: 'Toys'
+  - category_id: 6
+    translations:
+      - code: gb
+        name: 'Geek toys'
+  - category_id: 7
+    translations:
+      - code: gb
+        name: 'Office Pranks'
+  - category_id: 8
+    translations:
+      - code: gb
+        name: 'Home & office'
+
+\XLite\Model\ProductClassTranslation:
+  - owner: {id: 1}
+    code: gb
+    name: 'Apparel'
+  - owner: {id: 2}
+    code: gb
+    name: 'Mobile phone'

@@ -86,7 +86,7 @@ class Menu extends \XLite\View\Menu\Admin\AAdmin
     protected function getCacheParameters()
     {
         $params = parent::getCacheParameters();
-        $key = array();
+        $key = [];
 
         /** @var \XLite\View\Menu\Admin\LeftMenu\ANodeNotification $item */
         foreach ($this->getItems() as $item) {
@@ -125,24 +125,24 @@ class Menu extends \XLite\View\Menu\Admin\AAdmin
      */
     protected function defineItems()
     {
-        return array(
-            'warning' => array(
+        return [
+            'speedUp' => [
+                static::ITEM_WEIGHT     => 50,
+                static::ITEM_WIDGET     => 'XLite\View\Menu\Admin\LeftMenu\Info\SpeedUp',
+            ],
+            'warning' => [
                 static::ITEM_WEIGHT     => 100,
                 static::ITEM_WIDGET     => 'XLite\View\Menu\Admin\LeftMenu\Info\Warning',
-            ),
-            'lowStock' => array(
+            ],
+            'lowStock' => [
                 static::ITEM_WEIGHT     => 200,
                 static::ITEM_WIDGET     => 'XLite\View\Menu\Admin\LeftMenu\Info\LowStock',
-            ),
-            'upgrade' => array(
+            ],
+            'upgrade' => [
                 static::ITEM_WEIGHT     => 300,
                 static::ITEM_WIDGET     => 'XLite\View\Menu\Admin\LeftMenu\Info\Upgrade',
-            ),
-            'speedUp' => array(
-                static::ITEM_WEIGHT     => 400,
-                static::ITEM_WIDGET     => 'XLite\View\Menu\Admin\LeftMenu\Info\SpeedUp',
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -154,7 +154,7 @@ class Menu extends \XLite\View\Menu\Admin\AAdmin
      */
     protected function prepareItems($items)
     {
-        uasort($items, array($this, 'sortItems'));
+        uasort($items, [$this, 'sortItems']);
         foreach ($items as $index => $item) {
             $item[\XLite\View\Menu\Admin\LeftMenu\ANodeNotification::PARAM_LAST_READ] = $this->getLastReadTimestamp();
 
@@ -193,9 +193,9 @@ class Menu extends \XLite\View\Menu\Admin\AAdmin
      */
     protected function getContainerTagAttributes()
     {
-        $attributes = array(
+        $attributes = [
             'class' => 'notification-menu',
-        );
+        ];
 
         $attributes['data-unread-count'] = $this->getUnreadCount();
         $attributes['data-menu-type'] = 'infoMenuReadTimestamp';

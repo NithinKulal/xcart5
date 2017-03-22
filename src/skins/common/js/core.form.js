@@ -124,8 +124,9 @@ function CommonForm(form)
       form.removeClass('changed');
       form.trigger('state-initial');
     }
-  }
-  var debouncedTriggerStateEvents = _.debounce(triggerStateEvents, 100, true)
+  };
+
+  var debouncedTriggerStateEvents = _.debounce(triggerStateEvents, 100);
 
   var changeHandler = function (event) {
     var obj = event.target || event.srcElement;

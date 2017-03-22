@@ -1,0 +1,4 @@
+Version 5.3.2.2
+
+Fixes
+2017-02-15 - [Bug] Reviewer name was changed if the review was moderated via a popup in the Admin area. Removed the email field, added the field Reviewer name. #BUG-4497 (Sergey Elmanov) #Core #ProductReviews

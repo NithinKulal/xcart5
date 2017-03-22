@@ -15,6 +15,7 @@ define('LC_INCLUDE_ADDITIONAL', true);
 require_once (dirname(__FILE__) . DIRECTORY_SEPARATOR . 'top.inc.php');
 
 \XLite::getInstance()->run(true)->getViewer()->display();
+\XLite\Logger::getInstance()->executePostponedLogs();
 
 echo PHP_EOL;
 

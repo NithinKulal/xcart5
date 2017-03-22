@@ -100,7 +100,7 @@ abstract class Products extends \XLite\Logic\Import\Processor\Products implement
 
         if (is_array($value)) {
             foreach ($value as $name => $attribute) {
-                if ($this->isAttributeRowMultiline($attribute)) {
+                if ($this->isVariantValues($attribute)) {
                     foreach ($attribute as $offset => $line) {
                         foreach ($line as $val) {
                             if (empty($val)) {
@@ -275,6 +275,12 @@ abstract class Products extends \XLite\Logic\Import\Processor\Products implement
      */
     protected function importAttributesColumn(\XLite\Model\Product $model, array $value, array $column)
     {
+        foreach ($value as $k => $v) {
+            if (!$this->isVariantValues($v)) {
+                $value[$k] = array_splice($v, 0, 1);
+            }
+        }
+
         parent::importAttributesColumn($model, $value, $column);
 
         if ($this->multAttributes) {
@@ -282,14 +288,13 @@ abstract class Products extends \XLite\Logic\Import\Processor\Products implement
 
             $variantsAttributes = [];
             foreach ($this->multAttributes as $id => $values) {
-                foreach ($values as $k => $v) {
-                    if (1 === count($v)) {
+                if ($this->isVariantValues($values)) {
+                    foreach ($values as $k => $v) {
                         $variantsAttributes[$k][$id] = array_shift($v);
-
-                    } else {
-                        unset($this->multAttributes[$id]);
-                        break;
                     }
+                } else {
+                    unset($this->multAttributes[$id]);
+                    continue;
                 }
             }
 
@@ -363,6 +368,26 @@ abstract class Products extends \XLite\Logic\Import\Processor\Products implement
 
             $model->assignDefaultVariant();
         }
+    }
+
+    /**
+     * Check if values belong to variant(1 val for each row)
+     *
+     * @param array $values
+     *
+     * @return bool
+     */
+    protected function isVariantValues(array $values)
+    {
+        foreach ($values as $k => $value) {
+            if (!is_array($value) || count($value) > 1 || !array_filter($value, function ($v) {
+                    return $v !== '';
+                })) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**

@@ -345,6 +345,16 @@ abstract class AModel extends \XLite\View\ItemsList\AItemsList
     }
 
     /**
+     * Get update message
+     *
+     * @return string
+     */
+    protected function getUpdateMessage()
+    {
+        return null;
+    }
+
+    /**
      * Create entity
      *
      * @return \XLite\Model\AEntity
@@ -476,6 +486,8 @@ abstract class AModel extends \XLite\View\ItemsList\AItemsList
         }
 
         if (0 < $count) {
+            \XLite\Core\Database::getEM()->flush();
+
             $label = $this->getRemoveMessage($count);
             if ($label) {
                 \XLite\Core\TopMessage::getInstance()->addInfo($label);
@@ -552,6 +564,11 @@ abstract class AModel extends \XLite\View\ItemsList\AItemsList
 
             if (!$result) {
                 $this->processUpdateErrors();
+            } else {
+                $label = $this->getUpdateMessage();
+                if ($label) {
+                    \XLite\Core\TopMessage::getInstance()->addInfo($label);
+                }
             }
 
             $this->processUpdateWarnings();
@@ -845,12 +862,21 @@ abstract class AModel extends \XLite\View\ItemsList\AItemsList
      *
      * @param \XLite\View\FormField\Inline\AInline $inline  Inline field
      * @param string                               $message Message
-     *
-     * @return void
      */
     protected function addErrorMessage(\XLite\View\FormField\Inline\AInline $inline, $message)
     {
         $this->errorMessages[] = $inline->getLabel() . ': ' . $message;
+    }
+
+    /**
+     * Add error message
+     *
+     * @param        $label
+     * @param string $message Message
+     */
+    protected function addPlainErrorMessage($label, $message)
+    {
+        $this->errorMessages[] = ($label ? $label . ': ' : '') . $message;
     }
 
     /**

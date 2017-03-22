@@ -18,3 +18,7 @@ a.external:after {
 a.external:hover:after {
   display: inline-block;
 }
+
+.trial-expired {
+  display: inline-block;
+}

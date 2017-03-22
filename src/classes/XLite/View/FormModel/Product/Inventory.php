@@ -36,7 +36,7 @@ class Inventory extends \XLite\View\FormModel\AFormModel
         $params = ['page' => 'inventory'];
 
         $identity = $this->getDataObject()->default->identity;
-        
+
         return $identity ? array_replace($params, ['product_id' => $identity]) : $params;
     }
 
@@ -67,29 +67,29 @@ class Inventory extends \XLite\View\FormModel\AFormModel
                     'position'  => 200,
                 ],
                 'low_stock_warning_on_product_page' => [
-                    'label'    => static::t('Show low stock warning on product page'),
-                    'type'     => 'XLite\View\FormModel\Type\SwitcherType',
+                    'label'     => static::t('Show low stock warning on product page'),
+                    'type'      => 'XLite\View\FormModel\Type\SwitcherType',
                     'show_when' => [
                         'default' => [
                             'inventory_tracking_status' => '1',
                         ],
                     ],
-                    'position' => 300,
+                    'position'  => 300,
                 ],
                 'low_stock_admin_notification'      => [
-                    'label'    => static::t('Notify administrator if the stock quantity of this product goes below a certain limit'),
-                    'type'     => 'XLite\View\FormModel\Type\SwitcherType',
+                    'label'     => static::t('Notify administrator if the stock quantity of this product goes below a certain limit'),
+                    'type'      => 'XLite\View\FormModel\Type\LowStockNotificationType',
                     'show_when' => [
                         'default' => [
                             'inventory_tracking_status' => '1',
                         ],
                     ],
-                    'position' => 400,
+                    'position'  => 400,
                 ],
                 'low_stock_limit'                   => [
-                    'label'    => static::t('Low limit quantity'),
-                    'type'     => 'XLite\View\FormModel\Type\PatternType',
-                    'pattern'  => [
+                    'label'     => static::t('Low limit quantity'),
+                    'type'      => 'XLite\View\FormModel\Type\PatternType',
+                    'pattern'   => [
                         'alias'      => 'integer',
                         'rightAlign' => false,
                     ],
@@ -98,7 +98,7 @@ class Inventory extends \XLite\View\FormModel\AFormModel
                             'inventory_tracking_status' => '1',
                         ],
                     ],
-                    'position' => 500,
+                    'position'  => 500,
                 ],
             ],
         ];
@@ -118,5 +118,18 @@ class Inventory extends \XLite\View\FormModel\AFormModel
     protected function getViewDataGetterName()
     {
         return 'getInventoryFormModelData';
+    }
+
+    /**
+     * Get a list of CSS files required to display the widget properly
+     *
+     * @return array
+     */
+    public function getCSSFiles()
+    {
+        $list = parent::getCSSFiles();
+        $list[] = 'product/inventory/style.css';
+
+        return $list;
     }
 }

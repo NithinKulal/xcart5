@@ -268,6 +268,7 @@ table.incompatible-modules-list {
 
 .incompatible-list-actions button {
   float: left;
+  padding: 0 25px;
 }
 
 .incompatible-list-actions div.update-trial-notice {
@@ -321,61 +322,52 @@ table.incompatible-modules-list {
   width: 730px;
 }
 
+.alert {
+  padding: 20px;
+  color: #5d503b;
+}
+
+.alert hr {
+  border-top-color: #d8c8ad;
+  opacity: 0.39;
+}
+
 .alert.expired-keys div {
-  font-size: 16px;
-}
-
-.alert.expired-keys ul {
-  margin: 20px 0;
-}
-
-.alert.expired-keys ul li {
-  border-top: #e5e5e5 1px solid;
-  display: table;
-  width: 100%;
-}
-
-.alert.expired-keys ul li:first-child {
-  border: none;
-}
-
-.alert.expired-keys ul li * {
-  padding: 5px 10px;
   font-size: 14px;
+  font-weight: normal;
 }
 
-.alert.expired-keys ul li.header div {
-  font-size: 12px;
-  font-weight: bold;
+.alert.expired-keys table {
+  table-layout: fixed;
+  width: 100%;
+  margin-top: 20px;
 }
 
-.alert.expired-keys ul li div {
-  display: table-cell;
-  vertical-align: middle;
-}
-
-.alert.expired-keys ul li div.key-title {
-  width: 650px;
-}
-
-.alert.expired-keys ul li div.key-exp-date {
-  min-width: 120px;
-  white-space: nowrap;
-}
-
-.alert.expired-keys ul li div.key-url {
-  width: 200px;
-  text-align: right;
+.alert.expired-keys table th,
+.alert.expired-keys table td {
+  line-height: 30px;
 }
 
 .alert.expired-keys .actions {
   min-height: 32px;
-  float: right;
-  text-align: right;
+  text-align: left;
+}
+
+.alert.expired-keys .actions button {
+  padding: 0 24px;
+}
+
+.alert.expired-keys .actions button.regular-main-button {
+  font-weight: 600;
+}
+
+.alert.expired-keys .actions > * {
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .alert.expired-keys .actions .revalidate-keys {
-  padding-right: 10px;
+  padding-left: 20px;
 }
 
 .alert.expired-keys .actions .revalidate-keys button {
@@ -389,21 +381,17 @@ table.incompatible-modules-list {
 }
 
 .alert.expired-keys .actions .revalidate-keys button * {
-  font-size: 12px;
-}
-
-.alert.expired-keys .actions .revalidate-keys button .caption span {
-  text-decoration: underline;
+  font-size: 14px;
 }
 
 .alert.expired-keys .actions .revalidate-keys .progress-state .success,
 .alert.expired-keys .actions .revalidate-keys .progress-state .fail{
-  height: 16px;  
+  height: 14px;
   bottom: 0;  
   margin: auto;
 }
 
 .alert.expired-keys .actions .revalidate-keys .progress-state .success .fa,
 .alert.expired-keys .actions .revalidate-keys .progress-state .fail .fa{
-  font-size: 16px;
+  font-size: 14px;
 }

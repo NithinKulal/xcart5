@@ -53,9 +53,7 @@ abstract class I18n extends \XLite\Model\Repo\ARepo
             $alias = $this->getMainAlias($queryBuilder);
         }
 
-        if (!isset($code)
-            && \XLite\Logic\Import\Importer::getLanguageCode()
-        ) {
+        if (!isset($code) && \XLite\Logic\Import\Importer::getLanguageCode()) {
             $code = \XLite\Logic\Import\Importer::getLanguageCode();
         }
 

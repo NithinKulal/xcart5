@@ -219,9 +219,9 @@ class Mediator extends \XLite\Base\Singleton
     /**
      * Handle exception
      *
-     * @param \Exception $exception Exception
+     * @param \Exception|\Error $exception Exception
      */
-    public function handleException(\Exception $exception)
+    public function handleException($exception)
     {
         $message = 'Exception: ' . $exception->getMessage();
         $backTrace = $this->getBackTrace(2, $exception->getTrace());

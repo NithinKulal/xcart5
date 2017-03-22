@@ -3,7 +3,9 @@
  #}
 
 <div class="{{ this.getDivStyle() }}" data-object-id="{{ this.getObjectId() }}">
-  <input type="checkbox" name="{{ this.getName() }}[delete]" v-model="{{ this.getVModel() }}.delete" value="1" class="input-delete" />
+  {% if this.isRemovable() %}
+    <input type="checkbox" name="{{ this.getName() }}[delete]" v-model="{{ this.getVModel() }}.delete" value="1" class="input-delete" />
+  {% endif %}
   {% if this.isMultiple() %}
     <input type="hidden" name="{{ this.getName() }}[position]" v-model="{{ this.getVModel() }}.position" value="{{ this.getPosition() }}" class="input-position" />
   {% endif %}

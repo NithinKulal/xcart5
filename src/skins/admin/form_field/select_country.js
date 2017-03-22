@@ -9,52 +9,47 @@
 
 function StateSelector(countrySelectorId, stateSelectorId, stateInputId)
 {
-  var o = this;
-
-  if (stateSelectorId) {
+    this.countrySelectBox = jQuery('#' + countrySelectorId);
     this.stateSelectBox = jQuery('#' + stateSelectorId);
-
-    if (this.stateSelectBox.length) {
-      this.stateSelectBoxValue = this.stateSelectBox.val();
-
-      this.stateSelectBox.change(
-        function(event) {
-          return o.changeState(this.value);
-        }
-      );
-
-      this.stateSelectBox.getParentBlock = function() {
-        return o.getParentBlock(this);
-      }
-    }
-  }
-
-  if (stateInputId) {
     this.stateInputBox = jQuery('#' + stateInputId);
 
-    if (this.stateInputBox.length) {
-      this.stateInputBoxValue = this.stateInputBox.val();
-
-      this.stateInputBox.getParentBlock = function() {
-        return o.getParentBlock(this);
-      }
+    if (this.stateSelectBox.length == 0) {
+        return;
     }
-  }
 
-  if (countrySelectorId) {
-    this.countrySelectBox = jQuery('#' + countrySelectorId);
+    // Event handlers
+    var o = this;
 
-    if (this.countrySelectBox.length) {
-      this.countrySelectBox.change(
+    this.countrySelectBox.change(
         function(event) {
-          return o.changeCountry(this.value);
+            return o.changeCountry(this.value);
         }
-      );
+    );
 
-      this.countrySelectBox.change();
+    this.stateSelectBox.change(
+        function(event) {
+            return o.changeState(this.value);
+        }
+    );
+
+    this.stateSelectBox.getParentBlock = function() {
+        return o.getParentBlock(this);
     }
-  }
+
+    this.stateInputBox.getParentBlock = function() {
+        return o.getParentBlock(this);
+    }
+
+    this.countrySelectBox.change();
+
+    // Re-initialize state selector's CommonElement object initial value
+    var elm = new CommonElement(this.stateSelectBox[0]);
+    elm.bindElement(this.stateSelectBox[0]);
+    elm.saveValue();
 }
+
+// used in vue.js components to track change (because Vue doesn't listens for JQuery change)
+StateSelector.sendNativeChangeOnAddStates = false;
 
 StateSelector.prototype.countrySelectBox = null;
 StateSelector.prototype.stateSelectBox = null;
@@ -63,104 +58,108 @@ StateSelector.prototype.stateSavedValue = null;
 
 StateSelector.prototype.getParentBlock = function(selector)
 {
-  var block = selector.closest('li');
+    var block = selector.closest('li');
 
-  if (!block.length) {
-    block = selector.closest('div');
-  }
-
-  return block;
-}
-
-StateSelector.prototype.changeState = function(state)
-{
-  if (this.stateInputBox) {
-    if (-1 == state) {
-      this.stateInputBox.getParentBlock().show();
-    } else {
-      this.stateInputBox.getParentBlock().hide();
+    if (!block.length) {
+        block = selector.closest('div');
     }
-  }
-}
+
+    return block;
+};
 
 StateSelector.prototype.changeCountry = function(country)
 {
-  if (this.stateSelectBox) {
-    if (!country) {
-      this.removeOptions();
-      this.stateSelectBox.getParentBlock().hide();
-      this.stateInputBox.getParentBlock().hide();
+    if (this.getParentBlock(this.countrySelectBox).length) {
+        if (statesList[country]) {
 
-    } else if (statesList[country]) {
-      this.removeOptions();
-      this.addStates(statesList[country]);
+            this.removeOptions();
+            this.addStates(statesList[country]);
 
-      this.stateSelectBox.getParentBlock().show();
-      this.stateSelectBox.change();
+            this.stateSelectBox.getParentBlock().show();
+            this.stateInputBox.getParentBlock().hide();
 
-    } else {
-      this.stateSelectBox.getParentBlock().hide();
-      this.stateInputBox.getParentBlock().show();
+        } else {
+
+            this.stateSelectBox.getParentBlock().hide();
+            this.stateInputBox.getParentBlock().show();
+        }
     }
-  }
-}
+};
+
+StateSelector.prototype.changeState = function(state) {};
 
 StateSelector.prototype.removeOptions = function()
 {
-  if (this.stateSelectBox) {
-    var s = this.stateSelectBox.get(0);
+    var selectElement = this.stateSelectBox.get(0);
 
-    if (this.stateSelectBox.val()) {
-      this.stateSavedValue = this.stateSelectBox.val();
+    if (selectElement) {
+        // remember value to be able to restore it in addStates()
+        if (this.stateSelectBox.val()) {
+            this.stateSavedValue = this.stateSelectBox.val();
+        }
+
+        var selectOneOption = selectElement.querySelector('[data-select-one]');
+
+        if (selectOneOption) {
+            var clonedSelectOneOption = selectOneOption.cloneNode(true);
+        }
+
+        // quickly remove all options and optgroups
+        while (selectElement.lastChild) {
+            selectElement.removeChild(selectElement.lastChild);
+        }
+
+        if (clonedSelectOneOption) {
+            selectElement.appendChild(clonedSelectOneOption);
+        }
     }
-
-    jQuery(s).find('optgroup').remove();
-    for (var i = s.options.length - 1; i >= 0; i--) {
-      s.options[i] = null;
-    }
-  }
-}
-
-StateSelector.prototype.addDefaultOptions = function()
-{
-  if (this.stateSelectBox) {
-    this.stateSelectBox.get(0).options[0] = new Option(core.t('Select one'), '');
-    // this.stateSelectBox.get(0).options[1] = new Option('Other', '-1');
-  }
-}
+};
 
 StateSelector.prototype.addStates = function(states)
 {
-  if (this.stateSelectBox) {
-    this.addDefaultOptions();
+    var selectElement = this.stateSelectBox.get(0);
 
-    var s = this.stateSelectBox.get(0);
-    var added = s.options.length;
-    var i = 0;
-
-    if (states) {
+    if (selectElement && states) {
         for (var id in states) {
-            if (!states[id].label) {
-              s.options[i + added] = new Option(states[id].name, states[id].key);
-            }else{
-                var optgroupValues = states[id];
-                var optgroup = jQuery('<optgroup/>');
-                optgroup.attr('label', optgroupValues['label']);
-                for (var i = 0; i < optgroupValues['options'].length; i++) {
-                  optgroup.append('<option value="' + optgroupValues['options'][i].key + '">' + optgroupValues['options'][i].name + '</option>');
-                };
-                jQuery(s).append(optgroup)
-            };
-            i++;
+            if (states.hasOwnProperty(id)) {
+                var child = !states[id].label
+                    ? this.createOption(states[id].name, states[id].key)
+                    : this.createOptGroup(states[id]);
+
+                selectElement.appendChild(child);
+            }
         }
     }
 
-    if (this.stateSavedValue) {
-      this.stateSelectBox.val(this.stateSavedValue);
+    // Try to restore value
+    this.stateSelectBox.val(this.stateSavedValue);
+
+    // If unsuccessful, choose the first available option
+    if (!this.stateSelectBox.val() && this.stateSelectBox.get(0).options.length > 0) {
+        this.stateSelectBox.val(this.stateSelectBox.get(0).options[0].value);
     }
-  }
-}
+};
+
+StateSelector.prototype.createOption = function (text, value) {
+    var option = document.createElement("option");
+    option.text = text;
+    option.value = value;
+    return option;
+};
+
+StateSelector.prototype.createOptGroup = function (group) {
+    var optGroup = document.createElement("optgroup");
+    optGroup.label = group.label;
+
+    for (var i = 0; i < group.options.length; i++) {
+        var option = this.createOption(group.options[i].name, group.options[i].key);
+        optGroup.appendChild(option);
+    }
+
+    return optGroup;
+};
 
 jQuery(document).ready(function () {
-  UpdateStatesList();
+    UpdateStatesList();
 });
+

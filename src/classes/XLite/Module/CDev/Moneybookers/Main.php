@@ -60,7 +60,7 @@ abstract class Main extends \XLite\Module\AModule
      */
     public static function getBuildVersion()
     {
-        return '3';
+        return '4';
     }
 
     /**
@@ -91,5 +91,18 @@ abstract class Main extends \XLite\Module\AModule
     public static function getModuleType()
     {
         return static::MODULE_TYPE_PAYMENT;
+    }
+
+    public static function logDebug($message)
+    {
+        $logLevel = (bool) \XLite::getInstance()->getOptions(
+            array('log_details', 'level')
+        );
+
+        if (intval($logLevel) === LOG_DEBUG) {
+            return;
+        }
+
+        \XLite\Logger::logCustom('skrill_debug', $message);
     }
 }

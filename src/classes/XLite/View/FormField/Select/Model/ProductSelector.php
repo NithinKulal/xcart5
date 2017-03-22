@@ -88,4 +88,22 @@ class ProductSelector extends \XLite\View\FormField\Select\Model\Selector
     {
         return $this->getParam(static::PARAM_NAME) . '_text';
     }
+
+    /**
+     * Prepare request data (typecasting)
+     *
+     * @param mixed $value Value
+     *
+     * @return mixed
+     */
+    public function prepareRequestData($value)
+    {
+        $value = parent::prepareRequestData($value);
+
+        if (is_numeric($value)) {
+            return \XLite\Core\Database::getRepo('XLite\Model\Product')->find($value);
+        }
+
+        return $value;
+    }
 }

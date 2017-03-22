@@ -43,10 +43,6 @@
 
   {## buttons *#}
 
-  {% if not (this.isAvailableHTTPS() and this.isValidSSL()) %}
-    {{ widget('\\XLite\\View\\Button\\Regular', label='Purchase SSL certificate', jsCode='window.open(\'' ~ this.getPurchaseURL() ~ '\',\'_blank\')', style='regular-main-button action') }}
-  {% endif %}
-
   {% if this.areButtonsEnabled() %}
 
     {% if not this.isEnabledHTTPS() %}
@@ -97,4 +93,7 @@
     </p>
   {% endif %}
 
+  {% if not (this.isAvailableHTTPS() and this.isValidSSL()) %}
+    {{ widget('\\XLite\\View\\Button\\Regular', label='Purchase SSL certificate', jsCode='window.open(\'' ~ this.getPurchaseURL() ~ '\',\'_blank\')', style='regular-main-button action') }}
+  {% endif %}
 </div>

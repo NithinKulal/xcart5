@@ -8,7 +8,7 @@
 
 namespace XLite\View\ItemsList;
 
-use \XLite\Logic\BannerRotation\Processor;
+use XLite\View\FormField\FileUploader\AFileUploader;
 
 /**
  * Coupons items list
@@ -54,21 +54,25 @@ class BannerRotationImages extends \XLite\View\ItemsList\Model\Table
      */
     protected function defineColumns()
     {
-        return array(
-            'image' => array(
-                static::COLUMN_NAME         => static::t('Image'),
-                static::COLUMN_LINK         => 'image',
-                static::COLUMN_CLASS        => 'XLite\View\FormField\Inline\FileUploader\Image',
-                static::COLUMN_MAIN         => true,
-                static::COLUMN_ORDERBY      => 100,
-            ),
-            'link' => array(
-                static::COLUMN_NAME         => static::t('Link'),
-                static::COLUMN_LINK         => 'link',
-                static::COLUMN_CLASS        => 'XLite\View\FormField\Inline\Input\Text',
-                static::COLUMN_ORDERBY      => 200,
-            ),
-        );
+        return [
+            'image' => [
+                static::COLUMN_NAME    => static::t('Image'),
+                static::COLUMN_LINK    => 'image',
+                static::COLUMN_CLASS   => 'XLite\View\FormField\Inline\FileUploader\Image',
+                static::COLUMN_PARAMS  => [
+                    AFileUploader::PARAM_REQUIRED     => true,
+                    AFileUploader::PARAM_IS_REMOVABLE => false,
+                ],
+                static::COLUMN_MAIN    => true,
+                static::COLUMN_ORDERBY => 100,
+            ],
+            'link'  => [
+                static::COLUMN_NAME    => static::t('Link'),
+                static::COLUMN_LINK    => 'link',
+                static::COLUMN_CLASS   => 'XLite\View\FormField\Inline\Input\Text',
+                static::COLUMN_ORDERBY => 200,
+            ],
+        ];
     }
 
     /**
@@ -95,7 +99,7 @@ class BannerRotationImages extends \XLite\View\ItemsList\Model\Table
 
         return $countOnly
             ? $repo->count()
-            : $repo->findBy(array(), array('position' => 'ASC'));
+            : $repo->findBy([], ['position' => 'ASC']);
     }
 
     /**
@@ -169,9 +173,7 @@ class BannerRotationImages extends \XLite\View\ItemsList\Model\Table
     }
 
     /**
-     * Get panel class
-     *
-     * @return \XLite\View\Base\FormStickyPanel
+     * @inheritdoc
      */
     protected function getPanelClass()
     {

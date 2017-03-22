@@ -3,7 +3,7 @@
  #}
 
 {% if this.getTopInlineJSCode() %}
-  <script type="text/javascript">{{ this.getTopInlineJSCode() }}</script>
+  <script type="text/javascript">{{ this.getTopInlineJSCode()|raw }}</script>
 {% endif %}
 
 {% include this.getDir() ~ '/header.twig' %}
@@ -25,5 +25,5 @@
 {% include this.getDir() ~ '/footer.twig' %}
 
 {% if this.getBottomInlineJSCode() %}
-  <script type="text/javascript">{{ this.getBottomInlineJSCode() }}</script>
+  <script type="text/javascript">{{ this.getBottomInlineJSCode()|raw }}</script>
 {% endif %}

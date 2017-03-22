@@ -207,7 +207,9 @@ class Marketplace extends \XLite\Upgrade\Entry\Module\AModule
      */
     public function getPackSize()
     {
-        return $this->getModuleForUpgrade()->getPackSize();
+        return $this->getModuleForUpgrade()
+            ? $this->getModuleForUpgrade()->getPackSize()
+            : 0;
     }
 
     /**
@@ -474,9 +476,14 @@ class Marketplace extends \XLite\Upgrade\Entry\Module\AModule
         return $this->getModule($this->moduleInfoForUpgrade);
     }
 
-    public function isValid()
+    /**
+     * @param boolean $checkForErrors
+     *
+     * @return boolean
+     */
+    public function isValid($checkForErrors = true)
     {
-        return parent::isValid()
+        return parent::isValid($checkForErrors)
             && $this->getModuleForUpgrade();
     }
 

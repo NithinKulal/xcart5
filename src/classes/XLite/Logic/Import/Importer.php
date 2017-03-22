@@ -155,7 +155,23 @@ class Importer extends \XLite\Base
     {
         \XLite\Core\Database::getRepo('XLite\Model\TmpVar')->setVar(static::getImportCancelFlagVarName(), true);
         \XLite\Core\Database::getRepo('XLite\Model\TmpVar')->setVar(static::getImportUserBreakFlagVarName(), false);
+
+        $state = \XLite\Core\Database::getRepo('XLite\Model\TmpVar')->getEventState(static::getEventName());
+        \XLite\Core\Session::getInstance()->lastCancelledEventState = $state;
+
         \XLite\Core\Database::getRepo('XLite\Model\TmpVar')->removeEventState(static::getEventName());
+    }
+
+    /**
+     * Enable categories structure correction for this import
+     */
+    public function enableCategoriesStructureCorrection()
+    {
+        if (!isset($this->getOptions()->commonData)) {
+            $this->getOptions()->commonData = [];
+        }
+
+        $this->getOptions()->commonData['correctCategoriesAllowed'] = true;
     }
 
     /**

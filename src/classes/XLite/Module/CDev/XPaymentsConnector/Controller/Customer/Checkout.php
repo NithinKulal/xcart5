@@ -341,7 +341,7 @@ class Checkout extends \XLite\Controller\Customer\Checkout implements \XLite\Bas
 
             $lastTransaction = $transactions->first();
 
-            if ($lastTransaction->isXpc()) {
+            if ($lastTransaction && $lastTransaction->isXpc()) {
                 $order->setPaymentStatusByTransaction($lastTransaction);
 
                 $lastTransaction->setDataCell('xpc_session_id', '', null, 'C');

@@ -65,7 +65,7 @@ class CacheManagementActions extends \XLite\View\AView
                 'view'          => '\XLite\View\Button\SimpleLink',
                 'viewParams'    => [
                     \XLite\View\Button\AButton::PARAM_LABEL => static::t('Start'),
-                    \XLite\View\Button\AButton::PARAM_STYLE => 'always-enabled regular-main-button regular-button',
+                    \XLite\View\Button\AButton::PARAM_STYLE => 'always-enabled regular-main-button btn',
                     \XLite\View\Button\Link::PARAM_LOCATION => $this->buildURL('cache_management', 'rebuild'),
                     \XLite\View\Button\Regular::PARAM_JS_CODE => sprintf('if (confirm("' . static::t("Are you sure?") .'")) self.location="%s";', $this->buildURL('cache_management', 'rebuild')),
                 ],
@@ -77,7 +77,7 @@ class CacheManagementActions extends \XLite\View\AView
                 'view'          => '\XLite\View\Button\SimpleLink',
                 'viewParams'    => [
                     \XLite\View\Button\AButton::PARAM_LABEL => static::t('Start'),
-                    \XLite\View\Button\AButton::PARAM_STYLE => 'always-enabled regular-button',
+                    \XLite\View\Button\AButton::PARAM_STYLE => 'btn always-enabled regular-button',
                     \XLite\View\Button\Link::PARAM_LOCATION => $this->buildURL('cache_management', 'quick_data'),
                 ],
             ],
@@ -87,7 +87,7 @@ class CacheManagementActions extends \XLite\View\AView
                 'view'          => '\XLite\View\Button\SimpleLink',
                 'viewParams'    => [
                     \XLite\View\Button\AButton::PARAM_LABEL => static::t('Start'),
-                    \XLite\View\Button\AButton::PARAM_STYLE => 'always-enabled regular-button',
+                    \XLite\View\Button\AButton::PARAM_STYLE => 'btn always-enabled regular-button',
                     \XLite\View\Button\Link::PARAM_LOCATION => $this->buildURL('cache_management', 'clear_cache'),
                 ],
             ],
@@ -97,7 +97,7 @@ class CacheManagementActions extends \XLite\View\AView
                 'view'          => '\XLite\View\Button\SimpleLink',
                 'viewParams'    => [
                     \XLite\View\Button\AButton::PARAM_LABEL => static::t('Start'),
-                    \XLite\View\Button\AButton::PARAM_STYLE => 'always-enabled regular-button',
+                    \XLite\View\Button\AButton::PARAM_STYLE => 'btn always-enabled regular-button',
                     \XLite\View\Button\Link::PARAM_LOCATION => $this->buildURL('cache_management', 'rebuild_view_lists'),
                 ],
             ]

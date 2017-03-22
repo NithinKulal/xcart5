@@ -1,0 +1,5 @@
+Version 5.3.2.2
+
+Fixes
+2017-03-03 - [Bug] Fatal error when using an Amazon Pay login with the module MailChimp configured. #BUG-4634 (Eugene Dementjev) #PayWithAmazon #MailChimp
+2017-02-24 - [Bug] A fatal error occurred during the upload of orders if the orders contained products that had been removed. #BUG-4602 (Michael Lipinski) #MailChimp

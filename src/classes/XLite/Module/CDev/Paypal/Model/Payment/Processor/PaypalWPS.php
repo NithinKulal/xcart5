@@ -199,10 +199,6 @@ class PaypalWPS extends \XLite\Model\Payment\Base\WebBased
     {
         parent::processReturn($transaction);
 
-        if ($transaction->hasTtlForIpn()) {
-            $transaction->removeTtlForIpn();
-        }
-
         if (\XLite\Core\Request::getInstance()->cancel) {
             if ($this->api->isTransactionCancellable($transaction)) {
                 $this->setDetail(

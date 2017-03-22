@@ -302,7 +302,6 @@ class Reviews extends \XLite\Logic\Import\Processor\AProcessor
      */
     protected function importEmailColumn(\XLite\Module\XC\Reviews\Model\Review $model, $value, array $column)
     {
-        $model->setEmail($value);
         if ($value) {
             $result = \XLite\Core\Database::getRepo('XLite\Model\Profile')->findByLogin($value);
             if ($result) {

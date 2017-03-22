@@ -241,7 +241,9 @@ abstract class FileManager extends \Includes\Utils\AUtils
      */
     public static function mkdir($dir, $mode = 0755)
     {
-        return static::isOperateable($dir) ? mkdir($dir, $mode) : false;
+        return static::isOperateable($dir) && !static::isDir($dir)
+            ? mkdir($dir, $mode)
+            : false;
     }
 
     /**
@@ -392,7 +394,7 @@ abstract class FileManager extends \Includes\Utils\AUtils
     public static function write($path, $data, $flags = 0, $mode = 0644)
     {
         return static::mkdirRecursive(static::getDir($path))
-            && (static::isFileWriteable($path) || static::isOperateable($path))
+            && (static::isFileWriteable($path) || (!static::isExists($path) && static::isOperateable($path)))
             && false !== file_put_contents($path, $data, $flags);
     }
 

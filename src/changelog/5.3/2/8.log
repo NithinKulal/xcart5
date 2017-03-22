@@ -1,0 +1,57 @@
+Version 5.3.2.8
+
+Fixes
+2017-03-16 - [Bug] Duplicate SKUs could be created for variants. #BUG-4682 (Sergey Elmanov) #Core #ProductVariants
+2017-03-13 - [Bug] Attribute options could not be removed. #BUG-4673 (Maxim Kuznetsov) #Core
+2017-03-10 - [Bug] Improvement for the image import process with the module Amazon S3 Images enabled. #BUG-4636 (Sergey Elmanov) #Core #AmazonS3Images
+2017-03-09 - [Bug] When importing a product in a UK distribution based store, errors were generated and product attributes got erased. #BUG-4627 (Sergey Elmanov) #Core
+2017-03-06 - [Bug] Fixed some W3C errors. #BUG-4406 (Maxim Kuznetsov) #Core #CrispWhiteSkin
+2017-03-06 - [Bug] Checkout could not be completed with certain address states. #BUG-4645 (Eugene Dementjev) #Core
+2017-03-03 - [Bug] JS error in IE when using custom galleries on the product page. #BUG-4631 (Eugene Dementjev) #Core
+2017-03-03 - [Bug] Bullet points in bulleted lists were not displayed in the news. #BUG-4409 (Michael Lipinski) #Core
+2017-03-02 - [Bug] Replaced the pencil icon used at the step of payment in the shipping address section of Fast Lane checkout in Crisp White skin with a truck icon with a tip. #BUG-4641 (Eugene Dementjev) #Core #RuTranslation #FastLaneCheckout
+2017-02-28 - [Bug] With a large number of categories in a store, the page for adding/editing a product exhibited slow load times due to the absense of runtime cache. #BUG-4625 (Eugene Dementjev) #Core
+2017-02-28 - [Bug] When setting the default customer address, the default state field value could not be set to "select one". #BUG-4633 (Eugene Dementjev) #Core
+2017-02-28 - [Bug] The logic for adding to cart of a product with an out-of-stock attribute was different from that for adding a product with an out-of-stock variant. #BUG-4393 (Sergey Elmanov) #Core
+2017-02-28 - [Bug] Removed the Required checkbox for the State field of Address fields. Now the State field is treated as required if the country has states and optional if the country does not have states. #BUG-4303 (Michael Lipinski) #Core
+2017-02-24 - [Bug] With the setting 'Force customer to choose product options before adding a product to cart' is set to 'On category and product', if a product with options was added via AOM, the link for choosing product options did not appear. #BUG-4621 (Eugene Dementjev) #Core
+2017-02-24 - [Bug] Warning: usort() expects parameter 2 to be a valid callback, non-static method XLite\Core\Package::sortByWeight(). Fixed. #BUG-4502 (Sergey Elmanov) #Core
+2017-02-24 - [Bug] If the Maximum order quantity value was decreased to the next level (for example, from 10 to 5), the quantity of ordered items in the orders was also decreased if the product quantity specified in the order was larger than the new Maximum order quantity limit. #BUG-4501 (Sergey Elmanov) #Core
+2017-02-24 - [Bug] During the calculation of quick data, in the xlite_manus table the fields lpos/rpos/depth were reset to null. #BUG-4616 (Michael Lipinski) #Core #SimpleCMS
+2017-02-22 - [Bug] The upload add-on feature did not work. #BUG-4584 (Eugene Dementjev) #Core
+2017-02-22 - [Bug] The add to cart confirmation message with the PayPal button was not consolidated into one. #BUG-4599 (Michael Lipinski) #Core
+2017-02-22 - [Bug] GD version was determined incorrectly on the Environment settings page. #BUG-4551 (Michael Lipinski) #Core
+2017-02-22 - [Bug] During the editing of a product not related to changing the product arrival date, a wrong arrival date was recorded. #BUG-4539 (Sergey Elmanov) #Core
+2017-02-21 - [Bug] When adding a product with variants to an order, the price of the default variant was used. #BUG-4545 (Michael Lipinski) #Core
+2017-02-21 - [Bug] In Firefox, after a customer signed in, they remained on the sign-in page. #BUG-4546 (Michael Lipinski) #Core
+2017-02-21 - [Bug] If an order was edited by an admin, PO number did not appear in the invoices. #BUG-4540 (Michael Lipinski) #Core
+2017-02-21 - [Bug] Fatal error if selecting a non-image file in the file uploader field on an item list. #BUG-4601 (Sergey Elmanov) #Core
+2017-02-21 - [Bug] During an upgrade, the option use_dynamic_image_resizing got activated. #BUG-4519 (Sergey Elmanov) #Core
+2017-02-21 - [Bug] Changed the text to be displayed on a subcategories page for when there are no subcategories. #BUG-4554 (Michael Lipinski) #Core #RuTranslation
+2017-02-21 - [Bug] CSS classed in Crisp White were tied to product list and order list. #BUG-4510 (Michael Lipinski) #Core #CrispWhiteSkin
+2017-02-21 - [Bug] After importing orders, the order number for the next order created by a customer was assigned incorrectly. #BUG-4534 (Sergey Elmanov) #Core
+2017-02-20 - [Bug] Wrong text for the Order shipped setting on the email notifications settings page. #BUG-4456 (Michael Lipinski) #Core #RuTranslation
+2017-02-20 - [Bug] Wrong alignment of items in the account menu. #BUG-4598 (Michael Lipinski) #Core
+2017-02-20 - [Bug] PDF invoice layout issues if the admin email address was too long. #BUG-4596 (Michael Lipinski) #Core
+2017-02-20 - [Bug] Layout issues in the price block of Product Filter in Crisp White skin if the currency name was longer than $. #BUG-4573 (Michael Lipinski) #Core
+2017-02-17 - [Bug] When using Fast Lane checkout in IE 11, customer's billing address fields were not displayed. #BUG-4595 (Michael Lipinski) #Core
+2017-02-17 - [Bug] In IE 11, the product page content was offset to the right. #BUG-4542 (Michael Lipinski) #Core
+2017-02-17 - [Bug] Added symfony/polyfill-xml for utf8_encode function. #BUG-4597 (Michael Lipinski) #Core
+2017-02-16 - [Bug] A blank banner could be created for the main page. #BUG-4470 (Sergey Elmanov) #Core
+2017-02-15 - [Bug] When editing an order in AOM, modifications of product options were not saved if the number of options the product being edited had was larger than 6. #BUG-4583 (Michael Lipinski) #Core
+2017-02-15 - [Bug] Shipping dimensions measurement unit was displayed incorrectly on the product page. #BUG-4522 (Sergey Elmanov) #Core
+2017-02-15 - [Bug] Reviewer name was changed if the review was moderated via a popup in the Admin area. Removed the email field, added the field Reviewer name. #BUG-4497 (Sergey Elmanov) #Core #ProductReviews
+2017-02-15 - [Bug] Fixed the wrong value of the language variable Categories processed. #BUG-4515 (Michael Lipinski) #Core
+2017-02-14 - [Bug] The field Role is not required for admin profile. Removed the asterisk displayed next to this field which showed that the field was a required one and made the field editable for existing profiles. #BUG-4498 (Michael Lipinski) #Core
+2017-02-14 - [Bug] Added polyfill for the function getallheaders(), which is absent if using an nginx server. #BUG-4499 (Sergey Elmanov) #Core
+2017-02-13 - [Bug] Layout issues on the language labels page. #BUG-4475 (Sergey Elmanov) #Core
+2017-02-10 - [Bug] Order confirmation button was displayed incorrectly if a long button text was used. #BUG-4450 (Michael Lipinski) #Core #FastLaneCheckout
+2017-02-10 - [Bug] Incorrect redirect when using password reset urls with the clean urls feature enabled. #BUG-4529 (Michael Lipinski) #Core
+2017-02-09 - [Bug] With cleanURLs disabled, vendors could see a link to the SEO settings page. #BUG-4468 (Michael Lipinski) #Core #MultiVendor
+2017-02-09 - [Bug] Layout issues in PDF invoice when using multicurrency. #BUG-4481 (Sergey Elmanov) #Core #MultiCurrency
+2017-02-06 - [Bug] With the module MultiVendor enabled, the speed up your store notification was not displayed when the Agregate CSS files or Aggregate JS files or Use widget cache options were disabled. #BUG-4437 (Sergey Elmanov) #Core #MultiVendor
+2017-02-02 - [Bug] When importing any entities, the 'Categories processed' step was run. Fixed. #BUG-4472 (Sergey Elmanov) #Core
+2017-02-02 - [Bug] Fixed some layout issues on the Email notifications page in the Admin area. #BUG-4476 (Sergey Elmanov) #Core
+2017-01-30 - [Bug] With the module Multicurrency enabled, order input fields in the Admin area were always displayed using the current store currency. #BUG-4431 (Michael Lipinski) #Core
+2017-01-17 - [Bug] Pilibaba payment method was shown as available on the checkout page even when unsupported currency was used. Fixed. #BUG-4373 (Michael Lipinski) #Core #Pilibaba
+2017-01-16 - [Bug] Product search issues in the Admin area: a product could not be found if its name contained the & character. #BUG-4422 (Maxim Kuznetsov) #Core

@@ -8,7 +8,9 @@
 
 namespace XLite\View\Menu\Admin\LeftMenu\Info;
 
-
+/**
+ * SpeedUp
+ */
 class SpeedUp extends \XLite\View\Menu\Admin\LeftMenu\ANodeNotification
 {
     /**

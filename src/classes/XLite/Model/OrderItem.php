@@ -390,12 +390,28 @@ class OrderItem extends \XLite\Model\Base\SurchargeOwner
      */
     public function setAmount($amount)
     {
+        if (($amount !== $this->getAmount() && !\XLite::isAdminZone()) || !$this->getOrder() || $this->isOrderOpen()) {
+            $amount = $this->processAmount($amount);
+        }
+
+        $this->amount = $amount;
+    }
+
+    /**
+     * Process amount value before set
+     *
+     * @param $amount
+     *
+     * @return mixed
+     */
+    public function processAmount($amount)
+    {
         if ($this->getObject()) {
             $amount = max($amount, $this->getObject()->getMinPurchaseLimit());
             $amount = min($amount, $this->getObject()->getMaxPurchaseLimit());
         }
 
-        $this->amount = $amount;
+        return $amount;
     }
 
     /**

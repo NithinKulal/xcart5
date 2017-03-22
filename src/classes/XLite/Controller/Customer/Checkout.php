@@ -995,6 +995,8 @@ class Checkout extends \XLite\Controller\Customer\Cart
             if ($equal) {
                 $profile->setShippingAddress($equal);
                 $noAddress = false;
+
+                $address = $equal;
             }
 
             if ($noAddress || (!$address->getIsWork() && !$address->isEqualAddress($new))) {
@@ -1107,6 +1109,7 @@ class Checkout extends \XLite\Controller\Customer\Cart
 
             if ($equal) {
                 $profile->setBillingAddress($equal);
+                $address = $equal;
             }
 
             if (!$address || (!$address->getIsWork() && !$address->isEqualAddress($new))) {

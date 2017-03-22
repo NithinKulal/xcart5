@@ -18,7 +18,7 @@ abstract class Logger extends \XLite\Logger implements \XLite\Base\IDecorator
     /**
      * @inheritdoc
      */
-    public function log($message, $level = LOG_DEBUG, array $trace = [])
+    public function log($message, $level = LOG_DEBUG, $trace = [])
     {
         parent::log($message, $level, $trace);
 

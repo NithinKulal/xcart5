@@ -44,6 +44,18 @@ class Categories extends \XLite\Logic\Import\Processor\AProcessor
         return \XLite\Core\Database::getRepo('XLite\Model\Category');
     }
 
+    /**
+     * Initialize processor
+     *
+     * @return void
+     */
+    protected function initialize()
+    {
+        parent::initialize();
+
+        $this->importer->enableCategoriesStructureCorrection();
+    }
+
     // {{{ Columns
 
     /**
@@ -449,9 +461,7 @@ class Categories extends \XLite\Logic\Import\Processor\AProcessor
                 $image = \XLite\Core\Database::getRepo('\XLite\Model\Image\Category\Image')->insert(null, false);
             }
 
-            $success = $this->verifyValueAsURL($file)
-                ? $image->loadFromURL($path, true)
-                : $image->loadFromLocalFile(LC_DIR_ROOT . $file);
+            $success = $image->loadFromPath($path);
 
             if ($success) {
                 $image->setNeedProcess(1);
@@ -512,9 +522,7 @@ class Categories extends \XLite\Logic\Import\Processor\AProcessor
                 $image = \XLite\Core\Database::getRepo('\XLite\Model\Image\Category\Banner')->insert(null, false);
             }
 
-            $success = $this->verifyValueAsURL($file)
-                ? $image->loadFromURL($path, true)
-                : $image->loadFromLocalFile(LC_DIR_ROOT . $file);
+            $success = $image->loadFromPath($path);
 
             if ($success) {
                 $image->setNeedProcess(1);

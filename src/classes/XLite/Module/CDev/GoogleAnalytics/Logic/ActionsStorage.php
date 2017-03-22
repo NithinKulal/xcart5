@@ -25,15 +25,36 @@ class ActionsStorage extends \XLite\Base\Singleton
         $this->actions = \XLite\Core\Session::getInstance()->gaActions;
     }
 
-
     /**
+     * Add action that may not be executed in current process,
+     * and will not be postponed for next requests
      * @param                $key
      * @param Action\IAction $action
      */
     public function addAction($key, Action\IAction $action)
     {
         $this->actions[$key] = $action;
-        \XLite\Core\Session::getInstance()->gaActions = $this->actions;
+    }
+
+    /**
+     * Add action that may not be executed in current process,
+     * but will be executed as soon as possible if applicable
+     *
+     * @param                $key
+     * @param Action\IAction $action
+     */
+    public function addPostponedAction($key, Action\IAction $action)
+    {
+        $this->actions[$key] = $action;
+
+        $actions = \XLite\Core\Session::getInstance()->gaActions;
+        if (!$actions || !is_array($actions)) {
+            $actions = [];
+        }
+
+        $actions[$key] = $action;
+
+        \XLite\Core\Session::getInstance()->gaActions = $actions;
     }
 
     /**

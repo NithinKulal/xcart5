@@ -39,7 +39,8 @@ class PopupLogin extends \XLite\View\Button\APopupButton
         return array(
             'target' => 'login',
             'widget' => '\XLite\View\Authorization',
-            'popup' => '1'
+            'popup' => '1',
+            'fromURL' => \XLite::getController()->getURL()
         );
     }
 

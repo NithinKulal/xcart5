@@ -92,14 +92,12 @@ class Review extends \XLite\Controller\Customer\ACustomer
             $review = \XLite\Core\Database::getRepo('XLite\Module\XC\Reviews\Model\Review')->find($id);
         }
 
-        if (!$review
-            || !$this->isOwnReview($review)
-        ) {
+        if (!$review || !$this->isOwnReview($review)) {
             $review = new \XLite\Module\XC\Reviews\Model\Review;
 
-            $review->setEmail($this->getProfileField('email'));
             $review->setReviewerName($this->getProfileField('reviewerName'));
             $review->setRating(\XLite\Module\XC\Reviews\Model\Review::MAX_RATING);
+            $review->setProfile(\XLite\Core\Auth::getInstance()->getProfile());
         }
 
         return $review;
@@ -272,10 +270,6 @@ class Review extends \XLite\Controller\Customer\ACustomer
         $review->map($data);
         $review->setProfile($this->getProfile());
         $review->setIp(utf8_encode(inet_pton($_SERVER['REMOTE_ADDR'])) ?: 0);
-
-        if (!$review->getEmail()) {
-            $review->setEmail($this->getProfileField('email'));
-        }
 
         if (!$review->getReviewerName()) {
             $review->setReviewerName($this->getProfileField('reviewerName'));

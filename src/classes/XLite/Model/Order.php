@@ -3624,7 +3624,8 @@ class Order extends \XLite\Model\Base\SurchargeOwner
             : null;
 
         if ($transaction) {
-            $processor = $this->getPaymentMethod() ? $this->getPaymentMethod()->getProcessor() : null;
+            $method = $transaction->getPaymentMethod() ?: $this->getPaymentMethod();
+            $processor = $method ? $method->getProcessor() : null;
 
             if ($processor) {
                 $result = $processor->getTransactionData($transaction, $isPrimary);

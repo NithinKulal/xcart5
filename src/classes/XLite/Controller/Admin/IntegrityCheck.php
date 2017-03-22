@@ -64,6 +64,8 @@ class IntegrityCheck extends \XLite\Controller\Admin\AAdmin
      */
     protected function doActionStart()
     {
+        \XLite\Core\Session::getInstance()->mpServerError = null;
+
         \XLite\Logic\IntegrityCheck\Generator::run([
             'steps' => [
                 'core',

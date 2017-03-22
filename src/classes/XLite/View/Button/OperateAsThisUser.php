@@ -10,26 +10,9 @@ namespace XLite\View\Button;
 
 /**
  * 'Operate as this user' button widget
- *
- * @ListChild (list="tabs.items", zone="admin", weight="0")
  */
 class OperateAsThisUser extends \XLite\View\Button\Link
 {
-    /**
-     * Return list of allowed targets
-     *
-     * @return array
-     */
-    public static function getAllowedTargets()
-    {
-        $targets = parent::getAllowedTargets();
-
-        $targets[] = 'profile';
-        $targets[] = 'address_book';
-
-        return $targets;
-    }
-
     /**
      * Get default CSS class name
      *
@@ -38,21 +21,6 @@ class OperateAsThisUser extends \XLite\View\Button\Link
     protected function getDefaultStyle()
     {
         return 'action operate-as-this-user always-enabled';
-    }
-
-
-   /**
-     * Get a list of CSS files required to display the widget properly
-     *
-     * @return array
-     */
-    public function getCSSFiles()
-    {
-        $list = parent::getCSSFiles();
-
-        $list[] = 'profile/operateAsThisUser.css';
-
-        return $list;
     }
 
     /**

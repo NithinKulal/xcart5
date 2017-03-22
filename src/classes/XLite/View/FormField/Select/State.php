@@ -64,7 +64,6 @@ class State extends \XLite\View\FormField\Select\Regular
     protected function getOptions()
     {
         $result = $this->getParam(static::PARAM_OPTIONS);
-
         if (!$result) {
 
             if ($this->getParam(static::PARAM_COUNTRY)) {
@@ -73,7 +72,7 @@ class State extends \XLite\View\FormField\Select\Regular
                 );
 
             } else {
-                $result = \XLite\Core\Database::getRepo('\XLite\Model\State')->findAllStatesGrouped();
+                $result = \XLite\Core\Database::getRepo('\XLite\Model\State')->findAllStates();
             }
         }
 

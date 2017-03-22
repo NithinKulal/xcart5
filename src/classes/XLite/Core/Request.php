@@ -509,11 +509,11 @@ class Request extends \XLite\Base\Singleton
         $result = true;
 
         if (!is_string($value)) {
-            \XLite\Logger::getInstance()->log($name . ' has a wrong type');
+            \XLite\Logger::getInstance()->logPostponed($name . ' has a wrong type');
             $result = false;
 
         } elseif (!preg_match('/^[a-z0-9_]*$/Si', $value)) {
-            \XLite\Logger::getInstance()->log($name . ' has a wrong format');
+            \XLite\Logger::getInstance()->logPostponed($name . ' has a wrong format');
             $result = false;
         }
 

@@ -8,7 +8,6 @@
 
 namespace XLite\Module\CDev\GoogleAnalytics\Logic\Action;
 
-use XLite\Module\CDev\GoogleAnalytics\Logic\ActionsStorage;
 use XLite\Module\CDev\GoogleAnalytics\Logic\DataMapper\OrderItemDataMapper;
 
 class CheckoutInit implements IAction

@@ -122,7 +122,8 @@ input[type="checkbox"] {
     .make-sm-column(4);
 
     .input-wrapper {
-      .flex(1 calc(~'-100% + 25px'););
+      .flex-grow(1);
+      .flex-basis(calc(~'-100% + 25px'));
 
       .table-value {
         display: block;
@@ -208,7 +209,11 @@ input[type="checkbox"] {
   .old-row {
     > .input-widget {
       .make-sm-column(10);
-      width: auto !important;
+
+      body:not(.ie11) & {
+        width: auto !important;
+      }
+
       @media (min-width: @screen-sm-min) {
         max-width: percentage((10 / @grid-columns));
       }
@@ -248,6 +253,7 @@ form .table.default-table {
 
     input, select {
       .form-control;
+      width: 250px;
       display: inline-block;
     }
   }

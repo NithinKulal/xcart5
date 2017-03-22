@@ -28,7 +28,7 @@ class CacheManagementActions extends \XLite\View\ItemsList\Model\CacheManagement
                 'view'        => '\XLite\View\Button\SimpleLink',
                 'viewParams'  => [
                     \XLite\View\Button\AButton::PARAM_LABEL => static::t('Start'),
-                    \XLite\View\Button\AButton::PARAM_STYLE => 'always-enabled regular-button',
+                    \XLite\View\Button\AButton::PARAM_STYLE => 'btn always-enabled regular-button',
                     \XLite\View\Button\Link::PARAM_LOCATION => $this->buildURL('cache_management', 'remove_product_filter_cache'),
                 ],
             ];

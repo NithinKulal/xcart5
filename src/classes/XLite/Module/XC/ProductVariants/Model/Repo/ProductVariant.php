@@ -69,7 +69,7 @@ class ProductVariant extends \XLite\Model\Repo\ARepo
     /**
      * Define query for generate SKU
      *
-     * @return \XLite\Model\QueryBuilder\QUeryBuilder
+     * @return \XLite\Model\QueryBuilder\AQueryBuilder
      */
     public function defineGenerateSKUQuery()
     {

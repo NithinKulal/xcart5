@@ -15,7 +15,7 @@ if (!defined('XLITE_INSTALL_MODE')) {
 }
 
 // Current X-Cart version
-define('LC_VERSION', '5.3.2.7');
+define('LC_VERSION', '5.3.2.8');
 
 // Minimum PHP version supported
 define('LC_PHP_VERSION_MIN', '5.4.0');
@@ -51,7 +51,6 @@ $lcSettings = array(
         'images',
         'files',
         'etc' . LC_DS . 'config.php',
-        '.htaccess',
     ),
 
     // The list of directories that should have writeble permissions
@@ -207,6 +206,7 @@ if (XLITE_EDITION_LNG === 'ru') {
     );
 } elseif (XLITE_EDITION_LNG === 'gb') {
     $lcSettings['yaml_files']['demo'][] = 'sql' . LC_DS . 'xlite_data_gb.yaml';
+    $lcSettings['yaml_files']['demo'][] = 'sql' . LC_DS . 'xlite_demo_gb.yaml';
 
     $lcSettings['enable_modules'] = array_merge_recursive(
         $lcSettings['enable_modules'],

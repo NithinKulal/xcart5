@@ -97,6 +97,66 @@ class Product extends \XLite\Model\Product implements \XLite\Base\IDecorator
     }
 
     /**
+     * Get variant by any count of attribute values ids
+     *
+     * @param array   $ids           Ids [attribute_id => value_id]
+     * @param boolean $singleVariant Return single variants (true) or array of all matched variants (false) OPTIONAL
+     *
+     * @return mixed
+     */
+    public function getVariantByAnyAttributeValuesIds(array $ids, $singleVariant = true)
+    {
+        $result = $singleVariant ? null : array();
+
+        $variant = $this->getVariants() ? $this->getVariants()->first() : null;
+
+        if (!$variant) {
+            return null;
+        }
+
+        $variantAttributes = array_map(function ($value) {
+            return $value->getAttribute()->getId();
+        }, $variant->getValues());
+
+        $ids = array_filter($ids, function ($k) use ($variantAttributes) {
+            return in_array($k, $variantAttributes);
+        }, ARRAY_FILTER_USE_KEY);
+
+        if (empty($ids)) {
+            return $singleVariant
+                ? $variant
+                : $this->getVariants();
+        }
+
+        foreach ($this->getVariants() as $variant) {
+            $temporaryIds = $ids;
+            foreach ($variant->getValues() as $v) {
+                if (empty($temporaryIds)) {
+                    break;
+                }
+
+                $match = isset($temporaryIds[$v->getAttribute()->getId()])
+                    && $temporaryIds[$v->getAttribute()->getId()] == $v->getId();
+
+                if ($match) {
+                    unset($temporaryIds[$v->getAttribute()->getId()]);
+                }
+            }
+            if (!empty($match) && empty($temporaryIds)) {
+                if ($singleVariant) {
+                    $result = $variant;
+                    break;
+
+                } else {
+                    $result[] = $variant;
+                }
+            }
+        }
+
+        return $result;
+    }
+
+    /**
      * Get variant by attribute values
      *
      * @param integer[]|\XLite\Model\AttributeValue\AAttributeValue[] $attributeValues Attribute values

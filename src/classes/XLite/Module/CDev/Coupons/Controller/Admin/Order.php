@@ -189,6 +189,19 @@ class Order extends \XLite\Controller\Admin\Order implements \XLite\Base\IDecora
                         $order->addUsedCoupons($usedCoupon);
                         $usedCoupon->setCoupon($coupon);
                         $coupon->addUsedCoupons($usedCoupon);
+
+                        $orderStatusDeclined = in_array(
+                            $order->getPaymentStatusCode(),
+                            [
+                                \XLite\Model\Order\Status\Payment::STATUS_CANCELED,
+                                \XLite\Model\Order\Status\Payment::STATUS_DECLINED,
+                            ]
+                        );
+
+                        if (!$order->isTemporary() && !$orderStatusDeclined) {
+                            $usedCoupon->markAsUsed();
+                        }
+
                         \XLite\Core\Database::getEM()->persist($usedCoupon);
 
                         // Register order change

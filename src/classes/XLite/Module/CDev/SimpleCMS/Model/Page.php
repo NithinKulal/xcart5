@@ -97,7 +97,7 @@ class Page extends \XLite\Model\Base\Catalog
     public function getTeaser()
     {
         return 'A' === $this->getMetaDescType() || !$this->getSoftTranslation()->getTeaser()
-            ? strip_tags($this->getBody())
+            ? mb_substr(strip_tags($this->getBody()), 0, 512)
             : $this->getSoftTranslation()->getTeaser();
     }
 

@@ -15,11 +15,6 @@ namespace XLite\Module\CDev\XPaymentsConnector\Model;
 class Cart extends \XLite\Model\Cart implements \XLite\Base\IDecorator
 {
     /**
-     * Flag to force cart recalculation
-     */
-    protected $xpcForceCalcFlag = false;
-
-    /**
      * Checks if any X-Payments payment methods are available for this cart
      *
      * @return boolean
@@ -56,27 +51,5 @@ class Cart extends \XLite\Model\Cart implements \XLite\Base\IDecorator
         }
 
         return $result;
-    }
-
-    /**
-     * Force cart recalculation or not
-     *
-     * @param bool $force Flag to force cart recalculation
-     *
-     * @return bool
-     */
-    public function setXpcForceCalcFlag($force = true)
-    {
-        $this->xpcForceCalcFlag = $force;
-    }
-
-    /**
-     * Get ignoreLongCalculations flag value
-     *
-     * @return boolean
-     */
-    public function isIgnoreLongCalculations()
-    {
-        return !$this->xpcForceCalcFlag && parent::isIgnoreLongCalculations();
     }
 }

@@ -14,6 +14,21 @@ namespace XLite\Module\CDev\Paypal\Model;
 class Order extends \XLite\Model\Order implements \XLite\Base\IDecorator
 {
     /**
+     * Called when an order successfully placed by a client
+     */
+    public function processSucceed()
+    {
+        parent::processSucceed();
+
+        if ($this->isPaypalMethod($this->getPaymentMethod())) {
+            // Unlock IPN processing for each transaction
+            foreach ($this->getPaymentTransactions() as $transaction) {
+                $transaction->unlockCallbackProcessing();
+            }
+        }
+    }
+
+    /**
      * Exclude Express Checkout from the list of available for checkout payment methods
      * if Payflow Link or Paypal Advanced are avavilable
      *

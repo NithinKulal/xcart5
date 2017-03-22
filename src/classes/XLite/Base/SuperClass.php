@@ -110,10 +110,11 @@ abstract class SuperClass
     {
         if (!($this instanceof \XLite\Logger)) {
             \XLite\Logger::getInstance()->log($message, LOG_ERR);
+            \XLite\Logger::getInstance()->executePostponedLogs();
         }
 
         if (
-            $this instanceof XLite
+            $this instanceof \XLite
             || \XLite::getInstance()->getOptions(array('log_details', 'suppress_errors'))
         ) {
             $message = 'Internal error. Contact the site administrator.';

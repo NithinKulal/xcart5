@@ -298,15 +298,10 @@ class Module extends \XLite\Model\Repo\ARepo
     protected function prepareCndModuleIds(\Doctrine\ORM\QueryBuilder $queryBuilder, $value)
     {
         if (is_array($value) && count($value) > 0) {
-            $keys = \XLite\Core\Database::buildInCondition($queryBuilder, $value);
-            $queryBuilder->andWhere(
-                sprintf(
-                    '%s.%s IN (%s)',
-                    $this->getMainAlias($queryBuilder),
-                    $this->_class->identifier[0],
-                    implode(', ', $keys)
-                )
-            );
+            $queryBuilder->andWhere($queryBuilder->expr()->in(
+                $this->getMainAlias($queryBuilder) . '.' . $this->_class->identifier[0],
+                $value
+            ));
         }
     }
 

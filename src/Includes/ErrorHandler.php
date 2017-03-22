@@ -433,6 +433,12 @@ abstract class ErrorHandler
      */
     public static function handleException($exception)
     {
+        try {
+            \XLite\Logger::getInstance()->executePostponedLogs();
+        } catch (\Exception $e) {
+            static::logInfo($e->getMessage(), $e->getCode(), $e->getTraceAsString());
+        }
+
         static::logInfo($exception->getMessage(), $exception->getCode(), $exception->getTraceAsString());
         static::showErrorPage($exception->getCode(), $exception->getMessage());
     }

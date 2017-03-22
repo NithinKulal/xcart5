@@ -4,7 +4,7 @@
 
 <div class="model-selector data-type-{{ this.getDataType() }}" data-type="{{ this.getDataType() }}">
 {{ this.displayCommentedData(this.getCommentedData()) }}
-  <input type="hidden" class="model-value" name="{{ this.getName() }}" value="{{ this.getValue() }}" />
+  <input type="hidden" class="model-value" name="{{ this.getName() }}" value="{{ this.getIdentifierValue() }}" />
 
   <input type="text" placeholder="{{ this.getParam('placeholder') }}" class="{{ this.getCSSClasses() }}"{% if this.getTextName() %} name="{{ this.getTextName() }}"{% endif %} value="{{ this.getTextValue() }}" autocomplete="off" />
 

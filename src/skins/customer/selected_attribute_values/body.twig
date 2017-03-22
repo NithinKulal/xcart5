@@ -12,7 +12,7 @@
     {% endfor %}
   </ul>
   
-  {% if this.getParam('source') %}
+  {% if this.isChangeAttributesLinkVisible() %}
     <div class="item-change-attribute-values">
       <a href="{{ this.getChangeAttributeValuesLink() }}">{{ t('Change attributes') }}</a>
     </div>

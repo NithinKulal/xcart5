@@ -72,13 +72,17 @@ class Module implements IEntry
     public function getHashes()
     {
         $cacheDriver = \XLite\Core\Database::getCacheDriver();
-        
+
         $result = $cacheDriver->fetch($this->getCacheKey());
-        
+
         if ($result === false) {
+            $key = $this->module->getLicenseKey()
+                ? $this->module->getLicenseKey()->getKeyValue()
+                : null;
+
             $result = \XLite\Core\Marketplace::getInstance()->getAddonHash(
                 $this->module->getMarketplaceID(),
-                null,
+                $key,
                 $this->module->getIdentityData() ?: null
             );
 

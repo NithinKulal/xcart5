@@ -1117,7 +1117,15 @@ class Category extends \XLite\Model\Repo\Base\I18n
             $this->getCategoriesRawData()
         );
 
-        list($data, $quickFlags) = $nestedSetCorrector->recalculateStructure();
+        try {
+            list($data, $quickFlags) = $nestedSetCorrector->recalculateStructure();
+        } catch (\Exception $exception) {
+            \XLite\Logger::getInstance()->log(
+                'Something is wrong categories in nestedSet recalculation: ' . $exception->getMessage(),
+                LOG_ERR
+            );
+            return;
+        }
 
         if ($data) {
             foreach ($data as $catId => $d) {

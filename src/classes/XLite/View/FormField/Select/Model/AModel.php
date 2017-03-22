@@ -232,4 +232,20 @@ abstract class AModel extends \XLite\View\FormField\AFormField
     {
         return null;
     }
+
+    /**
+     * Get model defined template
+     *
+     * @return string
+     */
+    protected function getIdentifierValue()
+    {
+        $value = $this->getValue();
+
+        if ($value instanceof \XLite\Model\AEntity) {
+            $value = $value->getUniqueIdentifier();
+        }
+
+        return $value;
+    }
 }

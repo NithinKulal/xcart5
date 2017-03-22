@@ -8,6 +8,6 @@
 <div class="checkout_fastlane_shipping-details">
     {{ widget('XLite\\Module\\XC\\FastLaneCheckout\\View\\Blocks\\ShippingDetails') }}
 
-    <a class="checkout_fastlane_shipping_edit_link" href="#" v-on:click.prevent="switchTo('shipping')">{{ t('Edit') }}</a>
+    <a class="checkout_fastlane_shipping_edit_link" data-toggle="tooltip" data-placement="left" title="{{ t('Change shipping') }}" href="#" v-on:click.prevent="switchTo('shipping')"><i class="fa fa-truck"></i></a>
 </div>
 {% endif %}

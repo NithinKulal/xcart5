@@ -12,6 +12,18 @@
   max-width:100%;
 }
 
+#main .fr-toolbar.fr-top {
+  -webkit-box-shadow: 1px 1px 3px rgba(0,0,0,.12), -1px 1px 3px rgba(0,0,0,.12), -1px 1px 2px rgba(0,0,0,.24), 1px 1px 2px rgba(0,0,0,.24);
+  -moz-box-shadow: 1px 1px 3px rgba(0,0,0,.12), -1px 1px 3px rgba(0,0,0,.12), -1px 1px 2px rgba(0,0,0,.24), 1px 1px 2px rgba(0,0,0,.24);
+  box-shadow: 1px 1px 3px rgba(0,0,0,.12), -1px 1px 3px rgba(0,0,0,.12), -1px 1px 2px rgba(0,0,0,.24), 1px 1px 2px rgba(0,0,0,.24);
+}
+
+#main .fr-wrapper {
+  -webkit-box-shadow: 1px 1px 3px rgba(0,0,0,.12), -1px 1px 3px rgba(0,0,0,.12), -1px 1px 2px rgba(0,0,0,.24), 1px 1px 2px rgba(0,0,0,.24);
+  -moz-box-shadow: 1px 1px 3px rgba(0,0,0,.12), -1px 1px 3px rgba(0,0,0,.12), -1px 1px 2px rgba(0,0,0,.24), 1px 1px 2px rgba(0,0,0,.24);
+  box-shadow: 1px 1px 3px rgba(0,0,0,.12), -1px 1px 3px rgba(0,0,0,.12), -1px 1px 2px rgba(0,0,0,.24), 1px 1px 2px rgba(0,0,0,.24);
+}
+
 .fr-wrapper.show-placeholder > iframe + .fr-placeholder {
   z-index: 3;
 }

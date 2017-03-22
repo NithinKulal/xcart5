@@ -8,8 +8,6 @@
 
 namespace XLite\Module\CDev\Bestsellers\View;
 
-use XLite\Core\Cache\ExecuteCachedTrait;
-
 /**
  * Bestsellers widget
  *

@@ -535,12 +535,14 @@ ProductDetailsView.prototype.selectImage = function (pos) {
   }
 
   if (jQuery('a', next).length) {
-    eval('var tmp = {' + jQuery('a', next).attr('rev') + '}');
+    var params = jQuery('a', next).attr('rev');
 
-    if (this.zoomWidget) {
+    if (this.zoomWidget && params) {
+      var tmp = core.parseObjectString('{' + params + '}');
       if (
-        tmp.width > (middle.width()  * this.kZoom)
-        || tmp.height > (middle.width()  * this.kZoom)
+          tmp &&
+          (tmp.width > (middle.width()  * this.kZoom)
+          || tmp.height > (middle.width()  * this.kZoom))
       ) {
         cloud.trigger('cloud-zoom');
       } else {

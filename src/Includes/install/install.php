@@ -1362,11 +1362,6 @@ function doInstallDirs($silentMode = false)
         $result = create_dirs($lcSettings['directories_to_create']);
     }
 
-    if ($result && !empty($lcSettings['files_to_create'])) {
-        echo '<div class="section-title">' . xtr('Creating .htaccess files...') . '</div>';
-        $result = create_htaccess_files($lcSettings['files_to_create']);
-    }
-
     if ($result) {
         echo '<div class="section-title">Creating directories process is finished</div>';
     }
@@ -1508,7 +1503,13 @@ function doFinishInstallation(&$params, $silentMode = false)
     if ($install_name ) {
 
         // Text for email notification
-        $install_rename_email = xtr('script_renamed_text', array(':newname' => $install_name, ':host' => $params['xlite_http_host'], ':webdir' => $params['xlite_web_dir']));
+        $install_rename_email = xtr('script_renamed_text',
+            array(
+                ':newname'  => $install_name,
+                ':host'     => $params['xlite_http_host'],
+                ':webdir'   => (isset($params['xlite_web_dir']) ? $params['xlite_web_dir'] : '')
+            )
+        );
 
         // Text for confirmation web page
         $install_rename = xtr('script_renamed_text_html', array(':newname' => $install_name));
@@ -1536,10 +1537,6 @@ function doFinishInstallation(&$params, $silentMode = false)
 
         if (@is_writable(LC_DIR_CONFIG . constant('LC_CONFIG_FILE'))) {
             $_perms[] = "chmod 644 " . LC_DIR_CONFIG . constant('LC_CONFIG_FILE');
-        }
-
-        if (@is_writable(LC_DIR_ROOT . '.htaccess')) {
-            $_perms[] = "chmod 644 " . LC_DIR_ROOT . '.htaccess';
         }
 
         if (!empty($_perms)) {
@@ -1574,7 +1571,7 @@ OUT;
         'congratulations_text',
         array(
             ':host'         => $params['xlite_http_host'],
-            ':webdir'       => $params['xlite_web_dir'],
+            ':webdir'       => (isset($params['xlite_web_dir']) ? $params['xlite_web_dir'] : ''),
             ':login'        => $params['login'],
             ':password'     => $params['password'],
             ':perms'        => $perms_no_tags,
@@ -1734,49 +1731,6 @@ function chmod_others_directories($dirs)
     } else {
         echo status(true);
     }
-}
-
-/**
- * Create .htaccess files
- *
- * @param array $files_to_create Array of file names
- *
- * @return bool
- */
-function create_htaccess_files($files_to_create)
-{
-    $result = true;
-
-    $failedFiles = array();
-
-    if (is_array($files_to_create) && 0 < count($files_to_create)) {
-
-        foreach($files_to_create as $file=>$content) {
-
-            echo xtr('Creating file: [:filename] ... ', array(':filename' => $file));
-
-            if ($fd = @fopen(constant('LC_DIR_ROOT') . $file, 'w')) {
-                @fwrite($fd, $content);
-                @fclose($fd);
-                echo status(true);
-                $result &= true;
-
-            } else {
-                echo status(false);
-                $result = false;
-                $failedFiles[] = constant('LC_DIR_ROOT') . $file;
-            }
-
-            echo "<BR>\n";
-            flush();
-        }
-    }
-
-    if (!$result) {
-        x_install_log(xtr('Failed to create files'), $failedFiles);
-    }
-
-    return $result;
 }
 
 /**
@@ -2623,7 +2577,7 @@ function message($txt) {
  */
 function rename_install_script()
 {
-    $install_name = md5(uniqid(rand(), true)) . '.php';
+    $install_name = 'install.'.md5(uniqid(rand(), true)) . '.php';
     @rename(LC_DIR_ROOT . 'install.php', LC_DIR_ROOT . $install_name);
     @clearstatcache();
 
@@ -3648,7 +3602,7 @@ function module_install_cache(&$params, $silentMode = false)
 
     $result = false;
 
-    if (!empty($params['new_installation']) && 'Y' == $params['demo']) {
+    if (!empty($params['new_installation']) && isset($params['demo']) && 'Y' == $params['demo']) {
 
         // Get all dump_*.sql files
         $dumpFiles = array();

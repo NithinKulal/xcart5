@@ -56,7 +56,7 @@ function VoteBarClick(obj) {
     obj._rating = parseInt(jQuery(obj).attr('class').match(/\d+/));
   }
 
-  jQuery(obj).closest('.vote-bar.editable').find('input[name=rating]').val(obj._rating);
+  jQuery(obj).closest('.vote-bar.editable').find('input[name=rating]').val(obj._rating).change();
 
   // Set selected rating in current object properties
   mainObj = jQuery(obj).closest('.vote-bar.editable').get(0);

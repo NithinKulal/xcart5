@@ -579,7 +579,7 @@ class StoreApi extends \XLite\Base\Singleton
 
             $categoryHash = array(
                 'id'          => $category->getCategoryId(),
-                'name'        => $category->getName(),
+                'name'        => htmlspecialchars_decode($category->getName()),
                 'description' => $category->getViewDescription(),
                 'parent'      => $parentId,
             );

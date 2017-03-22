@@ -747,6 +747,8 @@ function func_convert_to_byte($file_size) {
     $val = trim($file_size);
     $last = strtolower(substr($val, -1));
 
+    $val = (int) $val;
+
     switch ($last) {
         case 'g':
             $val *= 1024;
@@ -1271,4 +1273,25 @@ function mb_stripos($haystack, $needle, $offset = 0)
     return stripos($haystack, $needle, $offset);
 }
 
+}
+
+if (!function_exists('getallheaders')) {
+    /**
+     * Returns all headers (apache getallheaders polyfill)
+     *
+     * @return array|false
+     */
+    function getallheaders() {
+        $result = [];
+
+        if (is_array($_SERVER)) {
+            foreach ($_SERVER as $name => $value) {
+                if (substr($name, 0, 5) == 'HTTP_') {
+                    $result[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+                }
+            }
+        }
+
+        return !empty($result) ? $result : false;
+    }
 }

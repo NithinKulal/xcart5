@@ -101,6 +101,13 @@ return function()
     setHomeGroupLayoutTypeValue();
     upgrade532TryChangeDefaultConfig();
 
+    if (\Xlite\Core\Config::getInstance()->Performance->use_dynamic_image_resizing === 'N') {
+        \XLite\Core\Database::getRepo('XLite\Model\Config')->createOption([
+            'category' => 'Performance',
+            'name'     => 'use_dynamic_image_resizing',
+            'value'    => '',
+        ]);
+    }
 
     \XLite\Core\Database::getEM()->flush();
 };

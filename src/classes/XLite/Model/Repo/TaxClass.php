@@ -44,9 +44,8 @@ class TaxClass extends \XLite\Model\Repo\Base\I18n
             }
 
             if ($ids) {
-                $keys = \XLite\Core\Database::buildInCondition($queryBuilder, $ids, 'pid');
                 $queryBuilder->linkInner('p.products')
-                    ->andWhere('products.product_id IN (' . implode(', ', $keys) . ')');
+                    ->andWhere($queryBuilder->expr()->in('products.product_id', $ids));
             }
         }
     }

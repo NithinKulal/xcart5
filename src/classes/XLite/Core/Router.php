@@ -31,7 +31,7 @@ class Router extends \XLite\Base\Singleton
             if (empty($request->rest) && empty($request->last) && empty($request->ext) && !empty($request->url)) {
                 $this->processCleanUrlLanguage();
 
-                // Remove unneccessary running script name
+                // Remove unnecessary running script name
                 $request->url = str_replace(\XLite::getInstance()->getScript(), '', $request->url);
 
                 preg_match(

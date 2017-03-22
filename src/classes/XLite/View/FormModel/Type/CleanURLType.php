@@ -133,6 +133,7 @@ class CleanURLType extends AType
 
         $view->vars = array_replace($view->vars, [
             'disabled'              => $disabled,
+            'disabledComment'       => $this->getDisabledCleanUrlComment(),
             'cleanUrlTemplate'      => \XLite::getInstance()->getShopURL($repo->buildFakeURL($entity ?: $options['objectClassName'])),
             'cleanUrl'              => \XLite::getInstance()->getShopURL($repo->buildURL($options['objectClassName'], [$options['objectIdName'] => $options['objectId']])),
             'savedValue'            => $entity ? $entity->getCleanURL() : '',
@@ -141,6 +142,18 @@ class CleanURLType extends AType
             'hasUnForcibleConflict' => $hasUnForcibleError ? '1' : '0',
             'errorMessage'          => $errorMessage,
             'resolveHint'           => sprintf('<ul><li>' . implode('</li><li>', $resolveHints) . '</li></ul>'),
+        ]);
+    }
+
+    /**
+     * Info text for disabled CleanURL functionality
+     *
+     * @return boolean
+     */
+    protected function getDisabledCleanUrlComment()
+    {
+        return static::t('Clean URLs are disabled. More info', [
+            'more_info_url' => \XLite\Core\Converter::buildURL('settings', '', [ 'page' => 'CleanURL' ])
         ]);
     }
 

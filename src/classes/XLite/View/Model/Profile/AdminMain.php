@@ -123,7 +123,6 @@ class AdminMain extends \XLite\View\Model\AModel
         'roles' => array(
             self::SCHEMA_CLASS    => '\XLite\View\FormField\Select\Tags\Roles',
             self::SCHEMA_LABEL    => 'Roles',
-            self::SCHEMA_REQUIRED => true,
             self::SCHEMA_DEPENDENCY => array(
                 self::DEPENDENCY_SHOW => array(
                     'access_level' => array(100),
@@ -602,6 +601,10 @@ class AdminMain extends \XLite\View\Model\AModel
 
                 $data['roles'][] = $rootRole->getId();
             }
+        }
+
+        if ($isAdmin && !isset($data['roles'])) {
+            $data['roles'] = [];
         }
 
         if (isset($data['roles'])

@@ -48,4 +48,19 @@ class SearchBox extends \XLite\View\FormField\Input\Text
     {
         return false;
     }
+
+    /**
+     * prepareAttributes
+     *
+     * @param array $attrs Field attributes to prepare
+     *
+     * @return array
+     */
+    protected function prepareAttributes(array $attrs)
+    {
+        $list = parent::prepareAttributes($attrs);
+        unset($list['id']);
+
+        return $list;
+    }
 }

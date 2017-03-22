@@ -63,6 +63,15 @@ class Fields extends \XLite\View\ItemsList\Model\Table
     }
 
     /**
+     * @param array                $column
+     * @param \XLite\Model\AEntity $model
+     */
+    public function getHelpText(array $column, \XLite\Model\AEntity $model)
+    {
+        return static::t('Required state_id checkbox help text');
+    }
+
+    /**
      * Define columns structure
      *
      * @return array
@@ -86,6 +95,7 @@ class Fields extends \XLite\View\ItemsList\Model\Table
             'required' => array(
                 static::COLUMN_NAME     => static::t('Required'),
                 static::COLUMN_CLASS    => 'XLite\View\FormField\Inline\Input\Checkbox\Switcher\Enabled',
+                static::COLUMN_TEMPLATE => 'address/fields/required.help.twig',
                 static::COLUMN_PARAMS   => array(),
                 static::COLUMN_ORDERBY  => 300,
             ),
@@ -243,12 +253,20 @@ class Fields extends \XLite\View\ItemsList\Model\Table
      */
     protected function isTemplateColumnVisible(array $column, \XLite\Model\AEntity $entity)
     {
-        // Right now admin cannot directly edit serviceName values for additional fields
-        // and cannot change "Not required" state of "custom_state" field
-        // TODO: refactor it
-        return 'serviceName' !== $column[static::COLUMN_CODE]
-            ? parent::isTemplateColumnVisible($column, $entity)
-            : !$entity->getAdditional();
+        $result = null;
+
+        if ('serviceName' === $column[static::COLUMN_CODE]) {
+            // Right now admin cannot directly edit serviceName values for additional fields
+            // and cannot change "Not required" state of "custom_state" field
+            // TODO: refactor it
+            $result = !$entity->getAdditional();
+        } elseif('required' === $column[static::COLUMN_CODE]) {
+            $result = $entity->getServiceName() === 'state_id';
+        }
+
+        return $result !== null
+            ? $result
+            : parent::isTemplateColumnVisible($column, $entity);
     }
 
 
@@ -262,15 +280,20 @@ class Fields extends \XLite\View\ItemsList\Model\Table
      */
     protected function isClassColumnVisible(array $column, \XLite\Model\AEntity $entity)
     {
-        // Right now admin cannot directly edit serviceName values for additional fields
-        // and cannot change "Not required" state of "custom_state" field
-        // TODO: refactor it
-        return 'serviceName' !== $column[static::COLUMN_CODE]
-            ? (('custom_state' === $entity->getServiceName() && 'required' === $column[static::COLUMN_CODE])
-                ? false
-                : parent::isClassColumnVisible($column, $entity)
-            )
-            : $entity->getAdditional();
+        $result = null;
+
+        if ('serviceName' === $column[static::COLUMN_CODE]) {
+            // Right now admin cannot directly edit serviceName values for additional fields
+            // and cannot change "Not required" state of "custom_state" field
+            // TODO: refactor it
+            $result = $entity->getAdditional();
+        } elseif('required' === $column[static::COLUMN_CODE]) {
+            return !in_array($entity->getServiceName(), ['custom_state', 'state_id'], true);
+        }
+
+        return $result !== null
+            ? $result
+            : parent::isClassColumnVisible($column, $entity);
     }
 
     /**

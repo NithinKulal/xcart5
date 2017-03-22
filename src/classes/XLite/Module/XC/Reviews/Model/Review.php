@@ -70,7 +70,7 @@ class Review extends \XLite\Model\AEntity
     /**
      * Relation to a profile entity (who adds review)
      *
-     * @var \Doctrine\Common\Collections\ArrayCollection
+     * @var \XLite\Model\Profile
      *
      * @ManyToOne  (targetEntity="XLite\Model\Profile", inversedBy="reviews")
      * @JoinColumn (name="profile_id", referencedColumnName="profile_id", onDelete="SET NULL")
@@ -87,15 +87,6 @@ class Review extends \XLite\Model\AEntity
     protected $reviewerName = '';
 
     /**
-     * Reviewer email
-     *
-     * @var string
-     *
-     * @Column (type="string")
-     */
-    protected $email = '';
-
-    /**
      * Review status
      *
      * @var integer
@@ -107,7 +98,7 @@ class Review extends \XLite\Model\AEntity
     /**
      * Relation to a product entity
      *
-     * @var \Doctrine\Common\Collections\ArrayCollection
+     * @var \XLite\Model\Product
      *
      * @ManyToOne  (targetEntity="XLite\Model\Product", inversedBy="reviews")
      * @JoinColumn (name="product_id", referencedColumnName="product_id", onDelete="CASCADE")
@@ -251,7 +242,7 @@ class Review extends \XLite\Model\AEntity
      *
      * @param integer $rating
      *
-     * @return \XLite\Module\XC\Reviews\Model\Review
+     * @return $this
      */
     public function setRating($rating)
     {
@@ -265,7 +256,7 @@ class Review extends \XLite\Model\AEntity
      *
      * @param array $data Array of data
      *
-     * @return \XLite\Module\XC\Reviews\Model\Review
+     * @return $this
      */
     public function map(array $data)
     {
@@ -293,7 +284,7 @@ class Review extends \XLite\Model\AEntity
     /**
      * Set review
      *
-     * @param text $review
+     * @param string $review
      * @return Review
      */
     public function setReview($review)
@@ -305,7 +296,7 @@ class Review extends \XLite\Model\AEntity
     /**
      * Get review
      *
-     * @return text 
+     * @return string
      */
     public function getReview()
     {
@@ -315,7 +306,7 @@ class Review extends \XLite\Model\AEntity
     /**
      * Get rating
      *
-     * @return smallint 
+     * @return int
      */
     public function getRating()
     {
@@ -367,31 +358,21 @@ class Review extends \XLite\Model\AEntity
     }
 
     /**
-     * Set email
-     *
-     * @param string $email
-     * @return Review
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-        return $this;
-    }
-
-    /**
      * Get email
      *
      * @return string 
      */
     public function getEmail()
     {
-        return $this->email;
+        return $this->getProfile()
+            ? $this->getProfile()->getLogin()
+            : null;
     }
 
     /**
      * Set status
      *
-     * @param smallint $status
+     * @param int $status
      * @return Review
      */
     public function setStatus($status)
@@ -403,7 +384,7 @@ class Review extends \XLite\Model\AEntity
     /**
      * Get status
      *
-     * @return smallint 
+     * @return int
      */
     public function getStatus()
     {
@@ -504,7 +485,7 @@ class Review extends \XLite\Model\AEntity
      * @param \XLite\Model\Profile $profile
      * @return Review
      */
-    public function setProfile(\XLite\Model\Profile $profile = null)
+    public function setProfile($profile)
     {
         $this->profile = $profile;
         return $this;
@@ -526,7 +507,7 @@ class Review extends \XLite\Model\AEntity
      * @param \XLite\Model\Product $product
      * @return Review
      */
-    public function setProduct(\XLite\Model\Product $product = null)
+    public function setProduct($product)
     {
         $this->product = $product;
         return $this;

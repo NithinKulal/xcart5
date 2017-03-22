@@ -50,12 +50,7 @@ class Gettext extends \XLite\Core\TranslationDriver\ATranslationDriver
     protected $msgfmtPath = null;
 
     /**
-     * Translate label
-     *
-     * @param string $name Label name
-     * @param string $code Language code
-     *
-     * @return string|void
+     * @inheritdoc
      */
     public function translate($name, $code)
     {
@@ -68,6 +63,11 @@ class Gettext extends \XLite\Core\TranslationDriver\ATranslationDriver
             $this->lastLanguage = $code;
         }
 
+        // If text longer than 2^12=4096 then gettext throws "warning: dgettext(): msgid passed too long"
+        if (strlen($name) > 4096) {
+            \XLite\Logger::getInstance()->log('gettext: translated string exceeded 4096 length limit', LOG_DEBUG, true);
+        }
+
         return dgettext($this->getDomain($code), $name);
     }
 
@@ -78,7 +78,7 @@ class Gettext extends \XLite\Core\TranslationDriver\ATranslationDriver
      */
     public function isValid()
     {
-        $result = function_exists('dgettext');
+        $result = parent::isValid() && function_exists('dgettext');
 
         if ($result) {
             if (!file_exists(LC_DIR_LOCALE)) {
@@ -99,11 +99,15 @@ class Gettext extends \XLite\Core\TranslationDriver\ATranslationDriver
                 && is_writable(LC_DIR_TMP);
 
             if ($result) {
-                $label = $this->translate(
-                    self::SERVICE_LBL,
-                    \XLite\Core\Session::getInstance()->getLanguage()->getCode()
-                );
-                $result = self::SERVICE_VALUE == $label;
+                try {
+                    $label = $this->translate(
+                        self::SERVICE_LBL,
+                        \XLite\Core\Session::getInstance()->getLanguage()->getCode()
+                    );
+                    $result = self::SERVICE_VALUE == $label;
+                } catch (\XLite\Core\Exception\TranslationDriverError $e) {
+                    $result = false;
+                }
             }
         }
 
@@ -117,6 +121,7 @@ class Gettext extends \XLite\Core\TranslationDriver\ATranslationDriver
      */
     public function reset()
     {
+        parent::reset();
         \Includes\Utils\FileManager::unlinkRecursive(LC_DIR_LOCALE);
 
         $this->domains = array();
@@ -141,7 +146,7 @@ class Gettext extends \XLite\Core\TranslationDriver\ATranslationDriver
      *
      * @param string $code Language code
      *
-     * @return void
+     * @throws \XLite\Core\Exception\TranslationDriverError
      */
     protected function setLocale($code)
     {
@@ -152,7 +157,10 @@ class Gettext extends \XLite\Core\TranslationDriver\ATranslationDriver
                 putenv(self::CATEGORY . '=' . $locale);
             }
 
-            setlocale(constant(self::CATEGORY), $locale);
+            if (!setlocale(constant(self::CATEGORY), $locale)) {
+                $this->markAsInvalid();
+                throw new \XLite\Core\Exception\TranslationDriverError("Unsupported locale: $locale");
+            }
         }
     }
 

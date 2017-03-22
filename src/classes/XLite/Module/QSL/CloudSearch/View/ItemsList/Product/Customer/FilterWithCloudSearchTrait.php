@@ -61,7 +61,7 @@ trait FilterWithCloudSearchTrait
      */
     protected function isDisplayWithEmptyList()
     {
-        return true;
+        return $this->getParam(self::PARAM_CLOUD_FILTERS) || parent::isDisplayWithEmptyList();
     }
 
     /**

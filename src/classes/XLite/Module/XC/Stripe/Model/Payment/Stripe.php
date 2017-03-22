@@ -145,8 +145,8 @@ class Stripe extends \XLite\Model\Payment\Base\Online
         $type = $method ? $method->getSetting('type') : $this->getSetting('type');
 
         return 'sale' == $type
-            ? \XLite\Model\Payment\BackendTransaction::TRAN_TYPE_AUTH
-            : \XLite\Model\Payment\BackendTransaction::TRAN_TYPE_SALE;
+            ? \XLite\Model\Payment\BackendTransaction::TRAN_TYPE_SALE
+            : \XLite\Model\Payment\BackendTransaction::TRAN_TYPE_AUTH;
     }
 
     /**
@@ -185,9 +185,7 @@ class Stripe extends \XLite\Model\Payment\Base\Online
             $result = static::COMPLETED;
             $backendTransactionStatus = \XLite\Model\Payment\BackendTransaction::STATUS_SUCCESS;
 
-            $type = $this->isCapture()
-                ? \XLite\Model\Payment\BackendTransaction::TRAN_TYPE_SALE
-                : \XLite\Model\Payment\BackendTransaction::TRAN_TYPE_AUTH;
+            $type = $this->getInitialTransactionType();
             $backendTransaction = $this->registerBackendTransaction($type);
             $backendTransaction->setDataCell('stripe_id', $payment->id);
             $this->transaction->setType($type);
@@ -248,7 +246,7 @@ class Stripe extends \XLite\Model\Payment\Base\Online
      */
     protected function isCapture()
     {
-        return 'sale' == $this->getSetting('type');
+        return $this->getInitialTransactionType() === \XLite\Model\Payment\BackendTransaction::TRAN_TYPE_SALE;
     }
 
     /**
@@ -470,6 +468,17 @@ class Stripe extends \XLite\Model\Payment\Base\Online
         return $result;
     }
 
+    protected function getRefundObject($event)
+    {
+        foreach ($event->data->object->refunds as $r) {
+            if (!$this->isRefundTransactionRegistered($r)) {
+                return $r;
+            }
+        }
+
+        return null;
+    }
+
     // }}}
 
     // {{{ Callback
@@ -515,6 +524,64 @@ class Stripe extends \XLite\Model\Payment\Base\Online
     {
         parent::processCallback($transaction);
 
+        if ($this->canProcessCallback($transaction)) {
+            $this->processStripeEvent($transaction);
+
+            // Remove ttl for IPN requests
+            /** @var \XLite\Module\XC\Stripe\Model\Payment\Transaction $transaction */
+            if ($transaction->hasCallbackLock()) {
+                $transaction->unlockCallbackProcessing();
+            }
+
+        } else {
+            \XLite\Logger::getInstance()->logCustom(
+                'stripe',
+                'Not ready to process this callback right now (waiting for payment return or db flush) ' . $transaction->getPublicTxnId()
+            );
+
+            \XLite::getController()->sendStripeConflictResponse();
+        }
+    }
+
+    /**
+     * Check if we can process IPN right now or should receive it later
+     *
+     * @param \XLite\Model\Payment\Transaction $transaction Callback-owner transaction
+     *
+     * @return boolean
+     */
+    protected function canProcessCallback(\XLite\Model\Payment\Transaction $transaction)
+    {
+        /** @var \XLite\Module\XC\Stripe\Model\Payment\Transaction $transaction */
+        $result = $transaction->isCallbackLockExpired() || !$transaction->hasCallbackLock();
+
+        // Set ttl once when no payment return happened yet
+        if (!$this->isOrderProcessed($transaction) && !$transaction->hasCallbackLock()) {
+            $transaction->lockCallbackProcessing(3600);
+            $result = false;
+        }
+
+        return $result;
+    }
+
+    /**
+     * Checks if the order of transaction is already processed and is available for IPN receiving
+     *
+     * @param \XLite\Model\Payment\Transaction $transaction
+     * @return bool
+     */
+    protected function isOrderProcessed(\XLite\Model\Payment\Transaction $transaction)
+    {
+        return !$transaction->isOpen() && !$transaction->isInProgress() && $transaction->getOrder()->getOrderNumber();
+    }
+
+    /**
+     * Process generic stripe event
+     *
+     * @param \XLite\Model\Payment\Transaction $transaction Callback-owner transaction
+     */
+    protected function processStripeEvent($transaction)
+    {
         $this->includeStripeLibrary();
 
         try {
@@ -547,27 +614,10 @@ class Stripe extends \XLite\Model\Payment\Base\Online
      */
     protected function processEventChargeRefunded($event)
     {
-        $founded = null;
+        $refundTransaction = $this->getRefundObject($event);
 
-        foreach ($this->transaction->getBackendTransactions() as $bt) {
-            if (
-                $bt->getType() == \XLite\Model\Payment\BackendTransaction::TRAN_TYPE_REFUND
-                && $bt->getStatus() == \XLite\Model\Payment\BackendTransaction::STATUS_SUCCESS
-            ) {
-                $founded = $bt;
-                break;
-            }
-        }
-
-        $refundTransaction = null;
-        foreach ($event->data->object->refunds as $r) {
-            if (!$this->isRefundTransactionRegistered($r)) {
-                $refundTransaction = $r;
-                break;
-            }
-        }
-
-        if ($refundTransaction && !$founded) {
+        if ($refundTransaction
+            && !$this->isBackendTransactionSuccessful(\XLite\Model\Payment\BackendTransaction::TRAN_TYPE_REFUND)) {
             $amount = $this->transaction->getCurrency()->convertIntegerToFloat($refundTransaction->amount);
 
             if ($amount != $this->transaction->getValue()) {
@@ -594,7 +644,7 @@ class Stripe extends \XLite\Model\Payment\Base\Online
             $backendTransaction->setStatus(\XLite\Model\Payment\BackendTransaction::STATUS_SUCCESS);
             $backendTransaction->registerTransactionInOrderHistory('callback');
 
-        } elseif ($founded) {
+        } elseif ($this->isBackendTransactionSuccessful(\XLite\Model\Payment\BackendTransaction::TRAN_TYPE_REFUND)) {
             $this->transaction->setType(\XLite\Model\Payment\BackendTransaction::TRAN_TYPE_REFUND);
             $this->transaction->setStatus(\XLite\Model\Payment\Transaction::STATUS_SUCCESS);
         } else{
@@ -614,27 +664,9 @@ class Stripe extends \XLite\Model\Payment\Base\Online
      */
     protected function processEventChargeCaptured($event)
     {
-        $founded = null;
+        $refundTransaction = $this->getRefundObject($event);
 
-        foreach ($this->transaction->getBackendTransactions() as $bt) {
-            if (
-                $bt->getType() == \XLite\Model\Payment\BackendTransaction::TRAN_TYPE_CAPTURE
-                && $bt->getStatus() == \XLite\Model\Payment\BackendTransaction::STATUS_SUCCESS
-            ) {
-                $founded = $bt;
-                break;
-            }
-        }
-
-        $refundTransaction = null;
-        foreach ($event->data->object->refunds as $r) {
-            if (!$this->isRefundTransactionRegistered($r)) {
-                $refundTransaction = $r;
-                break;
-            }
-        }
-
-        if (!$founded) {
+        if (!$this->isBackendTransactionSuccessful(\XLite\Model\Payment\BackendTransaction::TRAN_TYPE_CAPTURE)) {
             $amount = $this->transaction->getValue();
             if ($refundTransaction) {
                 $amountRefunded = $this->transaction->getCurrency()->convertIntegerToFloat($refundTransaction->amount);
@@ -674,6 +706,167 @@ class Stripe extends \XLite\Model\Payment\Base\Online
         }
     }
 
+    /**
+     * Process event charge.captured
+     *
+     * @param \Stripe_Event $event Event
+     *
+     * @return void
+     */
+    protected function processEventChargeSucceeded($event)
+    {
+        $type = $event->data->object->captured
+            ? \XLite\Model\Payment\BackendTransaction::TRAN_TYPE_SALE
+            : \XLite\Model\Payment\BackendTransaction::TRAN_TYPE_AUTH;
+
+        $backendTransaction = $this->getBackendTransactionByChargeId($event->data->object->id);
+
+        if (!$backendTransaction) {
+            $backendTransaction = $this->registerBackendTransaction($type);
+        }
+
+        if ($backendTransaction->getDataCell('event_id') !== $event->id) {
+
+            $backendTransaction->setStatus(\XLite\Model\Payment\BackendTransaction::STATUS_SUCCESS);
+            $backendTransaction->setDataCell('stripe_id', $event->data->object->id);
+            $backendTransaction->setDataCell('event_id', $event->id);
+
+            if (!empty($event->data->object->balance_transaction)) {
+                $backendTransaction->setDataCell('stripe_b_txntid', $event->data->object->balance_transaction);
+            }
+
+            $backendTransaction->registerTransactionInOrderHistory('callback');
+        } else {
+            \XLite\Logger::getInstance()->logCustom(
+                'stripe',
+                'Duplicate charge.succeeded event # ' . $event->id
+            );
+        }
+    }
+
+    /**
+     * Process event charge.captured
+     *
+     * @param \Stripe_Event $event Event
+     *
+     * @return void
+     */
+    protected function processEventChargePending($event)
+    {
+        $pending = \XLite\Model\Payment\Transaction::STATUS_PENDING;
+
+        $type = $event->data->object->captured
+            ? \XLite\Model\Payment\BackendTransaction::TRAN_TYPE_SALE
+            : \XLite\Model\Payment\BackendTransaction::TRAN_TYPE_AUTH;
+
+        $backendTransaction = $this->getBackendTransactionByChargeId($event->data->object->id);
+
+        if (!$backendTransaction) {
+            $backendTransaction = $this->registerBackendTransaction($type);
+        }
+
+        if ($backendTransaction->getDataCell('event_id') !== $event->id && $this->transaction->getStatus() !== $pending) {
+
+            $backendTransaction = $this->registerBackendTransaction($type);
+            $backendTransaction->setStatus($pending);
+            $backendTransaction->setDataCell('stripe_id', $event->data->object->id);
+            $backendTransaction->setDataCell('event_id', $event->id);
+
+            if (!empty($event->data->object->balance_transaction)) {
+                $backendTransaction->setDataCell('stripe_b_txntid', $event->data->object->balance_transaction);
+            }
+
+            $backendTransaction->registerTransactionInOrderHistory('callback');
+
+            $this->transaction->setStatus($pending);
+        } else {
+            \XLite\Logger::getInstance()->logCustom(
+                'stripe',
+                'Duplicate charge.pending event # ' . $event->id
+            );
+        }
+    }
+
+    /**
+     * Process event charge.captured
+     *
+     * @param \Stripe_Event $event Event
+     *
+     * @return void
+     */
+    protected function processEventChargeFailed($event)
+    {
+        $failed = \XLite\Model\Payment\Transaction::STATUS_FAILED;
+
+        if ($this->transaction->getStatus() !== $failed) {
+            $this->setDetail(
+                'status',
+                $event->data->object->failure_message,
+                'Status'
+            );
+
+            $this->transaction->setStatus($failed);
+            $backendTransaction = $this->transaction->getInitialBackendTransaction();
+
+            if (null !== $backendTransaction && $backendTransaction->getDataCell('event_id') !== $event->id) {
+                $backendTransaction->setStatus($failed);
+                $backendTransaction->setDataCell('stripe_id', $event->data->object->id);
+                $backendTransaction->setDataCell('event_id', $event->id);
+
+                if (!empty($event->data->object->balance_transaction)) {
+                    $backendTransaction->setDataCell('stripe_b_txntid', $event->data->object->balance_transaction);
+                }
+
+                $backendTransaction->registerTransactionInOrderHistory('callback');
+            } else {
+                \XLite\Logger::getInstance()->logCustom(
+                    'stripe',
+                    'Duplicate charge.failed event # ' . $event->id
+                );
+            }
+        }
+    }
+
+    /**
+     * Check if event is already handled
+     *
+     * @param string $type
+     *
+     * @return bool
+     */
+    protected function isBackendTransactionSuccessful($type)
+    {
+        foreach ($this->transaction->getBackendTransactions() as $bt) {
+            if (
+                $bt->getType() == $type
+                && $bt->getStatus() == \XLite\Model\Payment\BackendTransaction::STATUS_SUCCESS
+            ) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if event is present in the database
+     *
+     * @param string $id
+     *
+     * @return \XLite\Model\Payment\BackendTransaction
+     */
+    protected function getBackendTransactionByChargeId($id)
+    {
+        $ref = \XLite\Core\Database::getRepo('XLite\Model\Payment\BackendTransactionData')
+            ->findOneBy(
+                array(
+                    'name' => 'stripe_id',
+                    'value' => $id,
+                )
+            );
+
+        return $ref ? $ref->getTransaction() : null;
+    }
 
     /**
      * Detect event id 

@@ -52,6 +52,10 @@
   color: #4C9D56;
 }
 
+.https-settings-dialog .help-block.purchase {
+  margin: 10px 0;
+}
+
 .https-settings-dialog .help-block.purchase span {
   color: #4795CE;
   font-style: italic;

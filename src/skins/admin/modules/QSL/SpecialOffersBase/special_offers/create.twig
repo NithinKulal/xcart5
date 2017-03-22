@@ -5,5 +5,5 @@
   </ul>
 {% endform %}
 {% else %}
-    {% include 'modules/QSL/SpecialOffersBase/special_offers/special_offer_modules.twig' %}
+    {{ widget('\\XLite\\Module\\QSL\\SpecialOffersBase\\View\\ItemsList\\Model\\PromotedModules') }}
 {% endif %}

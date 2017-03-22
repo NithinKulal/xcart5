@@ -67,6 +67,20 @@ div.modify-review-dialog .form-item label.email {
   width: 97px;
 }
 
+div.modify-review-dialog .form-item div.email-label {
+  display: inline-block;
+}
+
+div.modify-review-dialog .form-item div.email-value {
+  width: auto;
+  padding: 10px;
+  display: inline-block;
+}
+
+div.modify-review-dialog .form-item div.tooltip-main {
+  display: inline-block;
+}
+
 div.modify-review-dialog .form-item label.rating,
 div.modify-review-dialog .form-item label.review {
   width: 190px;

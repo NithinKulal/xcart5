@@ -36,7 +36,7 @@ XLite\Model\Config:
     value: ''
     translations:
       - code: en
-        option_name: 'Public key'
+        option_name: 'Site key'
         option_comment: 'To use reCAPTCHA you should get an API key from <a href="https://www.google.com/recaptcha/admin/create">https://www.google.com/recaptcha/admin/create</a>'
   - name: recaptcha_private_key
     category: 'CDev\ContactUs'
@@ -45,7 +45,7 @@ XLite\Model\Config:
     value: ''
     translations:
       - code: en
-        option_name: 'Private key'
+        option_name: 'Secret key'
 XLite\Model\LanguageLabel:
   - { name: "This field is required.", translations: [{ code: en, label: "This field is required." }] }
   - { name: "Please enter the correct captcha", translations: [{ code: en, label: "Please enter the correct code" }] }

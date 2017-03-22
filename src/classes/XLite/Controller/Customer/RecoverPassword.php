@@ -102,7 +102,8 @@ class RecoverPassword extends \XLite\Controller\Customer\ACustomer
             \XLite\Core\TopMessage::addInfo(
                 'Please create a new password'
             );
-            $this->setReturnURL($this->buildURL());
+
+            $this->setReturnURL($this->buildURL('main'));
             \XLite\Core\Event::recoverPasswordDone(array('email' => $this->get('email')));
         }
     }

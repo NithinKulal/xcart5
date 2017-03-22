@@ -51,24 +51,31 @@ class Country extends \XLite\Model\Repo\Country implements \XLite\Base\IDecorato
     public function getAllAvailableCountriesAsArray()
     {
         $qb = $this->createPureQueryBuilder('c')
-            ->select('c', 'IFNULL(tr.country, trd.country) AS country')
-            ->innerJoin(
-                'c.translations',
-                'trd',
-                \Doctrine\ORM\Query\Expr\Join::WITH,
-                'trd.code = :default_code'
-            )
+            ->select('c', 'IFNULL(tr.country, IFNULL(tr_def.country, tr_xc_def.country)) AS country')
             ->leftJoin(
                 'c.translations',
                 'tr',
                 \Doctrine\ORM\Query\Expr\Join::WITH,
                 'tr.code = :code'
             )
+            ->leftJoin(
+                'c.translations',
+                'tr_def',
+                \Doctrine\ORM\Query\Expr\Join::WITH,
+                'tr_def.code = :default_code'
+            )
+            ->leftJoin(
+                'c.translations',
+                'tr_xc_def',
+                \Doctrine\ORM\Query\Expr\Join::WITH,
+                'tr_xc_def.code = :translations_default_code'
+            )
             ->andWhere('c.enabled = :is_enabled')
             ->orderBy('country', 'ASC')
             ->setParameter('is_enabled', true)
             ->setParameter('code', $this->getTranslationCode())
-            ->setParameter('default_code', \XLite::getDefaultLanguage());
+            ->setParameter('default_code', \XLite::getDefaultLanguage())
+            ->setParameter('translations_default_code', \XLite\Core\Translation::DEFAULT_LANGUAGE);
 
         $countries = $qb->getQuery()->getScalarResult();
 

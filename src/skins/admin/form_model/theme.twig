@@ -204,6 +204,14 @@
 
 {# /switcher #}
 
+{# low_stock_notification #}
+
+{%- block low_stock_notification_widget -%}
+    {{- block('switcher_widget') -}}
+{%- endblock low_stock_notification_widget -%}
+
+{# /low_stock_notification #}
+
 {# datepicker #}
 
 {% block datepicker_widget -%}
@@ -269,7 +277,7 @@
         {% if disabled %}
             <div class="clean-url-disabled-info">
                 <i class="fa fa-exclamation-triangle"></i>
-                {{ t('Clean URLs are disabled. More info', {'more_info_url': url('settings', '', {'page': 'CleanURL'})})|raw }}
+                {{ disabledComment|raw }}
             </div>
         {% endif %}
     </div>

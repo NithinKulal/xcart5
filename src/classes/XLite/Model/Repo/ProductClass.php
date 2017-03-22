@@ -41,8 +41,7 @@ class ProductClass extends \XLite\Model\Repo\Base\I18n
             }
 
             if ($ids) {
-                $keys = \XLite\Core\Database::buildInCondition($queryBuilder, $ids, 'pcid');
-                $queryBuilder->andWhere('p.id IN (' . implode(', ', $keys) . ')');
+                $queryBuilder->andWhere($queryBuilder->expr()->in('p.id', $ids));
 
             } else {
                 $queryBuilder->andWhere('p.id is null');

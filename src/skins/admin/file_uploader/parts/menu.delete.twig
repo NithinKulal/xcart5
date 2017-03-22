@@ -4,7 +4,7 @@
  # @ListChild (list="file-uploader.menu", weight="100")
  #}
 
-{% if this.hasFile() %}
+{% if this.hasFile() and this.isRemovable() %}
   <li role="presentation" class="divider"></li>
   <li role="presentation">
     <a role="menuitem" tabindex="-1" href="#" class="delete">

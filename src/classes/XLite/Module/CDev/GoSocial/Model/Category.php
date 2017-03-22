@@ -138,7 +138,7 @@ abstract class Category extends \XLite\Model\Category implements \XLite\Base\IDe
      */
     protected function getOpenGraphLocale()
     {
-        return 'en_US';
+        return \XLite\Core\Session::getInstance()->getLocale();
     }
 
     /**

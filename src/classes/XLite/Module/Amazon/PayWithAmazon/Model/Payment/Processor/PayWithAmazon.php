@@ -77,6 +77,20 @@ class PayWithAmazon extends \XLite\Model\Payment\Base\CreditCard
     }
 
     /**
+     * Return IPN endpoint URL
+     *
+     * @return string
+     */
+    public function getAmazonIPNURL()
+    {
+
+        return \XLite::getInstance()->getShopURL(
+            \XLite\Core\Converter::buildFullURL('callback', '', [], \XLite::CART_SELF),
+            \XLite\Core\Config::getInstance()->Security->customer_security
+        );
+    }
+
+    /**
      * @param \XLite\Model\Payment\Method $method Payment method
      *
      * @return string

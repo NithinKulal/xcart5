@@ -3,6 +3,21 @@
  #
  # @ListChild (list="review.add.fields", weight="300")
  #}
+
 <div class="form-item clearfix">
-  {{ widget('XLite\\View\\FormField\\Input\\Text\\Email', required='true', fieldName='email', placeholder=t('Email address'), value=this.review.email, label=t('Your email'), help=t('We use this email in case we need additional information on your review. We do not use it for any kind of mailing lists or spam subscriptions')) }}
+  <div class="email-label">
+    <label for="email">
+      {{ t('Your email') }}
+    </label>
+  </div>
+
+  <div class="email-value">
+    <span>{{ this.review.email }}</span>
+  </div>
+
+  <div class="tooltip-main">
+      <i class="tooltip-caption fa fa-question-circle help-icon"></i>
+      <div class="help-text" style="display: none;">{{ t('We use this email in case we need additional information on your review. We do not use it for any kind of mailing lists or spam subscriptions') }}</div>
+  </div>
+  <div class="clear"></div>
 </div>

@@ -486,7 +486,9 @@ class Profile extends \XLite\Model\AEntity
             return;
         }
 
-        $useAsOtherType = null;
+        $useAsOtherType = isset(\XLite\Core\Session::getInstance()->same_address)
+            ? \XLite\Core\Session::getInstance()->same_address
+            : null;
 
         // Disable current address
         if ($current) {

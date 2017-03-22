@@ -46,7 +46,12 @@ class AllInOneSolutions extends \XLite\View\AView
      */
     public function getSolutions()
     {
-        return \XLite\Logic\AllInOneSolutionService::getInstance()->getSolutions();
+        return array_filter(
+            \XLite\Logic\AllInOneSolutionService::getInstance()->getSolutions(),
+            function(\XLite\View\AView $solution) {
+                return $solution->isVisible();
+            }
+        );
     }
 
     /**

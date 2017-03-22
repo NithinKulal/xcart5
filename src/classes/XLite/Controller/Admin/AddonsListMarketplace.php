@@ -215,6 +215,8 @@ class AddonsListMarketplace extends \XLite\Controller\Admin\Base\AddonsList
             ->find(\XLite\Core\Request::getInstance()->module);
 
         if (!$module || !\XLite\Core\Marketplace::getInstance()->isUpgradeRequestAvailable($module)) {
+            \XLite\Core\TopMessage::addWarning('An error occurred while sending the request');
+            $this->valid = false;
             return;
         }
 
@@ -228,9 +230,8 @@ class AddonsListMarketplace extends \XLite\Controller\Admin\Base\AddonsList
 
         } else {
             \XLite\Core\TopMessage::addWarning('An error occurred while sending the request');
+            $this->valid = false;
         }
-
-        $this->setReturnURL($this->getReferrerURL());
     }
 
     /**

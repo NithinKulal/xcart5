@@ -461,9 +461,8 @@ abstract class ARepo extends \Doctrine\ORM\EntityRepository
 
         if ($ids) {
             $qb = $this->createQueryBuilder();
-            $keys = \XLite\Core\Database::buildInCondition($qb, $ids, $prefix);
             $alias = $this->getMainAlias($qb);
-            $qb->andWhere($alias . '.' . $this->_class->identifier[0] . ' IN (' . implode(', ', $keys) . ')');
+            $qb->andWhere($qb->expr()->in($alias . '.' . $this->_class->identifier[0], $ids));
 
             $result = $qb->getResult();
         }
@@ -1961,12 +1960,12 @@ abstract class ARepo extends \Doctrine\ORM\EntityRepository
                    );
 
         if ($this->hasFilter) {
-            $qb->andWhere($qb->getMainAlias() . '.xcPendingExport = 1');
+            $qb->andWhere($this->getFilterExpr($qb));
         }
 
         if (!empty($this->exportSelection)) {
-            $qb->andWhere($qb->getMainAlias() . '.' . $this->getPrimaryKeyField() . ' IN (:ids)')
-                     ->setParameter('ids', $this->exportSelection);
+            $qb->andWhere($this->getSelectionExpr($qb))
+                ->setParameter('ids', $this->exportSelection);
         }
 
         return $qb;
@@ -1986,15 +1985,38 @@ abstract class ARepo extends \Doctrine\ORM\EntityRepository
                    ->setMaxResults(1000000000);
 
         if ($this->hasFilter) {
-            $qb->andWhere($qb->getMainAlias() . '.xcPendingExport = 1');
+            $qb->andWhere($this->getFilterExpr($qb));
         }
 
         if (!empty($this->exportSelection)) {
-            $qb->andWhere($qb->getMainAlias() . '.' . $this->getPrimaryKeyField() . ' IN (:ids)')
-                     ->setParameter('ids', $this->exportSelection);
+            $qb->andWhere($this->getSelectionExpr($qb))
+                 ->setParameter('ids', $this->exportSelection);
         }
 
         return $qb;
+    }
+
+    /**
+     * @param \XLite\Model\QueryBuilder\AQueryBuilder $qb
+     *
+     * @return \Doctrine\ORM\Query\Expr\Base
+     */
+    protected function getFilterExpr(\XLite\Model\QueryBuilder\AQueryBuilder $qb)
+    {
+        return $qb->expr()->eq(
+            $qb->getMainAlias() . '.xcPendingExport',
+            true
+        );
+    }
+
+    /**
+     * @param \XLite\Model\QueryBuilder\AQueryBuilder $qb
+     *
+     * @return \Doctrine\ORM\Query\Expr\Base
+     */
+    protected function getSelectionExpr(\XLite\Model\QueryBuilder\AQueryBuilder $qb)
+    {
+        return $qb->getMainAlias() . '.' . $this->getPrimaryKeyField() .' IN (:ids)';
     }
 
     // }}}

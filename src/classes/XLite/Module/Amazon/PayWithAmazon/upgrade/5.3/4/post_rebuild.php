@@ -316,6 +316,7 @@ function payWithAmazon_addTransactionToOrder($order, $type)
     $transaction->setOrder($order);
     $transaction->setPaymentMethod($method);
     $transaction->setValue($order->getTotal());
+    $transaction->setDate($order->getDate());
     $transaction->setType($type);
 
     \XLite\Core\Database::getEM()->persist($transaction);

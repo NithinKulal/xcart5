@@ -19,6 +19,7 @@
 }
 
 .admin-welcome.root {
+  position: relative;
   background: #f8fcff;
   background: -moz-linear-gradient(top,  rgba(248,252,255,1) 0%, rgba(232,245,255,1) 100%);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(248,252,255,1)), color-stop(100%,rgba(232,245,255,1)));
@@ -30,7 +31,7 @@
 }
 
 .admin-welcome.root .inner-box {
-  background: transparent url(../images/launch.png) no-repeat left 12px;
+  background: transparent url(../images/launch.png) no-repeat left -32px;
 }
 
 .admin-welcome h1 {

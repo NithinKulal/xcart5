@@ -220,4 +220,34 @@ class SpecialOffer extends \XLite\View\ItemsList\Model\Table
 
         return $searchCase;
     }
+    
+    /**
+     * Returns an array of special offer related modules.
+     * 
+     * @return array
+     */
+    protected function getPromotedModules()
+    {
+        $repo = \XLite\Core\Database::getRepo('XLite\Model\Module');
+        
+        $result = [];
+        
+        $module = $repo->findOneBy(['author' => 'QSL', 'name' => 'BuyXGetY'], ['fromMarketplace' => 'ASC']);
+        $result[] = [
+            'cssClass' => 'special-offer-mod--buy-x-get-y',
+            'name' => $module->getName(),
+            'url' => $module->getMarketplaceURL(),
+            'promo' => $this->t('This module adds variations of the "Buy X Get Y" special offer type. For example, you can give the 50% discount on each third product from Toys category.'),
+        ];
+        
+        $module = $repo->findOneBy(['author' => 'QSL', 'name' => 'SpendXGetY'], ['fromMarketplace' => 'ASC']);
+        $result[] = [
+            'cssClass' => 'special-offer-mod--spend-x-get-y',
+            'name' => $module->getName(),
+            'url' => $module->getMarketplaceURL(),
+            'promo' => $this->t('This module adds variations of the "Spend X Get Y" special offer type. For example, in every $100 spent by customer you can give the cheapest product away as a gift.'),
+        ];
+        
+        return $result;
+    }
 }

@@ -22,7 +22,7 @@ class XLite extends \XLite\Base
     /**
      * Core version
      */
-    const XC_VERSION = '5.3.2.7';
+    const XC_VERSION = '5.3.2.8';
 
     /**
      * Endpoints
@@ -789,6 +789,8 @@ class XLite extends \XLite\Base
                     // Redirect
                     \XLite\Core\Operator::redirect($canonicalURL);
                 }
+            } else {
+                $result = static::TARGET_404;
             }
         }
 

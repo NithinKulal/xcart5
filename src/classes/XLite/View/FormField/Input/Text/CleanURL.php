@@ -162,6 +162,18 @@ class CleanURL extends \XLite\View\FormField\Input\Text
     }
 
     /**
+     * Info text for disabled CleanURL functionality
+     *
+     * @return boolean
+     */
+    public function getDisabledCleanUrlComment()
+    {
+        return static::t('Clean URLs are disabled. More info', [
+            'more_info_url' => $this->buildURL('settings', '', [ 'page' => 'CleanURL' ])
+        ]);
+    }
+
+    /**
      * Return extension
      *
      * @return string

@@ -25,20 +25,6 @@ abstract class ABestsellers extends \XLite\View\ItemsList\Product\Customer\ACust
     const PARAM_CATEGORY_ID = 'category_id';
 
     /**
-     * Category id
-     *
-     * @var mixed
-     */
-    protected $rootCategoryId = null;
-
-    /**
-     * Bestsellers products
-     *
-     * @var mixed
-     */
-    protected $bestsellProducts = null;
-
-    /**
      * Define and set widget attributes; initialize widget
      *
      * @param array $params Widget params OPTIONAL
@@ -119,5 +105,18 @@ abstract class ABestsellers extends \XLite\View\ItemsList\Product\Customer\ACust
     protected function getBlockClasses()
     {
         return parent::getBlockClasses() . ' block-bestsellers';
+    }
+
+    /**
+     * Get cache parameters
+     *
+     * @return array
+     */
+    protected function getCacheParameters()
+    {
+        $params = parent::getCacheParameters();
+        $params[] = \XLite\Core\Request::getInstance()->category_id;
+
+        return $params;
     }
 }

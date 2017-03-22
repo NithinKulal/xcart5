@@ -594,11 +594,6 @@ class XPaymentsClient extends \XLite\Base\Singleton
 
         $profile = $cart->getProfile();
 
-        // To make shipping correct
-        $cart->setXpcForceCalcFlag();
-        $cart->calculate();
-        $cart->setXpcForceCalcFlag(false);
-
         if ($cart->getOrderNumber()) {
 
             $description = 'Order #' . $cart->getOrderNumber();
@@ -615,6 +610,12 @@ class XPaymentsClient extends \XLite\Base\Singleton
             $description = '';
         }
 
+        // Try modern serialized emails or fallback to plain string
+        $emails = @unserialize(\XLite\Core\Config::getInstance()->Company->orders_department);
+        $merchantEmail = (is_array($emails) && !empty($emails))
+            ? array_shift($emails)
+            : \XLite\Core\Config::getInstance()->Company->orders_department;
+
         $result = array(
             'login'                => $profile->getLogin() . ' (User ID #' . $profile->getProfileId() . ')',
             'items'                => array(),
@@ -624,7 +625,7 @@ class XPaymentsClient extends \XLite\Base\Singleton
             'discount'             => 0.00,
             'totalCost'            => 0.00,
             'description'          => $description,
-            'merchantEmail'        => \XLite\Core\Config::getInstance()->Company->orders_department,
+            'merchantEmail'        => $merchantEmail,
             'forceTransactionType' => $forceAuth ? 'A' : '',
         );
 

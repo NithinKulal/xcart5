@@ -21,9 +21,14 @@ class Line
     public static function getDataByOrderItem(\XLite\Model\OrderItem $item)
     {
         try {
-            list($categoryId, $categoryName) = static::getCategoryData(
-                $item->getObject()->getCategories()
-            );
+            $categoryId = 0;
+            $categoryName = '';
+
+            if ($item->getObject()) {
+                list($categoryId, $categoryName) = static::getCategoryData(
+                    $item->getObject()->getCategories()
+                );
+            }
             
             return [
                 'id'                    => strval($item->getItemId()),

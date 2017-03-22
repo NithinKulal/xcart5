@@ -259,10 +259,6 @@ class ExpressCheckoutMerchantAPI extends \XLite\Module\CDev\Paypal\Model\Payment
         \XLite\Core\Session::getInstance()->ec_payer_id = null;
         \XLite\Core\Session::getInstance()->ec_type = null;
 
-        if ($transaction->hasTtlForIpn()) {
-            $transaction->removeTtlForIpn();
-        }
-
         return $status;
     }
 

@@ -1,0 +1,76 @@
+{##
+ # Fraud check result on the invoice
+ #
+ # @ListChild (list="invoice.base", weight="60")
+ #}
+{% if this.order.getFraudCheckData() %}
+<table>
+  {% for data in this.order.getFraudCheckData() %}
+    {% if this.order.getFraudCheckData() %}
+      <tr>
+  
+        <td colspan="3" style="background: #f9f9f9; padding: 15px;">
+  
+          <h2 style="font-weight: normal; font-size: 24px; margin: 18px 0;">{{ t(data.service) }}</h2>
+  
+          {% if data.errors %}
+            {% for error in data.getErrorsList() %}
+              <div style="{{ this.getKountErrorStyle() }}">
+                <strong>{{ t('Error') }}!</strong>
+                  {{ error|raw }}
+              </div>
+            {% endfor %}
+          {% endif %}
+  
+          {% if data.warnings %}
+            {% for warning in data.getWarningList() %}
+              <div style="font-size: 15px; line-height: 20px;">
+                <strong>{{ t('Warning') }}!</strong>
+                  {{ warning|raw }}
+              </div>
+            {% endfor %}
+          {% endif %}
+  
+          {% if data.getDisplayMessage() %}
+            <p style="font-size: 15px; line-height: 20px;">
+              {{ data.getDisplayMessage()|raw }}.
+    
+              {% if data.score %}
+                {{ t('Score') }}:
+                <span class="lead {{ data.scoreClass }}">{{ data.score }}</span>
+              {% endif %}
+            </p>
+          {% endif %}
+  
+          {% if data.serviceTransactionId %}
+            <p style="font-size: 15px; line-height: 20px;">
+    
+              {{ t('Transaction ID') }}:
+    
+              {% if data.url %}
+                <a href="{{ data.url }}" target="_blank">{{ data.serviceTransactionId }}</a>
+              {% else %}
+                {{ data.serviceTransactionId }}
+              {% endif %}
+    
+            </p>
+          {% endif %}
+  
+          {% if data.rules %}
+  
+            <h3 style="line-height: 50px; font-size: 18px; font-weight: normal;">{{ t('Rules triggered') }}:</h3>
+  
+            <ul class="kount-result-lines">
+              {% for rule in data.getRulesList() %}
+                <li style="font-size: 15px; line-height: 20px;">{{ rule|raw }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+  
+        </td>
+  
+      </tr>
+    {% endif %}
+  {% endfor %}
+</table>
+{% endif %}

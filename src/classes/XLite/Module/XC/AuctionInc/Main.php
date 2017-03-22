@@ -67,7 +67,7 @@ abstract class Main extends \XLite\Module\AModule
      */
     public static function getBuildVersion()
     {
-        return '3';
+        return '4';
     }
 
     /**
@@ -110,7 +110,7 @@ TEXT;
     /**
      * Perform some actions at startup
      *
-     * @return string
+     * @return void
      */
     public static function init()
     {
@@ -119,6 +119,20 @@ TEXT;
         \XLite\Model\Shipping::getInstance()->registerProcessor(
             '\XLite\Module\XC\AuctionInc\Model\Shipping\Processor\AuctionInc'
         );
+
+        if (!static::isXSTrialPeriodValid() && !\XLite\Module\XC\AuctionInc\Main::isSSAvailable()) {
+            /** @var \XLite\Model\Repo\Shipping\Method $repo */
+            $repo = \XLite\Core\Database::getRepo('XLite\Model\Shipping\Method');
+
+            if ($repo->isAuctionIncEnabled()) {
+                $method = $repo->findOnlineCarrier('auctionInc');
+
+                if ($method) {
+                    $method->setEnabled(false);
+                    \XLite\Core\Database::getEM()->flush();
+                }
+            }
+        }
     }
 
     /**

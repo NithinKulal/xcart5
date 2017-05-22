@@ -1,0 +1,15 @@
+{##
+ # Open popup link
+ #}
+{% if this.item.isCustomerAttachable() %}
+  <p class="item-attachment">
+      <input type="hidden" name="item_id" value="{{ this.item.getItemId() }}" />
+      <a class="customer-attachment" href="cart.php?target=customer_attachments&item_id={{ this.item.getItemId() }}">{{ t('Attach files') }}</a>
+      {% if this.getAttachedFilesQuantity() %}
+        <span class="files-attached">{{ t('X file(s) attached', {'quantity': this.getAttachedFilesQuantity()})|raw }}</span>
+      {% endif %}
+      {% if this.isAttachmentNeed() %}
+        <span>{{ t('You have to attach file') }}</span>
+      {% endif %}
+  </p>
+{% endif %}

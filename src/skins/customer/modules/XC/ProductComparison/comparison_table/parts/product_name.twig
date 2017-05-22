@@ -1,0 +1,17 @@
+{##
+ # Products
+ #
+ # @ListChild (list="comparison_table.header_fixed", weight="100")
+ #}
+
+<tr class="names">
+  <td><div>&nbsp;</div></td>
+  {% for product in this.getProducts() %}
+    <td>
+      <div>
+        <a target="_blank" href="{{ url('product', '', {'product_id': product.product_id}) }}"><span>{{ product.name }}</span></a>
+        <img src="{{ asset('images/spacer.gif') }}" class="right-fade" alt="" />
+      </div>
+    </td>
+  {% endfor %}
+</tr>

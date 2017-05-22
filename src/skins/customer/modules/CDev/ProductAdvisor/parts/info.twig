@@ -10,8 +10,10 @@
 </div>
 
 <div class="recently-viewed-product-details hidden">
-  <h5><a href="{{ this.getProductURL() }}">{{ this.product.getName() }}</a></h5>
-  <div class="price">
-    {{ widget('\\XLite\\View\\Price', product=this.product, displayOnlyPrice='1') }}
+  <div class="products recently-viewed-in-popover">
+    <h5><a href="{{ this.getProductURL() }}">{{ this.product.getName() }}</a></h5>
+    <div class="price">
+      {{ widget('\\XLite\\View\\Price', product=this.product, displayOnlyPrice='1') }}
+    </div>
   </div>
 </div>

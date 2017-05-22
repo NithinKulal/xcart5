@@ -272,7 +272,7 @@ class Login extends \XLite\Controller\Customer\ACustomer
                 $this->setReturnURL(
                     \XLite\Core\Converter::buildURL('cart')
                 );
-            } elseif ($this->getReturnURL() === \XLite\Core\Converter::buildURL('login')) {
+            } elseif (strpos($this->getReturnURL(), \XLite\Core\Converter::buildURL('login')) !== false) {
                 $this->setReturnURL(
                     \XLite\Core\Converter::buildURL('main')
                 );
@@ -327,7 +327,7 @@ class Login extends \XLite\Controller\Customer\ACustomer
 
             \Includes\Utils\Session::clearAdminCookie();
 
-            $this->setReturnURL(\XLite\Core\Converter::buildURL());
+            $this->setReturnURL(\XLite\Core\Converter::buildFullURL());
 
             $this->getCart()->logoff();
             $this->updateCart();

@@ -1,0 +1,13 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Data
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Payment\Method:
+  - { service_name: 'Moneybookers.PWY', translations: [{ code: en, name: 'Skrill Przelewy24' }] }
+  - { service_name: 'Moneybookers.ADB', translations: [{ code: en, name: 'Skrill Direct bank transfer' }] }
+  - { service_name: 'Moneybookers.AOB', translations: [{ code: en, name: 'Skrill Manual bank transfer' }] }
+  - { service_name: 'Moneybookers.ACI', translations: [{ code: en, name: 'Skrill Cash/Invoice' }] }
+  - { service_name: 'Moneybookers.AUP', translations: [{ code: en, name: 'Skrill Unionpay' }] }

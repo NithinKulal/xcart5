@@ -60,7 +60,7 @@ class Storage extends \XLite\Controller\Customer\ACustomer
             if (\XLite\Core\Operator::isClassExists($class)) {
                 $id = \XLite\Core\Request::getInstance()->id;
                 $this->storage = \XLite\Core\Database::getRepo($class)->find($id);
-                if (!$this->storage->isFileExists()) {
+                if ($this->storage && !$this->storage->isFileExists()) {
                     $this->storage = null;
                 }
             }

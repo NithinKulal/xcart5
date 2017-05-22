@@ -738,11 +738,6 @@ class Profile extends \XLite\Model\AEntity
     {
         $newProfile = parent::cloneEntity();
 
-        if (!$newProfile->update(true) || !$newProfile->getProfileId()) {
-            // TODO - add throw exception
-            \XLite::getInstance()->doGlobalDie('Can not clone profile');
-        }
-
         $newProfile->setMembership($this->getMembership());
         $newProfile->setPendingMembership($this->getPendingMembership());
         $newProfile->setPassword('');
@@ -752,7 +747,6 @@ class Profile extends \XLite\Model\AEntity
             $newBillingAddress = $billingAddress->cloneEntity();
             $newBillingAddress->setProfile($newProfile);
             $newProfile->addAddresses($newBillingAddress);
-            $newBillingAddress->update();
         }
 
         $shippingAddress = $this->getShippingAddress();
@@ -762,10 +756,7 @@ class Profile extends \XLite\Model\AEntity
             $newShippingAddress = $shippingAddress->cloneEntity();
             $newShippingAddress->setProfile($newProfile);
             $newProfile->addAddresses($newShippingAddress);
-            $newShippingAddress->update();
         }
-
-        $newProfile->update(true);
 
         return $newProfile;
     }

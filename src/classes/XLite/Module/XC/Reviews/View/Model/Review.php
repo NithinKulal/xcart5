@@ -38,7 +38,7 @@ class Review extends \XLite\View\Model\AModel
         'profile'      => array(
             self::SCHEMA_CLASS    => 'XLite\View\FormField\Select\Model\ProfileSelector',
             self::SCHEMA_LABEL    => 'Profile',
-            self::SCHEMA_REQUIRED => true,
+            self::SCHEMA_REQUIRED => false,
         ),
         'review'       => array(
             self::SCHEMA_CLASS    => 'XLite\View\FormField\Textarea\Simple',

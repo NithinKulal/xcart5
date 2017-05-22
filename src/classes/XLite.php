@@ -22,7 +22,7 @@ class XLite extends \XLite\Base
     /**
      * Core version
      */
-    const XC_VERSION = '5.3.2.8';
+    const XC_VERSION = '5.3.2.11';
 
     /**
      * Endpoints
@@ -373,11 +373,10 @@ class XLite extends \XLite\Base
     public static function getTrialPeriodLeft($returnDays = true)
     {
         $startTime = \XLite\Core\Config::getInstance()->Version->timestamp;
-
-        $endTime = $startTime + 86400 * \XLite::TRIAL_PERIOD;
+        $endTime   = $startTime + 86400 * \XLite::TRIAL_PERIOD;
 
         return $returnDays
-            ? (int) (($endTime - time()) / 86400)
+            ? ceil(($endTime - time()) / 86400)
             : $endTime - time();
     }
 

@@ -2,8 +2,17 @@
  # Header notice
  #}
 <div class="activate-notice">
-  {{ widget('\\XLite\\View\\Button\\ActivateKey') }}
+  {{ widget('XLite\\View\\Button\\ActivateKey') }}
+
+  <span class="trial-notice">
+    {% if this.getTrialPeriodLeft() > 0 %}
+      {{ t('X days left', {count: this.getTrialPeriodLeft()}) }}
+    {% else %}
+      {{ t('Trial has expired!') }}
+    {% endif %}
+  </span>
+
   {% if this.isTrialNoticeAutoDisplay() %}
-    {{ widget('\\XLite\\View\\Button\\TrialNotice') }}
+    {{ widget('XLite\\View\\Button\\TrialNotice') }}
   {% endif %}
 </div>

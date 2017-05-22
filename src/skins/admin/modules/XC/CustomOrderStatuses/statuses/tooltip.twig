@@ -1,0 +1,9 @@
+{##
+ # Tooltip 
+ #}
+
+{% if this.entity.getCode() %}
+  {{ widget('\\XLite\\View\\Tooltip', id='menu-links-help-text', text=t('System status tooltip', {'code': this.entity.getCode()}), isImageTag='true', className='help-small-icon') }}
+{% elseif this.getOrdersCount(this.entity) %}
+  {{ widget('\\XLite\\View\\Tooltip', id='menu-links-help-text', text=t('Orders have this status tooltip'), isImageTag='false', className='help-small-icon fa fa-trash-o not-removed') }}
+{% endif %}

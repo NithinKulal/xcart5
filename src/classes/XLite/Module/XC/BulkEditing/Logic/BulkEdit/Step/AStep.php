@@ -26,21 +26,21 @@ abstract class AStep extends \XLite\Base implements \SeekableIterator, \Countabl
     /**
      * Position
      *
-     * @var   integer
+     * @var integer
      */
     protected $position = 0;
 
     /**
      * Items iterator
      *
-     * @var   \Doctrine\ORM\Internal\Hydration\IterableResult
+     * @var \Doctrine\ORM\Internal\Hydration\IterableResult
      */
     protected $items;
 
     /**
      * Count (cached)
      *
-     * @var   integer
+     * @var integer
      */
     protected $countCache;
 
@@ -53,21 +53,22 @@ abstract class AStep extends \XLite\Base implements \SeekableIterator, \Countabl
     {
         $this->generator = $generator;
         if ($generator) {
-            if ($generator->getOptions()->filter) {
-                $conditionCell = $generator->getOptions()->filter;
-                $this->getRepository()->setBulkEditFilter($conditionCell);
-            }
-
             if ($generator->getOptions()->data) {
                 $this->dto = unserialize($generator->getOptions()->data);
             }
         }
     }
 
+    public function initialize()
+    {
+        if ($this->generator && $this->generator->getOptions()->filter) {
+            $conditionCell = $this->generator->getOptions()->filter;
+            $this->getRepository()->setBulkEditFilter($conditionCell);
+        }
+    }
+
     /**
      * Stop exporter
-     *
-     * @return void
      */
     public function stop()
     {
@@ -79,8 +80,6 @@ abstract class AStep extends \XLite\Base implements \SeekableIterator, \Countabl
      * \SeekableIterator::seek
      *
      * @param integer $position Position
-     *
-     * @return void
      */
     public function seek($position)
     {
@@ -95,7 +94,7 @@ abstract class AStep extends \XLite\Base implements \SeekableIterator, \Countabl
     /**
      * \SeekableIterator::current
      *
-     * @return \XLite\Logic\Export\Step\AStep
+     * @return static
      */
     public function current()
     {
@@ -114,8 +113,6 @@ abstract class AStep extends \XLite\Base implements \SeekableIterator, \Countabl
 
     /**
      * \SeekableIterator::next
-     *
-     * @return void
      */
     public function next()
     {
@@ -125,8 +122,6 @@ abstract class AStep extends \XLite\Base implements \SeekableIterator, \Countabl
 
     /**
      * \SeekableIterator::rewind
-     *
-     * @return void
      */
     public function rewind()
     {
@@ -150,7 +145,7 @@ abstract class AStep extends \XLite\Base implements \SeekableIterator, \Countabl
      */
     public function count()
     {
-        if (!isset($this->countCache)) {
+        if (null === $this->countCache) {
             $this->countCache = $this->getRepository()->countForBulkEdit();
         }
 
@@ -170,7 +165,7 @@ abstract class AStep extends \XLite\Base implements \SeekableIterator, \Countabl
     {
         $time = microtime(true);
 
-        $row = $this->getItems()->current();
+        $row    = $this->getItems()->current();
         $status = $this->processModel($row[0]);
 
         $this->generator->getOptions()->time += round(microtime(true) - $time, 3);
@@ -212,7 +207,7 @@ abstract class AStep extends \XLite\Base implements \SeekableIterator, \Countabl
      */
     protected function getItems($reset = false)
     {
-        if (!isset($this->items) || $reset) {
+        if (null === $this->items || $reset) {
             $this->items = $this->getRepository()->getBulkEditIterator($this->position);
             $this->items->rewind();
         }

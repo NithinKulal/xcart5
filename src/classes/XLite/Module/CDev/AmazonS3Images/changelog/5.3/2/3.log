@@ -1,0 +1,4 @@
+Version 5.3.2.3
+
+Fixes
+2017-04-06 - [Bug] Code refactoring to eliminate the risk of image loss as a result of an image being removed from the local server before it is moved to Amazon S3. #BUG-4513 (Sergey Elmanov) #AmazonS3Images

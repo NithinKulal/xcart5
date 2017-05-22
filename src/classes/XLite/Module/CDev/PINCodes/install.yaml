@@ -30,11 +30,11 @@ XLite\Model\LanguageLabel:
   - { name: "X PIN Codes were not assigned.", translations: [{ code: en, label: "{{count}} PIN Codes were not assigned." }] }
   - { name: "No pin codes are bought yet", translations: [{ code: en, label: "No pin codes have been bought yet" }] }
   - { name: "PIN codes data have been successfully updated", translations: [{ code: en, label: "PIN codes data has been successfully updated" }] }
-  - { name: "Unknown error occurred", translations: [{ code: en, label: "Unknown error occurred" }] }
   - { name: "PIN code", translations: [{ code: en, label: "PIN code" }] }
   - { name: "PIN codes", translations: [{ code: en, label: "PIN codes" }] }
   - { name: 'Add PIN codes', translations: [{ code: en, label: 'Add PIN codes' }] }
   - { name: 'Inventory tracking for product X will not be imported', translations: [{ code: en, label: 'Inventory tracking for product {{value}} will not be imported' }] }
+  - { name: "Product not found", translations: [{ code: ru, label: "Product not found" }] }
 
 XLite\Model\Notification:
   - templatesDirectory: modules/CDev/PINCodes/acquire_pin_codes_failed
@@ -54,8 +54,3 @@ XLite\Model\Notification:
         description: "This notification is sent to the administrator in the event of an error in the process of generating PIN codes for one or more items - as a result of which the PIN codes have not been generated."
         adminSubject: PIN code generation failure for one or more ordered items
         adminText: "Could not generate PIN codes for the following products:"
-      - code: ru
-        name: Ошибка создания пин-кода (модуль PIN codes)
-        description: "Данное сообщение отправляется администратору в случае, когда при создании PIN-кодов для одного или нескольких товаров произошла ошибка, в результате которой PIN-код(ы) не были созданы."
-        adminSubject: Ошибка создания PIN-кода для одного или нескольких заказанных продуктов
-        adminText: "Не удалось создать PIN-коды для следующих продуктов:"

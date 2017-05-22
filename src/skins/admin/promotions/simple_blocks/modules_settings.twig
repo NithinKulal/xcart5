@@ -1,0 +1,19 @@
+{##
+ # Promo block
+ #
+ # @ListChild (list="crud.modulesettings.formHeader", zone="admin", weight="50")
+ #}
+
+{% if this.getModule() %}
+
+  {% set moduleName = this.getModule().getActualName() %}
+
+  {% if moduleName == 'CDev\\GoogleAnalytics' %}
+    {{ widget('XLite\\View\\SimplePromoBlock', promoId="seo-promo-1") }}
+  {% endif %}
+
+  {% if moduleName == 'CDev\\Egoods' %}
+    {{ widget('XLite\\View\\SimplePromoBlock', promoId="g2a-egoods-1") }}
+  {% endif %}
+
+{% endif %}

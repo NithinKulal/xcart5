@@ -1,0 +1,16 @@
+{##
+ # Top sellers period selectors
+
+ # @ListChild (list="top_sellers.selectors", weight="10")
+ #}
+
+<table class="top-sellers-selectors availability-selectors">
+  <tr>
+    <td class="title">{{ t('Products') }}:</td>
+    {% for c in this.getAvailabilityColumns() %}
+      <td>
+        <a href="{{ this.getAvailabilityLink(c) }}" data-availability="{{ c }}" class="{% if c == this.getAvailability() %} selected{% endif %}">{{ t(this.getAvailabilityColumnTitle(c)) }}</a>
+      </td>
+    {% endfor %}
+  </tr>
+</table>

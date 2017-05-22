@@ -1,0 +1,5 @@
+Version 5.3.2.2
+
+Fixes
+2017-04-24 - [Bug] With a large number of products selected, the process of bulk editing was interrupted with an error when changing the categories. #BUG-4779 (Maxim Kuznetsov) #BulkEditing
+2017-04-20 - [Bug] Incorrect work of the module BulkEditing for vendors. Fixed. #BUG-4811 (Michael Lipinski) #BulkEditing

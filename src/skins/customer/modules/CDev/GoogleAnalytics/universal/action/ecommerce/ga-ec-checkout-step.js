@@ -64,11 +64,15 @@ define('googleAnalytics/eCommerceCheckoutStepEvent', ['googleAnalytics/eCommerce
         registerCheckoutOptionExternal: function(event, data) {
           this._registerCheckoutOption(data);
 
-          ga('send', 'event', 'Checkout', 'Option', {
-            hitCallback: function() {
-              core.trigger('ga-option-sent', data);
-            }
-          });
+          if (!_.isUndefined(ga.loaded) && ga.loaded) {
+            ga('send', 'event', 'Checkout', 'Option', {
+              hitCallback: function() {
+                core.trigger('ga-option-sent', data);
+              }
+            });
+          } else {
+            core.trigger('ga-option-sent', data);
+          }
         },
 
         _registerCheckoutOption: function(data) {

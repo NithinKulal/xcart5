@@ -313,4 +313,13 @@ class Minicart extends \XLite\View\SideBarBox
 
     // }}}
 
+    /**
+     * Register the CSS classes for this block
+     *
+     * @return string
+     */
+    protected function getBlockClasses()
+    {
+        return parent::getBlockClasses() . ' minicart-block';
+    }
 }

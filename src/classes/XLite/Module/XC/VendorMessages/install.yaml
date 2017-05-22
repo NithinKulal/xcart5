@@ -1,0 +1,83 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+XLite\Model\Config:
+  - name: allow_vendor_communication
+    category: 'XC\VendorMessages'
+    type: XLite\View\FormField\Input\Checkbox\OnOffWithoutOffLabel
+    orderby: 200
+    value: 0
+    translations:
+      - code: en
+        option_name: 'Allow direct communication between vendor and buyer in the "Warehouse" multivendor mode'
+
+XLite\Model\LanguageLabel:
+  - { name: "Read", translations: [{ code: en, label: "Read" }] }
+  - { name: "Unread", translations: [{ code: en, label: "Unread" }] }
+  - { name: "Messages", translations: [{ code: en, label: "Messages" }] }
+  - { name: "Message", translations: [{ code: en, label: "Message" }] }
+  - { name: "Message not found", translations: [{ code: en, label: "Message not found" }] }
+  - { name: "All orders", translations: [{ code: en, label: "All orders" }] }
+  - { name: "Orders with unread messages", translations: [{ code: en, label: "Orders with unread messages" }] }
+  - { name: "Orders with any messages", translations: [{ code: en, label: "Orders with any messages" }] }
+  - { name: "The field Body may not be blank", translations: [{ code: en, label: "The field Body may not be blank" }] }
+  - { name: "Contact seller", translations: [{ code: en, label: "Contact seller" }] }
+  - { name: "X unread messages", translations: [{ code: en, label: "{{count}} unread messages" }] }
+  - { name: "Hidden X messages", translations: [{ code: en, label: "Hidden messages ({{count}})" }] }
+  - { name: "Hide message history", translations: [{ code: en, label: "Hide message history" }] }
+  - { name: "New message for order", translations: [{ code: en, label: "New message for order" }] }
+  - { name: "X new message for order", translations: [{ code: en, label: "{{count}} new messages for order" }] }
+  - { name: "You Have No Messages", translations: [{ code: en, label: "You Have No Messages" }] }
+  - { name: "Dispute opened by X", translations: [{ code: en, label: "Dispute opened by {{name}}" }] }
+  - { name: "Dispute closed by X", translations: [{ code: en, label: "Dispute closed by {{name}}" }] }
+  - { name: "Open dispute", translations: [{ code: en, label: "Open dispute" }] }
+  - { name: "Close dispute", translations: [{ code: en, label: "Close dispute" }] }
+  - { name: "Subscribe", translations: [{ code: en, label: "Subscribe" }] }
+  - { name: "Unsubscribe", translations: [{ code: en, label: "Unsubscribe" }] }
+  - { name: "A dispute has been opened successfully", translations: [{ code: en, label: "A dispute has been opened successfully." }] }
+  - { name: "The dispute has been closed", translations: [{ code: en, label: "The dispute has been closed." }] }
+  - { name: "Monitoring of communication related to oder #X has been enabled", translations: [{ code: en, label: "Monitoring of communication related to oder #{{order_number}} has been enabled." }] }
+  - { name: "Monitoring of communication related to oder #X has been disabled", translations: [{ code: en, label: "Monitoring of communication related to oder #{{order_number}} has been disabled." }] }
+  - { name: "All communication threads", translations: [{ code: en, label: "All communication threads" }] }
+  - { name: "Сommunication threads with unread messages", translations: [{ code: en, label: "Сommunication threads with unread messages" }] }
+  - { name: "Сommunication threads with open disputes", translations: [{ code: en, label: "Сommunication threads with open disputes" }] }
+  - { name: "Dispute is open X by Y", translations: [{ code: en, label: "Dispute opened on {{date}}, by {{name}}" }] }
+  - { name: "Write your message", translations: [{ code: en, label: "Write your message here" }] }
+  - { name: "Open a dispute", translations: [{ code: en, label: "Open a dispute" }] }
+  - { name: "Dispute", translations: [{ code: en, label: "Dispute" }] }
+  - { name: "Reason", translations: [{ code: en, label: "Reason" }] }
+  - { name: "New messages", translations: [{ code: en, label: "New messages" }] }
+  - { name: "Show vendor’s products in the order", translations: [{ code: en, label: "Show vendor’s products in the order" }] }
+  - { name: "Hide vendor’s products in the order", translations: [{ code: en, label: "Hide vendor’s products in the order" }] }
+  - { name: 'Disputes', translations: [{ code: en, label: 'Disputes' }]}
+  - { name: 'Subscribed', translations: [{ code: en, label: 'Subscribed' }]}
+
+XLite\Model\Notification:
+  - templatesDirectory: modules/XC/VendorMessages/notification
+    availableForAdmin: true
+    availableForCustomer: true
+    enabledForAdmin: true
+    enabledForCustomer: true
+    adminHeaderEnabled: true
+    adminGreetingEnabled: false
+    adminSignatureEnabled: true
+    customerHeaderEnabled: true
+    customerGreetingEnabled: true
+    customerSignatureEnabled: true
+    translations:
+      - code: en
+        name: Order message (Order messages module)
+        description: This message will be sent to customer when a new message appears in the communication thread regarding an order
+        customerSubject: New message for order %order_number%
+        customerText: |
+          %company_link%
+          <p>
+          You've got a message regarding your order %order_messages_link%:
+          </p>
+          <p>
+          %message%
+          </p>
+

@@ -1,0 +1,14 @@
+{##
+ # Common selector
+ #}
+
+<div class="fade-up"> </div>
+<ul id="{{ this.getFieldId() }}">
+  {% for optionValue, optionLabel in this.getOptions() %}
+    <li{% if this.isOptionSelected(optionValue) %} class="checked"{% endif %}>
+      <input id="{{ this.getName() }}_{{ optionValue }}" type="checkbox" value="{{ optionValue }}" {% if this.isOptionSelected(optionValue) %} checked="checked" {% endif %} name="{{ this.getName() }}[{{ optionValue }}]" />
+      <label for="{{ this.getName() }}_{{ optionValue }}">{{ optionLabel }}</label>
+    </li>
+  {% endfor %}
+</ul>
+<div class="fade-down"> </div>

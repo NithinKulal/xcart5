@@ -8,30 +8,48 @@
  */
 
 .top-sellers-selectors {
-  width: 1000px;
   margin: 20px 0;
 
-  &.period-selectors {
-    td {
-      text-align: left;
-      width: 16%;
+  td {
+    text-align: left;
+    padding-right: 20px;
 
-      a {
-        text-decoration: none;
-        border-bottom: 1px dashed;
+    a {
+      text-decoration: none;
+      border-bottom: 1px dashed;
 
-        &.selected {
-          font-weight: bold;
-          color: @text-color;
-          border-bottom: none;
-        }
+      &.selected {
+        font-weight: bold;
+        color: @text-color;
+        border-bottom: none;
       }
     }
   }
 
+  &.period-selectors {
+    display: inline-block;
+    max-width: 700px;
+    td {
+    }
+  }
+
+  &.availability-selectors {
+    display: inline-block;
+    max-width: 300px;
+    td {
+      &:last-of-type {
+        padding-right: 30px;
+      }
+    }
+  }
+
+  &.period-selectors + .availability-selectors {
+    clear: both;
+  }
+
   td.title {
-    width: 16%;
-    text-align: left;
+    font-weight: bold;
+    color: @text-color;
   }
 
 }

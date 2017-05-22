@@ -1,0 +1,18 @@
+{##
+ # Products
+ #
+ # @ListChild (list="comparison_table.header_fixed", weight="200")
+ #}
+
+<tr class="buttons">
+  <td>
+    {% if this.getProductsCount() > 1 %}
+      <input type="checkbox" id="diff" /><label for="diff">{{ t('Differences only') }}</label>
+    {% endif %}
+  </td>
+  {% for product in this.getProducts() %}
+    <td>
+      {{ widget('\\XLite\\Module\\XC\\ProductComparison\\View\\AddToCart', product=product) }}
+    </td>
+  {% endfor %}
+</tr>

@@ -130,7 +130,7 @@ abstract class AModule extends \XLite\Upgrade\Entry\AEntry
             $result[] = $file;
         }
 
-        foreach ((array) glob($dir . 'install_*.yaml') as $translationFile) {
+        foreach ((glob($dir . 'install_*.yaml') ?: []) as $translationFile) {
             if (\Includes\Utils\FileManager::isExists($translationFile)) {
                 $result[] = $translationFile;
             }

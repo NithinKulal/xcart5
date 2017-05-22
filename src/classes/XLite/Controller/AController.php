@@ -291,13 +291,27 @@ abstract class AController extends \XLite\Core\Handler
 
         \XLite\Core\Session::getInstance()->set(\XLite::SHOW_TRIAL_NOTICE, null);
 
-        $result = \XLite::isAdminZone() ? $showTrialNotice : \XLite::isTrialPeriodExpired();
+        $result = \XLite::isAdminZone()
+            ? ($showTrialNotice || \XLite\Core\Request::getInstance()->activate_key)
+            : \XLite::isTrialPeriodExpired();
 
         if ($result && \XLite::isAdminZone()) {
             \XLite\Core\Session::getInstance()->set(static::TRIAL_NOTICE_DISPLAYED, true);
         }
 
         return $result;
+    }
+
+    /**
+     * Get number of days left before trial period will expire
+     *
+     * @param boolean $returnDays Flag: return in days
+     *
+     * @return integer
+     */
+    public function getTrialPeriodLeft($returnDays = true)
+    {
+        return \XLite::getTrialPeriodLeft($returnDays);
     }
 
     /**
@@ -311,7 +325,9 @@ abstract class AController extends \XLite\Core\Handler
             && !\XLite\Core\Session::getInstance()->get(\XLite::SHOW_TRIAL_NOTICE)
             && !\XLite\Core\Session::getInstance()->get(static::TRIAL_NOTICE_DISPLAYED)
             && !$this->isDisplayBlockContent()
-            && \XLite\Core\Marketplace::getInstance()->hasUnallowedModules();
+            && \XLite\Core\Marketplace::getInstance()->hasUnallowedModules()
+            && \XLite::isTrialPeriodExpired()
+            && !\XLite\Core\Request::getInstance()->activate_key;
 
         if (\XLite\Core\Session::getInstance()->get(static::TRIAL_NOTICE_DISPLAYED)) {
             \XLite\Core\Session::getInstance()->set(static::TRIAL_NOTICE_DISPLAYED, null);

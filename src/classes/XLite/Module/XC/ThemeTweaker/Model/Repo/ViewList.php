@@ -48,8 +48,9 @@ class ViewList extends \XLite\Model\Repo\ViewList implements \XLite\Base\IDecora
     /**
      * Process class list overrides
      *
-     * @param  string   $list   List name
-     * @param  array    $data   View lists
+     * @param  string $list List name
+     * @param  array  $data View lists
+     *
      * @return array
      */
     protected function processClassList($list, $data)
@@ -150,19 +151,57 @@ class ViewList extends \XLite\Model\Repo\ViewList implements \XLite\Base\IDecora
      */
     public function findOverridden()
     {
-        $query = $this->createQueryBuilder()
-             ->where('v.override_mode > :off_mode')
-             ->andWhere('v.version IS NULL')
-             ->setParameter('off_mode', \XLite\Model\ViewList::OVERRIDE_OFF);
+        return $this->defineOverriddenQueryBuilder()->getResult();
+    }
 
-        return $query->getResult();
+    /**
+     * Find overridden view list items
+     *
+     * @return array
+     */
+    public function findOverriddenData()
+    {
+        $qb = $this->defineOverriddenQueryBuilder();
+        $alias = $qb->getMainAlias();
+
+        $properties = [
+            'list_override',
+            'weight_override',
+            'override_mode',
+            'list',
+            'child',
+            'tpl',
+            'zone',
+            'weight',
+        ];
+
+        $qb->select("v.list_id");
+
+        foreach ($properties as $property) {
+            $qb->addSelect("{$alias}.{$property}");
+        }
+
+        return $qb->getArrayResult();
+    }
+
+    /**
+     * Define overridden query builder
+     *
+     * @return \XLite\Model\QueryBuilder\AQueryBuilder
+     */
+    public function defineOverriddenQueryBuilder()
+    {
+        return $this->createQueryBuilder()
+            ->where('v.override_mode > :off_mode')
+            ->andWhere('v.version IS NULL')
+            ->setParameter('off_mode', \XLite\Model\ViewList::OVERRIDE_OFF);
     }
 
     /**
      * Find first entity equal to $other
      *
-     * @param \XLite\Model\ViewList $other Other entity
-     * @param boolean $versioned Add `version is not null` condition
+     * @param \XLite\Model\ViewList $other     Other entity
+     * @param boolean               $versioned Add `version is not null` condition
      *
      * @return \XLite\Model\ViewList|null
      */
@@ -172,17 +211,32 @@ class ViewList extends \XLite\Model\Repo\ViewList implements \XLite\Base\IDecora
             return null;
         }
 
-        $conditions = array(
-            'list' => $other->getList(),
-            'child' => $other->getChild(),
-            'tpl' => $other->getTpl(),
-            'zone' => $other->getZone(),
+        $conditions = [
+            'list'   => $other->getList(),
+            'child'  => $other->getChild(),
+            'tpl'    => $other->getTpl(),
+            'zone'   => $other->getZone(),
             'weight' => $other->getWeight(),
-        );
+        ];
 
-        $qb = $this->createQueryBuilder()
-            ->andWhere('v.list = :list AND v.child = :child AND v.tpl = :tpl AND v.zone = :zone AND v.weight = :weight')
-            ->setParameters($conditions);
+        return $this->findEqualByData($conditions, $versioned);
+    }
+
+    /**
+     * Find first entity equal to data
+     *
+     * @param array   $conditions
+     * @param boolean $versioned Add `version is not null` condition
+     *
+     * @return \XLite\Model\ViewList|null
+     */
+    public function findEqualByData($conditions, $versioned = false)
+    {
+        $qb = $this->createQueryBuilder()->setParameters($conditions);
+
+        foreach ($conditions as $key => $condition) {
+            $qb->andWhere("v.{$key} = :{$key}");
+        }
 
         if ($versioned) {
             $qb->andWhere('v.version IS NOT NULL');

@@ -22,7 +22,7 @@ class ActivateKey extends \XLite\Controller\Admin\ModuleKey
     {
         return $this->isModuleActivation()
             ? static::t('Activate your X-Cart installation first')
-            : static::t('Activate your X-Cart installation');
+            : static::t('License key registration');
     }
 
     /**

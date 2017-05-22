@@ -1,0 +1,8 @@
+{##
+ # Order messages tab
+ #}
+
+<a href="{{ tabPage.url|raw }}">{{ t(tabPage.title) }}</a>
+{% if this.countMessages() %}
+  <div class="tab-messages-count">{{ this.countMessages() }}</div>
+{% endif %}

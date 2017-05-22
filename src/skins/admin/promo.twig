@@ -3,7 +3,7 @@
  #}
 
 {% if this.isPromoBlockVisible(this.promoId) %}
-  <div class="promo-block {{ this.promoId }}-promo" data-promo-id="{{ this.promoId }}">
+  <div class="promo-block {{ this.promoId }}-promo {{ this.additionalClasses }}" data-promo-id="{{ this.promoId }}">
     <div class="promo-content">{{ this.promoContent|raw }}</div>
     <div class="close">{{ this.displaySVGImage('images/icon-close-round.svg') }}</div>
   </div>

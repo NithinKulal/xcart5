@@ -28,12 +28,23 @@ trait SingleOptionAsLabelTrait
     }
 
     /**
+     * Check if field allowed to process as single option
+     *
+     * @return boolean
+     */
+    protected function isSingleOptionAllowed()
+    {
+        return true;
+    }
+
+    /**
      * Returns true if there is only one option available
+     *
      * @return boolean
      */
     protected function isSingleOption()
     {
-        return count($this->getOptions()) === 1;
+        return $this->isSingleOptionAllowed() && count($this->getOptions()) === 1;
     }
 
     /**
@@ -60,7 +71,7 @@ trait SingleOptionAsLabelTrait
     {
         return isset($this->getOptions()[$this->getValue()])
             ? $this->getOptions()[$this->getValue()]
-            : static::t('Not selected');
+            : \XLite\Core\Translation::getInstance()->translate('Not selected');
     }
 
     /**

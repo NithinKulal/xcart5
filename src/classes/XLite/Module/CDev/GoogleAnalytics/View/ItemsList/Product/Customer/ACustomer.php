@@ -49,8 +49,8 @@ abstract class ACustomer extends \XLite\View\ItemsList\Product\Customer\ACustome
      */
     protected function getProductPositionInListForGA()
     {
-        $pageId = \XLite\Core\Request::getInstance()->{APager::PARAM_PAGE_ID} ?: 1;
-        $itemsPerPage = $this->getPager()->getItemsPerPage();
+        $pageId = intval(\XLite\Core\Request::getInstance()->{APager::PARAM_PAGE_ID}) ?: 1;
+        $itemsPerPage = intval($this->getPager()->getItemsPerPage());
 
         return ($pageId - 1) * $itemsPerPage + $this->ga_position_in_list++;
     }

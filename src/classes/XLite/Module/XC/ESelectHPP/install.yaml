@@ -9,7 +9,7 @@ XLite\Model\Payment\Method:
   - service_name: Moneris (eSELECTplus- Hosted Pay Page) 
     class: Module\XC\ESelectHPP\Model\Payment\Processor\ESelectHPP
     type: C
-    countries: [US, CA]
+    countries: [CA]
     translations:
       - code: en
         name: Moneris (eSELECTplus- Hosted Pay Page)
@@ -22,13 +22,14 @@ XLite\Model\Payment\Method:
         value: xcart
       - name: currency
         value: USD
+
 XLite\Model\LanguageLabel:
-  - { name: "Store ID", translations: [{ code: en, label: "Store ID" }] }
+  - { name: "PS Store ID", translations: [{ code: en, label: "PS Store ID" }] }
   - { name: "HPP Key", translations: [{ code: en, label: "HPP Key" }] }
   - { name: "\"Site management\"", translations: [{ code: en, label: "\"Site management\"" }] }
   - { name: "Order prefix", translations: [{ code: en, label: "Order prefix" }] }
   - { name: "To set up the integration, go to the _Site management_", translations: [ { code: en, label: 'To set up the integration, go to the <a href="https://www3.moneris.com/mpg/" target="_blank">"Site management"</a> page on the eSelect site and make sure of the following:' }] }
-  - { name: "The Store ID and HPP Key value must be exactly the same as on it.", translations: [ { code: en, label: 'The "Store ID" and "HPP Key" value must be exactly the same as on it.' }] }
+  - { name: "The Store ID and HPP Key value must be exactly the same as on it.", translations: [ { code: en, label: 'The "PS Store ID" and "HPP Key" value must be exactly the same as on it.' }] }
   - { name: "The Approved URL value must be exact as this:", translations: [ { code: en, label: 'The "Approved URL" value must be exactly as this:' }] }
   - { name: URL is copied, translations: [ { code: en, label: URL is copied }] }
   - { name: "The Declined URL value must be exact as this:", translations: [ { code: en, label: 'The "Declined URL" value must be exactly as this:' }] }

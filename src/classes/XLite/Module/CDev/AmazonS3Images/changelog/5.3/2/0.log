@@ -1,0 +1,7 @@
+Version 5.3.2.0
+
+Fixes
+2016-10-04 - [Bug] EventTaskProgrss widget refactoring to promote easier modifications. #BUG-3893 (Eugene Dementjev) #Core #AmazonS3Images #PitneyBowes #BulkEditing
+2016-09-23 - [Bug] Amazon S3 Images could not work with buckets whose name contained special characters. Fixed. #BUG-3900 (Sergey Elmanov) #AmazonS3Images
+2016-09-21 - [Bug] Amazon S3 images can now work with banner_rotator and category_banner images. #BUG-3873 (Sergey Elmanov) #AmazonS3Images
+2016-08-09 - [Bug] Now when the main image is deleted, scaled versions of the image are removed as well. #BUG-3686 (Michael Lipinski) #Core #AmazonS3Images

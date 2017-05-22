@@ -15,11 +15,19 @@
 .table-pager .box {
   height: 68px;
   padding: 0px 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .table-pager .left {
-  float: left;
   height: 100%;
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
 }
 
 .table-pager .left::before{
@@ -30,8 +38,7 @@
 }
 
 .table-pager .right {
-  float: right;
-  margin-top: 20px;
+  margin-top: 5px;
 }
 
 .table-pager .title,
@@ -208,7 +215,6 @@ div.items-per-page-wrapper div.search-total-items .value{
 }
 
 .search-total-wrapper {
-  padding-top: 3px;
   text-align: right;
 }
 

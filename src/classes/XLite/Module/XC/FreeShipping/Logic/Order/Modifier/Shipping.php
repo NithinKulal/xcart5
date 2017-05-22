@@ -55,7 +55,7 @@ class Shipping extends \XLite\Logic\Order\Modifier\Shipping implements \XLite\Ba
     /**
      * Get shipping rates
      *
-     * @return array(\XLite\Model\Shipping\Rate)
+     * @return \XLite\Model\Shipping\Rate[]
      */
     public function getRates()
     {
@@ -117,9 +117,7 @@ class Shipping extends \XLite\Logic\Order\Modifier\Shipping implements \XLite\Ba
                     $doUnset = true;
 
                 } else {
-                    $rates[$k]->setBaseRate(0);
-                    // Add fixed fee value to the base rate value
-                    $rates[$k]->setBaseRate($rate->getBaseRate() + $fixedFee);
+                    $rates[$k]->setFreightRate($fixedFee);
                 }
 
             } elseif ($this->isFixedFeeMethod($rate->getMethod())) {

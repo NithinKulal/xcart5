@@ -1,0 +1,4 @@
+Version 5.3.4.3
+
+Fixes
+2017-05-15 - [Bug] JS scripts used by Pay with Amazon were loaded for the Admin area. Fixed. #BUG-4904 (Sergey Elmanov) #PayWithAmazon

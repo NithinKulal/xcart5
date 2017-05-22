@@ -1,0 +1,4 @@
+Version 5.3.1.1
+
+Fixes
+2016-09-28 - [Bug] The sorting of tags on the page in the Admin area (/admin.php?target=tags) had no effect on the sort order of the tags on the product pages in the Customer area. #BUG-3911 (Sergey Elmanov) #ProductTags

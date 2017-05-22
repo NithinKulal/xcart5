@@ -214,8 +214,11 @@ class Marketplace extends \XLite\Base\Singleton
             'target'    => 'cart',
             'action'    => 'add',
             'store_url' => \XLite\Core\URLManager::getShopURL(\XLite\Core\Converter::buildURL()),
-            'email'     => \XLite\Core\Auth::getInstance()->getProfile()->getLogin(),
         );
+
+        if (\XLite\Core\Auth::getInstance()->isAdmin()) {
+            $commonParams['email'] = \XLite\Core\Auth::getInstance()->getProfile()->getLogin();
+        }
 
         if (!$ignoreId) {
             $commonParams['xbid'] = (int) $id !== 0

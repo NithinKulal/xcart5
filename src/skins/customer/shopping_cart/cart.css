@@ -59,11 +59,3 @@
 #shopping-cart .sums li.included-surcharge{
   color: #7e7e7e;
 }
-
-
-
-div.ups-notice {
-  background: transparent url(../images/modules/UPSOnlineTools/ups_logo.gif) no-repeat 12px 7px;
-  padding-left: 109px;
-  min-height: 75px;
-}

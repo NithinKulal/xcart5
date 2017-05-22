@@ -1,0 +1,13 @@
+{##
+ # Customer attachment item
+ #}
+
+<form action="{{ url('customer_attachments') }}" method="post">
+    <div style="display:none;">
+        <input type="hidden" name="target" value="customer_attachments">
+        <input type="hidden" name="action" value="delete">
+        <input type="hidden" name="attachment_id" value="{{ this.attachment.getId() }}">
+        <input type="hidden" name="item_id" value="{{ this.itemId }}">
+    </div>
+    {{ widget_list('customer.attachments.popup.item', attachment=this.attachment) }}
+</form>

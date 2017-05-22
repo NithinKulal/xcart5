@@ -321,7 +321,11 @@ abstract class AFormModel extends \XLite\View\AView
 
         return array_merge(
             parent::getJSFiles(),
-            ['form_model/controller.js', 'form_model/constraints.js'],
+            [
+                'form_model/controller.js',
+                'form_model/sticky_panel/controller.js',
+                'form_model/constraints.js'
+            ],
             $this->jsFiles ? call_user_func_array('array_merge', $this->jsFiles) : []
         );
     }

@@ -15,7 +15,7 @@
   {% else %}
     {{ t('n/a') }}<br />
   {% endif %}
-  {% if this.order.getPaymentTransactionId() %}
+  {% if (not this.order.isOfflineProcessorUsed()) and this.order.getPaymentTransactionId() %}
     {{ t('Transaction ID') }}: {{ this.order.getPaymentTransactionId() }}
   {% endif %}
   {% for item in this.order.getPaymentTransactionData(1) %}

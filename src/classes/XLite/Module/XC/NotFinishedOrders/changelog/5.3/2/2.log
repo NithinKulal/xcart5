@@ -1,0 +1,4 @@
+Version 5.3.2.2
+
+Fixes
+2017-04-21 - [Bug] When using notfinishedorder and paying for the order with PayPal Express, an error occurred. #BUG-4797 (Eugene Dementjev) #Core #Paypal #MultiVendor #NotFinishedOrders

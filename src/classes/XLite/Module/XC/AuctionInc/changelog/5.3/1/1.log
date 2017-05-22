@@ -1,4 +1,0 @@
-Version 5.3.1.1
-
-Fixes
-2016-08-15 - [Bug] XC/AuctionInc: Weight calculation errors. Fixed. #BUG-3721 (Vladimir Semyonov) #ShippingCalc

@@ -1,0 +1,70 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+div.add-to-compare.product {
+  display: inline-block;
+  margin-left: 10px;
+  position: relative;
+}
+
+div.add-to-compare.product div.compare-popup.visible div.compare-button {
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  border: solid 1px #bbc7d2;
+  box-shadow: 2px 2px 3px #bbc7d2;
+  -moz-box-shadow: 2px 2px 3px #bbc7d2;
+  -webkit-box-shadow: 2px 2px 3px #bbc7d2;
+  background-color: #fff;
+}
+
+div.add-to-compare.product div.compare-checkbox {
+  padding: 3px 9px 6px;
+}
+
+div.add-to-compare.product div.compare-checkbox input {
+  vertical-align: middle;
+  margin-top: 1px;
+}
+
+div.add-to-compare.product div.compare-checkbox label {
+  font-size: 14px;
+  color: #446482;
+  vertical-align: middle;
+  margin: 0px;
+  line-height: normal;
+}
+
+div.add-to-compare.product span.compare-products-selected {
+  display: block;
+  margin-bottom: 10px;
+}
+
+div.add-to-compare.product div.compare-button {
+  display: none;
+  background-color: #fff;
+  color: #2c5fa6;
+  font-size: 14px;
+  position: absolute;
+  text-align: center;
+  padding: 10px;
+  left: -12px;
+  z-index: 9;
+}
+
+div.add-to-compare.product div.compare-popup.visible div.compare-button {
+  display: block;
+}
+
+div.add-to-compare.product div.compare-popup.hidden_item div.compare-button {
+  display: none !important;
+}
+
+div.add-to-compare.product div.compare-popup button.disabled {
+  display: none;
+}

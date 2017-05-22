@@ -130,7 +130,7 @@ class Product extends \XLite\Model\Repo\Product implements \XLite\Base\IDecorato
      */
     protected function prepareCndIds(\Doctrine\ORM\QueryBuilder $queryBuilder, $value)
     {
-        $queryBuilder->where(
+        $queryBuilder->andWhere(
             $queryBuilder->expr()->in(
                 'p.' . $this->getPrimaryKeyField(),
                 ':ids'

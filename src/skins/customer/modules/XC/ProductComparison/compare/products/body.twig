@@ -1,0 +1,15 @@
+{##
+ # Body
+ #}
+<div class="add-to-compare products">
+  <div class="compare-popup{% if this.isEmptyList() %} hide_item{% endif %}">
+    <div class="compare-checkbox">
+      <input id="{{ this.getCheckboxId(this.product.product_id) }}" type="checkbox" data-id="{{ this.product.product_id }}"{% if this.isChecked(this.product.product_id) %} checked="checked"{% endif %} />
+      <label for="{{ this.getCheckboxId(this.product.product_id) }}">{{ t('Compare') }}</label>
+    </div>
+    <div class="compare-button">
+      <span class="compare-products-selected">{{ this.getTitle() }}</span>
+      {{ widget('\\XLite\\Module\\XC\\ProductComparison\\View\\Button\\Compare') }}
+    </div>
+  </div>
+</div>

@@ -11,6 +11,7 @@ namespace XLite\Model\Base;
 use Doctrine\Common\Persistence\Mapping\ClassMetadataFactory;
 use Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\PersistentCollection;
 use Includes\Utils\Converter;
 use XLite\Core\Database;
 use XLite\Core\Doctrine\ORM\Mapping\MetadataLoaderInterface;
@@ -331,6 +332,20 @@ abstract class I18n extends \XLite\Model\AEntity implements MetadataLoaderInterf
                 ->mappedBy('owner')
                 ->cascadeAll()
                 ->build();
+        }
+    }
+
+    /**
+     *
+     */
+    public function explicitlyLoadTranslations()
+    {
+        // We need to make this manually on serialization because after deserialization
+        // initialize() call will not work as expected.
+        // Probably because of custom metadata implementation
+        if ($this->translations instanceof PersistentCollection) {
+            // Force load this lazy piece of data
+            $this->translations->initialize();
         }
     }
 }

@@ -1,0 +1,4 @@
+Version 5.3.2.1
+
+Fixes
+2017-01-05 - [Bug] Tags from original product were not copied to cloned product. #BUG-4362 (Michael Lipinski) #ProductTags

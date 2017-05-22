@@ -363,3 +363,9 @@
     }, e.exports = n
   }, {"./button": 1, "./config": 2, "./utils": 18}]
 }, {}, [5]);
+
+core.bind('loader.loaded', function () {
+  if (!_.isUndefined(window.likely)) {
+    window.likely.initiate();
+  }
+});

@@ -200,7 +200,9 @@ class Review extends \XLite\View\ItemsList\Model\Table
     /**
      * Return profile id
      *
-     * @return integer
+     * @param \XLite\Module\XC\Reviews\Model\Review $entity
+     *
+     * @return int
      */
     public function getProfileId(\XLite\Module\XC\Reviews\Model\Review $entity)
     {

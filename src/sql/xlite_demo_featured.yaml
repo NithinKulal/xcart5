@@ -8,11 +8,11 @@
 XLite\Model\Category:
   - category_id: 1
     featuredProducts:
-      - { product: { sku: 'sw-0' }, orderBy: 10 }
-      - { product: { sku: '12016' }, orderBy: 20 }
-      - { product: { sku: '12003' }, orderBy: 30 }
-      - { product: { sku: '12004' }, orderBy: 40 }
-      - { product: { sku: '12006' }, orderBy: 50 }
-      - { product: { sku: '12000' }, orderBy: 60 }
-      - { product: { sku: '100ewl' }, orderBy: 70 }
-      - { product: { sku: '12024' }, orderBy: 80 }
+      - { product: { sku: '12004' }, orderBy: 10 }
+      - { product: { sku: '12029' }, orderBy: 20 }
+      - { product: { sku: 'sw-0' }, orderBy: 30 }
+      - { product: { sku: '1204' }, orderBy: 40 }
+      - { product: { sku: '12000' }, orderBy: 50 }
+      - { product: { sku: '12003p' }, orderBy: 60 }
+      - { product: { sku: '10096' }, orderBy: 70 }
+      - { product: { sku: '12003' }, orderBy: 80 }

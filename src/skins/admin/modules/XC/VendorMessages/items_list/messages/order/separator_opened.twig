@@ -1,0 +1,9 @@
+{##
+ # Messages list : separator : opened
+ #}
+
+{% if this.isOpenedSeparatorVisible() %}
+  <li class="separator opened">
+      <a href="{{ this.getCloseURL() }}">{{ t('Hide message history') }}</a>
+  </li>
+{% endif %}

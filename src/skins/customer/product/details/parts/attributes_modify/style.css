@@ -48,6 +48,8 @@ ul.attribute-values label {
   display: inline-block;
   vertical-align: middle;
   font-size: 14px;
+  max-width: 100%;
+  word-break: break-all;
 }
 
 ul.attribute-values span.title,

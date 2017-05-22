@@ -1,0 +1,5 @@
+Version 5.3.1.2
+
+Fixes
+2017-03-27 - [Bug] PIN codes could not be added with the allow_url_fopen option disabled. #BUG-4695 (Sergey Elmanov) #Core #PINCodes
+2017-03-22 - [Bug] Apostrophes were escaped in email subject. #BUG-4696 (Sergey Elmanov) #Core #ContactUs #Egoods #CanadaPost #PINCodes #ProductVariants #ProductReviews #PitneyBowes #MultiVendor

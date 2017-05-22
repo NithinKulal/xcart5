@@ -1,0 +1,17 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: cloudfront_protocol
+    category: CDev\AmazonS3Images
+    type: 'XLite\Module\CDev\AmazonS3Images\View\FormField\CloudFrontProtocol'
+    orderby: 600
+    value: 'http_or_https'
+    translations:
+      - code: en
+        option_name: Viewer protocol policy
+        option_comment: This setting determines the protocol used by X-Cart to form the image upload URL. If "HTTP or HTTPS" is selected in the Viewer protocol policy setting on the Amazon cloudFront end (which corresponds to using the protocol currently used for the page opened in the viewer's browser), please enable the same option here; otherwise (if you prefer to use HTTPS at all times) enable the option "HTTPS only".

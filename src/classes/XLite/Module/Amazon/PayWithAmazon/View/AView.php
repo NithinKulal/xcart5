@@ -23,7 +23,7 @@ abstract class AView extends \XLite\View\AView implements \XLite\Base\IDecorator
         $method    = Main::getMethod();
         $processor = Main::getProcessor();
 
-        if ($processor->isConfigured($method) && $method->isEnabled()) {
+        if ($processor->isConfigured($method) && $method->isEnabled() && !$adminZone) {
             $list[static::RESOURCE_JS][] = [
                 'url' => $processor->getJsSdkUrl($method), // todo: allow async attribute for script tag
             ];

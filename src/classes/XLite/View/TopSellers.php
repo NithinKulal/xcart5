@@ -14,6 +14,7 @@ namespace XLite\View;
 class TopSellers extends \XLite\View\RequestHandler\ARequestHandler
 {
     const PARAM_TIME_INTERVAL = 'time_interval';
+    const PARAM_AVAILABILITY  = 'availability';
 
     /**
      * Define widget parameters
@@ -24,11 +25,14 @@ class TopSellers extends \XLite\View\RequestHandler\ARequestHandler
     {
         parent::defineWidgetParams();
 
-        $this->widgetParams += array(
+        $this->widgetParams += [
             static::PARAM_TIME_INTERVAL => new \XLite\Model\WidgetParam\TypeString(
                 'Time interval', \XLite\Controller\Admin\Stats::P_ALL
             ),
-        );
+            static::PARAM_AVAILABILITY => new \XLite\Model\WidgetParam\TypeString(
+                'Availability', \XLite\Controller\Admin\TopSellers::AVAILABILITY_ALL
+            ),
+        ];
     }
 
     /**
@@ -41,6 +45,7 @@ class TopSellers extends \XLite\View\RequestHandler\ARequestHandler
         parent::defineRequestParams();
 
         $this->requestParams[] = static::PARAM_TIME_INTERVAL;
+        $this->requestParams[] = static::PARAM_AVAILABILITY;
     }
 
     /**
@@ -53,6 +58,18 @@ class TopSellers extends \XLite\View\RequestHandler\ARequestHandler
         $timeInterval = $this->getParam(static::PARAM_TIME_INTERVAL);
 
         return $timeInterval;
+    }
+
+    /**
+     * Return availability
+     *
+     * @return string
+     */
+    public function getAvailability()
+    {
+        $availability = $this->getParam(static::PARAM_AVAILABILITY);
+
+        return $availability;
     }
 
     /**
@@ -83,11 +100,11 @@ class TopSellers extends \XLite\View\RequestHandler\ARequestHandler
     public function getCSSFiles()
     {
         $list = parent::getCSSFiles();
-        $list[] = array(
+        $list[] = [
             'file'  => $this->getDir() . '/style.less',
             'media' => 'screen',
             'merge' => 'bootstrap/css/bootstrap.less',
-        );
+        ];
 
         return $list;
     }
@@ -120,6 +137,20 @@ class TopSellers extends \XLite\View\RequestHandler\ARequestHandler
     }
 
     /**
+     * Build link for availability
+     *
+     * @param string $availability
+     *
+     * @return string
+     */
+    public function getAvailabilityLink($availability)
+    {
+        return $this->buildURL('top_sellers', '', [
+            static::PARAM_AVAILABILITY => $availability
+        ]);
+    }
+
+    /**
      * Prepare statistics table
      *
      * @return array
@@ -141,7 +172,7 @@ class TopSellers extends \XLite\View\RequestHandler\ARequestHandler
     /**
      * Process position value
      *
-     * @param int $id
+     * @param int                           $id
      * @param \XLite\Model\OrderItem | null $item
      *
      * @return string
@@ -149,5 +180,23 @@ class TopSellers extends \XLite\View\RequestHandler\ARequestHandler
     public function processPositionValue($id, $item)
     {
         return ($id + 1) . '.';
+    }
+
+    /**
+     * Return item name
+     *
+     * @param \XLite\Model\OrderItem $item
+     *
+     * @return string
+     */
+    public function processName($item)
+    {
+        if ($item) {
+            return $item->getObject()
+                ? $item->getObject()->getName()
+                : $item->getName() . ' ' . static::t('deleted');
+        }
+
+        return '&mdash;';
     }
 }

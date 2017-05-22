@@ -1,0 +1,9 @@
+{##
+ # Tooltip 
+ #}
+
+{% if this.getOrdersCount(this.entity) %}
+  <a href="{{ this.getOrdersLink(this.entity) }}">{{ this.getOrdersCount(this.entity) }}</a>
+{% else %}
+  {{ t('n/a') }}
+{% endif %}

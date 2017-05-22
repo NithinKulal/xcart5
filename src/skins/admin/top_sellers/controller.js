@@ -42,6 +42,13 @@ TopSellers.prototype.postprocess = function (isSuccess, initial) {
       core.trigger('update-top-sellers', {time_interval: $(this).data('interval')});
       return false;
     });
+
+    $('.top-sellers-selectors.availability-selectors a', this.base).click(function () {
+      core.trigger('update-top-sellers', {availability: $(this).data('availability')});
+      return false;
+    });
+
+    console.log('availability-selectors');
   }
 };
 

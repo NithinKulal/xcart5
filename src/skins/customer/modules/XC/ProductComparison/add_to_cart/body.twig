@@ -1,0 +1,13 @@
+{##
+ # Add to cart
+ #}
+
+{% if this.product.isOutOfStock() %}
+<span class="out-of-stock">
+  {{ t('Out of stock') }}
+</span>
+{% else %}
+  {% form '\\XLite\\View\\Form\\Product\\AddToCart' with {product: this.product} %}
+  {{ widget('\\XLite\\View\\Button\\Submit', label='Add to cart', style='regular-main-button add2cart') }}
+{% endform %}
+{% endif %}

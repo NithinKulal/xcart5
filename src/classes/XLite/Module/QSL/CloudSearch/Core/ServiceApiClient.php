@@ -236,7 +236,7 @@ class ServiceApiClient
 
         $response = $request->sendRequest();
 
-        if ($response->code != 200) {
+        if ($response && $response->code != 200) {
             return null;
         }
 

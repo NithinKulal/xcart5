@@ -856,7 +856,16 @@ class Cell extends \XLite\Base\Singleton
      */
     protected function checkForCoreUpgrade()
     {
-        $majorVersion = $this->coreVersion ?: \XLite::getInstance()->getMajorVersion();
+        if ($this->coreVersion) {
+            $versionData = explode('.', $this->coreVersion);
+            $majorVersion = $versionData[0];
+
+            if (!empty($versionData[1])) {
+                $majorVersion .= '.' . $versionData[1];
+            }
+        } else {
+            $majorVersion = \XLite::getInstance()->getMajorVersion();
+        }
 
         $isHotfixMode = $this->isHotFixesModeSelected();
 

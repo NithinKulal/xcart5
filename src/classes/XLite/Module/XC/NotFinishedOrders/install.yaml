@@ -1,0 +1,59 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: create_nfo_mode
+    category: XC\NotFinishedOrders
+    type: XLite\Module\XC\NotFinishedOrders\View\FormField\Select\CreateNFOMode
+    value: onFailure
+    orderby: 5
+    translations:
+      - code: en
+        option_name: Not finished order will be created
+      - code: ru
+        option_name: Создавать незавершенный заказ
+  - name: clear_cart_on_order_change
+    category: XC\NotFinishedOrders
+    type: XLite\View\FormField\Select\YesNo
+    value: Y
+    orderby: 10
+    translations:
+      - code: en
+        option_name: Clear cart if administrator changes order
+      - code: ru
+        option_name: Очищать корзину при изменении заказа администратором
+  - name: limit_nf_order_ttl
+    category: XC\NotFinishedOrders
+    type: XLite\View\FormField\Input\Checkbox\OnOffWithoutOffLabel
+    orderby: 20
+    translations:
+      - code: en
+        option_name: Limit lifetime of not finished order
+      - code: ru
+        option_name: Ограничить срок действия незавершенного заказа
+  - name: nf_order_ttl
+    category: XC\NotFinishedOrders
+    type: XLite\View\FormField\Input\Text\Integer
+    orderby: 30
+    value: 7
+    translations:
+      - code: en
+        option_name: Time to use the order for future attempts (days)
+        option_comment: 0 means that every failed attempt will be recorded as individual not finished order and its data will not be used in the next attempts.
+      - code: ru
+        option_name: Срок действия незавершенного заказа (в днях)
+        option_comment: Если задать срок равным 0 (нулю), то каждая неудачная попытка оплаты будет создавать отдельный незавершенный заказ, и данные этого заказа не будут внесены в будущие попытки.
+
+XLite\Model\Order\Status\Shipping:
+  - { code: NF, position: 100, translations: [{ code: 'en', name: 'Not Finished', customerName: 'Not finished' }, { code: 'ru', name: 'Не завершен', customerName: 'Не завершен' }] }
+
+
+XLite\Model\LanguageLabel:
+  - { name: "Not finished order", translations: [{ code: en, label: "Not finished order" }, { code: ru, label: "Незавершенный заказ" }] }
+  - { name: "not finished", translations: [{ code: en, label: "not finished" }, { code: ru, label: "не завершен" }] }
+  - { name: "by payment callback (Failed + Cancel)", translations: [{ code: en, label: "in case of failed or cancelled payment" }, { code: ru, label: "В случае неудачной оплаты" }] }
+  - { name: "by pressing Place order button", translations: [{ code: en, label: "as soon as 'Place order’ button is pressed" }, { code: ru, label: "При размещении заказа" }] }

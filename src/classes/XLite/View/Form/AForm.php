@@ -29,6 +29,7 @@ abstract class AForm extends \XLite\View\AView
     const PARAM_FORM_METHOD = 'formMethod';
     const PARAM_CLASS_NAME  = 'className';
     const PARAM_VALIDATION  = 'validationEngine';
+    const PARAM_FORM_IDENTIFIER   = 'formIdentifier';
 
     /**
      * Form arguments plain list
@@ -54,18 +55,21 @@ abstract class AForm extends \XLite\View\AView
         $data = null;
         $validator = $this->getValidator();
 
+        $validator->setFormIdentifier($this->getFormIdentifier());
+
         try {
             $validator->validate(\XLite\Core\Request::getInstance()->getData());
             $data = $validator->sanitize(\XLite\Core\Request::getInstance()->getData());
 
         } catch (\XLite\Core\Validator\Exception $exception) {
             $message = static::t($exception->getMessage(), $exception->getLabelArguments());
+            $formIdentifier = $exception->getFormIdentifier();
 
             if ($exception->isInternal()) {
                 \XLite\Logger::getInstance()->log($message, LOG_ERR);
 
             } else {
-                \XLite\Core\Event::invalidElement($exception->getPath(), $message);
+                \XLite\Core\Event::invalidElement($exception->getPath(), $message, $formIdentifier);
             }
 
             $this->validationMessage
@@ -293,6 +297,9 @@ abstract class AForm extends \XLite\View\AView
             self::PARAM_VALIDATION => new \XLite\Model\WidgetParam\TypeBool(
                 'Apply validation engine', false
             ),
+            self::PARAM_FORM_IDENTIFIER => new \XLite\Model\WidgetParam\TypeString(
+                'Form identifier for frontend', $this->getDefaultFormIdentifier()
+            ),
         );
     }
 
@@ -304,6 +311,16 @@ abstract class AForm extends \XLite\View\AView
     protected function isMultipart()
     {
         return false;
+    }
+
+    protected function getDefaultFormIdentifier()
+    {
+        return uniqid('form', true);
+    }
+
+    public function getFormIdentifier()
+    {
+        return $this->getParam(self::PARAM_FORM_IDENTIFIER);
     }
 
     /**
@@ -320,6 +337,8 @@ abstract class AForm extends \XLite\View\AView
                 ? self::PARAM_VALIDATION
                 : $className . ' ' . self::PARAM_VALIDATION;
         }
+
+        $className .= ' ' . $this->getFormIdentifier();
 
         return trim($className);
     }

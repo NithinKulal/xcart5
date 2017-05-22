@@ -21,6 +21,7 @@ class TopSellers extends \XLite\View\ItemsList\Model\Product\Admin\LowInventoryB
      * Widget parameter name
      */
     const PARAM_PERIOD = 'period';
+    const PARAM_AVAILABILITY  = 'availability';
     const PARAM_PRODUCTS_LIMIT = 'products_limit';
 
     /**
@@ -31,7 +32,6 @@ class TopSellers extends \XLite\View\ItemsList\Model\Product\Admin\LowInventoryB
     const P_PERIOD_MONTH    = 'month';
     const P_PERIOD_LIFETIME = 'lifetime';
 
-
     /**
      * Get allowed periods
      *
@@ -39,12 +39,25 @@ class TopSellers extends \XLite\View\ItemsList\Model\Product\Admin\LowInventoryB
      */
     public static function getAllowedPeriods()
     {
-        return array(
+        return [
             self::P_PERIOD_DAY      => 'Last 24 hours',
             self::P_PERIOD_WEEK     => 'Last 7 days',
             self::P_PERIOD_MONTH    => 'Last month',
             self::P_PERIOD_LIFETIME => 'Store lifetime',
-        );
+        ];
+    }
+
+    /**
+     * Get allowed availability
+     *
+     * @return array
+     */
+    public static function getAllowedAvailability()
+    {
+        return [
+            \XLite\Controller\Admin\TopSellers::AVAILABILITY_ALL => 'All',
+            \XLite\Controller\Admin\TopSellers::AVAILABILITY_AVAILABLE_ONLY => 'Only available',
+        ];
     }
 
     /**
@@ -54,7 +67,7 @@ class TopSellers extends \XLite\View\ItemsList\Model\Product\Admin\LowInventoryB
      */
     public static function getAllowedTargets()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -86,10 +99,13 @@ class TopSellers extends \XLite\View\ItemsList\Model\Product\Admin\LowInventoryB
     {
         parent::defineWidgetParams();
 
-        $this->widgetParams += array(
+        $this->widgetParams += [
             static::PARAM_PERIOD         => new WidgetParam\TypeString('Period', self::P_PERIOD_LIFETIME),
+            static::PARAM_AVAILABILITY => new \XLite\Model\WidgetParam\TypeString(
+                'Availability', \XLite\Controller\Admin\TopSellers::AVAILABILITY_ALL
+            ),
             static::PARAM_PRODUCTS_LIMIT => new WidgetParam\TypeInt('Number of products', 5),
-        );
+        ];
     }
 
     /**
@@ -99,18 +115,18 @@ class TopSellers extends \XLite\View\ItemsList\Model\Product\Admin\LowInventoryB
      */
     protected function defineColumns()
     {
-        $allowedColumns = array(
+        $allowedColumns = [
             'sku',
             'name',
             'sold',
-        );
+        ];
 
         $columns = parent::defineColumns();
 
-        $columns['sold'] = array(
+        $columns['sold'] = [
             static::COLUMN_NAME  => Core\Translation::lbl('Sold'),
             static::COLUMN_ORDERBY  => 10000,
-        );
+        ];
 
         // Remove redundant columns
         foreach ($columns as $k => $v) {
@@ -141,13 +157,22 @@ class TopSellers extends \XLite\View\ItemsList\Model\Product\Admin\LowInventoryB
     {
         $cnd = new Core\CommonCell();
 
-        $cnd->date = array($this->getStartDate(), 0);
-
-        // $cnd->currency = \XLite::getInstance()->getCurrency()->getCurrencyId();
+        $cnd->date = [$this->getStartDate(), 0];
+        $cnd->availability = $this->getAvailability();
 
         $cnd->limit = $this->getParam(self::PARAM_PRODUCTS_LIMIT);
 
         return $cnd;
+    }
+
+    /**
+     * Get availability
+     *
+     * @return integer
+     */
+    protected function getAvailability()
+    {
+        return $this->getParam(self::PARAM_AVAILABILITY) ?: \XLite\Controller\Admin\TopSellers::AVAILABILITY_ALL;
     }
 
     /**
@@ -206,7 +231,7 @@ class TopSellers extends \XLite\View\ItemsList\Model\Product\Admin\LowInventoryB
             // $data is a quantity of collection
             ? $data
             // $data is a collection and we must extract product data from it
-            : array_map(array($this, 'extractProductData'), $data);
+            : array_map([$this, 'extractProductData'], $data);
     }
 
     /**

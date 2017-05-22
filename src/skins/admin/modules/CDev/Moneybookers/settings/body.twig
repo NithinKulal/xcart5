@@ -38,6 +38,7 @@
       </div>
       <div class="table-value">
         <input type="password" class="form-control"  id="mb_word" name="secret_word" value="{{ this.config.CDev.Moneybookers.secret_word }}" />
+        {{ widget('\\XLite\\View\\Tooltip', text=t(this.getSecretWordTooltipText()), isImageTag='true', className='help-icon') }}
       </div>
     </li>
 

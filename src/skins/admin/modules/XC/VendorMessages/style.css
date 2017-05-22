@@ -1,0 +1,32 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Common admin styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.page-tabs .tabkey-messages {
+  white-space: nowrap;
+}
+
+div.page-tabs ul li a,
+.page-tabs .unread-messages-count {
+  display: inline-block;
+}
+
+.page-tabs .unread-messages-count {
+  background-color: #f37c29;
+  border-radius: 2px;
+  color: #fff;
+  padding: 0 3px;
+  min-width: 16px;
+  margin-left: -2px;
+  line-height: 16px;
+  font-size: 10px;
+  text-align: center;
+  vertical-align: top;
+  margin-top: 2px;
+}
+

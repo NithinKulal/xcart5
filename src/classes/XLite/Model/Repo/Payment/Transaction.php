@@ -24,6 +24,8 @@ class Transaction extends \XLite\Model\Repo\ARepo
     const SEARCH_ZIPCODE   = 'zipcode';
     const SEARCH_CUSTOMER_NAME = 'customerName';
 
+    const SEARCH_EXCLUDE_INITIALIZED  = 'exclude_initialized';
+
     /**
      * Find transaction by data cell 
      * 
@@ -145,6 +147,23 @@ class Transaction extends \XLite\Model\Repo\ARepo
                 $queryBuilder->andWhere('t.date < :date1')
                     ->setParameter('date1', $value[1]);
             }
+        }
+    }
+
+    /**
+     * Prepare certain search condition
+     *
+     * @param \Doctrine\ORM\QueryBuilder $queryBuilder Query builder to prepare
+     * @param array|string               $value        Condition data
+     * @param boolean                    $countOnly    "Count only" flag. Do not need to add "order by" clauses if only count is needed.
+     *
+     * @return void
+     */
+    protected function prepareCndExcludeInitialized(\Doctrine\ORM\QueryBuilder $queryBuilder, $value, $countOnly)
+    {
+        if ($value) {
+            $queryBuilder->andWhere('t.status <> :excStatus')
+                ->setParameter('excStatus', \XLite\Model\Payment\Transaction::STATUS_INITIALIZED);
         }
     }
 

@@ -1,0 +1,36 @@
+{##
+ # Messages list
+ #}
+
+{% include 'modules/XC/VendorMessages/items_list/messages/order/recipients.twig' %}
+
+{% if this.isOpenedDisputeNoteVisible() %}
+  <p class="opened-dispute-note clearfix">{{ t('Dispute is open X by Y', this.disputeMessageArguments) }}</p>
+{% endif %}
+
+{% if this.isDisplayAll() %}
+<ul class="messages">
+    {% for message in this.getPageData() %}
+        {% if this.isNewSeparatorVisible(message) %}
+          {{ widget(template='modules/XC/VendorMessages/items_list/messages/order/separator_new.twig', message=message) }}
+        {% endif %}
+        {{ widget(template='modules/XC/VendorMessages/items_list/messages/order/line.twig', message=message) }}
+    {% endfor %}
+    {% include 'modules/XC/VendorMessages/items_list/messages/order/separator_opened.twig' %}
+</ul>
+{% else %}
+<ul class="messages">
+    {% for message in this.getFirstData() %}
+        {{ widget(template='modules/XC/VendorMessages/items_list/messages/order/line.twig', message=message) }}
+    {% endfor %}
+    {% include 'modules/XC/VendorMessages/items_list/messages/order/separator_closed.twig' %}
+    {% for message in this.getLastData() %}
+        {% if this.isNewSeparatorVisible(message) %}
+          {{ widget(template='modules/XC/VendorMessages/items_list/messages/order/separator_new.twig', message=message) }}
+        {% endif %}
+        {{ widget(template='modules/XC/VendorMessages/items_list/messages/order/line.twig', message=message) }}
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% include 'modules/XC/VendorMessages/items_list/messages/order/create.twig' %}

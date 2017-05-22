@@ -193,7 +193,7 @@ abstract class ModulesManager extends \Includes\Utils\AUtils
 
         $result[] = $dir . 'install.yaml';
 
-        foreach ((array) glob($dir . 'install_*.yaml') as $translationFile) {
+        foreach ((glob($dir . 'install_*.yaml') ?: []) as $translationFile) {
             $result[] = $translationFile;
         }
 
@@ -753,7 +753,7 @@ abstract class ModulesManager extends \Includes\Utils\AUtils
         // We should detect this and ignore disabling at this moment.
         // Also skip disabling for system module.
         if (isset(static::$activeModules[$key])
-            && !static::callModuleMethod($key, 'isSystem')
+            && (LC_DEVELOPER_MODE || !static::callModuleMethod($key, 'isSystem'))
             && !defined('XC_UPGRADE_IN_PROGRESS')
         ) {
             // Short names
@@ -1536,7 +1536,7 @@ abstract class ModulesManager extends \Includes\Utils\AUtils
             \Includes\Decorator\Plugin\Doctrine\Utils\FixturesManager::addFixtureToList($file);
         }
 
-        foreach ((array) glob($dir . LC_DS . 'install_*.yaml') as $translationFile) {
+        foreach ((glob($dir . LC_DS . 'install_*.yaml') ?: []) as $translationFile) {
             if (\Includes\Utils\FileManager::isFileReadable($translationFile)) {
                 \Includes\Decorator\Plugin\Doctrine\Utils\FixturesManager::addFixtureToList($translationFile);
             }

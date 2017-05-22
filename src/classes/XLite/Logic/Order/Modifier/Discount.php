@@ -80,7 +80,9 @@ abstract class Discount extends \XLite\Logic\Order\Modifier\ADiscount
 
         foreach ($orderItems as $key => $item) {
             // Calculate item discount value
-            $discountValue = $currency->roundValue(($item->getSubtotal() / $subtotal) * $discountTotal);
+            $discountValue = is_numeric($subtotal) && $subtotal > 0
+                ? $currency->roundValue(($item->getSubtotal() / $subtotal) * $discountTotal)
+                : 0;
 
             // Set discounted subtotal for item
             $item->setDiscountedSubtotal($item->getDiscountedSubtotal() - $discountValue);

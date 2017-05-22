@@ -280,9 +280,7 @@ class ProductVariant extends \XLite\View\ItemsList\Model\Table
     // {{{ Model processing
 
     /**
-     * Create entity
-     *
-     * @return \XLite\Model\AEntity
+     * @inheritdoc
      */
     protected function createEntity()
     {
@@ -300,6 +298,20 @@ class ProductVariant extends \XLite\View\ItemsList\Model\Table
     /**
      * @inheritdoc
      */
+    protected function undoCreatedEntity($entity)
+    {
+        $product = $entity->getProduct() ?: $this->getProduct();
+
+        if ($product) {
+            $product->getVariantsCollection()->removeElement($entity);
+        }
+
+        parent::undoCreatedEntity($entity);
+    }
+
+    /**
+     * @inheritdoc
+     */
     protected function prevalidateEntities()
     {
         if (parent::prevalidateEntities()) {
@@ -310,7 +322,7 @@ class ProductVariant extends \XLite\View\ItemsList\Model\Table
                 if (in_array($entity->getSku(), $skus)) {
                     $this->errorMessages[] = static::t('SKU must be unique');
                     return false;
-                } else {
+                } elseif ($entity->getSku() != '') {
                     $skus[] = $entity->getSku();
                 }
             }
@@ -322,11 +334,7 @@ class ProductVariant extends \XLite\View\ItemsList\Model\Table
     }
 
     /**
-     * Post-validate new entity
-     *
-     * @param \XLite\Model\AEntity $entity Entity
-     *
-     * @return boolean
+     * @inheritdoc
      */
     protected function prevalidateNewEntity(\XLite\Model\AEntity $entity)
     {
@@ -360,11 +368,7 @@ class ProductVariant extends \XLite\View\ItemsList\Model\Table
     }
 
     /**
-     * Get create message
-     *
-     * @param integer $count Count
-     *
-     * @return string
+     * @inheritdoc
      */
     protected function getCreateMessage($count)
     {
@@ -372,9 +376,7 @@ class ProductVariant extends \XLite\View\ItemsList\Model\Table
     }
 
     /**
-     * Get update message
-     *
-     * @return string
+     * @inheritdoc
      */
     protected function getUpdateMessage()
     {
@@ -382,18 +384,17 @@ class ProductVariant extends \XLite\View\ItemsList\Model\Table
     }
 
     /**
-     * Remove entity
-     *
-     * @param \XLite\Model\AEntity $entity Entity
-     *
-     * @return boolean
+     * @inheritdoc
      */
     protected function removeEntity(\XLite\Model\AEntity $entity)
     {
-        $this->getProduct()->getVariants()->removeElement($entity);
-        parent::removeEntity($entity);
+        $product = $entity->getProduct() ?: $this->getProduct();
 
-        return true;
+        if ($product) {
+            $product->getVariantsCollection()->removeElement($entity);
+        }
+
+        return parent::removeEntity($entity);
     }
 
     // }}}

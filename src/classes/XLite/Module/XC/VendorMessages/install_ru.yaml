@@ -1,0 +1,67 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+XLite\Model\LanguageLabel:
+  - { name: "Read", translations: [{ code: ru, label: "Прочитано" }] }
+  - { name: "Unread", translations: [{ code: ru, label: "Не прочитано" }] }
+  - { name: "Messages", translations: [{ code: ru, label: "Сообщения" }] }
+  - { name: "Message", translations: [{ code: ru, label: "Сообщение" }] }
+  - { name: "Message not found", translations: [{ code: ru, label: "Сообщение не найдено" }] }
+  - { name: "All orders", translations: [{ code: ru, label: "Все заказы" }] }
+  - { name: "Orders with unread messages", translations: [{ code: ru, label: "Все заказы с непрочитанными сообщениями" }] }
+  - { name: "Orders with any messages", translations: [{ code: ru, label: "Все заказы с сообщениями" }] }
+  - { name: "The field Body may not be blank", translations: [{ code: ru, label: "Поле 'Сообщение' не может быть пустым" }] }
+  - { name: "Contact seller", translations: [{ code: ru, label: "Связаться с продавцом" }] }
+  - { name: "X unread messages", translations: [{ code: ru, label: "{{count}} непрочитанных сообщений" }] }
+  - { name: "Hidden X messages", translations: [{ code: ru, label: "Скрытые сообщения ({{count}})" }] }
+  - { name: "Hide message history", translations: [{ code: ru, label: "Скрыть историю общения" }] }
+  - { name: "New message for order", translations: [{ code: ru, label: "Новое сообщение по заказу" }] }
+  - { name: "X new message for order", translations: [{ code: ru, label: "{{count}} новых сообщений  по заказу" }] }
+  - { name: "You Have No Messages", translations: [{ code: ru, label: "Нет сообщений" }] }
+  - { name: "Dispute opened by X", translations: [{ code: ru, label: "Диспут открыт {{name}}" }] }
+  - { name: "Dispute closed by X", translations: [{ code: ru, label: "Диспут закрыт {{name}}" }] }
+  - { name: "Open dispute", translations: [{ code: ru, label: "Открыть диспут" }] }
+  - { name: "Close dispute", translations: [{ code: ru, label: "Закрыть диспут" }] }
+  - { name: "Subscribe", translations: [{ code: ru, label: "Подписатьcя" }] }
+  - { name: "Unsubscribe", translations: [{ code: ru, label: "Отписаться" }] }
+  - { name: "A dispute has been opened successfully", translations: [{ code: ru, label: "Диспут открыт" }] }
+  - { name: "The dispute has been closed", translations: [{ code: ru, label: "Диспут закрыт" }] }
+  - { name: "Monitoring of communication related to oder #X has been enabled", translations: [{ code: ru, label: "Подписка на получение сообщений по заказу №{{order_number}} включена" }] }
+  - { name: "Monitoring of communication related to oder #X has been disabled", translations: [{ code: ru, label: "Подписка на получение сообщений по заказу №{{order_number}} выключена" }] }
+  - { name: "All communication threads", translations: [{ code: ru, label: "Все цепочки сообщений" }] }
+  - { name: "Сommunication threads with unread messages", translations: [{ code: ru, label: "Цепочки с непрочитанными сообщениями" }] }
+  - { name: "Сommunication threads with open disputes", translations: [{ code: ru, label: "Цепочки с открытыми диспутами" }] }
+  - { name: "Dispute is open X by Y", translations: [{ code: ru, label: "Диспут открыт {{date}}, {{name}}" }] }
+  - { name: "Write your message", translations: [{ code: ru, label: "Текст вашего сообщения" }] }
+  - { name: "Open a dispute", translations: [{ code: ru, label: "Открыть диспут" }] }
+  - { name: "Dispute", translations: [{ code: ru, label: "Диспут" }] }
+  - { name: "Reason", translations: [{ code: ru, label: "Причина" }] }
+  - { name: "New messages", translations: [{ code: ru, label: "Новые сообщения" }] }
+  - { name: "Show vendor’s products in the order", translations: [{ code: ru, label: "Показать продукты вендора" }] }
+  - { name: "Hide vendor’s products in the order", translations: [{ code: ru, label: "Скрыть продукты вендора" }] }
+XLite\Model\Config:
+  directives: { addModel: 'XLite\Model\ConfigTranslations' }
+  - name: allow_vendor_communication
+    category: 'XC\VendorMessages'
+    translations:
+      - code: ru
+        option_name: 'Разрешить обмен сообщениями между вендором и покупателем в режиме "Склад"'
+XLite\Model\Notification:
+  directives: { addModel: 'XLite\Model\NotificationTranslations' }
+  - templatesDirectory: modules/XC/VendorMessages/notification
+    translations:
+      - code: ru
+        name: Новое сообщение по заказу (модуль Order messages)
+        description: Это уведомление будет отправлено покупателю, когда в контексте сделанного им заказа появится новое сообщение
+        customerSubject: Новое сообщение по заказу №%order_number%
+        customerText: |
+          %company_link%
+          <p>
+          Вы получили новое сообщение по заказу %order_messages_link%:
+          </p>
+          <p>
+          %message%
+          </p>

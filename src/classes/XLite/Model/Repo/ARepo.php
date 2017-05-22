@@ -1937,14 +1937,16 @@ abstract class ARepo extends \Doctrine\ORM\EntityRepository
     /**
      * Define items iterator
      *
-     * @param integer $position Position OPTIONAL
+     * @param integer $position
+     * @param int     $maxItems
      *
      * @return \Doctrine\ORM\Internal\Hydration\IterableResult
      */
-    public function getExportIterator($position = 0)
+    public function getExportIterator($position = 0, $maxItems = 100)
     {
         return $this->defineExportIteratorQueryBuilder($position)
-                    ->iterate();
+            ->setMaxResults($maxItems)
+            ->iterate();
     }
 
     /**
@@ -2565,15 +2567,14 @@ abstract class ARepo extends \Doctrine\ORM\EntityRepository
             $this->searchState['queryBuilder']
                 ->resetDQLPart('orderBy');
 
-            $this->assignDefaultOrderBy($this->searchState['queryBuilder']);
             foreach ($orderByCnds as $orderByCnd) {
                 list($sort, $order) = $orderByCnd;
                 $this->searchState['queryBuilder']
                     ->addOrderBy($sort, $order);
             }
-        } else {
-            $this->assignDefaultOrderBy($this->searchState['queryBuilder']);
         }
+
+        $this->assignDefaultOrderBy($this->searchState['queryBuilder']);
     }
 
     /**

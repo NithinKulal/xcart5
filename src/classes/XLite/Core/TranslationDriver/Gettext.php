@@ -68,7 +68,9 @@ class Gettext extends \XLite\Core\TranslationDriver\ATranslationDriver
             \XLite\Logger::getInstance()->log('gettext: translated string exceeded 4096 length limit', LOG_DEBUG, true);
         }
 
-        return dgettext($this->getDomain($code), $name);
+        $result = dgettext($this->getDomain($code), $name);
+
+        return strlen($result) === 1 && ord($result) === 1 ? '' : $result;
     }
 
     /**
@@ -273,9 +275,11 @@ class Gettext extends \XLite\Core\TranslationDriver\ATranslationDriver
                 $spointer += $l+1;
             }
 
+            $empty = chr(1);
+
             // Writing the table containing the lengths and offsets of language label values
             foreach ($list as $v) {
-                $l = strlen($v);
+                $l = strlen(empty($v) ? $empty : $v);
                 fwrite($fp, pack('LL', $l, $spointer));
                 $spointer += $l + 1;
             }
@@ -289,7 +293,7 @@ class Gettext extends \XLite\Core\TranslationDriver\ATranslationDriver
 
             // Writing NUL terminated language label values
             foreach ($list as $v) {
-                fwrite($fp, $v . $nul);
+                fwrite($fp, (empty($v) ? $empty : $v) . $nul);
             }
 
             fclose($fp);
@@ -339,10 +343,12 @@ class Gettext extends \XLite\Core\TranslationDriver\ATranslationDriver
             $pattern = array("\r", "\n");
             $replace = array('\r', '\n');
 
+            $empty = chr(1);
+
             foreach ($list as $k => $v) {
 
                 $msgId = str_replace($pattern, $replace, addcslashes($k, '"\\'));
-                $msgStr = str_replace($pattern, $replace, addcslashes($v, '"\\'));
+                $msgStr = str_replace($pattern, $replace, addcslashes((empty($v) ? $empty : $v), '"\\'));
 
                 fwrite(
                     $fp,

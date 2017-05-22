@@ -1,0 +1,4 @@
+Version 5.3.2.5
+
+Fixes
+2017-03-23 - [Bug] Brought the checkup of file availability at a URL to a unified form. #BUG-4151 (Eugene Dementjev) #Core #XMLSitemap

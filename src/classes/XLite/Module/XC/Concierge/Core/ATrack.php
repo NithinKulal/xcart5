@@ -42,6 +42,21 @@ abstract class ATrack extends AMessage
     }
 
     /**
+     * @param string $integration
+     *
+     * @return array
+     */
+    public function toArray($integration = '')
+    {
+        $result = parent::toArray($integration);
+        if ($integration === 'intercom') {
+            $result['arguments'][0] .= ' ' . $this->getEvent();
+        }
+
+        return $result;
+    }
+
+    /**
      * @return string
      */
     public function getEvent()

@@ -13,7 +13,8 @@ namespace XLite\View\Product;
  */
 class TopSellersBlock extends \XLite\View\Dialog
 {
-    const PARAM_PERIOD = 'period';
+    const PARAM_PERIOD       = 'period';
+    const PARAM_AVAILABILITY = 'availability';
 
     /**
      * Add widget specific CSS file
@@ -51,7 +52,10 @@ class TopSellersBlock extends \XLite\View\Dialog
         parent::defineWidgetParams();
 
         $this->widgetParams += array(
-            static::PARAM_PERIOD => new \XLite\Model\WidgetParam\TypeString('Period', $this->definePeriod()),
+            static::PARAM_PERIOD       => new \XLite\Model\WidgetParam\TypeString('Period', $this->definePeriod()),
+            static::PARAM_AVAILABILITY => new \XLite\Model\WidgetParam\TypeString(
+                'Availability', $this->defineAvailability()
+            ),
         );
     }
 
@@ -64,7 +68,21 @@ class TopSellersBlock extends \XLite\View\Dialog
     {
         $request = \XLite\Core\Request::getInstance();
 
-        return $request->period ?: \XLite\View\ItemsList\Model\Product\Admin\TopSellers::P_PERIOD_LIFETIME;
+        return $request->{static::PARAM_PERIOD}
+            ?: \XLite\View\ItemsList\Model\Product\Admin\TopSellers::P_PERIOD_LIFETIME;
+    }
+
+    /**
+     * Return period
+     *
+     * @return string
+     */
+    protected function defineAvailability()
+    {
+        $request = \XLite\Core\Request::getInstance();
+
+        return $request->{static::PARAM_AVAILABILITY}
+            ?: \XLite\Controller\Admin\TopSellers::AVAILABILITY_ALL;
     }
 
     /**
@@ -88,15 +106,13 @@ class TopSellersBlock extends \XLite\View\Dialog
     }
 
     /**
-     * Return true if current period is a default
+     * Get options for selector (allowed availability)
      *
-     * @param string $period Period name
-     *
-     * @return boolean
+     * @return array
      */
-    protected function isDefaultPeriod($period)
+    protected function getAvailabilityOptions()
     {
-        return \XLite\View\ItemsList\Model\Product\Admin\TopSellers::P_PERIOD_LIFETIME === $period;
+        return \XLite\View\ItemsList\Model\Product\Admin\TopSellers::getAllowedAvailability();
     }
 
     /**
@@ -108,7 +124,39 @@ class TopSellersBlock extends \XLite\View\Dialog
      */
     protected function isSelectedPeriod($period)
     {
-        return $this->getParam(static::PARAM_PERIOD) === $period;
+        return $this->getSelectedPeriod() === $period;
+    }
+
+    /**
+     * Return true if current period is a default
+     *
+     * @return string
+     */
+    protected function getSelectedPeriod()
+    {
+        return $this->getParam(static::PARAM_PERIOD);
+    }
+
+    /**
+     * Return true if current availability is selected
+     *
+     * @param string $value Period name
+     *
+     * @return boolean
+     */
+    protected function isSelectedAvailability($value)
+    {
+        return $this->getSelectedAvailability() === $value;
+    }
+
+    /**
+     * Return true if current availability is selected
+     *
+     * @return string
+     */
+    protected function getSelectedAvailability()
+    {
+        return $this->getParam(static::PARAM_AVAILABILITY);
     }
 
     /**
@@ -121,7 +169,7 @@ class TopSellersBlock extends \XLite\View\Dialog
         return !\XLite\Core\Database::getRepo('XLite\Model\Product')
             ->hasTopSellers();
     }
-    
+
     /**
      * Check ACL permissions
      *
@@ -130,6 +178,6 @@ class TopSellersBlock extends \XLite\View\Dialog
     protected function checkACL()
     {
         return parent::checkACL()
-            && \XLite\Core\Auth::getInstance()->isPermissionAllowed('manage catalog');
+               && \XLite\Core\Auth::getInstance()->isPermissionAllowed('manage catalog');
     }
 }

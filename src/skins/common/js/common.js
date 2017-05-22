@@ -746,4 +746,11 @@ jQuery(document).ready(
         jQuery(window).resize(_.debounce(appendClass, 30));
       }
     );
+
+    core.bind('popup.open', function() {
+      jQuery('html').addClass('popup-opened');
+    });
+    core.bind('popup.close', function() {
+      jQuery('html').removeClass('popup-opened');
+    });
 });

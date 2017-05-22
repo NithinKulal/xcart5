@@ -1,0 +1,30 @@
+{##
+ # Trial notice popup dialog (iframe content)
+ #}
+
+<style type="text/css">
+  {% include 'trial_notice_v2/css/style.css' %}
+</style>
+
+<div class="trial-notice-block alert alert-warning">
+  <h2 class="title">{{ t('Your X-Cart Business trial has expired!') }}</h2>
+
+  <div class="notice">{{ t('You must register your X-Cart installation before using it for real sales. Activate your existing license key or purchase a premium license to skyrocket your business.')|raw }}</div>
+
+  {% include 'trial_notice_v2/activate_key.twig' %}
+
+  <hr/>
+  <div class="important">{{ t('This message can be removed only through activation of a free or premium license.') }}</div>
+  <div class="faq">{{ t('Refer to X-Cart license agreement for further details.', {'licenseAgreementURL': this.getLicenseAgreementURL()})|raw }}</div>
+</div>
+
+<script type="application/javascript">
+  document
+    .getElementsByClassName('additional-link')[0]
+    .getElementsByTagName('a')[0].onclick = function () {
+
+      window.open(this.href, '_blank');
+
+      return false;
+  };
+</script>

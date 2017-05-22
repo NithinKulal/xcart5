@@ -463,7 +463,6 @@ class Category extends \XLite\Model\Repo\Base\I18n
     {
         return $this->createPureQueryBuilder()
             ->select('MAX(c.rpos)')
-            ->groupBy('c.category_id')
             ->setMaxResults(1);
     }
 

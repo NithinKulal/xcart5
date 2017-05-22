@@ -1,0 +1,10 @@
+{##
+ # Order messages list
+ #}
+
+{% if this.isSearchVisible() %}
+  {{ widget('XLite\\Module\\XC\\VendorMessages\\View\\SearchPanel\\Message\\Admin\\Main') }}
+{% endif %}
+{% form 'XLite\\Module\\XC\\VendorMessages\\View\\Form\\ItemsList\\Messages\\Admin\\All' %}
+    {{ widget('XLite\\Module\\XC\\VendorMessages\\View\\ItemsList\\Messages\\Admin\\All') }}
+{% endform %}

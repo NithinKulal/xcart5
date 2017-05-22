@@ -330,8 +330,6 @@ class Cart extends \XLite\Model\Order
     /**
      * Prepare order before save data operation
      *
-     * @return void
-     *
      * @PrePersist
      * @PreUpdate
      */

@@ -1,0 +1,5 @@
+Version 5.3.1.2
+
+Fixes
+2016-11-29 - [Bug] Fatal error when editing a product, if the fields price / market price / sale price / weight were left blank. #BUG-4197 (Michael Lipinski) #Core #MarketPrice #Sale
+2016-11-15 - [Bug] If a product is on sale and has a market price defined, the product's old price is defined based on the market price. #BUG-4045 (Sergey Elmanov) #MarketPrice

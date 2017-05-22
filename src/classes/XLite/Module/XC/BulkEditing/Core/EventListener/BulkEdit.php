@@ -9,16 +9,14 @@
 namespace XLite\Module\XC\BulkEditing\Core\EventListener;
 
 /**
- * Export
+ * Bulk edit
  */
 class BulkEdit extends \XLite\Core\EventListener\Base\Countable
 {
     const CHUNK_LENGTH = 25;
 
     /**
-     * Generator
-     *
-     * @var   \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Generator
+     * @var \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Generator
      */
     protected $generator;
 
@@ -30,14 +28,14 @@ class BulkEdit extends \XLite\Core\EventListener\Base\Countable
     /**
      * Time mark
      *
-     * @var   integer
+     * @var integer
      */
     protected $timeMark = 0;
 
     /**
      * Service time
      *
-     * @var   integer
+     * @var integer
      */
     protected $serviceTime = 0;
 
@@ -54,7 +52,7 @@ class BulkEdit extends \XLite\Core\EventListener\Base\Countable
     /**
      * Process item
      *
-     * @param mixed $item Item
+     * @param \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Step\AStep $item Item
      *
      * @return boolean
      */
@@ -84,7 +82,7 @@ class BulkEdit extends \XLite\Core\EventListener\Base\Countable
     protected function isStepValid()
     {
         return parent::isStepValid()
-        && $this->getItems()->valid();
+            && $this->getItems()->valid();
     }
 
     /**
@@ -100,7 +98,7 @@ class BulkEdit extends \XLite\Core\EventListener\Base\Countable
     /**
      * Get items
      *
-     * @return array
+     * @return \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Generator
      */
     protected function getItems()
     {
@@ -114,9 +112,15 @@ class BulkEdit extends \XLite\Core\EventListener\Base\Countable
     }
 
     /**
+     * Initialize task
+     */
+    protected function initializeTask()
+    {
+        $this->getItems()->initialize();
+    }
+
+    /**
      * Initialize step
-     *
-     * @return void
      */
     protected function initializeStep()
     {
@@ -130,14 +134,12 @@ class BulkEdit extends \XLite\Core\EventListener\Base\Countable
 
     /**
      * Finish step
-     *
-     * @return void
      */
     protected function finishStep()
     {
         $generator = $this->getItems();
 
-        $this->serviceTime += (microtime(true) - $this->timeMark);
+        $this->serviceTime             += (microtime(true) - $this->timeMark);
         $generator->getOptions()->time += $this->serviceTime;
 
         $this->record['options'] = $generator->getOptions()->getArrayCopy();
@@ -147,8 +149,6 @@ class BulkEdit extends \XLite\Core\EventListener\Base\Countable
 
     /**
      * Finish task
-     *
-     * @return void
      */
     protected function finishTask()
     {
@@ -164,10 +164,11 @@ class BulkEdit extends \XLite\Core\EventListener\Base\Countable
      */
     protected function compileTouchData()
     {
+        $this->record['touchData'] = [];
+
         $timeLabel = \XLite\Core\Translation::formatTimePeriod($this->getItems()->getTimeRemain());
-        $this->record['touchData'] = array();
         if ($timeLabel) {
-            $this->record['touchData']['message'] = static::t('About X remaining', array('time' => $timeLabel));
+            $this->record['touchData']['message'] = static::t('About X remaining', ['time' => $timeLabel]);
         }
     }
 
@@ -197,8 +198,6 @@ class BulkEdit extends \XLite\Core\EventListener\Base\Countable
 
     /**
      * Fail task
-     *
-     * @return void
      */
     protected function failTask()
     {

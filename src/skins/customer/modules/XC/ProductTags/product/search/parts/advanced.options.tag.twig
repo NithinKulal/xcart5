@@ -1,0 +1,10 @@
+{##
+ # Search in tag
+ #
+ # @listChild (list="products.search.conditions.advanced.options", weight="400")
+ #}
+
+<li><label for="by-tag">
+  <input type="checkbox" name="by_tag" id="by-tag" value="Y" {% if this.getChecked('by_tag') %} checked="checked" {% endif %} />
+  {{ t('Tag') }}
+</label></li>

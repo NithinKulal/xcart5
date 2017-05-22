@@ -100,10 +100,12 @@ core.bind('paypaltransparentredirect', function (e, params) {
   var form = document.createElement('form');
   form.action = params.action;
   form.method = 'post';
+  form.className += ' hidden';
 
   appendInput(form, 'SECURETOKEN', params.token);
   appendInput(form, 'SECURETOKENID', params.secureTokenId);
   appendInput(form, 'PARMLIST', paramList);
 
+  document.body.appendChild(form);
   form.submit();
 });

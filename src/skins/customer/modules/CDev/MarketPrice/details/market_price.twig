@@ -1,0 +1,7 @@
+{##
+ # Market price (internal list element)
+ #
+ # @ListChild (list="product.plain_price.tail.market_price.text", weight="100")
+ #}
+
+{{ t('Market price') }}: <span class="value">{{ this.formatPrice(this.product.getMarketPrice(), this.null, 1) }}</span>,

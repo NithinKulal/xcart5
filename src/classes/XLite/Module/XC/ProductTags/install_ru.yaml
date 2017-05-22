@@ -1,0 +1,29 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Russian fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: show_tags_sidebar
+    category: 'XC\ProductTags'
+    translations:
+      - code: ru
+        option_name: 'Показывать список тегов в боковой колонке'
+  - name: enable_tags_filter
+    category: 'XC\ProductFilter'
+    translations:
+      - code: ru
+        option_name: 'Включить фильтр "Теги"'
+
+XLite\Model\LanguageLabel:
+  - { name: 'Tag', translations: [{ code: ru, label: 'Тег' }] }
+  - { name: 'New tag', translations: [{ code: ru, label: 'Новый тег' }] }
+  - { name: 'Tags', translations: [{ code: ru, label: 'Теги' }] }
+  - { name: 'Product tags', translations: [{ code: ru, label: 'Теги продуктов' }] }
+  - { name: 'Please select the tags first', translations: [{ code: ru, label: 'Пожалуйста, сначала выберите тег' }] }
+  - { name: 'Selected tags have been deleted', translations: [{ code: ru, label: 'Выбранные теги были удалены' }] }
+  - { name: 'Categories and tags', translations: [{ code: ru, label: 'Категории и теги' }] }
+  - { name: 'itemslist.admin.tag.blank', translations: [{ code: ru, label: '<p class="items-list-blank-description-heading text-center">Список тегов пуст.</p><p class="text-center">Теги помогут вашим покупателям быстрее найти нужный продукт. Вы можете добавить тег с помощью кнопки <b>"Новый тег"</b>. После этого его можно будет назначить продукту на странице редактирования продукта.</p>' }] }
+

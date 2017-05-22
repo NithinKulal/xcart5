@@ -1,0 +1,9 @@
+Version 5.3.2.3
+
+Fixes
+2017-04-13 - [Bug] Fixed a layout issue in the edit review popup. #BUG-4712 (Sergey Elmanov) #ProductReviews
+2017-03-31 - [Bug] The sorting of products by rating in the customer area was incorrect. #BUG-4742 (Sergey Elmanov) #ProductReviews
+2017-03-29 - [Bug] Fatal error when searching for  reviews by keywords string. Fixed. #BUG-4741 (Sergey Elmanov) #ProductReviews
+2017-03-28 - [Bug] In Admin area, one could not create or update/approve of an anonymous review. #BUG-4728 (Sergey Elmanov) #Core #ProductReviews
+2017-03-22 - [Bug] Apostrophes were escaped in email subject. #BUG-4696 (Sergey Elmanov) #Core #ContactUs #Egoods #CanadaPost #PINCodes #ProductVariants #ProductReviews #PitneyBowes #MultiVendor
+2017-03-16 - [Bug] Vendor could see a link to the profile of a product reviewer. #BUG-4656 (Sergey Elmanov) #ProductReviews #MultiVendor

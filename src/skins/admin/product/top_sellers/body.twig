@@ -4,32 +4,43 @@
 
 {% if not this.isEmptyStats() %}
 
-<div class="top-sellers">
+  <div class="top-sellers">
 
-  {% for period, name in this.getOptions() %}
-  {% if this.isSelectedPeriod(period) %}
-    <div id="period-{{ period|raw }}" class="block-container">
-      {{ widget('\\XLite\\View\\ItemsList\\Model\\Product\\Admin\\TopSellers', period=period, products_limit='5') }}
+    <div id="period-{{ this.getSelectedPeriod()|raw }}" class="block-container">
+      {{ widget('\\XLite\\View\\ItemsList\\Model\\Product\\Admin\\TopSellers', period=this.getSelectedPeriod(), products_limit='5', availability=this.getSelectedAvailability()) }}
     </div>
-  {% endif %}
-  {% endfor %}
 
-  <div class="period-box">
-    <span class="label">{{ t('For the period') }}</span>
-    <span class="field">
+    <div class="selectors">
+      <div class="period-box">
+        <span class="label">{{ t('For the period') }}</span>
+        <span class="field">
       <select name="period">
         {% for period, name in this.getOptions() %}
-        <option value="{{ period }}" {% if this.isSelectedPeriod(period) %}selected="selected"{% endif %}>{{ t(name) }}</option>
+          <option value="{{ period }}"
+                  {% if this.isSelectedPeriod(period) %}selected="selected"{% endif %}>{{ t(name) }}</option>
         {% endfor %}
       </select>
     </span>
-  </div>
+      </div>
 
-</div>
+      <div class="availability-box">
+        <span class="label">{{ t('Products') }}</span>
+        <span class="field">
+      <select name="availability">
+        {% for v, name in this.getAvailabilityOptions() %}
+          <option value="{{ v }}"
+                  {% if this.isSelectedAvailability(v) %}selected="selected"{% endif %}>{{ t(name) }}</option>
+        {% endfor %}
+      </select>
+    </span>
+      </div>
+    </div>
+
+  </div>
 
 {% else %}
 
-<div class="empty-list">{{ t('No products sold yet') }}</div>
+  <div class="empty-list">{{ t('No products sold yet') }}</div>
 
 {% endif %}
 

@@ -76,7 +76,7 @@ abstract class EntityManager extends \Includes\Decorator\Plugin\Doctrine\ADoctri
 
         $paths = array_merge(
             [LC_DIR_CLASSES . 'XLite/Model'],
-            glob(LC_DIR_CLASSES . 'XLite/Module/*/*/Model/')
+            glob(LC_DIR_CLASSES . 'XLite/Module/*/*/Model/') ?: []
         );
 
         $metadataDriver = new AnnotationDriver($cachedReader, $paths);
@@ -135,7 +135,7 @@ abstract class EntityManager extends \Includes\Decorator\Plugin\Doctrine\ADoctri
 
         $paths = array_merge(
             [$root . 'XLite/Model'],
-            glob($root . 'XLite/Module/*/*/Model/')
+            glob($root . 'XLite/Module/*/*/Model/') ?: []
         );
 
         $config->setMetadataDriverImpl(

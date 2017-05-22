@@ -2292,7 +2292,7 @@ abstract class AView extends \XLite\Core\Handler
      */
     protected function getActivateFreeLicenseURL()
     {
-        return $this->buildURL('activate_free_license');
+        return \XLite\Core\Converter::buildURL('activate_free_license', '', [], \XLite::ADMIN_SELF);
     }
 
     /**

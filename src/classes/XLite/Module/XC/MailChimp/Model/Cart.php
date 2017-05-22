@@ -18,6 +18,12 @@ use XLite\Module\XC\MailChimp\Main;
  */
 abstract class Cart extends \XLite\Model\Cart implements \XLite\Base\IDecorator
 {
+    /**
+     * Prepare order before save data operation
+     *
+     * @PrePersist
+     * @PreUpdate
+     */
     public function prepareBeforeSave()
     {
         parent::prepareBeforeSave();

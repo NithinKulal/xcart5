@@ -43,4 +43,9 @@ class Main extends \XLite\Controller\Customer\Category
     {
         return $this->getCategory() && $this->getRootCategoryId() == $this->getCategory()->getCategoryId();
     }
+
+    protected function isNeedToRedirectToMain()
+    {
+        return false;
+    }
 }

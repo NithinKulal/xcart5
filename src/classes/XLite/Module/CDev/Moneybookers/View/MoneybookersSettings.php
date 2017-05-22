@@ -79,5 +79,10 @@ class MoneybookersSettings extends \XLite\View\Dialog
         return 'https://content.skrill.com/en/ecommerce-solutions/xcart/';
     }
 
+    public function getSecretWordTooltipText()
+    {
+        return 'This feature is mandatory and ensures the integrity of the data posted back to your servers. To set it up, you need to login to your Skrill account and go to Settings -> then, Developer Settings.';
+    }
+
     // }}}
 }

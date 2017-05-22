@@ -146,22 +146,11 @@ class Operator extends \XLite\Base\Singleton
     {
         $result = null;
 
-        if (ini_get('allow_url_fopen')) {
-            $result = file_get_contents(
-                str_replace(
-                    array(' '),
-                    array('%20'),
-                    $url
-                )
-            );
+        $bouncer = new \XLite\Core\HTTP\Request($url);
+        $response = $bouncer->sendRequest();
 
-        } else {
-            $bouncer = new \XLite\Core\HTTP\Request($url);
-            $response = $bouncer->sendRequest();
-
-            if ($response && 200 == $response->code) {
-                $result = $response->body;
-            }
+        if ($response && 200 == $response->code) {
+            $result = $response->body;
         }
 
         return $result;

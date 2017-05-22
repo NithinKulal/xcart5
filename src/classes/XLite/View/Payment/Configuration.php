@@ -177,9 +177,9 @@ class Configuration extends \XLite\View\AView
      *
      * @return string
      */
-    protected function getG2AUrl()
+    public function getPaymentsBannerLink()
     {
-        return \XLite\Core\Database::getRepo('XLite\Model\Module')->getMarketplaceUrlByName('G2APay', 'G2APay');
+        return 'https://www.discovernetwork.com/en-us/what-we-offer/digital-payments/digital-acceptance/?cmpgnid=dsp-dnw-xc-aff-payment-selection';
     }
     // }}}
 }

@@ -32,7 +32,7 @@ abstract class ATask extends \XLite\Base
      *
      * @var string
      */
-    protected $message = 'done';
+    protected $message;
 
     /**
      * Get title
@@ -43,8 +43,6 @@ abstract class ATask extends \XLite\Base
 
     /**
      * Run step
-     *
-     * @return void
      */
     abstract protected function runStep();
 
@@ -52,8 +50,6 @@ abstract class ATask extends \XLite\Base
      * Constructor
      *
      * @param \XLite\Model\Task $model Model
-     *
-     * @return void
      */
     public function __construct(\XLite\Model\Task $model)
     {
@@ -82,7 +78,7 @@ abstract class ATask extends \XLite\Base
 
     /**
      * Should task started if previous attempt has failed
-     * 
+     *
      * @return boolean
      */
     public function shouldRunIfCrashed()
@@ -92,7 +88,7 @@ abstract class ATask extends \XLite\Base
 
     /**
      * Lock key
-     * 
+     *
      * @return string
      */
     public function getLockKey()
@@ -115,7 +111,7 @@ abstract class ATask extends \XLite\Base
 
     /**
      * Mark task as running
-     * 
+     *
      * @return void
      */
     protected function markAsRunning()
@@ -127,7 +123,7 @@ abstract class ATask extends \XLite\Base
 
     /**
      * mark as not running
-     * 
+     *
      * @return void
      */
     protected function release()
@@ -139,13 +135,9 @@ abstract class ATask extends \XLite\Base
 
     /**
      * Run task
-     *
-     * @return boolean
      */
     public function run()
     {
-        $result = null;
-
         if ($this->isValid()) {
             $this->prepareStep();
 
@@ -159,7 +151,6 @@ abstract class ATask extends \XLite\Base
             } else {
                 $this->finalizeStep();
             }
-
         } elseif (!$this->message) {
             $this->message = 'invalid';
         }
@@ -176,7 +167,7 @@ abstract class ATask extends \XLite\Base
 
     /**
      * Check - current step is last or not
-     * 
+     *
      * @return boolean
      */
     protected function isLastStep()
@@ -186,8 +177,6 @@ abstract class ATask extends \XLite\Base
 
     /**
      * Finalize task (last step)
-     *
-     * @return void
      */
     protected function finalizeTask()
     {
@@ -197,8 +186,6 @@ abstract class ATask extends \XLite\Base
 
     /**
      * Finalize step
-     *
-     * @return void
      */
     protected function finalizeStep()
     {
@@ -216,8 +203,6 @@ abstract class ATask extends \XLite\Base
 
     /**
      * Close task
-     *
-     * @return void
      */
     protected function close()
     {

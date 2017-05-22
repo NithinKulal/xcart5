@@ -182,6 +182,12 @@
 {%- endblock old_widget %}
 {# /oldType #}
 
+{# promoType #}
+{% block promo_widget -%}
+  {{ widget('XLite\\View\\SimplePromoBlock', promoId=promoId) }}
+{%- endblock promo_widget %}
+{# /promoType #}
+
 {# switcher #}
 
 {%- block switcher_widget -%}

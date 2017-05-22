@@ -34,6 +34,7 @@ XLite\Model\LanguageLabel:
   - { name: "cs_products", translations: [{ code: en, label: "Products" }, { code: ru, label: "Товары" }] }
   - { name: "cs_categories", translations: [{ code: en, label: "Categories" }, { code: ru, label: "Категории" }] }
   - { name: "cs_pages", translations: [{ code: en, label: "Pages" }, { code: ru, label: "Страницы" }] }
+  - { name: "cs_manufacturers", translations: [{ code: en, label: "Manufacturers" }, { code: ru, label: "Производители" }] }
   - { name: "cs_did_you_mean", translations: [{ code: en, label: "Did you mean" }, { code: ru, label: "Возможно, вы имели в виду" }] }
   # CloudFilters
   - { name: 'Reset all filters', translations: [{ code: en, label: 'Reset all filters' }, { code: ru, label: 'Сбросить все фильтры' }] }

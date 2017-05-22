@@ -58,14 +58,14 @@ class AttributeList extends \XLite\Module\XC\ProductFilter\View\Filter\AFilter
     {
         parent::defineWidgetParams();
 
-        $this->widgetParams += array(
+        $this->widgetParams += [
             self::PARAM_GROUP => new \XLite\Model\WidgetParam\TypeObject(
                 'Group', null, false, '\XLite\Model\AttributeGroup'
             ),
             self::PARAM_CLASSES => new \XLite\Model\WidgetParam\TypeCollection(
-                'Product classes', array()
+                'Product classes', []
             ),
-        );
+        ];
     }
 
     /**
@@ -169,9 +169,9 @@ class AttributeList extends \XLite\Module\XC\ProductFilter\View\Filter\AFilter
         $filterValues = $this->getFilterValues();
         $filterValues = (isset($filterValues['attribute']) && is_array($filterValues['attribute']))
             ? $filterValues['attribute']
-            : array();
+            : [];
 
-        $result = array();
+        $result = [];
         foreach ($data as $attribute) {
             $row = $this->prepareAttributeElement($attribute, $filterValues);
             if ($row) {
@@ -202,13 +202,13 @@ class AttributeList extends \XLite\Module\XC\ProductFilter\View\Filter\AFilter
         }
 
         if ($attribute::TYPE_SELECT !== $attribute->getType() || 0 < count($options)) {
-            $params = array(
+            $params = [
                 'fieldName' => 'filter[attribute][' . $attribute->getId() . ']',
                 'label'     => $attribute->getName(),
                 'attribute' => $attribute,
                 'useColon'  => false,
                 'value'     => isset($filterValues[$attribute->getId()]) ? $filterValues[$attribute->getId()] : ''
-            );
+            ];
             $class = 'type-' . strtolower($attribute->getType());
             if ($attribute::TYPE_CHECKBOX === $attribute->getType() && $params['value']) {
                 $class .= ' checked';
@@ -217,10 +217,10 @@ class AttributeList extends \XLite\Module\XC\ProductFilter\View\Filter\AFilter
                 $params['options'] = $options;
             }
 
-            $result = array(
+            $result = [
                 'class'  => $class,
                 'widget' => $this->getWidget($params, $attribute->getFilterWidgetClass()),
-            );
+            ];
         }
 
         return $result;
@@ -234,7 +234,7 @@ class AttributeList extends \XLite\Module\XC\ProductFilter\View\Filter\AFilter
     protected function getSortingOrder()
     {
         return 'A' === \XLite\Core\Config::getInstance()->XC->ProductFilter->attributes_sorting_type
-            ? array('translations.name', 'asc')
-            : array('productClass.position', 'asc');
+            ? ['translations.name', 'asc']
+            : ['productClass.position', 'asc'];
     }
 }

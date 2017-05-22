@@ -1812,7 +1812,7 @@ form.list-form {
 .sticky-panel div.cancel,
 .sticky-panel div.additional
 {
-  display: inline-block;
+  display: table;
 }
 
 .sticky-panel a.cancel {
@@ -2289,6 +2289,7 @@ ol.ordered-list {
   margin: 15px 30px 0 20px;
   width: auto;
   white-space: normal;
+  max-width: 680px;
 }
 
 .ui-dialog .ui-dialog-titlebar-close {
@@ -2451,11 +2452,6 @@ div.alert {
 .promo-block .promo-content a {
   text-decoration: none;
   color: #31a3da;
-}
-
-.promo-block.banner-system-promo {
-  position: absolute;
-  right: 10px;
 }
 
 .alert.attachment-warning {

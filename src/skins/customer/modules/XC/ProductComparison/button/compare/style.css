@@ -1,0 +1,19 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+button.compare.action {
+  margin: 10px 0 5px 0;
+  padding-right: 6px;
+  padding-left: 6px;
+}
+
+button.compare.action span {
+  background: url(../../scales_icon.png) no-repeat 4px top transparent;
+  padding: 4px 4px 4px 36px;
+}

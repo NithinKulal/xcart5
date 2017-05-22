@@ -229,7 +229,9 @@ abstract class AModifier extends \XLite\Logic\ALogic
      */
     protected function isCart()
     {
-        return $this->getMode() ?: $this->order instanceof \XLite\Model\Cart;
+        return $this->getMode()
+            ? $this->getMode() === static::MODE_CART
+            : $this->order instanceof \XLite\Model\Cart;
     }
 
     // {{{ Surcharge operations

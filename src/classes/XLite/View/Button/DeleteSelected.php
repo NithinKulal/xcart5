@@ -29,6 +29,16 @@ class DeleteSelected extends \XLite\View\Button\Regular
     }
 
     /**
+     * getDefaultLabel
+     *
+     * @return string
+     */
+    protected function getDefaultTitle()
+    {
+        return static::t('Delete selected');
+    }
+
+    /**
      * getDefaultAction
      *
      * @return string

@@ -22,7 +22,7 @@ class AddonKey extends \XLite\View\ModulesManager\AModulesManager
      */
     public static function getAllowedTargets()
     {
-        $result = parent::getAllowedTargets();
+        $result   = parent::getAllowedTargets();
         $result[] = 'module_key';
 
         return $result;
@@ -35,20 +35,10 @@ class AddonKey extends \XLite\View\ModulesManager\AModulesManager
      */
     public function getCSSFiles()
     {
-        $list = parent::getCSSFiles();
-        $list[] = $this->getDir() . '/css/style.css';
+        $list   = parent::getCSSFiles();
+        $list[] = $this->getDir() . '/style.css';
 
         return $list;
-    }
-
-    /**
-     * Return title
-     *
-     * @return string
-     */
-    protected function getHead()
-    {
-        return 'Enter license key';
     }
 
     /**

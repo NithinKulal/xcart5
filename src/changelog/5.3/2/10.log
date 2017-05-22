@@ -1,0 +1,5 @@
+Version 5.3.2.10
+
+Fixes
+2017-05-11 - [Bug] Fatal error on image removal if the image is stored on Amazon S3. Fixed. #BUG-4873 (Michael Lipinski) #Core
+2017-05-05 - [Bug] Updated a banner on the payments configuration page. #BUG-4853 (Michael Lipinski) #Core

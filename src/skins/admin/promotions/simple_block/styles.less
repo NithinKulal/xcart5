@@ -1,0 +1,121 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Simple blocks styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.promo-block {
+  padding: 10px 15px;
+  border: 1px solid #b0d4e5;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  display: table;
+}
+
+.promo-block div {
+  display: table-cell;
+  font-size: 13px;
+}
+
+.promo-content {
+  max-width: 270px;
+  padding-right: 20px;
+}
+
+.promo-block .close {
+  position: relative;
+  top: -5px;
+  right: -7px;
+}
+
+.promo-block .close svg {
+  width: 9px;
+  height: 9px;
+  fill: #31a3da;
+}
+
+.promo-block .promo-content a {
+  text-decoration: none;
+  color: #31a3da;
+}
+
+/**
+ * Specific blocks styles
+ */
+.promo-block.banner-system-1-promo {
+  position: absolute;
+  right: 10px;
+}
+
+
+.promo-block.multi-currency-1-promo {
+  position: absolute;
+  right: 10px;
+}
+
+.currency-model-form-dialog {
+  min-width: 1100px;
+}
+
+
+.promo-block.product-variants-1-promo {
+  position: absolute;
+  left: 0px;
+  top: -55px;
+
+  .promo-content {
+    max-width: none;
+    white-space: nowrap;
+  }
+}
+
+
+#form_prices_and_inventory {
+  position: relative;
+}
+
+.promo-block.seo-promo-1-promo {
+  position: absolute;
+  right: 10px;
+  top: 40px;
+}
+
+.promo-block.pdf-invoice-1-promo {
+  position: absolute;
+  right: 10px;
+}
+
+.promo-block.inventory-wholesale.wholesale-prices-1-promo {
+  position: absolute;
+  left: 740px;
+  .promo-content {
+    max-width: 240px;
+  }
+}
+
+.promo-block.g2a-egoods-1-promo {
+  position: absolute;
+  right: 10px;
+}
+
+.form-horizontal .form-prices-and-inventory-promo {
+
+  &.form-group {
+    position: absolute;
+    right: 60px;
+    top: -50px;
+    margin: 0;
+  }
+
+  .input-widget {
+    width: auto;
+  }
+
+  .control-label {
+    display: none;
+  }
+}

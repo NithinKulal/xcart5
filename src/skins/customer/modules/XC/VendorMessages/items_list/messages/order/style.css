@@ -1,0 +1,275 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Order messages list style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.order-messages {
+    position: relative;
+}
+
+.order-messages .messages {
+    margin-bottom: 20px;
+}
+
+.order-messages .messages .message {
+    position: relative;
+    border-left: 2px solid #ccc;
+    margin-bottom: 10px;
+    padding: 13px 12px 10px;
+    color: #666;
+    font-size: 12px;
+}
+
+.order-messages .messages .message:last-child {
+    margin-bottom: 0;
+}
+
+.order-messages .messages .message.author-admin,
+.order-messages .messages .message.author-vendor
+{
+    background-color: #f9fbfc;
+    border-left-color: #4f92c3;
+}
+
+.order-messages.multivendor-enabled .messages .message.author-admin {
+    background-color: #fefcf5;
+    border-left-color: #ef6c00;
+}
+
+.order-messages .messages .message .author,
+.order-messages .messages .message .body,
+.order-messages .messages .message .date
+{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+.order-messages .messages .message .author {
+    color: #111;
+    font-weight: bold;
+}
+
+.order-messages .messages .message.author-vendor .author,
+.order-messages .messages .message.author-admin .author
+{
+    color: #5194c5;
+}
+
+.order-messages.multivendor-enabled .messages .message.author-admin .author {
+    color: #ef6c00;
+}
+
+.order-messages .messages .message .body {
+    margin-top: 3px;
+}
+
+.order-messages .messages .message .date {
+    color: #999;
+    position: absolute;
+    top: 14px;
+    right: 13px;
+    font-size: 11px;
+}
+
+.order-messages .messages .separator {
+    text-align: center;
+    margin-bottom: 10px;
+    padding: 7px 12px 8px;
+}
+
+.order-messages .messages .separator.closed {
+    background-color: #f8f8f8;
+}
+
+.order-messages .messages .separator a {
+    text-decoration: none;
+}
+
+.order-messages .messages .separator.new {
+    text-align: center;
+    position: relative;
+    padding: 0;
+}
+
+.order-messages .messages .separator.new div {
+    border-bottom: 1px solid #ef6c00;
+    height: 1px;
+    position: absolute;
+    width: 100%;
+    top: 11px;
+}
+
+.order-messages .messages .separator.new span {
+    display: inline-block;
+    color: #ef6c00;
+    background-color: #fff;
+    position: relative;
+    padding: 0 12px;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.order-messages .new-message textarea {
+    padding: 8px 12px;
+    height: 80px;
+}
+
+.order-messages .new-message .body {
+    margin-bottom: 5px;
+}
+
+.order-messages .list-pager {
+    display: none;
+}
+
+.order-messages .recipient {
+    margin-bottom: 16px;
+}
+
+.order-messages .recipient .marks {
+    display: block;
+    position: absolute;
+    top: -6px;
+    right: -10px;
+}
+
+.order-messages .recipient .dispute {
+    display: inline-block;
+    color: red;
+    font-weight: bold;
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 0 3px;
+    min-width: 16px;
+    line-height: 16px;
+    font-size: 12px;
+    text-align: center;
+    vertical-align: top;
+    margin-left: 3px;
+}
+
+.order-messages .recipient .count-unread {
+    display: inline-block;
+    background-color: #f37c29;
+    border-radius: 16px;
+    color: #fff;
+    padding: 0 3px;
+    min-width: 16px;
+    line-height: 16px;
+    font-size: 10px;
+    text-align: center;
+    vertical-align: top;
+    margin-left: 3px;
+}
+
+form.dispute .model-form-buttons {
+    margin-left: 0;
+    width: 100%;
+}
+
+form.dispute ul.default-table {
+    min-width: 100%;
+}
+
+.order-items {
+    font-size: 14px;
+    margin-top: 27px;
+}
+
+.order-items .do-hide,
+.order-items .do-show
+{
+    height: 17px;
+    display: inline-block;
+    overflow: visible;
+    text-decoration: none;
+    border-bottom: dashed 1px #1a509a;
+    outline: none;
+}
+
+.order-items.state-hidden .do-hide,
+.order-items.state-visible .do-show
+{
+    display: none;
+}
+
+.order-items ul {
+    padding-top: 5px;
+    padding-bottom: 13px;
+    border-bottom: 1px solid #ddd;
+}
+
+.order-items ul li {
+    padding: 4px 10px;
+}
+
+.order-items ul .image {
+    margin-right: 16px;
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+}
+
+.order-items ul .photo {
+}
+
+.order-items ul .name {
+    margin-right: 25px;
+    text-decoration: none;
+}
+
+.order-items ul .right {
+    float: right;
+    margin-top: 14px;
+}
+
+.order-items ul .qty {
+    padding-left: 4px;
+}
+
+.order-items ul .price {
+    padding-right: 4px;
+}
+
+.order-messages .action-buttons {
+    position: absolute;
+    top: -51px;
+    right: 0;
+}
+
+.order-messages.recipient-selector-visible .action-buttons {
+    top: 66px;
+}
+
+.order-messages .action-buttons .btn,
+.order-messages .action-buttons .btn span,
+.order-messages .action-buttons .btn:hover
+{
+    color: #5194c5;
+    background: transparent none;
+    margin: 0;
+    padding: 0;
+    border-color: transparent;
+}
+
+.order-messages .action-buttons .btn span {
+    text-decoration: underline;
+    font-size: 14px;
+}
+
+.order-messages .action-buttons .btn::before {
+    display: none;
+}
+
+.order-messages .action-buttons svg {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 7px;
+}
+
+.order-messages .action-buttons svg path {
+    fill: #5194c5;
+}

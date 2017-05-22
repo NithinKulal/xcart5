@@ -1,0 +1,29 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Styles of attachments list
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.items-list-table .tooltip-main {
+  padding: 0;
+}
+
+.items-list-table table.list tbody.lines td.actions.right .action {
+  display: block;
+  float: right;
+}
+
+.items-list-table .tooltip-main .not-removed{
+  border: none;
+  font-size: 18px;
+  filter: alpha(opacity=80);
+  opacity: .9;
+  color: #cad2e5;
+}
+
+.items-list-table td.orders_count .cell {
+  text-align: center;
+}

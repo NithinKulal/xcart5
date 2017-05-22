@@ -648,6 +648,7 @@ class Product extends \XLite\Model\Repo\Base\I18n implements \XLite\Base\IREST
      */
     protected function processCndSubstringPhrase(\Doctrine\ORM\QueryBuilder $queryBuilder, $value)
     {
+        $value  = trim($value);
         $cnd = new \Doctrine\ORM\Query\Expr\Orx();
 
         // EXACT PHRASE method (or if NONE is selected)
@@ -1263,7 +1264,22 @@ class Product extends \XLite\Model\Repo\Base\I18n implements \XLite\Base\IREST
             ->addGroupBy('p.product_id')
             ->addOrderBy('p.sales', 'desc');
 
+        if ($cnd->availability && $cnd->availability !== \XLite\Controller\Admin\TopSellers::AVAILABILITY_ALL) {
+            $this->addTopSellersAvailabilityCondition($qb, $cnd->availability);
+        }
+
         return  $this->assignExternalEnabledCondition($qb, 'p');
+    }
+
+    /**
+     * Add availability condition
+     *
+     * @param \XLite\Model\QueryBuilder\AQueryBuilder $qb
+     * @param string $condition
+     */
+    protected function addTopSellersAvailabilityCondition($qb, $condition)
+    {
+        $qb->andWhere('p.enabled = true AND (p.inventoryEnabled = false OR p.amount > 0)');
     }
 
     /**

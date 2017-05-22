@@ -25,22 +25,8 @@ class ActivateKey extends \XLite\View\Button\APopupButton
      */
     public function getJSFiles()
     {
-        $list = parent::getJSFiles();
+        $list   = parent::getJSFiles();
         $list[] = 'button/js/activate_key.js';
-
-        return $list;
-    }
-
-    /**
-     * Register CSS files
-     * TODO: should be loaded in popup; remove after loading will be fixed
-     * 
-     * @return array
-     */
-    public function getCSSFiles()
-    {
-        $list = parent::getCSSFiles();
-        $list[] = 'modules_manager/activate_key/css/style.css';
 
         return $list;
     }
@@ -64,9 +50,9 @@ class ActivateKey extends \XLite\View\Button\APopupButton
     {
         parent::defineWidgetParams();
 
-        $this->widgetParams += array(
+        $this->widgetParams += [
             static::PARAM_IS_MODULE => new \XLite\Model\WidgetParam\TypeInt('Is module activation', 0),
-        );
+        ];
     }
 
     /**
@@ -76,12 +62,12 @@ class ActivateKey extends \XLite\View\Button\APopupButton
      */
     protected function prepareURLParams()
     {
-        $params = array(
-            'target' => 'activate_key',
-            'action' => 'view',
-            'widget' => '\XLite\View\ModulesManager\LicenseKey',
+        $params = [
+            'target'    => 'activate_key',
+            'action'    => 'view',
+            'widget'    => '\XLite\View\ModulesManager\LicenseKey',
             'returnUrl' => \XLite\Core\URLManager::getCurrentURL(),
-        );
+        ];
 
         if ($this->isModuleActivation()) {
             $params['isModule'] = true;

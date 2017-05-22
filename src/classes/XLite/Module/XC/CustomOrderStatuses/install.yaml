@@ -1,0 +1,16 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\LanguageLabel:
+  - { name: 'Payment statuses', translations: [{ code: en, label: 'Payment statuses' }, { code: ru, label: 'Статусы оплаты' }] }
+  - { name: 'Shipping statuses', translations: [{ code: en, label: 'Shipping statuses' }, { code: ru, label: 'Статусы доставки' }] }
+  - { name: 'Order statuses', translations: [{ code: en, label: 'Order statuses' }, { code: ru, label: 'Статусы ордера' }] }
+  - { name: 'Add status', translations: [{ code: en, label: 'Add status' }, { code: ru, label: 'Добавить статус' }] }
+  - { name: 'Orders have this status tooltip', translations: [{ code: en, label: 'To remove this status, you need to set the status of all the orders currently in this status to a different value' }, { code: ru, label: 'Чтобы удалить данный статус надо у всех ордеров с этим статусом сменить статус на другой' }] }
+  - { name: 'System status tooltip', translations: [{ code: en, label: 'System status: <b>{{code}}</b>. Cannot be deleted' }, { code: ru, label: 'Системный статус: <b>{{code}}</b>. Не может быть удален' }] }
+  - { name: 'Payment status not found, new status will be created', translations: [{ code: en, label: 'Payment status not found, new status will be created' }, { code: ru, label: 'Статус оплаты заказа не найден, будет создан новый статус' }] }
+  - { name: 'Shipping status not found, new status will be created', translations: [{ code: en, label: 'Shipping status not found, new status will be created' }, { code: ru, label: 'Статус доставки заказа не найден, будет создан новый статус' }] }

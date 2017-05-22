@@ -1,0 +1,20 @@
+{##
+ # Customer attachmetns add file button
+ #
+ # @ListChild (list="customer.attachments.popup", weight="100")
+ #}
+
+{% if this.getAllowedQuantity() %}
+  <div>
+      <form action="{{ url('customer_attachments', 'upload') }}" enctype="multipart/form-data" class="attachment-form no-popup-ajax-submit" method="post">
+          <p>
+              <input type="file" multiple name="customer_attachments[]" accept="{{ this.getAcceptExtensionsString() }}">
+              <input type="hidden" name="item_id" value="{{ this.item.itemId }}">
+          </p>
+          <div>
+              {{ widget('\\XLite\\Module\\XC\\CustomerAttachments\\View\\AttachmentDescription', orderItem=this.getItem()) }}
+              {{ widget('\\XLite\\View\\Button\\Submit', label=t('Upload file')) }}
+         </div>
+      </form>
+  </div>
+{% endif %}

@@ -16,7 +16,7 @@ XLite\Model\Config:
         option_name: 'Web Property ID'
   - name: ga_tracking_type
     category: CDev\GoogleAnalytics
-    type: 'XLite\Module\CDev\GoogleAnalytics\View\FormField\Select\TrackingType'
+    type: XLite\Module\CDev\GoogleAnalytics\View\FormField\Select\TrackingType
     orderby: 200
     value: 1
     translations:
@@ -24,7 +24,7 @@ XLite\Model\Config:
         option_name: 'What are you tracking'
   - name: ga_code_version
     category: CDev\GoogleAnalytics
-    type: 'XLite\Module\CDev\GoogleAnalytics\View\FormField\Select\CodeVersion'
+    type: XLite\Module\CDev\GoogleAnalytics\View\FormField\Select\CodeVersion
     orderby: 300
     value: U
     translations:
@@ -32,7 +32,7 @@ XLite\Model\Config:
         option_name: 'Google Analytics code version'
   - name: ecommerce_enabled
     category: CDev\GoogleAnalytics
-    type: 'XLite\View\FormField\Input\Checkbox\OnOff'
+    type: XLite\View\FormField\Input\Checkbox\OnOff
     orderby: 400
     value: true
     translations:
@@ -40,15 +40,15 @@ XLite\Model\Config:
         option_name: 'Enable eCommerce Google Analytics'
   - name: purchase_only_on_paid
     category: CDev\GoogleAnalytics
-    type: 'XLite\View\FormField\Input\Checkbox\OnOff'
-    orderby: 400
+    type: XLite\View\FormField\Input\Checkbox\OnOff
+    orderby: 450
     value: true
     translations:
       - code: en
         option_name: 'Register purchase only on Paid status change'
   - name: debug_mode
     category: CDev\GoogleAnalytics
-    type: 'XLite\View\FormField\Input\Checkbox\OnOff'
+    type: XLite\View\FormField\Input\Checkbox\OnOff
     orderby: 500
     value: false
     translations:
@@ -56,11 +56,11 @@ XLite\Model\Config:
         option_name: 'Debug mode'
 
 XLite\Model\LanguageLabel:
-  - { name: "Advanced statistics with Google Analytics", translations: [{ code: en, label: "Advanced statistics with Google Analytics" }] }
-  - { name: "Configure the Google Analytics module to view the advanced statistics", translations: [{ code: en, label: "Configure the Google Analytics module to view the advanced statistics" }] }
-  - { name: "A single domain", translations: [{ code: en, label: "A single domain" }] }
-  - { name: "One domain with multiple subdomains", translations: [{ code: en, label: "One domain with multiple subdomains" }] }
-  - { name: "Multiple top-level domains", translations: [{ code: en, label: "Multiple top-level domains" }] }
-  - { name: Traditional, translations: [{ code: en, label: Traditional }] }
+  - { name: 'Advanced statistics with Google Analytics', translations: [{ code: en, label: 'Advanced statistics with Google Analytics' }] }
+  - { name: 'Configure the Google Analytics module to view the advanced statistics', translations: [{ code: en, label: 'Configure the Google Analytics module to view the advanced statistics' }] }
+  - { name: 'A single domain', translations: [{ code: en, label: 'A single domain' }] }
+  - { name: 'One domain with multiple subdomains', translations: [{ code: en, label: 'One domain with multiple subdomains' }] }
+  - { name: 'Multiple top-level domains', translations: [{ code: en, label: 'Multiple top-level domains' }] }
+  - { name: 'Traditional', translations: [{ code: en, label: 'Traditional' }] }
   - { name: 'Universal Analytics', translations: [{ code: en, label: 'Universal Analytics' }] }
-  - { name: 'Want help with SEO? Ask X-Cart Guru', translations: [{ code: en, label: 'Want help with SEO? <a href="{{url}}" target="_blank">Ask X-Cart Guru</a>' },{ code: ru, label: 'Нужна помощь с поисковой оптимизацией? <a href="{{url}}" target="_blank">Спросите гуру X-Cart</a>' }] }
+  - { name: 'Want help with SEO? Ask X-Cart Guru', translations: [{ code: en, label: 'Want help with SEO? <a href="{{url}}" target="_blank">Ask X-Cart Guru</a>' }] }

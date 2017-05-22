@@ -1,0 +1,40 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Button style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+#leftMenu .notification .menu > li.messages-counter span {
+  color: #f37c29;
+}
+
+#leftMenu .notification .menu > li.messages-counter svg {
+}
+
+#leftMenu .notification .menu > li.messages-counter svg path {
+  fill: #f37c29;
+}
+
+#leftMenu .notification .menu > li.messages-counter .counter {
+  background-color: #f37c29;
+  color: #fff;
+}
+
+#leftMenu .notification .menu > li.disputes-counter span {
+  color: #f37c29;
+}
+
+#leftMenu .notification .menu > li.disputes-counter svg {
+}
+
+#leftMenu .notification .menu > li.disputes-counter svg path {
+  fill: #f37c29;
+}
+
+#leftMenu .notification .menu > li.disputes-counter .counter {
+  background-color: #f37c29;
+  color: #fff;
+}

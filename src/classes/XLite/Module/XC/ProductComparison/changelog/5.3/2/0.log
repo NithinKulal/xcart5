@@ -1,0 +1,5 @@
+Version 5.3.2.0
+
+Fixes
+2016-11-18 - [Bug] In Crisp White skin, the last product could not be removed from the comparison list as the user was redirected to the home page when removing the last but one. #BUG-3894 (Sergey Elmanov) #Core #ProductComparison #CrispWhiteSkin
+2016-10-13 - [Bug] Added an indicator of a product having been added (a blue dot) for the minicart icon and the icon of Product Comparison in Crisp White skin. #BUG-3926 (Sergey Elmanov) #Core #ProductComparison

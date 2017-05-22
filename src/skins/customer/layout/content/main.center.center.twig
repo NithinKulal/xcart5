@@ -6,7 +6,7 @@
 
 <div id="content" class="column">
   {% if this.isTrialNoticeAutoDisplay() %}
-    {{ widget('\\XLite\\View\\ModulesManager\\TrialNotice') }}
+    <iframe src="{{ this.buildUrl('trial_notice') }}" class="trial-notice" frameborder="0" scrolling="no" width="752" height="387" style="margin: 0 auto; display: block;" onload="this.style.height = this.contentWindow.document.body.scrollHeight + 'px';"></iframe>
   {% endif %}
   <div class="section">
     <a id="main-content"></a>

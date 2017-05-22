@@ -642,7 +642,7 @@ class Generator extends \XLite\Base implements \SeekableIterator, \Countable
      */
     protected function getTemporarySitemapFiles()
     {
-        return glob(LC_DIR_DATA . static::getPrefix() . 'xmlsitemap.*.xml');
+        return glob(LC_DIR_DATA . static::getPrefix() . 'xmlsitemap.*.xml') ?: [];
     }
 
     /**
@@ -662,7 +662,7 @@ class Generator extends \XLite\Base implements \SeekableIterator, \Countable
      */
     protected function getSitemapFiles()
     {
-        return glob(LC_DIR_DATA . 'xmlsitemap.*.xml');
+        return glob(LC_DIR_DATA . 'xmlsitemap.*.xml') ?: [];
     }
 
     /**

@@ -56,6 +56,7 @@ XLite\Model\Config:
     translations:
       - code: en
         option_name: 'Sort order for class attributes'
+        option_comment: 'This setting affects only the attributes themselves, not their values. The values are sorted alphabetically.'
 
 XLite\Model\LanguageLabel:
   - { name: 'Shopping options', translations: [{ code: en, label: 'Shopping options' }] }

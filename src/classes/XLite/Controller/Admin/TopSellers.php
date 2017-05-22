@@ -13,6 +13,9 @@ namespace XLite\Controller\Admin;
  */
 class TopSellers extends \XLite\Controller\Admin\Stats
 {
+    const AVAILABILITY_ALL            = 'all';
+    const AVAILABILITY_AVAILABLE_ONLY = 'available_only';
+
     /**
      * Number of positions
      */
@@ -49,6 +52,17 @@ class TopSellers extends \XLite\Controller\Admin\Stats
     }
 
     /**
+     * @inheritdoc
+     */
+    protected function getTimeIntervals()
+    {
+        return array_unique(array_merge(
+            [self::P_ALL],
+            parent::getTimeIntervals()
+        ));
+    }
+
+    /**
      * Get columns for statistics table
      *
      * @return array
@@ -73,13 +87,51 @@ class TopSellers extends \XLite\Controller\Admin\Stats
     }
 
     /**
+     * Return availability columns
+     *
+     * @return array
+     */
+    public function getAvailabilityColumns()
+    {
+        return [
+            static::AVAILABILITY_ALL,
+            static::AVAILABILITY_AVAILABLE_ONLY,
+        ];
+    }
+
+    /**
+     * Get column headings
+     *
+     * @return array
+     */
+    public function getAvailabilityColumnTitles()
+    {
+        return array(
+            static::AVAILABILITY_ALL => 'All',
+            static::AVAILABILITY_AVAILABLE_ONLY => 'Only available',
+        );
+    }
+
+    /**
+     * Get column heading
+     *
+     * @param string $column Column identificator
+     *
+     * @return array|string
+     */
+    public function getAvailabilityColumnTitle($column)
+    {
+        return \Includes\Utils\ArrayManager::getIndex($this->getAvailabilityColumnTitles(), $column);
+    }
+
+    /**
      * Get data
      *
      * @return array
      */
     protected function getData()
     {
-        $data = array();
+        $data = [];
 
         foreach ($this->getStatsColumns() as $interval) {
             $condition = $this->defineDetDataCondition($interval);
@@ -88,6 +140,25 @@ class TopSellers extends \XLite\Controller\Admin\Stats
         }
 
         return $data;
+    }
+
+    /**
+     * Return availability
+     *
+     * @return mixed
+     */
+    public function getAvailability()
+    {
+        $availability = \XLite\Core\Request::getInstance()->{\XLite\View\TopSellers::PARAM_AVAILABILITY};
+
+        if (null === $availability) {
+            $sessionCell = \XLite\Core\Session::getInstance()->{\XLite\View\TopSellers::getSessionCellName()};
+            $availability = isset($sessionCell[\XLite\View\TopSellers::PARAM_AVAILABILITY])
+                ? $sessionCell[\XLite\View\TopSellers::PARAM_AVAILABILITY]
+                : static::AVAILABILITY_ALL;
+        }
+
+        return $availability;
     }
 
     /**
@@ -101,6 +172,7 @@ class TopSellers extends \XLite\Controller\Admin\Stats
     {
         $condition = $this->getSearchCondition($interval);
         $condition->limit = self::TOP_SELLERS_NUMBER;
+        $condition->availability = $this->getAvailability();
 
         $currency = null;
 

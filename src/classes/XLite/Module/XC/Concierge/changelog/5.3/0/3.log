@@ -1,0 +1,4 @@
+Version 5.3.0.3
+
+Improvements
+2017-03-29 - [Change] Changed the evaluation notice. A countdown timer is displayed in the header and in the popup title. The title is changed when the trial period expires. The purchase button adds Business to cart and sends the user to the marketplace checkout. In the admin area, a popup notifying of a license error is displayed on every event after the trial expires. #XCN-7694 (Maxim Kuznetsov) #Core #RuTranslation #Concierge

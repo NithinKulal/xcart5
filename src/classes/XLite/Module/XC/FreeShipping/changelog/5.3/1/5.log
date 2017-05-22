@@ -1,0 +1,4 @@
+Version 5.3.1.5
+
+Fixes
+2017-03-23 - [Bug] Shipping cost was calculated incorrectly if shipping freight was set for one of the products. #BUG-4690 (Sergey Elmanov) #FreeShipping

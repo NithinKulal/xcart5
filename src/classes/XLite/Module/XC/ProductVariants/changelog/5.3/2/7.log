@@ -1,0 +1,5 @@
+Version 5.3.2.7
+
+Fixes
+2017-03-29 - [Bug] After removing a global attribute, variants created using that attribute remained. #BUG-4718 (Sergey Elmanov) #ProductVariants
+2017-03-22 - [Bug] Apostrophes were escaped in email subject. #BUG-4696 (Sergey Elmanov) #Core #ContactUs #Egoods #CanadaPost #PINCodes #ProductVariants #ProductReviews #PitneyBowes #MultiVendor

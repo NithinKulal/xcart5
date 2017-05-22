@@ -1,4 +1,0 @@
-Version 5.3.1.4
-
-Fixes
-2017-02-16 - [Bug] Layout improvements for the ShippingCalc module settings page (for when the trial period has expired). #BUG-4527 (Michael Lipinski) #ShippingCalc

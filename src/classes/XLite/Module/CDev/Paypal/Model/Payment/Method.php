@@ -62,13 +62,28 @@ class Method extends \XLite\Model\Payment\Method implements \XLite\Base\IDecorat
 
         } elseif (Paypal\Main::PP_METHOD_PC === $this->getServiceName()) {
             $parentMethod = Paypal\Main::getPaymentMethod(Paypal\Main::PP_METHOD_EC);
-            $result = $parentMethod->getSetting($name) ?: parent::getSetting($name);
+
+            $result = $this->isForwardingAllowedForSetting($name) && $parentMethod->getSetting($name)
+                ? $parentMethod->getSetting($name)
+                : parent::getSetting($name);
 
         } else {
             $result = parent::getSetting($name);
         }
 
         return $result;
+    }
+
+    /**
+     * @param $name
+     *
+     * @return bool
+     */
+    protected function isForwardingAllowedForSetting($name)
+    {
+        $parentMethod = Paypal\Main::getPaymentMethod(Paypal\Main::PP_METHOD_EC);
+
+        return $name !== 'email' || 'email' === $parentMethod->getSetting('api_type');
     }
 
     /**

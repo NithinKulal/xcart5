@@ -1,0 +1,16 @@
+{##
+ # Customer attachmetns add file description widget template
+ #}
+
+<div class="attachment_desc">
+    {% if not this.isDetailPage %}
+      <p>{{ t('You can attach X more file(s)', {'quantity': this.getAllowedQuantity()}) }}</p>
+    {% endif %}
+    {% if this.isDetailPage %}
+      <p>{{ t('You can attach X file(s)', {'quantity': this.getAllowedQuantity()})|raw }}</p>
+    {% endif %}
+    <p>{{ t('Max allowed file size is X', {'size': this.getAllowedSizeHumanReadable()}) }}</p>
+    {% if this.getAllowedExtensionsString() %}
+      <p>{{ t('Allowed file extensions: X', {'extensions': this.getAllowedExtensionsString()}) }}</p>
+    {% endif %}
+</div>

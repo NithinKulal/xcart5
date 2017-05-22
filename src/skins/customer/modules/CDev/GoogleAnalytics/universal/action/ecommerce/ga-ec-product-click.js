@@ -73,9 +73,13 @@ define('googleAnalytics/eCommerceProductClickEvent', ['googleAnalytics/eCommerce
         list: data.list
       });
 
-      ga('send', 'event', 'UX', 'click details', data.list, {
-        hitCallback: callback
-      });
+      if (!_.isUndefined(ga.loaded) && ga.loaded) {
+        ga('send', 'event', 'UX', 'click details', data.list, {
+          hitCallback: callback
+        });
+      } else {
+        callback();
+      }
     },
 
     onProductAddClick: function (data) {

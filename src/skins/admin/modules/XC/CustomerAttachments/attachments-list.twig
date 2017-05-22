@@ -1,0 +1,23 @@
+{##
+ # Attached files list
+ #}
+
+{% if not this.item.customerAttachments.isEmpty() %}
+  <li class="file-attachments">
+      <ul>
+          <li><span>{{ t('Attached files:') }}</span></li>
+          {% for attachment in this.item.customerAttachments %}
+            <li class="attachment-item">
+                {% if not this.isInvoicePage() %}
+                  <div class="attachments-input-wrapper">
+                      <input type="checkbox" name="delete_attachment[{{ attachment.getId() }}]" value="1">
+                  </div>
+                {% endif %}
+                <a href="{{ url('customer_attachments', 'download', {'attachment_id': attachment.id}) }}">
+                    {{ attachment.fileName }}
+                </a>
+            </li>
+          {% endfor %}
+      </ul>
+  </li>
+{% endif %}

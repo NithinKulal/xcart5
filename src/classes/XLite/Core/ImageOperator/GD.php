@@ -67,12 +67,10 @@ class GD extends \XLite\Core\ImageOperator\AImageOperator
 
         $result = parent::setImage($image);
 
-        if ($result && $this->getImageType() && $image->getBody()) {
+        if ($result && $this->getImageType() && $data = $image->getBody()) {
             $func = 'imagecreatefrom' . $this->getImageType();
 
             if (function_exists($func)) {
-                $data = $image->getBody();
-
                 $fn = tempnam(LC_DIR_TMP, 'image');
 
                 file_put_contents($fn, $data);

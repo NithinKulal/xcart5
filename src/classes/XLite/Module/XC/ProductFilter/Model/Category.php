@@ -54,9 +54,9 @@ class Category extends \XLite\Model\Category implements \XLite\Base\IDecorator
     public static function getAllowedUseClasses($status = null)
     {
         $list = array(
-            self::USE_CLASSES_AUTO    => static::t('All classes from this category'),
-            self::USE_CLASSES_NO      => static::t('Do not show the filter'),
-            self::USE_CLASSES_DEFINE  => static::t('Choose classes...'),
+            self::USE_CLASSES_AUTO   => static::t('All classes from this category'),
+            self::USE_CLASSES_NO     => static::t('Do not show the filter'),
+            self::USE_CLASSES_DEFINE => static::t('Choose classes...'),
         );
 
         return null !== $status
@@ -143,8 +143,41 @@ class Category extends \XLite\Model\Category implements \XLite\Base\IDecorator
             $values = $attribute->getAttributeOptions()->getValues();
             uasort(
                 $values,
-                function ($a, $b) {
-                    return strcasecmp($a->getName(), $b->getName());
+                function ($a, $b) use ($attribute) {
+                    $a = $a->getName();
+                    $b = $b->getName();
+
+                    if (!strlen($a) || !strlen($b)) {
+                        if (strlen($a)) {
+                            return 1;
+                        } elseif (strlen($b)) {
+                            return -1;
+                        }
+
+                        return 0;
+                    }
+
+                    $fa = substr(trim($a), 0 ,1);
+                    $fb = substr(trim($b), 0 ,1);
+
+                    if (!is_numeric($fa) || !is_numeric($fb)) {
+                        if (is_numeric($fa)) {
+                            return -1;
+                        } elseif (is_numeric($fb)) {
+                            return 1;
+                        }
+
+                        return strcasecmp($a, $b);
+                    }
+
+                    $ia = (int)$a;
+                    $ib = (int)$b;
+
+                    if ($ia == $ib) {
+                        return 0;
+                    }
+
+                    return $ia < $ib ? -1 : 1;
                 }
             );
 
@@ -179,6 +212,8 @@ class Category extends \XLite\Model\Category implements \XLite\Base\IDecorator
     {
         return \XLite\Core\Database::getRepo('XLite\Model\AttributeValue\AttributeValueSelect')
             ->createQueryBuilder('av')
+            ->addSelect('IF (CONCAT(INTVAL(SUBSTRING(TRIM(option_translations.name), 1, 1)), \'\') = SUBSTRING(TRIM(option_translations.name), 1, 1), 0, 1) as HIDDEN is_numeric_sort')
+            ->addSelect('INTVAL(option_translations.name) as HIDDEN num_sort')
             ->linkInner('av.product')
             ->linkInner('product.categoryProducts')
             ->andWhere('categoryProducts.category = :category AND av.attribute = :attribute AND product.enabled = true')
@@ -188,6 +223,8 @@ class Category extends \XLite\Model\Category implements \XLite\Base\IDecorator
             ->linkInner('av.attribute_option')
             ->linkInner('attribute_option.translations', 'option_translations')
             ->addOrderBy('attribute_option.position')
+            ->addOrderBy('is_numeric_sort')
+            ->addOrderBy('num_sort')
             ->addOrderBy('option_translations.name');
     }
 
@@ -217,7 +254,7 @@ class Category extends \XLite\Model\Category implements \XLite\Base\IDecorator
     /**
      * Save attribute options into the cache
      *
-     * @param mixed   $data Data object for saving in the cache
+     * @param mixed   $data     Data object for saving in the cache
      * @param integer $lifeTime Cell TTL OPTIONAL
      *
      * @return void
@@ -233,6 +270,7 @@ class Category extends \XLite\Model\Category implements \XLite\Base\IDecorator
      * Set useClasses
      *
      * @param string $useClasses
+     *
      * @return Category
      */
     public function setUseClasses($useClasses)
@@ -244,7 +282,7 @@ class Category extends \XLite\Model\Category implements \XLite\Base\IDecorator
     /**
      * Get useClasses
      *
-     * @return string 
+     * @return string
      */
     public function getUseClasses()
     {
@@ -255,6 +293,7 @@ class Category extends \XLite\Model\Category implements \XLite\Base\IDecorator
      * Add productClasses
      *
      * @param \XLite\Model\ProductClass $productClasses
+     *
      * @return Category
      */
     public function addProductClasses(\XLite\Model\ProductClass $productClasses)
@@ -266,7 +305,7 @@ class Category extends \XLite\Model\Category implements \XLite\Base\IDecorator
     /**
      * Get productClasses
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getProductClasses()
     {

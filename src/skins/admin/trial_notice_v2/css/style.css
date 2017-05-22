@@ -1,0 +1,86 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Trial notice
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.popup-window-entry .trial-notice-block {
+  width: 690px;
+}
+
+.trial-notice-block {
+  max-width: 1130px;
+  min-width: 690px;
+  font-size: 14px;
+  line-height: 25px;
+}
+
+.trial-notice-block.alert {
+  max-width: 724px;
+}
+
+.trial-notice-block h2.title {
+  margin-top: 0;
+}
+
+.trial-notice-block .trial-in-progress {
+  margin-top: 20px;
+}
+
+.trial-notice-block .register-license-key {
+  margin-top: 27px;
+}
+
+.trial-notice-block .open-license-key-form {
+  border-bottom: 1px dashed;
+}
+
+.trial-notice-block .open-license-key-form:focus,
+.trial-notice-block .open-license-key-form:hover {
+  text-decoration: none;
+}
+
+.trial-notice-block .activate-key-form {
+  margin-top: 27px;
+  width: auto;
+}
+
+.trial-notice-block .register-license-key .activate-key-form {
+  display: none;
+  margin-top: 20px;
+}
+
+.trial-notice-block .activate-key-form .addon-key {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 7px;
+}
+
+.trial-notice-block .activate-key-form input[type="text"] {
+  width: 250px;
+}
+
+.trial-notice-block .activate-key-form form {
+  margin-bottom: 20px;
+}
+
+.trial-notice-block .additional-link {
+  font-size: 12px;
+}
+
+.trial-notice-block hr {
+  margin-top: 13px;
+  margin-bottom: 13px;
+}
+
+.trial-notice-block .important {
+  color: #a10c1f;
+}
+
+.trial-notice-block .or {
+  display: inline-block;
+  margin: 0 7px;
+}

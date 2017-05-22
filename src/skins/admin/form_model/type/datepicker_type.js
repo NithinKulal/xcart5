@@ -13,12 +13,16 @@
     twoWay: true,
     params: ['format'],
     bind: function () {
-      var $el = $(this.el);
+      var el = this.el;
+      var $el = $(el);
       var vm = this.vm;
       var model = this.expression;
+      var format = this.params.format;
+      var defaultDate = $el.val();
 
       $el.datepicker({
-        dateFormat: this.params.format,
+        dateFormat: format,
+        defaultDate: defaultDate,
         onSelect: function (date) {
           vm.$set(model, '' + $(this).datepicker('getDate'));
 
@@ -35,11 +39,23 @@
         // so trigger validation
         vm.$validate(true);
       });
-    },
-    update: function (val) {
-      if ('' !== val) {
-        $(this.el).datepicker('setDate', new Date(val));
-      }
+
+      $el.blur(function () {
+        var result = null;
+        try {
+          result = $.datepicker.parseDate(format, $el.val());
+        } catch(err) {
+          result = false;
+        }
+
+        if (!result) {
+          $el.datepicker('setDate', defaultDate);
+          $el.datepicker('refresh');
+        }
+      });
+
+      $el.datepicker('setDate', defaultDate);
+      $el.datepicker('refresh');
     }
   });
 

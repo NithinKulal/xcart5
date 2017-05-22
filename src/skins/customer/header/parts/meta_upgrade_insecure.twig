@@ -1,0 +1,9 @@
+{##
+ # Head list children
+ #
+ # @ListChild (list="head", weight="700")
+ #}
+
+{% if this.useUpgradeInsecure() %}
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+{% endif %}

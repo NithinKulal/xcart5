@@ -108,7 +108,7 @@ ADMINISTRATOR ZONE (BACKOFFICE)
 Auth code for running install.php script is: :authcode
 
 Your Safe mode key is :safekey. This code allows you to run your store in the safe mode with all  installed modules disabled.
-Please retain this code for future use, it will be necessry in case you need to recover your store after a crash caused by module compatibility issues
+Please retain this code for future use, it will be necessary in case you need to recover your store after a crash caused by module compatibility issues
 (for instance, if your store site goes down as a result of installing a defective module, or if one of the installed modules becomes incompatible with the new X-Cart core after an upgrade).
 
 Thank you for choosing X-Cart shopping system!

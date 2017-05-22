@@ -304,7 +304,7 @@ abstract class Multiple extends \XLite\Model\AttributeValue\AAttributeValue
      */
     protected function getModifierBasePrice()
     {
-        return $this->getProduct()->getPrice();
+        return $this->getProduct()->getClearPrice();
     }
 
     /**

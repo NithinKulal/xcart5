@@ -1,0 +1,22 @@
+{##
+ # Body
+ #}
+<div class="product-comparison">
+  {% if not this.isEmptyList() %}
+    <div class="{{ this.getBlockClasses() }}">
+      <div class="head-h2">{{ t(this.getHead()) }}</div>
+      <ul>
+        {% for product in this.getProducts() %}
+          <li>
+            <a href="#" class="remove" title="{{ t('Remove') }}" data-id="{{ product.product_id }}"><img src="{{ asset('images/spacer.gif') }}" alt="{{ t('Remove') }}" /></a>
+            <a href="{{ product.getURL() }}">{{ product.getName() }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+      <div class="buttons-row">
+        {{ widget('\\XLite\\Module\\XC\\ProductComparison\\View\\Button\\Compare') }}
+        <a href="#" class="clear-list">{{ t('Clear list') }}</a>
+      </div>
+    </div>
+  {% endif %}
+</div>

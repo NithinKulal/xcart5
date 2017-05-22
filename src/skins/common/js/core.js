@@ -1123,3 +1123,15 @@ core.bind(
     core.microhandlers.runAll(element);
   }
 );
+
+if (window.CoreAMD !== undefined) {
+  define('js/core', function () {
+    return core;
+  });
+} else {
+  document.addEventListener('amd-ready', function (event) {
+    define('js/core', function () {
+      return core;
+    });
+  });
+}

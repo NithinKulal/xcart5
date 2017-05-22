@@ -1,4 +1,4 @@
 {##
  # Order canceled email subject
  #}
-{{ t('Order X', {'id': this.order.getOrderNumber()}) }}. {{ this.getNotificationSubject() }}
+{{ t('Order X', {'id': this.order.getOrderNumber()}) }}. {{ this.getNotificationSubject()|raw }}

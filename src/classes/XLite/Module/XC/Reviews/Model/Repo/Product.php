@@ -27,7 +27,7 @@ class Product extends \XLite\Model\Repo\Product implements \XLite\Base\IDecorato
             list($sort, $order) = $this->getSortOrderValue($value);
             if ('r.rating' == $sort) {
                 $queryBuilder->linkLeft('p.reviews', 'r', \Doctrine\ORM\Query\Expr\Join::WITH, 'r.status = 1');
-                $queryBuilder->addSelect('(SUM(r.rating) / COUNT(r.rating)) as rsm, COUNT(r.rating) as rates_count');
+                $queryBuilder->addSelect('(SUM(r.rating) / COUNT(r.rating)) as rsm, COUNT(DISTINCT r.id) as rates_count');
                 $sort = 'rsm';
                 $queryBuilder->addOrderBy($sort, $order);
                 $sort = 'rates_count';

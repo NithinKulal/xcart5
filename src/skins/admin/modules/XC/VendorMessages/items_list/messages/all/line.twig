@@ -1,0 +1,41 @@
+{##
+ # Messages list : line
+ #}
+
+<tr {{ this.printTagAttributes(this.getLineTagAttributes(order))|raw }}>
+    <td class="order-link"><a href="{{ this.buildURL('order', '', {'order_number': order.getOrderNumber(), 'page': 'messages'}) }}">#{{ order.getOrderNumber() }}</a></td>
+    <td class="text">
+        <a href="{{ this.buildURL('order','',{'order_number': order.getOrderNumber(),'page':'messages'}) }}" class="text-link">
+            <span class="order-label">{{ this.getLabel(order) }}</span>
+            <span class="dash">-</span>
+            <span class="body">{{ this.prepareBody(order) }}</span>
+        </a>
+        {% if this.isMarksVisible(order) %}
+        <a class="marks" href="{{ this.buildURL('order','',{'order_number': order.getOrderNumber(),'page':'messages'}) }}">
+            {% if this.isThreadsMultiple(order) %}
+                {% if this.isOpenedDispute(order) %}
+                    <div class="dispute">{{ t('Dispute') }}</div>
+                {% endif %}
+                {% if this.isWatchVisible(order) and this.isWatchMessages(order) %}
+                    <div class="watch">{{ t('Subscribed') }}</div>
+                {% endif %}
+            {% else %}
+                {% if this.isOpenedDispute(order) %}
+                    <div class="dispute">{{ t('Dispute') }}</div>
+                {% endif %}
+                {#
+                {% if this.isWatchVisible(order) %}
+                    <div class="watch-edit">
+                        <input type="hidden"name="subscribe[{{ order.getOrderId() }}]"  value="{% if this.isWatchMessages(order) %}1{% endif %}" />
+                        {{ widget('\\XLite\\View\\FormField\\Input\\Checkbox\\OnOffWithoutOffLabel', label=t('Subscribe'), fieldName='subscribe[' ~ order.getOrderId() ~ ']', value=this.isWatchMessages(order), onLabel=' }}
+                    </div>
+                {% endif %}
+                #}
+            {% endif %}
+        </a>
+        {% endif %}
+    </td>
+    <td class="date">
+        <a href="{{ this.buildURL('order','',{'order_number': order.getOrderNumber(),'page': 'messages'}) }}">{{ this.prepareTime(order) }}</a>
+    </td>
+</tr>

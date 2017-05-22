@@ -56,6 +56,12 @@ define(
       }
     },
 
+    computed: {
+      isStateValid: function() {
+        return BillingAddressForm.super.options.computed.isStateValid.apply(this, arguments) || this.same_address;
+      }
+    },
+
     events: {
       global_selectcartaddress: function(data) {
         if (data.same != !!this.fields.same_address) {

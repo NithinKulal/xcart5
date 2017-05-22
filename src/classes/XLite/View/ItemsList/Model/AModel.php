@@ -57,6 +57,13 @@ abstract class AModel extends \XLite\View\ItemsList\AItemsList
     protected $requestData;
 
     /**
+     * Dump entity
+     *
+     * @var \XLite\Model\AEntity
+     */
+    protected $dumpEntity;
+
+    /**
      * Entities created by $this::processCreate
      *
      * @var array
@@ -373,9 +380,33 @@ abstract class AModel extends \XLite\View\ItemsList\AItemsList
      */
     protected function getDumpEntity()
     {
-        return $this->executeCachedRuntime(function () {
-            return $this->createEntity();
-        });
+        if (null === $this->dumpEntity) {
+            $this->dumpEntity = $this->createEntity();
+        }
+
+        return $this->dumpEntity;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function finalizeTemplateDisplay($template, array $profilerData)
+    {
+        parent::finalizeTemplateDisplay($template, $profilerData);
+
+        if ($this->dumpEntity instanceof \XLite\Model\AEntity) {
+            $this->removeDumpEntity($this->dumpEntity);
+        }
+    }
+
+    /**
+     * Remove dump entity to avoid side-effects
+     *
+     * @param \XLite\Model\AEntity $entity
+     */
+    protected function removeDumpEntity($entity)
+    {
+        \XLite\Core\Database::getEM()->remove($entity);
     }
 
     /**

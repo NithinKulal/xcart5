@@ -1,0 +1,4 @@
+Version 5.3.1.2
+
+Fixes
+2016-10-25 - [Bug] In the process of bulk product editing duplicate tags were created for each product instead of assigning a common tag to all the products. #BUG-3981 (Michael Lipinski) #ProductTags

@@ -146,7 +146,7 @@ class Checkout extends \XLite\Controller\Customer\Checkout implements \XLite\Bas
                 if (\XLite\Core\Request::getInstance()->inContext) {
                     \XLite\Core\Session::getInstance()->cancelUrl = \XLite\Core\Request::getInstance()->cancelUrl;
                     \XLite\Core\Session::getInstance()->inContextRedirect = true;
-                    $this->setReturnURL($this->buildURL('checkout_failed'));
+                    $this->setReturnURL($this->buildURL('checkout'));
                 }
 
                 \XLite\Core\TopMessage::addError(
@@ -309,6 +309,20 @@ class Checkout extends \XLite\Controller\Customer\Checkout implements \XLite\Bas
             $data += array(
                 'email' => str_replace(' ', '+', $paypalData['EMAIL']),
                 'create_profile' => false,
+            );
+        }
+
+        if(isset($data['shippingAddress'])
+            && $this->getProfile()
+            && $this->getProfile()->getShippingAddress()
+        ) {
+            $data['shippingAddress'] = array_filter(
+                $data['shippingAddress']
+            );
+
+            $data['shippingAddress'] = array_replace(
+                $this->getProfile()->getShippingAddress()->serialize(),
+                $data['shippingAddress']
             );
         }
 

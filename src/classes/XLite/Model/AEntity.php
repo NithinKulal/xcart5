@@ -522,7 +522,9 @@ abstract class AEntity extends \XLite\Base\SuperClass
                     \XLite\Core\Database::getEM()->flush();
                 }
 
-                $file->prepareSizes();
+                if (!(isset($data['delete']) && $data['delete'])) {
+                    $file->prepareSizes();
+                }
             }
         }
 

@@ -807,7 +807,7 @@ class Module extends \XLite\Model\AEntity
             foreach ($modules as $m => $data) {
                 $mutualModules = \Includes\Utils\ModulesManager::callModuleMethod($m, 'getMutualModulesList');
 
-                if (in_array($this->getActualName(), $mutualModules) && !isset($list[$m])) {
+                if ($mutualModules && in_array($this->getActualName(), $mutualModules) && !isset($list[$m])) {
                     $list[$m] = \XLite\Core\Database::getRepo('XLite\Model\Module')
                         ->findOneBy(array_combine(array('author', 'name'), explode('\\', $m)));
                 }

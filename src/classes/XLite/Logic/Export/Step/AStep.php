@@ -760,7 +760,7 @@ OUT;
     protected function getItems($reset = false)
     {
         if (!isset($this->items) || $reset) {
-            $this->items = $this->getRepository()->getExportIterator($this->position);
+            $this->items = $this->getRepository()->getExportIterator($this->position, \XLite\Core\EventListener\Export::CHUNK_LENGTH);
             $this->items->rewind();
         }
 

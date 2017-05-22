@@ -1,0 +1,4 @@
+Version 5.3.2.3
+
+Fixes
+2017-03-16 - [Bug] In MailChimp, total_spent was calculated incorrectly. #BUG-4680 (Michael Lipinski) #MailChimp

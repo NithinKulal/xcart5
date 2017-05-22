@@ -157,8 +157,14 @@ var SearchConditionBox = function (submitFormFlag)
             jQuery(this).find('input[type="text"],input[type="checkbox"]:checked,select,textarea').each(
               function() {
                 if (jQuery(this).val()) {
-                  if (jQuery(this).attr('id') == 'stateSelectorId' && jQuery(this).data('value') == '') {
-                    // Skip state selector with empty value
+                  if (jQuery(this).attr('id') == 'stateSelectorId') {
+                    if (
+                      jQuery(this).data('value') != ''
+                      && jQuery('#country').val()
+                      && statesList[jQuery('#country').val()]
+                    ) {
+                      filled = true;
+                    }
                   } else {
                     filled = true;
                   }

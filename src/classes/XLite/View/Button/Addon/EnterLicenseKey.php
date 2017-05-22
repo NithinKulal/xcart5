@@ -10,24 +10,11 @@ namespace XLite\View\Button\Addon;
 
 /**
  * Enter license key popup text
- * 
+ *
  * @ListChild (list="install-modules.pager.buttons", weight="200", zone="admin")
  */
 class EnterLicenseKey extends \XLite\View\Button\APopupButton
 {
-    /**
-     * Register CSS files
-     *
-     * @return array
-     */
-    public function getCSSFiles()
-    {
-        $list = parent::getCSSFiles();
-        $list[] = 'modules_manager/enter_key/css/style.css';
-
-        return $list;
-    }
-
     /**
      * Register JS files
      *
@@ -35,7 +22,7 @@ class EnterLicenseKey extends \XLite\View\Button\APopupButton
      */
     public function getJSFiles()
     {
-        $list = parent::getJSFiles();
+        $list   = parent::getJSFiles();
         $list[] = 'button/js/enter_license_key.js';
 
         return $list;
@@ -58,11 +45,11 @@ class EnterLicenseKey extends \XLite\View\Button\APopupButton
      */
     protected function prepareURLParams()
     {
-        return array(
+        return [
             'target' => 'module_key',
             'action' => 'view',
             'widget' => '\XLite\View\ModulesManager\AddonKey',
-        );
+        ];
     }
 
     /**

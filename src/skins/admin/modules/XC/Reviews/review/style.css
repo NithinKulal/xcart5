@@ -11,6 +11,32 @@ div.review {
   padding-top: 20px;
 }
 
+div.review .model-properties > fieldset > div {
+  padding-bottom: 0;
+}
+
+div.review .model-properties > fieldset > div > .table.default-table{
+  margin-bottom: 0;
+}
+
+div.review .model-properties .table-value .model-is-defined,
+div.review .model-properties .table-value .model-not-defined {
+  position: absolute;
+}
+
+div.review .model-properties .table-value .model-selector .items-list {
+  margin-top: 0;
+}
+
+div.review .model-properties .sticky-panel {
+  margin-top: 0;
+}
+
+div.review .model-properties .sticky-panel > .box {
+  border: none;
+  padding-left: 0;
+}
+
 div.review div.buttons {
   text-align: center;
 }

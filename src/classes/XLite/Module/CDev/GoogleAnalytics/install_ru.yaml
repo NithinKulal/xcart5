@@ -1,0 +1,50 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  directives: { addModel: XLite\Model\ConfigTranslation }
+  - name: ga_account
+    category: CDev\GoogleAnalytics
+    translations:
+      - code: ru
+        option_name: 'Web Property ID'
+  - name: ga_tracking_type
+    category: CDev\GoogleAnalytics
+    translations:
+      - code: ru
+        option_name: 'Что отслеживается'
+  - name: ga_code_version
+    category: CDev\GoogleAnalytics
+    translations:
+      - code: ru
+        option_name: 'Версия кода Google Analytics'
+  - name: ecommerce_enabled
+    category: CDev\GoogleAnalytics
+    translations:
+      - code: ru
+        option_name: 'Включить eCommerce Google Analytics'
+  - name: purchase_only_on_paid
+    category: CDev\GoogleAnalytics
+    translations:
+      - code: ru
+        option_name: 'Регистрировать покупку только после смены статуса на "Оплачен"'
+  - name: debug_mode
+    category: CDev\GoogleAnalytics
+    translations:
+      - code: ru
+        option_name: 'Режим отладки'
+
+XLite\Model\LanguageLabel:
+  directives: { addModel: XLite\Model\LanguageLabelTranslation }
+  - { name: 'Advanced statistics with Google Analytics', translations: [{ code: ru, label: 'Расширенная статистика с Google Analytics' }] }
+  - { name: 'Configure the Google Analytics module to view the advanced statistics', translations: [{ code: ru, label: 'Настроить модуль Google Analytics для получения расширенной статистики' }] }
+  - { name: 'A single domain', translations: [{ code: ru, label: 'Одиночный домен' }] }
+  - { name: 'One domain with multiple subdomains', translations: [{ code: ru, label: 'Один домен с несколькими поддоменами' }] }
+  - { name: 'Multiple top-level domains', translations: [{ code: ru, label: 'Несколько доменов верхнего уровня' }] }
+  - { name: 'Traditional', translations: [{ code: ru, label: 'Traditional' }] }
+  - { name: 'Universal Analytics', translations: [{ code: ru, label: 'Universal Analytics' }] }
+  - { name: 'Want help with SEO? Ask X-Cart Guru', translations: [{ code: ru, label: 'Нужна помощь с поисковой оптимизацией? <a href="{{url}}" target="_blank">Спросите гуру X-Cart</a>' }] }

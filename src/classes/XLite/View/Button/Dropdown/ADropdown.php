@@ -181,4 +181,15 @@ class ADropdown extends \XLite\View\Button\AButton
     {
         return parent::getClass() . ($this->getUseCaretButton() ? ' trigger-first-item' : '');
     }
+
+
+    /**
+     * getDefaultLabel
+     *
+     * @return string
+     */
+    protected function getDefaultTitle()
+    {
+        return static::t('Click to expand menu');
+    }
 }

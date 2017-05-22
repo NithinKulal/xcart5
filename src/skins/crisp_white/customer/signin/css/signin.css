@@ -19,13 +19,6 @@
   height: 238px;
 }
 
-// .signin-wrapper:not(.social-login) .or-line .line {
-//   border-bottom: 1px solid #e2e2e2;
-//   width: 300px;
-//   margin: 0 auto;
-//   height: 0 !important;
-// }
-
 .signin-wrapper .or-line .or-box {
   display: none;
 }

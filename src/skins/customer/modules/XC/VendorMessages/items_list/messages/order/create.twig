@@ -1,0 +1,15 @@
+{##
+ # Messages list : create
+ #}
+
+<div class="new-message">
+
+    <div class="form-group body">
+        <textarea name="body" class="form-control" id="newMessageBody" rows="8" placeholder="{{ t('Write your message') }}"></textarea>
+    </div>
+
+    <div class="form-group">
+        {{ widget('XLite\\View\\Button\\Regular', style='regular-main-button', action='update', label=t('Submit')) }}
+    </div>
+
+</div>

@@ -123,16 +123,18 @@ abstract class ACustomer extends \XLite\View\Menu\Customer\ACustomer implements 
 
         $items = $this->executeCached([$this, 'getItems'], array_merge($cacheParams, ['getItems']));
 
-        $url   = \XLite\Core\URLManager::getCurrentURL();
-        $xlite = \XLite::getInstance();
-
         $matchedItemId = null;
 
-        foreach ($items as $item) {
-            if (isset($item['link']) && $xlite->getShopURL($item['link']) === $url || $this->isActiveItemWithoutLink($item)) {
-                $matchedItemId = $item['id'];
+        if (is_array($items)) {
+            $url   = \XLite\Core\URLManager::getCurrentURL();
+            $xlite = \XLite::getInstance();
 
-                break;
+            foreach ($items as $item) {
+                if (isset($item['link']) && $xlite->getShopURL($item['link']) === $url || $this->isActiveItemWithoutLink($item)) {
+                    $matchedItemId = $item['id'];
+
+                    break;
+                }
             }
         }
 

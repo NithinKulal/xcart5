@@ -1,0 +1,22 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.customer-attachments-values input[type="file"]{
+    margin-top: 3px;
+}
+.attachment_desc p
+{
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    color: #8F989E;
+}
+.attachment_desc {
+    padding-top: 10px;
+}

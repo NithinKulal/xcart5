@@ -52,14 +52,19 @@ class Customer
      */
     protected static function getTotalSpent(\XLite\Model\Profile $profile)
     {
-        if (!isset(static::$orderTotalsByProfile[$profile->getProfileId()])) {
+        if ($profile->getOrder() && $profile->getOrder()->getOrigProfile()) {
+            $profile = $profile->getOrder()->getOrigProfile();
+        }
 
+        $profileId = $profile->getProfileId();
+
+        if (!isset(static::$orderTotalsByProfile[$profileId])) {
             $cnd = new \XLite\Core\CommonCell();
             $cnd->profile = $profile;
             $orders = \XLite\Core\Database::getRepo('XLite\Model\Order')->search($cnd);
 
             if ($orders) {
-                static::$orderTotalsByProfile[$profile->getProfileId()] = array_reduce(
+                static::$orderTotalsByProfile[$profileId] = array_reduce(
                     $orders,
                     function($carry, $order) {
                         /**
@@ -72,10 +77,10 @@ class Customer
                     0
                 );
             } else {
-                static::$orderTotalsByProfile[$profile->getProfileId()] = 0;
+                static::$orderTotalsByProfile[$profileId] = 0;
             }
         }
         
-        return static::$orderTotalsByProfile[$profile->getProfileId()];
+        return static::$orderTotalsByProfile[$profileId];
     }
 }

@@ -1,0 +1,16 @@
+{##
+ # Attached files list
+ #
+ # @ListChild (list="invoice.item.name", weight="100")
+ #}
+
+{% if not this.item.customerAttachments.isEmpty() %}
+  <li class="file-attachments">
+      <ul>
+          <li>{{ t('Attached files:') }}</li>
+          {% for attachment in this.item.customerAttachments %}
+            <li>{{ attachment.fileName }}</li>
+          {% endfor %}
+      </ul>
+  </li>
+{% endif %}

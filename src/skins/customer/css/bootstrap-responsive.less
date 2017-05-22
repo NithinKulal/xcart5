@@ -416,6 +416,9 @@ div.model-form-buttons {
 .ui-dialog .product-quicklook .product-details-info {
   .make-xs-column-offset(1);
   .make-xs-column(5; 0);
+  @media (max-width: @screen-xs-max) {
+    width: 100%
+  }
 }
 
 .product-quicklook .product-details div.image {
@@ -726,7 +729,7 @@ div.product-details div.image {
     .border-top-radius(0);
   }
 
-  #header .block:first-child .content {
+  #header .block.minicart-block .content {
     border-left-style: solid;
   }
 

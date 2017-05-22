@@ -1,0 +1,69 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Button style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+ul.account-links li.messages-count {
+  position: relative;
+  vertical-align: top;
+  text-align: left;
+  min-width: 44px;
+}
+
+ul.account-links li.messages-count a {
+  text-decoration: none;
+  border: none 0;
+}
+
+ul.account-links li.messages-count a:hover {
+  border-bottom: 0 none;
+}
+
+ul.account-links li.messages-count svg {
+  display: inline-block;
+  width: 26px;
+  height: 21px;
+}
+
+ul.account-links li.messages-count svg path {
+  fill: #b9b9b9;
+}
+
+.mobile_header ul.account-links li.messages-count a > svg,
+.mobile_header ul.account-links li.messages-count a > div,
+.mobile_header ul.account-links li.messages-count a > span {
+  display: inline-block; 
+  vertical-align: middle;
+}
+
+.mobile_header ul.account-links li.messages-count a {
+  padding: 12px 15px;
+}
+
+.desktop-header ul.account-links li.messages-count svg {
+  vertical-align: middle;
+  height: 24px;
+  padding-bottom: 3px;
+}
+
+ul.account-links li.messages-count div {
+  display: inline-block;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 9px;
+  font-weight: bold;
+  background-color: #ef6c00;
+  border-radius: 16px;
+  border: 2px solid #fff;
+  color: #fff;
+  vertical-align: top;
+  line-height: 16px;
+  margin: 0;
+  padding: 0 4px;
+  margin-left: -14px;
+  text-align: center;
+  min-width: 20px;
+}

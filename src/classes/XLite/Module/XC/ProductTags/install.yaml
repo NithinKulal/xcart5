@@ -1,0 +1,34 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: show_tags_sidebar
+    category: 'XC\ProductTags'
+    type: checkbox
+    orderby: 100
+    value: false
+    translations:
+      - code: en
+        option_name: 'Show tags list in the sidebar'
+  - name: enable_tags_filter
+    category: 'XC\ProductFilter'
+    type: checkbox
+    orderby: 350
+    value: true
+    translations:
+      - code: en
+        option_name: 'Enable "Tags" filter'
+
+XLite\Model\LanguageLabel:
+  - { name: 'Tag', translations: [{ code: en, label: 'Tag' }] }
+  - { name: 'New tag', translations: [{ code: en, label: 'New tag' }] }
+  - { name: 'Tags', translations: [{ code: en, label: 'Tags' }] }
+  - { name: 'Product tags', translations: [{ code: en, label: 'Product tags' }] }
+  - { name: 'Please select the tags first', translations: [{ code: en, label: 'Please select the tags first' }] }
+  - { name: 'Selected tags have been deleted', translations: [{ code: en, label: 'Selected tags have been deleted' }] }
+  - { name: 'Categories and tags', translations: [{ code: en, label: 'Categories and tags' }] }
+  - { name: 'itemslist.admin.tag.blank', translations: [{ code: en, label: '<p class="items-list-blank-description-heading text-center">Tags list is empty.</p><p class="text-center">Tags help your customers to find products with the specific feature. You can add tags using the <b>"New tag"</b> button and then assign them to the product on its edit page.</p>' }] }

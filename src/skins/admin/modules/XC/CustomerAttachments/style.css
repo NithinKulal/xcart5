@@ -1,0 +1,38 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Styles of attachments list
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.file-attachments .attachments-input-wrapper
+{
+    margin-right: 3px;
+    margin-top: 4px;
+    float: left;
+    background: transparent url(images/icon_cross_circle.png) no-repeat left top;
+    border: none;
+    width: 13px;
+    height: 13px;
+    padding: 0;
+    cursor: pointer;
+}
+.file-attachments .attachments-input-wrapper:hover
+{
+    background: transparent url(images/icon_cross_circle.png) no-repeat left 100%;
+}
+.file-attachments .attachments-input-wrapper input
+{
+    display: none;
+}
+.file-attachments .attachment-item a.to_delete
+{
+    color: #b4b4b4;
+}
+.items-list-table.order-items table.list tbody td.cell.name ul.subitem li.file-attachments,
+.items-list-table.order-items table.list tbody td.cell.name ul.subitem li.file-attachments li
+{
+    display: list-item;
+}

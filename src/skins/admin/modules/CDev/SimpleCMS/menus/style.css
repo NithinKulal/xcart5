@@ -21,15 +21,15 @@
 
 .items-list-table.menus table.list .cell.link > .cell,
 .items-list-table.menus table.list .cell.visibleFor > .cell {
-	width: 250px;
+	width: 200px;
 }
 
 .items-list-table.menus table.list .cell.submenus > .cell {
-	width: 150px;
+	width: 125px;
 }
 
 .items-list-table.menus table.list .cell.link > .cell .inline-field.editable {
-	width: 250px;
+	width: 200px;
 }
 
 .items-list-table.menus table.list .cell.submenus > .cell a.count-link {

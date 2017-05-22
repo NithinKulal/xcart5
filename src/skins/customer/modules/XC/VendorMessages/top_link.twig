@@ -1,0 +1,13 @@
+{##
+ # Top link
+ #}
+
+<li class="messages-count">
+    <a href="{{ url('messages') }}">
+      {{ this.displaySVGImage('modules/XC/VendorMessages/images/mail.svg') }}
+      {% if this.countMessages() %}
+        <div>{{ this.countMessages() }}</div>
+      {% endif %}
+      <span>{{ t('Messages') }}</span>
+    </a>
+</li>

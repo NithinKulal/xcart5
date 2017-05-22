@@ -66,8 +66,11 @@ class FacebookAuthProvider extends AAuthProvider
         $this->accessToken = null;
 
         if (200 == $response->code) {
-            parse_str($response->body, $data);
-            $this->accessToken = $data['access_token'];
+            $data = json_decode($response->body, true);
+
+            if (isset($data['access_token'])) {
+                $this->accessToken = $data['access_token'];
+            }
         }
 
         return $this->accessToken;
@@ -172,6 +175,7 @@ class FacebookAuthProvider extends AAuthProvider
             if ($accessToken) {
                 $request = new \XLite\Core\HTTP\Request($this->getAddressRequestUrl($id, $accessToken));
                 $response = $request->sendRequest();
+
                 if (200 == $response->code) {
                     $addressinfo = json_decode($response->body, true);
                 }

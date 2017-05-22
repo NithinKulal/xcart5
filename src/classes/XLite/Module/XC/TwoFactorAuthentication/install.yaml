@@ -1,0 +1,60 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: api_key
+    category: XC\TwoFactorAuthentication
+    type: text
+    widgetParameters: { comment: 'Go to dashboard.authy.com and copy Api key then paste here' }
+    orderby: 100
+    value: ''
+    translations:
+      - code: en
+        option_name: API key
+      - code: ru
+        option_name: API ключ
+  - name: production_mode
+    category: XC\TwoFactorAuthentication
+    type: checkbox
+    orderby: 200
+    value: 'Y'
+    translations:
+      - code: en
+        option_name: Production mode
+      - code: ru
+        option_name: Рабочий режим
+  - name: customer_interface
+    category: XC\TwoFactorAuthentication
+    type: checkbox
+    orderby: 300
+    value: 'N'
+    translations:
+      - code: en
+        option_name: Use two-factor authentication for the customer interface
+      - code: ru
+        option_name: Включить двухфакторную авторизацию для покупателей
+  - name: admin_interface
+    category: XC\TwoFactorAuthentication
+    type: checkbox
+    orderby: 400
+    value: 'Y'
+    translations:
+      - code: en
+        option_name: Use two-factor authentication for the administrator interface
+      - code: ru
+        option_name: Включить двухфакторную авторизацию для администраторов
+XLite\Model\LanguageLabel:
+  - { name: 'Go to dashboard.authy.com and copy Api key then paste here', translations: [{ code: en, label: 'Go to <a href="http://dashboard.authy.com" target="_blank">dashboard.authy.com</a> and copy the API key then paste here' }, { code: ru, label: 'Пройдите по ссылке на <a href="http://dashboard.authy.com" target="_blank">dashboard.authy.com</a>, скопируйте содержимое поля `Api key` и вставьте сюда' }] }
+  - { name: 'Enter SMS code', translations: [{ code: en, label: 'Enter SMS code' }, { code: ru, label: 'Введите SMS код' }] }
+  - { name: 'SMS code', translations: [{ code: en, label: 'SMS code' }, { code: ru, label: 'SMS код' }] }
+  - { name: 'Invalid SMS code', translations: [{ code: en, label: 'Invalid SMS code' }, { code: ru, label: 'Неверный код' }] }
+  - { name: 'Country phone code', translations: [{ code: en, label: 'Country phone code' }, { code: ru, label: 'Код страны' }] }
+  - { name: 'Phone number', translations: [{ code: en, label: 'Phone number' }, { code: ru, label: 'Номер мобильного телефона' }] }
+  - { name: 'Resend SMS with code', translations: [{ code: en, label: 'Resend SMS with code' }, { code: ru, label: 'Выслать SMS повторно' }] }
+  - { name: 'SMS code is invalid. Resend SMS code', translations: [{ code: en, label: 'SMS code is invalid. <a href="" class="top_messages_resend_token">Resend SMS code</a>' }, { code: ru, label: 'Неверный код доступа. <a href="#" class="top_messages_resend_token">Выслать SMS с кодом повторно</a>' }] }
+  - { name: 'Type your phone number here to receive a SMS code for two-factor-authentication', translations: [{ code: en, label: 'Type your phone number here to receive an SMS code for two factor authentication' }, { code: ru, label: 'Номер мобильного телефона для отправки одноразовых кодов доступа по SMS' }] }
+

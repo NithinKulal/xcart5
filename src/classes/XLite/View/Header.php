@@ -126,4 +126,12 @@ class Header extends \XLite\View\AResourcesContainer
     {
         return array();
     }
+
+    /**
+     *
+     */
+    public function useUpgradeInsecure()
+    {
+        return \XLite::getInstance()->getOptions(array('other', 'meta_upgrade_insecure'));
+    }
 }

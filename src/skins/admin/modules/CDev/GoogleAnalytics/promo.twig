@@ -1,9 +1,0 @@
-{##
- # Promo block
- #
- # @ListChild (list="crud.modulesettings.formHeader", zone="admin", weight="50")
- #}
-
-{% if 'CDev\\GoogleAnalytics' == this.module.getActualName() %}
-  {{ widget(template='promo.twig', promoId='ga-promo', promoContent=t('Want help with SEO? Ask X-Cart Guru', {'url': this.getSeoPromoURL()})) }}
-{% endif %}

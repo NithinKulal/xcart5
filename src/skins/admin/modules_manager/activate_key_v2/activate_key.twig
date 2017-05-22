@@ -1,0 +1,16 @@
+{##
+ # Activate license key
+ #}
+
+<div class="activate-key-form">
+  {% form 'XLite\\View\\Form\\Module\\ActivateKey' with {formAction: 'register_key'} %}
+  <div class="addon-key"><input type="text" name="key" value="" placeholder="{{ t('Enter your premium license key') }}" class="form-control"/>
+  </div>
+  {{ widget('XLite\\View\\Button\\Submit', label='Register', style='register-license', attributes={'data-segment-click': 'Register'}) }}
+  <div class="text or">{{ t('or') }}</div>
+  {{ widget('XLite\\View\\Button\\Regular', label='Purchase a premium license key', style='purchase-license regular-main-button', jsCode='window.open(\'' ~ this.getPurchaseURL() ~ '\', \'_blank\');', attributes={'data-segment-click': 'Purchase a premium license key'}) }}
+  {% endform %}
+
+  <div class="additional-link" data-segment-click="Activate free license" data-segment-click-handler="a">{{ t('Activate free license (all premium features will be removed).', {'url': this.getActivateFreeLicenseURL()})|raw }}</div>
+  <div class="additional-link" data-segment-click="Contact us" data-segment-click-handler="a">{{ t('Contact us if you have any questions.', {'url': this.getContactUsURL()})|raw }}</div>
+</div>

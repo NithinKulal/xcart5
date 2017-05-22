@@ -40,13 +40,12 @@ class TmpVars extends \XLite\Base\Singleton
         if (isset($value)) {
             $data = array('value' => serialize($value));
             if (isset($var)) {
-                $this->getRepo()->update($var, $data, false);
+                $this->getRepo()->update($var, $data, true);
             } else {
-                $var = $this->getRepo()->insert($data + array('name' => $name), false);
+                $var = $this->getRepo()->insert($data + array('name' => $name), true);
             }
-            \XLite\Core\Database::getEM()->flush($var);
         } elseif ($var) {
-            $this->getRepo()->delete($var, false);
+            $this->getRepo()->delete($var, true);
         }
     }
 

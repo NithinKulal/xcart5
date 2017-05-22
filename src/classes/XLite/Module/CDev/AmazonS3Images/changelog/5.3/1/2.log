@@ -1,0 +1,4 @@
+Version 5.3.1.2
+
+Fixes
+2016-11-10 - [Bug] Fixed fatal error on deleting images if "Amazon S3" was not configured. #AmazonS3Images

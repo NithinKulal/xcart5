@@ -1,0 +1,21 @@
+{##
+ # Attribute list
+ #}
+
+{% if this.getAttributeGroup() %}
+<tr class="group">
+  <td class="title"><span>{{ this.getTitle() }}</span></td>
+  {% for product in this.getProducts() %}
+    <td>&nbsp;</td>
+  {% endfor %}
+<tr>
+{% endif %}
+
+{% for a in this.getAttributesList() %}
+  <tr>
+    <td{% if this.getAttributeGroup() %} class="indented"{% endif %}><span>{{ a.getName() }}</span></td>
+    {% for product in this.getProducts() %}
+      <td>{{ this.getAttributeValue(a, product)|raw }}</td>
+    {% endfor %}
+  </tr>
+{% endfor %}

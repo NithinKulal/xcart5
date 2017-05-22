@@ -1,0 +1,217 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Messages list style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.all-messages .messages td {
+    border: 0 none;
+    border-top: 1px solid #ececec;
+    border-bottom: 1px solid #ececec;
+    white-space: nowrap;
+    padding: 0;
+}
+
+.all-messages .messages .message:first-child td {
+    border-bottom: 0 none;
+}
+
+.all-messages .messages .message:last-child td {
+    border-bottom: 1px solid #ececec;
+}
+
+.all-messages .messages a {
+    padding: 11px 13px;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+}
+
+.all-messages .messages a:hover,
+.all-messages .messages a:hover *
+{
+    opacity: .88;
+}
+
+.all-messages .messages .order-link {
+    min-width: 60px;
+}
+
+.all-messages .messages .body,
+.all-messages .messages .date,
+.all-messages .messages .date a
+{
+    color: #999;
+}
+
+.all-messages .messages .body {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: inline-block;
+    width: 500px;
+    margin-top: -2px;
+    vertical-align: middle;
+}
+
+.all-messages .messages .text {
+    position: relative;
+    width: 100%;
+}
+
+.all-messages .messages .date {
+    text-align: right;
+}
+
+.all-messages .messages .date a {
+    padding-right: 15px;
+}
+
+.all-messages .messages .order-label {
+    color: #5194c5;
+}
+
+.all-messages .messages .unread .order-link,
+.all-messages .messages .unread .order-label,
+.all-messages .messages .unread .date
+{
+    font-weight: bold;
+}
+
+.all-messages .messages .unread .date a {
+    color: #666;
+}
+
+.all-messages .messages .read td {
+    background-color: #fafafa;
+}
+
+.all-messages .messages .read:hover td {
+    background-color: #f4f6f8;
+}
+
+.all-messages .messages .has-marks a.text-link {
+    width: 75%;
+}
+
+.all-messages .messages .marks {
+    width: 25%;
+}
+
+.all-messages .messages .dispute,
+.all-messages .messages .watch
+{
+    display: inline-block;
+    font-weight: bold;
+    vertical-align: top;
+    margin-right: 10px;
+}
+
+.all-messages .messages .dispute {
+    color: red;
+}
+
+.all-messages .messages .dispute svg {
+    margin-top: 3px;
+}
+
+.all-messages .messages .watch-edit,
+.all-messages .messages .watch
+{
+    display: inline-block;
+}
+
+.all-messages .messages .watch {
+    color: #f29221;
+}
+
+
+.all-messages .messages .watch-edit .table-label {
+    padding: 0;
+    width: auto;
+    font-size: 12px;
+    padding-right: 5px;
+    font-weight: bold;
+}
+
+.all-messages .messages .watch-edit .star,
+.all-messages .messages .watch-edit .clear
+{
+    display: none;
+}
+
+.all-messages .messages .watch-edit .table-value {
+    padding: 0;
+}
+
+.all-messages .messages .watch-edit div.onoffswitch {
+    height: 25px;
+}
+
+.all-messages .messages .watch-edit .onoffswitch input[type=checkbox] + label .fa {
+    width: 38px;
+    height: 19px;
+    font-size: 10px;
+    padding-left: 3px;
+}
+
+.all-messages .messages .watch-edit .onoffswitch input[type=checkbox] + label .fa:before {
+    padding: 2px;
+}
+
+.all-messages .messages .watch-edit .onoffswitch input[type=checkbox] + label .fa:after {
+    width: 14px;
+    top: 6px;
+    bottom: 5px;
+}
+
+.all-messages .messages .watch-edit .onoffswitch input[type=checkbox]:checked + label .fa:before,
+.all-messages .messages .watch-edit .onoffswitch input[type=checkbox]:checked + label .fa:after
+{
+    margin-left: 18px;
+}
+
+.all-messages .empty {
+    text-align: center;
+    padding-top: 72px;
+}
+
+.all-messages .empty .img {
+
+}
+
+.all-messages .empty svg {
+    display: inline-block;
+    width: 140px;
+    height: auto;
+}
+
+.all-messages .empty svg path {
+    fill: #d1d1d1;
+}
+
+.all-messages .empty strong {
+    color: #d1d1d1;
+    font-size: 32px;
+    font-weight: normal;
+    line-height: normal;
+    margin-top: -2px;
+    display: block;
+}
+
+.xc-vendormessages-searchpanel-message-admin-main .messageSubstring-condition,
+.xc-vendormessages-searchpanel-message-admin-main .messageSubstring-condition span.input,
+.xc-vendormessages-searchpanel-message-admin-main .messageSubstring-condition div.table-value input[type="text"]
+{
+    width: 100%;
+}
+
+.xc-vendormessages-searchpanel-message-admin-main .messages-condition div.table-value select {
+    width: auto;
+}
+
+.all-messages .pager-top {
+    display: none;
+}

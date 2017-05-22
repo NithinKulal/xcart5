@@ -2093,7 +2093,7 @@ abstract class AProcessor extends \XLite\Base implements \SeekableIterator, \Cou
     protected function verifyValueAsFile($value)
     {
         // Do not verify files in verification mode and if 'ignoreFileChecking' option is true
-        if (!$this->isVerification() || !$this->importer->getOptions()->ignoreFileChecking) {
+        if (!$this->isVerification() && !$this->importer->getOptions()->ignoreFileChecking) {
             if (\Includes\Utils\FileManager::isReadable(LC_DIR_ROOT . $value)) {
                 $result = 0 === strpos(realpath(LC_DIR_ROOT . $value), LC_DIR_ROOT);
             } elseif ($this->verifyValueAsURL($value)) {

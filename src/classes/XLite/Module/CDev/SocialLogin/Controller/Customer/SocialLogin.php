@@ -175,7 +175,7 @@ class SocialLogin extends \XLite\Controller\Customer\ACustomer
         if (empty($redirectTo) && $returnURL && $this->checkReturnUrl($returnURL)) {
             $this->setReturnURL(\Includes\Utils\URLManager::getShopURL(urldecode($returnURL)));
         } else {
-            $this->setReturnURL($this->buildURL($redirectTo));
+            $this->setReturnURL($this->buildFullURL($redirectTo));
         }
     }
 

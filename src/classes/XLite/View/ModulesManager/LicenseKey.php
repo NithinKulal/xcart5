@@ -15,6 +15,17 @@ namespace XLite\View\ModulesManager;
  */
 class LicenseKey extends \XLite\View\ModulesManager\AModulesManager
 {
+    const KEY_NOTICE_VERSION_1 = 1;
+    const KEY_NOTICE_VERSION_2 = 2;
+
+    /**
+     * @return int
+     */
+    public static function getLicenseKeyVersion()
+    {
+        return static::KEY_NOTICE_VERSION_2;
+    }
+
     /**
      * Return list of targets allowed for this widget
      *
@@ -22,7 +33,7 @@ class LicenseKey extends \XLite\View\ModulesManager\AModulesManager
      */
     public static function getAllowedTargets()
     {
-        $result = parent::getAllowedTargets();
+        $result   = parent::getAllowedTargets();
         $result[] = 'activate_key';
 
         return $result;
@@ -35,8 +46,24 @@ class LicenseKey extends \XLite\View\ModulesManager\AModulesManager
      */
     public function getCSSFiles()
     {
-        $list = parent::getCSSFiles();
+        $list   = parent::getCSSFiles();
         $list[] = $this->getDir() . '/css/style.css';
+
+        return $list;
+    }
+
+    /**
+     * Register JS files
+     *
+     * @return array
+     */
+    public function getJSFiles()
+    {
+        $list = parent::getJSFiles();
+        if (static::getLicenseKeyVersion() === static::KEY_NOTICE_VERSION_1) {
+        } else {
+            $list[] = $this->getDir() . '/controller.js';
+        }
 
         return $list;
     }
@@ -48,7 +75,9 @@ class LicenseKey extends \XLite\View\ModulesManager\AModulesManager
      */
     protected function getDir()
     {
-        return parent::getDir() . LC_DS . 'activate_key';
+        return static::getLicenseKeyVersion() === static::KEY_NOTICE_VERSION_1
+            ? parent::getDir() . LC_DS . 'activate_key'
+            : parent::getDir() . LC_DS . 'activate_key_v2';
     }
 
     /**

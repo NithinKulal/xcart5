@@ -1,0 +1,9 @@
+{##
+ # Messages list : separator : closed
+ #}
+
+{% if this.isClosedSeparatorVisible() %}
+  <li class="separator closed">
+      <a href="{{ this.getOpenURL() }}">{{ t('Hidden X messages', {'count': this.countHiddenMessages()}) }}</a>
+  </li>
+{% endif %}

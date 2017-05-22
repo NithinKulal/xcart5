@@ -7,6 +7,15 @@
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
 
+div.tab-content {
+  position: relative;
+  margin-top: 50px;
+}
+
+div.dialog-block {
+  min-width: 1040px;
+}
+
 div.attributes .header {
   border-bottom: 1px solid #ddd;
   -webkit-box-shadow: 0px 10px 15px -6px rgba(50, 50, 50, 0.75);

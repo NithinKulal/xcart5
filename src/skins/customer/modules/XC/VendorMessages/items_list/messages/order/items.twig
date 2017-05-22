@@ -1,0 +1,25 @@
+{##
+ # Order items
+ #}
+
+<div class="order-items state-hidden">
+    <p>
+        <a href="#" class="do-show">{{ t('Show vendor’s products in the order') }}</a>
+        <a href="#" class="do-hide">{{ t('Hide vendor’s products in the order') }}</a>
+    </p>
+    <div class="order-items-list collapse">
+        <ul>
+            {% for item in this.getItems() %}
+                <li>
+                    <div class="image">{{ widget('\\XLite\\View\\Image', image=item.product.getImage(), maxWidth=50, maxHeight=50, alt=this.product.name, className='photo') }}</div>
+                    <a class="name" href="{{ url('product', '', { 'product_id': item.getProduct().getProductId() }) }}">{{ item.getName() }}</a>
+                    <span class="right">
+                        <span class="price">{{ this.formatPrice(item.getDisplayPrice()) }}</span>
+                        ×
+                        <span class="qty">{{ item.getAmount() }}</span>
+                    </span>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

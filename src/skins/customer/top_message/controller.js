@@ -154,9 +154,10 @@ TopMessages.prototype.getSameRecord = function (ul, text) {
   var self = this;
 
   return ul.find('li').filter(function () {
-    if (jQuery(text).length > 0) {
-      text = jQuery(text).find('.message').length > 0
-          ? jQuery(text).find('.message').text()
+    var htmlContent = jQuery('<div />').html(text);
+    if (htmlContent.length > 0) {
+      text = htmlContent.find('.message').length > 0
+          ? htmlContent.find('.message').text()
           : text;
     }
 
@@ -177,8 +178,6 @@ TopMessages.prototype.updateRecord = function (li) {
       ? jQuery(li).find('.message')
       : jQuery(li);
   var array = /(.*) \((\d*?)\)/i.exec(recordLi.text());
-  console.log(recordLi.text());
-  console.log(array);
   var oldText = array && array[1]
     ? array[1]
     : recordLi.text();

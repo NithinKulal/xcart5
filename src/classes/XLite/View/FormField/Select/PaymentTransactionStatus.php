@@ -27,6 +27,12 @@ class PaymentTransactionStatus extends \XLite\View\FormField\Select\Regular
             ''  => static::t('All payment transaction statuses')
         );
 
+        if (!\XLite\Model\Payment\Transaction::showInitializedTransactions()
+            && isset($statuses[\XLite\Model\Payment\Transaction::STATUS_INITIALIZED])
+        ) {
+            unset($statuses[\XLite\Model\Payment\Transaction::STATUS_INITIALIZED]);
+        }
+
         foreach ($statuses as $key => $status) {
             $options[$key] = static::t($status . '[S]');
         }

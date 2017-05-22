@@ -267,6 +267,16 @@ class Mailer extends \XLite\View\AView
     }
 
     /**
+     * Clear string attachments from mailer
+     *
+     * @return void
+     */
+    public function clearStringAttachments()
+    {
+        $this->set('stringAttachments', []);
+    }
+
+    /**
      * Clear attachments from mailer
      *
      * @return void

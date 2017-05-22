@@ -35,6 +35,7 @@ OrderItemsList.prototype.initialize = function(elem, urlparams, urlajaxparams)
 
     core.bind('order.items.changed', _.bind(this.handleItemsChanged, this));
 
+    core.bind('model-selector.product.before-selected', _.bind(this.handleBeforeProductModelSelect, this));
     core.bind('model-selector.product.selected', _.bind(this.handleProductModelSelect, this));
 
     core.bind('itemListNewItemCreated', _.bind(this.handleNewItemCreated, this));
@@ -270,6 +271,21 @@ OrderItemsList.prototype.handleItemsChanged = function(event)
   jQuery('.order-info .totals .subtotal .value .part-integer').html(sum[0]);
   jQuery('.order-info .totals .subtotal .value .part-decimal').html(sum[1]);
 }
+
+OrderItemsList.prototype.handleBeforeProductModelSelect = function(event, data) {
+  var lineTpl = jQuery(data.element).parents("tbody.create").find(".create-tpl");
+
+  if (lineTpl.length) {
+    var tableValue = jQuery(data.element).parents('div.table-value');
+
+    var container = tableValue.find('.model-selector.data-type-product .model-is-defined');
+    var originalHtml = lineTpl.find(".model-selector .model-definition.model-is-defined").html();
+    container.html(originalHtml);
+
+    tableValue.siblings('.edit-options-dialog').remove();
+    tableValue.siblings('.edit-options-link').remove();
+  }
+};
 
 OrderItemsList.prototype.handleProductModelSelect = function(event, data)
 {

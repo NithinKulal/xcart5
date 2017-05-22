@@ -678,7 +678,7 @@ class Customers extends \XLite\Logic\Import\Processor\AProcessor
      *
      * @return void
      */
-    protected function importAccessLevelColumn(\XLite\Model\Profile $model, array $value, array $column)
+    protected function importAccessLevelColumn(\XLite\Model\Profile $model, $value, array $column)
     {
         if (!$this->verifyValueAsEmpty($value)
             && $this->isAdminProfilesManager()

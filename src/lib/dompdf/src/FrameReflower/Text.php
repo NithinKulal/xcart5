@@ -103,7 +103,7 @@ class Text extends AbstractFrameReflower
             return false;
 
         // split the text into words
-        $words = preg_split('/([\s-\w]+)/u', $text, -1, PREG_SPLIT_DELIM_CAPTURE);
+        $words = preg_split('/([\s-]+)/u', $text, -1, PREG_SPLIT_DELIM_CAPTURE);
         $wc = count($words);
 
         // Determine the split point
@@ -446,10 +446,9 @@ class Text extends AbstractFrameReflower
                 }*/
                 array_walk(
                     $lines,
-                    create_function(
-                        '&$val,$str',
-                        '$val = $this->getFontMetrics()->getTextWidth($str, "' . $font . '", ' . $size . ', ' . $word_spacing . ', ' . $char_spacing . ');'
-                    )
+                    function (&$val, $str) use ($font, $size, $word_spacing, $char_spacing) {
+                        $val = $this->getFontMetrics()->getTextWidth($str, $font, $size, $word_spacing, $char_spacing);
+                    }
                 );
                 arsort($lines);
                 reset($lines);

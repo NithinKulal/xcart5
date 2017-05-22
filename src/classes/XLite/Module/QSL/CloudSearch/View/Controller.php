@@ -68,6 +68,7 @@ class Controller extends \XLite\View\Controller implements \XLite\Base\IDecorato
             'lbl_products'             => static::t('cs_products'),
             'lbl_categories'           => static::t('cs_categories'),
             'lbl_pages'                => static::t('cs_pages'),
+            'lbl_manufacturers'        => static::t('cs_manufacturers'),
             'lbl_did_you_mean'         => static::t('cs_did_you_mean'),
         );
 

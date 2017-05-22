@@ -15,6 +15,17 @@ namespace XLite\View\ModulesManager;
  */
 class TrialNotice extends \XLite\View\ModulesManager\AModulesManager
 {
+    const TRIAL_NOTICE_VERSION_1 = 1;
+    const TRIAL_NOTICE_VERSION_2 = 2;
+
+    /**
+     * @return int
+     */
+    public static function getTrialNoticeVersion()
+    {
+        return static::TRIAL_NOTICE_VERSION_2;
+    }
+
     /**
      * The allowed targets for the trial notice is defined
      * in the static::getAllowedTargetsTrialNotice() method
@@ -55,13 +66,14 @@ class TrialNotice extends \XLite\View\ModulesManager\AModulesManager
     public static function getAllowedAdminTargetsTrialNotice()
     {
         return \XLite::isTrialPeriodExpired()
-            ? array(
+            ? [
                 'trial_notice', // the popup window target
                 'order',
                 'order_list',
-            ) : array(
+                'product_list',
+            ] : [
                 'trial_notice',
-            );
+            ];
     }
 
     /**
@@ -71,11 +83,11 @@ class TrialNotice extends \XLite\View\ModulesManager\AModulesManager
      */
     public static function getAllowedCustomerTargetsTrialNotice()
     {
-        return array(
+        return [
             'trial_notice',
             'main',
             'checkout',
-        );
+        ];
     }
 
     /**
@@ -85,8 +97,24 @@ class TrialNotice extends \XLite\View\ModulesManager\AModulesManager
      */
     public function getCSSFiles()
     {
-        $list = parent::getCSSFiles();
+        $list   = parent::getCSSFiles();
         $list[] = $this->getDir() . '/css/style.css';
+
+        return $list;
+    }
+
+    /**
+     * Register JS files
+     *
+     * @return array
+     */
+    public function getJSFiles()
+    {
+        $list = parent::getJSFiles();
+        if (static::getTrialNoticeVersion() === static::TRIAL_NOTICE_VERSION_1) {
+        } else {
+            $list[] = $this->getDir() . '/controller.js';
+        }
 
         return $list;
     }
@@ -98,7 +126,9 @@ class TrialNotice extends \XLite\View\ModulesManager\AModulesManager
      */
     protected function getDir()
     {
-        return 'trial_notice';
+        return static::getTrialNoticeVersion() === static::TRIAL_NOTICE_VERSION_1
+            ? 'trial_notice'
+            : 'trial_notice_v2';
     }
 
     /**
@@ -122,6 +152,14 @@ class TrialNotice extends \XLite\View\ModulesManager\AModulesManager
     }
 
     /**
+     * @return string
+     */
+    protected function getRegisterLicenseURL()
+    {
+        return \XLite\Core\Converter::buildURL('', '', ['activate_key' => true], \XLite::ADMIN_SELF);
+    }
+
+    /**
      * URL of the X-Cart company's License Agreement page
      *
      * @return string
@@ -130,5 +168,20 @@ class TrialNotice extends \XLite\View\ModulesManager\AModulesManager
     {
         return \XLite\Core\Marketplace::getLicenseAgreementURL();
     }
-    
+
+    /**
+     * @return boolean
+     */
+    protected function isPopup()
+    {
+        return \XLite::getController()->getTarget() === 'trial_notice';
+    }
+
+    /**
+     * @return boolean
+     */
+    protected function isTrialPeriodExpired()
+    {
+        return \XLite::isTrialPeriodExpired();
+    }
 }

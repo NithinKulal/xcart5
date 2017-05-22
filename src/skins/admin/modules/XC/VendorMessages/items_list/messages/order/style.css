@@ -1,0 +1,180 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Order messages list style
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.order-messages .messages {
+    margin-bottom: 20px;
+}
+
+.order-messages .messages .message {
+    position: relative;
+    border-left: 2px solid #ccc;
+    margin-bottom: 10px;
+    padding: 13px 12px 10px;
+    color: #666;
+    font-size: 12px;
+}
+
+.order-messages .messages .message:last-child {
+    margin-bottom: 0;
+}
+
+.order-messages .messages .message.author-admin,
+.order-messages .messages .message.author-vendor
+{
+    background-color: #f9fbfc;
+    border-left-color: #4f92c3;
+}
+
+.order-messages.multivendor-enabled .messages .message.author-admin {
+    background-color: #fefcf5;
+    border-left-color: #ef6c00;
+}
+
+.order-messages .messages .message .author,
+.order-messages .messages .message .body,
+.order-messages .messages .message .date
+{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+.order-messages .messages .message .author {
+    color: #111;
+    font-weight: bold;
+}
+
+.order-messages .messages .message.author-vendor .author,
+.order-messages .messages .message.author-admin .author
+{
+    color: #5194c5;
+}
+
+.order-messages.multivendor-enabled .messages .message.author-admin .author {
+    color: #ef6c00;
+}
+
+.order-messages .messages .message .body {
+    margin-top: 3px;
+}
+
+.order-messages .messages .message .date {
+    color: #999;
+    position: absolute;
+    top: 14px;
+    right: 13px;
+    font-size: 11px;
+}
+
+.order-messages .messages .separator {
+    text-align: center;
+    margin-bottom: 10px;
+    padding: 7px 12px 8px;
+}
+
+.order-messages .messages .separator.closed {
+    background-color: #f8f8f8;
+}
+
+.order-messages .messages .separator a {
+    text-decoration: none;
+}
+
+.order-messages .messages .separator.new {
+    text-align: center;
+    position: relative;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.order-messages .messages .separator.new div {
+    border-bottom: 1px solid #ef6c00;
+    height: 1px;
+    position: absolute;
+    width: 100%;
+    top: 15px;
+}
+
+.order-messages .messages .separator.new span {
+    display: inline-block;
+    color: #ef6c00;
+    background-color: #fff;
+    position: relative;
+    padding: 0 12px;
+    font-weight: bold;
+}
+
+.order-messages .new-message textarea {
+    padding: 8px 12px;
+    height: 80px;
+}
+
+.order-messages .new-message .body {
+    margin-bottom: 5px;
+}
+
+.order-messages .new-message .right {
+    float: right;
+}
+
+.order-messages .new-message.watch .watch-btn,
+.order-messages .new-message.unwatch .unwatch-btn
+{
+    display: none;
+}
+
+.order-messages .list-pager {
+    display: none;
+}
+
+.opened-dispute-note {
+    color: red;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.recipient .tab a,
+.recipient .tab-current > div
+{
+    position: relative;
+}
+
+.recipient .marks {
+    display: block;
+    position: absolute;
+    top: -6px;
+    right: -10px;
+}
+
+.recipient .dispute {
+    display: inline-block;
+    color: red;
+    font-weight: bold;
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 0 3px;
+    min-width: 16px;
+    line-height: 16px;
+    font-size: 12px;
+    text-align: center;
+    vertical-align: top;
+    margin-left: 3px;
+}
+
+.recipient .count-unread {
+    display: inline-block;
+    background-color: #f37c29;
+    border-radius: 16px;
+    color: #fff;
+    padding: 0 3px;
+    min-width: 16px;
+    line-height: 16px;
+    font-size: 10px;
+    text-align: center;
+    vertical-align: top;
+    margin-left: 3px;
+}

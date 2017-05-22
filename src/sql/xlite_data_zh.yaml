@@ -74,7 +74,3 @@ XLite\Model\Config:
 XLite\Model\Language:
   - code: en
     enabled: false
-
-XLite\Model\Payment\Method:
-  - service_name: Pilibaba
-    added: true

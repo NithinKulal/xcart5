@@ -11,15 +11,6 @@
   .products {
     overflow: visible;
 
-    & > .popover {
-      text-align: center;
-
-      a {
-        font-style: normal;
-        text-decoration: none;
-      }
-    }
-
     li.product-cell {
       display: inline-block;
       width: 120px;
@@ -29,6 +20,11 @@
       padding-right: 0;
       overflow: visible;
       float: none;
+
+      .two-sidebars & {
+        float: none;
+        width: 120px;
+      }
 
       .no-sidebars & {
         float: none;
@@ -84,5 +80,15 @@
         }
       }
     }
+  }
+}
+
+
+.recently-viewed-in-popover {
+  text-align: center;
+
+  a {
+    font-style: normal;
+    text-decoration: none;
   }
 }

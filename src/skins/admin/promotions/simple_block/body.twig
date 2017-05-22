@@ -1,0 +1,9 @@
+{##
+ # Simple promo block
+ #}
+
+{{ widget(template='promo.twig',
+          promoId=this.getPromoId(),
+          promoContent=this.getPromoContent(),
+          additionalClasses=this.getAdditionalClasses()
+  ) }}

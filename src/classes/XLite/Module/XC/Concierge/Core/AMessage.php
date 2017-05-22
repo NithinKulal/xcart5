@@ -18,6 +18,8 @@ abstract class AMessage
     const TYPE_ALIAS    = 'alias';
     const TYPE_RESET    = 'reset';
 
+    protected $integrations;
+
     /**
      * @return string
      */
@@ -29,9 +31,11 @@ abstract class AMessage
     abstract public function getArguments();
 
     /**
+     * @param string $integration
+     *
      * @return array
      */
-    public function toArray()
+    public function toArray($integration = '')
     {
         return [
             'type'      => $this->getType(),
@@ -40,10 +44,33 @@ abstract class AMessage
     }
 
     /**
+     * @return mixed
+     */
+    public function getIntegrations()
+    {
+        return $this->integrations;
+    }
+
+    /**
+     * @param mixed $integrations
+     */
+    public function setIntegrations($integrations)
+    {
+        $this->integrations = $integrations;
+    }
+
+    /**
      * @return array
      */
     protected function getOptions()
     {
-        return Mediator::getInstance()->getOptions();
+        $result = Mediator::getInstance()->getOptions();
+
+        $integrations = $this->getIntegrations();
+        if ($integrations) {
+            $result['integrations'] = $integrations;
+        }
+
+        return $result;
     }
 }

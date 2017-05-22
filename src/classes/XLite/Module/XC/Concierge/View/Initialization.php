@@ -26,7 +26,7 @@ class Initialization extends \XLite\View\AView
      */
     public function getJSFiles()
     {
-        $list = parent::getJSFiles();
+        $list   = parent::getJSFiles();
         $list[] = 'modules/XC/Concierge/head.js';
 
         return $list;
@@ -38,7 +38,7 @@ class Initialization extends \XLite\View\AView
     protected function isVisible()
     {
         return parent::isVisible()
-        && $this->getMediator()->getWriteKey();
+            && $this->getMediator()->getWriteKey();
     }
 
     /**
@@ -78,11 +78,14 @@ class Initialization extends \XLite\View\AView
     {
         $controller = \XLite::getController();
 
+        $pageMessage = new Page($controller->getConciergeCategory(), $controller->getConciergeTitle());
+        $pageMessage->setIntegrations(['All' => true, 'Intercom' => false]);
+        $pageMessageIntercom = clone $pageMessage;
+        $pageMessageIntercom->setIntegrations(['All' => false, 'Intercom' => true]);
+
         $t = array_merge(
             $this->getMediator()->getIdentifyMessage(),
-            [
-                new Page($controller->getConciergeCategory(), $controller->getConciergeTitle()),
-            ],
+            [$pageMessage->toArray(), $pageMessageIntercom->toArray('intercom')],
             $this->getMediator()->getMessages()
         );
 

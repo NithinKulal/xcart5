@@ -64,49 +64,4 @@ class BannerRotation extends \XLite\Controller\Admin\Settings
     {
         return \XLite\Core\Database::getRepo('XLite\Model\Config')->findByCategoryAndVisible('BannerRotation');
     }
-
-    /**
-     * Get recommended module URL
-     *
-     * @return string
-     */
-    public function getRecommendedModuleURL()
-    {
-        if (!isset($this->recommendedModuleURL)) {
-            $module = \XLite\Core\Database::getRepo('XLite\Model\Module')->findOneBy(
-                array(
-                    'author' => 'QSL',
-                    'name'   => 'Banner',
-                ),
-                array(
-                    'fromMarketplace' => 'ASC',
-                )
-            );
-
-            if ($module && !$module->getEnabled()) {
-                // Module disabled or not installed
-                $this->recommendedModuleURL = $module->getFromMarketplace()
-                    ? $module->getMarketplaceURL()
-                    : $module->getInstalledURL();
-            }
-
-            if (empty($this->recommendedModuleURL)) {
-                $this->recommendedModuleURL = '';
-            }
-        }
-
-        return $this->recommendedModuleURL;
-    }
-
-    /**
-     * Return text of recommended module URL
-     *
-     * @return string
-     */
-    public function getRecommendedModuleText()
-    {
-        return $this->getRecommendedModuleURL()
-            ? static::t('Get a more powerful banner system for your store', array('url' => $this->getRecommendedModuleURL()))
-            : '';
-    }
 }

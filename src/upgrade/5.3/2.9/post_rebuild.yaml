@@ -1,0 +1,9 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Data
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - { name: interval, category: BannerRotation, translations: [{ code: en, option_name: 'Banner interval (in seconds)', option_comment: 'Set to "0" to disable automatic rotation' }] }

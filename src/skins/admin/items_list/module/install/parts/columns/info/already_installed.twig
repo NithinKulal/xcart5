@@ -5,7 +5,11 @@
  #}
 
 {% if this.isInstalled(this.module) %}
-  <div class="installed">{{ t('Installed') }}</div>
+  {% if this.isEnabled(this.module) %}
+    <div class="installed">{{ t('Installed') }}</div>
+  {% else %}
+    <div class="installed-disabled">{{ t('Disabled') }}</div>
+  {% endif %}
 {% endif %}
 {% if this.isInstalled(this.module) %}
   <div class="view-module-in-list">

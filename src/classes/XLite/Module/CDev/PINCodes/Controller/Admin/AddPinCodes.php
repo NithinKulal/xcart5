@@ -31,11 +31,11 @@ class AddPinCodes extends \XLite\Controller\Admin\AAdmin
      */
     protected function doActionAdd()
     {
-        $stream = fopen('data://text/plain,' . \XLite\Core\Request::getInstance()->codes, 'r');
-        $this->addFromStreamAction($stream);
-        if ($stream) {
-            fclose($stream);
-        }
+        $codes = \XLite\Core\Request::getInstance()->codes;
+
+        $codes = array_filter(array_map('trim', explode("\n", $codes)));
+
+        $this->addPinCodes($codes);
     }
 
     /**
@@ -55,9 +55,85 @@ class AddPinCodes extends \XLite\Controller\Admin\AAdmin
             $this->buildUrl(
                 'product',
                 '',
-                array('product_id' => \XLite\Core\Request::getInstance()->product_id, 'page' => 'pin_codes')
+                ['product_id' => \XLite\Core\Request::getInstance()->product_id, 'page' => 'pin_codes']
             )
         );
+    }
+
+    /**
+     * Set sale price parameters for products list
+     *
+     * @param array $pinCodes
+     */
+    protected function addPinCodes($pinCodes)
+    {
+        $product = \XLite\Core\Database::getRepo('XLite\Model\Product')->find(
+            \XLite\Core\Request::getInstance()->product_id
+        );
+
+        if (!$product) {
+            \XLite\Core\TopMessage::addError('Product not found');
+
+        } elseif (!empty($pinCodes) && is_array($pinCodes)) {
+            $created = 0;
+            $duplicates = 0;
+            $exceededLength = 0;
+            $maxLength = 64;
+
+            $repo = \XLite\Core\Database::getRepo('XLite\Module\CDev\PINCodes\Model\PinCode');
+            $i = 0;
+
+            foreach ($pinCodes as $code) {
+                if (strlen($code) > $maxLength) {
+                    $exceededLength++;
+                    continue;
+                }
+
+                if (!$repo->findOneBy([
+                    'product' => $product,
+                    'code'    => $code,
+                ])) {
+                    $object = $repo->insert(null, false);
+                    $object->setCode($code);
+                    $object->setProduct($product);
+                    $created++;
+                    $i++;
+                } else {
+                    $duplicates++;
+                }
+
+                if ($i > 1000) {
+                    \XLite\Core\Database::getEM()->flush();
+                    $i = 0;
+                }
+            }
+
+            $product->changeAmount($created);
+            \XLite\Core\Database::getEM()->flush();
+
+            if ($created) {
+                \XLite\Core\TopMessage::addInfo(
+                    static::t('X PIN codes created successfully.', ['count' => $created])
+                );
+            }
+            if ($duplicates) {
+                \XLite\Core\TopMessage::addWarning(
+                    static::t('X PIN code duplicates ignored.', ['count' => $duplicates])
+                );
+            }
+            if ($exceededLength) {
+                \XLite\Core\TopMessage::addError(
+                    static::t(
+                        'X PIN codes longer than Y characters ignored.',
+                        ['count' => $exceededLength, 'max' => $maxLength]
+                    )
+                );
+            }
+        }
+
+        if ($product && empty($created) && empty($duplicates) && empty($exceededLength)) {
+            \XLite\Core\TopMessage::addError(static::t('No valid code found.'));
+        }
     }
 
     /**
@@ -87,7 +163,7 @@ class AddPinCodes extends \XLite\Controller\Admin\AAdmin
                 . ' Request data: ' . print_r(\XLite\Core\Request::getInstance()->getData(), true),
                 LOG_ERR
             );
-            \XLite\Core\TopMessage::addError('Unknown error occurred');
+            \XLite\Core\TopMessage::addError('Product not found');
 
         } else {
             $codes = array();

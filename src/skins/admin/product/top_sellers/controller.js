@@ -40,32 +40,18 @@ TopSellersList.prototype.widgetClass = 'XLite\\View\\Product\\TopSellersBlock';
 TopSellersList.prototype.setHandler = function () {
     var self = this;
     jQuery('.period-box .field select', 'div.top-sellers').change(function () {
-        var id = jQuery('option:selected', this).val();
-        self.load({period: id});
-    })
+        self.load(self.getURLParams());
+    });
+    jQuery('.availability-box .field select', 'div.top-sellers').change(function () {
+        self.load(self.getURLParams());
+    });
+};
+
+TopSellersList.prototype.getURLParams = function () {
+    return {
+        period: jQuery('.period-box .field select option:selected', 'div.top-sellers').val(),
+        availability: jQuery('.availability-box .field select option:selected', 'div.top-sellers').val()
+    };
 };
 
 core.autoload(TopSellersList);
-
-/*
-
-jQuery().ready(
-  function() {
-
-    // Tabs
-    jQuery('.top-sellers .period-box .field select', this.base).change(
-      function () {
-
-        var id = jQuery('.top-sellers .period-box .field select option:selected').val();
-
-        var box = jQuery(this).parents('.top-sellers');
-        box.find('.block-container').hide();
-        box.find('#period-' + id).show();
-
-        return true;
-      }
-    );
-  }
-);
-
-    */

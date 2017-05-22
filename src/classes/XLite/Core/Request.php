@@ -67,7 +67,7 @@ class Request extends \XLite\Base\Singleton
     {
         return $this->languageCode;
     }
-    
+
     /**
      * @param $languageCode
      *
@@ -674,6 +674,7 @@ class Request extends \XLite\Base\Singleton
             'Googlebot-Mobile',
             'Googlebot-Image',
             'Adsbot-Google',
+            'Google Page Speed Insights',
         ),
         'Yahoo'            => array(
             'Slurp',

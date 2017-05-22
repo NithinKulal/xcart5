@@ -113,7 +113,18 @@ class Mediator extends \XLite\Base\Singleton
             if (!is_array($messages)) {
                 $messages = [];
             }
-            $messages[] = $message->toArray();
+
+            if (in_array($message->getType(), [AMessage::TYPE_PAGE, AMessage::TYPE_TRACK], true)) {
+                $message->setIntegrations(['All' => true, 'Intercom' => false]);
+                $messages[] = $message->toArray();
+
+                $message->setIntegrations(['All' => false, 'Intercom' => true]);
+                $messages[] = $message->toArray('intercom');
+
+            } else {
+                $messages[] = $message->toArray();
+            }
+
             \XLite\Core\Session::getInstance()->concierge_messages = $messages;
 
             $result = true;

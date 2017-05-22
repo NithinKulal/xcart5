@@ -109,6 +109,7 @@ class OrderModifierTotal extends \XLite\View\FormField\Inline\Input\Text\Price\A
             if (\XLite\Logic\Order\Modifier\Shipping::MODIFIER_CODE === $this->getEntity()->getCode()) {
                 // Reset selected rate to avoid cache
                 $this->getEntity()->getModifier()->resetSelectedRate();
+                $this->getEntity()->getModifier()->setMode(\XLite\Logic\Order\Modifier\AModifier::MODE_CART);
             }
 
             // Calculate surcharge and get new surcharge object or array of surcharge objects

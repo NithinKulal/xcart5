@@ -540,6 +540,43 @@ class Converter extends \XLite\Base\Singleton
     }
 
     /**
+     * Get timezone
+     *
+     * @param mixed $timeZone
+     *
+     * @return \DateTimeZone
+     * @throws \Exception
+     */
+    public static function getTimeZone($timeZone = null)
+    {
+        if ($timeZone instanceof \DateTimeZone) {
+            return $timeZone;
+        }
+
+        $zones = [];
+
+        if (null !== $timeZone) {
+            $zones[] = $timeZone;
+        }
+
+        if (\XLite\Core\Config::getInstance()->Units->time_zone) {
+            $zones[] = \XLite\Core\Config::getInstance()->Units->time_zone;
+        }
+
+        $zones[] = date_default_timezone_get();
+
+        foreach ($zones as $zone) {
+            try {
+                return new \DateTimeZone($zone);
+            } catch (\Exception $e) {
+                \XLite\Logger::getInstance()->log($e->getMessage(), LOG_NOTICE);
+            }
+        }
+
+        throw new \Exception('Unable to get TimeZone');
+    }
+
+    /**
      * Get server timstamp with considering server time zone
      *
      * @param \DateTimeZone|string $timeZone Server time zone OPTIONAL
@@ -548,12 +585,7 @@ class Converter extends \XLite\Base\Singleton
      */
     public static function time($timeZone = null)
     {
-        if (!empty($timeZone) && is_string($timeZone)) {
-            // If timeZone is string create DateTimeZone object
-            $timeZone = new \DateTimeZone($timeZone);
-        }
-
-        $time = ($timeZone instanceof \DateTimeZone ? new \DateTime('now', $timeZone) : new \DateTime());
+        $time = new \DateTime('now', static::getTimeZone($timeZone));
 
         return $time->getTimestamp();
     }
@@ -890,7 +922,7 @@ class Converter extends \XLite\Base\Singleton
 
         $user = new \DateTime();
         $timeZone = \XLite\Core\Config::getInstance()->Units->time_zone ?: $user->getTimezone()->getName();
-        $user->setTimezone(new \DateTimeZone($timeZone));
+        $user->setTimezone(static::getTimeZone($timeZone));
         $user = $user->getTimezone()->getOffset($user);
 
         $offset = $server - $user;
@@ -916,7 +948,7 @@ class Converter extends \XLite\Base\Singleton
 
         $user = new \DateTime();
         $timeZone = \XLite\Core\Config::getInstance()->Units->time_zone ?: $user->getTimezone()->getName();
-        $user->setTimezone(new \DateTimezone($timeZone));
+        $user->setTimezone(static::getTimeZone($timeZone));
         $user = $user->getTimezone()->getOffset($user);
 
         $offset = $server - $user;

@@ -8,6 +8,10 @@
  */
 
 jQuery(function() {
+    core.bind('block.product.details.postprocess', function() {
+      $('.cycle-slideshow').cycle();
+    });
+
     $('.cycle-cloak.cycle-slideshow').on('cycle-initialized', function(event, opts) {
         $(this).removeClass('.cycle-cloak');
     });

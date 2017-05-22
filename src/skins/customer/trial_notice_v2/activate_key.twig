@@ -1,0 +1,14 @@
+{##
+ # Trial notice
+ #}
+
+<div class="activate-key-form">
+
+  <div class="form">
+    {{ widget('XLite\\View\\Button\\Regular', label='Register license key', style='register-license-button', jsCode='window.open(\'' ~ this.getRegisterLicenseURL() ~ '\', \'_blank\');') }}
+    {{ widget('XLite\\View\\Button\\Regular', label='Purchase a premium license key', style='regular-main-button purchase-button', jsCode='window.open(\'' ~ this.getPurchaseURL() ~ '\', \'_blank\');') }}
+  </div>
+
+  <div class="additional-link">{{ t('Activate free license (all premium features will be removed).', {'url': this.getActivateFreeLicenseURL()})|raw }}</div>
+  <div class="additional-link">{{ t('Contact us if you have any questions.', {'url': this.getContactUsURL()})|raw }}</div>
+</div>

@@ -26,9 +26,18 @@ class Event extends \XLite\Base\Singleton
      * @param string $name    Element name
      * @param string $message Error message
      */
-    public static function invalidElement($name, $message)
+    public static function invalidElement($name, $message, $formIdentifier = null)
     {
-        self::__callStatic('invalidElement', array(array('name' => $name, 'message' => $message)));
+        $data = [
+            'name' => $name,
+            'message' => $message
+        ];
+
+        if ($formIdentifier) {
+            $data['form_identifier'] = $formIdentifier;
+        }
+
+        self::__callStatic('invalidElement', [ $data ]);
     }
 
     /**
@@ -39,7 +48,12 @@ class Event extends \XLite\Base\Singleton
      */
     public static function invalidForm($name, $message)
     {
-        self::__callStatic('invalidForm', array(array('name' => $name, 'message' => $message)));
+        $data = [
+            'name' => $name,
+            'message' => $message
+        ];
+
+        self::__callStatic('invalidForm', [ $data ]);
     }
 
     /**

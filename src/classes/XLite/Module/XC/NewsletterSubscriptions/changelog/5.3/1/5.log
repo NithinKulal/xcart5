@@ -1,0 +1,4 @@
+Version 5.3.1.5
+
+Fixes
+2017-03-29 - [Bug] If an email address was removed from newsletter subscriptions, the user with the same email address got deleted. #BUG-4732 (Sergey Elmanov) #NewsletterSubscriptions

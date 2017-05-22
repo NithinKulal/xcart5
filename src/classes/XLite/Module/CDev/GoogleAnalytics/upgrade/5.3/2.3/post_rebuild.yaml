@@ -1,0 +1,29 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Data
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  directives: { addModel: XLite\Model\ConfigTranslation }
+  - name: ga_code_version
+    category: CDev\GoogleAnalytics
+    translations:
+      - code: ru
+        option_name: 'Версия кода Google Analytics'
+  - name: ecommerce_enabled
+    category: CDev\GoogleAnalytics
+    translations:
+      - code: ru
+        option_name: 'Включить eCommerce Google Analytics'
+  - name: purchase_only_on_paid
+    category: CDev\GoogleAnalytics
+    translations:
+      - code: ru
+        option_name: 'Регистрировать покупку только после смены статуса на "Оплачен"'
+  - name: debug_mode
+    category: CDev\GoogleAnalytics
+    translations:
+      - code: ru
+        option_name: 'Режим отладки'

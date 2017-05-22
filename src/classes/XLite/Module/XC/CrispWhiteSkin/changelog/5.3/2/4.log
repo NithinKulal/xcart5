@@ -1,0 +1,6 @@
+Version 5.3.2.4
+
+Fixes
+2017-04-14 - [Bug] Removed a few commented out code lines. #BUG-4794 (Michael Lipinski) #CrispWhiteSkin
+2017-04-12 - [Bug] In crispwhite, the authentication form on mobile devices could not be scrolled. #BUG-4763 (Michael Lipinski) #Core #CrispWhiteSkin
+2017-03-29 - [Bug] In Crisp White, after adding a product to the shopping cart from the details page, the carousel with detailed images stopped functioning. #BUG-4723 (Michael Lipinski) #CrispWhiteSkin

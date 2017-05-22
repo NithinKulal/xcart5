@@ -476,23 +476,11 @@ abstract class ACustomer extends \XLite\Controller\AController
             $this->getCart()->getEventFingerprint($this->getCartFingerprintExclude())
         );
 
-        $postponeCellName = 'initialCartFingerprintPostponed' . $this->getCart()->getOrderId();
-        $actualDiff = [];
-
         if ($diff) {
             $actualDiff = $this->posprocessCartFingerprintDifference($diff);
             if ($actualDiff) {
-                if (!$this->isAJAX()) {
-                    \XLite\Core\Session::getInstance()->{$postponeCellName} = $actualDiff;
-                }
+                \XLite\Core\Event::updateCart($actualDiff);
             }
-        } elseif (\XLite\Core\Session::getInstance()->{$postponeCellName} && $this->isAJAX()) {
-            $actualDiff = \XLite\Core\Session::getInstance()->{$postponeCellName};
-            \XLite\Core\Session::getInstance()->{$postponeCellName} = null;
-        }
-        
-        if ($actualDiff) {
-            \XLite\Core\Event::updateCart($actualDiff);
         }
 
         return (bool)$diff;

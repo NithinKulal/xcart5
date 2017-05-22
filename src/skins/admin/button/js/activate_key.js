@@ -28,14 +28,6 @@ PopupButtonActivateKey.prototype.callback = function (selector, link)
       this.commonController.backgroundSubmit = false;
     }
   );
-
-  var moduleLicenseKeyForm = jQuery('.license-key-form.module-activation', selector);
-  moduleLicenseKeyForm.hide();
-  jQuery('.open-license-key-form', selector).bind('click', function () {
-    moduleLicenseKeyForm.show();
-
-    return false;
-  });
 };
 
 // Autoloading new POPUP widget

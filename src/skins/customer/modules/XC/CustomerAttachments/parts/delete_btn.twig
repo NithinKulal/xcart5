@@ -1,0 +1,7 @@
+{##
+ # Delete attachment item button
+ #
+ # @ListChild (list="customer.attachments.popup.item", weight="40")
+ #}
+
+{{ widget('\\XLite\\View\\Button\\Image', style='delete-btn', label=t('Delete attachment'), jsCode='return jQuery(this).closest(\'form\').submit();') }}

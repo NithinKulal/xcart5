@@ -1,0 +1,82 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: access_key
+    category: CDev\AmazonS3Images
+    type: 'XLite\View\FormField\Input\Text'
+    orderby: 100
+    value: ''
+    translations:
+      - code: en
+        option_name: AWS access key
+  - name: secret_key
+    category: CDev\AmazonS3Images
+    type: 'XLite\View\FormField\Input\Secure'
+    orderby: 200
+    value: ''
+    translations:
+      - code: en
+        option_name: AWS secret key
+  - name: bucket
+    category: CDev\AmazonS3Images
+    type: 'XLite\View\FormField\Input\Text'
+    orderby: 300
+    value: ''
+    translations:
+      - code: en
+        option_name: S3 bucket name
+  - name: region
+    category: CDev\AmazonS3Images
+    value: ''
+  - name: cloudfront_domain
+    category: CDev\AmazonS3Images
+    type: 'XLite\View\FormField\Input\Text'
+    orderby: 500
+    value: ''
+    translations:
+      - code: en
+        option_name: Amazon CloudFront domain name
+  - name: cloudfront_protocol
+    category: CDev\AmazonS3Images
+    type: 'XLite\Module\CDev\AmazonS3Images\View\FormField\CloudFrontProtocol'
+    orderby: 600
+    value: 'http_or_https'
+    translations:
+      - code: en
+        option_name: Viewer protocol policy
+        option_comment: This setting determines the protocol used by X-Cart to form the image upload URL. If "HTTP or HTTPS" is selected in the Viewer protocol policy setting on the Amazon cloudFront end (which corresponds to using the protocol currently used for the page opened in the viewer's browser), please enable the same option here; otherwise (if you prefer to use HTTPS at all times) enable the option "HTTPS only".
+
+XLite\Model\LanguageLabel:
+  - { name: "Content images are currently stored on file system.", translations: [{ code: en, label: "Content images are currently stored on the file system." }] }
+  - { name: "Clicking the button will start the image transferring process. It will take some time, depending on server and application settings", translations: [{ code: en, label: "Clicking the button will start the image transferring process. It will take some time, depending on the server and application settings.<br /> After the migration is completed, all content images will be stored on Amazon S3 server." }] }
+  - { name: "Connection to Amazon S3 failed. Check whether the AWS Access key, AWS Secret key and bucket name specified in the module settings are correct.", translations: [{ code: en, label: "Connection to Amazon S3 failed. Check whether the AWS Access key, AWS Secret key and bucket name specified in the module settings are correct." }] }
+  - { name: "Images are being moved to the file system on your server. Now you can leave this page and open it later to check the progress.", translations: [{ code: en, label: "Images are being moved to the file system on your server. Now you can leave this page and open it later to check on the progress." }] }
+  - { name: "Images are being moved to Amazon S3 servers. Now you can leave this page and open it later to check the progress.", translations: [{ code: en, label: "Images are being moved to Amazon S3 servers. Now you can leave this page and open it later to check on the progress." }] }
+  - { name: "Images are being moved to the file system on your server. If you leave this page the process will be put on hold until you open it in your browser again.", translations: [{ code: en, label: "Images are being moved to the file system on your server. If you leave this page, the process will be put on hold until you open it in your browser again." }] }
+  - { name: "Images are being moved to Amazon S3 servers. If you leave this page the process will be put on hold until you open it in your browser again.", translations: [{ code: en, label: "Images are being moved to Amazon S3 servers. If you leave this page, the process will be put on hold until you open it in your browser again." }] }
+  - { name: "All content images are now stored on the Amazon S3 server.", translations: [{ code: en, label: "All content images are now stored on the Amazon S3 server." }] }
+  - { name: "Click the button below to thansfer them back to your localfile system.", translations: [{ code: en, label: "Click the button below to thansfer them back to your local file system." }] }
+  - { name: "Migrate from Amazon S3", translations: [{ code: en, label: "Migrate from Amazon S3" }] }
+  - { name: "Local file system", translations: [{ code: en, label: "Local file system" }] }
+  - { name: "Amazon S3", translations: [{ code: en, label: "Amazon S3" }] }
+  - { name: "Migrate to Amazon S3", translations: [{ code: en, label: "Migrate to Amazon S3" }] }
+  - { name: "Some of content images are currently stored of file system.", translations: [{ code: en, label: "Some of content images are currently stored on the file system." }] }
+  - { name: "Migration is in progress", translations: [{ code: en, label: "Migration is in progress" }] }
+  - { name: "Image files uploaded: X out of Y", translations: [{ code: en, label: "Image files uploaded: {{X}} out of {{Y}}" }] }
+  - { name: "Image files uploaded: X out of Y with errors", translations: [{ code: en, label: "Image files uploaded: {{X}} out of {{Y}} (errors: {{errors}}, warnings: {{warns}})" }] }
+  - { name: "Images uploaded", translations: [{ code: en, label: "Images uploaded" }] }
+  - { name: "Uploading image files to Amazon S3...", translations: [{ code: en, label: "Uploading image files to Amazon S3..." }] }
+  - { name: "Images moved to Amazon S3: {{count}}", translations: [{ code: en, label: "Images moved to Amazon S3: {{count}}" }] }
+
+  - { name: "Resized images uploaded", translations: [{ code: en, label: "Resized images uploaded" }] }
+  - { name: "Uploading resized image files to Amazon S3...", translations: [{ code: en, label: "Uploading resized image files to Amazon S3..." }] }
+  - { name: "Resized image files uploaded: X out of Y", translations: [{ code: en, label: "Resized image files uploaded: {{X}} out of {{Y}}" }] }
+  - { name: "Resized image files uploaded: X out of Y with errors", translations: [{ code: en, label: "Resized image files uploaded: {{X}} out of {{Y}} (errors: {{errors}}, warnings: {{warns}})" }] }
+  - { name: "Resized images moved to Amazon S3: {{count}}", translations: [{ code: en, label: "Resized images moved to Amazon S3: {{count}}" }] }
+  - { name: "HTTP or HTTPS", translations: [{ code: en, label: "HTTP or HTTPS" }] }
+  - { name: "HTTPS only", translations: [{ code: en, label: "HTTPS only" }] }

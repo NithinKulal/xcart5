@@ -7,12 +7,15 @@
  */
 
 namespace XLite\View\FormField\Select;
+use XLite\Logic\Order\Modifier\AModifier;
 
 /**
  * Shipping method
  */
 class ShipMethod extends \XLite\View\FormField\Select\Regular
 {
+    const PARAM_MODE_ORDER = 'mode_order';
+
     /**
      * Deleted key code
      */
@@ -41,6 +44,26 @@ class ShipMethod extends \XLite\View\FormField\Select\Regular
     protected $method;
 
     /**
+     * @inheritdoc
+     */
+    protected function defineWidgetParams()
+    {
+        parent::defineWidgetParams();
+
+        $this->widgetParams += [
+            static::PARAM_MODE_ORDER => new \XLite\Model\WidgetParam\TypeBool('Is order mode', false),
+        ];
+    }
+
+    /**
+     * @return boolean
+     */
+    protected function isOrderMode()
+    {
+        return (boolean)$this->getParam(static::PARAM_MODE_ORDER);
+    }
+
+    /**
      * Get current order entity
      *
      * @return \XLite\Model\Order
@@ -62,7 +85,7 @@ class ShipMethod extends \XLite\View\FormField\Select\Regular
         if (null === $this->modifier) {
             $this->modifier = $this->getOrderEntity()
                 ->getModifier(\XLite\Model\Base\Surcharge::TYPE_SHIPPING, 'SHIPPING');
-            $this->modifier->setMode(\XLite\Logic\Order\Modifier\AModifier::MODE_CART);
+            $this->modifier->setMode($this->isOrderMode() ? AModifier::MODE_ORDER : AModifier::MODE_CART);
 
             $this->method = $this->modifier->getMethod();
         }
@@ -85,15 +108,29 @@ class ShipMethod extends \XLite\View\FormField\Select\Regular
     }
 
     /**
-     * Get default options
-     *
-     * @return array
+     * @inheritdoc
      */
-    protected function getDefaultOptions()
+    protected function defineOptions()
     {
         return \XLite::getController()->isOrderEditable()
             ? $this->getShippingOptions()
-            : array();
+            : [];
+    }
+
+    /**
+     * getOptions
+     *
+     * @return array
+     */
+    protected function getOptions()
+    {
+        if (!$this->getParam(self::PARAM_OPTIONS)) {
+            $this->setWidgetParams([
+                static::PARAM_OPTIONS => $this->defineOptions()
+            ]);
+        }
+
+        return $this->getParam(self::PARAM_OPTIONS);
     }
 
     /**
@@ -104,9 +141,9 @@ class ShipMethod extends \XLite\View\FormField\Select\Regular
     protected function getShippingOptions()
     {
         if (null === $this->shippingOptions) {
-            $this->shippingOptions = array(
+            $this->shippingOptions = [
                 0 => static::t('None'),
-            );
+            ];
 
             if (!$this->getMethod() && $this->getOrderEntity()->getShippingMethodName()) {
                 $this->shippingOptions[static::KEY_DELETED]
@@ -225,7 +262,7 @@ class ShipMethod extends \XLite\View\FormField\Select\Regular
         }
 
         if ($this->getMethod()
-            && !in_array($this->getMethod()->getMethodId(), array_keys($this->shippingOptions))
+            && !in_array($this->getMethod()->getMethodId(), array_keys($this->getShippingOptions()))
         ) {
             $value = static::KEY_UNAVAILABLE;
         }

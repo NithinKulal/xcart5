@@ -9,7 +9,7 @@
 namespace XLite\Module\XC\BulkEditing\Logic\BulkEdit;
 
 /**
- * Quick data generator
+ * Bulk edit generator
  */
 class Generator extends \XLite\Base implements \SeekableIterator, \Countable
 {
@@ -26,21 +26,32 @@ class Generator extends \XLite\Base implements \SeekableIterator, \Countable
     protected $options;
 
     /**
+     * @var \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Step\AStep[]
+     */
+    protected $steps;
+
+    /**
+     * @var integer
+     */
+    protected $currentStep;
+
+    /**
      * Generator instance
      *
-     * @var Generator
+     * @var static
      */
     protected static $instance;
 
     /**
      * Returns generator if it is initialised or FALSE otherwise
      *
-     * @return Generator
+     * @return static
      */
     public static function getInstance()
     {
         if (null === static::$instance) {
             $state = \XLite\Core\Database::getRepo('XLite\Model\TmpVar')->getEventState(static::getEventName());
+
             static::$instance = ($state && isset($state['options']))
                 ? new static($state['options'])
                 : false;
@@ -53,8 +64,6 @@ class Generator extends \XLite\Base implements \SeekableIterator, \Countable
      * Run
      *
      * @param array $options Options
-     *
-     * @return void
      */
     public static function run(array $options)
     {
@@ -68,8 +77,6 @@ class Generator extends \XLite\Base implements \SeekableIterator, \Countable
 
     /**
      * Cancel
-     *
-     * @return void
      */
     public static function cancel()
     {
@@ -109,8 +116,6 @@ class Generator extends \XLite\Base implements \SeekableIterator, \Countable
 
     /**
      * Finalize
-     *
-     * @return void
      */
     public function finalize()
     {
@@ -157,11 +162,11 @@ class Generator extends \XLite\Base implements \SeekableIterator, \Countable
     /**
      * Get steps
      *
-     * @return array
+     * @return \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Step\AStep[]
      */
     public function getSteps()
     {
-        if (!isset($this->steps)) {
+        if (null === $this->steps) {
             $this->steps = $this->defineSteps();
             $this->processSteps();
         }
@@ -174,17 +179,17 @@ class Generator extends \XLite\Base implements \SeekableIterator, \Countable
      *
      * @param boolean $reset Reset flag OPTIONAL
      *
-     * @return \XLite\Logic\Export\Step\AStep
+     * @return \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Step\AStep
      */
     public function getStep($reset = false)
     {
-        if (!isset($this->currentStep) || $reset) {
+        if (null === $this->currentStep || $reset) {
             $this->currentStep = $this->defineStep();
         }
 
         $steps = $this->getSteps();
 
-        return isset($this->currentStep) && isset($steps[$this->currentStep]) ? $steps[$this->currentStep] : null;
+        return null !== $this->currentStep && isset($steps[$this->currentStep]) ? $steps[$this->currentStep] : null;
     }
 
     /**
@@ -201,8 +206,6 @@ class Generator extends \XLite\Base implements \SeekableIterator, \Countable
 
     /**
      * Process steps
-     *
-     * @return void
      */
     protected function processSteps()
     {
@@ -241,15 +244,22 @@ class Generator extends \XLite\Base implements \SeekableIterator, \Countable
                 if ($i < $step->count()) {
                     $currentStep = $n;
                     $step->seek($i);
-                    break;
 
-                } else {
-                    $i -= $step->count();
+                    break;
                 }
+
+                $i -= $step->count();
             }
         }
 
         return $currentStep;
+    }
+
+    public function initialize()
+    {
+        foreach ($this->getSteps() as $step) {
+            $step->initialize();
+        }
     }
 
     // }}}
@@ -260,8 +270,6 @@ class Generator extends \XLite\Base implements \SeekableIterator, \Countable
      * \SeekableIterator::seek
      *
      * @param integer $position Position
-     *
-     * @return void
      */
     public function seek($position)
     {
@@ -274,7 +282,7 @@ class Generator extends \XLite\Base implements \SeekableIterator, \Countable
     /**
      * \SeekableIterator::current
      *
-     * @return \XLite\Logic\Export\Step\AStep
+     * @return \XLite\Module\XC\BulkEditing\Logic\BulkEdit\Step\AStep
      */
     public function current()
     {
@@ -293,8 +301,6 @@ class Generator extends \XLite\Base implements \SeekableIterator, \Countable
 
     /**
      * \SeekableIterator::next
-     *
-     * @return void
      */
     public function next()
     {
@@ -307,8 +313,6 @@ class Generator extends \XLite\Base implements \SeekableIterator, \Countable
 
     /**
      * \SeekableIterator::rewind
-     *
-     * @return void
      */
     public function rewind()
     {
@@ -350,8 +354,6 @@ class Generator extends \XLite\Base implements \SeekableIterator, \Countable
      *
      * @param string $title Title
      * @param string $body  Body
-     *
-     * @return void
      */
     public function addError($title, $body)
     {

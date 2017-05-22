@@ -1,0 +1,5 @@
+Version 5.3.3.5
+
+Fixes
+2017-04-21 - [Bug] When using notfinishedorder and paying for the order with PayPal Express, an error occurred. #BUG-4797 (Eugene Dementjev) #Core #Paypal #MultiVendor #NotFinishedOrders
+2017-03-17 - [Bug] If in PayPal settings an email address was entered in the "Email address to receive PayPal payment" field, but the method "АPI credentials for payments and post-checkout operations" was selected, the setting "PayPal account e-mail" in PayPal Credit was blocked. #BUG-4649 (Michael Lipinski) #Paypal

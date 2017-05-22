@@ -1,0 +1,13 @@
+{##
+ # Customer attachment form
+ #}
+{% if this.isAttachmentsAvailable() %}
+  <ul class="attribute-values customer-attachments-values">
+      <li>
+          <span class="title">{{ t('Attach file') }}</span>
+          <input type="file" multiple name="customer_attachments[]" id="customer-attachments" class="{{ this.getInputClassString() }}" accept="{{ this.getAcceptString() }}">
+          {{ widget('\\XLite\\Module\\XC\\CustomerAttachments\\View\\AttachmentDescription', isDetailPage='true') }}
+      </li>
+  
+  </ul>
+{% endif %}

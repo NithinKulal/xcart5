@@ -147,11 +147,7 @@ class Moneybookers extends \XLite\Model\Payment\Base\Iframe
         'VSD'   => array('GBR'),
         'VSE'   => true,
         'MAE'   => array('GBR', 'ESP', 'AUT'),
-        'SLO'   => array('GBR'),
         'AMX'   => true,
-        'DIN'   => true,
-        'JCB'   => true,
-        'LSR'   => array('IRL'),
         'GCB'   => array('FRA'),
         'DNK'   => array('DNK'),
         'PSP'   => array('ITA'),
@@ -167,23 +163,6 @@ class Moneybookers extends \XLite\Model\Payment\Base\Iframe
         'NPY'   => array('AUT'),
         'PLI'   => array('AUS'),
         'PWY'   => array('POL'),
-        'PWY5'  => array('POL'),
-        'PWY6'  => array('POL'),
-        'PWY7'  => array('POL'),
-        'PWY14' => array('POL'),
-        'PWY15' => array('POL'),
-        'PWY17' => array('POL'),
-        'PWY18' => array('POL'),
-        'PWY19' => array('POL'),
-        'PWY20' => array('POL'),
-        'PWY21' => array('POL'),
-        'PWY22' => array('POL'),
-        'PWY25' => array('POL'),
-        'PWY26' => array('POL'),
-        'PWY28' => array('POL'),
-        'PWY32' => array('POL'),
-        'PWY33' => array('POL'),
-        'PWY36' => array('POL'),
         'EPY'   => array('BGR'),
         'NTL'   => true,
         'PSC'   => array('ASM','AUT','BEL','CAN','HRV','CYP','CZE','DNK','FIN','FRA','DEU','GUM','HUN','IRL','ITA','LVA','LUX','MLT','MEX','NLD','MNP','NOR','POL','PRT','PRI','ROU','SVK','SVN','ESP','SWE','CHE','TUR','GBR','USA','VIR'),
@@ -213,11 +192,7 @@ class Moneybookers extends \XLite\Model\Payment\Base\Iframe
         'VSD'   => 'powered-btn-visadebit-90x45.png',
         'VSE'   => 'powered-btn-visacredit-90x45.png',
         'MAE'   => 'powered-btn-maestro-90x45.png',
-        'SLO'   => 'powered-btn-solo-90x45.png',
         'AMX'   => 'powered-btn-amex-90x45.png',
-        'DIN'   => 'powered-btn-diners-90x45.png',
-        'JCB'   => 'powered-btn-jcb-90x45.png',
-        'LSR'   => 'powered-btn-laser-90x45.png',
         'GCB'   => 'cartebleue.gif',
         'DNK'   => 'powered-btn-dankort-90x45.png',
         'PSP'   => 'powered-btn-postepay-90x45.png',
@@ -242,22 +217,6 @@ class Moneybookers extends \XLite\Model\Payment\Base\Iframe
         'NPY'   => 'powered-btn-eps-90x45.png',
         'PLI'   => 'powered-btn-poli-90x45.png',
         'PWY'   => false,
-        'PWY5'  => false,
-        'PWY6'  => 'powered-btn-inteligo-90x45.png',
-        'PWY7'  => 'powered-btn-multitransfer-90x45.png',
-        'PWY14' => false,
-        'PWY15' => false,
-        'PWY17' => 'powered-btn-investbank-90x45.png',
-        'PWY18' => false,
-        'PWY19' => false,
-        'PWY20' => 'powered-btn-wbk-90x45.png',
-        'PWY21' => false,
-        'PWY22' => false,
-        'PWY25' => 'powered-btn-mtransfer-90x45.png',
-        'PWY26' => 'powered-btn-inteligo-90x45.png',
-        'PWY28' => false,
-        'PWY32' => 'powered-btn-nordea-90x45.png',
-        'PWY33' => false,
     );
 
     /**
@@ -368,19 +327,8 @@ class Moneybookers extends \XLite\Model\Payment\Base\Iframe
      */
     public function getIconPath(\XLite\Model\Order $order, \XLite\Model\Payment\Method $method)
     {
-        $type = $this->convertServiceNameToType($method->getServiceName());
-        $icon = isset($this->paymentTypeIcons[$type]) ? $this->paymentTypeIcons[$type] : null;
-
-        if (is_array($icon)) {
-            $code3 = ($order->getProfile() && $order->getProfile()->getBillingAddress())
-                ? $order->getProfile()->getBillingAddress()->getCountry()->getCode3()
-                : null;
-            $icon = ($code3 && isset($icon[$code3])) ? $icon[$code3] : null;
-        }
-
-        return $icon
-            ? ('modules/CDev/Moneybookers/icons/' . $icon)
-            : parent::getIconPath($order, $method);
+        return $this->getRealIconPath($method)
+            ?: parent::getIconPath($order, $method);
     }
 
     /**
@@ -537,25 +485,35 @@ class Moneybookers extends \XLite\Model\Payment\Base\Iframe
      *
      * @return string
      */
-    public function getAdminIconURL(\XLite\Model\Payment\Method $method)
+    public function getRealIconPath(\XLite\Model\Payment\Method $method)
     {
         $name = str_replace('Moneybookers.', '', $method->getServiceName());
 
         if (strpos($name, 'PWY') !== false) {
             $name = 'PWY';
         }
-        if (in_array($name, ['ADB', 'AOB', 'ACI'], true) !== false) {
-            $name = 'ADB';
-        }
 
         $path = 'modules/CDev/Moneybookers/logos/' . $name .'.png';
 
-        $layoutManager = \XLite\Core\Layout::getInstance();
-        if (FileManager::isExists($layoutManager->getResourceFullPath($path))) {
-            return $layoutManager->getResourceWebPath($path);
-        }
+        return FileManager::isExists(\XLite\Core\Layout::getInstance()->getResourceFullPath($path))
+            ? $path
+            : null;
+    }
 
-        return true;
+    /**
+     * Get payment method admin zone icon URL
+     *
+     * @param \XLite\Model\Payment\Method $method Payment method
+     *
+     * @return string
+     */
+    public function getAdminIconURL(\XLite\Model\Payment\Method $method)
+    {
+        $path = $this->getRealIconPath($method);
+
+        return $path
+            ? \XLite\Core\Layout::getInstance()->getResourceWebPath($path)
+            : true;
     }
 
     /**

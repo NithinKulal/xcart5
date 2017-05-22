@@ -282,12 +282,12 @@ class Transaction extends \XLite\View\ItemsList\Model\Table
      */
     protected function isProfileRemoved(\XLite\Model\Payment\Transaction $transaction)
     {
-        return !$this->getOrder($transaction)
+        $order = $this->getOrder($transaction);
+
+        return !$order
             || !$transaction->getProfile()
-            || (
-                $this->getOrder($transaction)->getOrigProfile()
-                && $this->getOrder($transaction)->getOrigProfile()->getOrder()
-            );
+            || !$order->getOrigProfile()
+            || ( $order->getOrigProfile() && $order->getOrigProfile()->getOrder() );
     }
 
     /**
@@ -589,6 +589,9 @@ class Transaction extends \XLite\View\ItemsList\Model\Table
         $result = parent::getSearchCondition();
 
         $result->{\XLite\Model\Repo\Payment\Transaction::P_ORDER_BY} = $this->getOrderBy();
+        if (!\XLite\Model\Payment\Transaction::showInitializedTransactions()) {
+            $result->{\XLite\Model\Repo\Payment\Transaction::SEARCH_EXCLUDE_INITIALIZED} = true;
+        }
 
         foreach (static::getSearchParams() as $modelParam => $requestParam) {
             $paramValue = $this->getParam($requestParam);

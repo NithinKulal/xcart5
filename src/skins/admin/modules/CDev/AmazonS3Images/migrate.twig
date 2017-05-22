@@ -1,0 +1,47 @@
+{##
+ # Migrate images
+ #}
+
+<div class="s3-migrate">
+
+  {% if this.isMigrateFromS3Visible() %}
+    <div class="s3-box">
+      {% form 'XLite\\Module\\CDev\\AmazonS3Images\\View\\Form\\Migrate' with {formAction: 'migrate_from_s3'} %}
+        <p class="note">
+          <strong>{{ t('All content images are now stored on the Amazon S3 server.') }}</strong>
+          {{ t('Click the button below to thansfer them back to your localfile system.') }}
+        </p>
+        {{ widget('XLite\\View\\Button\\Submit', label=t('Migrate from Amazon S3')) }}
+      {% endform %}
+    </div>
+  {% endif %}
+
+  {% if this.isMigrateToS3Visible() %}
+    <div class="no-s3-box">
+      {% form 'XLite\\Module\\CDev\\AmazonS3Images\\View\\Form\\Migrate' with {formAction: 'migrate_to_s3'} %}
+        <span class="fs">{{ t('Local file system') }}</span>
+        <span class="s3">{{ t('Amazon S3') }}</span>
+        {{ widget('XLite\\View\\Button\\Submit', label=t('Migrate to Amazon S3'), style='action') }}
+      {% endform %}
+      <p class="note">
+        {% if this.hasS3Images() %}
+          <strong>{{ t('Some of content images are currently stored of file system.') }}</strong>
+        {% else %}
+          <strong>{{ t('Content images are currently stored on file system.') }}</strong>
+        {% endif %}
+        {{ t('Clicking the button will start the image transferring process. It will take some time, depending on server and application settings')|raw }}
+      </p>
+    </div>
+  {% endif %}
+
+  {% if this.getMigrateStarted() %}
+    <div class="migrate-progress">
+      {% if 'migrateFromS3' == this.getMigrateStarted() %}
+        {{ widget('XLite\\View\\EventTaskProgress', event=this.getMigrateStarted(), title=t('Migration is in progress'), blockingNote=t('Images are being moved to the file system on your server. Now you can leave this page and open it later to check the progress.'), nonBlockingNote=t('Images are being moved to the file system on your server. If you leave this page the process will be put on hold until you open it in your browser again.')) }}
+      {% else %}
+        {{ widget('XLite\\View\\EventTaskProgress', event=this.getMigrateStarted(), title=t('Migration is in progress'), blockingNote=t('Images are being moved to Amazon S3 servers. Now you can leave this page and open it later to check the progress.'), nonBlockingNote=t('Images are being moved to Amazon S3 servers. If you leave this page the process will be put on hold until you open it in your browser again.')) }}
+      {% endif %}
+    </div>
+  {% endif %}
+
+</div>

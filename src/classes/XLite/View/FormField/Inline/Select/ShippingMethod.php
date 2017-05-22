@@ -7,12 +7,15 @@
  */
 
 namespace XLite\View\FormField\Inline\Select;
+use XLite\Logic\Order\Modifier\AModifier;
 
 /**
  * Shipping method
  */
 class ShippingMethod extends \XLite\View\FormField\Inline\Base\Single
 {
+    const PARAM_MODE_ORDER = 'mode_order';
+
     /**
      * Method ids
      *
@@ -34,6 +37,26 @@ class ShippingMethod extends \XLite\View\FormField\Inline\Base\Single
     }
 
     /**
+     * @inheritdoc
+     */
+    protected function defineWidgetParams()
+    {
+        parent::defineWidgetParams();
+
+        $this->widgetParams += [
+            static::PARAM_MODE_ORDER => new \XLite\Model\WidgetParam\TypeBool('Is order mode', false),
+        ];
+    }
+
+    /**
+     * @return boolean
+     */
+    protected function isOrderMode()
+    {
+        return (boolean)$this->getParam(static::PARAM_MODE_ORDER);
+    }
+
+    /**
      * Save widget value in entity
      *
      * @param array $field Field data
@@ -46,13 +69,13 @@ class ShippingMethod extends \XLite\View\FormField\Inline\Base\Single
         if ($shippingId !== \XLite\View\FormField\Select\ShipMethod::KEY_DELETED
             && $shippingId !== \XLite\View\FormField\Select\ShipMethod::KEY_UNAVAILABLE
         ) {
-            $shippingId = (int) $shippingId;
+            $shippingId = (int)$shippingId;
 
             $shippingMethod = $shippingId
                 ? \XLite\Core\Database::getRepo('XLite\Model\Shipping\Method')->find($shippingId)
                 : null;
 
-            if ((int) $this->getEntity()->getShippingId() !== $shippingId) {
+            if ((int)$this->getEntity()->getShippingId() !== $shippingId) {
                 $newName = $shippingMethod
                     ? $shippingMethod->getName()
                     : 'None';
@@ -127,7 +150,7 @@ class ShippingMethod extends \XLite\View\FormField\Inline\Base\Single
         if (null === $this->methodIds) {
             $modifier = $this->getEntity()
                 ->getModifier(\XLite\Model\Base\Surcharge::TYPE_SHIPPING, 'SHIPPING');
-            $modifier->setMode(\XLite\Logic\Order\Modifier\AModifier::MODE_CART);
+            $modifier->setMode($this->isOrderMode() ? AModifier::MODE_ORDER : AModifier::MODE_CART);
 
             /** @var \XLite\Model\Shipping\Rate $a */
             $this->methodIds = array_map(function ($a) {
@@ -139,6 +162,16 @@ class ShippingMethod extends \XLite\View\FormField\Inline\Base\Single
     }
 
     /**
+     * @inheritdoc
+     */
+    protected function prepareAdditionalFieldParams(array $field)
+    {
+        return parent::prepareAdditionalFieldParams($field) + [
+            static::PARAM_MODE_ORDER => $this->isOrderMode()
+        ];
+    }
+
+    /**
      * Get field name parts
      *
      * @param array $field Field
@@ -147,7 +180,7 @@ class ShippingMethod extends \XLite\View\FormField\Inline\Base\Single
      */
     protected function getNameParts(array $field)
     {
-        return array($field[static::FIELD_NAME]);
+        return [$field[static::FIELD_NAME]];
     }
 
     /**

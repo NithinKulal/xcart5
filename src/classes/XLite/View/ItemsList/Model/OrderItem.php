@@ -861,6 +861,26 @@ class OrderItem extends \XLite\View\ItemsList\Model\Table
     }
 
     /**
+     * @inheritdoc
+     */
+    protected function removeDumpEntity($entity)
+    {
+        $items = $this->getOrder()->getItems();
+
+        if ($items instanceof \Doctrine\Common\Collections\Collection) {
+            $items->removeElement($entity);
+        } elseif (is_array($items)) {
+            foreach ($items as $key => $item) {
+                if ($item === $entity) {
+                    unset($items[$key]);
+                }
+            }
+        }
+
+        parent::removeDumpEntity($entity);
+    }
+
+    /**
      * Undo new entity creation
      *
      * @param \XLite\Model\OrderItem $entity Order item entity

@@ -1,0 +1,14 @@
+{##
+ # Product market price
+ #
+ # @ListChild (list="product.plain_price.tail", weight="45")
+ #}
+
+{% if this.isShowMarketPrice() %}
+  <div class="product-details-market-price">
+    <div class="text">
+      {{ widget_list('market_price.text', type='nested') }}
+    </div>
+    {{ widget_list('market_price.label', type='nested') }}
+  </div>
+{% endif %}

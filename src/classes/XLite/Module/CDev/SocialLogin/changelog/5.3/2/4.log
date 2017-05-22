@@ -1,0 +1,4 @@
+Version 5.3.2.4
+
+Fixes
+2017-05-16 - [Bug] Login via social buttons in the header of the Standard skin redirected the user to a blank page. Fixed. #BUG-4860 (Sergey Elmanov) #SocialLogin

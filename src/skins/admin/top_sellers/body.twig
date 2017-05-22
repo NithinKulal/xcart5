@@ -22,9 +22,9 @@
         <td class="item">
           {% if val %}
             {% if val.product.product_id %}
-              <a href="{{ url('product', '', {'product_id': val.product.product_id}) }}">{{ val.name }}</a>
+              <a href="{{ url('product', '', {'product_id': val.product.product_id}) }}">{{ this.processName(val)|raw }}</a>
             {% else %}
-              <span>{{ val.name }} ({{ t('deleted') }})</span>
+              <span>{{ this.processName(val)|raw }}</span>
             {% endif %}
           {% else %}
             <span>&mdash;</span>

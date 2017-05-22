@@ -375,6 +375,12 @@ abstract class Address extends \XLite\Model\AEntity
         $result = array();
 
         foreach ($this->getRequiredFieldsByType($atype) as $name) {
+            $countryHasStates = $this->getCountry() && $this->getCountry()->hasStates();
+
+            if ($name === 'state_id' && !$countryHasStates) {
+                continue;
+            }
+
             $method = 'get' . \XLite\Core\Converter::getInstance()->convertToCamelCase($name);
 
             if (!strlen($this->$method())) {
@@ -488,11 +494,28 @@ abstract class Address extends \XLite\Model\AEntity
 
         foreach (\XLite\Core\Database::getRepo('XLite\Model\AddressField')->findAllEnabled() as $field) {
             $name = $field->getServiceName();
+
+            if (
+                ($name === 'custom_state' && $this->hasStates())
+                || ($name === 'state_id' && !$this->hasStates())
+            ) {
+                continue;
+            }
+
             $methodName = 'get' . \XLite\Core\Converter::getInstance()->convertToCamelCase($name);
             $result[$name] = $this->$methodName();
         }
 
         return $result;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasStates()
+    {
+        return $this->getCountry()
+            && $this->getCountry()->hasStates();
     }
 
     // }}}

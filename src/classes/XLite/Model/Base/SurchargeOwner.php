@@ -146,6 +146,8 @@ abstract class SurchargeOwner extends \XLite\Model\AEntity
     /**
      * Get surcharge totals
      *
+     * @param array $surcharges
+     *
      * @return array
      */
     public function calculateSurchargeTotals($surcharges)

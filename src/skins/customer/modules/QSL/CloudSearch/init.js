@@ -23,7 +23,7 @@
         positionPopupAt: function (searchInput) {
             var elem = searchInput.closest('.simple-search-box');
 
-            return elem.length == 1 ? elem : searchInput;
+            return elem.length === 1 ? elem : searchInput;
         }
     };
 

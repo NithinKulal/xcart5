@@ -7,22 +7,29 @@
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
 
-define('form_model_start', ['js/vue/vue', 'ready'], function (XLiteVue) {
-  if (typeof(Inputmask) !== 'undefined') {
-    Inputmask.extendAliases({
-      xcdecimal: {
-        alias:          "numeric",
-        digitsOptional: false,
-        groupSeparator: "",
-        radixPoint:     "."
-      }
-    });
-  }
+core.microhandlers.add(
+    'formModel',
+    'xlite-form-model',
+    function (event, element) {
+      define('form_model_start', ['js/vue/vue', 'ready', 'form_model'], function (XLiteVue) {
 
-  XLiteVue.start();
-});
+        if (typeof(Inputmask) !== 'undefined') {
+          Inputmask.extendAliases({
+            xcdecimal: {
+              alias:          "numeric",
+              digitsOptional: false,
+              groupSeparator: "",
+              radixPoint:     "."
+            }
+          });
+        }
 
-define('form_model', ['js/vue/vue'], function (XLiteVue) {
+        XLiteVue.start(jQuery(element).parent());
+      });
+    }
+);
+
+define('form_model', ['js/vue/vue', 'form_model/sticky_panel'], function (XLiteVue, Panel) {
   var state = false;
 
   XLiteVue.component('xlite-form-model', {

@@ -7,6 +7,7 @@
  */
 
 namespace XLite\Model\Repo;
+use XLite\Model\QueryBuilder\AQueryBuilder;
 
 /**
  * The "order_item" model repository
@@ -50,7 +51,7 @@ class OrderItem extends \XLite\Model\Repo\ARepo
         $qb = $this->createQueryBuilder();
 
         $qb->addSelect('SUM(o.amount) as cnt')
-            ->andWhere($qb->expr()->isNotNull('o.object'))
+            ->innerJoin('o.object', 'obj')
             ->innerJoin('o.order', 'o1')
             ->innerJoin('o1.paymentStatus', 'ps')
             ->addSelect('o1.date')
@@ -58,11 +59,15 @@ class OrderItem extends \XLite\Model\Repo\ARepo
             ->setMaxResults($cnd->limit)
             ->addGroupBy('o.object')
             ->addOrderBy('cnt', 'desc')
-            ->addOrderBy('o.name', 'asc');
+            ->addOrderBy('o.object', 'asc');
 
         if ($cnd->currency) {
             $qb->innerJoin('o1.currency', 'currency', 'WITH', 'currency.currency_id = :currency_id')
                 ->setParameter('currency_id', $cnd->currency);
+        }
+
+        if ($cnd->availability && $cnd->availability !== \XLite\Controller\Admin\TopSellers::AVAILABILITY_ALL) {
+            $this->addTopSellersAvailabilityCondition($qb, $cnd->availability);
         }
 
         if (0 < $start) {
@@ -76,6 +81,17 @@ class OrderItem extends \XLite\Model\Repo\ARepo
         }
 
         return $qb;
+    }
+
+    /**
+     * Add availability condition
+     *
+     * @param AQueryBuilder $qb
+     * @param string $condition
+     */
+    protected function addTopSellersAvailabilityCondition($qb, $condition)
+    {
+        $qb->andWhere('obj.enabled = true AND (obj.inventoryEnabled = false OR obj.amount > 0)');
     }
 
     // }}}

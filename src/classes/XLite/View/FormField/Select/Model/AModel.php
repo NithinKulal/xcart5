@@ -204,11 +204,25 @@ abstract class AModel extends \XLite\View\FormField\AFormField
             'form-control',
         );
 
-        if ($this->getParam(static::PARAM_IS_MODEL_REQUIRED)) {
+        if ($this->isRequired()) {
+            $result[] = 'required';
+        }
+
+        if ($this->isModelRequired()) {
             $result[] = 'model-required';
         }
 
         return $result;
+    }
+
+    /**
+     * Is model required
+     *
+     * @return boolean
+     */
+    public function isModelRequired()
+    {
+        return $this->getParam(static::PARAM_IS_MODEL_REQUIRED);
     }
 
     /**

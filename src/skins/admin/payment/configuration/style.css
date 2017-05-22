@@ -91,7 +91,7 @@ button.add-method.top-button-add-method {
   display: inline-block;
 }
 
-.right-panel-payment-modules .g2a-logo {
+.right-panel-payment-modules .payments-banner {
   width: 280px;
 }
 
@@ -571,6 +571,7 @@ button.add-method.top-button-add-method {
   height: 50px;
   padding: 10px 0 10px 20px;
   line-height: 30px;
+  text-align: center;
 }
 
 .title-row .payment-logo img {

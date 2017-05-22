@@ -1,0 +1,66 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Fixtures
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: quantity
+    category: XC\CustomerAttachments
+    type: \XLite\View\FormField\Input\Text\Integer
+    widgetParameters: { min: 0 }
+    value: 10
+    translations:
+      - code: en
+        option_name: Max number of files that can be attached
+      - code: ru
+        option_name: Максимальное количество файлов, которые можно присоединить
+  - name: extensions
+    category: XC\CustomerAttachments
+    type: text
+    widgetParameters: { comment: 'Enter file extensions separated by comma; for example, "jpg,txt,svg"' }
+    translations:
+      - code: en
+        option_name: Allowed file extensions
+      - code: ru
+        option_name: Допустимые расширения
+  - name: file_size
+    category: XC\CustomerAttachments
+    type: \XLite\Module\XC\CustomerAttachments\View\FormField\Input\Text\FileSizeInteger
+    widgetParameters: { min: 0 }
+    value: 0
+    translations:
+      - code: en
+        option_name: Max file size (MB). Set to "0" (zero) for unlimited
+      - code: ru
+        option_name: Максимальный размер файла (МБ). Используйте "0" (ноль) при отсутствии ограничений размера
+
+
+XLite\Model\LanguageLabel:
+ - { name: 'Enter file extensions separated by comma; for example, "jpg,txt,svg"', translations: [{ code: en, label: 'Enter file extensions separated by comma; for example, "jpg,txt,svg"' }, { code: ru, label: 'Введите расширения файлов, разделяя запятой; например, "jpg,txt,svg"' }] }
+ - { name: "Web server max upload file size limit is X", translations: [{ code: en, label: "Web server max upload file size limit is {{size}}" }, { code: ru, label: "Максимальный размер загружаемого файла, разрешенный Вашим веб-сервером - {{size}}" }] }
+ - { name: "You can attach X more file(s)", translations: [{ code: en, label: "You can attach {{quantity}} more file(s)" }, { code: ru, label: "Вы можете добавить еще {{quantity}} файл(ов)" }] }
+ - { name: "You can attach X file(s)", translations: [{ code: en, label: 'You can attach <span class="files-count">{{quantity}}</span> file(s)' }, { code: ru, label: 'Вы можете добавить <span class="files-count">{{quantity}}</span> файл(ов)' }] }
+ - { name: "Max allowed file size is X", translations: [{ code: en, label: "Max allowed file size is {{size}}" }, { code: ru, label: "Максимально допустимый размер файла - {{size}}" }] }
+ - { name: "Allowed file extensions: X", translations: [{ code: en, label: "Allowed file extensions: {{extensions}}" }, { code: ru, label: "Допустимые расширения: {{extensions}}" }] }
+ - { name: "Attached files:", translations: [{ code: en, label: "Attached files:" }, { code: ru, label: "Присоединенные файлы:" }] }
+ - { name: "Upload file", translations: [{ code: en, label: "Upload file" }, { code: ru, label: "Загрузить файл" }] }
+ - { name: "Delete attachment", translations: [{ code: en, label: "Delete attachment" }, { code: ru, label: "Удалить файл" }] }
+ - { name: "Attach files", translations: [{ code: en, label: "Attach files" }, { code: ru, label: "Присоединить файлы" }] }
+ - { name: "X file(s) attached", translations: [{ code: en, label: '<span class="files-count">{{quantity}}</span> file(s) attached' }, { code: ru, label: '<span class="files-count">{{quantity}}</span> файлов загружено' }] }
+ - { name: "Allow buyers to attach files to this product", translations: [{ code: en, label: "Allow buyers to attach files to this product" }, { code: ru, label: "Разрешить покупателям прикреплять файлы к этому продукту" }] }
+ - { name: "The files have been attached successfully", translations: [{ code: en, label: "The files have been attached successfully" }, { code: ru, label: "Файлы загружены" }] }
+ - { name: "Unsupported file extension", translations: [{ code: en, label: "Unsupported file extension" }, { code: ru, label: "Неподдерживаемый тип файла" }] }
+ - { name: "Cannot attach the file. The number of attached files may not exceed X", translations: [{ code: en, label: "Cannot attach the file. The number of attached files may not exceed {{quantity}}" }, { code: ru, label: "Количество файлов не может превышать {{quantity}}" }] }
+ - { name: "Cannot attach the file. The maximum attached file size may not exceed X MB", translations: [{ code: en, label: "Cannot attach the file. The maximum attached file size may not exceed {{size}} MB" }, { code: ru, label: "Максимальный размер файла не должен превышать {{size}} МБ" }] }
+ - { name: "File attachments are not allowed for this product", translations: [{ code: en, label: "File attachments are not allowed for this product" }, { code: ru, label: "Привязка файлов к этому продукту недоступна" }] }
+ - { name: "File uploads forbidden by web server", translations: [{ code: en, label: "File uploads forbidden by web server" }, { code: ru, label: "Загрузка файлов запрещена веб-сервером" }] }
+ - { name: "Attachment X is deleted", translations: [{ code: en, label: "Attachment {{filename}} is deleted" }, {code: ru, label: 'Присоединенный файл {{filename}} удален' }] }
+ - { name: "Customer`s attachments were changed by X", translations: [{ code: en, label: "Customer attachments were changed by {{user}}" }, { code: ru, label: 'Прикрепленные покупателем файлы были изменены пользователем {{user}}' }] }
+ - { name: "File Attaching is mandatory for this product", translations: [{ code: en, label: "File Attaching is mandatory for this product" }, { code: ru, label: "Загрузка файла необходима для добавления продукта в корзину" }] }
+ - { name: "You have to attach file to product", translations: [{ code: en, label: "You must attach a file to the product" }, { code: ru, label: "Вам необходимо присоединить файл для продукта" }] }
+ - { name: "You have to attach file", translations: [{ code: en, label: "You must attach a file" }, { code: ru, label: "Вам необходимо присоединить файл" }] }
+ - { name: "Attach file", translations: [{ code: en, label: "Attach file" }, { code: ru, label: "Присоединить файл" }] }
+ - { name: "Some files haven`t been attached", translations: [{ code: en, label: "Some files have not been attached" }, { code: ru, label: "Некоторые файлы не были загружены" }] }
+

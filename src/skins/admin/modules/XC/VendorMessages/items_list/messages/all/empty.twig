@@ -1,0 +1,9 @@
+{##
+ # Messages list : empty
+ #}
+
+<div class="empty widget items-list widgetclass-{{ this.getWidgetClass() }} widgettarget-{{ this.getWidgetTarget() }} sessioncell-{{ this.getSessionCell() }}">
+    {{ this.displayCommentedData(this.getItemsListParams()) }}
+    <div class="img">{{ this.displaySVGImage('modules/XC/VendorMessages/images/no-messages.svg') }}</div>
+    <strong>{{ t('You Have No Messages') }}</strong>
+</div>

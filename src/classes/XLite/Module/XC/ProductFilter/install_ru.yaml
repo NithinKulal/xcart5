@@ -38,6 +38,7 @@ XLite\Model\Config:
     translations:
       - code: ru
         option_name: 'Порядок сортировки классовых атрибутов'
+        option_comment: 'Эта настройка влияет только на сами атрибуты, а не их значения. Значения сортируются в алфавитном порядке.'
 
 XLite\Model\LanguageLabel:
   - { name: 'Shopping options', translations: [{ code: ru, label: 'Поиск' }] }

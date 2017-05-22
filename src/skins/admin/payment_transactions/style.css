@@ -51,6 +51,7 @@
   width: 95%;
   overflow: hidden;
   display: inline-block;
+  vertical-align: middle;
 }
 
 .items-list.payment-transactions .profile-box .profile-email {

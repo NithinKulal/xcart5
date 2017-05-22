@@ -36,8 +36,12 @@ class SKU extends \XLite\View\FormField\Inline\Input\Text
     {
         $result = array(true, null);
         try {
+            /** @var \XLite\Module\XC\ProductVariants\Model\ProductVariant $productVariant */
             $productVariant = $this->getEntity();
-            $validator = new \XLite\Module\XC\ProductVariants\Core\Validator\VariantSKU($productVariant ? $productVariant->getId() : null);
+            $validator = new \XLite\Module\XC\ProductVariants\Core\Validator\VariantSKU(
+                $productVariant ? $productVariant->getId() : null,
+                $productVariant && $productVariant->getProduct() ? $productVariant->getProduct()->getId() : null
+            );
             $validator->validate($field['widget']->getValue());
         } catch (\Exception $e) {
             $result = array(

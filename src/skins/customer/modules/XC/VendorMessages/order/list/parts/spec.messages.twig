@@ -1,0 +1,8 @@
+{##
+ # Orders list item : spec : date
+ #
+ # @ListChild (list="orders.children.spec", weight="350")
+ #}
+<li class="messages-link {% if this.countUnreadMessages(this.order) %}unread{% else %}read{% endif %}">
+    <a href="{{ url('order_messages', '', {'order_number': this.order.order_number}) }}">{{ this.displaySVGImage('modules/XC/VendorMessages/images/mail.svg') }}<span>{% if this.countUnreadMessages(this.order) %}{{ t('X unread messages', {'count': this.countUnreadMessages(this.order)}) }}{% else %}{{ t('Contact seller') }}{% endif %}</span></a>
+</li>

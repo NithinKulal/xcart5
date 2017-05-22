@@ -1,0 +1,13 @@
+{##
+ # Messages list
+ #}
+
+{% if this.hasResults() %}
+    <table class="messages">
+        <tbody>
+            {% for order in this.getPageData() %}
+                {% include 'modules/XC/VendorMessages/items_list/messages/all/line.twig' %}
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}

@@ -1,0 +1,94 @@
+{##
+ # Messages list
+ #}
+
+{% if this.isRecipientSelectorVisible() %}
+  <div class="recipient clearfix">
+      <div class="tabbed-content-wrapper">
+          <div class="tabs-container">
+              <div class="page-tabs">
+
+                  <ul>
+                      {% for tabPage in this.getTabs() %}
+                        <li class="tab{% if tabPage.selected %}-current active{% endif %}">
+                            {% if tabPage.selected %}
+                                <a href="{{ tabPage.url|raw }}">
+                                    {{ t(tabPage.title) }}
+                                    {% if tabPage.marks_visible %}
+                                      <div class="marks">
+                                          {% if tabPage.has_dispute %}
+                                            <span class="dispute" title="{{ t('Dispute is open X by Y', this.disputeMessageArguments) }}">D</span>
+                                          {% endif %}
+                                          {% if tabPage.countUnread %}
+                                            <span class="count-unread">{{ tabPage.countUnread }}</span>
+                                          {% endif %}
+                                      </div>
+                                    {% endif %}
+                                </a>
+                            {% else %}
+                                <a href="{{ tabPage.url|raw }}">
+                                    {{ t(tabPage.title) }}
+                                    {% if tabPage.marks_visible %}
+                                      <div class="marks">
+                                          {% if tabPage.has_dispute %}
+                                            <span class="dispute" title="{{ t('Dispute is open X by Y', this.disputeMessageArguments) }}">D</span>
+                                          {% endif %}
+                                          {% if tabPage.countUnread %}
+                                            <span class="count-unread">{{ tabPage.countUnread }}</span>
+                                          {% endif %}
+                                      </div>
+                                    {% endif %}
+                                </a>
+                            {% endif %}
+                        </li>
+                      {% endfor %}
+                  </ul>
+
+              </div>
+          </div>
+      </div>
+  </div>
+  {% include 'modules/XC/VendorMessages/items_list/messages/order/items.twig' %}
+{% endif %}
+
+{% if this.isAllowDispute() %}
+    <div class="right action-buttons">
+        {% if this.isOpenedDispute() %}
+            {{ widget('XLite\\Module\\XC\\VendorMessages\\View\\Button\\CloseDispute', order=this.order, recipient_id=this.currentThreadOrder.getOrderId()) }}
+        {% else %}
+            {{ widget('XLite\\Module\\XC\\VendorMessages\\View\\Button\\OpenDispute', order=this.order, recipient_id=this.currentThreadOrder.getOrderId()) }}
+        {% endif %}
+        {#% if this.isOpenedDispute() %}
+            <a href="{{ url('order_messages', 'close_dispute', {'order_number': this.order.getOrderNumber(), 'recipient_id': this.currentThreadOrder.getOrderId()}) }}" onclick="return confirm('{{ t('Are you sure?') }}');">{{ this.displaySVGImage('modules/XC/VendorMessages/images/disputes.svg') }}<span>{{ t('Close dispute') }}</span></a>
+        {% else %}
+            <a href="{{ url('order_messages', 'open_dispute', {'order_number': this.order.getOrderNumber(), 'recipient_id': this.currentThreadOrder.getOrderId()}) }}" onclick="return confirm('{{ t('Are you sure?') }}');">{{ this.displaySVGImage('modules/XC/VendorMessages/images/disputes.svg') }}<span>{{ t('Open dispute') }}</span></a>
+        {% endif %#}
+    </div>
+{% endif %}
+
+{% if this.isDisplayAll() %}
+<ul class="messages">
+    {% for message in this.getPageData() %}
+    {% if this.isNewSeparatorVisible(message) %}
+      {{ widget(template='modules/XC/VendorMessages/items_list/messages/order/separator_new.twig', message=message) }}
+    {% endif %}
+    {{ widget(template='modules/XC/VendorMessages/items_list/messages/order/line.twig', message=message) }}
+    {% endfor %}
+    {% include 'modules/XC/VendorMessages/items_list/messages/order/separator_opened.twig' %}
+</ul>
+{% else %}
+<ul class="messages">
+    {% for message in this.getFirstData() %}
+    {{ widget(template='modules/XC/VendorMessages/items_list/messages/order/line.twig', message=message) }}
+    {% endfor %}
+    {% include 'modules/XC/VendorMessages/items_list/messages/order/separator_closed.twig' %}
+    {% for message in this.getLastData() %}
+    {% if this.isNewSeparatorVisible(message) %}
+      {{ widget(template='modules/XC/VendorMessages/items_list/messages/order/separator_new.twig', message=message) }}
+    {% endif %}
+    {{ widget(template='modules/XC/VendorMessages/items_list/messages/order/line.twig', message=message) }}
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% include 'modules/XC/VendorMessages/items_list/messages/order/create.twig' %}

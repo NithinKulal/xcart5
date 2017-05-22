@@ -1,0 +1,50 @@
+Version 5.3.2.9
+
+Fixes
+2017-04-24 - [Bug] Cache rebuilding was initiated on a request to cart.php (must be initiated only on a request to admin.php). Fixed. #BUG-4825 (Sergey Elmanov) #Core
+2017-04-21 - [Bug] When using notfinishedorder and paying for the order with PayPal Express, an error occurred. #BUG-4797 (Eugene Dementjev) #Core #Paypal #MultiVendor #NotFinishedOrders
+2017-04-21 - [Bug] When importing customers, one of the arguments was defined by a wrong data type. #BUG-4820 (Sergey Elmanov) #Core
+2017-04-21 - [Bug] Unconditional call for core.registerResources sometimes caused a js error. #BUG-4801 (Maxim Kuznetsov) #Core
+2017-04-21 - [Bug] Checkout could not be completed if default State was "Select one". #BUG-4814 (Michael Lipinski) #Core
+2017-04-18 - [Bug] SQL error if adding a free product to an order with $0 total. Fixed. #BUG-4809 (Eugene Dementjev) #Core
+2017-04-18 - [Bug] Added button titles to the sticky panel of item lists on the reviews page. #BUG-4657 (Michael Lipinski) #Core #RuTranslation
+2017-04-14 - [Bug] Sitemap display issue on mobile devices. Fixed. #BUG-4796 (Michael Lipinski) #Core
+2017-04-13 - [Bug] PDF invoices were attached to email notifications twice. #BUG-4790 (Michael Lipinski) #Core
+2017-04-13 - [Bug] Lengthy attribute names were displayed with words overlapping on mobile devices. #BUG-4767 (Michael Lipinski) #Core #ColorSchemes
+2017-04-13 - [Bug] Included information on the payment and shipping statuses again into Order has been changed notifications. #BUG-4637 (Michael Lipinski) #Core
+2017-04-12 - [Bug] On the Users page, for countries with states, it is now possible to find the users from all the states of the country taken together (not just from individual states). #BUG-4781 (Michael Lipinski) #Core
+2017-04-12 - [Bug] On the SEO settings page, a wrong page title of the home page was displayed if a custom page title had been set. #BUG-4789 (Michael Lipinski) #Core
+2017-04-12 - [Bug] In crispwhite, the authentication form on mobile devices could not be scrolled. #BUG-4763 (Michael Lipinski) #Core #CrispWhiteSkin
+2017-04-12 - [Bug] Changed the color of the button displayed on the form that is seen when installing modules from the marketplace if there are updates for the modules that are already installed. #BUG-4787 (Michael Lipinski) #Core
+2017-04-11 - [Bug] After a store was redeployed, a shipping method in an order was shown as deleted. #BUG-4746 (Sergey Elmanov) #Core
+2017-04-10 - [Bug] Transaction search by status did not work on the Payment transactions page. #BUG-4764 (Michael Lipinski) #Core
+2017-04-07 - [Bug] After removing orders, Bestsellers were not recalculated. Fixed. #BUG-4760 (Michael Lipinski) #Core
+2017-04-04 - [Bug] Added a new setting show_initialized_transaction to config; the setting is responsible for the display of payment transactions in the initialized status. #BUG-4755 (Michael Lipinski) #Core
+2017-04-03 - [Bug] SKU on the product details page could be left blank. #BUG-4753 (Sergey Elmanov) #Core
+2017-04-03 - [Bug] In bestsellers statistics, it is now possible to select only products available for sale. Bestseller names are now taken not from orders. #BUG-4743 (Sergey Elmanov) #Core #MultiVendor
+2017-03-31 - [Bug] Removed pagination from the orders table on the dashboard. #BUG-4714 (Michael Lipinski) #Core
+2017-03-30 - [Bug] Layout issue related to the display of minicart with the module MyWishlist enabled. #BUG-4734 (Michael Lipinski) #Core
+2017-03-29 - [Bug] Fixed the ckeckup code in Controller/Customer/Storage. #BUG-4626 (Sergey Elmanov) #Core
+2017-03-28 - [Bug] In Admin area, one could not create or update/approve of an anonymous review. #BUG-4728 (Sergey Elmanov) #Core #ProductReviews
+2017-03-28 - [Bug] In AOM, the information about a product's attributes was not updated when editing an order. #BUG-4691 (Michael Lipinski) #Core
+2017-03-28 - [Bug] Admin role was reset if the admin user changed the password in their profile. #BUG-4725 (Sergey Elmanov) #Core
+2017-03-27 - [Bug] Spaces in the beginning and in the end of a search phrase in the "Exact phrase" mode were not trimmed. #BUG-4722 (Michael Lipinski) #Core
+2017-03-27 - [Bug] PIN codes could not be added with the allow_url_fopen option disabled. #BUG-4695 (Sergey Elmanov) #Core #PINCodes
+2017-03-24 - [Bug] A fatal error when exporting a large number of products due to memory limit exceeded. Fixed. #BUG-4721 (Sergey Elmanov) #Core
+2017-03-23 - [Bug] Wrong redirects after customer authorization/logout. #BUG-4701 (Sergey Elmanov) #Core
+2017-03-23 - [Bug] When some countries were disabled, users were searched for only in countries that were enabled. #BUG-4699 (Sergey Elmanov) #Core
+2017-03-23 - [Bug] Styles contained references to missing images. #BUG-4609 (Michael Lipinski) #Core
+2017-03-23 - [Bug] Layout issues on the products page in the Admin area if there were items included into the actions menu for selected products brought about by a third party module. #BUG-4708 (Sergey Elmanov) #Core
+2017-03-23 - [Bug] Layout issues on the pdf invoice with lengthy product names. #BUG-4707 (Sergey Elmanov) #Core
+2017-03-23 - [Bug] If a text label value was blank, the text label name was returned. #BUG-4665 (Maxim Kuznetsov) #Core
+2017-03-23 - [Bug] Brought the checkup of file availability at a URL to a unified form. #BUG-4151 (Eugene Dementjev) #Core #XMLSitemap
+2017-03-22 - [Bug] Apostrophes were escaped in email subject. #BUG-4696 (Sergey Elmanov) #Core #ContactUs #Egoods #CanadaPost #PINCodes #ProductVariants #ProductReviews #PitneyBowes #MultiVendor
+2017-03-17 - [Bug] Typo "necessry" in Includes/install/translations/en.php:111 #BUG-4648 (Michael Lipinski) #Core
+2017-03-17 - [Bug] Transaction ID is no longer shown on the invoice for offline payment methods. #BUG-4672 (Michael Lipinski) #Core
+2017-03-16 - [Bug] The right block in the pagination widget on the order list in the Admin area was misplaced when PayPal module was disabled. #BUG-4653 (Maxim Kuznetsov) #Core #MultiVendor
+2017-03-16 - [Bug] If using a price modifier for an attribute and WholeSale, a negative order total could be received. #BUG-4685 (Michael Lipinski) #Core
+2017-03-16 - [Bug] DHL shipping method name was not always displayed at checkout. #BUG-4681 (Michael Lipinski) #Core #DHL
+2017-03-14 - [Bug] The phrase "Password and its confirmation do not match" did not have a Russian translation. #BUG-4618 (Sergey Elmanov) #Core #RuTranslation
+2017-03-14 - [Bug] In Crisp White, on the Contact us page, a blank form-item was added with recaptcha disabled. #BUG-4619 (Sergey Elmanov) #Core #ContactUs
+2017-03-14 - [Bug] Changing the attributes in the cart after choosing for the second time a variant that was out of stock caused the form to freeze. #BUG-4643 (Maxim Kuznetsov) #Core
+2017-03-10 - [Bug] If the option "Send the PDF version of invoices in the attachments" was enabled and the Order created notification for admin was disabled, the buyer got a notification with two pdf invoices attached instead of one. #BUG-4669 (Sergey Elmanov) #Core

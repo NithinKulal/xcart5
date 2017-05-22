@@ -10,8 +10,9 @@
 
 {{ widget_list('after', type='inherited') }}
 
-{{ this.buttonPanel.display() }}
-
+{% if this.useButtonPanel() %}
+  {{ this.buttonPanel.display() }}
+{% endif %}
 {{ widget_list('footer', type='inherited') }}
 
 {{ form_end(form) }}

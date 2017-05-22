@@ -1,0 +1,69 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.sidebar div.product-comparison .block {
+  padding: 10px;
+}
+
+.sidebar div.product-comparison .head-h2 {
+  font-size: 20px;
+}
+
+div.product-comparison ul {
+  border-bottom: 1px dotted #dfdfdf;
+  margin: 0;
+  padding-bottom: 1em;
+  padding-left: 10px;
+}
+
+div.product-comparison ul li {
+  list-style: none;
+  background: none;
+  position: relative;
+  padding: 0 0 2px 18px;
+  overflow: hidden;
+}
+
+div.product-comparison .buttons-row {
+  text-align: center;
+  margin-top: 20px;
+  padding-bottom: 10px;
+}
+
+div.product-comparison button.compare.action,
+div.product-comparison a.clear-list
+{
+  display: block;
+  margin: auto;
+}
+
+div.product-comparison a.clear-list {
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+div.product-comparison a.remove {
+  position: absolute;
+  left: 0px;
+  top: 5px;
+}
+
+div.product-comparison a.remove,
+div.product-comparison a.remove img
+{
+  background: transparent url(../../../../../admin/images/remove.png) no-repeat left top;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  width: 13px;
+  height: 13px;
+  font-size: 0;
+  float: left;
+}
+

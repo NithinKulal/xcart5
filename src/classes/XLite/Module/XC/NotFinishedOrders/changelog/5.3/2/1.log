@@ -1,0 +1,4 @@
+Version 5.3.2.1
+
+Fixes
+2017-02-22 - [Bug] If the setting 'Not finished order will be created' was set to "as soon as 'Place order’ button is pressed", and the order was paid for via Amazon, after clicking 'Place order' the customer was redirected to cart.php. #BUG-4612 (Eugene Dementjev) #NotFinishedOrders

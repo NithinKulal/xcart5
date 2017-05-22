@@ -1,0 +1,4 @@
+Version 5.3.2.1
+
+Fixes
+2017-01-16 - [Bug] Incorrect URLs were formed for images on Amazon S3 if the option CloudFront domain name was enabled. Added a new setting - Viewer protocol policy. #BUG-4426 (Maxim Kuznetsov) #AmazonS3Images

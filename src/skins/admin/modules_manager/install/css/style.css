@@ -119,6 +119,13 @@ div.tags div.tags-title {
   margin-right: 10px;
 }
 
+.modules-list .installed-disabled {
+  color: #808080;
+  font-size: 16px;
+  display: inline;
+  margin-right: 10px;
+}
+
 .modules-list .view-module-in-list {
   display: inline;
 }

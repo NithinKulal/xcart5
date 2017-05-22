@@ -1,0 +1,30 @@
+{##
+ # Login widget
+ #}
+
+<div class="login-box-wrapper authy">
+  <div class="login-box">
+
+    <h1>{{ t('Enter SMS code') }}</h1>
+
+    <form id="login_form" action="{{ url('authy_login') }}" method="post" name="login_form">
+      <input type="hidden" name="target" value="authy_login" />
+      <input type="hidden" name="action" value="login" />
+      {{ widget('\\XLite\\View\\FormField\\Input\\FormId') }}
+
+      <table>
+        <tr>
+          <td><input type="text" class="form-control sms_token" name="sms_token" value="" size="32" maxlength="128" placeholder="{{ t('SMS code') }}"></td>
+        </tr>
+
+        <tr class="buttons">
+          <td>
+            {{ widget('\\XLite\\View\\Button\\Submit', label='Log in', style='regular-main-button main-button') }}
+            <a href="{{ url('authy_login', '') }}" class="resend_token">{{ t('Resend SMS with code') }}</a>
+          </td>
+        </tr>
+      </table>
+    </form>
+
+  </div>
+</div>

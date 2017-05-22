@@ -81,6 +81,7 @@ define('form_model/sticky_panel', ['js/vue/vue'], function (XLiteVue) {
         var boxScrollTop = this.$base.offset().top;
         var docScrollTop = this.$document.scrollTop();
         var windowHeight = this.$window.height();
+        var ownerWidth   = this.$base.outerWidth();
         var diff = windowHeight - boxScrollTop + docScrollTop - this.$panel.outerHeight() - options.bottomPadding;
 
         if (0 > diff) {
@@ -89,8 +90,9 @@ define('form_model/sticky_panel', ['js/vue/vue'], function (XLiteVue) {
 
           } else if ('fixed' != this.$panel.css('position')) {
             this.$panel.css({
-              position: 'fixed',
-              top: windowHeight - this.$panel.outerHeight() - options.bottomPadding
+              position:   'fixed',
+              top:        windowHeight - this.$panel.outerHeight() - options.bottomPadding,
+              width:      ownerWidth
             });
             this.$panel.addClass('sticky');
 

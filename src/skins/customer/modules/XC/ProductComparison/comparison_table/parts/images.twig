@@ -1,0 +1,27 @@
+{##
+ # Images
+ #
+ # @ListChild (list="comparison_table.header", weight="100")
+ #}
+
+<tr class="images">
+  <td class="clear-list">
+    <a href="{{ url('compare', 'clear') }}">{{ t('Clear list') }}</a>
+  </td>
+  {% for product in this.getProducts() %}
+    <td>
+      <a target="_blank"
+        href="{{ url('product', '', {'product_id': product.product_id}) }}"
+        class="product-thumbnail">
+          {{ widget('\\XLite\\View\\Image', image=product.getImage(), maxWidth='110', maxHeight='70', alt=product.name, className='photo') }}
+      </a>
+      <a
+        href="{{ url('compare', 'delete', {'product_id': product.product_id}) }}"
+        class="remove"
+        title="{{ t('Remove') }}"
+        data-id="{{ product.product_id }}">
+        <img src="{{ asset('images/spacer.gif') }}" alt="{{ t('Remove') }}" />
+      </a>
+    </td>
+  {% endfor %}
+</tr>

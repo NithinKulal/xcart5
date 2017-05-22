@@ -1,0 +1,31 @@
+{##
+ # Trial notice
+ #}
+
+<div class="trial-notice-block{% if not this.isPopup() %} alert alert-warning{% endif %}">
+  {% if not this.isPopup() and this.isTrialPeriodExpired() %}
+    <h2 class="title">{{ t('Your X-Cart Business trial has expired!') }}</h2>
+  {% endif %}
+
+  <div class="notice">{{ t('You must register your X-Cart installation before using it for real sales. Activate your existing license key or purchase a premium license to skyrocket your business.')|raw }}</div>
+
+  {% if this.isTrialPeriodExpired() %}
+    {% include 'trial_notice_v2/activate_key.twig' %}
+
+    {% if not this.isPopup() %}
+      <hr/>
+      <div class="important">{{ t('This message can be removed only through activation of a free or premium license.') }}</div>
+      <div class="faq">{{ t('Refer to X-Cart license agreement for further details.', {'licenseAgreementURL': this.getLicenseAgreementURL()})|raw }}</div>
+    {% endif %}
+  {% else %}
+  <div class="trial-in-progress">
+    {{ widget('XLite\\View\\Button\\Regular', label='Remind me on next sign-in', style='remind-on-next-sign-in', jsCode='popup.close();', attributes={'data-segment-click': 'Remind me on next sign-in'}) }}
+    {{ widget('XLite\\View\\Button\\Regular', label='Purchase a premium license key', style='purchase-license regular-main-button', jsCode='window.open(\'' ~ this.getPurchaseURL() ~ '\', \'_blank\');', attributes={'data-segment-click': 'Purchase a premium license key'}) }}
+  </div>
+
+  <div class="register-license-key">
+    <a href="#" class="open-license-key-form">{{ t('I have a license key') }}</a>
+    {% include 'trial_notice_v2/activate_key.twig' %}
+  </div>
+  {% endif %}
+</div>

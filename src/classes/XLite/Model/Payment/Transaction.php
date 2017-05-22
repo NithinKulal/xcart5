@@ -227,6 +227,14 @@ class Transaction extends \XLite\Model\AEntity
     protected $registeredCache;
 
     /**
+     * @return bool
+     */
+    public static function showInitializedTransactions()
+    {
+        return (bool) \XLite::getInstance()->getOptions(array('other', 'show_initialized_transactions'));
+    }
+
+    /**
      * Get statuses
      *
      * @return array

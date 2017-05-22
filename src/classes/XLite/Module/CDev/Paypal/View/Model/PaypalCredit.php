@@ -167,7 +167,10 @@ class PaypalCredit extends \XLite\View\Model\AModel
             ? $paymentMethod->getSetting($name)
             : null;
 
-        if ('email' === $name && empty($value)) {
+        if ('email' === $name
+            && empty($value)
+            && $this->isExpressCheckoutEmailAPIType()
+        ) {
             $value = $this->getExpressCheckoutEmail();
         }
 
@@ -184,6 +187,18 @@ class PaypalCredit extends \XLite\View\Model\AModel
         $expressCheckout = Paypal\Main::getPaymentMethod(Paypal\Main::PP_METHOD_EC);
 
         return $expressCheckout->getSetting('email');
+    }
+
+    /**
+     * Get express checkout email
+     *
+     * @return string
+     */
+    protected function isExpressCheckoutEmailAPIType()
+    {
+        $expressCheckout = Paypal\Main::getPaymentMethod(Paypal\Main::PP_METHOD_EC);
+
+        return 'email' === $expressCheckout->getSetting('api_type');
     }
 
     /**

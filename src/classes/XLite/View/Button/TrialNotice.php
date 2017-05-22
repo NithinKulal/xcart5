@@ -20,22 +20,8 @@ class TrialNotice extends \XLite\View\Button\APopupButton
      */
     public function getJSFiles()
     {
-        $list = parent::getJSFiles();
+        $list   = parent::getJSFiles();
         $list[] = 'button/js/trial_notice.js';
-
-        return $list;
-    }
-
-    /**
-     * Register CSS files
-     * TODO: should be loaded in popup; remove after loading will be fixed
-     *
-     * @return array
-     */
-    public function getCSSFiles()
-    {
-        $list = parent::getCSSFiles();
-        $list[] = 'trial_notice/css/style.css';
 
         return $list;
     }
@@ -57,11 +43,11 @@ class TrialNotice extends \XLite\View\Button\APopupButton
      */
     protected function prepareURLParams()
     {
-        return array(
-            'target' => 'trial_notice',
-            'widget' => '\XLite\View\ModulesManager\TrialNotice',
+        return [
+            'target'    => 'trial_notice',
+            'widget'    => 'XLite\View\ModulesManager\TrialNotice',
             'returnUrl' => \XLite\Core\URLManager::getCurrentURL(),
-        );
+        ];
     }
 
     /**

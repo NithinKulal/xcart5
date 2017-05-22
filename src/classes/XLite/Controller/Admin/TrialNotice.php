@@ -20,6 +20,26 @@ class TrialNotice extends \XLite\Controller\Admin\AAdmin
      */
     public function getTitle()
     {
-        return static::t('Evaluation notice');
+        if (\XLite\View\ModulesManager\TrialNotice::getTrialNoticeVersion()
+            === \XLite\View\ModulesManager\TrialNotice::TRIAL_NOTICE_VERSION_1
+        ) {
+
+            return static::t('Evaluation notice');
+
+        } else {
+            if (\XLite::isTrialPeriodExpired()) {
+
+                return static::t('Your X-Cart Business trial has expired!');
+
+            } else {
+
+                return static::t(
+                    'X-Cart Business trial will expire in X days',
+                    [
+                        'count' => \XLite::getTrialPeriodLeft(),
+                    ]
+                );
+            }
+        }
     }
 }

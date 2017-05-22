@@ -14,7 +14,7 @@
 
 <div class="profile-box">
   {% if this.isProfileRemoved(this.entity) %}
-    <span class="removed-profile-name">{{ this.getColumnValue(this.column, this.entity) }}</span>
+    <span class="removed-profile-name">{{ this.getColumnValue(this.column, this.entity)|default(t('Anonymous')) }}</span>
   {% else %}
     <a href="{{ url('profile', '', {'profile_id': this.entity.origProfile.getProfileId()}) }}">{{ this.getColumnValue(this.column, this.entity) }}</a>
   {% endif %}

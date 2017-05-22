@@ -12,25 +12,23 @@ CommonElement.prototype.handlers.push(
     canApply: function () {
       return this.$element.is('.model-input-selector');
     },
-    handler: function() {
+    handler: function () {
 
       var $wrapper = this.$element.closest('.model-selector');
       var $element = this.$element;
       var elementNamespace = 'model-selector.' + $element.closest('.model-selector').data('type');
 
       $wrapper.get(0).model_selector_options = {
-        getter:    core.getCommentedData($wrapper, 'getter'),
+        getter: core.getCommentedData($wrapper, 'getter'),
         min_count: core.getCommentedData($wrapper, 'min_count')
       };
 
-      var doSetModelAsSelected = function()
-      {
+      var doSetModelAsSelected = function () {
         $element.data('model-selected', 1);
         $element.closest('form').get(0).commonController.switchControlReadiness();
       };
 
-      var doSetModelAsNotSelected = function()
-      {
+      var doSetModelAsNotSelected = function () {
         $element.data('model-selected', 0);
         jQuery('input.model-value', $wrapper).val('');
         jQuery('.spinner', $wrapper).addClass('hidden');
@@ -40,19 +38,19 @@ CommonElement.prototype.handlers.push(
         });
       };
 
-      var isModelSelected = function()
-      {
+      var isModelSelected = function () {
         return 1 === $element.data('model-selected');
       };
 
-      var doSelectValue = function($this)
-      {
+      var doSelectValue = function ($this) {
         jQuery('input.model-value', $wrapper).val($this.data('value'));
         jQuery('ul.items-list', $wrapper).addClass('hidden');
 
         $element.unbind('keydown', keyUpDown);
 
         doSetModelAsSelected();
+
+        core.trigger(elementNamespace + '.before-selected', {element: $element});
 
         core.trigger(
           elementNamespace + '.selected',
@@ -63,13 +61,12 @@ CommonElement.prototype.handlers.push(
         );
       };
 
-      var doPopulateList = function(data)
-      {
+      var doPopulateList = function (data) {
         jQuery('ul.items-list li', $wrapper).remove();
-        jQuery(data).each(function(index, elem) {
+        jQuery(data).each(function (index, elem) {
           jQuery('ul.items-list', $wrapper).append(
             '<li class="adding"><span class="text"></span><img src="images/spacer.gif" class="right-fade" alt="" /></li>'
-            );
+          );
 
           var li = jQuery('ul.items-list li.adding', $wrapper);
 
@@ -89,8 +86,7 @@ CommonElement.prototype.handlers.push(
         jQuery('ul.items-list', $wrapper).removeClass('hidden');
       };
 
-      var keyUpDown = function(event)
-      {
+      var keyUpDown = function (event) {
         var activeLI = jQuery('ul.items-list li.active', $wrapper);
         var nextActiveLI = activeLI;
 
@@ -130,8 +126,7 @@ CommonElement.prototype.handlers.push(
         activeLI.removeClass('active');
       };
 
-      var hidePopulatedList = function()
-      {
+      var hidePopulatedList = function () {
         jQuery('ul.items-list,.no-items-found,.enter-more-characters', $wrapper).addClass('hidden');
         jQuery(document).unbind('click', hidePopulatedList);
       };
@@ -154,7 +149,7 @@ CommonElement.prototype.handlers.push(
             var url = jQuery('<div/>').html($wrapper.get(0).model_selector_options.getter).text();
             core.get(
               url + '&search=' + jQuery(this).val(),
-              function(XMLHttpRequest, textStatus, data) {
+              function (XMLHttpRequest, textStatus, data) {
                 var dataToShow = JSON.parse(data);
 
                 // Inserted data is still relative
@@ -171,14 +166,14 @@ CommonElement.prototype.handlers.push(
                   // Mouse click leads to
                   jQuery('ul.items-list li', $wrapper).bind(
                     'click',
-                    function(event) {
+                    function (event) {
                       doSelectValue(jQuery(this));
                     }
                   ).bind(
                     'mouseover',
-                    function(event) {
+                    function (event) {
                       jQuery('ul.items-list li', $wrapper).each(
-                        function(index, elem) {
+                        function (index, elem) {
                           jQuery(elem).removeClass('active');
                         }
                       );
@@ -193,7 +188,7 @@ CommonElement.prototype.handlers.push(
                     .bind('keydown', keyUpDown)
                     .bind(
                       'keyup',
-                      function(event) {
+                      function (event) {
                         if (event.which === 13) {
                           event.preventDefault();
 
@@ -207,7 +202,7 @@ CommonElement.prototype.handlers.push(
           }
 
           jQuery('.enter-more-characters', $wrapper).addClass('hidden');
-        } else if ($element.val() !== $element.data('current_search')){
+        } else if ($element.val() !== $element.data('current_search')) {
           jQuery('ul.items-list,.no-items-found,.enter-more-characters', $wrapper).addClass('hidden');
         }
 
@@ -216,7 +211,7 @@ CommonElement.prototype.handlers.push(
             jQuery('.enter-more-characters', $wrapper).html(core.t(
               'Enter X more characters to start search', {
                 X: $wrapper.get(0).model_selector_options.min_count - $element.val().length
-            })).removeClass('hidden');
+              })).removeClass('hidden');
           } else {
             jQuery('.enter-more-characters', $wrapper).addClass('hidden');
           }
@@ -227,20 +222,21 @@ CommonElement.prototype.handlers.push(
         }
       });
 
-      if (jQuery('input.model-value', $wrapper).val().length > 0 ) {
+      if (jQuery('input.model-value', $wrapper).val().length > 0) {
         doSetModelAsSelected();
       }
     }
   }
 );
 
-CommonElement.prototype.validateModelSelector = function ()
-{
+CommonElement.prototype.validateModelSelector = function () {
   var apply = this.$element.hasClass('model-input-selector') && this.$element.hasClass('model-required');
 
   return {
-    status:   !apply || 1 === this.$element.data('model-selected'),
-    message:  jQuery('.model-not-defined', this.$element.closest('.model-selector')).html(),
-    apply:    apply
+    status: !apply
+    || 1 === this.$element.data('model-selected')
+    || (!this.$element.val() && !this.$element.hasClass('required')),
+    message: jQuery('.model-not-defined', this.$element.closest('.model-selector')).html(),
+    apply: apply
   };
 };

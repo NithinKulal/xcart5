@@ -1,0 +1,33 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Modules enter key
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.popup-window-entry .addon-key-block {
+  width: 630px;
+}
+
+.addon-key-block {
+  max-width: 1130px;
+  min-width: 630px;
+  font-size: 14px;
+  line-height: 25px;
+}
+
+.addon-key-block .activate-key-form {
+  margin-top: 27px;
+  width: auto;
+}
+
+.addon-key-block .activate-key-form .addon-key {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.addon-key-block .activate-key-form input[type="text"] {
+  width: 250px;
+}

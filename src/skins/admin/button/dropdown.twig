@@ -15,6 +15,9 @@
     data-toggle="dropdown"
     aria-haspopup="true"
     aria-expanded="false"
+          {% endif %}
+          {% if this.getButtonTitle() %}
+            title="{{ this.getButtonTitle() }}"
           {% endif %}>
 
     {{ this.displayCommentedData(this.getCommentedData()) }}

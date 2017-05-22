@@ -1,0 +1,17 @@
+{##
+ # Customer attachments items list
+ #
+ # @ListChild (list="customer.attachments.popup", weight="50")
+ #}
+
+<div>
+    {% if this.item.customerAttachments %}
+      <ul class="customer-attachments">
+          {% for attachment in this.item.getCustomerAttachments() %}
+            <li class="attachment">
+                {{ widget('\\XLite\\Module\\XC\\CustomerAttachments\\View\\AttachmentItem', attachment=attachment, itemId=this.item.getItemId()) }}
+            </li>
+          {% endfor %}
+      </ul>
+    {% endif %}
+</div>

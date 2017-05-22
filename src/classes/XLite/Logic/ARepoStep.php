@@ -85,7 +85,7 @@ abstract class ARepoStep extends \XLite\Base implements \SeekableIterator, \Coun
     /**
      * \SeekableIterator::current
      *
-     * @return $this
+     * @return static
      */
     public function current()
     {

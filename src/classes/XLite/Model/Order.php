@@ -1564,7 +1564,7 @@ class Order extends \XLite\Model\Base\SurchargeOwner
     /**
      * Get payment method
      *
-     * @return \XLite\Model\Payment\Method|void
+     * @return \XLite\Model\Payment\Method|null
      */
     public function getPaymentMethod()
     {
@@ -1773,7 +1773,7 @@ class Order extends \XLite\Model\Base\SurchargeOwner
     /**
      * Get first open (not payed) payment transaction
      *
-     * @return \XLite\Model\Payment\Transaction|void
+     * @return \XLite\Model\Payment\Transaction|null
      */
     public function getFirstOpenPaymentTransaction()
     {
@@ -2693,9 +2693,11 @@ class Order extends \XLite\Model\Base\SurchargeOwner
         $profile = $this->getProfile();
         $origProfile = $this->getOrigProfile();
 
-        if ($profile && (!$origProfile || $profile->getProfileId() != $origProfile->getProfileId())) {
-            \XLite\Core\Database::getRepo('XLite\Model\Profile')->delete($profile, false);
-        }
+        try {
+            if ($profile && (!$origProfile || $profile->getProfileId() != $origProfile->getProfileId())) {
+                \XLite\Core\Database::getRepo('XLite\Model\Profile')->delete($profile, false);
+            }
+        } catch (\Doctrine\ORM\EntityNotFoundException $e) {}
     }
 
     /**
@@ -2710,6 +2712,8 @@ class Order extends \XLite\Model\Base\SurchargeOwner
         if (static::ACTION_DELETE === $type) {
             $this->setOldPaymentStatus(null);
             $this->setOldShippingStatus(null);
+
+            $this->updateItemsSales(-1);
 
             $this->prepareBeforeRemove();
         }
@@ -3111,7 +3115,6 @@ class Order extends \XLite\Model\Base\SurchargeOwner
         $data = array();
         foreach ($this->getItems() as $item) {
             $data[] = $this->getGroupedDataItem($item, $sign * $item->getAmount());
-            $amount = $this->changeItemInventory($item, $sign, !$registerAsGroup);
         }
 
         if ($registerAsGroup) {
@@ -3119,6 +3122,10 @@ class Order extends \XLite\Model\Base\SurchargeOwner
                 $this->getOrderId(),
                 $data
             );
+        }
+
+        foreach ($this->getItems() as $item) {
+            $amount = $this->changeItemInventory($item, $sign, !$registerAsGroup);
         }
     }
 
@@ -3652,6 +3659,35 @@ class Order extends \XLite\Model\Base\SurchargeOwner
             : null;
     }
 
+    /**
+     * @return bool
+     */
+    public function isOfflineProcessorUsed()
+    {
+        $processor = $this->getPaymentProcessor();
+
+        return $processor instanceof \XLite\Model\Payment\Processor\Offline;
+    }
+
+    /**
+     * @return \XLite\Model\Payment\Base\Processor
+     */
+    public function getPaymentProcessor()
+    {
+        $processor = null;
+
+        $transaction = $this->getPaymentTransactions()
+            ? $this->getPaymentTransactions()->last()
+            : null;
+
+        if ($transaction) {
+            $method = $transaction->getPaymentMethod() ?: $this->getPaymentMethod();
+            $processor = $method ? $method->getProcessor() : null;
+        }
+
+        return $processor;
+    }
+
     // {{{ Sales statistic
 
     /**
@@ -3968,7 +4004,7 @@ class Order extends \XLite\Model\Base\SurchargeOwner
     /**
      * Get total
      *
-     * @return decimal 
+     * @return float
      */
     public function getTotal()
     {
@@ -3978,7 +4014,7 @@ class Order extends \XLite\Model\Base\SurchargeOwner
     /**
      * Get subtotal
      *
-     * @return decimal 
+     * @return float
      */
     public function getSubtotal()
     {

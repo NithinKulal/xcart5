@@ -70,25 +70,25 @@ class Main extends \XLite\View\SearchPanel\Profile\Admin\AAdmin
      */
     protected function defineConditions()
     {
-        return parent::defineConditions() + array(
-            'pattern' => array(
-                static::CONDITION_CLASS => 'XLite\View\FormField\Input\Text',
+        return parent::defineConditions() + [
+            'pattern'    => [
+                static::CONDITION_CLASS                             => 'XLite\View\FormField\Input\Text',
                 \XLite\View\FormField\Input\Text::PARAM_PLACEHOLDER => static::t('Enter keyword'),
+                \XLite\View\FormField\AFormField::PARAM_FIELD_ONLY  => true,
+            ],
+            'membership' => [
+                static::CONDITION_CLASS                            => '\XLite\View\FormField\Select\CheckboxList\MembershipSearch',
                 \XLite\View\FormField\AFormField::PARAM_FIELD_ONLY => true,
-            ),
-            'membership' => array(
-                static::CONDITION_CLASS => '\XLite\View\FormField\Select\CheckboxList\MembershipSearch',
+            ],
+            'user_type'  => [
+                static::CONDITION_CLASS                            => '\XLite\View\FormField\Select\CheckboxList\UserType',
                 \XLite\View\FormField\AFormField::PARAM_FIELD_ONLY => true,
-            ),
-            'user_type' => array(
-                static::CONDITION_CLASS => '\XLite\View\FormField\Select\CheckboxList\UserType',
+            ],
+            'status'     => [
+                static::CONDITION_CLASS                            => '\XLite\View\FormField\Select\AccountStatusSearch',
                 \XLite\View\FormField\AFormField::PARAM_FIELD_ONLY => true,
-            ),
-            'status' => array(
-                static::CONDITION_CLASS => '\XLite\View\FormField\Select\AccountStatusSearch',
-                \XLite\View\FormField\AFormField::PARAM_FIELD_ONLY => true,
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -98,36 +98,38 @@ class Main extends \XLite\View\SearchPanel\Profile\Admin\AAdmin
      */
     protected function defineHiddenConditions()
     {
-        return parent::defineHiddenConditions() + array(
-            'country' => array(
-                static::CONDITION_CLASS => '\XLite\View\FormField\Select\Country',
-                \XLite\View\FormField\AFormField::PARAM_LABEL                 => static::t('Country'),
-                \XLite\View\FormField\AFormField::PARAM_VALUE                 => $this->getCondition('country') ?: '',
-                \XLite\View\FormField\Select\Country::PARAM_STATE_SELECTOR_ID => 'stateSelectorId',
-                \XLite\View\FormField\Select\Country::PARAM_STATE_INPUT_ID    => 'stateBoxId',
-            ),
-            'state'   => array(
-                static::CONDITION_CLASS => '\XLite\View\FormField\Select\State',
+        return parent::defineHiddenConditions() + [
+            'country'     => [
+                static::CONDITION_CLASS                                        => '\XLite\View\FormField\Select\Country',
+                \XLite\View\FormField\AFormField::PARAM_LABEL                  => static::t('Country'),
+                \XLite\View\FormField\AFormField::PARAM_VALUE                  => $this->getCondition('country') ?: '',
+                \XLite\View\FormField\Select\Country::PARAM_STATE_SELECTOR_ID  => 'stateSelectorId',
+                \XLite\View\FormField\Select\Country::PARAM_STATE_INPUT_ID     => 'stateBoxId',
+                \XLite\View\FormField\Select\Country::PARAM_DENY_SINGLE_OPTION => true
+            ],
+            'state'       => [
+                static::CONDITION_CLASS                       => '\XLite\View\FormField\Select\State',
                 \XLite\View\FormField\AFormField::PARAM_LABEL => static::t('State'),
                 \XLite\View\FormField\AFormField::PARAM_ID    => 'stateSelectorId',
-            ),
-            'customState'   => array(
-                static::CONDITION_CLASS => '\XLite\View\FormField\Input\Text',
+                \XLite\View\FormField\Select\State::PARAM_SELECT_ONE    => true,
+            ],
+            'customState' => [
+                static::CONDITION_CLASS                       => '\XLite\View\FormField\Input\Text',
                 \XLite\View\FormField\AFormField::PARAM_LABEL => static::t('State'),
                 \XLite\View\FormField\AFormField::PARAM_ID    => 'stateBoxId',
-            ),
-            'address' => array(
-                static::CONDITION_CLASS => '\XLite\View\FormField\Input\Text',
+            ],
+            'address'     => [
+                static::CONDITION_CLASS                       => '\XLite\View\FormField\Input\Text',
                 \XLite\View\FormField\AFormField::PARAM_LABEL => static::t('Address'),
-            ),
-            'phone' => array(
-                static::CONDITION_CLASS => '\XLite\View\FormField\Input\Text\Phone',
+            ],
+            'phone'       => [
+                static::CONDITION_CLASS                       => '\XLite\View\FormField\Input\Text\Phone',
                 \XLite\View\FormField\AFormField::PARAM_LABEL => static::t('Phone'),
-            ),
-            'date_type'   => array(
+            ],
+            'date_type'   => [
                 static::CONDITION_TEMPLATE => 'profiles/parts/search_form/date_type.twig',
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -140,7 +142,7 @@ class Main extends \XLite\View\SearchPanel\Profile\Admin\AAdmin
     protected function isDateTypeSelected($type = null)
     {
         return (isset($type) && $this->getCondition('date_type') == $type)
-            || (!isset($type) && !$this->getCondition('date_type'))
-            || ('R' == $type && !$this->getCondition('date_type'));
+               || (!isset($type) && !$this->getCondition('date_type'))
+               || ('R' == $type && !$this->getCondition('date_type'));
     }
 }

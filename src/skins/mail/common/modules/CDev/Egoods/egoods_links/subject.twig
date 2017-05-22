@@ -1,4 +1,4 @@
 {##
  # Egoods email subject (to customer)
  #}
-{{ t('Order X', {'id': this.order.getOrderNumber()}) }}. {{ this.getNotificationSubject() }}
+{{ t('Order X', {'id': this.order.getOrderNumber()}) }}. {{ this.getNotificationSubject()|raw }}

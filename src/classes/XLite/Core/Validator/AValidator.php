@@ -14,6 +14,11 @@ namespace XLite\Core\Validator;
 abstract class AValidator extends \XLite\Base\SuperClass
 {
     /**
+     * @var string
+     */
+    protected $formIdentifier;
+
+    /**
      * Validate
      *
      * @param mixed $data Data
@@ -65,6 +70,12 @@ abstract class AValidator extends \XLite\Base\SuperClass
             $exception->setPublicName($publicName);
         }
 
+        if ($this->getFormIdentifier()) {
+            $exception->setFormIdentifier(
+                $this->getFormIdentifier()
+            );
+        }
+
         return $exception;
     }
 
@@ -83,5 +94,21 @@ abstract class AValidator extends \XLite\Base\SuperClass
         $exception->markAsInternal();
 
         return $exception;
+    }
+
+    /**
+     * @param string $formIdentifier
+     */
+    public function setFormIdentifier($formIdentifier)
+    {
+        $this->formIdentifier = $formIdentifier;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFormIdentifier()
+    {
+        return $this->formIdentifier;
     }
 }

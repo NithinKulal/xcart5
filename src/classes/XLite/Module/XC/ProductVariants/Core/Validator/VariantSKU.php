@@ -21,18 +21,28 @@ class VariantSKU extends \XLite\Core\Validator\AValidator
     protected $id;
 
     /**
+     * Product id (saved)
+     *
+     * @var integer
+     */
+    protected $productId;
+
+    /**
      * Constructor
      *
-     * @param integer $id Identificator OPTIONAL
-     *
-     * @return void
+     * @param int $id Identifier
+     * @param int $productId
      */
-    public function __construct($id = null)
+    public function __construct($id = null, $productId = null)
     {
         parent::__construct();
 
         if (isset($id)) {
-            $this->id = intval($id);
+            $this->id = (integer)$id;
+        }
+
+        if (isset($productId)) {
+            $this->productId = (integer)$productId;
         }
     }
 

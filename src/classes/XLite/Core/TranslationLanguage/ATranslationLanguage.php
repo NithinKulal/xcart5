@@ -9,7 +9,7 @@
 namespace XLite\Core\TranslationLanguage;
 
 /**
- * Abstract translation language 
+ * Abstract translation language
  */
 abstract class ATranslationLanguage extends \XLite\Base
 {
@@ -27,15 +27,17 @@ abstract class ATranslationLanguage extends \XLite\Base
      */
     protected function defineLabelHandlers()
     {
-        return array(
-            '_X_ items'                   => 'XItemsMinicart',
-            'X items in bag'              => 'XItemsInBag',
-            'X items'                     => 'XItems',
-            'X items available'           => 'XItemsAvailable',
-            'Your shopping bag - X items' => 'YourShoppingBagXItems',
-            'X modules will be upgraded'  => 'XModulesWillBeUpgraded',
-            'X modules will be disabled'  => 'XModulesWillBeDisabled',
-        );
+        return [
+            '_X_ items'                                   => 'XItemsMinicart',
+            'X items in bag'                              => 'XItemsInBag',
+            'X items'                                     => 'XItems',
+            'X items available'                           => 'XItemsAvailable',
+            'Your shopping bag - X items'                 => 'YourShoppingBagXItems',
+            'X modules will be upgraded'                  => 'XModulesWillBeUpgraded',
+            'X modules will be disabled'                  => 'XModulesWillBeDisabled',
+            'X-Cart Business trial will expire in X days' => 'TrialWillExpireInXDays',
+            'X days left'                                 => 'XDaysLeft',
+        ];
     }
 
     /**
@@ -47,7 +49,7 @@ abstract class ATranslationLanguage extends \XLite\Base
      */
     public function getLabelHandler($name)
     {
-        $handler = null;
+        $handler  = null;
         $handlers = $this->getLabelHandlers();
 
         if (!empty($handlers[$name])) {
@@ -55,10 +57,10 @@ abstract class ATranslationLanguage extends \XLite\Base
 
             if (is_string($handler)) {
                 if (method_exists($this, $handler)) {
-                    $handler = array($this, $handler);
+                    $handler = [$this, $handler];
 
                 } elseif (method_exists($this, 'translateLabel' . ucfirst($handler))) {
-                    $handler = array($this, 'translateLabel' . ucfirst($handler));
+                    $handler = [$this, 'translateLabel' . ucfirst($handler)];
                 }
             }
 
@@ -84,6 +86,31 @@ abstract class ATranslationLanguage extends \XLite\Base
         return $this->labelHandlers;
     }
 
+    /**
+     * @param integer $number
+     * @param string  $code OPTIONAL
+     *
+     * @return int
+     */
+    protected function getPluralizationRule($number, $code = \XLite\Core\Translation::DEFAULT_LANGUAGE)
+    {
+        return \Symfony\Component\Translation\PluralizationRules::get($number, $code);
+    }
+
+    /**
+     * @param array   $list
+     * @param integer $number
+     * @param string  $code
+     *
+     * @return mixed
+     */
+    protected function getLabelByRule(array $list, $number, $code = \XLite\Core\Translation::DEFAULT_LANGUAGE)
+    {
+        $index = $this->getPluralizationRule($number, $code);
+
+        return isset($list[$index]) ? $list[$index] : $list[0];
+    }
+
     // {{{ Label translators
 
     /**
@@ -95,9 +122,15 @@ abstract class ATranslationLanguage extends \XLite\Base
      */
     public function translateLabelXItemsMinicart(array $arguments)
     {
-        return 1 == $arguments['count']
-            ? \XLite\Core\Translation::getInstance()->translateByString('_X_ item', $arguments)
-            : \XLite\Core\Translation::getInstance()->translateByString('_X_ items', $arguments);
+        $label = $this->getLabelByRule(
+            [
+                '_X_ item',
+                '_X_ items',
+            ],
+            $arguments['count']
+        );
+
+        return \XLite\Core\Translation::getInstance()->translateByString($label, $arguments);
     }
 
     /**
@@ -109,9 +142,15 @@ abstract class ATranslationLanguage extends \XLite\Base
      */
     public function translateLabelXItemsInBag(array $arguments)
     {
-        return 1 == $arguments['count']
-            ? \XLite\Core\Translation::getInstance()->translateByString('X item in bag', $arguments)
-            : \XLite\Core\Translation::getInstance()->translateByString('X items in bag', $arguments);
+        $label = $this->getLabelByRule(
+            [
+                'X item in bag',
+                'X items in bag',
+            ],
+            $arguments['count']
+        );
+
+        return \XLite\Core\Translation::getInstance()->translateByString($label, $arguments);
     }
 
     /**
@@ -123,9 +162,15 @@ abstract class ATranslationLanguage extends \XLite\Base
      */
     public function translateLabelXItems(array $arguments)
     {
-        return 1 == $arguments['count']
-            ? \XLite\Core\Translation::getInstance()->translateByString('X item', $arguments)
-            : \XLite\Core\Translation::getInstance()->translateByString('X items', $arguments);
+        $label = $this->getLabelByRule(
+            [
+                'X item',
+                'X items',
+            ],
+            $arguments['count']
+        );
+
+        return \XLite\Core\Translation::getInstance()->translateByString($label, $arguments);
     }
 
     /**
@@ -137,9 +182,15 @@ abstract class ATranslationLanguage extends \XLite\Base
      */
     public function translateLabelXItemsAvailable(array $arguments)
     {
-        return 1 == $arguments['count']
-            ? \XLite\Core\Translation::getInstance()->translateByString('X item available', $arguments)
-            : \XLite\Core\Translation::getInstance()->translateByString('X items available', $arguments);
+        $label = $this->getLabelByRule(
+            [
+                'X item available',
+                'X items available',
+            ],
+            $arguments['count']
+        );
+
+        return \XLite\Core\Translation::getInstance()->translateByString($label, $arguments);
     }
 
     /**
@@ -151,9 +202,15 @@ abstract class ATranslationLanguage extends \XLite\Base
      */
     public function translateLabelYourShoppingBagXItems(array $arguments)
     {
-        return 1 == $arguments['count']
-            ? \XLite\Core\Translation::getInstance()->translateByString('Your shopping bag - X item', $arguments)
-            : \XLite\Core\Translation::getInstance()->translateByString('Your shopping bag - X items', $arguments);
+        $label = $this->getLabelByRule(
+            [
+                'Your shopping bag - X item',
+                'Your shopping bag - X items',
+            ],
+            $arguments['count']
+        );
+
+        return \XLite\Core\Translation::getInstance()->translateByString($label, $arguments);
     }
 
     /**
@@ -165,9 +222,15 @@ abstract class ATranslationLanguage extends \XLite\Base
      */
     public function translateLabelXModulesWillBeUpgraded(array $arguments)
     {
-        return 1 == $arguments['count']
-            ? \XLite\Core\Translation::getInstance()->translateByString('X module will be upgraded', $arguments)
-            : \XLite\Core\Translation::getInstance()->translateByString('X modules will be upgraded', $arguments);
+        $label = $this->getLabelByRule(
+            [
+                'X module will be upgraded',
+                'X modules will be upgraded',
+            ],
+            $arguments['count']
+        );
+
+        return \XLite\Core\Translation::getInstance()->translateByString($label, $arguments);
     }
 
     /**
@@ -179,9 +242,55 @@ abstract class ATranslationLanguage extends \XLite\Base
      */
     public function translateLabelXModulesWillBeDisabled(array $arguments)
     {
-        return 1 == $arguments['count']
-            ? \XLite\Core\Translation::getInstance()->translateByString('X module will be disabled', $arguments)
-            : \XLite\Core\Translation::getInstance()->translateByString('X modules will be disabled', $arguments);
+        $label = $this->getLabelByRule(
+            [
+                'X module will be disabled',
+                'X modules will be disabled',
+            ],
+            $arguments['count']
+        );
+
+        return \XLite\Core\Translation::getInstance()->translateByString($label, $arguments);
+    }
+
+    /**
+     * Translate label 'X-Cart Business trial will expire in X days'
+     *
+     * @param array $arguments Arguments
+     *
+     * @return string
+     */
+    public function translateLabelTrialWillExpireInXDays(array $arguments)
+    {
+        $label = $this->getLabelByRule(
+            [
+                'X-Cart Business trial will expire in X day',
+                'X-Cart Business trial will expire in X days',
+            ],
+            $arguments['count']
+        );
+
+        return \XLite\Core\Translation::getInstance()->translateByString($label, $arguments);
+    }
+
+    /**
+     * Translate label 'X days left'
+     *
+     * @param array $arguments Arguments
+     *
+     * @return string
+     */
+    public function translateLabelXDaysLeft(array $arguments)
+    {
+        $label = $this->getLabelByRule(
+            [
+                'X day left',
+                'X days left',
+            ],
+            $arguments['count']
+        );
+
+        return \XLite\Core\Translation::getInstance()->translateByString($label, $arguments);
     }
 
     // }}}

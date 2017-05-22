@@ -174,7 +174,7 @@ class TransactionData extends \XLite\Model\AEntity
     /**
      * Set value
      *
-     * @param text $value
+     * @param string $value
      * @return TransactionData
      */
     public function setValue($value)

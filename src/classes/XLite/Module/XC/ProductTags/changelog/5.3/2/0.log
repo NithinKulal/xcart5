@@ -1,0 +1,4 @@
+Version 5.3.2.0
+
+Fixes
+2016-08-09 - [Bug] Layout improvement for the tags block in Crisp White skin. #BUG-3536 (Sergey Elmanov) #CrispWhiteSkin #ProductTags

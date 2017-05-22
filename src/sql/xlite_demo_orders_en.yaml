@@ -158,8 +158,8 @@ XLite\Model\Order:
             - addressField: { serviceName: zipcode }
               value: '73003'
     orig_profile: { login: bit-bucket@example.com }
-    total: 42.1300
-    subtotal: 39.9800
+    total: 88.6700
+    subtotal: 84.9500
     date: 1396005895
     currency: { code: USD }
     paymentStatus: { code: P }
@@ -172,7 +172,7 @@ XLite\Model\Order:
         payment_method: { service_name: MoneyOrdering }
         date: 1396005895
         status: S
-        value: 42.13
+        value: 88.67
         type: sale
         note: ''
         publicTxnId: '000002-FX7B'
@@ -188,12 +188,22 @@ XLite\Model\Order:
         subtotal: 39.9800
         total: 39.9800
         object_type: product
+      - object: { sku: '12007' }
+        name: "Bow Ties Are Cool [Unlimited QTY]"
+        sku: '12007'
+        price: 14.9900
+        itemNetPrice: 14.9900
+        discountedSubtotal: 44.9700
+        amount: 3
+        subtotal: 44.9700
+        total: 44.9700
+        object_type: product
     surcharges:
       - type: shipping
         code: SHIPPING
         class: '\XLite\Logic\Order\Modifier\Shipping'
         name: Shipping cost
-        value: 2.1500
+        value: 3.7200
     events:
       - date: 1396005895
         code: PLACE ORDER
@@ -201,7 +211,7 @@ XLite\Model\Order:
         author: { login: bit-bucket@example.com }
       - date: 1396005895
         code: TRANSACTION
-        description: 'Payment transaction [method: Phone Ordering, type: sale, amount: 42.13, status: Pending]'
+        description: 'Payment transaction [method: Phone Ordering, type: sale, amount: 88.67, status: Pending]'
         author: { login: bit-bucket@example.com }
       - date: 1396005895
         code: EMAIL ADMIN SENT
@@ -559,6 +569,7 @@ XLite\Model\Order:
 # The code below allows to recalculate 'sales' fields of updated products
 XLite\Model\Product:
   - { sku: '12029', sales: 12 }
+  - { sku: '12007', sales: 3 }
   - { sku: '12035', sales: 7 }
   - { sku: '12030', sales: 2 }
   - { sku: '12022', sales: 6 }

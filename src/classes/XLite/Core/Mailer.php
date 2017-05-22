@@ -708,7 +708,7 @@ class Mailer extends \XLite\Base\Singleton
     public static function sendOrderChangedCustomer(\XLite\Model\Order $order)
     {
         $isSent = static::checkMailRegistry(
-            'sendOrderAdvancedChangedCustomer',
+            'sendOrderChangedCustomer',
             static::getOrdersDepartmentMail(),
             $order->getProfile()->getLogin()
         );
@@ -764,7 +764,7 @@ class Mailer extends \XLite\Base\Singleton
     public static function sendOrderAdvancedChangedCustomer(\XLite\Model\Order $order)
     {
         $isSent = static::checkMailRegistry(
-            'sendOrderChangedCustomer',
+            'sendOrderAdvancedChangedCustomer',
             static::getOrdersDepartmentMail(),
             $order->getProfile()->getLogin()
         );
@@ -775,7 +775,7 @@ class Mailer extends \XLite\Base\Singleton
 
             static::register(
                 array(
-                    'order' => $order,
+                    'order'         => $order,
                     'recipientName' => $order->getProfile()->getName(),
                 )
             );
@@ -784,20 +784,17 @@ class Mailer extends \XLite\Base\Singleton
                 static::attachInvoice($order, \XLite::CUSTOMER_INTERFACE);
             }
 
-        if (\XLite\Core\Config::getInstance()->NotificationAttachments->attach_pdf_invoices) {
-            static::attachInvoice($order, \XLite::CUSTOMER_INTERFACE);
-        }
 
-        $result = static::compose(
-            static::TYPE_ORDER_ADVANCED_CHANGED_CUSTOMER, // todo: remove
-            static::getOrdersDepartmentMail(),
-            $order->getProfile()->getLogin(),
-            'order_advanced_changed',
-            array(),
-            true,
-            \XLite::CUSTOMER_INTERFACE,
-            static::getMailer()->getLanguageCode(\XLite::CUSTOMER_INTERFACE, $order->getProfile()->getLanguage())
-        );
+            $result = static::compose(
+                static::TYPE_ORDER_ADVANCED_CHANGED_CUSTOMER, // todo: remove
+                static::getOrdersDepartmentMail(),
+                $order->getProfile()->getLogin(),
+                'order_advanced_changed',
+                array(),
+                true,
+                \XLite::CUSTOMER_INTERFACE,
+                static::getMailer()->getLanguageCode(\XLite::CUSTOMER_INTERFACE, $order->getProfile()->getLanguage())
+            );
 
             if ($result) {
                 \XLite\Core\OrderHistory::getInstance()->registerCustomerEmailSent(
@@ -1478,6 +1475,9 @@ class Mailer extends \XLite\Base\Singleton
             if ($doSend) {
                 $result = static::getMailer()->send();
             }
+        } else {
+            static::clearAttachments();
+            static::getMailer()->clearStringAttachments();
         }
 
         if (!$result && static::getMailer()->getLastErrorMessage()) {

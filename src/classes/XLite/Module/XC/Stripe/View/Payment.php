@@ -24,11 +24,11 @@ class Payment extends \XLite\View\AView
     }
 
     /**
-     * Get data atttributes 
-     * 
+     * Get data attributes
+     *
      * @return array
      */
-    protected function getDataAtttributes()
+    protected function getDataAttributes()
     {
         $total = $this->getCart()->getCurrency()->roundValue(
             $this->getCart()->getFirstOpenPaymentTransaction()->getValue()
@@ -38,19 +38,20 @@ class Payment extends \XLite\View\AView
         $suffix = $method->getProcessor()->isTestMode($method) ? 'Test' : '';
         $description = static::t(
             'X items ($)',
-            array(
+            [
                 'count' => $this->getCart()->countQuantity(),
-                'total' => $this->formatPrice($total, $this->getCart()->getCurrency())
-            )
+                'total' => $this->formatPrice($total, $this->getCart()->getCurrency()),
+            ]
         );
 
-        $data = array(
+        $data = [
             'data-key'         => $this->getCart()->getPaymentMethod()->getSetting('publishKey' . $suffix),
             'data-name'        => \XLite\Core\Config::getInstance()->Company->company_name,
             'data-description' => $description,
             'data-total'       => $this->getCart()->getCurrency()->roundValueAsInteger($total),
             'data-currency'    => $this->getCart()->getCurrency()->getCode(),
-        );
+            'data-locale'      => $this->getPreparedLanguageCode(),
+        ];
 
         if (\XLite\Core\Session::getInstance()->checkoutEmail) {
             $data['data-email'] = \XLite\Core\Session::getInstance()->checkoutEmail;
@@ -60,6 +61,20 @@ class Payment extends \XLite\View\AView
         }
 
         return $data;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getPreparedLanguageCode()
+    {
+        $code = \XLite\Core\Session::getInstance()->getCurrentLanguage();
+
+        if ($code === 'gb') {
+            return 'en';
+        }
+
+        return $code ?: 'auto';
     }
 }
 

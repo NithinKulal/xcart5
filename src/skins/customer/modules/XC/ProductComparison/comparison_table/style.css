@@ -1,0 +1,276 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+#breadcrumb {
+    display: none;
+}
+
+#main {
+    margin-top: 27px;
+}
+
+table.comparison-table td {
+    min-width: 166px;
+}
+
+#compare {
+    width: auto;
+    overflow-x: auto;
+    margin: 0;
+    padding: 0;
+}
+
+#compare .empty-notice {
+    color: #404549;
+    font-size: 14px;
+    line-height: 20px;
+    margin-top: 20px;
+    display: inline-block;
+}
+
+table.comparison-table tr.names,
+table.comparison-table tr.names td,
+table.comparison-table tbody.header td,
+table.comparison-table tbody.header tr {
+    border-bottom: 0;
+}
+
+table.comparison-table td:first-child {
+    border-left: 0;
+}
+
+table.comparison-table td {
+    border-top: 0;
+    border-right: 0;
+    overflow: hidden;
+}
+
+table.comparison-table tr {
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+}
+
+table.comparison-table {
+    position: relative;
+    border: 0;
+    margin-top: 12px;
+    table-layout: fixed;
+    max-width: 960px;
+}
+
+table.comparison-table tbody.header-fixed {
+    -moz-box-shadow: -5px 10px 10px #bbc7d2;
+    -webkit-box-shadow: -5px 10px 10px #bbc7d2;
+    box-shadow: -5px 10px 10px #bbc7d2;
+    min-width: 960px;
+    background: #fff;
+}
+
+table.comparison-table tbody.header-fixed.sticky {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 10;
+}
+
+table.comparison-table tbody.header-fixed.sticky.fixed {
+    padding-top: 300px;
+    margin-top: -300px;
+}
+
+table.comparison-table tbody.header-hidden {
+    display: none;
+    font-size: 45px;
+}
+
+table.comparison-table tbody.header-hidden,
+table.comparison-table tbody.header-hidden tr,
+table.comparison-table tbody.header-hidden td {
+    border-top: 0;
+    border-bottom: 0;
+    height: 80px;
+}
+
+table.comparison-table tr.images td {
+    padding-top: 9px;
+    padding-bottom: 0;
+    vertical-align: top;
+}
+
+table.comparison-table td.clear-list a {
+    font-size: 14px;
+    color: #8f8f8f;
+    top: -1px;
+    left: 3px;
+    position: relative;
+}
+
+table.comparison-table a.remove {
+    background: transparent url(../../../../../admin/images/remove.png) no-repeat left top;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    width: 13px;
+    height: 13px;
+    font-size: 0;
+}
+
+table.comparison-table a.remove {
+    position: absolute;
+    top: 10px;
+}
+
+.right-fade {
+    background: transparent url(../../../../../admin/images/right_fade.png) repeat-y right top;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 20px;
+    height: 100%;
+}
+
+table.comparison-table tr.names td {
+    padding-top: 3px;
+    padding-bottom: 4px;
+}
+
+table.comparison-table .scrolled tr.names td {
+    padding-top: 8px;
+}
+
+table.comparison-table tr.names a {
+    font-size: 14px;
+    margin: 0 4px;
+}
+
+table.comparison-table tr.names td div {
+    overflow: hidden;
+    position: relative;
+    white-space: nowrap;
+}
+
+tbody.data td {
+    padding-right: 8px;
+    padding-left: 16px;
+    padding-bottom: 10px;
+    font-size: 14px;
+}
+
+tr.prices td {
+    color: #e65a00;
+    font-size: 20px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
+tbody.data tr.prices td {
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
+tbody.data tr.weight td {
+    font-size: 16px;
+    padding-bottom: 7px;
+    border-bottom-width: 2px;
+}
+
+table.comparison-table tbody.data td:first-child {
+    color: #7e7e7e;
+    vertical-align: top;
+}
+
+table.comparison-table tbody.data td.indented span {
+    margin-left: 24px;
+}
+
+table.comparison-table tbody.data tr td.title {
+    color: #456583;
+    font-size: 15px;
+}
+
+table.comparison-table tbody.data tr:hover td {
+    background: #eff8fe;
+}
+
+table.comparison-table tr.buttons {
+    background: #fff;
+}
+
+table.comparison-table tr.buttons td {
+    padding-top: 7px;
+    background: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(237, 237, 237, 0.25) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(100%, rgba(237, 237, 237, 0.25)));
+    background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(237, 237, 237, 0.25) 100%);
+    background: -o-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(237, 237, 237, 0.25) 100%);
+    background: -ms-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(237, 237, 237, 0.25) 100%);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(237, 237, 237, 0.25) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#a6ededed', GradientType=0);
+}
+
+table.comparison-table tr.buttons td:first-child {
+    background: -moz-linear-gradient(top, rgba(125, 185, 232, 0) 0%, rgba(50, 185, 252, 0.15) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(125, 185, 232, 0)), color-stop(100%, rgba(50, 185, 252, 0.15)));
+    background: -webkit-linear-gradient(top, rgba(125, 185, 232, 0) 0%, rgba(50, 185, 252, 0.15) 100%);
+    background: -o-linear-gradient(top, rgba(125, 185, 232, 0) 0%, rgba(50, 185, 252, 0.15) 100%);
+    background: -ms-linear-gradient(top, rgba(125, 185, 232, 0) 0%, rgba(50, 185, 252, 0.15) 100%);
+    background: linear-gradient(to bottom, rgba(125, 185, 232, 0) 0%, rgba(50, 185, 252, 0.15) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#007db9e8', endColorstr='#2632b9fc', GradientType=0);
+}
+
+tr.buttons td:first-child label {
+    font-size: 14px;
+    margin-left: 8px;
+}
+
+tr.buttons td {
+    font-size: 14px;
+}
+
+tr.buttons span.out-of-stock {
+    color: #8f8f8f;
+}
+
+span.three-dots {
+    position: relative;
+    height: 12px;
+    width: 25px;
+    font-size: 0;
+    background: transparent url(three_dots.png) no-repeat;
+    display: block;
+    margin-top: 10px;
+    cursor: help;
+}
+
+span.three-dots div {
+    display: none;
+    position: absolute;
+    min-width: 200px;
+    max-width: 300px;
+    font-size: 14px;
+    border: 1px solid #d7e1e8;
+    background: #fff;
+    box-shadow: 1px 1px 5px silver;
+    -webkit-box-shadow: 1px 1px 5px silver;
+    -moz-box-shadow: 1px 1px 5px silver;
+    padding: 16px 18px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    z-index: 9999;
+}
+
+span.three-dots:hover div {
+    display: block;
+}
+
+table.comparison-table tbody.data.diff-only tr.row-hidden {
+    display: none;
+}

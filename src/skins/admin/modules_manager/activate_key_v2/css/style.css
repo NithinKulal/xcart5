@@ -1,0 +1,61 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Activate license key page
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.popup-window-entry .activate-key-block {
+  width: 690px;
+}
+
+.activate-key-block {
+  max-width: 1130px;
+  min-width: 690px;
+  font-size: 14px;
+  line-height: 25px;
+}
+
+.activate-key-block .open-license-key-form {
+  border-bottom: 1px dashed;
+}
+
+.activate-key-block .open-license-key-form:focus,
+.activate-key-block .open-license-key-form:hover {
+  text-decoration: none;
+}
+
+.activate-key-block .activate-key-form {
+  margin-top: 27px;
+  width: auto;
+}
+
+.activate-key-block.module-activation .activate-key-form {
+  display:none;
+}
+
+.activate-key-block .activate-key-form .addon-key {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 7px;
+}
+
+.activate-key-block .activate-key-form input[type="text"] {
+  width: 250px;
+}
+
+.activate-key-block .activate-key-form form {
+  margin-bottom: 20px;
+}
+
+.activate-key-block .additional-link {
+  font-size: 12px;
+}
+
+.activate-key-block .or {
+  display: inline-block;
+  margin: 0 7px;
+}
+

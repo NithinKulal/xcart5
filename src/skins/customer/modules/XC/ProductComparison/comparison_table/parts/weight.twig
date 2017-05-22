@@ -1,0 +1,12 @@
+{##
+ # Weight 
+ #
+ # @ListChild (list="comparison_table.data", weight="200")
+ #}
+
+<tr class="weight">
+  <td class="title">{{ t('Weight') }}</td>
+  {% for product in this.getProducts() %}
+    <td>{{ this.formatWeight(product.getWeight()) }}</td>
+  {% endfor %}
+</tr>

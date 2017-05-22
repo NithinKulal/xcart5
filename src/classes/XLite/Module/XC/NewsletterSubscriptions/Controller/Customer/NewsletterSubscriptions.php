@@ -18,10 +18,10 @@ class NewsletterSubscriptions extends \XLite\Controller\Customer\ACustomer
      */
     protected function doActionSubscribe()
     {
-        $email = \XLite\Core\Request::getInstance()->email;
+        $email = \XLite\Core\Request::getInstance()->newlettersubscription_email;
 
         if (!$this->isSubscribedAlready($email)) {
-            $this->doSubscribe(\XLite\Core\Request::getInstance()->email);
+            $this->doSubscribe($email);
         }
 
         $this->setPureAction();

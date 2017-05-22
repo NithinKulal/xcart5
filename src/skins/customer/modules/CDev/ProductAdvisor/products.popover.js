@@ -13,7 +13,7 @@ jQuery(document).ready(function(){
 
     jQuery(elem).popover({
       content:    content,
-      container:  '.recently-viewed-products .products',
+      container:  'body',
       placement:  'auto top',
       trigger:    'hover',
       html:       true,

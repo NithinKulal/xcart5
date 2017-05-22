@@ -32,7 +32,11 @@ class MoneybookersSettings extends \XLite\Controller\Admin\AAdmin
      */
     public function getTitle()
     {
-        return static::t('Skrill settings');
+        $method = $this->getPaymentMethod();
+
+        return $method && $method->getName()
+            ? $method->getName() . ' settings'
+            : static::t('Skrill settings');
     }
 
     /**

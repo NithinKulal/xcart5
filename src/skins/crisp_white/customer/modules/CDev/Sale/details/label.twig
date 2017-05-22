@@ -1,6 +1,9 @@
 {##
  # Label (internal list element)
  #}
-<li>
-{{ widget('\\XLite\\View\\Labels', labels=this.getLabel(constant('SALE_PRICE_LABEL', this))) }}
-</li>
+{% set label = this.getLabel(constant('SALE_PRICE_LABEL', this)) %}
+{% if label is not empty %}
+  <li>
+    {{ widget('\\XLite\\View\\Labels', labels=label) }}
+  </li>
+{% endif %}

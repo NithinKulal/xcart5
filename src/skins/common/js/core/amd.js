@@ -26,7 +26,8 @@ var CoreAMD = {
     }
 
     if (callback === undefined) {
-      callback = function () {};
+      callback = function () {
+      };
     }
 
     var moduleDeferred = this._createDeferred(name);
@@ -36,6 +37,18 @@ var CoreAMD = {
       .then(function () {
         moduleDeferred.resolve(callback.apply(window, arguments));
       })
+  },
+
+  require: function (dependencies, callback) {
+    if (_.isString(dependencies)) {
+      dependencies = [dependencies];
+    }
+
+    jQuery
+      .when.apply(jQuery, dependencies.map(_.bind(this._createDeferred, this)))
+      .then(function () {
+        callback.apply(window, arguments);
+      });
   },
 
   getUnresolvedDependencies: function () {
@@ -63,8 +76,17 @@ if (window.define) {
 }
 window.define = _.bind(CoreAMD.define, CoreAMD);
 
-define('js/jquery', function () { return jQuery; });
-define('js/underscore', function () { return _; });
+if (window.require) {
+  window._require = window.require;
+}
+window.require = _.bind(CoreAMD.require, CoreAMD);
+
+define('js/jquery', function () {
+  return jQuery;
+});
+define('js/underscore', function () {
+  return _;
+});
 
 jQuery(function () {
   define('ready');
@@ -74,3 +96,9 @@ jQuery(function () {
     console.warn('Unresolved dependencies', unresolvedDependencies);
   }
 });
+
+(function () {
+  var event = document.createEvent('HTMLEvents');
+  event.initEvent('amd-ready', true, true);
+  document.dispatchEvent(event);
+})();

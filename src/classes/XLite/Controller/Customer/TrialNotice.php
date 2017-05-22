@@ -14,4 +14,16 @@ namespace XLite\Controller\Customer;
  */
 class TrialNotice extends \XLite\Controller\Customer\ACustomer
 {
+    /**
+     * Print widget used for iframe content
+     */
+    protected function doNoAction()
+    {
+        $widget = new \XLite\View\ModulesManager\TrialNotice();
+
+        print $widget->getContent();
+
+        $this->silent = true;
+        $this->setSuppressOutput(true);
+    }
 }

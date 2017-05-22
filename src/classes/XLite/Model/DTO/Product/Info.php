@@ -172,7 +172,9 @@ class Info extends \XLite\Model\DTO\Base\ADTO
         $object->setDescription((string) $rawData['default']['full_description']);
 
         $object->setEnabled((boolean) $default->available_for_sale);
-        $object->setArrivalDate(\XLite\Core\Converter::getDayStart((int) $default->arrival_date));
+        if ((int) $default->arrival_date) {
+            $object->setArrivalDate(\XLite\Core\Converter::getDayStart((int) $default->arrival_date));
+        }
 
         $priceAndInventory = $this->prices_and_inventory;
         $memberships       = \XLite\Core\Database::getRepo('XLite\Model\Membership')->findByIds($priceAndInventory->memberships);

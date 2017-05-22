@@ -1,0 +1,24 @@
+{##
+ # Messages list : line
+ #}
+
+<tr {{ this.printTagAttributes(this.getLineTagAttributes(this.order))|raw }}>
+    <td class="order-link"><a href="{{ url('order_messages', '', {'order_number': this.order.order_number}) }}">#{{ this.order.order_number }}</a></td>
+    <td class="text">
+        <a href="{{ url('order_messages', '', {'order_number': this.order.order_number}) }}" class="text-link">
+            <span class="order-label">{{ this.getLabel(this.order) }}</span>
+            <span class="dash">-</span>
+            <span class="body">{{ this.prepareBody(this.order) }}</span>
+        </a>
+        {% if this.isMarksVisible(this.order) %}
+          <a class="marks" href="{{ url('order_messages', '', {'order_number': this.order.order_number}) }}">
+              {% if this.isOpenedDispute(this.order) %}
+                <div class="dispute">{{ t('Dispute') }}</div>
+              {% endif %}
+          </a>
+        {% endif %}
+    </td>
+    <td class="date">
+        <a href="{{ url('order_messages', '', {'order_number': this.order.order_number}) }}">{{ this.prepareTime(this.order) }}</a>
+    </td>
+</tr>

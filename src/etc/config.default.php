@@ -324,6 +324,9 @@ x_frame_options = 'sameorigin'
 ; CSRF token strategy
 ; possible values: per-session, per-form
 csrf_strategy = per-session
+meta_upgrade_insecure = Off
+
+show_initialized_transactions = Off
 
 
 [export-import]

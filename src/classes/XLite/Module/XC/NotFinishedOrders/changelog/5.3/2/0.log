@@ -1,0 +1,7 @@
+Version 5.3.2.0
+
+Improvements
+2016-10-03 - [Change] For the module "Not Finished Orders", a new setting was added: "The order will be created" (possible values - "by payment callback (Failed + Cancel)' (the only option that was available previously) and 'by pressing “Place order” button' #XCN-6892 (Vladimir Semyonov) #Paypal #MultiVendor #NotFinishedOrders
+
+Fixes
+2016-10-25 - [Bug] Error on a transaction list with the module MultiVendor enabled and Not Finished Orders disabled. To fix the problem, a new directive was added - @Decorator\Rely (Relies on the module state, but - unlike @Decorator\Depend - does not affect the position.) #BUG-3994 (Sergey Elmanov) #Core #MultiVendor #NotFinishedOrders

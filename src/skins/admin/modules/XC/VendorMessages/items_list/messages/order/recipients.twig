@@ -1,0 +1,55 @@
+{##
+ # Messages list
+ #}
+
+{% if this.isRecipientSelectorVisible() %}
+  <div class="recipient clearfix">
+  
+      <div class="tabs2-tabbed-content-wrapper">
+          <div class="tabs2-tabs-container">
+              <div class="tabs2-page-tabs">
+  
+                  <ul>
+                      {% for tabPage in this.getTabs() %}
+                        <li class="tab{% if tabPage.selected %}-current{% endif %}">
+                            {% if tabPage.selected %}
+                                <div>
+                                    {{ t(tabPage.title) }}
+                                    {% if tabPage.marks_visible %}
+                                      <div class="marks">
+                                          {% if tabPage.has_dispute %}
+                                            <span class="dispute" title="{{ t('Dispute is open X by Y', this.disputeMessageArguments) }}">D</span>
+                                          {% endif %}
+                                          {% if tabPage.countUnread %}
+                                            <span class="count-unread">{{ tabPage.countUnread }}</span>
+                                          {% endif %}
+                                      </div>
+                                    {% endif %}
+                                </div>
+                                <div class="footer"></div>
+                            {% else %}
+                                <a href="{{ tabPage.url|raw }}">
+                                    {{ t(tabPage.title) }}
+                                    {% if tabPage.marks_visible %}
+                                      <div class="marks">
+                                          {% if tabPage.has_dispute %}
+                                            <span class="dispute" title="{{ t('Dispute is open X by Y', this.disputeMessageArguments) }}">D</span>
+                                          {% endif %}
+                                          {% if tabPage.countUnread %}
+                                            <span class="count-unread">{{ tabPage.countUnread }}</span>
+                                          {% endif %}
+                                      </div>
+                                    {% endif %}
+                                </a>
+                            {% endif %}
+                        </li>
+                      {% endfor %}
+                  </ul>
+  
+              </div>
+              <div class="clear"></div>
+          </div>
+      </div>
+  
+  </div>
+{% endif %}

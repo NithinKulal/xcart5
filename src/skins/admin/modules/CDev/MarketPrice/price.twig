@@ -1,0 +1,13 @@
+{##
+ # Product element
+ #
+ # @ListChild (list="product.modify.list", weight="550")
+ #}
+
+<tr>
+  <td class="name-attribute">{{ t('Market price') }}</td>
+  <td class="star">&nbsp;</td>
+  <td class="value-attribute">
+    <input type="text" name="{{ this.getNamePostedData('marketPrice') }}" size="18" value="{{ this.product.marketPrice }}" />
+  </td>
+</tr>

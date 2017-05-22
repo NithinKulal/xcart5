@@ -1,0 +1,13 @@
+{##
+ # Messages list
+ #}
+
+{% if this.hasResults() %}
+  <table class="messages">
+      <tbody>
+          {% for order in this.getPageData() %}
+              {{ widget(template='modules/XC/VendorMessages/items_list/messages/all/line.twig', order=order) }}
+          {% endfor %}
+      </tbody>
+  </table>
+{% endif %}

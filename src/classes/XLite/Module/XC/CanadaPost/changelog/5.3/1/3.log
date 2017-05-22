@@ -1,0 +1,4 @@
+Version 5.3.1.3
+
+Fixes
+2017-03-22 - [Bug] Apostrophes were escaped in email subject. #BUG-4696 (Sergey Elmanov) #Core #ContactUs #Egoods #CanadaPost #PINCodes #ProductVariants #ProductReviews #PitneyBowes #MultiVendor

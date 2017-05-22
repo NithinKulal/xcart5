@@ -125,7 +125,7 @@ abstract class Storage extends \XLite\Model\AEntity
      * Set path
      *
      * @param string $path
-     * @return Vendor
+     * @return $this
      */
     public function setPath($path)
     {
@@ -147,7 +147,7 @@ abstract class Storage extends \XLite\Model\AEntity
      * Set fileName
      *
      * @param string $fileName
-     * @return Vendor
+     * @return $this
      */
     public function setFileName($fileName)
     {
@@ -169,7 +169,7 @@ abstract class Storage extends \XLite\Model\AEntity
      * Set mime
      *
      * @param string $mime
-     * @return Vendor
+     * @return $this
      */
     public function setMime($mime)
     {
@@ -191,7 +191,7 @@ abstract class Storage extends \XLite\Model\AEntity
      * Set storageType
      *
      * @param string $storageType
-     * @return Vendor
+     * @return $this
      */
     public function setStorageType($storageType)
     {
@@ -203,7 +203,7 @@ abstract class Storage extends \XLite\Model\AEntity
      * Set size
      *
      * @param integer $size
-     * @return Vendor
+     * @return $this
      */
     public function setSize($size)
     {
@@ -225,7 +225,7 @@ abstract class Storage extends \XLite\Model\AEntity
      * Set date
      *
      * @param integer $date
-     * @return Vendor
+     * @return $this
      */
     public function setDate($date)
     {
@@ -672,8 +672,7 @@ abstract class Storage extends \XLite\Model\AEntity
      */
     public function loadFromURL($url, $copy2fs = false)
     {
-        // $this->isUrl works incorrect
-        if (parse_url($url)) {
+        if ($this->isURL($url)) {
             if ($copy2fs) {
                 $result = $this->copyFromURL($url);
             } else {
@@ -1068,20 +1067,15 @@ abstract class Storage extends \XLite\Model\AEntity
         $isTempFile = false;
 
         if ($this->isURL()) {
-            if (ini_get('allow_url_fopen')) {
-                $path = $this->getPath();
-
-            } else {
-                $path = tempnam(LC_DIR_TMP, 'analyse_file');
-                if (!\Includes\Utils\FileManager::write($path, $this->getBody())) {
-                    \XLite\Logger::getInstance()->log(
-                        'Unable to write data to file \'' . $path . '\'.',
-                        LOG_ERR
-                    );
-                    $path = false;
-                }
-                $isTempFile = true;
+            $path = tempnam(LC_DIR_TMP, 'analyse_file');
+            if (!\Includes\Utils\FileManager::write($path, $this->getBody())) {
+                \XLite\Logger::getInstance()->log(
+                    'Unable to write data to file \'' . $path . '\'.',
+                    LOG_ERR
+                );
+                $path = false;
             }
+            $isTempFile = true;
 
         } else {
             $path = $this->getStoragePath();

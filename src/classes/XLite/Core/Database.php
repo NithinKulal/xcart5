@@ -339,7 +339,7 @@ class Database extends \XLite\Base\Singleton
         // Setup metadata driver
         $paths = array_merge(
             [ADecorator::getCacheModelsDir()],
-            glob(ADecorator::getCacheClassesDir() . 'XLite/Module/*/*/Model/')
+            glob(ADecorator::getCacheClassesDir() . 'XLite/Module/*/*/Model/') ?: []
         );
 
         $excludePaths = [

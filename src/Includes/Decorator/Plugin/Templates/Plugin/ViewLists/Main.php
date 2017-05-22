@@ -139,7 +139,7 @@ class Main extends \Includes\Decorator\Plugin\Templates\Plugin\APlugin
 
         $viewDirs = array_merge(
             [$classes . 'XLite/View'],
-            glob($classes . 'XLite/Module/*/*/View')
+            glob($classes . 'XLite/Module/*/*/View') ?: []
         );
 
         $viewFiles = [];

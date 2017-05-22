@@ -219,7 +219,7 @@ class Review extends \XLite\Model\Repo\ARepo
     {
         if (isset($value) && '%' != $value) {
             if (!is_array($value)) {
-                $value = array($value);
+                $value = [$value];
             }
 
             $value = array_filter($value);
@@ -247,7 +247,9 @@ class Review extends \XLite\Model\Repo\ARepo
     protected function prepareCndReviewerName(\Doctrine\ORM\QueryBuilder $queryBuilder, $value, $countOnly)
     {
         if ($value) {
-            $queryBuilder->andWhere('r.reviewerName LIKE :reviewerName OR r.email LIKE :reviewerName')
+            $alias = $this->getMainAlias($queryBuilder);
+            $queryBuilder->linkLeft("{$alias}.profile", 'profile')
+                ->andWhere("{$alias}.reviewerName LIKE :reviewerName OR profile.login LIKE :reviewerName")
                 ->setParameter('reviewerName', '%' . $value . '%');
         }
     }
@@ -283,17 +285,16 @@ class Review extends \XLite\Model\Repo\ARepo
     protected function prepareCndKeywords(\Doctrine\ORM\QueryBuilder $queryBuilder, $value, $countOnly)
     {
         if ($value) {
-            $queryBuilder = $queryBuilder->linkInner('r.product', 'p')
+            $queryBuilder->linkInner('r.product', 'p')
+                ->linkLeft('r.profile', 'profile')
                 ->innerJoin('p.translations', 'translations');
 
-            $conditions = array(
+            $queryBuilder->andWhere($queryBuilder->expr()->orX(
                 'r.reviewerName LIKE :keywords',
-                'r.email LIKE :keywords',
+                'profile.login LIKE :keywords',
                 'p.sku LIKE :keywords',
                 'translations.name LIKE :keywords'
-            );
-
-            $queryBuilder->andWhere(implode(' OR ', $conditions))
+            ))
                 ->setParameter('keywords', '%' . $value . '%');
         }
     }
@@ -311,7 +312,8 @@ class Review extends \XLite\Model\Repo\ARepo
     protected function prepareCndEmail(\Doctrine\ORM\QueryBuilder $queryBuilder, $value, $countOnly)
     {
         if ($value) {
-            $queryBuilder->andWhere('r.email LIKE :email')
+            $queryBuilder->linkLeft('r.profile', 'profile')
+                ->andWhere('profile.login LIKE :email')
                 ->setParameter('email', '%' . $value . '%');
         }
     }
@@ -390,10 +392,10 @@ class Review extends \XLite\Model\Repo\ARepo
 
     public function setUseForMeta($productId, $reviewId)
     {
-        $review = $this->findOneBy(array(
+        $review = $this->findOneBy([
             'id' => $reviewId,
             'product' => $productId,
-        ));
+        ]);
 
         if ($review) {
             $this->getQueryBuilder()

@@ -7,19 +7,27 @@
  * See https://www.x-cart.com/license-agreement.html for license details.
  */
 
-.period-box {
+div.selectors {
   background-color: #F1F1F1;
   height: 54px;
   padding-top: 10px;
   padding-left: 10px;
+  max-width: 1180px;
 }
 
-.period-box span {
+.period-box,
+.availability-box {
+  display: inline-block;
+}
+
+.period-box span,
+.availability-box span {
   font-size: 14px;
   color: #8F8F8F;
 }
 
-.period-box span.label {
+.period-box span.label,
+.availability-box span.label {
   margin-right: 5px;
 }
 

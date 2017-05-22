@@ -851,6 +851,7 @@ img.truck {
 .order-info .sticky-panel .recalculate.last {
   position: absolute;
   left: 722px;
+  top: 12px;
 }
 
 .order-info .value .tooltip .tooltip-inner {

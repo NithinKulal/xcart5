@@ -59,6 +59,14 @@
       float: left;
       width: 25%;
 
+      @media(max-width: @screen-sm-max) {
+        width: 50%;
+      }
+
+      @media(max-width: @screen-xs-max) {
+        width: 100%;
+      }
+
       & > .item-box .item {
         line-height: 20px;
       }

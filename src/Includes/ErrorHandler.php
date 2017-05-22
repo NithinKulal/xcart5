@@ -434,7 +434,9 @@ abstract class ErrorHandler
     public static function handleException($exception)
     {
         try {
-            \XLite\Logger::getInstance()->executePostponedLogs();
+            if (class_exists('\XLite\Logger')) {
+                \XLite\Logger::getInstance()->executePostponedLogs();
+            }
         } catch (\Exception $e) {
             static::logInfo($e->getMessage(), $e->getCode(), $e->getTraceAsString());
         }

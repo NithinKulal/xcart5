@@ -27,9 +27,9 @@ class KeysNotice extends \XLite\View\Button\APopupButton
     {
         parent::defineWidgetParams();
 
-        $this->widgetParams += array(
+        $this->widgetParams += [
             static::PARAM_FORCE_POPUP => new \XLite\Model\WidgetParam\TypeBool('Force popup display', true),
-        );
+        ];
     }
 
     /**
@@ -39,7 +39,7 @@ class KeysNotice extends \XLite\View\Button\APopupButton
      */
     public function getJSFiles()
     {
-        $list = parent::getJSFiles();
+        $list   = parent::getJSFiles();
         $list[] = 'button/js/keys_notice.js';
         $list[] = 'button/js/enter_license_key.js';
 
@@ -53,9 +53,8 @@ class KeysNotice extends \XLite\View\Button\APopupButton
      */
     public function getCSSFiles()
     {
-        $list = parent::getCSSFiles();
+        $list   = parent::getCSSFiles();
         $list[] = 'keys_notice/style.css';
-        $list[] = 'modules_manager/enter_key/css/style.css';
 
         return $list;
     }
@@ -77,11 +76,11 @@ class KeysNotice extends \XLite\View\Button\APopupButton
      */
     protected function prepareURLParams()
     {
-        return array(
-            'target' => 'keys_notice',
-            'widget' => '\XLite\View\ModulesManager\KeysNotice',
+        return [
+            'target'    => 'keys_notice',
+            'widget'    => '\XLite\View\ModulesManager\KeysNotice',
             'returnUrl' => \XLite\Core\URLManager::getCurrentURL(),
-        );
+        ];
     }
 
     /**
@@ -92,7 +91,7 @@ class KeysNotice extends \XLite\View\Button\APopupButton
     protected function getClass()
     {
         return parent::getClass()
-            . ' keys-notice'
-            . ($this->getParam(static::PARAM_FORCE_POPUP) ? ' force-notice' : '');
+        . ' keys-notice'
+        . ($this->getParam(static::PARAM_FORCE_POPUP) ? ' force-notice' : '');
     }
 }

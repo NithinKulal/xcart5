@@ -8,6 +8,6 @@
     <div class="subscription-form-label">
         {{ this.getFormLabel() }}
     </div>
-    {{ widget('XLite\\View\\FormField\\Input\\Text\\Email', fieldName='email', required='true', placeholder=t('Enter email address'), maxlength='255', fieldOnly=this.isFieldOnly(), label=t('Email')) }}
+    {{ widget('XLite\\View\\FormField\\Input\\Text\\Email', fieldName='newlettersubscription_email', required='true', placeholder=t('Enter email address'), maxlength='255', fieldOnly=this.isFieldOnly(), label=t('Email')) }}
     {{ widget('\\XLite\\View\\Button\\Submit', label=t('Subscribe')) }}
 {% endform %}

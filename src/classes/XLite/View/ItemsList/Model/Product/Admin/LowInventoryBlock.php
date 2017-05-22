@@ -182,7 +182,16 @@ class LowInventoryBlock extends \XLite\View\ItemsList\Model\Product\Admin\Search
      */
     protected function getPagerClass()
     {
-        return 'XLite\View\Pager\Admin\Model\Block';
+        return 'XLite\View\Pager\Admin\Model\SinglePageWithMorePager';
+    }
+
+    protected function getPagerParams()
+    {
+        $params = parent::getPagerParams();
+
+        $params[\XLite\View\Pager\APager::PARAM_MAX_ITEMS_COUNT] = 5;
+
+        return $params;
     }
 
     /*

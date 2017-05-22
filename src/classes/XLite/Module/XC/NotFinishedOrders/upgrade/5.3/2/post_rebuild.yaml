@@ -1,0 +1,18 @@
+# vim: set ts=2 sw=2 sts=2 et:
+#
+# Data
+#
+# Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+# See https://www.x-cart.com/license-agreement.html for license details.
+
+XLite\Model\Config:
+  - name: create_nfo_mode
+    category: XC\NotFinishedOrders
+    type: XLite\Module\XC\NotFinishedOrders\View\FormField\Select\CreateNFOMode
+    value: onFailure
+    orderby: 5
+    translations:
+      - code: en
+        option_name: Not finished order will be created
+      - code: ru
+        option_name: Создавать незавершенный заказ

@@ -1,0 +1,16 @@
+{##
+ # Attributes 
+ #}
+
+{% if this.getProductClasses() %}
+  {{ widget('XLite\\Module\\XC\\ProductComparison\\View\\ComparisonTable\\AttributeList', classes=this.getProductClasses()) }}
+{% endif %}
+{{ widget('XLite\\Module\\XC\\ProductComparison\\View\\ComparisonTable\\AttributeList') }}
+{% for productClass in this.getProductClasses() %}
+  {% for group in productClass.getAttributeGroups() %}
+    {{ widget('XLite\\Module\\XC\\ProductComparison\\View\\ComparisonTable\\AttributeList', group=group) }}
+  {% endfor %}
+{% endfor %}
+{% for group in this.getGlobalGroups() %}
+  {{ widget('XLite\\Module\\XC\\ProductComparison\\View\\ComparisonTable\\AttributeList', group=group) }}
+{% endfor %}

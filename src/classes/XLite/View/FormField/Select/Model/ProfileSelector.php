@@ -104,6 +104,10 @@ class ProfileSelector extends \XLite\View\FormField\Select\Model\Selector
             return \XLite\Core\Database::getRepo('XLite\Model\Profile')->find($value);
         }
 
+        if ($this->isModelRequired()) {
+            return null;
+        }
+
         return $value;
     }
 }

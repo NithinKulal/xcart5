@@ -1,0 +1,16 @@
+/* vim: set ts=2 sw=2 sts=2 et: */
+
+/**
+ * Orders list styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.items-list.orders table.list tbody.lines tr.not-finished-order td{
+  background: #FAF2F0;
+}
+
+.items-list.orders table.list tbody.lines tr.not-finished-order .cell.shippingStatus .value{
+  color: #C8635F;
+}

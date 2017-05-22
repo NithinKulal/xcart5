@@ -991,6 +991,7 @@ XLite\Model\LanguageLabel:
   - { name: "Pages", translations: [{ code: en, label: "Pages" }] }
   - { name: "Paid", translations: [{ code: en, label: "Paid" }] }
   - { name: "Parent category", translations: [{ code: en, label: "Parent category" }] }
+  - { name: "Password and its confirmation do not match", translations: [{ code: en, label: "Password and its confirmation do not match" }] }
   - { name: "Pattern search", translations: [{ code: en, label: "Pattern search" }] }
   - { name: "Payment gateways", translations: [{ code: en, label: "All payment methods" }] }
   - { name: "Payment info", translations: [{ code: en, label: "Payment info" }] }
@@ -2818,6 +2819,7 @@ XLite\Model\LanguageLabel:
   - { name: "Do not see your payment method? Find it on our Marketplace', {'url': url('addons_list_marketplace', '', {'tag': 'Payment processing", translations: [{ code: en, label: "Do not see your payment method? Find it on our Marketplace', {'url': url('addons_list_marketplace', '', {'tag': 'Payment processing" }]}
   - { name: 'Enter product name or SKU', translations: [{ code: en, label: 'Enter product name or SKU' }]}
   - { name: 'Export all', translations: [{ code: en, label: 'Export all' }]}
+  - { name: "Export selected", translations: [{ code: en, label: 'Export selected' }]}
   - { name: 'File was successfully uploaded', translations: [{ code: en, label: 'File was successfully uploaded' }]}
   - { name: 'Hide and make them available only via a direct link', translations: [{ code: en, label: 'Hide and make them available only via a direct link' }]}
   - { name: 'Ignore membership', translations: [{ code: en, label: 'Ignore membership' }]}
@@ -3053,3 +3055,29 @@ XLite\Model\LanguageLabel:
   - { name: "The product you are trying to add to cart is unavailable", translations: [{ code: en, label: "The product you are trying to add to cart is unavailable." }] }
 
   - { name: 'Required state_id checkbox help text', translations: [{ code: en, label: 'This field will be required if the selected country has states, and will not be required if the selected country does not have states.' }] }
+
+  - { name: 'Your X-Cart Business trial has expired!', translations: [{ code: en, label: 'Your X-Cart Business trial has expired!' }] }
+  - { name: 'You must register your X-Cart installation before using it for real sales. Activate your existing license key or purchase a premium license to skyrocket your business.', translations: [{ code: en, label: 'You must register your X-Cart installation before using it for real sales. Activate your existing license key or purchase a <strong>premium license to skyrocket your business</strong>.' }] }
+  - { name: 'This message can be removed only through activation of a free or premium license.', translations: [{ code: en, label: 'This message can be removed only through activation of a free or premium license.' }] }
+  - { name: 'Refer to X-Cart license agreement for further details.', translations: [{ code: en, label: 'Refer to <a href="{{licenseAgreementURL}}" target="_blank">X-Cart license agreement</a> for further details.' }] }
+  - { name: 'Remind me on next sign-in', translations: [{ code: en, label: 'Remind me on next sign-in' }] }
+  - { name: 'Purchase a premium license key', translations: [{ code: en, label: 'Purchase a premium license key' }] }
+  - { name: 'I have a license key', translations: [{ code: en, label: 'I have a license key' }] }
+  - { name: 'Enter your premium license key', translations: [{ code: en, label: 'Enter your premium license key' }] }
+  - { name: 'Activate free license (all premium features will be removed).', translations: [{ code: en, label: '<a href="{{url}}">Activate free license</a> (all premium features will be removed).' }] }
+  - { name: 'Contact us if you have any questions.', translations: [{ code: en, label: '<a href="{{url}}" target="_blank">Contact us</a> if you have any questions.' }] }
+  - { name: 'License key registration', translations: [{ code: en, label: 'License key registration' }] }
+  - { name: 'X-Cart Business trial will expire in X day', translations: [{ code: en, label: 'X-Cart Business trial will expire in {{count}} day' }] }
+  - { name: 'X-Cart Business trial will expire in X days', translations: [{ code: en, label: 'X-Cart Business trial will expire in {{count}} days' }] }
+  - { name: 'X-Cart Business trial will expire in X days (5)', translations: [{ code: en, label: 'X-Cart Business trial will expire in {{count}} days' }] }
+  - { name: 'Please register your license key now or purchase a premium license to skyrocket your business.', translations: [{ code: en, label: 'Please register your license key now or purchase a <strong>premium license to skyrocket your business</strong>.' }] }
+  - { name: 'X day left', translations: [{ code: en, label: '{{count}} day left' }] }
+  - { name: 'X days left', translations: [{ code: en, label: '{{count}} days left' }] }
+  - { name: 'X days left (5)', translations: [{ code: en, label: '{{count}} days left' }] }
+  - { name: 'Trial has expired!', translations: [{ code: en, label: 'Trial has expired!' }] }
+  - { name: 'Register license key', translations: [{ code: en, label: 'Register license key' }] }
+  - { name: 'Click to expand menu', translations: [{ code: en, label: 'Click to expand menu' }] }
+
+  - { name: 'Need a way to set multicurrency prices? [Install the addon]', translations: [{ code: en, label: '<span>Need a way to set multicurrency prices?</span> <a href="{{url}}" target="_blank">Install the addon</a>' }] }
+  - { name: 'Need a way to set up product variants? [Install the addon]', translations: [{ code: en, label: '<span>Need a way to set up product variants?</span> <a href="{{url}}" target="_blank">Install the addon</a>' }] }
+  - { name: 'Need a way to set wholesale prices? [Install the addon]', translations: [{ code: en, label: '<span>Need a way to set wholesale prices?</span> <a href="{{url}}" target="_blank">Install the addon</a>' }] }

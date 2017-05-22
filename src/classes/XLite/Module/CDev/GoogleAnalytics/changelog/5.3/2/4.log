@@ -1,0 +1,6 @@
+Version 5.3.2.4
+
+Fixes
+2017-03-29 - [Bug] Notice: A non well formed numeric value encountered in GoogleAnalytics module. Fixed. #BUG-4739 (Michael Lipinski) #GoogleAnalytics
+2017-03-17 - [Bug] When GA was blocked by third party extensions (for example, Ghostery), Fast Lane Checkout did not work. #BUG-4670 (Michael Lipinski) #GoogleAnalytics
+2017-03-14 - [Bug] On the Google Analytics module settings page, the settings "Enable eCommerce Google Analytics", "Register purchase only on Paid status change" and "Debug mode" did not have Russian translations. #BUG-4623 (Maxim Kuznetsov) #GoogleAnalytics #RuTranslation

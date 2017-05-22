@@ -1164,19 +1164,23 @@ OUT;
      */
     public static function rebuildCache()
     {
-        static::checkPermissions(LC_DIR_VAR);
+        if (static::isRebuildAllowed()) {
+            static::checkPermissions(LC_DIR_VAR);
 
-        static::checkPermissions(static::getCompileDir());
+            static::checkPermissions(static::getCompileDir());
 
-        static::checkRebuildBlock();
+            static::checkRebuildBlock();
 
-        static::setProcessMark();
+            static::setProcessMark();
 
-        foreach (static::$steps as $step) {
-            if (static::runStepConditionally($step) && static::isDoOneStepOnly()) {
-                // Break after first performed step if isDoOneStepOnly() returned true
-                break;
+            foreach (static::$steps as $step) {
+                if (static::runStepConditionally($step) && static::isDoOneStepOnly()) {
+                    // Break after first performed step if isDoOneStepOnly() returned true
+                    break;
+                }
             }
+        } elseif (static::isRebuildInProgress() || static::isRebuildNeeded(1)) {
+            static::triggerMaintenanceModeError();
         }
     }
 

@@ -310,8 +310,8 @@ class StoreApi extends \XLite\Base\Singleton
 
         foreach ($codes as $code) {
             $qb
-                ->join('a.translations', "at_$code", 'WITH', "at_$code.code = :lng_$code")
-                ->join('ao.translations', "aot_$code", 'WITH', "aot_$code.code = :lng_$code")
+                ->leftJoin('a.translations', "at_$code", 'WITH', "at_$code.code = :lng_$code")
+                ->leftJoin('ao.translations', "aot_$code", 'WITH', "aot_$code.code = :lng_$code")
                 ->setParameter("lng_$code", $code);
         }
 
@@ -320,7 +320,7 @@ class StoreApi extends \XLite\Base\Singleton
                 array_map(function ($code) {
                     return "at_{$code}.name";
                 }, $codes)
-            )
+            ) . ' AS name'
         );
 
         $qb->addSelect(
@@ -349,21 +349,18 @@ class StoreApi extends \XLite\Base\Singleton
     {
         $qb = Database::getEM()->createQueryBuilder()
             ->select('a.id')
-            ->addSelect('at.name')
             ->addSelect('av.value')
             ->addSelect('IDENTITY(a.productClass) AS productClassId')
             ->from('XLite\Model\AttributeValue\AttributeValueCheckbox', 'av')
             ->join('av.attribute', 'a')
-            ->join('a.translations', 'at', 'WITH', 'at.code = :lng')
             ->where('av.product = :productId')
-            ->setParameter('productId', $product->getProductId())
-            ->setParameter('lng', 'en');
+            ->setParameter('productId', $product->getProductId());
 
         $codes = Translation::getLanguageQuery();
 
         foreach ($codes as $code) {
             $qb
-                ->join('a.translations', "at_$code", 'WITH', "at_$code.code = :lng_$code")
+                ->leftJoin('a.translations', "at_$code", 'WITH', "at_$code.code = :lng_$code")
                 ->setParameter("lng_$code", $code);
         }
 
@@ -372,7 +369,7 @@ class StoreApi extends \XLite\Base\Singleton
                 array_map(function ($code) {
                     return "at_{$code}.name";
                 }, $codes)
-            )
+            ) . ' AS name'
         );
 
         $this->addProductAttributesQuerySelects($qb);

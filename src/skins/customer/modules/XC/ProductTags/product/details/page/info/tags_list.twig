@@ -1,0 +1,15 @@
+{##
+ # Tags list widget
+ #}
+<div class="tags clearfix">
+	<ul class="product-tags-list">
+	  {% for tagValue, tagLabel in this.getProductTags() %}
+	    <li>
+	    	<a href="{{ this.getActionURL({'tag': tagLabel}) }}">
+	    		{{ tagLabel }}
+	    		<div class="circle"></div>
+	    	</a>
+	    </li>
+	  {% endfor %}
+	</ul>
+</div>

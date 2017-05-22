@@ -1359,7 +1359,7 @@ abstract class AEntry
         $path = $this->getUpgradeHelpersDir();
 
         if ($path) {
-            $files = glob($path . $majorVersion . LC_DS . $minorVersion . LC_DS . $type . '*.php');
+            $files = glob($path . $majorVersion . LC_DS . $minorVersion . LC_DS . $type . '*.php') ?: [];
             natsort($files);
 
             $upgradeHelpersDir = $this->getUpgradeHelpersDir(false);

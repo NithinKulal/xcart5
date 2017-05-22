@@ -8,6 +8,8 @@
 
 namespace XLite\View\Order\Details\Admin;
 
+use XLite\View\FormField\Inline\Select\ShippingMethod as ShippingMethodField;
+
 /**
  * Model
  */
@@ -314,7 +316,7 @@ class Model extends \XLite\View\Order\Details\Base\AModel
     }
 
     /**
-     * Define payment methods
+     * Define shipping method
      *
      * @return \XLite\View\FormField\Inline\Select\ShippingMethod
      */
@@ -331,6 +333,7 @@ class Model extends \XLite\View\Order\Details\Base\AModel
                     \XLite\View\FormField\Inline\AInline::FIELD_NAME            => 'shippingId',
                     \XLite\View\FormField\Inline\AInline::PARAM_FIELD_NAMESPACE => 'shippingId',
                     \XLite\View\FormField\Inline\AInline::PARAM_VIEW_ONLY       => !$this->isOrderEditable(),
+                    ShippingMethodField::PARAM_MODE_ORDER                       => true
                 ],
                 'XLite\View\FormField\Inline\Select\ShippingMethod'
             );

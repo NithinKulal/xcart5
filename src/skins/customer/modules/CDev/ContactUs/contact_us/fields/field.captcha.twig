@@ -4,6 +4,8 @@
  # @ListChild (list="contact-us.send.fields", weight="500")
  #}
 
-<div class="form-item">
-  {{ this.getCaptcha()|raw }}
-</div>
+{% if this.getCaptcha() %}
+  <div class="form-item">
+    {{ this.getCaptcha()|raw }}
+  </div>
+{% endif %}

@@ -1,0 +1,20 @@
+{##
+ # Activate license key
+ #}
+
+<div class="activate-key-block{% if this.isModuleActivation() %} module-activation{% endif %}">
+
+  {% if this.isModuleActivation() %}
+    <div class="enter-key-hint">
+      {{ t('Before installing a paid addon for this installation, you need to activate your X-Cart license.')|raw }}
+    </div>
+    {% include 'modules_manager/activate_key_v2/activate_key.twig' %}
+  {% else %}
+    <div class="enter-key-hint">
+      {{ t('Please register your license key now or purchase a premium license to skyrocket your business.')|raw }}
+    </div>
+    {% include 'modules_manager/activate_key_v2/activate_key.twig' %}
+  {% endif %}
+
+
+</div>

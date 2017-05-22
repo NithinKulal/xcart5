@@ -66,6 +66,25 @@ class Category extends \XLite\Controller\Customer\Base\Catalog
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function handleRequest()
+    {
+        if ($this->isNeedToRedirectToMain()) {
+            $this->setReturnURL($this->getShopURL());
+            $this->setHardRedirect(true);
+        }
+
+        parent::handleRequest();
+    }
+
+    protected function isNeedToRedirectToMain()
+    {
+        return \XLite\Core\Database::getRepo('XLite\Model\Category')->getRootCategoryId()
+            === $this->getCategory()->getCategoryId();
+    }
+
+    /**
      * Check controller visibility
      *
      * @return boolean

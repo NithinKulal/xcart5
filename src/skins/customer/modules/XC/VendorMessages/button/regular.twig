@@ -1,0 +1,8 @@
+{##
+ # Regular button
+ #}
+
+<button {{ this.printTagAttributes(this.getAttributes())|raw }}>
+  {{ this.displayCommentedData(this.getCommentedData()) }}
+  {{ this.displaySVGImage('modules/XC/VendorMessages/images/disputes.svg') }}<span>{{ t(this.getButtonLabel()) }}</span>
+</button>

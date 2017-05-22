@@ -49,6 +49,13 @@ class Exception extends \XLite\Core\Exception
     protected $data;
 
     /**
+     * Form identifier
+     *
+     * @var string
+     */
+    protected $formIdentifier;
+
+    /**
      * Add path item
      *
      * @param mixed $item Path item key
@@ -73,6 +80,16 @@ class Exception extends \XLite\Core\Exception
     }
 
     /**
+     * Set public name
+     *
+     * @param $uid
+     */
+    public function setFormIdentifier($uid)
+    {
+        $this->formIdentifier = $uid;
+    }
+
+    /**
      * Get public name
      *
      * @return string
@@ -89,7 +106,9 @@ class Exception extends \XLite\Core\Exception
      */
     public function getPath()
     {
-        $path = $this->path[0];
+        $path = isset($this->path[0])
+            ? $this->path[0]
+            : [];
 
         if (1 < count($this->path)) {
             $path .= '[' . implode('][', array_slice($this->path, 1)) . ']';
@@ -162,5 +181,13 @@ class Exception extends \XLite\Core\Exception
         return !isset($this->data)
             ? ($this->data = new \XLite\Core\CommonCell())
             : $this->data;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFormIdentifier()
+    {
+        return $this->formIdentifier;
     }
 }

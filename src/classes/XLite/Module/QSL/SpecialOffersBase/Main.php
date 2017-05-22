@@ -2,21 +2,8 @@
 // vim: set ts=4 sw=4 sts=4 et:
 
 /**
- * X-Cart
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the software license agreement
- * that is bundled with this package in the file LICENSE.txt.
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to licensing@x-cart.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not modify this file if you wish to upgrade X-Cart to newer versions
- * in the future. If you wish to customize X-Cart for your needs please
- * refer to http://www.x-cart.com/ for more information.
+ * Copyright (c) 2017-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/module-marketplace-terms-of-use.html for license details.
  *
  * -----------------------------------------------------------------------------
  * CHANGES
@@ -37,6 +24,14 @@
  * 
  * 5.3.4
  * - fixed the page listing available Special Offer related modules
+ * 
+ * 5.3.5
+ * - fixed the double-discount issue with Multivendor module
+ * 
+ * 5.3.6
+ * - implemeted a workaround for the issue with Volume Discounts module using
+ *   the wrong subtotal when checking the minimum allowed order subtotal
+ *   (#0047862)
  * 
  * -----------------------------------------------------------------------------
  * 
@@ -100,7 +95,7 @@ abstract class Main extends \XLite\Module\AModule
      */
     public static function getMinorVersion()
     {
-        return '4';
+        return '6';
     }
 
     /**

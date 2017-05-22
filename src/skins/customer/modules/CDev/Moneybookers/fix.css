@@ -1,0 +1,11 @@
+/**
+ * Payment methods page styles
+ *
+ * Copyright (c) 2011-present Qualiteam software Ltd. All rights reserved.
+ * See https://www.x-cart.com/license-agreement.html for license details.
+ */
+
+.checkout-block .payments label img {
+  max-width: 100%;
+  max-height: 100px;
+}

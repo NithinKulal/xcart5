@@ -1,0 +1,4 @@
+Version 5.3.2.4
+
+Fixes
+2017-03-29 - [Bug] Warning: Invalid argument supplied for foreach() in module SimpleCMS. Fixed. #BUG-4738 (Michael Lipinski) #SimpleCMS

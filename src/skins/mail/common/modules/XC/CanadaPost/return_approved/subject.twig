@@ -1,4 +1,4 @@
 {##
  # Products return approved email subject (to customer)
  #}
-{{ t('Products return X', {'return_number': this.productsReturn.getNumber()}) }}. {{ this.getNotificationSubject() }}
+{{ t('Products return X', {'return_number': this.productsReturn.getNumber()}) }}. {{ this.getNotificationSubject()|raw }}

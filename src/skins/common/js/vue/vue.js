@@ -19,18 +19,25 @@ if ('undefined' !== typeof(VueLoadableMixin)) {
 
 define('js/vue/vue', ['vue/vue', 'js/vue/component'], function (Vue, XLiteVueComponent) {
   function XLiteVue() {
+    this.root = null;
   }
 
-  XLiteVue.prototype.root = null;
-  XLiteVue.prototype.start = function () {
+  XLiteVue.prototype.components = {};
+
+  XLiteVue.prototype.start = function (element) {
     for (var componentName in this.components) if (this.components.hasOwnProperty(componentName)) {
       Vue.component(componentName, Vue.extend(this.components[componentName].definition))
     }
 
-    this.root = new Vue({el: 'body'});
+    var elementToInit = 'body';
+
+    if (element instanceof jQuery && element.length > 0) {
+      elementToInit = element.get(0);
+    }
+
+    this.root = new Vue({el: elementToInit});
   };
 
-  XLiteVue.prototype.components = {};
   XLiteVue.prototype.component = function (name, definition) {
     if (this.components[name]) {
       this.components[name].extend(definition);
